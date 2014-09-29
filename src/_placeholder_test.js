@@ -2,11 +2,12 @@
 "use strict";
 
 var assert = require("./assert.js");
+var placeholder = require("./placeholder.js");
 
 describe("Nothing", function() {
 
 	it("runs tests", function() {
-		assert.equal(1, 1);
+		assert.equal(placeholder.nothing(), "nothing");
 	});
 
 });

@@ -42,6 +42,7 @@
 
 	desc("Start Karma server -- run this first");
 	task("karma", function() {
+		console.log("Starting Karma server:");
 		karma.serve(complete, fail);
 	}, { async: true });
 
