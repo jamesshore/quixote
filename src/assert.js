@@ -5,17 +5,17 @@
 // Assertions that work the way *I* want them to. <oldmanvoice>Get off my lawn!</oldmanvoice>
 // ****
 
-//var chai = require("chai").assert;
-//
+var chai = require("../vendor/chai-1.9.1.js").assert;
+
 exports.fail = function(message) {
-//	chai.fail(null, null, message);
+	chai.fail(null, null, message);
 };
 
 exports.equal = function(actual, expected, message) {
-//	chai.strictEqual(actual, expected, message);
+	chai.strictEqual(actual, expected, message);
 };
 
 exports.deepEqual = function(actual, expected, message) {
 	if (message) message += " expected deep equality";
-//	chai.deepEqual(actual, expected, message);
+	chai.deepEqual(actual, expected, message);
 };

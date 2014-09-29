@@ -6,7 +6,7 @@ var assert = require("./assert.js");
 describe("Nothing", function() {
 
 	it("runs tests", function() {
-		assert.equal(1, 2);
+		assert.equal(1, 1);
 	});
 
 });
