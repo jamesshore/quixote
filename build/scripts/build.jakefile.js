@@ -3,11 +3,18 @@
 	"use strict";
 
 	var jshint = require("simplebuild-jshint");
+	var karma = require("../util/karma_runner.js");
+
+	var TESTED_BROWSERS = [];
+
 
 	desc("Lint, test, and build");
-	task("default", [ "lint" ], function() {
+	task("default", [ "lint", "test" ], function() {
 		console.log("\n\nBUILD OK");
 	});
+
+
+//*** LINT
 
 	desc("Lint everything");
 	task("lint", [ "lintBuild", "lintSrc" ]);
@@ -31,6 +38,18 @@
 	}, { async: true });
 
 
+//*** TEST
+
+	desc("Start Karma server -- run this first");
+	task("karma", function() {
+		karma.serve(complete, fail);
+	}, { async: true });
+
+	desc("Run tests");
+	task("test", function() {
+		console.log("Testing source code:");
+		karma.runTests(TESTED_BROWSERS, complete, fail);
+	}, { async: true });
 
 
 	function universalLintOptions() {
