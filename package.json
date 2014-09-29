@@ -14,5 +14,8 @@
     "test"
   ],
   "author": "James Shore",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "jake": "^8.0.9"
+  }
 }
