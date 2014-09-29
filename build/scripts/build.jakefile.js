@@ -5,7 +5,7 @@
 	var jshint = require("simplebuild-jshint");
 	var karma = require("../util/karma_runner.js");
 
-	var TESTED_BROWSERS = [];
+	var TESTED_BROWSERS = require("../config/tested_browsers.js");
 
 
 	desc("Lint, test, and build");
