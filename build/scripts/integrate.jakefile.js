@@ -4,10 +4,9 @@
 // Integration build file. Automates our continuous integration process.
 
 var git = require("../util/git_runner.js");
+var branches = require("../config/branches.js");
 
 var BUILD_COMMAND = require("../config/build_command.js");
-var DEV_BRANCH = "dev";
-var INTEGRATION_BRANCH = "master";
 
 
 //*** DO THE INTEGRATION
@@ -18,12 +17,12 @@ task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], fu
 });
 
 task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], function() {
-	console.log("Merging " + DEV_BRANCH + " branch into " + INTEGRATION_BRANCH + ": ");
-	git.mergeBranch(DEV_BRANCH, wrap(complete), wrap(fail));
+	console.log("Merging " + branches.dev + " branch into " + branches.integration + ": ");
+	git.mergeBranch(branches.dev, wrap(complete), wrap(fail));
 
 	function wrap(callback) {
 		return function(message) {
-			checkout(DEV_BRANCH, callback.bind(null, message), function(secondMessage) {
+			checkout(branches.dev, callback.bind(null, message), function(secondMessage) {
 				console.log("Error: " + secondMessage);
 				console.log("COULD NOT SWITCH BACK TO DEV BRANCH. Be sure to do it manually.");
 				callback(message);
@@ -33,19 +32,19 @@ task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], fun
 }, { async: true });
 
 task("fastForwardDevToIntegration", function() {
-	console.log("Updating " + DEV_BRANCH + " branch with " + INTEGRATION_BRANCH + " changes: .");
-	git.fastForwardBranch(INTEGRATION_BRANCH, complete, fail);
+	console.log("Updating " + branches.dev + " branch with " + branches.integration + " changes: .");
+	git.fastForwardBranch(branches.integration, complete, fail);
 }, { async: true });
 
 
 //*** SWITCH BRANCHES
 
 task("integrationBranch", function() {
-	checkout(INTEGRATION_BRANCH, complete, fail);
+	checkout(branches.integration, complete, fail);
 }, { async: true });
 
 task("devBranch", function() {
-	checkout(DEV_BRANCH, complete, fail);
+	checkout(branches.dev, complete, fail);
 }, { async: true });
 
 function checkout(branch, succeed, fail) {
@@ -60,7 +59,7 @@ task("readyToIntegrate", [ "onDevBranch", "allCommitted", "upToDate", "buildsCle
 
 task("onDevBranch", function() {
 	console.log("Checking current branch: .");
-	git.checkCurrentBranch(DEV_BRANCH, complete, fail);
+	git.checkCurrentBranch(branches.dev, complete, fail);
 }, { async: true });
 
 task("allCommitted", function() {
@@ -69,8 +68,8 @@ task("allCommitted", function() {
 }, { async: true });
 
 task("upToDate", function() {
-	console.log("Checking if " + DEV_BRANCH + " branch is up to date: .");
-	git.checkFastForwardable(INTEGRATION_BRANCH, DEV_BRANCH, complete, fail);
+	console.log("Checking if " + branches.dev + " branch is up to date: .");
+	git.checkFastForwardable(branches.integration, branches.dev, complete, fail);
 }, { async: true });
 
 task("buildsClean", function() {

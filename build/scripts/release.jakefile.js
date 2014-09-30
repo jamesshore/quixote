@@ -5,7 +5,6 @@
 
 var git = require("../util/git_runner.js");
 
-var BUILD_COMMAND = require("../config/build_command.js");
 var DEV_BRANCH = "dev";
 var INTEGRATION_BRANCH = "master";
 
