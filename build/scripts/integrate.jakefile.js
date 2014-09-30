@@ -41,21 +41,21 @@ function checkout(branch, succeed, fail) {
 
 //*** ENSURE INTEGRATION READINESS
 
-task("readyToIntegrate", [ "upToDate", "onDevBranch", "allCommitted", "buildsClean" ]);
+task("readyToIntegrate", [ "onDevBranch", "allCommitted", "upToDate", "buildsClean" ]);
+
+task("onDevBranch", function() {
+	console.log("Checking current branch: .");
+	git.checkCurrentBranch(DEV_BRANCH, complete, fail);
+}, { async: true });
+
+task("allCommitted", function() {
+	console.log("Checking for uncommitted files: .");
+	git.checkNothingToCommit(complete, fail);
+}, { async: true });
 
 task("upToDate", function() {
 	console.log("Checking if " + DEV_BRANCH + " branch is up to date: .");
 	git.checkFastForwardable(INTEGRATION_BRANCH, DEV_BRANCH, complete, fail);
-}, { async: true });
-
-task("onDevBranch", function() {
-	console.log("Checking git branch: .");
-	git.checkoutBranch(DEV_BRANCH, complete, fail);
-}, { async: true });
-
-task("allCommitted", function() {
-	console.log("Checking git repository for uncommitted files: .");
-	git.checkNothingToCommit(complete, fail);
 }, { async: true });
 
 task("buildsClean", function() {

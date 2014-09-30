@@ -3,7 +3,7 @@
 
 var spawn = require("child_process").spawn;
 
-exports.checkBranch = function(expectedBranch, succeed, fail) {
+exports.checkCurrentBranch = function(expectedBranch, succeed, fail) {
 	git("symbolic-ref HEAD -q", function(err, errorCode, stdout) {
 		if (err) return fail(err);
 		if (errorCode === 1 && stdout === "") return failBranch("detached HEAD");
