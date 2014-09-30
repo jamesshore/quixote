@@ -13,7 +13,11 @@
 	var gaze = require("gaze");
 	var spawn = require("child_process").spawn;
 
-	var WATCH = "src/**/*.js";
+	var WATCH = [
+		"build/**/*.js",
+		"src/**/*.js",
+		"vendor/**/*.js"
+	];
 
 	var COMMAND = "./jake.sh";   // Mac/Unix
 //	var COMMAND = "jake.bat";                 // Windows
@@ -23,7 +27,12 @@
 	var buildQueued = false;
 
 	gaze(WATCH, function(err, watcher) {
-		console.log("Will run " + COMMAND + " when " + WATCH + " changes.");
+		if (err) {
+			console.log("Error: " + err);
+			return;
+		}
+
+		console.log("Will run " + COMMAND + " when " + WATCH.join(" or ") + " changes.");
 		watcher.on("all", triggerBuild);
 		triggerBuild();    // Always run after startup
 	});
