@@ -23,10 +23,8 @@ task("integrate", [ "readyToIntegrate", "integrationBranch", "checkMerge" ], fun
 });
 
 task("checkMerge", function() {
-	console.log("Checking if " + DEV_BRANCH + " branch has latest changes: .");
-	git.checkFastForwardable(DEV_BRANCH, complete, function(message) {
-		checkout(DEV_BRANCH, fail.bind(null, message), fail);
-	});
+	console.log("Checking if " + DEV_BRANCH + " branch is up to date: .");
+	git.checkFastForwardable(INTEGRATION_BRANCH, DEV_BRANCH, complete, fail);
 }, { async: true });
 
 

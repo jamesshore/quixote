@@ -37,10 +37,14 @@ exports.checkNothingToCommit = function(succeed, fail) {
 	});
 };
 
-exports.checkFastForwardable = function(branch, succeed, fail) {
-	git("merge --no-commit --ff-only " + branch, function(err, errorCode, stdout) {
+exports.checkFastForwardable = function(baseBranch, branchToMerge, succeed, fail) {
+	git("branch --contains " + baseBranch, function(err, errorCode, stdout) {
 		if (err) return fail(err);
-		if (errorCode !== 0) return fail(branch + " branch is not up to date");
+		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+
+		if (stdout.indexOf(" " + branchToMerge + "\n") === -1) {
+			return fail(branchToMerge + " branch doesn't include latest changes from " + baseBranch + " branch");
+		}
 
 		return succeed();
 	});
