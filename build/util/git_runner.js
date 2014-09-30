@@ -4,19 +4,29 @@
 var spawn = require("child_process").spawn;
 
 exports.checkBranch = function(expectedBranch, succeed, fail) {
-	git("symbolic-ref HEAD", function(err, errorCode, stdout) {
+	git("symbolic-ref HEAD -q", function(err, errorCode, stdout) {
 		if (err) return fail(err);
-		if (errorCode !== 0 && errorCode !== 1) return fail("git exited with error code " + errorCode);
+		if (errorCode === 1 && stdout === "") return failBranch("detached HEAD");
+		if (errorCode !== 0) return failErrorCode(fail, errorCode);
 
 		var groups = stdout.match(/^refs\/heads\/(.*)\n$/);
 		if (groups === null) return fail("Did not recognize git output: " + stdout);
 
 		var branch = groups[1];
-		if (branch !== expectedBranch) return fail("Not on correct branch. Expected '" + expectedBranch + "' but was '" + branch + "'.");
-
-		return succeed();
+		if (branch !== expectedBranch) return failBranch(branch);
+		else return succeed();
 	});
+
+	function failBranch(actualBranch) {
+		return fail("Not on correct branch. Expected '" + expectedBranch + "' but was '"+ actualBranch + "'");
+	}
 };
+
+
+function failErrorCode(fail, errorCode) {
+	return fail("git exited with error code " + errorCode);
+}
+
 
 function git(args, callback) {
 	// Why do we use this monster instead of child_process.execFile()? Because we need fine-grained
@@ -30,7 +40,7 @@ function git(args, callback) {
 
 	var child = spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
 
-	var output = "";
+	var stdout = "";
 	var errorCode;
 
 	var endEventFired = false;
@@ -39,7 +49,7 @@ function git(args, callback) {
 
 	child.stdout.setEncoding("utf8");
 	child.stdout.on("data", function(data) {
-		output += data;
+		stdout += data;
 	});
 	child.stdout.on("end", function() {
 		endEventFired = true;
@@ -62,7 +72,7 @@ function git(args, callback) {
 		callbackCalled = true;
 
 		if (error) callback(error);
-		else callback(null, errorCode, output);
+		else callback(null, errorCode, stdout);
 	}
 
 }
