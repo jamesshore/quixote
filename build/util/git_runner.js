@@ -37,6 +37,15 @@ exports.checkNothingToCommit = function(succeed, fail) {
 	});
 };
 
+exports.checkoutBranch = function(branch, succeed, fail) {
+	git("checkout " + branch, function(err, errorCode, stdout) {
+		if (err) return fail(err);
+		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+
+		return succeed();
+	});
+};
+
 
 function failErrorCode(fail, errorCode) {
 	return fail("git exited with error code " + errorCode);
