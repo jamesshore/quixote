@@ -19,8 +19,7 @@
 		"vendor/**/*.js"
 	];
 
-	var COMMAND = "./jake.sh";   // Mac/Unix
-//	var COMMAND = "jake.bat";                 // Windows
+	var COMMAND = require("./build/config/build_command.js");
 
 	var args = process.argv.slice(2);
 	var child = null;
