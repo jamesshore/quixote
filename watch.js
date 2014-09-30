@@ -24,7 +24,6 @@
 
 	var args = process.argv.slice(2);
 	var child = null;
-	var buildQueued = false;
 
 	gaze(WATCH, function(err, watcher) {
 		if (err) {
@@ -39,7 +38,6 @@
 
 	function triggerBuild(evt, filepath) {
 		if (child === null) runJake(filepath);
-		else queueAnotherBuild(evt, filepath);
 	}
 
 	function runJake(filepath) {
@@ -50,15 +48,6 @@
 
 		child.once("exit", function(code) {
 			child = null;
-		});
-	}
-
-	function queueAnotherBuild(evt, filepath) {
-		if (buildQueued) return;
-		buildQueued = true;
-		child.once("exit", function(code) {
-			buildQueued = false;
-			triggerBuild(evt, filepath);
 		});
 	}
 
