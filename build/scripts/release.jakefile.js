@@ -21,7 +21,20 @@ task("major", function() {
 	fail("Major version releases are disabled while we're in 0.x releases.");
 });
 
-desc("Increment bugfix version number and release");
-task("bugfix", [], function() {
+desc("Increment patch version number and release");
+task("patch", [ "readyToRelease" ], function() {
 	console.log("\n\nRELEASE OK");
+});
+
+
+//*** ENSURE RELEASE READINESS
+
+task("readyToRelease", [ "allCommitted", "integrated" ]);
+
+task("allCommitted", function() {
+	console.log("Checking for uncommitted files: .");
+	git.checkNothingToCommit(complete, fail);
+}, { async: true });
+
+task("integrated", function() {
 });
