@@ -1,11 +1,12 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 "use strict";
 
-var child_process = require("child_process");
+var spawn = require("child_process").spawn;
 
 exports.checkBranch = function(expectedBranch, succeed, fail) {
-	git("symbolic-ref HEAD", function(err, stdout) {
+	git("symbolic-ref HEAD", function(err, errorCode, stdout) {
 		if (err) return fail(err);
+		if (errorCode !== 0 && errorCode !== 1) return fail("git exited with error code " + errorCode);
 
 		var groups = stdout.match(/^refs\/heads\/(.*)\n$/);
 		if (groups === null) return fail("Did not recognize git output: " + stdout);
@@ -18,17 +19,50 @@ exports.checkBranch = function(expectedBranch, succeed, fail) {
 };
 
 function git(args, callback) {
-	var command = "git " + args;
-	child_process.execFile("git", args.split(" "), function(error, stdout, stderr) {
-		if (stderr) {
-			console.log("> " + command);
-			process.stdout.write(stdout);
-			process.stderr.write(stderr);
-			if (error.code) return callback("git exited with error code " + error.code);
-			else return callback("git wrote to stderr");
-		}
-		if (error) return callback("Problem running git: " + error);
+	// Why do we use this monster instead of child_process.execFile()? Because we need fine-grained
+	// control over our errors. child_process.execFile() uses a single 'error' object for actual
+	// errors and for processes that exit with an error code. We need to distinguish the two, and
+	// this seemed like the best way to do it.
+	//
+	// This code is complicated because of potential race conditions in events:
+	//   'exit' and 'error' can fire in any order, and either or both may fire
+	//   'end' and 'exit can fire in any order, and we need data from both event
 
-		return callback(null, stdout);
+	var child = spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
+
+	var output = "";
+	var errorCode;
+
+	var endEventFired = false;
+	var exitEventFired = false;
+	var callbackCalled = false;
+
+	child.stdout.setEncoding("utf8");
+	child.stdout.on("data", function(data) {
+		output += data;
 	});
+	child.stdout.on("end", function() {
+		endEventFired = true;
+		if (exitEventFired) doCallback(null);
+	});
+
+	child.on("error", function(error) {
+		doCallback("Problem running git: " + error);
+	});
+	child.on("exit", function(code, signal) {
+		exitEventFired = true;
+		if (signal) return doCallback("git exited in response to signal: " + signal);
+
+		errorCode = code;
+		if (endEventFired) doCallback(null);
+	});
+
+	function doCallback(error) {
+		if (callbackCalled) return;
+		callbackCalled = true;
+
+		if (error) callback(error);
+		else callback(null, errorCode, output);
+	}
+
 }
