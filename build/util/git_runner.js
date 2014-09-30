@@ -1,7 +1,7 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 "use strict";
 
-var spawn = require("child_process").spawn;
+var child_process = require("child_process");
 
 exports.checkBranch = function(expectedBranch, succeed, fail) {
 	git("symbolic-ref HEAD", function(err, stdout) {
@@ -21,37 +21,17 @@ exports.checkBranch = function(expectedBranch, succeed, fail) {
 };
 
 function git(args, callback) {
-	var child = spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
+	var command = "git " + args;
+	child_process.execFile("git", args.split(" "), function(error, stdout, stderr) {
+		if (stderr) {
+			console.log("> " + command);
+			process.stdout.write(stdout);
+			process.stderr.write(stderr);
+			if (error.code) return callback("git exited with error code " + error.code);
+			else return callback("git wrote to stderr");
+		}
+		if (error) return callback("Problem running git: " + error);
 
-	var output = "";
-	var callbackAlreadyCalled = false;
-
-	child.stdout.setEncoding("utf8");
-	child.stdout.on("data", function(data) {
-		output += data;
+		return callback(null, stdout);
 	});
-	child.stdout.on("end", function() {
-		console.log("END event");
-	});
-
-	child.on("error", function(error) {
-		console.log("ERROR event");
-		doCallback("Problem running git: " + error);
-	});
-	child.on("exit", function(code, signal) {
-		console.log("EXIT event");
-		if (signal) return doCallback("git exited in response to signal: " + signal);
-		if (code) return doCallback("git exited with error code " + code);
-
-		return doCallback();
-	});
-
-	function doCallback(error) {
-		if (callbackAlreadyCalled) return;
-		callbackAlreadyCalled = true;
-
-		if (error) callback(error);
-		else callback(null, output);
-	}
-
 }
