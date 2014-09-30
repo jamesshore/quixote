@@ -48,10 +48,7 @@ function checkout(branch, succeed, fail) {
 
 //*** ENSURE INTEGRATION READINESS
 
-//task("readyToIntegrate", [ "onDevBranch", "allCommitted", "buildsClean" ]);
-task("readyToIntegrate", [], function() {
-	console.log("*** STUBBED! readyToIntegrate");
-});
+task("readyToIntegrate", [ "onDevBranch", "allCommitted", "buildsClean" ]);
 
 task("onDevBranch", function() {
 	console.log("Checking git branch: .");
