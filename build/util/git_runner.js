@@ -1,7 +1,7 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 "use strict";
 
-var spawn = require("child_process").spawn;
+var child_process = require("child_process");
 
 exports.checkCurrentBranch = function(expectedBranch, succeed, fail) {
 	git("symbolic-ref HEAD -q", function(err, errorCode, stdout) {
@@ -59,9 +59,14 @@ exports.checkoutBranch = function(branch, succeed, fail) {
 	});
 };
 
-//exports.mergeBranch = function(branch, succeed, fail) {
-//	git
-//}
+exports.mergeBranch = function(branch, succeed, fail) {
+	git('merge --no-ff --log -m "INTEGRATE:" --no-commit ' + branch, function(err, errorCode, stdout) {
+		if (err) return fail(err);
+		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+
+		return succeed();
+	});
+};
 
 
 function failErrorCode(fail, errorCode) {
@@ -79,7 +84,7 @@ function git(args, callback) {
 	//   'exit' and 'error' can fire in any order, and either or both may fire
 	//   'end' and 'exit can fire in any order, and we need data from both event
 
-	var child = spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
+	var child = child_process.spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
 
 	var stdout = "";
 	var errorCode;

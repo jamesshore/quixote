@@ -13,14 +13,24 @@ var INTEGRATION_BRANCH = "master";
 //*** DO THE INTEGRATION
 
 desc("Integrate latest development code into known-good branch");
-task("default", [ "integrate", "devBranch" ], function() {
+task("default", [ "integrate" ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
 
-task("integrate", [ "readyToIntegrate", "integrationBranch", "checkMerge" ], function() {
+task("integrate", [ "readyToIntegrate", "integrationBranch" ], function() {
 	console.log("Merging " + DEV_BRANCH + " branch into " + INTEGRATION_BRANCH + ": ");
-	git.mergeBranch(DEV_BRANCH, complete, fail);
-});
+	git.mergeBranch(DEV_BRANCH, wrap(complete), wrap(fail));
+
+	function wrap(callback) {
+		return function(message) {
+			checkout(DEV_BRANCH, callback.bind(null, message), function(secondMessage) {
+				console.log("Error: " + secondMessage);
+				console.log("COULD NOT SWITCH BACK TO DEV BRANCH. Be sure to do it manually.");
+				callback(message);
+			});
+		};
+	}
+}, { async: true });
 
 
 //*** SWITCH BRANCHES
