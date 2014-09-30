@@ -117,6 +117,7 @@
 	function nodeLintGlobals() {
 		return {
 			// Jake
+			jake: false,
 			desc: false,
 			task: false,
 			directory: false,
