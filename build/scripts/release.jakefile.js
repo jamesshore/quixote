@@ -4,9 +4,7 @@
 // Release build file. Automates our deployment process.
 
 var git = require("../util/git_runner.js");
-
-var DEV_BRANCH = "dev";
-var INTEGRATION_BRANCH = "master";
+var branches = require("../config/branches.js");
 
 
 //*** DO THE RELEASE
@@ -36,4 +34,6 @@ task("allCommitted", function() {
 }, { async: true });
 
 task("integrated", function() {
-});
+	console.log("Checking if " + branches.dev + " branch is integrated: .");
+	git.checkFastForwardable(branches.dev, branches.integration, complete, fail);
+}, { async: true });
