@@ -1,4 +1,7 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+
+// Main build file. Contains all tasks needed for normal development.
+
 (function() {
 	"use strict";
 
