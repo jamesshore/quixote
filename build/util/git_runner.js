@@ -60,7 +60,8 @@ exports.checkoutBranch = function(branch, succeed, fail) {
 };
 
 exports.mergeBranch = function(branch, succeed, fail) {
-	git('merge --no-ff --log -m "INTEGRATE:" --no-commit ' + branch, function(err, errorCode, stdout) {
+	// The merge must be interactive because it launches an editor for the commit comment.
+	interactiveGit("merge --no-ff --log=500 -m INTEGRATE: --edit " + branch, function(err, errorCode) {
 		if (err) return fail(err);
 		if (errorCode !== 0) return failErrorCode(fail, errorCode);
 
@@ -68,11 +69,9 @@ exports.mergeBranch = function(branch, succeed, fail) {
 	});
 };
 
-
 function failErrorCode(fail, errorCode) {
 	return fail("git exited with error code " + errorCode);
 }
-
 
 function git(args, callback) {
 	// Why do we use this monster instead of child_process.execFile()? Because we need fine-grained
@@ -120,5 +119,24 @@ function git(args, callback) {
 		if (error) callback(error);
 		else callback(null, errorCode, stdout);
 	}
+}
 
+function interactiveGit(args, callback) {
+	var callbackCalled = false;
+
+	var child = child_process.spawn("git", args.split(" "), { stdio: "inherit" });
+	child.on("error", function(error) {
+		doCallback("Problem running git: " + error);
+	});
+	child.on("exit", function(code, signal) {
+		if (signal) return doCallback("git exited in response to signal: " + signal);
+		else doCallback(null, code);
+	});
+
+	function doCallback(error, errorCode) {
+		if (callbackCalled) return;
+		callbackCalled = true;
+
+		callback(error, errorCode);
+	}
 }
