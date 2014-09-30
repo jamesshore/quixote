@@ -37,6 +37,15 @@ exports.checkNothingToCommit = function(succeed, fail) {
 	});
 };
 
+exports.checkFastForwardable = function(branch, succeed, fail) {
+	git("merge --no-commit --ff-only " + branch, function(err, errorCode, stdout) {
+		if (err) return fail(err);
+		if (errorCode !== 0) return fail(branch + " branch is not up to date");
+
+		return succeed();
+	});
+}
+
 exports.checkoutBranch = function(branch, succeed, fail) {
 	git("checkout -q " + branch, function(err, errorCode, stdout) {
 		if (err) return fail(err);
@@ -45,6 +54,10 @@ exports.checkoutBranch = function(branch, succeed, fail) {
 		return succeed();
 	});
 };
+
+exports.mergeBranch = function(branch, succeed, fail) {
+	git
+}
 
 
 function failErrorCode(fail, errorCode) {

@@ -9,16 +9,28 @@ var BUILD_COMMAND = require("../config/build_command.js");
 var DEV_BRANCH = "dev";
 var INTEGRATION_BRANCH = "master";
 
-//*** GENERAL
+//*** DO THE INTEGRATION
 
 desc("Integrate latest development code into known-good branch");
 task("default", [ "integrate", "devBranch" ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
 
-task("integrate", [ "readyToIntegrate", "integrationBranch" ], function() {
-
+task("integrate", [ "readyToIntegrate", "integrationBranch", "checkMerge" ], function() {
+	console.log("Merging " + DEV_BRANCH + " branch into " + INTEGRATION_BRANCH + ": ");
+	git.mergeBranch(DEV_BRANCH, complete, fail);
 });
+
+task("checkMerge", function() {
+	console.log("Checking if " + DEV_BRANCH + " branch has latest changes: .");
+	git.checkFastForwardable(DEV_BRANCH, complete, function(message) {
+		jake.Task["devBranch"].execute();
+		fail(message);
+	});
+}, { async: true });
+
+
+//*** SWITCH BRANCHES
 
 task("integrationBranch", function() {
 	console.log("Switching to " + INTEGRATION_BRANCH + " branch: .");
@@ -29,6 +41,7 @@ task("devBranch", function() {
 	console.log("Switching to " + DEV_BRANCH + " branch: .");
 	git.checkoutBranch(DEV_BRANCH, complete, fail);
 }, { async: true });
+
 
 //*** ENSURE INTEGRATION READINESS
 
