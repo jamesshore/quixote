@@ -37,6 +37,7 @@ task("fastForwardDevToIntegration", function() {
 	git.fastForwardBranch(INTEGRATION_BRANCH, complete, fail);
 }, { async: true });
 
+
 //*** SWITCH BRANCHES
 
 task("integrationBranch", function() {
