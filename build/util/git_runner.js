@@ -13,9 +13,6 @@ exports.checkBranch = function(expectedBranch, succeed, fail) {
 		var branch = groups[1];
 		if (branch !== expectedBranch) return fail("Not on correct branch. Expected '" + expectedBranch + "' but was '" + branch + "'.");
 
-		console.log("OUTPUT:", stdout);
-		console.log("GROUPS:", groups);
-		console.log("BRANCH:", branch);
 		return succeed();
 	});
 };

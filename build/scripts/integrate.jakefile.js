@@ -5,6 +5,7 @@
 
 var git = require("../util/git_runner.js");
 
+var DEV_BRANCH = "dev";
 
 //*** GENERAL
 
@@ -15,7 +16,7 @@ task("default", [ "correctBranch", "goodStatus" ], function() {
 
 task("correctBranch", function() {
 	console.log("Confirming development branch: .");
-	git.checkBranch("FOO", complete, fail);
+	git.checkBranch(DEV_BRANCH, complete, fail);
 }, { async: true });
 
 task("goodStatus", function() {
