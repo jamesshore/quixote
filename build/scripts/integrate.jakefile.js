@@ -9,6 +9,7 @@ var BUILD_COMMAND = require("../config/build_command.js");
 var DEV_BRANCH = "dev";
 var INTEGRATION_BRANCH = "master";
 
+
 //*** DO THE INTEGRATION
 
 desc("Integrate latest development code into known-good branch");
@@ -24,8 +25,7 @@ task("integrate", [ "readyToIntegrate", "integrationBranch", "checkMerge" ], fun
 task("checkMerge", function() {
 	console.log("Checking if " + DEV_BRANCH + " branch has latest changes: .");
 	git.checkFastForwardable(DEV_BRANCH, complete, function(message) {
-		jake.Task["devBranch"].execute();
-		fail(message);
+		checkout(DEV_BRANCH, fail.bind(null, message), fail);
 	});
 }, { async: true });
 
@@ -33,14 +33,17 @@ task("checkMerge", function() {
 //*** SWITCH BRANCHES
 
 task("integrationBranch", function() {
-	console.log("Switching to " + INTEGRATION_BRANCH + " branch: .");
-	git.checkoutBranch(INTEGRATION_BRANCH, complete, fail);
+	checkout(INTEGRATION_BRANCH, complete, fail);
 }, { async: true });
 
 task("devBranch", function() {
-	console.log("Switching to " + DEV_BRANCH + " branch: .");
-	git.checkoutBranch(DEV_BRANCH, complete, fail);
+	checkout(DEV_BRANCH, complete, fail);
 }, { async: true });
+
+function checkout(branch, succeed, fail) {
+	console.log("Switching to " + branch + " branch: .");
+	git.checkoutBranch(branch, succeed, fail);
+}
 
 
 //*** ENSURE INTEGRATION READINESS

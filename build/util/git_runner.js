@@ -44,7 +44,7 @@ exports.checkFastForwardable = function(branch, succeed, fail) {
 
 		return succeed();
 	});
-}
+};
 
 exports.checkoutBranch = function(branch, succeed, fail) {
 	git("checkout -q " + branch, function(err, errorCode, stdout) {
@@ -55,9 +55,9 @@ exports.checkoutBranch = function(branch, succeed, fail) {
 	});
 };
 
-exports.mergeBranch = function(branch, succeed, fail) {
-	git
-}
+//exports.mergeBranch = function(branch, succeed, fail) {
+//	git
+//}
 
 
 function failErrorCode(fail, errorCode) {
