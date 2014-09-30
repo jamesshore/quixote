@@ -3,30 +3,43 @@
 
 var spawn = require("child_process").spawn;
 
-exports.checkBranch = function(expectedBranch, success, fail) {
-	runGit("symbolic-ref HEAD", function(err, stdout) {
+exports.checkBranch = function(expectedBranch, succeed, fail) {
+	git("symbolic-ref HEAD", function(err, stdout) {
 		if (err) return fail(err);
 
-		console.log("OUTPUT: " + stdout);
-		return success();
+		var groups = stdout.match(/^refs\/heads\/(.*)\n$/);
+		if (groups === null) return fail("Did not recognize git output: " + stdout);
+
+		var branch = groups[1];
+		if (branch !== expectedBranch) return fail("Not on correct branch. Expected '" + expectedBranch + "' but was '" + branch + "'.");
+
+		console.log("OUTPUT:", stdout);
+		console.log("GROUPS:", groups);
+		console.log("BRANCH:", branch);
+		return succeed();
 	});
 };
 
-function runGit(args, callback) {
-	var git = spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
+function git(args, callback) {
+	var child = spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
 
 	var output = "";
 	var callbackAlreadyCalled = false;
 
-	git.stdout.setEncoding("utf8");
-	git.stdout.on("data", function(data) {
+	child.stdout.setEncoding("utf8");
+	child.stdout.on("data", function(data) {
 		output += data;
 	});
+	child.stdout.on("end", function() {
+		console.log("END event");
+	});
 
-	git.on("error", function(error) {
+	child.on("error", function(error) {
+		console.log("ERROR event");
 		doCallback("Problem running git: " + error);
 	});
-	git.on("exit", function(code, signal) {
+	child.on("exit", function(code, signal) {
+		console.log("EXIT event");
 		if (signal) return doCallback("git exited in response to signal: " + signal);
 		if (code) return doCallback("git exited with error code " + code);
 
