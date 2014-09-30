@@ -69,6 +69,15 @@ exports.mergeBranch = function(branch, succeed, fail) {
 	});
 };
 
+exports.fastForwardBranch = function(branch, succeed, fail) {
+	git("merge --ff-only " + branch, function(err, errorCode) {
+		if (err) return fail(err);
+		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+
+		return succeed();
+	});
+};
+
 function failErrorCode(fail, errorCode) {
 	return fail("git exited with error code " + errorCode);
 }

@@ -24,6 +24,14 @@ To work with this code on your own computer:
 2. Start the browsers you want to test and point each one at `http://localhost:9876`.
 3. Run `./jake.sh` every time you want to build and test.
 
+### Branches
+
+The `master` branch is the known-good integration branch. This branch should always build and pass its tests.
+
+The `dev` branch is for work in progress.
+
+Use the `integrate.sh` script to automatically integrate changes in the dev branch back to the master branch.
+
 
 ## Credits
 

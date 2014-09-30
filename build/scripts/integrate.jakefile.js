@@ -13,11 +13,11 @@ var INTEGRATION_BRANCH = "master";
 //*** DO THE INTEGRATION
 
 desc("Integrate latest development code into known-good branch");
-task("default", [ "integrate" ], function() {
+task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
 
-task("integrate", [ "readyToIntegrate", "integrationBranch" ], function() {
+task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], function() {
 	console.log("Merging " + DEV_BRANCH + " branch into " + INTEGRATION_BRANCH + ": ");
 	git.mergeBranch(DEV_BRANCH, wrap(complete), wrap(fail));
 
@@ -32,6 +32,10 @@ task("integrate", [ "readyToIntegrate", "integrationBranch" ], function() {
 	}
 }, { async: true });
 
+task("fastForwardDevToIntegration", function() {
+	console.log("Updating " + DEV_BRANCH + " branch with " + INTEGRATION_BRANCH + " changes: .");
+	git.fastForwardBranch(INTEGRATION_BRANCH, complete, fail);
+}, { async: true });
 
 //*** SWITCH BRANCHES
 
