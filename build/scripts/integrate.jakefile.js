@@ -22,11 +22,6 @@ task("integrate", [ "readyToIntegrate", "integrationBranch", "checkMerge" ], fun
 	git.mergeBranch(DEV_BRANCH, complete, fail);
 });
 
-task("checkMerge", function() {
-	console.log("Checking if " + DEV_BRANCH + " branch is up to date: .");
-	git.checkFastForwardable(INTEGRATION_BRANCH, DEV_BRANCH, complete, fail);
-}, { async: true });
-
 
 //*** SWITCH BRANCHES
 
@@ -46,7 +41,12 @@ function checkout(branch, succeed, fail) {
 
 //*** ENSURE INTEGRATION READINESS
 
-task("readyToIntegrate", [ "onDevBranch", "allCommitted", "buildsClean" ]);
+task("readyToIntegrate", [ "upToDate", "onDevBranch", "allCommitted", "buildsClean" ]);
+
+task("upToDate", function() {
+	console.log("Checking if " + DEV_BRANCH + " branch is up to date: .");
+	git.checkFastForwardable(INTEGRATION_BRANCH, DEV_BRANCH, complete, fail);
+}, { async: true });
 
 task("onDevBranch", function() {
 	console.log("Checking git branch: .");
