@@ -38,7 +38,7 @@ exports.checkNothingToCommit = function(succeed, fail) {
 };
 
 exports.checkoutBranch = function(branch, succeed, fail) {
-	git("checkout " + branch, function(err, errorCode, stdout) {
+	git("checkout -q " + branch, function(err, errorCode, stdout) {
 		if (err) return fail(err);
 		if (errorCode !== 0) return failErrorCode(fail, errorCode);
 

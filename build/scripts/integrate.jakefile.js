@@ -21,12 +21,12 @@ task("integrate", [ "readyToIntegrate", "integrationBranch" ], function() {
 });
 
 task("integrationBranch", function() {
-	console.log("Switching to integration branch: .");
+	console.log("Switching to " + INTEGRATION_BRANCH + " branch: .");
 	git.checkoutBranch(INTEGRATION_BRANCH, complete, fail);
 }, { async: true });
 
 task("devBranch", function() {
-	console.log("Switching to development branch: .");
+	console.log("Switching to " + DEV_BRANCH + " branch: .");
 	git.checkoutBranch(DEV_BRANCH, complete, fail);
 }, { async: true });
 
