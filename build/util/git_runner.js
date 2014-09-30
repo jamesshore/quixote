@@ -14,12 +14,27 @@ exports.checkBranch = function(expectedBranch, succeed, fail) {
 
 		var branch = groups[1];
 		if (branch !== expectedBranch) return failBranch(branch);
-		else return succeed();
+
+		return succeed();
 	});
 
 	function failBranch(actualBranch) {
 		return fail("Not on correct branch. Expected '" + expectedBranch + "' but was '"+ actualBranch + "'");
 	}
+};
+
+exports.checkNothingToCommit = function(succeed, fail) {
+	git("status --porcelain", function(err, errorCode, stdout) {
+		if (err) return fail(err);
+		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+
+		if (stdout.trim() !== "") {
+			process.stdout.write(stdout);
+			return fail("Working directory contains files to commit or ignore");
+		}
+
+		return succeed();
+	});
 };
 
 

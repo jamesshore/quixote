@@ -21,5 +21,6 @@ task("correctBranch", function() {
 
 task("goodStatus", function() {
 	console.log("Checking git repository for uncommitted files: .");
-});
+	git.checkNothingToCommit(complete, fail);
+}, { async: true });
 
