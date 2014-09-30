@@ -10,16 +10,16 @@ var DEV_BRANCH = "dev";
 //*** GENERAL
 
 desc("Integrate latest development code into known-good branch");
-task("default", [ "correctBranch", "goodStatus" ], function() {
+task("default", [ "devBranch", "allCommitted" ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
 
-task("correctBranch", function() {
-	console.log("Confirming development branch: .");
+task("devBranch", function() {
+	console.log("Checking git branch: .");
 	git.checkBranch(DEV_BRANCH, complete, fail);
 }, { async: true });
 
-task("goodStatus", function() {
+task("allCommitted", function() {
 	console.log("Checking git repository for uncommitted files: .");
 	git.checkNothingToCommit(complete, fail);
 }, { async: true });
