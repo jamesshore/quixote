@@ -38,12 +38,14 @@
 	});
 
 	function triggerBuild(evt, filepath) {
-		if (child === null) runJake();
-		else queueAnotherBuild();
+		if (child === null) runJake(filepath);
+		else queueAnotherBuild(evt, filepath);
 	}
 
-	function runJake() {
-		console.log("\n> " + COMMAND + " " + args.join(" "));
+	function runJake(filepath) {
+		console.log();
+		if (filepath) console.log(filepath + " changed");
+		console.log("> " + COMMAND + " " + args.join(" "));
 		child = spawn(COMMAND, args, { stdio: "inherit" });
 
 		child.once("exit", function(code) {
@@ -51,12 +53,12 @@
 		});
 	}
 
-	function queueAnotherBuild() {
+	function queueAnotherBuild(evt, filepath) {
 		if (buildQueued) return;
 		buildQueued = true;
 		child.once("exit", function(code) {
 			buildQueued = false;
-			triggerBuild();
+			triggerBuild(evt, filepath);
 		});
 	}
 

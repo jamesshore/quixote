@@ -14,6 +14,7 @@
   "author": "James Shore",
   "license": "MIT",
   "devDependencies": {
+    "browserify": "^5.12.1",
     "gaze": "^0.6.4",
     "jake": "^8.0.9",
     "jshint": "^2.5.6",

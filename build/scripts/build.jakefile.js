@@ -4,12 +4,18 @@
 
 	var jshint = require("simplebuild-jshint");
 	var karma = require("../util/karma_runner.js");
+	var browserify = require("../util/browserify_runner.js");
 
 	var TESTED_BROWSERS = require("../config/tested_browsers.js");
+	var ENTRY_POINT = "./src/placeholder.js";
+	var DIST_DIR = "dist";
+	var DIST_FILE = DIST_DIR + "/quixote.js";
 
+
+//*** GENERAL
 
 	desc("Lint, test, and build");
-	task("default", [ "lint", "test" ], function() {
+	task("default", [ "lint", "test", "build" ], function() {
 		console.log("\n\nBUILD OK");
 	});
 
@@ -53,6 +59,26 @@
 	}, { async: true });
 
 
+//*** BUILD
+
+	desc("Build distribution package");
+	task("build", [ DIST_DIR ], function() {
+		console.log("Bundling distribution package with Browserify: .");
+		browserify.bundle({
+			entry: ENTRY_POINT,
+			outfile: DIST_FILE,
+			options: {
+				standalone: "quixote",
+				debug: true
+			}
+		}, complete, fail);
+	}, { async: true });
+
+	directory(DIST_DIR);
+
+
+//*** Helper functions
+
 	function universalLintOptions() {
 		return {
 			bitwise: true,
@@ -90,6 +116,7 @@
 			// Jake
 			desc: false,
 			task: false,
+			directory: false,
 			complete: false,
 			fail: false
 		};
