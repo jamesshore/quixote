@@ -41,7 +41,7 @@ At this time, the build has only been tested on Mac OS X. It should also work on
 * `master` is the known-good integration branch. This branch should always build and pass its tests.
 * `dev` is for work in progress.
 
-Previous commits on the integration branch have "INTEGRATION" in their commit comment.
+Previous commits on the integration branch have "INTEGRATE" in their commit comment.
 
 
 ## Credits
