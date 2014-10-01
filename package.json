@@ -3,25 +3,33 @@
   "version": "0.0.1",
   "description": "CSS unit testing",
   "main": "dist/quixote.js",
+	"devDependencies": {
+   "browserify": "^5.12.1",
+   "gaze": "^0.6.4",
+   "jake": "^8.0.9",
+   "jshint": "^2.5.6",
+   "karma": "^0.12.23",
+   "karma-commonjs": "0.0.12",
+   "karma-mocha": "^0.1.9",
+   "mocha": "^1.21.4",
+   "simplebuild-jshint": "^0.3.0"
+  },
   "scripts": {
     "test": "./jake.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesshore/quixote.git"
   },
   "keywords": [
     "css",
     "test",
     "tdd"
   ],
-  "author": "James Shore",
+  "author": "James Shore <jshore@jamesshore.com>",
   "license": "MIT",
-  "devDependencies": {
-    "browserify": "^5.12.1",
-    "gaze": "^0.6.4",
-    "jake": "^8.0.9",
-    "jshint": "^2.5.6",
-    "karma": "^0.12.23",
-    "karma-commonjs": "0.0.12",
-    "karma-mocha": "^0.1.9",
-    "mocha": "^1.21.4",
-    "simplebuild-jshint": "^0.3.0"
-  }
+  "bugs": {
+    "url": "https://github.com/jamesshore/quixote/issues"
+  },
+  "homepage": "https://github.com/jamesshore/quixote"
 }
