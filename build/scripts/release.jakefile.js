@@ -24,15 +24,27 @@ createReleaseTask("patch");
 
 function createReleaseTask(level) {
 	desc("Increment " + level + " version number and release");
-	task(level, [ level + "Release", "updateDevBranch" ], function() {
+	task(level, [ level + "Release", "publishToNpm", "publishToGitHub", "updateDevBranch" ], function() {
 		console.log("\n\nRELEASE OK");
 	}, { async: true });
 
 	task(level + "Release", [ "readyToRelease", "integrationBranch" ], function() {
-		console.log("Releasing " + level + " update: ");
+		console.log("Updating npm version: ");
 		sh.run("npm version " + level, complete, fail);
 	}, { async: true });
 }
+
+
+//*** PUBLISH
+
+task("publishToNpm", function() {
+	console.log("Publishing to npm: ");
+	sh.run("npm publish", complete, fail);
+}, { async: true });
+
+task("publishToGitHub", function() {
+
+});
 
 
 //*** MANIPULATE REPO
