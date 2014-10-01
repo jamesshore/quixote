@@ -43,8 +43,9 @@ task("publishToNpm", function() {
 }, { async: true });
 
 task("publishToGitHub", function() {
-
-});
+	console.log("Publishing to GitHub: ");
+	sh.run("git push --all && git push --tags", complete, fail);
+}, { async: true });
 
 
 //*** MANIPULATE REPO
