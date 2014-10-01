@@ -24,7 +24,7 @@ createReleaseTask("patch");
 
 function createReleaseTask(level) {
 	desc("Increment " + level + " version number and release");
-	task(level, [ level + "Release", "publishToNpm", "publishToGitHub", "updateDevBranch" ], function() {
+	task(level, [ level + "Release", "npm", "github", "updateDevBranch" ], function() {
 		console.log("\n\nRELEASE OK");
 	}, { async: true });
 
@@ -37,14 +37,15 @@ function createReleaseTask(level) {
 
 //*** PUBLISH
 
-task("publishToNpm", function() {
-	console.log("Publishing to npm: ");
-	sh.run("npm publish", complete, fail);
-}, { async: true });
-
-task("publishToGitHub", function() {
+desc("Push source code to GitHub");
+task("github", function() {
 	console.log("Publishing to GitHub: ");
 	sh.run("git push --all && git push --tags", complete, fail);
+}, { async: true });
+
+task("npm", function() {
+	console.log("Publishing to npm: ");
+	sh.run("npm publish", complete, fail);
 }, { async: true });
 
 
