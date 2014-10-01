@@ -30,7 +30,7 @@ function createReleaseTask(level) {
 
 	task(level + "Release", [ "readyToRelease", "integrationBranch" ], function() {
 		console.log("Releasing " + level + " update: ");
-		sh.run("echo npm version " + level, complete, fail);
+		sh.run("npm version " + level, complete, fail);
 	}, { async: true });
 }
 
