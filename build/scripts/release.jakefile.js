@@ -20,7 +20,7 @@ task("major", function() {
 });
 
 desc("Increment patch version number and release");
-task("patch", [ "performRelease", "updateBranches" ], function() {
+task("patch", [ "performRelease", "updateDevBranch" ], function() {
 	console.log("\n\nRELEASE OK");
 }, { async: true });
 
@@ -28,7 +28,7 @@ task("patch", [ "performRelease", "updateBranches" ], function() {
 //*** DO THE RELEASE
 
 task("performRelease", [ "readyToRelease", "integrationBranch" ], function() {
-	console.log("Releasing patch: ");
+	console.log("Releasing patch update: ");
 	sh.run("echo npm version patch", complete, fail);
 }, { async: true });
 
@@ -40,7 +40,14 @@ task("integrationBranch", function() {
 	git.checkoutBranch(branches.integration, complete, fail);
 }, { async: true });
 
-task("updateBranches");
+task("devBranch", function() {
+	console.log("Switching to " + branches.dev + " branch: .");
+	git.checkoutBranch(branches.dev, complete, fail);
+})
+
+task("updateDevBranch", [ "devBranch" ], function() {
+	console.log("");
+});
 
 
 //*** ENSURE RELEASE READINESS
