@@ -43,11 +43,12 @@ task("integrationBranch", function() {
 task("devBranch", function() {
 	console.log("Switching to " + branches.dev + " branch: .");
 	git.checkoutBranch(branches.dev, complete, fail);
-})
+}, { async: true });
 
 task("updateDevBranch", [ "devBranch" ], function() {
-	console.log("");
-});
+	console.log("Updating " + branches.dev + " with release changes: .");
+	git.fastForwardBranch(branches.integration, complete, fail);
+}, { async: true });
 
 
 //*** ENSURE RELEASE READINESS
