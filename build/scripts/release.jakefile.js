@@ -20,21 +20,27 @@ task("major", function() {
 });
 
 desc("Increment patch version number and release");
-task("patch", [ "readyToRelease" ], function() {
-	release("patch", complete, fail);
-
+task("patch", [ "performRelease", "updateBranches" ], function() {
 	console.log("\n\nRELEASE OK");
 }, { async: true });
 
 
 //*** DO THE RELEASE
-function release(level, succeed, fail) {
-	sh.run("echo npm version " + level, onSuccess, fail);
 
-	function onSuccess() {
+task("performRelease", [ "readyToRelease", "integrationBranch" ], function() {
+	console.log("Releasing patch: ");
+	sh.run("echo npm version patch", complete, fail);
+}, { async: true });
 
-	}
-}
+
+//*** MANIPULATE REPO
+
+task("integrationBranch", function() {
+	console.log("Switching to " + branches.integration + " branch: .");
+	git.checkoutBranch(branches.integration, complete, fail);
+}, { async: true });
+
+task("updateBranches");
 
 
 //*** ENSURE RELEASE READINESS
