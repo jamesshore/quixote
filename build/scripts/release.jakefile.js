@@ -8,7 +8,7 @@ var branches = require("../config/branches.js");
 var sh = require("../util/sh.js");
 
 
-//*** TOP-LEVEL TASKS
+//*** RELEASE TASKS
 
 task("default", function() {
 	console.log("Use 'major', 'minor', or 'bugfix' to perform release");
@@ -19,18 +19,34 @@ task("major", function() {
 	fail("Major version releases are disabled while we're in 0.x releases.");
 });
 
-desc("Increment patch version number and release");
-task("patch", [ "performRelease", "updateDevBranch" ], function() {
-	console.log("\n\nRELEASE OK");
-}, { async: true });
+createReleaseTask("minor");
+createReleaseTask("patch");
+
+function createReleaseTask(level) {
+	desc("Increment " + level + " version number and release");
+	task(level, [ level + "Release", "updateDevBranch" ], function() {
+		console.log("\n\nRELEASE OK");
+	}, { async: true });
+
+	task(level + "Release", [ "readyToRelease", "integrationBranch" ], function() {
+		console.log("Releasing " + level + " update: ");
+		sh.run("echo npm version " + level, complete, fail);
+	}, { async: true });
+}
 
 
-//*** DO THE RELEASE
-
-task("performRelease", [ "readyToRelease", "integrationBranch" ], function() {
-	console.log("Releasing patch update: ");
-	sh.run("echo npm version patch", complete, fail);
-}, { async: true });
+//desc("Increment patch version number and release");
+//task("patch", [ "performRelease", "updateDevBranch" ], function() {
+//	console.log("\n\nRELEASE OK");
+//}, { async: true });
+//
+//
+////*** DO THE RELEASE
+//
+//task("performRelease", [ "readyToRelease", "integrationBranch" ], function() {
+//	console.log("Releasing patch update: ");
+//	sh.run("echo npm version patch", complete, fail);
+//}, { async: true });
 
 
 //*** MANIPULATE REPO
