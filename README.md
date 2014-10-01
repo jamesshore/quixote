@@ -2,7 +2,7 @@
 
 This repository will contain the code for Quixote, a library for unit testing CSS. 
 
-This project will be livestreamed! Details forthcoming. 
+This project will developed live at starting on Oct 13, 2014 at 10am PDT (GMT-7). To watch or participate, go to http://hitbox.tv/jamesshore . 
 
 
 ## Contributing
