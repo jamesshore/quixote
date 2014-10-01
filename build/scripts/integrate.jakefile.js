@@ -32,7 +32,7 @@ task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], fun
 }, { async: true });
 
 task("fastForwardDevToIntegration", function() {
-	console.log("Updating " + branches.dev + " branch with " + branches.integration + " changes: .");
+	console.log("Updating " + branches.dev + " branch with " + branches.integration + " branch changes: .");
 	git.fastForwardBranch(branches.integration, complete, fail);
 }, { async: true });
 
