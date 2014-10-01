@@ -30,7 +30,7 @@ The `master` branch is the known-good integration branch. This branch should alw
 
 The `dev` branch is for work in progress.
 
-Use the `integrate.sh` script to automatically integrate changes in the dev branch back to the master branch.
+Use the `integrate.sh` script to automatically integrate changes in the dev branch back to the master branch. The `release.sh` script will perform a release.
 
 
 ## Credits
