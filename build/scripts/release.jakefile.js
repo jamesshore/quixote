@@ -35,20 +35,6 @@ function createReleaseTask(level) {
 }
 
 
-//desc("Increment patch version number and release");
-//task("patch", [ "performRelease", "updateDevBranch" ], function() {
-//	console.log("\n\nRELEASE OK");
-//}, { async: true });
-//
-//
-////*** DO THE RELEASE
-//
-//task("performRelease", [ "readyToRelease", "integrationBranch" ], function() {
-//	console.log("Releasing patch update: ");
-//	sh.run("echo npm version patch", complete, fail);
-//}, { async: true });
-
-
 //*** MANIPULATE REPO
 
 task("integrationBranch", function() {
@@ -69,10 +55,7 @@ task("updateDevBranch", [ "devBranch" ], function() {
 
 //*** ENSURE RELEASE READINESS
 
-//task("readyToRelease", [ "allCommitted", "integrated" ]);
-task("readyToRelease", function() {
-	console.log(" * STUBBED FOR TESTING: readyToRelease");
-});
+task("readyToRelease", [ "allCommitted", "integrated" ]);
 
 task("allCommitted", function() {
 	console.log("Checking for uncommitted files: .");
