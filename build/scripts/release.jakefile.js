@@ -5,9 +5,10 @@
 
 var git = require("../util/git_runner.js");
 var branches = require("../config/branches.js");
+var sh = require("../util/sh.js");
 
 
-//*** DO THE RELEASE
+//*** TOP-LEVEL TASKS
 
 task("default", function() {
 	console.log("Use 'major', 'minor', or 'bugfix' to perform release");
@@ -20,13 +21,28 @@ task("major", function() {
 
 desc("Increment patch version number and release");
 task("patch", [ "readyToRelease" ], function() {
+	release("patch", complete, fail);
+
 	console.log("\n\nRELEASE OK");
-});
+}, { async: true });
+
+
+//*** DO THE RELEASE
+function release(level, succeed, fail) {
+	sh.run("echo npm version " + level, onSuccess, fail);
+
+	function onSuccess() {
+
+	}
+}
 
 
 //*** ENSURE RELEASE READINESS
 
-task("readyToRelease", [ "allCommitted", "integrated" ]);
+//task("readyToRelease", [ "allCommitted", "integrated" ]);
+task("readyToRelease", function() {
+	console.log(" * STUBBED FOR TESTING: readyToRelease");
+});
 
 task("allCommitted", function() {
 	console.log("Checking for uncommitted files: .");
