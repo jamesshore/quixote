@@ -11,7 +11,7 @@ var sh = require("../util/sh.js");
 //*** RELEASE TASKS
 
 task("default", function() {
-	console.log("Use 'major', 'minor', or 'bugfix' to perform release");
+	console.log("Use 'major', 'minor', or 'patch' to perform release");
 });
 
 desc("Increment major version number and release");
