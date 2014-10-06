@@ -1,6 +1,6 @@
 {
   "name": "quixote",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "CSS unit testing",
   "main": "dist/quixote.js",
   "devDependencies": {
