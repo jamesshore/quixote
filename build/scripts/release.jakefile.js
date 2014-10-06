@@ -24,7 +24,7 @@ createReleaseTask("patch");
 
 function createReleaseTask(level) {
 	desc("Increment " + level + " version number and release");
-	task(level, [ level + "Release", "npm", "github", "updateDevBranch" ], function() {
+	task(level, [ level + "Release", "npm", "updateDevBranch", "github" ], function() {
 		console.log("\n\nRELEASE OK");
 	}, { async: true });
 
