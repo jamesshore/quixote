@@ -24,7 +24,7 @@ createReleaseTask("patch");
 
 function createReleaseTask(level) {
 	desc("Increment " + level + " version number and release");
-	task(level, [ level + "Release", "npm", "updateDevBranch", "github" ], function() {
+	task(level, [ level + "Release", "npm", "updateDevBranch", "docs", "github" ], function() {
 		console.log("\n\nRELEASE OK");
 	}, { async: true });
 
@@ -41,6 +41,17 @@ desc("Push source code to GitHub");
 task("github", function() {
 	console.log("Publishing to GitHub: ");
 	sh.run("git push --all && git push --tags", complete, fail);
+}, { async: true });
+
+desc("Publish documentation to website");
+task("docs", function() {
+	console.log("Publishing documentation site: ");
+	sh.run(
+		"rsync --recursive --keep-dirlinks --perms --times --delete --delete-excluded " +
+			"--human-readable --progress --exclude=.DS_Store --include=.* " +
+			"docs/* jdlshore_quixote-css@ssh.phx.nearlyfreespeech.net:/home/public/",
+		complete, fail
+	);
 }, { async: true });
 
 task("npm", function() {
