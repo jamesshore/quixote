@@ -2,12 +2,24 @@
 
 This repository will contain the code for Quixote, a library for unit testing CSS. 
 
-This project will developed live at starting on Oct 13, 2014 at 10am PDT (GMT-7). To watch or participate, go to http://hitbox.tv/jamesshore . 
+## Virtual Hackathon
+
+This project will developed live Oct 13-16, 2014 starting at 10am PDT (GMT-7). You can watch and participate at [hitbox.tv/jamesshore](http://hitbox.tv/jamesshore) . 
 
 
-## Contributing
+### How to Contribute
 
-To contribute to this project, please participate in the livestream.
+Thanks for your interest! There are many useful ways to contribute. Here's a few:
+
+* **Participate in the Virtual Hackathon.** We're starting on Monday, October 13th at 10am PDT (GMT-7). Watch [the livestream](http://hitbox.tv/jamesshore), participate in the chat, and provide suggestions and feedback. (Note: to participate in the chat, you'll need a [hitbox account](http://www.hitbox.tv).)
+
+* **Try Quixote on your own projects.** Download the code, try it out, and let us know what works well and what needs improvement. The bleeding-edge distribution is at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) and you can install the current official release from npm using `npm install quixote`.
+
+* **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
+ 
+* **Build the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation. I plan to write API documentation as we go, but I don't expect to have time to create the site itself during the hackathon. You can find the site source code in the `docs` folder. (If you work on this, I'd appreciate visual consistency with my other big projects, [letscodejavascript.com](http://www.letscodejavascript.com) and [objectplayground.com](http://www.objectplayground.com). In particular, you can [find the Object Playground styles here](https://github.com/jamesshore/object_playground/blob/master/src/site.css).) 
+
+* **Tell your friends and colleagues.** Even if you can't participate yourself, spreading the word is a big help. Let people know what's going on and how to participate.
 
 
 ### Setup
@@ -31,8 +43,9 @@ At this time, the build has only been tested on Mac OS X. It should also work on
 ### Finding Your Way Around
 
 * `build` contains build scripts.
-* `dist` contains the compiled library.
-* `src` contains the source code and tests. (Tests all start with an underscore.)
+* `docs` contains the documentation website (online at [quixote-css.com](http://quixote-css.com)).
+* `dist` contains the compiled library (downloadable at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) or using `npm install quixote`).
+* `src` contains the source code and tests. Test code starts with an underscore.
 * `node_modules` contains third-party libraries needed for build automation.
 * `vendor` contains third-party libraries needed for Quixote itself.
 
