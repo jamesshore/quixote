@@ -11,7 +11,7 @@ This project will developed live Oct 13-16, 2014 starting at 10am PDT (GMT-7). Y
 
 Thanks for your interest! There are many useful ways to contribute. Here's a few:
 
-* **Participate in the Virtual Hackathon.** We're starting on Monday, October 13th at 10am PDT (GMT-7). Watch [the livestream](http://hitbox.tv/jamesshore), participate in the chat, and provide suggestions and feedback. (Note: to participate in the chat, you'll need a [hitbox account](http://www.hitbox.tv).)
+* **Participate in the Virtual Hackathon.** We're starting on Monday, October 13th at 10am PDT (GMT-7). Watch [the livestream](http://hitbox.tv/jamesshore), participate in the chat, and provide suggestions and feedback. (Note: to participate in the chat, you'll need a [hitbox account](http://www.hitbox.tv).) Pull requests are welcome; please coordinate with us first by discussing them in the livestream chat or [creating an issue](https://github.com/jamesshore/quixote/issues). 
 
 * **Try Quixote on your own projects.** Download the code, try it out, and let us know what works well and what needs improvement. The bleeding-edge distribution is at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) and you can install the current official release from npm using `npm install quixote`.
 
@@ -24,7 +24,7 @@ Thanks for your interest! There are many useful ways to contribute. Here's a few
 
 ### Setup
 
-To work with this code on your own computer:
+To work with the code on your own computer:
 
 1. Install [Node.js](http://nodejs.org/download/).
 2. Clone the GitHub repository: `git clone https://github.com/jamesshore/quixote.git`
