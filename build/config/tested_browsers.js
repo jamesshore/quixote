@@ -5,6 +5,7 @@
 // browser + operating system combinations.
 
 module.exports = [
+	"IE 8.0.0 (Windows 7)",
 	"IE 9.0.0 (Windows 7)",
 	"IE 10.0.0 (Windows 7)",
 	"IE 11.0.0 (Windows 7)",
