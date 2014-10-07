@@ -6,6 +6,7 @@
 // ****
 
 // We use Proclaim rather than Chai because Chai doesn't support IE 8
+// But Proclaim is not stellar, so we build our own in places.
 var proclaim = require("../../vendor/proclaim-2.0.0.js");
 
 exports.fail = function(message) {
@@ -22,9 +23,28 @@ exports.deepEqual = function(actual, expected, message) {
 };
 
 exports.noException = function(fn, message) {
-	proclaim.doesNotThrow(fn, message);
+	try {
+		fn();
+	}
+	catch (e) {
+		message = message ? message + ": " : "";
+		exports.fail(message + "expected no exception, but got '" + e + "'");
+	}
 };
 
-exports.exception = function(fn, expected, message) {
-	proclaim.throws(fn, expected, message);
+exports.exception = function(fn, expectedRegexp, message) {
+	message = message ? message + ": " : "";
+	try {
+		fn();
+		exports.fail(message + "expected exception");
+	}
+	catch (e) {
+		if (expectedRegexp) {
+			proclaim.match(
+				e.message,
+				expectedRegexp,
+					message + "expected exception message to match " + expectedRegexp + ", but was '" + e + "'"
+			);
+		}
+	}
 };
