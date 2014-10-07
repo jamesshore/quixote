@@ -5,17 +5,18 @@
 // Assertions that work the way *I* want them to. <oldmanvoice>Get off my lawn!</oldmanvoice>
 // ****
 
-var chai = require("../vendor/chai-1.9.1.js").assert;
+// We use Proclaim for now because Chai doesn't work on
+var proclaim = require("../vendor/proclaim");
 
 exports.fail = function(message) {
-	chai.fail(null, null, message);
+	proclaim.fail(null, null, message);
 };
 
 exports.equal = function(actual, expected, message) {
-	chai.strictEqual(actual, expected, message);
+	proclaim.strictEqual(actual, expected, message);
 };
 
 exports.deepEqual = function(actual, expected, message) {
 	if (message) message += " expected deep equality";
-	chai.deepEqual(actual, expected, message);
+	proclaim.deepEqual(actual, expected, message);
 };
