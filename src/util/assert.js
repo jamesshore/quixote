@@ -2,11 +2,11 @@
 "use strict";
 
 // ****
-// Assertions that work the way *I* want them to. <oldmanvoice>Get off my lawn!</oldmanvoice>
+// An assertion library that works the way *I* want it to. <oldmanvoice>Get off my lawn!</oldmanvoice>
 // ****
 
-// We use Proclaim for now because Chai doesn't work on
-var proclaim = require("../vendor/proclaim");
+// We use Proclaim rather than Chai because Chai doesn't support IE 8
+var proclaim = require("../../vendor/proclaim-2.0.0.js");
 
 exports.fail = function(message) {
 	proclaim.fail(null, null, message);
@@ -19,4 +19,12 @@ exports.equal = function(actual, expected, message) {
 exports.deepEqual = function(actual, expected, message) {
 	if (message) message += " expected deep equality";
 	proclaim.deepEqual(actual, expected, message);
+};
+
+exports.noException = function(fn, message) {
+	proclaim.doesNotThrow(fn, message);
+};
+
+exports.exception = function(fn, expected, message) {
+	proclaim.throws(fn, expected, message);
 };
