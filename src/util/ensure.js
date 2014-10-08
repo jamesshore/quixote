@@ -32,7 +32,7 @@ exports.signature = function(args, signature) {
 		arg = args[i];
 		name = "Argument " + i;
 
-		if (!Array.isArray(type)) type = [ type ];
+		if (!isArray(type)) type = [ type ];
 
 		if (!typeMatches(type, arg, name)) {
 			throw new EnsureException(
@@ -85,7 +85,7 @@ function explainType(type) {
 			case null: return "null";
 			default:
 				if (typeof type === "number" && isNaN(type)) return "NaN";
-				else return (type.name || "<anon>") + " instance";
+				else return functionName(type) + " instance";
 		}
 	}
 }
@@ -96,13 +96,13 @@ function explainArg(arg) {
 
 	var prototype = Object.getPrototypeOf(arg);
 	if (prototype === null) return "an object without a prototype";
-	else return (prototype.constructor.name || "<anon>") + " instance";
+	else return functionName(prototype.constructor) + " instance";
 }
 
 function getType(variable) {
 	var type = typeof variable;
 	if (variable === null) type = "null";
-	if (Array.isArray(variable)) type = "array";
+	if (isArray(variable)) type = "array";
 	if (type === "number" && isNaN(variable)) type = "NaN";
 	return type;
 }
@@ -118,11 +118,30 @@ EnsureException.prototype = createObject(Error.prototype);
 EnsureException.prototype.constructor = EnsureException;
 EnsureException.prototype.name = "EnsureException";
 
-// WORKAROUND IE8: shim Object.create()
+
+/*****/
+
+// WORKAROUND IE8: no Object.create()
 function createObject(prototype) {
 	if (Object.create) return Object.create(prototype);
 
 	var Temp = function Temp() {};
 	Temp.prototype = prototype;
 	return new Temp();
+}
+
+// WORKAROUND IE8 IE9 IE10 IE11: no function.name
+function functionName(fn) {
+	if (fn.name) return fn.name;
+
+	// This workaround is based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
+	var funcNameRegex = /function\s+(.{1,})\s*\(/;
+	var results = (funcNameRegex).exec((fn).toString());
+	return (results && results.length > 1) ? results[1] : "<anon>";
+}
+
+// WORKAROUND IE8: no Array.isArray
+function isArray(thing) {
+	if (Array.isArray) return Array.isArray(thing);
+	else return Object.prototype.toString.call(thing) === '[object Array]';
 }

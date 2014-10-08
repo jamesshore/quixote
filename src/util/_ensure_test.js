@@ -43,12 +43,12 @@ describe("Ensure", function() {
 
 		var signature = wrap(ensure.signature);
 
-		it.only("checks no arguments", function() {
+		it("checks no arguments", function() {
 			assert.noException(signature([]), "valid");
 			assert.exception(signature([ "foo" ]), /Function called with too many arguments: expected 0 but got 1/, "invalid");
 		});
 
-		it("checks one argument", function() {
+		it.only("checks one argument", function() {
 			assert.noException(signature([ "foo" ], [ String ]), "valid");
 			assert.exception(
 				signature([ "foo", "bar" ], [ String ]),
