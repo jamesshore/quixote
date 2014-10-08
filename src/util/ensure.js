@@ -94,7 +94,7 @@ function explainArg(arg) {
 	var type = getType(arg);
 	if (type !== "object") return type;
 
-	var prototype = Object.getPrototypeOf(arg);
+	var prototype = getPrototype(arg);
 	if (prototype === null) return "an object without a prototype";
 	else return functionName(prototype.constructor) + " instance";
 }
@@ -143,5 +143,14 @@ function functionName(fn) {
 // WORKAROUND IE8: no Array.isArray
 function isArray(thing) {
 	if (Array.isArray) return Array.isArray(thing);
-	else return Object.prototype.toString.call(thing) === '[object Array]';
+
+	return Object.prototype.toString.call(thing) === '[object Array]';
+}
+
+// WORKAROUND IE8: no Object.getPrototypeOf
+function getPrototype(obj) {
+	if (Object.getPrototypeOf) return Object.getPrototypeOf(obj);
+
+	var result = obj.constructor ? obj.constructor.prototype : null;
+	return result || null;
 }

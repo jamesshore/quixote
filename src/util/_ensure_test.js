@@ -48,7 +48,7 @@ describe("Ensure", function() {
 			assert.exception(signature([ "foo" ]), /Function called with too many arguments: expected 0 but got 1/, "invalid");
 		});
 
-		it.only("checks one argument", function() {
+		it("checks one argument", function() {
 			assert.noException(signature([ "foo" ], [ String ]), "valid");
 			assert.exception(
 				signature([ "foo", "bar" ], [ String ]),
