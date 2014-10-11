@@ -4,8 +4,6 @@
 //
 // Thanks to Davide Alberto Molin for contributing this code.
 // See http://www.letscodejavascript.com/v3/comments/live/7 for details.
-//
-// NOTE: The "COMMAND" variable must be changed for this to work on Windows.
 
 (function() {
 	"use strict";
@@ -13,10 +11,13 @@
 	var gaze = require("gaze");
 	var spawn = require("child_process").spawn;
 
-	var WATCH = "src/**/*.js";
+	var WATCH = [
+		"build/**/*.js",
+		"src/**/*.js",
+		"vendor/**/*.js"
+	];
 
-	var COMMAND = "./jake.sh";   // Mac/Unix
-//	var COMMAND = "jake.bat";                 // Windows
+	var COMMAND = require("./build/config/build_command.js");
 
 	var args = process.argv.slice(2);
 	var child = null;
@@ -24,7 +25,12 @@
 	var buildStartedAt;
 
 	gaze(WATCH, function(err, watcher) {
-		console.log("Will run " + COMMAND + " when " + WATCH + " changes.");
+		if (err) {
+			console.log("WATCH ERROR:", err);
+			return;
+		}
+
+		console.log("Will run " + COMMAND + " when " + WATCH.join(" or ") + " changes.");
 		watcher.on("all", triggerBuild);
 		triggerBuild();    // Always run after startup
 	});
