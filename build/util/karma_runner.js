@@ -5,14 +5,12 @@
 	var path = require("path");
 	var sh = require("./sh.js");
 	var runner = require("karma/lib/runner");
+	var server = require("karma/lib/server");
 
 	var KARMA = "node node_modules/karma/bin/karma";
-	var KARMA_START = " start build/config/karma.conf.js";
-	var CONFIG = { configFile: path.resolve("build/config/karma.conf.js") };
 
 	exports.serve = function(configFile, success, fail) {
 		var command = KARMA + " start " + configFile;
-		if (process.env.launchkarmabrowsers) { command += " --browsers=" + process.env.launchkarmabrowsers; }
 		sh.run(command, success, function () {
 			fail("Could not start Karma server");
 		});
@@ -20,11 +18,16 @@
 
 	exports.runTests = function(options, success, fail) {
 		var config = {
-			configFile: path.resolve(options.configFile)
+			configFile: path.resolve(options.configFile),
+			browsers: options.capture,
+			singleRun: options.capture.length > 0
 		};
 
+		var runKarma = runner.run.bind(runner);
+		if (config.singleRun) runKarma = server.start.bind(server);
+
 		var stdout = new CapturedStdout();
-		runner.run(config, function(exitCode) {
+		runKarma(config, function(exitCode) {
 			stdout.restore();
 
 			if (exitCode) fail("Client tests failed (did you start the Karma server?)");

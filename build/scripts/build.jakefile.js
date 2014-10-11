@@ -59,11 +59,13 @@
 	desc("Run tests");
 	task("test", function() {
 		console.log("Testing source code:");
+
+		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
 		karma.runTests({
 			configFile: KARMA_CONFIG,
 			browsers: TESTED_BROWSERS,
 			strict: !process.env.loose,
-			capture: process.env.capture
+			capture: browsersToCapture
 		}, complete, fail);
 	}, { async: true });
 
