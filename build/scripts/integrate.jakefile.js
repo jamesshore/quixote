@@ -9,12 +9,27 @@ var branches = require("../config/branches.js");
 var BUILD_COMMAND = require("../config/build_command.js");
 
 
-//*** DO THE INTEGRATION
+//*** COMMANDS
 
-desc("Integrate latest development code into known-good branch");
+desc("Integrate latest code into known-good branch");
 task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
+
+desc("Check for un-integrated code");
+task("check", [ "allCommitted", "upToDate" ], function() {
+	git.checkFastForwardable(branches.dev, branches.integration, report(true), report(false));
+
+	function report(isIntegrated) {
+		return function() {
+			var is = isIntegrated ? "has been" : "has NOT been";
+			console.log("\n" + branches.dev + " branch " + is + " integrated with " + branches.integration + " branch");
+		};
+	}
+}, { async: true });
+
+
+//*** DO THE INTEGRATION
 
 task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], function() {
 	console.log("Merging " + branches.dev + " branch into " + branches.integration + ": ");

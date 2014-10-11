@@ -1,6 +1,10 @@
 // Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
 "use strict";
 
+// ****
+// Runtime assertions for production code. (Contrast to assert.js, which is for test code.)
+// ****
+
 exports.that = function(variable, message) {
 	if (message === undefined) message = "Expected condition to be true";
 
@@ -112,6 +116,7 @@ function getType(variable) {
 
 var EnsureException = exports.EnsureException = function(fnToRemoveFromStackTrace, message) {
 	if (Error.captureStackTrace) Error.captureStackTrace(this, fnToRemoveFromStackTrace);
+	else this.stack = (new Error()).stack;
 	this.message = message;
 };
 EnsureException.prototype = createObject(Error.prototype);
