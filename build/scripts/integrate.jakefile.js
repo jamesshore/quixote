@@ -11,7 +11,7 @@ var BUILD_COMMAND = require("../config/build_command.js");
 
 //*** COMMANDS
 
-desc("Integrate latest development code into known-good branch");
+desc("Integrate latest code into known-good branch");
 task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
