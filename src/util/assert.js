@@ -5,7 +5,7 @@
 // An assertion library that works the way *I* want it to. <oldmanvoice>Get off my lawn!</oldmanvoice>
 // ****
 
-// We use Proclaim rather than Chai because Chai doesn't support IE 8
+// We use Proclaim rather than Chai because Chai doesn't support IE 8.
 // But Proclaim is not stellar, so we build our own in places.
 var proclaim = require("../../vendor/proclaim-2.0.0.js");
 
