@@ -9,6 +9,7 @@
 	var karma = require("../util/karma_runner.js");
 	var browserify = require("../util/browserify_runner.js");
 
+	var KARMA_CONFIG = "./build/config/karma.conf.js";
 	var TESTED_BROWSERS = require("../config/tested_browsers.js");
 	var ENTRY_POINT = "./src/placeholder.js";
 	var DIST_DIR = "dist";
@@ -52,13 +53,20 @@
 	desc("Start Karma server -- run this first");
 	task("karma", function() {
 		console.log("Starting Karma server:");
-		karma.serve(complete, fail);
+		karma.serve(KARMA_CONFIG, complete, fail);
 	}, { async: true });
 
 	desc("Run tests");
 	task("test", function() {
 		console.log("Testing source code:");
-		karma.runTests(TESTED_BROWSERS, complete, fail);
+
+		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
+		karma.runTests({
+			configFile: KARMA_CONFIG,
+			browsers: TESTED_BROWSERS,
+			strict: !process.env.loose,
+			capture: browsersToCapture
+		}, complete, fail);
 	}, { async: true });
 
 
