@@ -7,11 +7,14 @@
 	var runner = require("karma/lib/runner");
 
 	var KARMA = "node node_modules/karma/bin/karma";
-	var KARMA_START = KARMA + " start build/config/karma.conf.js";
+	var KARMA_START = " start build/config/karma.conf.js";
 	var CONFIG = { configFile: path.resolve("build/config/karma.conf.js") };
 
-	exports.serve = function(success, fail) {
-		sh.run(KARMA_START, success, function() {
+	exports.serve = function (success, fail) {
+		var command = KARMA;
+		command += KARMA_START;
+		if (process.env.launchkarmabrowsers) { command += " --browsers=" + process.env.launchkarmabrowsers;}
+		sh.run(command, success, function () {
 			fail("Could not start Karma server");
 		});
 	};
