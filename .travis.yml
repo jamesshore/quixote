@@ -5,10 +5,8 @@ before_script:
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
     - npm install karma-firefox-launcher
-    - . ./jake.sh karma launchkarmabrowsers=Firefox &
-    - sleep 10 # give karma & firefox time to start. 3s is sufficient; 10s gives us generous margin of error
 
-script: ". ./jake.sh loose=true"
+script: ". ./jake.sh loose=true capture=Firefox"
 
 #notifications:
 #  email:
