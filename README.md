@@ -42,11 +42,13 @@ At this time, the build has only been tested on Mac OS X. It should also work on
 
 #### Build parameters
 
+You can pass the following options to `./jake.sh`:
+
 * `-T` displays available build targets.
 
-* `loose=true` prevents the build from failing if you don't test every browser in [our list of tested browsers](build/config/tested_browsers.js).
+* `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js).
 
-* `capture=Firefox,Safari` automatically launches the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. Note that you'll need to install the appropriate launcher first; e.g., `npm install karma-firefox-launcher`.
+* `capture=Firefox,Safari` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you'll need to install the appropriate launcher first; e.g., `npm install karma-firefox-launcher`.
 
 
 #### Other build scripts
