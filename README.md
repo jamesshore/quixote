@@ -26,18 +26,18 @@ Thanks for your interest! There are many useful ways to contribute. Here's a few
 
 #### Pull Requests
 
-Pull requests are welcome! Please [create an issue](https://github.com/jamesshore/quixote/issues) describing the problem or feature your pull request addresses, then link the pull request to the issue. That will allow us to discuss the issue and consider alternate solutions more easily.
+Pull requests are welcome! Please [create an issue](https://github.com/jamesshore/quixote/issues) describing the problem or feature that your pull request addresses, then link the pull request to the issue. That will allow us to discuss the issue and consider alternate solutions more easily.
 
 To create a pull request:
 
-1. [Create an issue](https://github.com/jamesshore/quixote/issues) on GitHub describing the problem or feature you're addressing. Add a comment saying that you're working on a pull request to address it. It's probably a good idea to search the existing issues first to see if anybody else is talking about the same thing.  
+1. [Create an issue](https://github.com/jamesshore/quixote/issues) on GitHub describing the problem or feature you're addressing. Add a comment saying that you're working on a pull request to address it. (It's probably a good idea to search the existing issues first to see if anybody else is talking about the same thing.)  
 2. [Fork the Quixote repository](https://help.github.com/articles/fork-a-repo/) on GitHub.
-3. Clone the fork to your computer by following the "Setup" instructions below, but use your user name instead of `jamesshore` in step 2.
+3. Clone the fork to your computer by following the "Setup" instructions below. (Use your GitHub user name instead of `jamesshore` in step 2.)
 4. Run the tests by following the "Running the Tests" instructions below. 
-5. Create and check out a branch to make your changes in: `git checkout -b <branch_name>`.
+5. Check out a branch to make your changes in: `git checkout -b <branch_name>`.
 6. Make your changes, committing as desired. When you're done, make sure the tests pass.
 7. Push your changes to GitHub: `git push`.
-8. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/) on GitHub.
+8. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/) on GitHub. Add a comment referencing the issue it addresses.
 
 Thank you for your contribution!
 
