@@ -1,5 +1,7 @@
 # Quixote - CSS Unit Testing
 
+[![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
+
 This repository will contain the code for Quixote, a library for unit testing CSS. 
 
 ## Virtual Hackathon
