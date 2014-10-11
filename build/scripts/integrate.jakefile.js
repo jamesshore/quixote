@@ -17,16 +17,15 @@ task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], fu
 });
 
 desc("Check for un-integrated code");
-task("check", [ "upToDate" ], function() {
+task("check", [ "allCommitted", "upToDate" ], function() {
 	git.checkFastForwardable(branches.dev, branches.integration, report(true), report(false));
 
 	function report(isIntegrated) {
 		return function() {
 			var is = isIntegrated ? "has been" : "has NOT been";
 			console.log("\n" + branches.dev + " branch " + is + " integrated with " + branches.integration + " branch");
-		}
+		};
 	}
-
 }, { async: true });
 
 
