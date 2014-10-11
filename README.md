@@ -38,9 +38,24 @@ To work with the code on your own computer:
 2. Start the browsers you want to test and point each one at `http://localhost:9876`.
 3. Run `./jake.sh loose=true` to build and test, or `./watch.js loose=true` to automatically rebuild when you make a change.
 
-The `loose=true` parameter prevents the build from failing if you don't test every browser in [our list of tested browsers](build/config/tested_browsers.js). 
-
 At this time, the build has only been tested on Mac OS X. It should also work on Unix without any trouble. It's theoretically capable of working on Windows, but needs some script work before that's easy and convenient.
+
+#### Build parameters
+
+* `-T` displays available build targets.
+
+* `loose=true` prevents the build from failing if you don't test every browser in [our list of tested browsers](build/config/tested_browsers.js).
+
+* `capture=Firefox,Safari` automatically launches the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. Note that you'll need to install the appropriate launcher first; e.g., `npm install karma-firefox-launcher`.
+
+
+#### Other build scripts
+
+* `./integrate.sh` validates the dev branch and merges it into the known-good master branch.
+* `./release.sh` publishes to npm, github, and our [documentation site](http://www.quixote-css.com).
+
+Only the project maintainer (James Shore) is likely to need these scripts. 
+
 
 ### Finding Your Way Around
 
@@ -61,7 +76,10 @@ Previous commits on the integration branch have "INTEGRATE" in their commit comm
 
 ## Credits
 
-Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com) screencast. Let's Code JavaScript is a screencast series on professional, rigorous web development. 
+Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com) screencast. Let's Code JavaScript is a screencast series on professional, rigorous web development.
+
+Thanks to our contributors!
+* Jay Bazuzi (@JayBazuzi): Travis CI integration
 
 
 ## License
