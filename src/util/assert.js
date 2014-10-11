@@ -43,7 +43,7 @@ exports.exception = function(fn, expectedRegexp, message) {
 			proclaim.match(
 				e.message,
 				expectedRegexp,
-					message + "expected exception message to match " + expectedRegexp + ", but was '" + e + "'"
+				message + "expected exception message to match " + expectedRegexp + ", but was '" + e + "'"
 			);
 		}
 	}
