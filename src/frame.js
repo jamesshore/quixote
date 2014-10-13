@@ -23,3 +23,7 @@ Me.create = function create(parentElement, width, height) {
 Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
+
+Me.prototype.remove = function() {
+	this._domElement.parentNode.removeChild(this._domElement);
+};
