@@ -9,3 +9,23 @@
 * Initial "cooked" styling (colors?)
 * ...more TBD
 
+
+## Current Feature: Basic DOM Manipulation
+
+Work remaining:
+
+* `quixote.createFrame()`
+  * load frame from URL
+  * create empty frame
+* `frame.addElement()`
+* `frame.getElement()`
+  * ...by ID
+  * ...by selector
+* `element.getRawStyle()`
+* `element.getRawPosition()`
+* `frame.scrollTo()`
+* ...more TBD
+
+
+## To Do
+
