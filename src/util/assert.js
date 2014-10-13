@@ -22,7 +22,8 @@ exports.type = function(obj, expectedType, message) {
 };
 
 exports.equal = function(actual, expected, message) {
-	proclaim.strictEqual(actual, expected, message);
+	message = message ? message + ": " : "";
+	proclaim.strictEqual(actual, expected, message + "expected '" + expected + "', but got '" + actual + "'");
 };
 
 exports.deepEqual = function(actual, expected, message) {
