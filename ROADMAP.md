@@ -25,12 +25,10 @@ Work remaining:
 
 ## To Do
 
-* QElement signature checking
-* Factor out functionName() (duplicated in ensure.js and assert.js)
-* Factor out duplication of message variable manipulation in assert.js
-* Integrate
 
 
 ## Future / Off-camera
 
 * Get IE 8 ensure exceptions to show stack trace
+* Factor out functionName() (duplicated in ensure.js and assert.js)
+* Factor out duplication of message variable manipulation in assert.js
