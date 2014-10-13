@@ -19,7 +19,8 @@ exports.defined = function(value, message) {
 };
 
 exports.type = function(obj, expectedType, message) {
-	proclaim.isInstanceOf(obj, expectedType, message);
+	message = message ? message + ": " : "";
+	proclaim.isInstanceOf(obj, expectedType, message + "expected object to be instance of " + functionName(expectedType));
 };
 
 exports.equal = function(actual, expected, message) {
@@ -64,3 +65,14 @@ exports.exception = function(fn, expectedRegexp, message) {
 	}
 	if (noException) exports.fail(message + "expected exception");
 };
+
+
+// WORKAROUND IE8 IE9 IE10 IE11: no function.name
+function functionName(fn) {
+	if (fn.name) return fn.name;
+
+	// This workaround is based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
+	var funcNameRegex = /function\s+(.{1,})\s*\(/;
+	var results = (funcNameRegex).exec((fn).toString());
+	return (results && results.length > 1) ? results[1] : "<anon>";
+}
