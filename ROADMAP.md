@@ -14,7 +14,6 @@
 
 Work remaining:
 
-* `frame.reset()`
 * `element.getRawStyle()`
 * `element.getRawPosition()`
 * `frame.scrollTo()`

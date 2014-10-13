@@ -9,6 +9,13 @@ var Me = module.exports = function QElement(domElement) {
 	this._domElement = domElement;
 };
 
+Me.prototype.getRawStyle = function(styleName) {
+	ensure.signature(arguments, [ String ]);
+
+	var styles = window.getComputedStyle(this._domElement);
+	return styles.getPropertyValue(styleName);
+};
+
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
 
