@@ -47,6 +47,11 @@ exports.deepEqual = function(actual, expected, message) {
 	proclaim.deepEqual(actual, expected, message);
 };
 
+exports.match = function(actual, expectedRegex, message) {
+	message = message ? message + ": " : "";
+	proclaim.match(actual, expectedRegex, message + "expected string to match " + expectedRegex + ", but got '" + actual + "'");
+};
+
 exports.noException = function(fn, message) {
 	try {
 		fn();
