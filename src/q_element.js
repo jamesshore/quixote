@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
 
 var Me = module.exports = function QElement(domElement) {
 	ensure.signature(arguments, [ Object ]);
@@ -12,8 +13,20 @@ var Me = module.exports = function QElement(domElement) {
 Me.prototype.getRawStyle = function(styleName) {
 	ensure.signature(arguments, [ String ]);
 
-	var styles = window.getComputedStyle(this._domElement);
-	return styles.getPropertyValue(styleName);
+	var styles;
+	var result;
+
+	// WORKAROUND IE8: no getComputedStyle()
+	if (window.getComputedStyle) {
+		styles = window.getComputedStyle(this._domElement);
+		result = styles.getPropertyValue(styleName);
+	}
+	else {
+		styles = this._domElement.currentStyle;
+		result = styles[camelcase(styleName)];
+	}
+	if (result === null || result === undefined) result = "";
+	return result;
 };
 
 Me.prototype.toDomElement = function() {

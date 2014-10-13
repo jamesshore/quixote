@@ -14,7 +14,6 @@
 
 Work remaining:
 
-* `element.getRawStyle()`
 * `element.getRawPosition()`
 * `frame.scrollTo()`
 * `quixote.createFrame()`

@@ -57,4 +57,9 @@ describe("QElement", function() {
 		assert.equal(element.getRawStyle("font-size"), "42px", "raw style");
 	});
 
+	it("returns empty string when raw style doesn't exist", function() {
+		var element = frame.addElement("<div></div>");
+		assert.equal(element.getRawStyle("non-existant"), "", "non-existant style");
+	});
+
 });
