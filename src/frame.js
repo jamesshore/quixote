@@ -45,11 +45,11 @@ Me.prototype.addElement = function(html) {
 	return new QElement(insertedElement);
 };
 
-Me.prototype.getElement = function(id) {
-	var element = this._domElement.contentDocument.getElementById(id.slice(1));
+Me.prototype.getElement = function(selector) {
+//	var element = this._domElement.contentDocument.getElementById(id.slice(1));
 
-//	var element = this._domElement.contentDocument.querySelector(id);
-	ensure.that(element !== null, "selector '" + id + "' not found");
+	var element = this._domElement.contentDocument.querySelector(selector);
+	ensure.that(element !== null, "No elements matching '" + selector + "' found");
 	return new QElement(element);
 };
 

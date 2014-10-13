@@ -72,7 +72,20 @@ describe("Frame", function() {
 			var expected = frame.addElement("<div id='foo'>Bar</div>");
 			var actual = frame.getElement("#foo");
 
-			assert.objEqual(actual, expected, "foo element");
+			assert.objEqual(actual, expected, "#foo ID");
+		});
+
+		it("retrieves element by selector", function() {
+			var expected = frame.addElement("<div class='foo'>bar</div>");
+			var actual = frame.getElement(".foo");
+
+			assert.objEqual(actual, expected, ".foo class");
+		});
+
+		it("fails fast when retrieving non-existant element", function() {
+			assert.exception(function() {
+				frame.getElement(".blah");
+			}, /No elements matching '\.blah' found/);
 		});
 
 	});
