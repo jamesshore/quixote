@@ -26,18 +26,26 @@ Me.create = function create(parentElement, width, height, callback) {
 };
 
 Me.prototype.reset = function() {
+	ensure.signature(arguments, []);
+
 	this._document.body.innerHTML = "";
 };
 
 Me.prototype.toDomElement = function() {
+	ensure.signature(arguments, []);
+
 	return this._domElement;
 };
 
 Me.prototype.remove = function() {
+	ensure.signature(arguments, []);
+
 	this._domElement.parentNode.removeChild(this._domElement);
 };
 
 Me.prototype.addElement = function(html) {
+	ensure.signature(arguments, [ String ]);
+
 	var tempElement = document.createElement("div");
 	tempElement.innerHTML = html;
 	ensure.that(
@@ -51,6 +59,8 @@ Me.prototype.addElement = function(html) {
 };
 
 Me.prototype.getElement = function(selector) {
+	ensure.signature(arguments, [ String ]);
+
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
 	return new QElement(nodes[0]);

@@ -14,7 +14,7 @@ describe("QElement", function() {
 	});
 
 	it("compares to another QElement", function() {
-		var head = new QElement(document.head);
+		var head = new QElement(document.querySelector("head"));    // WORKAROUND IE8: no document.head
 		var body1 = new QElement(document.body);
 		var body2 = new QElement(document.body);
 
