@@ -23,6 +23,10 @@ exports.type = function(obj, expectedType, message) {
 
 exports.equal = function(actual, expected, message) {
 	message = message ? message + ": " : "";
+	var expectedType = typeof expected;
+	var actualType = typeof actual;
+
+	proclaim.strictEqual(actualType, expectedType, message + "expected " + expectedType + ", but got " + actualType);
 	proclaim.strictEqual(actual, expected, message + "expected '" + expected + "', but got '" + actual + "'");
 };
 
