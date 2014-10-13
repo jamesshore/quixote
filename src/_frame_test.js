@@ -6,13 +6,15 @@ var Frame = require("./frame.js");
 
 describe("Frame", function() {
 
-	it("creates iframe DOM element", function() {
-		var frame = Frame.create(window.document.body);
+	it("creates iframe DOM element with specified width and height", function() {
+		var frame = Frame.create(window.document.body, 600, 400);
 		assert.type(frame, Frame, "frame");
 
-		var dom = frame.toDomElement();
-		assert.equal(dom.tagName, "IFRAME", "frame element should be an iframe");
-		assert.equal(dom.parentNode, window.document.body, "iframe should go inside element we provide");
+		var iframe = frame.toDomElement();
+		assert.equal(iframe.tagName, "IFRAME", "should create an iframe tag");
+		assert.equal(iframe.parentNode, window.document.body, "iframe should go inside element we provide");
+		assert.equal(iframe.width, "600", "width should match provided value");
+		assert.equal(iframe.height, "400", "height should match provided value");
 	});
 
 });

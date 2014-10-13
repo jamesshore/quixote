@@ -6,8 +6,12 @@ var Me = module.exports = function Frame(domElement) {
 	// TODO: fail fast
 };
 
-Me.create = function create(parentElement) {
+Me.create = function create(parentElement, width, height) {
+	// TODO: ensure signature
+
 	var iframe = document.createElement("iframe");
+	iframe.setAttribute("width", width);
+	iframe.setAttribute("height", height);
 	parentElement.appendChild(iframe);
 	return new Me(iframe);
 };
