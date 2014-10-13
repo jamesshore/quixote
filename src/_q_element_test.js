@@ -64,20 +64,34 @@ describe("QElement", function() {
 
 	it("retrieves raw element position", function() {
 		var element = frame.addElement(
-			"<div style='position: fixed; left: 30px; right: 90px; top: 20px; bottom: 70px;'></div>"
+			"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
 		);
 
-		dump(typeof element.getRawPosition().left);
+		var position = element.getRawPosition();
 
-		assert.deepEqual(element.getRawPosition(), {
-			left: 30,
-			width: 60,
-			right: 90,
+		// WORKAROUND IE8: getRawPosition() reports different values
+		if (position.left === 32) {
+			assert.deepEqual(position, {
+				left: 32,
+				right: 92,
+				width: 60,
 
-			top: 20,
-			height: 50,
-			bottom: 70
-		});
+				top: 22,
+				bottom: 72,
+				height: 50
+			});
+		}
+		else {
+			assert.deepEqual(element.getRawPosition(), {
+				left: 30,
+				right: 90,
+				width: 60,
+
+				top: 20,
+				bottom: 70,
+				height: 50
+			});
+		}
 
 	});
 

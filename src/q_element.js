@@ -32,16 +32,16 @@ Me.prototype.getRawStyle = function(styleName) {
 Me.prototype.getRawPosition = function() {
 	ensure.signature(arguments, []);
 
-	// WORKAROUND IE8: no TextRectangle.height or .width
+	// WORKAROUND IE8: No TextRectangle.height or .width
 	var rect = this._domElement.getBoundingClientRect();
 	return {
 		left: rect.left,
-		width: rect.width !== undefined ? rect.height : rect.right - rect.left,
 		right: rect.right,
+		width: rect.width !== undefined ? rect.width : rect.right - rect.left,
 
 		top: rect.top,
-		height: rect.height !== undefined ? rect.height : rect.bottom - rect.top,
-		bottom: rect.bottom
+		bottom: rect.bottom,
+		height: rect.height !== undefined ? rect.height : rect.bottom - rect.top
 	};
 };
 
