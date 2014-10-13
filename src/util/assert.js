@@ -47,9 +47,10 @@ exports.noException = function(fn, message) {
 
 exports.exception = function(fn, expectedRegexp, message) {
 	message = message ? message + ": " : "";
+	var noException = false;
 	try {
 		fn();
-		exports.fail(message + "expected exception");
+		noException = true;
 	}
 	catch (e) {
 		if (expectedRegexp) {
@@ -60,4 +61,5 @@ exports.exception = function(fn, expectedRegexp, message) {
 			);
 		}
 	}
+	if (noException) exports.fail(message + "expected exception");
 };
