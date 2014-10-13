@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var QElement = require("./q_element.js");
 
 var Me = module.exports = function Frame(domElement) {
 	ensure.signature(arguments, [ Object ]);
@@ -10,14 +11,17 @@ var Me = module.exports = function Frame(domElement) {
 	this._domElement = domElement;
 };
 
-Me.create = function create(parentElement, width, height) {
-	ensure.signature(arguments, [ Object, Number, Number ]);
+Me.create = function create(parentElement, width, height, callback) {
+	ensure.signature(arguments, [ Object, Number, Number, Function ]);
 
 	var iframe = document.createElement("iframe");
+	addLoadListener(iframe, function() {
+		// TODO: clean up
+		callback(new Me(iframe));
+	});
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
 	parentElement.appendChild(iframe);
-	return new Me(iframe);
 };
 
 Me.prototype.toDomElement = function() {
@@ -27,3 +31,28 @@ Me.prototype.toDomElement = function() {
 Me.prototype.remove = function() {
 	this._domElement.parentNode.removeChild(this._domElement);
 };
+
+Me.prototype.addElement = function(html) {
+	var tempElement = document.createElement("div");
+	tempElement.innerHTML = html;
+	ensure.that(
+		tempElement.childNodes.length === 1,
+		"Expected one element, but got " + tempElement.childNodes.length + " (" + html + ")"
+	);
+
+	var insertedElement = tempElement.childNodes[0];
+	this._domElement.contentDocument.body.appendChild(insertedElement);
+	return new QElement(insertedElement);
+};
+
+Me.prototype.getElement = function(selector) {
+	var nodes = this._domElement.contentDocument.querySelectorAll(selector);
+	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
+	return new QElement(nodes[0]);
+};
+
+// WORKAROUND IE8: no addEventListener()
+function addLoadListener(iframeDom, callback) {
+	if (iframeDom.addEventListener) iframeDom.addEventListener("load", callback);
+	else iframeDom.attachEvent("onload", callback);
+}
