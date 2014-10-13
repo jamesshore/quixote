@@ -31,3 +31,4 @@ Work remaining:
 
 ## To Do
 
+* Factor out duplication of message variable manipulation in assert.js
