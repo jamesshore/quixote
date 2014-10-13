@@ -14,11 +14,10 @@
 
 Work remaining:
 
-* `element.getRawPosition()`
 * `frame.scrollTo()`
 * `quixote.createFrame()`
   * load frame from URL
-* ...more TBD
+  * add stylesheet link
 
 
 ## To Do
