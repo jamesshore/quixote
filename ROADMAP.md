@@ -14,11 +14,10 @@
 
 Work remaining:
 
-* `element.getRawPosition()`
 * `frame.scrollTo()`
 * `quixote.createFrame()`
   * load frame from URL
-* ...more TBD
+  * add stylesheet link
 
 
 ## To Do
@@ -30,3 +29,4 @@ Work remaining:
 * Get IE 8 ensure exceptions to show stack trace
 * Factor out functionName() (duplicated in ensure.js and assert.js)
 * Factor out duplication of message variable manipulation in assert.js
+* Get assert.deepEqual to show objects

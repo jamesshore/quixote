@@ -8,6 +8,7 @@
 // We use Proclaim rather than Chai because Chai doesn't support IE 8.
 // But Proclaim is not stellar, so we build our own in places.
 var proclaim = require("../../vendor/proclaim-2.0.0.js");
+var bigObjectDiff = require("../../vendor/big-object-diff-0.7.0.js");
 
 exports.fail = function(message) {
 	proclaim.fail(null, null, message);
@@ -43,8 +44,8 @@ exports.objNotEqual = function(actual, expected, message) {
 };
 
 exports.deepEqual = function(actual, expected, message) {
-	if (message) message += " expected deep equality";
-	proclaim.deepEqual(actual, expected, message);
+	message = message ? message + ": " : "";
+	proclaim.deepEqual(actual, expected, message + "expected deep equality.");
 };
 
 exports.match = function(actual, expectedRegex, message) {

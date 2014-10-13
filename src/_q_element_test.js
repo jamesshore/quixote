@@ -62,4 +62,37 @@ describe("QElement", function() {
 		assert.equal(element.getRawStyle("non-existant"), "", "non-existant style");
 	});
 
+	it("retrieves raw element position", function() {
+		var element = frame.addElement(
+			"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
+		);
+
+		var position = element.getRawPosition();
+
+		// WORKAROUND IE8: getRawPosition() reports different values
+		if (position.left === 32) {
+			assert.deepEqual(position, {
+				left: 32,
+				right: 92,
+				width: 60,
+
+				top: 22,
+				bottom: 72,
+				height: 50
+			});
+		}
+		else {
+			assert.deepEqual(element.getRawPosition(), {
+				left: 30,
+				right: 90,
+				width: 60,
+
+				top: 20,
+				bottom: 70,
+				height: 50
+			});
+		}
+
+	});
+
 });
