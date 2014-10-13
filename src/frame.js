@@ -24,6 +24,10 @@ Me.create = function create(parentElement, width, height, callback) {
 	parentElement.appendChild(iframe);
 };
 
+Me.prototype.reset = function() {
+	this._domElement.contentDocument.body.innerHTML = "";
+};
+
 Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
