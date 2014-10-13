@@ -58,7 +58,8 @@ describe("Frame", function() {
 			var body = frameDom.contentDocument.body;
 
 			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body");
-			assert.type(element, QElement, "should return the element");
+//			assert.type(element, QElement, "should return the element");
+			assert.objEqual(element, new QElement(body.childNodes[0]));
 		});
 
 		it("fails fast if adding more than one element at a time", function() {
@@ -71,7 +72,16 @@ describe("Frame", function() {
 			var expected = frame.addElement("<div id='foo'>Bar</div>");
 			var actual = frame.getElement("#foo");
 
-			assert.objEqual(expected, actual, "foo element");
+//			assert.equal(frameDom, frame._domElement, "frame DOM");
+
+//			console.log(frame._domElement.contentDocument.getElementById("foo"));
+//			console.log(expected._domElement);
+
+//			console.log(actual._domElement);
+//			console.log(actual.toString());
+
+
+			assert.objEqual(actual, expected, "foo element");
 		});
 
 	});

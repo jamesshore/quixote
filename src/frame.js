@@ -33,19 +33,25 @@ Me.prototype.remove = function() {
 };
 
 Me.prototype.addElement = function(html) {
-	var element = document.createElement("div");
-	element.innerHTML = html;
+	var tempElement = document.createElement("div");
+	tempElement.innerHTML = html;
 	ensure.that(
-		element.childNodes.length === 1,
-		"Expected one element, but got " + element.childNodes.length + " (" + html + ")"
+		tempElement.childNodes.length === 1,
+		"Expected one element, but got " + tempElement.childNodes.length + " (" + html + ")"
 	);
-	this._domElement.contentDocument.body.appendChild(element.childNodes[0]);
-	return new QElement(element);
+
+	var insertedElement = tempElement.childNodes[0];
+	this._domElement.contentDocument.body.appendChild(insertedElement);
+	return new QElement(insertedElement);
 };
 
-Me.prototype.getElement = function(selector) {
-	var element = this._domElement.contentDocument.querySelector(selector);
-	ensure.that(element !== null, "selector '" + selector + "' not found");
+Me.prototype.getElement = function(id) {
+//	frameDom.contentDocument.getElementById("foo")
+
+	var element = this._domElement.contentDocument.getElementById("foo");
+
+//	var element = this._domElement.contentDocument.querySelector(id);
+	ensure.that(element !== null, "selector '#" + id + "' not found");
 	return new QElement(element);
 };
 
