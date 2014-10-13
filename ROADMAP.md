@@ -21,6 +21,8 @@ Work remaining:
 * `frame.getElement()`
   * ...by ID
   * ...by selector
+* `frame.reset()`
+* `frame.destroy()`
 * `element.getRawStyle()`
 * `element.getRawPosition()`
 * `frame.scrollTo()`
