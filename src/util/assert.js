@@ -45,13 +45,7 @@ exports.objNotEqual = function(actual, expected, message) {
 
 exports.deepEqual = function(actual, expected, message) {
 	message = message ? message + ": " : "";
-	if(!bigObjectDiff.match(expected, actual)) {
-		exports.fail(
-			message + "expected deep equality. " +
-			"Expected:\n" +bigObjectDiff.render(expected) +
-			"\n\nActual:\n" + bigObjectDiff.render(actual)
-		);
-	}
+	proclaim.deepEqual(actual, expected, message + "expected deep equality.");
 };
 
 exports.match = function(actual, expectedRegex, message) {
