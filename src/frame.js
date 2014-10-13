@@ -6,9 +6,10 @@ var Me = module.exports = function Frame(domElement) {
 	// TODO: fail fast
 };
 
-Me.create = function create() {
-	var element = document.createElement("iframe");
-	return new Me(element);
+Me.create = function create(parentElement) {
+	var iframe = document.createElement("iframe");
+	parentElement.appendChild(iframe);
+	return new Me(iframe);
 };
 
 Me.prototype.toDomElement = function() {
