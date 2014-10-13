@@ -85,7 +85,15 @@ describe("Frame", function() {
 		it("fails fast when retrieving non-existant element", function() {
 			assert.exception(function() {
 				frame.getElement(".blah");
-			}, /No elements matching '\.blah' found/);
+			}, /Expected one element to match '\.blah', but found 0/);
+		});
+
+		it("fails fast when too many elements found", function() {
+			frame.addElement("<div><p>One</p><p>Two</p></div>");
+
+			assert.exception(function() {
+				frame.getElement("p");
+			}, /Expected one element to match 'p', but found 2/);
 		});
 
 	});

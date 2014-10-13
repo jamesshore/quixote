@@ -46,11 +46,9 @@ Me.prototype.addElement = function(html) {
 };
 
 Me.prototype.getElement = function(selector) {
-//	var element = this._domElement.contentDocument.getElementById(id.slice(1));
-
-	var element = this._domElement.contentDocument.querySelector(selector);
-	ensure.that(element !== null, "No elements matching '" + selector + "' found");
-	return new QElement(element);
+	var nodes = this._domElement.contentDocument.querySelectorAll(selector);
+	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
+	return new QElement(nodes[0]);
 };
 
 // WORKAROUND IE8: no addEventListener()
