@@ -34,6 +34,10 @@ Me.prototype.remove = function() {
 Me.prototype.addElement = function(html) {
 	var element = document.createElement("div");
 	element.innerHTML = html;
+	ensure.that(
+		element.childNodes.length === 1,
+		"Expected one element, but got " + element.childNodes.length + " (" + html + ")"
+	);
 	this._domElement.contentDocument.body.appendChild(element.childNodes[0]);
 };
 

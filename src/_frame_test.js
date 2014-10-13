@@ -58,7 +58,12 @@ describe("Frame", function() {
 			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body");
 		});
 
-		
+		it("fails fast if adding more than one element at a time", function() {
+			assert.exception(function() {
+				frame.addElement("<p>foo</p><div>bar</div>");
+			}, /Expected one element, but got 2 \(<p>foo<\/p><div>bar<\/div>\)/);
+		});
+
 
 	});
 
