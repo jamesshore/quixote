@@ -46,12 +46,10 @@ Me.prototype.addElement = function(html) {
 };
 
 Me.prototype.getElement = function(id) {
-//	frameDom.contentDocument.getElementById("foo")
-
-	var element = this._domElement.contentDocument.getElementById("foo");
+	var element = this._domElement.contentDocument.getElementById(id.slice(1));
 
 //	var element = this._domElement.contentDocument.querySelector(id);
-	ensure.that(element !== null, "selector '#" + id + "' not found");
+	ensure.that(element !== null, "selector '" + id + "' not found");
 	return new QElement(element);
 };
 
