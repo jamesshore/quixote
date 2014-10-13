@@ -5,5 +5,5 @@ var ensure = require("./util/ensure.js");
 var Frame = require("./frame.js");
 
 exports.createFrame = function() {
-	return new Frame();
+//	return new Frame();
 };

@@ -7,7 +7,7 @@ var Frame = require("./frame.js");
 
 describe("Quixote", function() {
 
-	it("creates frame", function() {
+	it.skip("creates frame", function() {
 		var frame = quixote.createFrame();
 		assert.type(frame, Frame);
 	});

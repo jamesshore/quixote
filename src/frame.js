@@ -1,13 +1,17 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
+var ensure = require("./util/ensure.js");
+
 var Me = module.exports = function Frame(domElement) {
+	ensure.signature(arguments, [ Object ]);
+	ensure.that(domElement.tagName === "IFRAME", "DOM element must be an iframe");
+
 	this._domElement = domElement;
-	// TODO: fail fast
 };
 
 Me.create = function create(parentElement, width, height) {
-	// TODO: ensure signature
+	ensure.signature(arguments, [ Object, Number, Number ]);
 
 	var iframe = document.createElement("iframe");
 	iframe.setAttribute("width", width);
