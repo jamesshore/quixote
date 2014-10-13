@@ -146,6 +146,8 @@
 			module: false,
 
 			// Mocha
+			before: false,
+			after: false,
 			beforeEach: false,
 			afterEach: false,
 			describe: false,
