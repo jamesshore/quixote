@@ -13,8 +13,9 @@ exports.fail = function(message) {
 	proclaim.fail(null, null, message);
 };
 
-exports.defined = function(message) {
-	proclaim.isDefined(message);
+exports.defined = function(value, message) {
+	message = message ? message + ": " : "";
+	proclaim.isDefined(value, message + "expected any value, but was undefined");
 };
 
 exports.type = function(obj, expectedType, message) {
