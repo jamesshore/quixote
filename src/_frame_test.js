@@ -88,12 +88,19 @@ describe("Frame", function() {
 			}, /Expected one element to match '\.blah', but found 0/);
 		});
 
-		it("fails fast when too many elements found", function() {
+		it("fails fast when retrieving too many elements", function() {
 			frame.addElement("<div><p>One</p><p>Two</p></div>");
 
 			assert.exception(function() {
 				frame.getElement("p");
 			}, /Expected one element to match 'p', but found 2/);
+		});
+
+		it("resets frame to pristine state", function() {
+			frame.addElement("<div>Foo</div>");
+			frame.reset();
+
+			assert.equal(frameDom.contentDocument.body.innerHTML, "", "frame body");
 		});
 
 	});

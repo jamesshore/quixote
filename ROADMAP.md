@@ -25,9 +25,10 @@ Work remaining:
 
 ## To Do
 
-* Integrate
-* Frame: factor out repeated this._domElement.contentDocument
-* QElement signature checking
+
+
+## Future / Off-camera
+
+* Get IE 8 ensure exceptions to show stack trace
 * Factor out functionName() (duplicated in ensure.js and assert.js)
 * Factor out duplication of message variable manipulation in assert.js
-* Integrate
