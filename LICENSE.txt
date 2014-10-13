@@ -27,3 +27,4 @@ Third Party Code:
 
 * 'proclaim' licensed under MIT license (https://github.com/rowanmanning/proclaim)f
 * 'camelcase' © Sindre Sorhus, licensed under MIT license (https://github.com/sindresorhus/camelcase)
+* 'big-object-diff' Copyright James Shore, licensed under MIT license (https://github.com/jamesshore/big-object-diff)

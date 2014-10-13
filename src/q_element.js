@@ -29,6 +29,22 @@ Me.prototype.getRawStyle = function(styleName) {
 	return result;
 };
 
+Me.prototype.getRawPosition = function() {
+	ensure.signature(arguments, []);
+
+	// WORKAROUND IE8: no TextRectangle.height or .width
+	var rect = this._domElement.getBoundingClientRect();
+	return {
+		left: rect.left,
+		width: rect.width !== undefined ? rect.height : rect.right - rect.left,
+		right: rect.right,
+
+		top: rect.top,
+		height: rect.height !== undefined ? rect.height : rect.bottom - rect.top,
+		bottom: rect.bottom
+	};
+};
+
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
 

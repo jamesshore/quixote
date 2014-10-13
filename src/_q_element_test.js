@@ -62,4 +62,23 @@ describe("QElement", function() {
 		assert.equal(element.getRawStyle("non-existant"), "", "non-existant style");
 	});
 
+	it("retrieves raw element position", function() {
+		var element = frame.addElement(
+			"<div style='position: fixed; left: 30px; right: 90px; top: 20px; bottom: 70px;'></div>"
+		);
+
+		dump(typeof element.getRawPosition().left);
+
+		assert.deepEqual(element.getRawPosition(), {
+			left: 30,
+			width: 60,
+			right: 90,
+
+			top: 20,
+			height: 50,
+			bottom: 70
+		});
+
+	});
+
 });
