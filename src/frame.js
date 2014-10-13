@@ -12,17 +12,24 @@ var Me = module.exports = function Frame(domElement) {
 	this._document = domElement.contentDocument;
 };
 
-Me.create = function create(parentElement, width, height, callback) {
-	ensure.signature(arguments, [ Object, Number, Number, Function ]);
+Me.create = function create(parentElement, width, height, options, callback) {
+	ensure.signature(arguments, [ Object, Number, Number, [ Object, Function ], [ undefined, Function ] ]);
+
+	if (callback === undefined) {
+		callback = options;
+		options = {};
+	}
 
 	var iframe = document.createElement("iframe");
-	addLoadListener(iframe, function() {
-		// TODO: clean up
-		callback(new Me(iframe));
-	});
+	addLoadListener(iframe, onFrameLoad);
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
+	if (options.src) iframe.setAttribute("src", options.src);
 	parentElement.appendChild(iframe);
+
+	function onFrameLoad() {
+		callback(new Me(iframe));
+	}
 };
 
 Me.prototype.reset = function() {

@@ -14,9 +14,7 @@
 
 Work remaining:
 
-* `frame.scrollTo()`
 * `quixote.createFrame()`
-  * load frame from URL
   * add stylesheet link
 
 
@@ -30,3 +28,4 @@ Work remaining:
 * Factor out functionName() (duplicated in ensure.js and assert.js)
 * Factor out duplication of message variable manipulation in assert.js
 * Get assert.deepEqual to show objects
+* Document API so far

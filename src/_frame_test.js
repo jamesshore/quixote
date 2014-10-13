@@ -23,6 +23,15 @@ describe("Frame", function() {
 			});
 		});
 
+		it("creates iframe using source URL", function(done) {
+			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
+				assert.noException(function() {
+					frame.getElement("#exists");
+				});
+				done();
+			});
+		});
+
 		it("destroys itself", function(done) {
 			Frame.create(window.document.body, 800, 1000, function(frame) {
 				var numChildren = document.body.childNodes.length;
