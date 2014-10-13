@@ -14,10 +14,13 @@ Me.create = function create(parentElement, width, height, callback) {
 	ensure.signature(arguments, [ Object, Number, Number, Function ]);
 
 	var iframe = document.createElement("iframe");
+	addLoadListener(iframe, function() {
+		// TODO: clean up
+		callback(new Me(iframe));
+	});
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
 	parentElement.appendChild(iframe);
-	callback(new Me(iframe));
 };
 
 Me.prototype.toDomElement = function() {
@@ -27,3 +30,15 @@ Me.prototype.toDomElement = function() {
 Me.prototype.remove = function() {
 	this._domElement.parentNode.removeChild(this._domElement);
 };
+
+Me.prototype.addElement = function(html) {
+	var element = document.createElement("div");
+	element.innerHTML = html;
+	this._domElement.contentDocument.body.appendChild(element.childNodes[0]);
+};
+
+// WORKAROUND IE8: no addEventListener()
+function addLoadListener(iframeDom, callback) {
+	if (iframeDom.addEventListener) iframeDom.addEventListener("load", callback);
+	else iframeDom.attachEvent("onload", callback);
+}

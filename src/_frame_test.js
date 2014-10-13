@@ -38,11 +38,27 @@ describe("Frame", function() {
 	describe("instance", function() {
 
 		var frame;
+		var frameDom;
 
-		beforeEach(function() {
-//			frame = Frame.create(window.document.body, 800, 1000);
+		beforeEach(function(done) {
+			Frame.create(window.document.body, 800, 1000, function(theFrame) {
+				frame = theFrame;
+				frameDom = frame.toDomElement();
+				done();
+			});
 		});
 
+		afterEach(function() {
+			frame.remove();
+		});
+
+		it("adds an element", function() {
+			frame.addElement("<p>foo</p>");
+			var body = frameDom.contentDocument.body;
+			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body");
+		});
+
+		
 
 	});
 
