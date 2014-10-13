@@ -60,7 +60,7 @@ function typeMatches(type, arg) {
 			case "number": return type === Number;
 			case "array": return type === Array;
 			case "function": return type === Function;
-			case "object": return arg instanceof type;
+			case "object": return type === Object || arg instanceof type;
 			case "undefined": return type === undefined;
 			case "null": return type === null;
 			case "NaN": return isNaN(type);

@@ -13,8 +13,21 @@ exports.fail = function(message) {
 	proclaim.fail(null, null, message);
 };
 
+exports.defined = function(message) {
+	proclaim.isDefined(message);
+};
+
+exports.type = function(obj, expectedType, message) {
+	proclaim.isInstanceOf(obj, expectedType, message);
+};
+
 exports.equal = function(actual, expected, message) {
-	proclaim.strictEqual(actual, expected, message);
+	message = message ? message + ": " : "";
+	var expectedType = typeof expected;
+	var actualType = typeof actual;
+
+	proclaim.strictEqual(actualType, expectedType, message + "expected " + expectedType + ", but got " + actualType);
+	proclaim.strictEqual(actual, expected, message + "expected '" + expected + "', but got '" + actual + "'");
 };
 
 exports.deepEqual = function(actual, expected, message) {

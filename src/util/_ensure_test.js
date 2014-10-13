@@ -129,6 +129,14 @@ describe("Ensure", function() {
 			);
 		});
 
+		it("can compare DOM types as generic objects", function() {
+			// WORKAROUND IE8: doesn't allow instanceof on DOM objects
+
+			var element = document.createElement("p");
+
+			assert.noException(signature([ element ], [ Object ]));
+		});
+
 		it("supports multiple types", function() {
 			assert.noException(signature([ 1 ], [[ String, Number ]]), "valid");
 			assert.exception(

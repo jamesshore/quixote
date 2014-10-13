@@ -11,7 +11,7 @@
 
 	var KARMA_CONFIG = "./build/config/karma.conf.js";
 	var TESTED_BROWSERS = require("../config/tested_browsers.js");
-	var ENTRY_POINT = "./src/placeholder.js";
+	var ENTRY_POINT = "./src/quixote.js";
 	var DIST_DIR = "dist";
 	var DIST_FILE = DIST_DIR + "/quixote.js";
 

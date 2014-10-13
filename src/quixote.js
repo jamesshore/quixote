@@ -2,9 +2,8 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var Frame = require("./frame.js");
 
-exports.arithmetic = function(a, b) {
-	ensure.signature(arguments, [ Number, Number ]);
-
-	return a + b;
+exports.createFrame = function() {
+//	return new Frame();
 };
