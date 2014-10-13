@@ -6,7 +6,7 @@ var Frame = require("./frame.js");
 
 describe("Frame", function() {
 
-	describe("construction", function() {
+	describe("creation and removal", function() {
 
 		it("creates iframe DOM element with specified width and height", function() {
 			var frame = Frame.create(window.document.body, 600, 400);
@@ -17,8 +17,16 @@ describe("Frame", function() {
 			assert.equal(iframe.parentNode, window.document.body, "iframe should go inside element we provide");
 			assert.equal(iframe.width, "600", "width should match provided value");
 			assert.equal(iframe.height, "400", "height should match provided value");
-
 		});
+
+		it("destroys itself", function() {
+			var frame = Frame.create(window.document.body, 800, 1000);
+			var numChildren = document.body.childNodes.length;
+
+			frame.remove();
+			assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
+		});
+
 	});
 
 	describe("instance", function() {
@@ -26,15 +34,9 @@ describe("Frame", function() {
 		var frame;
 
 		beforeEach(function() {
-			frame = Frame.create(window.document.body, 800, 1000);
+//			frame = Frame.create(window.document.body, 800, 1000);
 		});
 
-		it("can destroy itself", function() {
-			var numChildren = document.body.childNodes.length;
-
-			frame.remove();
-			assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
-		});
 
 	});
 
