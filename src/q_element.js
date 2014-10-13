@@ -9,6 +9,10 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
+Me.prototype.toString = function() {
+	return this._domElement.outerHTML;
+};
+
 Me.prototype.equals = function(that) {
 	return this._domElement === that._domElement;
 };

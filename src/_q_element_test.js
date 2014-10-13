@@ -22,4 +22,13 @@ describe("QElement", function() {
 		assert.objNotEqual(head, body1, "inequality");
 	});
 
+	it("displays nicely as a string", function() {
+		var element = document.createElement("div");
+		element.setAttribute("baz", "quux");
+		element.innerHTML = "foo<p>bar</p>";
+		var q = new QElement(element);
+
+		assert.match(q.toString().toLowerCase(), /<div baz="quux">foo\s*<p>bar<\/p><\/div>/);
+	});
+
 });
