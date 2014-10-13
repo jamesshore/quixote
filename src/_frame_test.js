@@ -3,6 +3,7 @@
 
 var assert = require("./util/assert.js");
 var Frame = require("./frame.js");
+var QElement = require("./q_element.js");
 
 describe("Frame", function() {
 
@@ -53,9 +54,11 @@ describe("Frame", function() {
 		});
 
 		it("adds an element", function() {
-			frame.addElement("<p>foo</p>");
+			var element = frame.addElement("<p>foo</p>");
 			var body = frameDom.contentDocument.body;
+
 			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body");
+			assert.type(element, QElement, "should return the element");
 		});
 
 		it("fails fast if adding more than one element at a time", function() {
@@ -64,6 +67,12 @@ describe("Frame", function() {
 			}, /Expected one element, but got 2 \(<p>foo<\/p><div>bar<\/div>\)/);
 		});
 
+		it("retrieves an element by ID", function() {
+			var expected = frame.addElement("<div id='foo'>Bar</div>");
+			var actual = frame.getElement("#foo");
+
+			assert.objEqual(expected, actual, "foo element");
+		});
 
 	});
 

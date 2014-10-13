@@ -17,7 +17,6 @@ Work remaining:
 * `quixote.createFrame()`
   * load frame from URL
   * create empty frame
-* `frame.addElement()`
 * `frame.getElement()`
   * ...by ID
   * ...by selector
@@ -31,4 +30,7 @@ Work remaining:
 
 ## To Do
 
+* Frame: factor out repeated this._domElement.contentDocument
+* QElement signature checking
+* Factor out functionName() (duplicated in ensure.js and assert.js)
 * Factor out duplication of message variable manipulation in assert.js

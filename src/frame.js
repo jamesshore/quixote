@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var QElement = require("./q_element.js");
 
 var Me = module.exports = function Frame(domElement) {
 	ensure.signature(arguments, [ Object ]);
@@ -39,6 +40,13 @@ Me.prototype.addElement = function(html) {
 		"Expected one element, but got " + element.childNodes.length + " (" + html + ")"
 	);
 	this._domElement.contentDocument.body.appendChild(element.childNodes[0]);
+	return new QElement(element);
+};
+
+Me.prototype.getElement = function(selector) {
+	var element = this._domElement.contentDocument.querySelector(selector);
+	ensure.that(element !== null, "selector '" + selector + "' not found");
+	return new QElement(element);
 };
 
 // WORKAROUND IE8: no addEventListener()
