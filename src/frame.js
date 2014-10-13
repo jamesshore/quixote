@@ -9,6 +9,7 @@ var Me = module.exports = function Frame(domElement) {
 	ensure.that(domElement.tagName === "IFRAME", "DOM element must be an iframe");
 
 	this._domElement = domElement;
+	this._document = domElement.contentDocument;
 };
 
 Me.create = function create(parentElement, width, height, callback) {
@@ -25,7 +26,7 @@ Me.create = function create(parentElement, width, height, callback) {
 };
 
 Me.prototype.reset = function() {
-	this._domElement.contentDocument.body.innerHTML = "";
+	this._document.body.innerHTML = "";
 };
 
 Me.prototype.toDomElement = function() {
@@ -45,12 +46,12 @@ Me.prototype.addElement = function(html) {
 	);
 
 	var insertedElement = tempElement.childNodes[0];
-	this._domElement.contentDocument.body.appendChild(insertedElement);
+	this._document.body.appendChild(insertedElement);
 	return new QElement(insertedElement);
 };
 
 Me.prototype.getElement = function(selector) {
-	var nodes = this._domElement.contentDocument.querySelectorAll(selector);
+	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
 	return new QElement(nodes[0]);
 };
