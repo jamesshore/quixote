@@ -10,14 +10,14 @@ var Me = module.exports = function Frame(domElement) {
 	this._domElement = domElement;
 };
 
-Me.create = function create(parentElement, width, height) {
-	ensure.signature(arguments, [ Object, Number, Number ]);
+Me.create = function create(parentElement, width, height, callback) {
+	ensure.signature(arguments, [ Object, Number, Number, Function ]);
 
 	var iframe = document.createElement("iframe");
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
 	parentElement.appendChild(iframe);
-	return new Me(iframe);
+	callback(new Me(iframe));
 };
 
 Me.prototype.toDomElement = function() {

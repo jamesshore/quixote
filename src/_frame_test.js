@@ -8,23 +8,29 @@ describe("Frame", function() {
 
 	describe("creation and removal", function() {
 
-		it("creates iframe DOM element with specified width and height", function() {
-			var frame = Frame.create(window.document.body, 600, 400);
-			assert.type(frame, Frame, "frame");
+		it("creates iframe DOM element with specified width and height", function(done) {
+			Frame.create(window.document.body, 600, 400, function(frame) {
+				assert.type(frame, Frame, "frame");
 
-			var iframe = frame.toDomElement();
-			assert.equal(iframe.tagName, "IFRAME", "should create an iframe tag");
-			assert.equal(iframe.parentNode, window.document.body, "iframe should go inside element we provide");
-			assert.equal(iframe.width, "600", "width should match provided value");
-			assert.equal(iframe.height, "400", "height should match provided value");
+				var iframe = frame.toDomElement();
+				assert.equal(iframe.tagName, "IFRAME", "should create an iframe tag");
+				assert.equal(iframe.parentNode, window.document.body, "iframe should go inside element we provide");
+				assert.equal(iframe.width, "600", "width should match provided value");
+				assert.equal(iframe.height, "400", "height should match provided value");
+
+				done();
+			});
 		});
 
-		it("destroys itself", function() {
-			var frame = Frame.create(window.document.body, 800, 1000);
-			var numChildren = document.body.childNodes.length;
+		it("destroys itself", function(done) {
+			Frame.create(window.document.body, 800, 1000, function(frame) {
+				var numChildren = document.body.childNodes.length;
 
-			frame.remove();
-			assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
+				frame.remove();
+				assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
+
+				done();
+			});
 		});
 
 	});
