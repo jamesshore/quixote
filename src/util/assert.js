@@ -37,6 +37,11 @@ exports.objEqual = function(actual, expected, message) {
 	proclaim.isTrue(actual.equals(expected), message + "object equality expected '" + expected + "', but got '" + actual + "'");
 };
 
+exports.objNotEqual = function(actual, expected, message) {
+	message = message ? message + ": " : "";
+	proclaim.isFalse(actual.equals(expected), message + "expected '" + expected + "' and '" + actual + "' to be not be equal(), but they were");
+};
+
 exports.deepEqual = function(actual, expected, message) {
 	if (message) message += " expected deep equality";
 	proclaim.deepEqual(actual, expected, message);
