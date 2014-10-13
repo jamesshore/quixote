@@ -13,6 +13,14 @@ exports.fail = function(message) {
 	proclaim.fail(null, null, message);
 };
 
+exports.defined = function(message) {
+	proclaim.isDefined(message);
+};
+
+exports.type = function(obj, expectedType, message) {
+	proclaim.isInstanceOf(obj, expectedType, message);
+};
+
 exports.equal = function(actual, expected, message) {
 	proclaim.strictEqual(actual, expected, message);
 };
