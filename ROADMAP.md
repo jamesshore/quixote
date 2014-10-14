@@ -14,6 +14,7 @@
 ## Current Feature: Initial Assertion API
 
 * width and height
+* document diff() API
 
 ```javascript
 element.diff({
