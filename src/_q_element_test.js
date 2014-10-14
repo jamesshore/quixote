@@ -94,20 +94,53 @@ describe("QElement", function() {
 
 
 	describe.only("constraints", function() {
+		var TOP = 20;
+		var RIGHT = 90;
+		var BOTTOM = 70;
+		var LEFT = 30;
 
-		it("exposes edges", function() {
-			var element = frame.addElement(
+		var element;
+
+		beforeEach(function() {
+			element = frame.addElement(
 				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
 			);
-			assert.equal(element.top.diff(20), "", "top");
-			assert.equal(element.right.diff(90), "", "right");
-			assert.equal(element.bottom.diff(70), "", "bottom");
-			assert.equal(element.left.diff(30), "", "left");
 		});
 
-//		it("can be diff'd all at once", function() {
-//
-//		});
+		it("exposes edges", function() {
+			assert.equal(element.top.diff(TOP), "", "top");
+			assert.equal(element.right.diff(RIGHT), "", "right");
+			assert.equal(element.bottom.diff(BOTTOM), "", "bottom");
+			assert.equal(element.left.diff(LEFT), "", "left");
+		});
+
+		it("diff one constraint", function() {
+			var expected = element.top.diff(600);
+			assert.equal(element.diff({ top: 600 }), expected, "difference");
+			assert.equal(element.diff({ top: TOP }), "", "no difference");
+		});
+
+		it("diff multiple constraints", function() {
+			var topDiff = element.top.diff(600);
+			var rightDiff = element.right.diff(400);
+			var bottomDiff = element.bottom.diff(200);
+
+			assert.equal(
+				element.diff({ top: 600, right: 400, bottom: 200 }),
+				topDiff + "\n" + rightDiff + "\n" + bottomDiff,
+				"three differences"
+			);
+			assert.equal(element.diff({ top: TOP, right: RIGHT, bottom: BOTTOM }), "", "no differences");
+			assert.equal(
+				element.diff({ top: 600, right: RIGHT, bottom: 200}),
+				topDiff + "\n" + bottomDiff,
+				"two differences, with middle one okay"
+			);
+			assert.equal(element.diff({ top: TOP, right: RIGHT, bottom: 200}), bottomDiff, "one difference");
+		});
+
+		//TODO
+		it("diff fails fast when invalid property is provided");
 
 	});
 

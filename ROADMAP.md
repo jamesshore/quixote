@@ -21,6 +21,7 @@ element.diff({
 ```
 
 ## To Do
+* test: it("diff fails fast when invalid property is provided");
 
 
 * How do we use ensure.signature without creating a circular dependency?

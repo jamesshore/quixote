@@ -17,6 +17,17 @@ var Me = module.exports = function QElement(domElement, description) {
 	this.left = ElementEdge.left(this);
 };
 
+Me.prototype.diff = function(expected) {
+	ensure.signature(arguments, [ Object ]);
+
+	var result = [];
+	Object.keys(expected).forEach(function(key) {
+		var diff = this[key].diff(expected[key]);
+		if (diff !== "") result.push(diff);
+	}.bind(this));
+	return result.join("\n");
+};
+
 Me.prototype.getRawStyle = function(styleName) {
 	ensure.signature(arguments, [ String ]);
 
