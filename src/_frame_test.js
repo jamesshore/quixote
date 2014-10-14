@@ -128,9 +128,9 @@ describe("Frame", function() {
 			var element = frame.addElement("<p>foo</p>");
 			var body = frameDom.contentDocument.body;
 
-			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body");
-//			assert.type(element, QElement, "should return the element");
-			assert.objEqual(element, new QElement(body.childNodes[0]));
+			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body should include new element");
+			assert.objEqual(element, new QElement(body.childNodes[0]), "element should be present in frame body");
+			assert.equal(element.description(), "<p>foo</p>", "description should match the HTML created");
 		});
 
 		it("fails fast if adding more than one element at a time", function() {

@@ -89,7 +89,7 @@ Me.prototype.addElement = function(html) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._document.body.appendChild(insertedElement);
-	return new QElement(insertedElement);
+	return new QElement(insertedElement, html);
 };
 
 Me.prototype.getElement = function(selector) {
