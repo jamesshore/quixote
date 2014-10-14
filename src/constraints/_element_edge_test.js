@@ -5,10 +5,15 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 
-describe.only("ElementEdge", function() {
+describe("ElementEdge", function() {
 
 	var frame;
 	var element;
+
+	var TOP = 10;
+	var RIGHT = 50;
+	var BOTTOM = 70;
+	var LEFT = 20;
 
 	before(function(done) {
 		quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, function(theFrame) {
@@ -31,7 +36,7 @@ describe.only("ElementEdge", function() {
 	it("diffs against expected value", function() {
 		var edge = ElementEdge.top(element);
 		assert.equal(edge.diff(13), "Element top edge expected 13, but was 10", "difference");
-		assert.equal(edge.diff(10), "", "no difference");
+		assert.equal(edge.diff(TOP), "", "no difference");
 	});
 
 	it("checks every edge", function() {
@@ -40,13 +45,10 @@ describe.only("ElementEdge", function() {
 		var bottom = ElementEdge.bottom(element);
 		var left = ElementEdge.left(element);
 
-		assert.equal(top.diff(10), "", "top");
-		assert.equal(right.diff(50), "", "right");
-		assert.equal(bottom.diff(70), "", "bottom");
-		assert.equal(left.diff(20), "", "left");
-
-
-		//TODO: factor out expected values
+		assert.equal(top.diff(TOP), "", "top");
+		assert.equal(right.diff(RIGHT), "", "right");
+		assert.equal(bottom.diff(BOTTOM), "", "bottom");
+		assert.equal(left.diff(LEFT), "", "left");
 	});
 
 });
