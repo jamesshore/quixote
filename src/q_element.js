@@ -21,10 +21,14 @@ Me.prototype.diff = function(expected) {
 	ensure.signature(arguments, [ Object ]);
 
 	var result = [];
-	Object.keys(expected).forEach(function(key) {
-		var diff = this[key].diff(expected[key]);
+	var keys = objectKeys(expected);
+	var key, diff;
+	for (var i = 0; i < keys.length; i++) {
+		key = keys[i];
+		diff = this[key].diff(expected[key]);
 		if (diff !== "") result.push(diff);
-	}.bind(this));
+	}
+
 	return result.join("\n");
 };
 
@@ -84,3 +88,43 @@ Me.prototype.equals = function(that) {
 
 	return this._domElement === that._domElement;
 };
+
+// WORKAROUND IE8: No Object.keys
+function objectKeys(obj) {
+	if (Object.keys) return Object.keys(obj);
+
+	// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+  var hasOwnProperty = Object.prototype.hasOwnProperty,
+      hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+      dontEnums = [
+        'toString',
+        'toLocaleString',
+        'valueOf',
+        'hasOwnProperty',
+        'isPrototypeOf',
+        'propertyIsEnumerable',
+        'constructor'
+      ],
+      dontEnumsLength = dontEnums.length;
+
+  if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+    throw new TypeError('Object.keys called on non-object');
+  }
+
+  var result = [], prop, i;
+
+  for (prop in obj) {
+    if (hasOwnProperty.call(obj, prop)) {
+      result.push(prop);
+    }
+  }
+
+  if (hasDontEnumBug) {
+    for (i = 0; i < dontEnumsLength; i++) {
+      if (hasOwnProperty.call(obj, dontEnums[i])) {
+        result.push(dontEnums[i]);
+      }
+    }
+  }
+  return result;
+}
