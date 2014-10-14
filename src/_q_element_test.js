@@ -26,7 +26,7 @@ describe("QElement", function() {
 
 	describe("object", function() {
 		it("converts to DOM element", function() {
-			var q = new QElement(document.body);
+			var q = new QElement(document.body, "body");
 			var dom = q.toDomElement();
 
 			assert.equal(dom, document.body);
@@ -38,19 +38,26 @@ describe("QElement", function() {
 		});
 
 		it("compares to another QElement", function() {
-			var head = new QElement(document.querySelector("head"));    // WORKAROUND IE8: no document.head
-			var body1 = new QElement(document.body);
-			var body2 = new QElement(document.body);
+			var head = new QElement(document.querySelector("head"), "head");    // WORKAROUND IE8: no document.head
+			var body1 = new QElement(document.body, "body");
+			var body2 = new QElement(document.body, "body");
 
 			assert.objEqual(body1, body2, "equality");
 			assert.objNotEqual(head, body1, "inequality");
+		});
+
+		it("element description does not affect equality", function() {
+			var body1 = new QElement(document.body, "body description");
+			var body2 = new QElement(document.body, "description can be anything");
+
+			assert.objEqual(body1, body2, "should still be equal");
 		});
 
 		it("displays nicely as a string", function() {
 			var element = document.createElement("div");
 			element.setAttribute("baz", "quux");
 			element.innerHTML = "foo<p>bar</p>";
-			var q = new QElement(element);
+			var q = new QElement(element, "div");
 
 			assert.match(q.toString().toLowerCase(), /<div baz="quux">foo\s*<p>bar<\/p><\/div>/);
 		});
