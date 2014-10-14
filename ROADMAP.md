@@ -21,10 +21,9 @@ element.diff({
 ```
 
 ## To Do
+* diff() should describe element
 * How do we use ensure.signature without creating a circular dependency?
 * Modify ensure to give better error message when comparison type is not a constructor
-* diff() should describe element
-* Get IE8 working with ElementEdge
 
 * Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
 * Rename `Frame` to `QFrame`?
