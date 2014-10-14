@@ -93,7 +93,21 @@ describe("QElement", function() {
 	});
 
 
-	describe("constraints", function() {
+	describe.only("constraints", function() {
+
+		it("exposes edges", function() {
+			var element = frame.addElement(
+				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
+			);
+			assert.equal(element.top.diff(20), "", "top");
+			assert.equal(element.right.diff(90), "", "right");
+			assert.equal(element.bottom.diff(70), "", "bottom");
+			assert.equal(element.left.diff(30), "", "left");
+		});
+
+//		it("can be diff'd all at once", function() {
+//
+//		});
 
 	});
 
