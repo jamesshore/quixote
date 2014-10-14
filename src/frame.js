@@ -45,14 +45,14 @@ Me.create = function create(parentElement, width, height, options, callback) {
 	return frame;
 
 	function onFrameLoad() {
-		loaded(frame);
-		loadStylesheet(frame, options.stylesheet, function() {
-			// WORKAROUND Mobile Safari 7.0.0, Safari 6.2.0, Chrome 38.0.2125: stylesheet is loaded synchronously
-			// We force it to be asynchronous here
-			setTimeout(function() {
+		// WORKAROUND Mobile Safari 7.0.0, Safari 6.2.0, Chrome 38.0.2125: frame is loaded synchronously
+		// We force it to be asynchronous here
+		setTimeout(function() {
+			loaded(frame);
+			loadStylesheet(frame, options.stylesheet, function() {
 				callback(frame);
-			}, 0);
-		});
+			});
+		}, 0);
 	}
 };
 
