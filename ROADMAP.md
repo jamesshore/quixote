@@ -22,8 +22,6 @@ element.diff({
 ```
 
 ## To Do
-* Document Safari performance issue when window is hidden
-* How do we use ensure.signature without creating a circular dependency?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
 
@@ -33,6 +31,7 @@ element.diff({
 
 ## Future To Do / Off-camera
 
+* How do we use ensure.signature in element_edge.js without creating a circular dependency?
 * Rename `Frame` to `QFrame`?
 * Get IE 8 ensure exceptions to show stack trace
 * Factor out functionName() (duplicated in ensure.js and assert.js)

@@ -13,6 +13,8 @@ The code is in `dist/quixote.js`. It's a UMD module, so it will work with module
 
 See below for an example and API documentation.
 
+*Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the test browser is hidden causes very slow tests. If you have trouble with slow tests, check if your browser windows are visible.
+
 
 ## Example
 
