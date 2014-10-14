@@ -10,6 +10,7 @@ var Me = module.exports = function Frame(domElement) {
 
 	this._domElement = domElement;
 	this._document = domElement.contentDocument;
+	this._originalBody = this._document.body.innerHTML;
 };
 
 Me.create = function create(parentElement, width, height, options, callback) {
@@ -35,7 +36,7 @@ Me.create = function create(parentElement, width, height, options, callback) {
 Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
 
-	this._document.body.innerHTML = "";
+	this._document.body.innerHTML = this._originalBody;
 };
 
 Me.prototype.toDomElement = function() {

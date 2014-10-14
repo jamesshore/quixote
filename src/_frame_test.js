@@ -32,6 +32,16 @@ describe("Frame", function() {
 			});
 		});
 
+		it("resets iframe loaded with source URL back to original state", function(done) {
+			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
+				frame.reset();
+				assert.noException(function() {
+					frame.getElement("#exists");
+				});
+				done();
+			});
+		});
+
 		it("destroys itself", function(done) {
 			Frame.create(window.document.body, 800, 1000, function(frame) {
 				var numChildren = document.body.childNodes.length;
@@ -105,13 +115,6 @@ describe("Frame", function() {
 			}, /Expected one element to match 'p', but found 2/);
 		});
 
-		it("resets frame to pristine state", function() {
-			frame.addElement("<div>Foo</div>");
-			frame.reset();
-
-			assert.equal(frameDom.contentDocument.body.innerHTML, "", "frame body");
-		});
-
 		it("adds stylesheet link", function(done) {
 			var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
 
@@ -119,6 +122,13 @@ describe("Frame", function() {
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
 			});
+		});
+
+		it("resets frame without src document", function() {
+			frame.addElement("<div>Foo</div>");
+			frame.reset();
+
+			assert.equal(frameDom.contentDocument.body.innerHTML, "", "frame body");
 		});
 
 	});
