@@ -9,8 +9,14 @@ describe("Frame", function() {
 
 	describe("creation and removal", function() {
 
+		var frame;
+
+//		afterEach(function() {
+//			frame.remove();
+//		});
+
 		it("creates iframe DOM element with specified width and height", function(done) {
-			Frame.create(window.document.body, 600, 400, function(frame) {
+			frame = Frame.create(window.document.body, 600, 400, function() {
 				assert.type(frame, Frame, "frame");
 
 				var iframe = frame.toDomElement();
@@ -24,7 +30,7 @@ describe("Frame", function() {
 		});
 
 		it("returns frame immediately upon creation", function(done) {
-			var frame = Frame.create(window.document.body, 600, 400, function(loadedFrame) {
+			frame = Frame.create(window.document.body, 600, 400, function(loadedFrame) {
 				assert.equal(frame, loadedFrame, "should return same frame as passed in callback");
 				done();
 			});
@@ -32,7 +38,7 @@ describe("Frame", function() {
 		});
 
 		it("creates iframe using source URL", function(done) {
-			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
+			var frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				assert.noException(function() {
 					frame.getElement("#exists");
 				});
@@ -41,7 +47,7 @@ describe("Frame", function() {
 		});
 
 		it("creates iframe using stylesheet link", function(done) {
-			Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function(frame) {
+			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
 				var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
@@ -55,7 +61,7 @@ describe("Frame", function() {
 			};
 
 			assert.exception(function() {
-				Frame.create(window.document.body, 600, 400, options, function(frame) {
+				frame = Frame.create(window.document.body, 600, 400, options, function() {
 					done("Should never be called");
 				});
 			}, /Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue/);
@@ -75,7 +81,7 @@ describe("Frame", function() {
 		});
 
 		it("resets iframe loaded with source URL without destroying source document", function(done) {
-			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
+			frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				frame.reset();
 				assert.noException(function() {
 					frame.getElement("#exists");
@@ -85,7 +91,7 @@ describe("Frame", function() {
 		});
 
 		it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
-			Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function(frame) {
+			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
 				frame.reset();
 				var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
@@ -94,7 +100,7 @@ describe("Frame", function() {
 		});
 
 		it("destroys itself", function(done) {
-			Frame.create(window.document.body, 800, 1000, function(frame) {
+			frame = Frame.create(window.document.body, 800, 1000, function() {
 				var numChildren = document.body.childNodes.length;
 
 				frame.remove();
@@ -109,7 +115,7 @@ describe("Frame", function() {
 
 		// WORKAROUND IE 8: getClientRect() includes frame border in positions
 		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
-			Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function(frame) {
+			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function() {
 				var element = frame.addElement("<p>Foo</p>");
 				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
 				done();
@@ -117,33 +123,32 @@ describe("Frame", function() {
 		});
 
 		it("fails fast if frame is used before it's loaded", function(done) {
-			var notLoaded = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
+			frame = Frame.create(window.document.body, 600, 400, function() { done(); });
 
-			var frame = Frame.create(window.document.body, 600, 400, function() { done(); });
-
-			assert.exception(function() { frame.reset(); }, notLoaded, "resetting frame should be a no-op");
+			var expected = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
+			assert.exception(function() { frame.reset(); }, expected, "resetting frame should be a no-op");
 			assert.noException(
 				function() { frame.toDomElement(); },
 				"toDomElement() should be okay because the iframe element exists even if it isn't loaded"
 			);
 			assert.exception(
 				function() { frame.remove(); },
-				notLoaded,
+				expected,
 				"technically, removing the frame works, but it's complicated, so it should just fail"
 			);
-			assert.exception(function() { frame.addElement("<p></p>"); }, notLoaded, "addElement()");
-			assert.exception(function() { frame.getElement("foo"); }, notLoaded, "getElement()");
+			assert.exception(function() { frame.addElement("<p></p>"); }, expected, "addElement()");
+			assert.exception(function() { frame.getElement("foo"); }, expected, "getElement()");
 		});
 
 		it("fails fast if frame is used after it's removed", function(done) {
-			var resetErr = /Attempted to use frame after it was removed/;
+			var expected = /Attempted to use frame after it was removed/;
 
-			Frame.create(window.document.body, 600, 400, function(frame) {
+			frame = Frame.create(window.document.body, 600, 400, function() {
 				frame.remove();
-				assert.exception(function() { frame.reset(); }, resetErr, "reset()");
-				assert.exception(function() { frame.toDomElement(); }, resetErr, "toDomElement()");
-				assert.exception(function() { frame.addElement("<p></p>"); }, resetErr, "addElement()");
-				assert.exception(function() { frame.getElement("foo"); }, resetErr, "getElement()");
+				assert.exception(function() { frame.reset(); }, expected, "reset()");
+				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
+				assert.exception(function() { frame.addElement("<p></p>"); }, expected, "addElement()");
+				assert.exception(function() { frame.getElement("foo"); }, expected, "getElement()");
 
 				done();
 			});
