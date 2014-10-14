@@ -7,12 +7,12 @@
 * Positioning relative to other elements
 * Positioning relative to page
 * Initial "cooked" styling (colors?)
-* Improve Frame.create() API to be more convenient in before()?
 * ...more TBD
 
 
 ## Current Feature: Initial Assertion API
 
+* Improve Frame.create() API to be more convenient in before()
 * document diff() API
 
 ```javascript

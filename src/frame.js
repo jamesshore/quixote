@@ -9,10 +9,13 @@ var Me = module.exports = function Frame(domElement) {
 	ensure.that(domElement.tagName === "IFRAME", "DOM element must be an iframe");
 
 	this._domElement = domElement;
-	this._document = domElement.contentDocument;
-	this._originalBody = this._document.body.innerHTML;
 	this._removed = false;
 };
+
+function loaded(self) {
+	self._document = self._domElement.contentDocument;
+	self._originalBody = self._document.body.innerHTML;
+}
 
 Me.create = function create(parentElement, width, height, options, callback) {
 	ensure.signature(arguments, [ Object, Number, Number, [ Object, Function ], [ undefined, Function ] ]);
@@ -23,20 +26,27 @@ Me.create = function create(parentElement, width, height, options, callback) {
 	}
 
 	// WORKAROUND Mobile Safari 7.0.0: weird style results occur when both src and stylesheet are loaded (see test)
-	ensure.that(!(options.src && options.stylesheet), "Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue");
+	ensure.that(
+		!(options.src && options.stylesheet),
+		"Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue"
+	);
 
 	var iframe = document.createElement("iframe");
-	addLoadListener(iframe, onFrameLoad);
-
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
 	iframe.setAttribute("frameborder", "0");    // WORKAROUND IE 8: don't include frame border in position calcs
-
 	if (options.src) iframe.setAttribute("src", options.src);
+
+	var frame = new Me(iframe);
+
+	addLoadListener(iframe, onFrameLoad);
 	parentElement.appendChild(iframe);
 
+
+	return {};
+
 	function onFrameLoad() {
-		var frame = new Me(iframe);
+		loaded(frame);
 		loadStylesheet(frame, options.stylesheet, function() {
 			callback(frame);
 		});
