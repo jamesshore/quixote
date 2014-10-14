@@ -19,9 +19,6 @@ Work remaining:
 
 ## To Do
 
-* Reset stylesheet link
-* "Reset" needs to work properly with src HTML
-
 
 ## Future / Off-camera
 
@@ -30,3 +27,5 @@ Work remaining:
 * Factor out duplication of message variable manipulation in assert.js
 * Get assert.deepEqual to show objects
 * Document API so far
+* frame.hasElement() or frame.getElementList()?
+* Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
