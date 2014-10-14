@@ -7,9 +7,13 @@ var Frame = require("./frame.js");
 
 describe("Quixote", function() {
 
-	it.skip("creates frame", function() {
-		var frame = quixote.createFrame();
-		assert.type(frame, Frame);
+	it("creates frame", function(done) {
+		var frame = quixote.createFrame(600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
+			assert.noException(function() {
+				frame.getElement("#exists");
+			});
+			done();
+		});
 	});
 
 });
