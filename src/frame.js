@@ -38,17 +38,18 @@ Me.create = function create(parentElement, width, height, options, callback) {
 	if (options.src) iframe.setAttribute("src", options.src);
 
 	var frame = new Me(iframe);
-
 	addLoadListener(iframe, onFrameLoad);
 	parentElement.appendChild(iframe);
-
-
-	return {};
+	return frame;
 
 	function onFrameLoad() {
 		loaded(frame);
 		loadStylesheet(frame, options.stylesheet, function() {
-			callback(frame);
+			// WORKAROUND Mobile Safari 7.0.0, Safari 6.2.0, Chrome 38.0.2125: stylesheet is loaded synchronously
+			// We force it to be asynchronous here
+			setTimeout(function() {
+				callback(frame);
+			}, 1);
 		});
 	}
 };

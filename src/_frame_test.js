@@ -23,7 +23,7 @@ describe("Frame", function() {
 			});
 		});
 
-		it.skip("returns frame immediately upon creation", function(done) {
+		it("returns frame immediately upon creation", function(done) {
 			var frame = Frame.create(window.document.body, 600, 400, function(loadedFrame) {
 				assert.equal(frame, loadedFrame, "should return same frame as passed in callback");
 				done();
