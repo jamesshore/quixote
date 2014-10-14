@@ -13,6 +13,9 @@
 
 ## Current Feature: Initial Assertion API
 
+* width and height
+* document diff() API
+
 ```javascript
 element.diff({
   top: 13,
@@ -21,11 +24,7 @@ element.diff({
 ```
 
 ## To Do
-* QElement description should not be optional
-* diff() should describe element
 * How do we use ensure.signature without creating a circular dependency?
-* Modify ensure to give better error message when comparison type is not a constructor
-
 * Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
 * Rename `Frame` to `QFrame`?
 * Should frame.remove() cause additional frame method calls to fail fast?
@@ -42,3 +41,4 @@ element.diff({
 * frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
 * watch.js rebuilds too often or not enough
+* Modify ensure to give better error message when comparison type is not a constructor

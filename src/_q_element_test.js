@@ -10,7 +10,7 @@ describe("QElement", function() {
 	var frame;
 
 	before(function(done) {
-		Frame.create(window.document.body, 800, 1000, function(theFrame) {
+		Frame.create(window.document.body, 800, 1000, { stylesheet: "/base/src/__reset.css" }, function(theFrame) {
 			frame = theFrame;
 			done();
 		});
@@ -79,33 +79,70 @@ describe("QElement", function() {
 			var element = frame.addElement(
 				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
 			);
+			assert.deepEqual(element.getRawPosition(), {
+				left: 30,
+				right: 90,
+				width: 60,
 
-			var position = element.getRawPosition();
+				top: 20,
+				bottom: 70,
+				height: 50
+			});
+		});
 
-			// WORKAROUND IE8: getRawPosition() reports different values
-			if (position.left === 32) {
-				assert.deepEqual(position, {
-					left: 32,
-					right: 92,
-					width: 60,
+	});
 
-					top: 22,
-					bottom: 72,
-					height: 50
-				});
-			}
-			else {
-				assert.deepEqual(element.getRawPosition(), {
-					left: 30,
-					right: 90,
-					width: 60,
 
-					top: 20,
-					bottom: 70,
-					height: 50
-				});
-			}
+	describe("constraints", function() {
+		var TOP = 20;
+		var RIGHT = 90;
+		var BOTTOM = 70;
+		var LEFT = 30;
 
+		var element;
+
+		beforeEach(function() {
+			element = frame.addElement(
+				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
+			);
+		});
+
+		it("exposes edges", function() {
+			assert.equal(element.top.diff(TOP), "", "top");
+			assert.equal(element.right.diff(RIGHT), "", "right");
+			assert.equal(element.bottom.diff(BOTTOM), "", "bottom");
+			assert.equal(element.left.diff(LEFT), "", "left");
+		});
+
+		it("diff one constraint", function() {
+			var expected = element.top.diff(600);
+			assert.equal(element.diff({ top: 600 }), expected, "difference");
+			assert.equal(element.diff({ top: TOP }), "", "no difference");
+		});
+
+		it("diff multiple constraints", function() {
+			var topDiff = element.top.diff(600);
+			var rightDiff = element.right.diff(400);
+			var bottomDiff = element.bottom.diff(200);
+
+			assert.equal(
+				element.diff({ top: 600, right: 400, bottom: 200 }),
+				topDiff + "\n" + rightDiff + "\n" + bottomDiff,
+				"three differences"
+			);
+			assert.equal(element.diff({ top: TOP, right: RIGHT, bottom: BOTTOM }), "", "no differences");
+			assert.equal(
+				element.diff({ top: 600, right: RIGHT, bottom: 200}),
+				topDiff + "\n" + bottomDiff,
+				"two differences, with middle one okay"
+			);
+			assert.equal(element.diff({ top: TOP, right: RIGHT, bottom: 200}), bottomDiff, "one difference");
+		});
+
+		it("diff fails fast when invalid property is provided", function() {
+			assert.exception(function() {
+				element.diff({ XXX: "non-existant" });
+			}, /'XXX' is unknown and can't be used with diff()/);
 		});
 
 	});

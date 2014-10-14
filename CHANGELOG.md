@@ -5,6 +5,17 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## In Progress
 
+New methods:
+
+* QElement
+  * top, right, bottom, left
+  * diff()
+
+New classes:
+
+* ElementEdge
+  * diff()
+
 Fixed:
 
 * IE 8 workaround: IE 8 includes frame border in position calculations. We now create the test frame with frameborder=0 attribute so IE 8's positions are consistent with other browsers. 
