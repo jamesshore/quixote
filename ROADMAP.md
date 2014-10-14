@@ -2,22 +2,23 @@
 
 ## Release Ideas
 
-* Basic DOM manipulation; raw position and style information
+* **✔ v0.1** Basic DOM manipulation; raw position and style information
 * "Cooked" absolute position info; initial assertion API
 * Positioning relative to other elements
 * Positioning relative to page
 * Initial "cooked" styling (colors?)
+* Improve Frame.create() API to be more convenient in before()?
 * ...more TBD
 
 
-## Current Feature: Basic DOM Manipulation
-
-Work remaining:
-
-* `quixote.createFrame()`
+## Current Feature: Initial Assertion API
 
 
 ## To Do
+* Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
+* Rename `Frame` to `QFrame`?
+* Should frame.remove() cause additional frame method calls to fail fast?
+* Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
 
 ## Future / Off-camera
