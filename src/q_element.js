@@ -5,10 +5,11 @@ var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
 var ElementEdge = require("./constraints/element_edge.js");
 
-var Me = module.exports = function QElement(domElement) {
-	ensure.signature(arguments, [ Object ]);
+var Me = module.exports = function QElement(domElement, description) {
+	ensure.signature(arguments, [ Object, [ undefined, String ] ]);
 
 	this._domElement = domElement;
+	this._description = description;
 
 //	this.top = ElementEdge.top(this);
 };
@@ -52,6 +53,10 @@ Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
 
 	return this._domElement;
+};
+
+Me.prototype.description = function() {
+	return this._description;
 };
 
 Me.prototype.toString = function() {

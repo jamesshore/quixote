@@ -7,12 +7,34 @@ var QElement = require("./q_element.js");
 
 describe("QElement", function() {
 
-	describe("object manipulation", function() {
+	var frame;
+
+	before(function(done) {
+		Frame.create(window.document.body, 800, 1000, function(theFrame) {
+			frame = theFrame;
+			done();
+		});
+	});
+
+	after(function() {
+		frame.remove();
+	});
+
+	afterEach(function() {
+		frame.reset();
+	});
+
+	describe("object", function() {
 		it("converts to DOM element", function() {
 			var q = new QElement(document.body);
 			var dom = q.toDomElement();
 
 			assert.equal(dom, document.body);
+		});
+
+		it("has a description", function() {
+			var element = new QElement(document.body, "description");
+			assert.equal(element.description(), "description");
 		});
 
 		it("compares to another QElement", function() {
@@ -34,64 +56,50 @@ describe("QElement", function() {
 		});
 	});
 
+	describe("raw styles and positions", function() {
 
-	var frame;
-
-	before(function(done) {
-		Frame.create(window.document.body, 800, 1000, function(theFrame) {
-			frame = theFrame;
-			done();
+		it("retrieves raw style", function() {
+			var element = frame.addElement("<div style='font-size: 42px'></div>");
+			assert.equal(element.getRawStyle("font-size"), "42px", "raw style");
 		});
-	});
 
-	after(function() {
-		frame.remove();
-	});
+		it("returns empty string when raw style doesn't exist", function() {
+			var element = frame.addElement("<div></div>");
+			assert.equal(element.getRawStyle("non-existant"), "", "non-existant style");
+		});
 
-	afterEach(function() {
-		frame.reset();
-	});
+		it("retrieves raw element position", function() {
+			var element = frame.addElement(
+				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
+			);
 
-	it("retrieves raw style", function() {
-		var element = frame.addElement("<div style='font-size: 42px'></div>");
-		assert.equal(element.getRawStyle("font-size"), "42px", "raw style");
-	});
+			var position = element.getRawPosition();
 
-	it("returns empty string when raw style doesn't exist", function() {
-		var element = frame.addElement("<div></div>");
-		assert.equal(element.getRawStyle("non-existant"), "", "non-existant style");
-	});
+			// WORKAROUND IE8: getRawPosition() reports different values
+			if (position.left === 32) {
+				assert.deepEqual(position, {
+					left: 32,
+					right: 92,
+					width: 60,
 
-	it("retrieves raw element position", function() {
-		var element = frame.addElement(
-			"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
-		);
+					top: 22,
+					bottom: 72,
+					height: 50
+				});
+			}
+			else {
+				assert.deepEqual(element.getRawPosition(), {
+					left: 30,
+					right: 90,
+					width: 60,
 
-		var position = element.getRawPosition();
+					top: 20,
+					bottom: 70,
+					height: 50
+				});
+			}
 
-		// WORKAROUND IE8: getRawPosition() reports different values
-		if (position.left === 32) {
-			assert.deepEqual(position, {
-				left: 32,
-				right: 92,
-				width: 60,
-
-				top: 22,
-				bottom: 72,
-				height: 50
-			});
-		}
-		else {
-			assert.deepEqual(element.getRawPosition(), {
-				left: 30,
-				right: 90,
-				width: 60,
-
-				top: 20,
-				bottom: 70,
-				height: 50
-			});
-		}
+		});
 
 	});
 

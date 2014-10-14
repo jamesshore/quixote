@@ -21,6 +21,7 @@ element.diff({
 ```
 
 ## To Do
+* QElement description should not be optional
 * diff() should describe element
 * How do we use ensure.signature without creating a circular dependency?
 * Modify ensure to give better error message when comparison type is not a constructor
