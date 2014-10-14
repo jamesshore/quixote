@@ -7,6 +7,7 @@
 * Positioning relative to other elements
 * Positioning relative to page
 * Initial "cooked" styling (colors?)
+* Improve Frame.create() API to be more convenient in before()?
 * ...more TBD
 
 
@@ -14,6 +15,7 @@
 
 
 ## To Do
+* Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
 
 
 ## Future / Off-camera

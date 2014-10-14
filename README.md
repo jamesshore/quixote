@@ -4,6 +4,77 @@
 
 This repository will contain the code for Quixote, a library for unit testing CSS. 
 
+
+## Usage and API
+
+The code is in `dist/quixote.js`. It's a UMD module, so it will work with CommonJS module loaders like Browserify and AMD loaders like Require.js. If you're not using a module loader, it will create a global variable named `quixote`.
+
+### Example of Use
+
+Quixote is intended to be used inside of a test framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem) Here's an example using Karma, Mocha, Chai, and Browserify:
+
+```javascript
+var quixote = require("quixote");     // Load Quixote
+var assert = require("chai").assert   // Load the Chai assertion library
+
+describe("Example CSS test", function() {
+
+  // *** TEST SETUP *** //
+
+  // The Quixote test frame we're going to create
+  var frame;
+
+  // Quixote will create a frame and load our HTML and CSS into that frame.
+  // This is slow, so we use the Mocha's before() function to do it just once.
+  before(function(done) {
+    // Create a 600 pixel wide by 800 pixel tall iframe and load test.html into it
+    quixote.createFrame(600, 800, { src: "/base/example/test.html" }, function(theFrame) {
+      frame = theFrame;     // Store the frame for future use
+      done();               // Tell Mocha we're done
+    );
+  )};
+  
+  // When this set of tests is done, erase the test frame
+  after(function() {
+    frame.remove();
+  });
+  
+  // Before each test, reset the test frame to a pristine state.
+  // This is faster than re-creating the frame every time.
+  beforeEach(function() {
+    frame.reset();
+  });
+  
+  
+  // *** EXAMPLE TESTS *** //
+  
+  // You can make assertions about the positions of elements
+  it("asserts positions", function() {
+    var foo = frame.getElement("#foo");     // Get an element using an #id selector. Any selector can be used.
+    
+    var position = foo.getRawPosition();    // Get the element's position on the page
+    
+    assert.equal(position.top, 42);         // You can make assertions about where the element is located 
+  });
+  
+  // You can make assertions about how elements are actually styled
+  it("asserts styles", function() {
+    var bar = frame.getElement(".bar");             // Get an element using a .class selector.
+    
+    var fontSize = bar.getRawStyle("font-size");    // Get the font-size actually shown on the page  
+    
+    assert.equal(fontSize, "42px");                 // Check it
+  });
+  
+  
+  // More sophisticated API coming soon!
+});
+
+```
+
+
+
+
 ## Virtual Hackathon
 
 This project will developed live Oct 13-16, 2014 starting at 10am PDT (GMT-7). You can watch and participate at [hitbox.tv/jamesshore](http://hitbox.tv/jamesshore) . 
