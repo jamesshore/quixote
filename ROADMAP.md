@@ -22,12 +22,8 @@ element.diff({
 ```
 
 ## To Do
-* Can't pass Mocha's 'done' to Frame.create() because it assumes the frame is an error
-* Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
 * Document Safari performance issue when window is hidden
-* Rename `Frame` to `QFrame`?
 * How do we use ensure.signature without creating a circular dependency?
-* Should frame.remove() cause additional frame method calls to fail fast?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
 
@@ -37,6 +33,7 @@ element.diff({
 
 ## Future To Do / Off-camera
 
+* Rename `Frame` to `QFrame`?
 * Get IE 8 ensure exceptions to show stack trace
 * Factor out functionName() (duplicated in ensure.js and assert.js)
 * Factor out duplication of message variable manipulation in assert.js
