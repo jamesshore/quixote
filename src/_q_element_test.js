@@ -93,7 +93,7 @@ describe("QElement", function() {
 	});
 
 
-	describe.only("constraints", function() {
+	describe("constraints", function() {
 		var TOP = 20;
 		var RIGHT = 90;
 		var BOTTOM = 70;
