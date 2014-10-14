@@ -10,10 +10,7 @@ describe("QElement", function() {
 	var frame;
 
 	before(function(done) {
-		Frame.create(window.document.body, 800, 1000, { stylesheet: "/base/src/__reset.css" }, function(theFrame) {
-			frame = theFrame;
-			done();
-		});
+		frame = Frame.create(window.document.body, 800, 1000, { stylesheet: "/base/src/__reset.css" }, done);
 	});
 
 	after(function() {

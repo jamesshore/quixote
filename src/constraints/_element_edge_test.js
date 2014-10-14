@@ -16,10 +16,7 @@ describe("ElementEdge", function() {
 	var LEFT = 20;
 
 	before(function(done) {
-		quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, function(theFrame) {
-			frame = theFrame;
-			done();
-		});
+		frame = quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, done);
 	});
 
 	after(function() {

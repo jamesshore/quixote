@@ -50,7 +50,7 @@ Me.create = function create(parentElement, width, height, options, callback) {
 		setTimeout(function() {
 			loaded(frame);
 			loadStylesheet(frame, options.stylesheet, function() {
-				callback(frame);
+				callback(null, frame);
 			});
 		}, 0);
 	}

@@ -5,6 +5,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## In Progress
 
+Breaking changes:
+
+* quixote.createFrame() and Frame.create() callbacks now pass err as first argument (always null, for now)
+
 New methods:
 
 * QElement
