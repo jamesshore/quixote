@@ -10,21 +10,10 @@ var Me = module.exports = function ElementEdge(element, position) {
 	this._position = position;
 };
 
-Me.top = function top(element) {
-	return new Me(element, "top");
-};
-
-Me.right = function(element) {
-	return new Me(element, "right");
-};
-
-Me.bottom = function(element) {
-	return new Me(element, "bottom");
-};
-
-Me.left = function(element) {
-	return new Me(element, "left");
-};
+Me.top = factoryFn("top");
+Me.right = factoryFn("right");
+Me.bottom = factoryFn("bottom");
+Me.left = factoryFn("left");
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Number ]);
@@ -36,4 +25,10 @@ Me.prototype.diff = function diff(expected) {
 
 function value(self) {
 	return self._element.getRawPosition()[self._position];
+}
+
+function factoryFn(position) {
+	return function factory(element) {
+		return new Me(element, position);
+	};
 }
