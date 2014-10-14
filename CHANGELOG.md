@@ -3,29 +3,31 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## In Progress
+## 0.2: Basic Position Diff
 
-Breaking changes:
+**14 Oct 2014.** The `diff()` call on QElement allows you to check multiple things with call. In this release, it supports the most basic positioning information: the position of the top, right, bottom, and left edge of the element. 
+
+*Breaking changes:*
 
 * quixote.createFrame() and Frame.create() callbacks now pass err as first argument (always null, for now)
 
-New methods:
+*New methods:*
 
 * QElement
   * top, right, bottom, left
   * diff()
 
-New classes:
+*New classes:*
 
 * ElementEdge
   * diff()
 
-Changed:
+*Changed:*
 
 * Frame.create() returns frame immediately
 * quixote.createFrame() returns frame immediately
 
-Fixed:
+*Fixed:*
 
 * IE 8 workaround: IE 8 includes frame border in position calculations. We now create the test frame with frameborder=0 attribute so IE 8's positions are consistent with other browsers. 
 
@@ -34,7 +36,7 @@ Fixed:
 
 **13 Oct 2014.** Basic API for setting up a test frame and getting raw (non cross-browser-compatible) style and positioning information. Minimally viable... but viable.
  
-New modules, classes, and methods:
+*New modules, classes, and methods:*
 
 * quixote
   * createFrame()

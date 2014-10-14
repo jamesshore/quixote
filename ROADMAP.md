@@ -22,7 +22,6 @@ element.diff({
 ```
 
 ## To Do
-* Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
 
 ## Future Features
@@ -31,6 +30,7 @@ element.diff({
 
 ## Future To Do / Off-camera
 
+* Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * How do we use ensure.signature in element_edge.js without creating a circular dependency?
 * Rename `Frame` to `QFrame`?
 * Get IE 8 ensure exceptions to show stack trace
