@@ -2,7 +2,7 @@
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
 
-This repository will contain the code for Quixote, a library for unit testing CSS. 
+Quixote is a library for unit testing CSS. You use it with a unit testing framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem).
 
 
 ## Usage
@@ -14,7 +14,7 @@ See below for an example and API documentation.
 
 ## Example
 
-Quixote is intended to be used inside of a test framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem) Here's an example using Karma, Mocha, Chai, and Browserify:
+Here's an example using Karma, Mocha, Chai, and Browserify:
 
 ```javascript
 var quixote = require("quixote");     // Load Quixote
@@ -53,24 +53,28 @@ describe("Example CSS test", function() {
   
   // You can make assertions about the positions of elements
   it("asserts positions", function() {
-    var foo = frame.getElement("#foo");     // Get an element using an #id selector. Any selector can be used.
+    // Get an element using an #id selector. Any selector can be used.
+    var foo = frame.getElement("#foo");
     
-    var position = foo.getRawPosition();    // Get the element's position on the page
-    
-    assert.equal(position.top, 42);         // You can make assertions about where the element is located 
+    // Get the element's position on the page
+    var position = foo.getRawPosition();
+
+    // You can make assertions about where the element is located
+    assert.equal(position.top, 42); 
   });
   
   // You can make assertions about how elements are actually styled
   it("asserts styles", function() {
-    var bar = frame.getElement(".bar");             // Get an element using a .class selector.
+    // Get an element using a .class selector.
+    var bar = frame.getElement(".bar");
     
-    var fontSize = bar.getRawStyle("font-size");    // Get the font-size actually shown on the page  
+    // Get the font-size actually shown on the page
+    var fontSize = bar.getRawStyle("font-size");  
     
-    assert.equal(fontSize, "42px");                 // Check it
+    // Check it
+    assert.equal(fontSize, "42px");
   });
   
-  
-  // More sophisticated API coming soon!
 });
 ```
 
@@ -79,18 +83,20 @@ describe("Example CSS test", function() {
 
 There are three classes and modules available to you:
 
-* `quixote` is your entry point. It allows you to create a `Frame` for testing.
-* `Frame` allows you to manipulate the DOM inside your test frame.
+* `quixote` is your entry point. It allows you to create a iframe for testing.
+* `Frame` is how you manipulate the DOM inside your test frame.
 * `QElement` allows you to get information about your styled elements.
 
 
-### `quixote`
+### Entry Point: `quixote`
 
 The `quixote` module just has one method: `quixote.createFrame()`. You'll use this to create your test frame. For performance, it's best to do this just once per test suite.
 
-#### `quixote.createFrame(width, height, options, callback(frame))`
+#### quixote.createFrame()
 
 Create a test iframe.
+
+`quixote.createFrame(width, height, options, callback(frame))`
 
 * `width` (number): Width of the iframe
 
@@ -104,21 +110,27 @@ Create a test iframe.
 * `callback(frame)` (function): Called when the frame has been created. `frame` is the newly-created frame.
 
 
-### `Frame`
+### Class: `Frame`
 
 `Frame` instances allow you to control your test frame. You'll use this to create and retrieve elements. Of particular use is `frame.reset()`, which you should call before each test. You'll also need to call `frame.remove()` after all your CSS tests are complete.
 
-#### `frame.reset()`
+#### frame.reset()
 
 Reset the frame back to the state it was in immediately after you called `quixote.createFrame()`.
 
-#### `frame.remove()`
+`frame.reset()`
+
+#### frame.remove()
 
 Remove the test frame entirely.
 
-#### `element = frame.getElement(selector)`
+`frame.remove()`
+
+#### frame.getElement()
 
 Retrieve an element matching `selector`. Throws an exception unless exactly one matching element is found.
+
+`element = frame.getElement(selector)`
 
 * `element` (QElement object): The element that matches your selector.
 
@@ -126,9 +138,11 @@ Retrieve an element matching `selector`. Throws an exception unless exactly one 
 
 Example: `var foo = frame.getElement("#foo");`
 
-#### `element = frame.addElement(html)`
+#### frame.addElement()
 
 Create an element and add it to the end of the frame's body. Throws an exception unless exactly one element is created.
+
+`element = frame.addElement(html)`
 
 * `element` (QElement object): The element you created.
 
@@ -137,30 +151,35 @@ Create an element and add it to the end of the frame's body. Throws an exception
 Example: `var foo = frame.addElement("<p>foo</p>");`
 
 
-### `QElement`
+### Class: `QElement`
 
 `QElement` instances represent individual HTML tags. You'll use them to get information about how the elements on your page are styled.
 
 At the moment, `QElement` only provides access to the raw values provided by browsers. In future versions, more sophisticated options will be available.
 
-#### `style = element.getRawStyle(property)`
+#### element.getRawStyle
 
-Determine how an element displays a particular style, as computed by the browser. This uses `[getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle)` under the covers. (On IE 8, it uses `[currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)`).
+Determine how an element displays a particular style, as computed by the browser. This uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
+
+`style = element.getRawStyle(property)`
 
 * `style` (string): The browser's computed style, or an empty string if the style wasn't recognized.
  
 * `property` (string): The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
+
+Example: `var fontSize = element.getRawStyle("font-size")`;
 
 Cross-Browser Compatibility: `getRawStyle` does not attempt to resolve cross-browser differences, with two exceptions:
 
 * IE 8 uses `currentStyle` rather than `getComputedStyle()`, and snake-case property names are converted to camelCase to match currentStyle's expectation.
 * Different browsers return `null`, `undefined`, or `""` when a property can't be found. Quixote always returns `""`. 
 
-Example: `var fontSize = element.getRawStyle("font-size");
 
-#### `position = element.getRawPosition()`
+#### element.getRawPosition
 
-Determine where an element is displayed within the frame viewport, as computed by the browser. This uses `[getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect)` under the covers. Note that scrolling the document will cause the position to change.
+Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change.
+
+`position = element.getRawPosition()`
 
 * `position` (object): The position of the element relative to the top of the viewport. In other words, if you scroll the viewport down 10 pixels, `top` will be 10 pixels smaller. All values include border and padding, but not margin.
   * `top` (number): top edge
@@ -170,9 +189,11 @@ Determine where an element is displayed within the frame viewport, as computed b
   * `width` (number): width (right edge minus left edge)
   * `height` (number): height (bottom edge minus top edge)
 
+Example: `var top = element.getRawPosition().top;`
+
 Cross-Browser Compatibility: `getRawPosition()` does not attempt to resolve cross-browser differences, with one exception:
 
-* IE 8 does not provide `width` or `height`, but `getRawPosition()` calculates them from the other properties.
+* IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` does, even on IE 8. It calculates them from the other properties.
 
 
 ## Virtual Hackathon
