@@ -8,12 +8,13 @@ var Frame = require("./frame.js");
 describe("Quixote", function() {
 
 	it("creates frame", function(done) {
-		var frame = quixote.createFrame(600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
+		var frame = quixote.createFrame(600, 400, { src: "/base/src/_frame_test.html" }, function(callbackFrame) {
 			assert.noException(function() {
-				frame.getElement("#exists");
+				callbackFrame.getElement("#exists");
 			});
 			done();
 		});
+		assert.type(frame, Frame, "createFrame() returns frame object immediately");
 	});
 
 });

@@ -16,6 +16,11 @@ New classes:
 * ElementEdge
   * diff()
 
+Changed:
+
+* Frame.create() returns frame immediately
+* quixote.createFrame() returns frame immediately
+
 Fixed:
 
 * IE 8 workaround: IE 8 includes frame border in position calculations. We now create the test frame with frameborder=0 attribute so IE 8's positions are consistent with other browsers. 

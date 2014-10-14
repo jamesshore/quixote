@@ -12,7 +12,6 @@
 
 ## Current Feature: Initial Assertion API
 
-* Improve Frame.create() API to be more convenient in before()
 * document diff() API
 
 ```javascript
