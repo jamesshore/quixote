@@ -161,16 +161,19 @@ describe("Frame", function() {
 		var frame;
 		var frameDom;
 
-		beforeEach(function(done) {
-			Frame.create(window.document.body, 800, 1000, function(theFrame) {
-				frame = theFrame;
-				frameDom = frame.toDomElement();
+		before(function(done) {
+			frame = Frame.create(window.document.body, 800, 1000, function() {
 				done();
 			});
+			frameDom = frame.toDomElement();
 		});
 
-		afterEach(function() {
+		after(function() {
 			frame.remove();
+		});
+
+		beforeEach(function() {
+			frame.reset();
 		});
 
 		it("adds an element", function() {
