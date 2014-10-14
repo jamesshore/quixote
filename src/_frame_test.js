@@ -92,6 +92,9 @@ describe("Frame", function() {
 				frame.remove();
 				assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
 
+				assert.noException(function() {
+					frame.remove();
+				}, "removing an already removed frame should be a no-op");
 				done();
 			});
 		});

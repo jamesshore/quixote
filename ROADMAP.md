@@ -13,7 +13,6 @@
 
 ## Current Feature: Initial Assertion API
 
-* width and height
 * document diff() API
 
 ```javascript
@@ -31,7 +30,11 @@ element.diff({
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
 
-## Future / Off-camera
+## Future Features
+* width and height constraints
+
+
+## Future To Do / Off-camera
 
 * Get IE 8 ensure exceptions to show stack trace
 * Factor out functionName() (duplicated in ensure.js and assert.js)

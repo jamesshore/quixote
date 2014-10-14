@@ -11,6 +11,7 @@ var Me = module.exports = function Frame(domElement) {
 	this._domElement = domElement;
 	this._document = domElement.contentDocument;
 	this._originalBody = this._document.body.innerHTML;
+	this._removed = false;
 };
 
 Me.create = function create(parentElement, width, height, options, callback) {
@@ -73,7 +74,9 @@ Me.prototype.toDomElement = function() {
 
 Me.prototype.remove = function() {
 	ensure.signature(arguments, []);
+	if (this._removed) return;
 
+	this._removed = true;
 	this._domElement.parentNode.removeChild(this._domElement);
 };
 
