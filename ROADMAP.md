@@ -2,7 +2,7 @@
 
 ## Release Ideas
 
-* Basic DOM manipulation; raw position and style information
+* **✔ v0.1** Basic DOM manipulation; raw position and style information
 * "Cooked" absolute position info; initial assertion API
 * Positioning relative to other elements
 * Positioning relative to page
@@ -10,11 +10,7 @@
 * ...more TBD
 
 
-## Current Feature: Basic DOM Manipulation
-
-Work remaining:
-
-* `quixote.createFrame()`
+## Current Feature: Initial Assertion API
 
 
 ## To Do
