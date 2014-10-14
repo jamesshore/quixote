@@ -26,6 +26,7 @@ element.diff({
 
 ## Future Features
 * width and height constraints
+* Should width and height go inside Frame's "options" object?
 
 
 ## Future To Do / Off-camera

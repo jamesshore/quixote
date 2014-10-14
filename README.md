@@ -9,7 +9,7 @@ Quixote is a library for unit testing CSS. You use it with a unit testing framew
 
 ## Usage
 
-The code is in `dist/quixote.js`. It's a UMD module, so it will work with module loaders like Browserify and Require.js. If you're not using a module loader, it will create a global variable named `quixote`.
+The code is in `dist/quixote.js`. It's a UMD module, so it will work with module loaders like Browserify and Require.js. If you're not using a module loader, it will create a global variable named `quixote`. You can also install the library using `npm install quixote`.
 
 See below for an example and API documentation.
 
@@ -35,11 +35,8 @@ describe("Example CSS test", function() {
   // This is slow, so we use the Mocha's before() function to do it just once.
   before(function(done) {
     // Create a 600 pixel wide by 800 pixel tall iframe and load test.html into it
-    quixote.createFrame(600, 800, { src: "/base/example/test.html" }, function(theFrame) {
-      frame = theFrame;     // Store the frame for future use
-      done();               // Tell Mocha we're done
-    );
-  )};
+    frame = quixote.createFrame(600, 800, { src: "/base/example/test.html" }, done);
+  });
   
   // When this set of tests is done, erase the test frame
   after(function() {
@@ -59,20 +56,25 @@ describe("Example CSS test", function() {
   it("asserts positions", function() {
     // Get an element using an #id selector. Any selector can be used.
     var foo = frame.getElement("#foo");
-    
-    // Get the element's position on the page
-    var position = foo.getRawPosition();
 
-    // You can make assertions about where the element is located
-    assert.equal(position.top, 42); 
+    // The 'diff()' method allows us to check multiple styles at the same time. It returns
+    // an empty string if everything matches, or an explanation of what's different if not. 
+    assert.equal(foo.diff({
+      top: 42,
+      right: 67,
+      bottom: 99
+      left: 10
+    }, "");
+    
   });
   
   // You can make assertions about how elements are actually styled
   it("asserts styles", function() {
     // Get an element using a .class selector.
     var bar = frame.getElement(".bar");
-    
-    // Get the font-size actually shown on the page
+
+    // So far, element.diff() only supports positions. But we can get any CSS style
+    // by calling element.getRawStyle().
     var fontSize = bar.getRawStyle("font-size");  
     
     // Check it
@@ -102,7 +104,9 @@ The `quixote` module just has one method: `quixote.createFrame()`. You'll use th
 
 Create a test iframe.
 
-`quixote.createFrame(width, height, options, callback(frame))`
+`frame = quixote.createFrame(width, height, options, callback(err, frame))`
+
+* `frame` (Frame): The newly-created frame. Although the frame is returned immediately, you have to wait for the callback to execute before you can use it.
 
 * `width` (number): Width of the iframe
 
@@ -113,7 +117,9 @@ Create a test iframe.
   * `stylesheet` (optional string): URL of a CSS stylesheet to load into the frame
   * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet with an HTML document, use a `<link>` tag in the HTML document itself.
   
-* `callback(frame)` (function): Called when the frame has been created. `frame` is the newly-created frame.
+* `callback(err, loadedFrame)` (function): Called when the frame has been created. 
+  * `err` (Error or null): Any errors that occurred while loading the frame (always `null`, for now)
+  * `loadedFrame` (Frame): The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
 
 
 ### Class: `Frame`
@@ -161,7 +167,29 @@ Example: `var foo = frame.addElement("<p>foo</p>");`
 
 `QElement` instances represent individual HTML tags. You'll use them to get information about how the elements on your page are styled.
 
-At the moment, `QElement` only provides access to the raw values provided by browsers. In future versions, more sophisticated options will be available.
+
+#### Properties
+
+QElement instances have several properties that can be used to make assertions about your element's position and (eventually) styling. You'll typically use this with QElement's `diff()` method.
+ 
+* `top`: Top edge of the element, including (outside) the border and padding, but not including the margin 
+* `right`: Right edge
+* `bottom`: Bottom edge
+* `left`: Left edge
+
+
+#### element.diff
+
+Compare the element's properties to a set of expected values.
+
+`diff = element.diff(expected)`
+
+* `diff` (string): A human-readable description of any differences found, or an empty string if none.
+
+* `expected` (object): An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number.
+
+Example: `assert.equal(element.diff({ top: 13, bottom: 42 }), "")`
+
 
 #### element.getRawStyle
 

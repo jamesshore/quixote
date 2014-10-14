@@ -24,8 +24,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Changed:*
 
-* Frame.create() returns frame immediately
-* quixote.createFrame() returns frame immediately
+* Frame.create() and quixote.createFrame() return frame immediately. You still need to wait for the callback before using the frame, but it can be convenient in some test runners.
 
 *Fixed:*
 
