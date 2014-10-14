@@ -9,9 +9,15 @@ var Me = module.exports = function Frame(domElement) {
 	ensure.that(domElement.tagName === "IFRAME", "DOM element must be an iframe");
 
 	this._domElement = domElement;
-	this._document = domElement.contentDocument;
-	this._originalBody = this._document.body.innerHTML;
+	this._loaded = false;
+	this._removed = false;
 };
+
+function loaded(self) {
+	self._loaded = true;
+	self._document = self._domElement.contentDocument;
+	self._originalBody = self._document.body.innerHTML;
+}
 
 Me.create = function create(parentElement, width, height, options, callback) {
 	ensure.signature(arguments, [ Object, Number, Number, [ Object, Function ], [ undefined, Function ] ]);
@@ -22,23 +28,31 @@ Me.create = function create(parentElement, width, height, options, callback) {
 	}
 
 	// WORKAROUND Mobile Safari 7.0.0: weird style results occur when both src and stylesheet are loaded (see test)
-	ensure.that(!(options.src && options.stylesheet), "Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue");
+	ensure.that(
+		!(options.src && options.stylesheet),
+		"Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue"
+	);
 
 	var iframe = document.createElement("iframe");
-	addLoadListener(iframe, onFrameLoad);
-
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
 	iframe.setAttribute("frameborder", "0");    // WORKAROUND IE 8: don't include frame border in position calcs
-
 	if (options.src) iframe.setAttribute("src", options.src);
+
+	var frame = new Me(iframe);
+	addLoadListener(iframe, onFrameLoad);
 	parentElement.appendChild(iframe);
+	return frame;
 
 	function onFrameLoad() {
-		var frame = new Me(iframe);
-		loadStylesheet(frame, options.stylesheet, function() {
-			callback(frame);
-		});
+		// WORKAROUND Mobile Safari 7.0.0, Safari 6.2.0, Chrome 38.0.2125: frame is loaded synchronously
+		// We force it to be asynchronous here
+		setTimeout(function() {
+			loaded(frame);
+			loadStylesheet(frame, options.stylesheet, function() {
+				callback(frame);
+			});
+		}, 0);
 	}
 };
 
@@ -61,24 +75,30 @@ function loadStylesheet(self, url, callback) {
 
 Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
+	ensureUsable(this);
 
 	this._document.body.innerHTML = this._originalBody;
 };
 
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
+	ensureNotRemoved(this);
 
 	return this._domElement;
 };
 
 Me.prototype.remove = function() {
 	ensure.signature(arguments, []);
+	ensureLoaded(this);
+	if (this._removed) return;
 
+	this._removed = true;
 	this._domElement.parentNode.removeChild(this._domElement);
 };
 
 Me.prototype.addElement = function(html) {
 	ensure.signature(arguments, [ String ]);
+	ensureUsable(this);
 
 	var tempElement = document.createElement("div");
 	tempElement.innerHTML = html;
@@ -94,6 +114,7 @@ Me.prototype.addElement = function(html) {
 
 Me.prototype.getElement = function(selector) {
 	ensure.signature(arguments, [ String ]);
+	ensureUsable(this);
 
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
@@ -110,4 +131,17 @@ function addLoadListener(iframeDom, callback) {
 function documentHead(self) {
 	if (self._document.head) return self._document.head;
 	else return self._document.querySelector("head");
+}
+
+function ensureUsable(self) {
+	ensureLoaded(self);
+	ensureNotRemoved(self);
+}
+
+function ensureLoaded(self) {
+	ensure.that(self._loaded, "Frame not loaded: Wait for frame creation callback to execute before using frame");
+}
+
+function ensureNotRemoved(self) {
+	ensure.that(!self._removed, "Attempted to use frame after it was removed");
 }

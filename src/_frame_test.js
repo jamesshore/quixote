@@ -23,6 +23,14 @@ describe("Frame", function() {
 			});
 		});
 
+		it("returns frame immediately upon creation", function(done) {
+			var frame = Frame.create(window.document.body, 600, 400, function(loadedFrame) {
+				assert.equal(frame, loadedFrame, "should return same frame as passed in callback");
+				done();
+			});
+			assert.defined(frame, "valid Frame object should be returned from create() method");
+		});
+
 		it("creates iframe using source URL", function(done) {
 			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
 				assert.noException(function() {
@@ -92,6 +100,9 @@ describe("Frame", function() {
 				frame.remove();
 				assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
 
+				assert.noException(function() {
+					frame.remove();
+				}, "removing an already removed frame should be a no-op");
 				done();
 			});
 		});
@@ -101,6 +112,39 @@ describe("Frame", function() {
 			Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function(frame) {
 				var element = frame.addElement("<p>Foo</p>");
 				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
+				done();
+			});
+		});
+
+		it("fails fast if frame is used before it's loaded", function(done) {
+			var notLoaded = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
+
+			var frame = Frame.create(window.document.body, 600, 400, function() { done(); });
+
+			assert.exception(function() { frame.reset(); }, notLoaded, "resetting frame should be a no-op");
+			assert.noException(
+				function() { frame.toDomElement(); },
+				"toDomElement() should be okay because the iframe element exists even if it isn't loaded"
+			);
+			assert.exception(
+				function() { frame.remove(); },
+				notLoaded,
+				"technically, removing the frame works, but it's complicated, so it should just fail"
+			);
+			assert.exception(function() { frame.addElement("<p></p>"); }, notLoaded, "addElement()");
+			assert.exception(function() { frame.getElement("foo"); }, notLoaded, "getElement()");
+		});
+
+		it("fails fast if frame is used after it's removed", function(done) {
+			var resetErr = /Attempted to use frame after it was removed/;
+
+			Frame.create(window.document.body, 600, 400, function(frame) {
+				frame.remove();
+				assert.exception(function() { frame.reset(); }, resetErr, "reset()");
+				assert.exception(function() { frame.toDomElement(); }, resetErr, "toDomElement()");
+				assert.exception(function() { frame.addElement("<p></p>"); }, resetErr, "addElement()");
+				assert.exception(function() { frame.getElement("foo"); }, resetErr, "getElement()");
+
 				done();
 			});
 		});

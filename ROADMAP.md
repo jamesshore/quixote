@@ -7,13 +7,11 @@
 * Positioning relative to other elements
 * Positioning relative to page
 * Initial "cooked" styling (colors?)
-* Improve Frame.create() API to be more convenient in before()?
 * ...more TBD
 
 
 ## Current Feature: Initial Assertion API
 
-* width and height
 * document diff() API
 
 ```javascript
@@ -24,14 +22,20 @@ element.diff({
 ```
 
 ## To Do
-* How do we use ensure.signature without creating a circular dependency?
+* Can't pass Mocha's 'done' to Frame.create() because it assumes the frame is an error
 * Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
+* Document Safari performance issue when window is hidden
 * Rename `Frame` to `QFrame`?
+* How do we use ensure.signature without creating a circular dependency?
 * Should frame.remove() cause additional frame method calls to fail fast?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
 
-## Future / Off-camera
+## Future Features
+* width and height constraints
+
+
+## Future To Do / Off-camera
 
 * Get IE 8 ensure exceptions to show stack trace
 * Factor out functionName() (duplicated in ensure.js and assert.js)
