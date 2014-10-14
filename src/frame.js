@@ -9,10 +9,12 @@ var Me = module.exports = function Frame(domElement) {
 	ensure.that(domElement.tagName === "IFRAME", "DOM element must be an iframe");
 
 	this._domElement = domElement;
+	this._loaded = false;
 	this._removed = false;
 };
 
 function loaded(self) {
+	self._loaded = true;
 	self._document = self._domElement.contentDocument;
 	self._originalBody = self._document.body.innerHTML;
 }
@@ -49,7 +51,7 @@ Me.create = function create(parentElement, width, height, options, callback) {
 			// We force it to be asynchronous here
 			setTimeout(function() {
 				callback(frame);
-			}, 1);
+			}, 0);
 		});
 	}
 };
@@ -73,6 +75,7 @@ function loadStylesheet(self, url, callback) {
 
 Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
+	if (!this._loaded) return;
 
 	this._document.body.innerHTML = this._originalBody;
 };
@@ -85,6 +88,7 @@ Me.prototype.toDomElement = function() {
 
 Me.prototype.remove = function() {
 	ensure.signature(arguments, []);
+	ensureLoaded(this);
 	if (this._removed) return;
 
 	this._removed = true;
@@ -93,6 +97,7 @@ Me.prototype.remove = function() {
 
 Me.prototype.addElement = function(html) {
 	ensure.signature(arguments, [ String ]);
+	ensureLoaded(this);
 
 	var tempElement = document.createElement("div");
 	tempElement.innerHTML = html;
@@ -108,6 +113,7 @@ Me.prototype.addElement = function(html) {
 
 Me.prototype.getElement = function(selector) {
 	ensure.signature(arguments, [ String ]);
+	ensureLoaded(this);
 
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
@@ -124,4 +130,8 @@ function addLoadListener(iframeDom, callback) {
 function documentHead(self) {
 	if (self._document.head) return self._document.head;
 	else return self._document.querySelector("head");
+}
+
+function ensureLoaded(self) {
+	ensure.that(self._loaded, "Frame not loaded: Wait for frame creation callback to execute before using frame");
 }

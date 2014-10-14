@@ -23,6 +23,7 @@ element.diff({
 ```
 
 ## To Do
+* Can't pass Mocha's 'done' to Frame.create() because it assumes the frame is an error
 * Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
 * Document Safari performance issue when window is hidden
 * Rename `Frame` to `QFrame`?

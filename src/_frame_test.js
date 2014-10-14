@@ -31,8 +31,6 @@ describe("Frame", function() {
 			assert.defined(frame, "valid Frame object should be returned from create() method");
 		});
 
-		//TODO: frame should fail fast if used before load event completes
-
 		it("creates iframe using source URL", function(done) {
 			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
 				assert.noException(function() {
@@ -117,6 +115,27 @@ describe("Frame", function() {
 				done();
 			});
 		});
+
+		it("fails fast if frame is used before it's loaded", function(done) {
+			var notLoaded = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
+
+			var frame = Frame.create(window.document.body, 600, 400, function() { done(); });
+
+			assert.noException(function() { frame.reset(); }, "resetting frame should be a no-op");
+			assert.noException(
+				function() { frame.toDomElement(); },
+				"toDomElement() should be okay because the iframe element exists even if it isn't loaded"
+			);
+			assert.exception(
+				function() { frame.remove(); },
+				notLoaded,
+				"technically, removing the frame works, but it's complicated, so it should just fail"
+			);
+			assert.exception(function() { frame.addElement("<p></p>"); }, notLoaded, "addElement()");
+			assert.exception(function() { frame.getElement("foo"); }, notLoaded, "getElement()");
+		});
+
+		//TODO: frame should fail fast if used after it's removed
 
 	});
 
