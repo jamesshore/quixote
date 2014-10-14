@@ -16,6 +16,9 @@
 
 ## To Do
 * Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
+* Rename `Frame` to `QFrame`?
+* Should frame.remove() cause additional frame method calls to fail fast?
+* Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
 
 ## Future / Off-camera

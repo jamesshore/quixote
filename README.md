@@ -5,11 +5,14 @@
 This repository will contain the code for Quixote, a library for unit testing CSS. 
 
 
-## Usage and API
+## Usage
 
-The code is in `dist/quixote.js`. It's a UMD module, so it will work with CommonJS module loaders like Browserify and AMD loaders like Require.js. If you're not using a module loader, it will create a global variable named `quixote`.
+The code is in `dist/quixote.js`. It's a UMD module, so it will work with module loaders like Browserify and Require.js. If you're not using a module loader, it will create a global variable named `quixote`.
 
-### Example of Use
+See below for an example and API documentation.
+
+
+## Example
 
 Quixote is intended to be used inside of a test framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem) Here's an example using Karma, Mocha, Chai, and Browserify:
 
@@ -69,10 +72,107 @@ describe("Example CSS test", function() {
   
   // More sophisticated API coming soon!
 });
-
 ```
 
 
+## API
+
+There are three classes and modules available to you:
+
+* `quixote` is your entry point. It allows you to create a `Frame` for testing.
+* `Frame` allows you to manipulate the DOM inside your test frame.
+* `QElement` allows you to get information about your styled elements.
+
+
+### `quixote`
+
+The `quixote` module just has one method: `quixote.createFrame()`. You'll use this to create your test frame. For performance, it's best to do this just once per test suite.
+
+#### `quixote.createFrame(width, height, options, callback(frame))`
+
+Create a test iframe.
+
+* `width` (number): Width of the iframe
+
+* `height` (number): Height of the iframe
+
+* `options` (optional object): Options for creating the frame:
+  * `src` (optional string): URL of an HTML document to load into the frame
+  * `stylesheet` (optional string): URL of a CSS stylesheet to load into the frame
+  * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet with an HTML document, use a `<link>` tag in the HTML document itself.
+  
+* `callback(frame)` (function): Called when the frame has been created. `frame` is the newly-created frame.
+
+
+### `Frame`
+
+`Frame` instances allow you to control your test frame. You'll use this to create and retrieve elements. Of particular use is `frame.reset()`, which you should call before each test. You'll also need to call `frame.remove()` after all your CSS tests are complete.
+
+#### `frame.reset()`
+
+Reset the frame back to the state it was in immediately after you called `quixote.createFrame()`.
+
+#### `frame.remove()`
+
+Remove the test frame entirely.
+
+#### `element = frame.getElement(selector)`
+
+Retrieve an element matching `selector`. Throws an exception unless exactly one matching element is found.
+
+* `element` (QElement object): The element that matches your selector.
+
+* `selector` (string): A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
+
+Example: `var foo = frame.getElement("#foo");`
+
+#### `element = frame.addElement(html)`
+
+Create an element and add it to the end of the frame's body. Throws an exception unless exactly one element is created.
+
+* `element` (QElement object): The element you created.
+
+* `html` (string): HTML for your element.
+
+Example: `var foo = frame.addElement("<p>foo</p>");`
+
+
+### `QElement`
+
+`QElement` instances represent individual HTML tags. You'll use them to get information about how the elements on your page are styled.
+
+At the moment, `QElement` only provides access to the raw values provided by browsers. In future versions, more sophisticated options will be available.
+
+#### `style = element.getRawStyle(property)`
+
+Determine how an element displays a particular style, as computed by the browser. This uses `[getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle)` under the covers. (On IE 8, it uses `[currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)`).
+
+* `style` (string): The browser's computed style, or an empty string if the style wasn't recognized.
+ 
+* `property` (string): The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
+
+Cross-Browser Compatibility: `getRawStyle` does not attempt to resolve cross-browser differences, with two exceptions:
+
+* IE 8 uses `currentStyle` rather than `getComputedStyle()`, and snake-case property names are converted to camelCase to match currentStyle's expectation.
+* Different browsers return `null`, `undefined`, or `""` when a property can't be found. Quixote always returns `""`. 
+
+Example: `var fontSize = element.getRawStyle("font-size");
+
+#### `position = element.getRawPosition()`
+
+Determine where an element is displayed within the frame viewport, as computed by the browser. This uses `[getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect)` under the covers. Note that scrolling the document will cause the position to change.
+
+* `position` (object): The position of the element relative to the top of the viewport. In other words, if you scroll the viewport down 10 pixels, `top` will be 10 pixels smaller. All values include border and padding, but not margin.
+  * `top` (number): top edge
+  * `right` (number): right edge
+  * `bottom` (number): bottom edge
+  * `left` (number): left edge
+  * `width` (number): width (right edge minus left edge)
+  * `height` (number): height (bottom edge minus top edge)
+
+Cross-Browser Compatibility: `getRawPosition()` does not attempt to resolve cross-browser differences, with one exception:
+
+* IE 8 does not provide `width` or `height`, but `getRawPosition()` calculates them from the other properties.
 
 
 ## Virtual Hackathon
