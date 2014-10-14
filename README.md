@@ -62,9 +62,9 @@ describe("Example CSS test", function() {
     assert.equal(foo.diff({
       top: 42,
       right: 67,
-      bottom: 99
+      bottom: 99,
       left: 10
-    }, "");
+    }), "");
     
   });
   
