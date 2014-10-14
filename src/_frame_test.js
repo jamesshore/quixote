@@ -96,6 +96,15 @@ describe("Frame", function() {
 			});
 		});
 
+		// WORKAROUND IE 8: getClientRect() includes frame border in positions
+		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
+			Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function(frame) {
+				var element = frame.addElement("<p>Foo</p>");
+				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
+				done();
+			});
+		});
+
 	});
 
 	describe("instance", function() {

@@ -29,6 +29,7 @@ Me.create = function create(parentElement, width, height, options, callback) {
 
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
+	iframe.setAttribute("frameborder", "0");    // WORKAROUND IE 8: see test
 
 	if (options.src) iframe.setAttribute("src", options.src);
 	parentElement.appendChild(iframe);
