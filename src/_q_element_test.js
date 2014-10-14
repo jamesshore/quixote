@@ -10,7 +10,7 @@ describe("QElement", function() {
 	var frame;
 
 	before(function(done) {
-		Frame.create(window.document.body, 800, 1000, function(theFrame) {
+		Frame.create(window.document.body, 800, 1000, { stylesheet: "/base/src/__reset.css" }, function(theFrame) {
 			frame = theFrame;
 			done();
 		});
@@ -79,34 +79,21 @@ describe("QElement", function() {
 			var element = frame.addElement(
 				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
 			);
+			assert.deepEqual(element.getRawPosition(), {
+				left: 30,
+				right: 90,
+				width: 60,
 
-			var position = element.getRawPosition();
-
-			// WORKAROUND IE8: getRawPosition() reports different values
-			if (position.left === 32) {
-				assert.deepEqual(position, {
-					left: 32,
-					right: 92,
-					width: 60,
-
-					top: 22,
-					bottom: 72,
-					height: 50
-				});
-			}
-			else {
-				assert.deepEqual(element.getRawPosition(), {
-					left: 30,
-					right: 90,
-					width: 60,
-
-					top: 20,
-					bottom: 70,
-					height: 50
-				});
-			}
-
+				top: 20,
+				bottom: 70,
+				height: 50
+			});
 		});
+
+	});
+
+
+	describe("constraints", function() {
 
 	});
 
