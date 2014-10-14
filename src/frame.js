@@ -21,7 +21,7 @@ Me.create = function create(parentElement, width, height, options, callback) {
 		options = {};
 	}
 
-	// WORKAROUND Mobile Safari 7.0.0: see test
+	// WORKAROUND Mobile Safari 7.0.0: weird style results occur when both src and stylesheet are loaded (see test)
 	ensure.that(!(options.src && options.stylesheet), "Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue");
 
 	var iframe = document.createElement("iframe");
@@ -29,7 +29,7 @@ Me.create = function create(parentElement, width, height, options, callback) {
 
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
-	iframe.setAttribute("frameborder", "0");    // WORKAROUND IE 8: see test
+	iframe.setAttribute("frameborder", "0");    // WORKAROUND IE 8: don't include frame border in position calcs
 
 	if (options.src) iframe.setAttribute("src", options.src);
 	parentElement.appendChild(iframe);
