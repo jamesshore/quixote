@@ -4,6 +4,6 @@
 var ensure = require("./util/ensure.js");
 var Frame = require("./frame.js");
 
-exports.createFrame = function() {
-//	return new Frame();
+exports.createFrame = function(width, height, options, callback) {
+	return Frame.create(document.body, width, height, options, callback);
 };
