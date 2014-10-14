@@ -3,21 +3,27 @@
 ## Release Ideas
 
 * **✔ v0.1** Basic DOM manipulation; raw position and style information
-* "Cooked" absolute position info; initial assertion API
+* **✔ v0.2** "Cooked" absolute position info; initial assertion API
 * Positioning relative to other elements
 * Positioning relative to page
 * Initial "cooked" styling (colors?)
 * ...more TBD
 
 
-## Current Feature: Initial Assertion API
+## Current Feature: Relative Positioning
 
-* document diff() API
+* Relative position comparisons (compare left edge to right edge)
+* Offset position comparisons (compare left edge to right edge + 10 px)
+* middle and center
+* height and width
+* fractional height and width
 
 ```javascript
 element.diff({
-  top: 13,
-  bottom: 40
+  top: foo.top,
+  bottom: bar.middle
+  left: baz.left.plus(10)
+  right: baz.left.plus(element.width)
 });
 ```
 
