@@ -75,13 +75,14 @@ function loadStylesheet(self, url, callback) {
 
 Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
-	if (!this._loaded) return;
+	ensureUsable(this);
 
 	this._document.body.innerHTML = this._originalBody;
 };
 
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
+	ensureNotRemoved(this);
 
 	return this._domElement;
 };
@@ -97,7 +98,7 @@ Me.prototype.remove = function() {
 
 Me.prototype.addElement = function(html) {
 	ensure.signature(arguments, [ String ]);
-	ensureLoaded(this);
+	ensureUsable(this);
 
 	var tempElement = document.createElement("div");
 	tempElement.innerHTML = html;
@@ -113,7 +114,7 @@ Me.prototype.addElement = function(html) {
 
 Me.prototype.getElement = function(selector) {
 	ensure.signature(arguments, [ String ]);
-	ensureLoaded(this);
+	ensureUsable(this);
 
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
@@ -132,6 +133,15 @@ function documentHead(self) {
 	else return self._document.querySelector("head");
 }
 
+function ensureUsable(self) {
+	ensureLoaded(self);
+	ensureNotRemoved(self);
+}
+
 function ensureLoaded(self) {
 	ensure.that(self._loaded, "Frame not loaded: Wait for frame creation callback to execute before using frame");
+}
+
+function ensureNotRemoved(self) {
+	ensure.that(!self._removed, "Attempted to use frame after it was removed");
 }

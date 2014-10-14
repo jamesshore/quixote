@@ -121,7 +121,7 @@ describe("Frame", function() {
 
 			var frame = Frame.create(window.document.body, 600, 400, function() { done(); });
 
-			assert.noException(function() { frame.reset(); }, "resetting frame should be a no-op");
+			assert.exception(function() { frame.reset(); }, notLoaded, "resetting frame should be a no-op");
 			assert.noException(
 				function() { frame.toDomElement(); },
 				"toDomElement() should be okay because the iframe element exists even if it isn't loaded"
@@ -135,7 +135,19 @@ describe("Frame", function() {
 			assert.exception(function() { frame.getElement("foo"); }, notLoaded, "getElement()");
 		});
 
-		//TODO: frame should fail fast if used after it's removed
+		it("fails fast if frame is used after it's removed", function(done) {
+			var resetErr = /Attempted to use frame after it was removed/;
+
+			Frame.create(window.document.body, 600, 400, function(frame) {
+				frame.remove();
+				assert.exception(function() { frame.reset(); }, resetErr, "reset()");
+				assert.exception(function() { frame.toDomElement(); }, resetErr, "toDomElement()");
+				assert.exception(function() { frame.addElement("<p></p>"); }, resetErr, "addElement()");
+				assert.exception(function() { frame.getElement("foo"); }, resetErr, "getElement()");
+
+				done();
+			});
+		});
 
 	});
 
