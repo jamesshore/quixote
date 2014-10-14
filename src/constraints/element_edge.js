@@ -16,7 +16,9 @@ Me.top = function top(element) {
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Number ]);
 
-	return "Element top edge expected " + expected + ", but was " + value(this);
+	var actual = value(this);
+	if (expected === actual) return "";
+	else return "Element top edge expected " + expected + ", but was " + actual;
 };
 
 function value(self) {

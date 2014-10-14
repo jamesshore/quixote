@@ -8,6 +8,7 @@ var ElementEdge = require("./element_edge.js");
 describe.only("ElementEdge", function() {
 
 	var frame;
+	var element;
 
 	before(function(done) {
 		quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, function(theFrame) {
@@ -22,14 +23,23 @@ describe.only("ElementEdge", function() {
 
 	beforeEach(function() {
 		frame.reset();
+		element = frame.addElement("<p>foo</p>");
 	});
 
 	it("diffs against expected value", function() {
-		var element = frame.addElement("<p>foo</p>");
-
 		var edge = ElementEdge.top(element);
-		var diff = edge.diff(13);
-		assert.equal(diff, "Element top edge expected 13, but was 0");
+		assert.equal(edge.diff(13), "Element top edge expected 13, but was 0", "difference");
+		assert.equal(edge.diff(0), "", "no difference");
+	});
+
+	it("checks every edge", function() {
+		var top = ElementEdge.top(element);
+//		var right = ElementEdge.right(element);
+//		var bottom = ElementEdge.bottom(element);
+//		var left = ElementEdge.left(element);
+
+//		assert.equal(right.diff(50), "");
+
 	});
 
 });
