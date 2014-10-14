@@ -50,6 +50,22 @@ Me.prototype.remove = function() {
 	this._domElement.parentNode.removeChild(this._domElement);
 };
 
+Me.prototype.loadStylesheet = function(url, callback) {
+	ensure.signature(arguments, [ String, Function ]);
+
+	var link = document.createElement("link");
+	addLoadListener(link, onLinkLoad);
+	link.setAttribute("rel", "stylesheet");
+	link.setAttribute("type", "text/css");
+	link.setAttribute("href", url);
+
+	documentHead(this).appendChild(link);
+
+	function onLinkLoad() {
+		callback();
+	}
+};
+
 Me.prototype.addElement = function(html) {
 	ensure.signature(arguments, [ String ]);
 
@@ -77,4 +93,10 @@ Me.prototype.getElement = function(selector) {
 function addLoadListener(iframeDom, callback) {
 	if (iframeDom.addEventListener) iframeDom.addEventListener("load", callback);
 	else iframeDom.attachEvent("onload", callback);
+}
+
+// WORKAROUND IE8: no document.head
+function documentHead(self) {
+	if (self._document.head) return self._document.head;
+	else return self._document.querySelector("head");
 }
