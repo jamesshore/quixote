@@ -3,11 +3,14 @@
 
 var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
+var ElementEdge = require("./constraints/element_edge.js");
 
 var Me = module.exports = function QElement(domElement) {
 	ensure.signature(arguments, [ Object ]);
 
 	this._domElement = domElement;
+
+//	this.top = ElementEdge.top(this);
 };
 
 Me.prototype.getRawStyle = function(styleName) {
