@@ -30,11 +30,15 @@ describe("Frame", function() {
 		});
 
 		it("returns frame immediately upon creation", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, function(loadedFrame) {
+			frame = Frame.create(window.document.body, 600, 400, function(err, loadedFrame) {
 				assert.equal(frame, loadedFrame, "should return same frame as passed in callback");
-				done();
+				done(err);
 			});
 			assert.defined(frame, "valid Frame object should be returned from create() method");
+		});
+
+		it("does not fail in Mocha if Mocha's 'done' is passed as frame callback", function(done) {
+			frame = Frame.create(window.document.body, 600, 400, done);
 		});
 
 		it("creates iframe using source URL", function(done) {
@@ -162,9 +166,7 @@ describe("Frame", function() {
 		var frameDom;
 
 		before(function(done) {
-			frame = Frame.create(window.document.body, 800, 1000, function() {
-				done();
-			});
+			frame = Frame.create(window.document.body, 800, 1000, done);
 			frameDom = frame.toDomElement();
 		});
 
