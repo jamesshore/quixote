@@ -89,7 +89,7 @@ Me.prototype.addElement = function(html) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._document.body.appendChild(insertedElement);
-	return new QElement(insertedElement);
+	return new QElement(insertedElement, html);
 };
 
 Me.prototype.getElement = function(selector) {
@@ -97,7 +97,7 @@ Me.prototype.getElement = function(selector) {
 
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
-	return new QElement(nodes[0]);
+	return new QElement(nodes[0], selector);
 };
 
 // WORKAROUND IE8: no addEventListener()
