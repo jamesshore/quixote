@@ -11,7 +11,10 @@ var Me = module.exports = function QElement(domElement, description) {
 	this._domElement = domElement;
 	this._description = description;
 
-//	this.top = ElementEdge.top(this);
+	this.top = ElementEdge.top(this);
+	this.right = ElementEdge.right(this);
+	this.bottom = ElementEdge.bottom(this);
+	this.left = ElementEdge.left(this);
 };
 
 Me.prototype.getRawStyle = function(styleName) {
