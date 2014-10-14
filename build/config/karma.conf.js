@@ -18,6 +18,7 @@ module.exports = function(config) {
     files: [
       'src/**/*.js',
 	    'src/**/*.html',
+	    'src/**/*.css',
 	    'vendor/**/*.js'
     ],
 

@@ -112,6 +112,15 @@ describe("Frame", function() {
 			assert.equal(frameDom.contentDocument.body.innerHTML, "", "frame body");
 		});
 
+		it("adds stylesheet link", function(done) {
+			var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
+
+			frame.loadStylesheet("/base/src/_frame_test.css", function() {
+				assert.equal(styleMe.getRawStyle("font-size"), "42px");
+				done();
+			});
+		});
+
 	});
 
 });

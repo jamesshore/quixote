@@ -15,11 +15,12 @@
 Work remaining:
 
 * `quixote.createFrame()`
-  * add stylesheet link
 
 
 ## To Do
 
+* Reset stylesheet link
+* "Reset" needs to work properly with src HTML
 
 
 ## Future / Off-camera
