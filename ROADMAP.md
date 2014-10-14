@@ -19,9 +19,6 @@ Work remaining:
 
 ## To Do
 
-* "Reset" needs to work properly with src HTML
-* Reset stylesheet link
-
 
 ## Future / Off-camera
 
