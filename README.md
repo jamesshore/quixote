@@ -4,6 +4,8 @@
 
 Quixote is a library for unit testing CSS. You use it with a unit testing framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem).
 
+**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge.
+
 
 ## Usage
 
@@ -86,6 +88,8 @@ There are three classes and modules available to you:
 * `quixote` is your entry point. It allows you to create a iframe for testing.
 * `Frame` is how you manipulate the DOM inside your test frame.
 * `QElement` allows you to get information about your styled elements.
+
+**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge.
 
 
 ### Entry Point: `quixote`
