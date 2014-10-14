@@ -23,9 +23,10 @@ element.diff({
 ```
 
 ## To Do
-* How do we use ensure.signature without creating a circular dependency?
 * Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
+* Document Safari performance issue when window is hidden
 * Rename `Frame` to `QFrame`?
+* How do we use ensure.signature without creating a circular dependency?
 * Should frame.remove() cause additional frame method calls to fail fast?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 
