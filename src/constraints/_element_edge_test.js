@@ -29,13 +29,14 @@ describe("ElementEdge", function() {
 	beforeEach(function() {
 		frame.reset();
 		element = frame.addElement(
-			"<p style='position: absolute; left: 20px; width: 30px; top: 10px; height: 60px'>foo</p>"
+			"<p id='test' style='position: absolute; left: 20px; width: 30px; top: 10px; height: 60px'>foo</p>"
 		);
+		element = frame.getElement("#test");
 	});
 
 	it("diffs against expected value", function() {
 		var edge = ElementEdge.top(element);
-		assert.equal(edge.diff(13), "Element top edge expected 13, but was 10", "difference");
+		assert.equal(edge.diff(13), "Element '#test' top edge expected 13, but was 10", "difference");
 		assert.equal(edge.diff(TOP), "", "no difference");
 	});
 

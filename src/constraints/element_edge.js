@@ -20,7 +20,7 @@ Me.prototype.diff = function diff(expected) {
 
 	var actual = value(this);
 	if (expected === actual) return "";
-	else return "Element top edge expected " + expected + ", but was " + actual;
+	else return "Element '" + this._element.description() + "' top edge expected " + expected + ", but was " + actual;
 };
 
 function value(self) {
