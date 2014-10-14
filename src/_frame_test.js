@@ -66,12 +66,21 @@ describe("Frame", function() {
 //				}
 		});
 
-		it("resets iframe loaded with source URL back to original state", function(done) {
+		it("resets iframe loaded with source URL without destroying source document", function(done) {
 			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
 				frame.reset();
 				assert.noException(function() {
 					frame.getElement("#exists");
 				});
+				done();
+			});
+		});
+
+		it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
+			Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function(frame) {
+				frame.reset();
+				var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
 			});
 		});
