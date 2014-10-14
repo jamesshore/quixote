@@ -22,10 +22,12 @@ Me.prototype.diff = function(expected) {
 
 	var result = [];
 	var keys = objectKeys(expected);
-	var key, diff;
+	var key, diff, constraint;
 	for (var i = 0; i < keys.length; i++) {
 		key = keys[i];
-		diff = this[key].diff(expected[key]);
+		constraint = this[key];
+		ensure.that(constraint !== undefined, "'" + key + "' is unknown and can't be used with diff()");
+		diff = constraint.diff(expected[key]);
 		if (diff !== "") result.push(diff);
 	}
 

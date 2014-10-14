@@ -139,8 +139,11 @@ describe("QElement", function() {
 			assert.equal(element.diff({ top: TOP, right: RIGHT, bottom: 200}), bottomDiff, "one difference");
 		});
 
-		//TODO
-		it("diff fails fast when invalid property is provided");
+		it("diff fails fast when invalid property is provided", function() {
+			assert.exception(function() {
+				element.diff({ XXX: "non-existant" });
+			}, /'XXX' is unknown and can't be used with diff()/);
+		});
 
 	});
 

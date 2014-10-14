@@ -13,6 +13,8 @@
 
 ## Current Feature: Initial Assertion API
 
+* width and height
+
 ```javascript
 element.diff({
   top: 13,
@@ -21,9 +23,6 @@ element.diff({
 ```
 
 ## To Do
-* test: it("diff fails fast when invalid property is provided");
-
-
 * How do we use ensure.signature without creating a circular dependency?
 * Frame tests need to clean up after themselves; a lot of them create a frame without destroying it
 * Rename `Frame` to `QFrame`?
