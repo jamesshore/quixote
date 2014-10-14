@@ -32,6 +32,40 @@ describe("Frame", function() {
 			});
 		});
 
+		it("creates iframe using stylesheet link", function(done) {
+			Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function(frame) {
+				var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px");
+				done();
+			});
+		});
+
+		it("cannot create iframe using stylesheet and source URL simultaneously", function(done) {
+			var options = {
+				src: "/base/src/_frame_test.html",
+				stylesheet: "/base/src/_frame_test.css"
+			};
+
+			assert.exception(function() {
+				Frame.create(window.document.body, 600, 400, options, function(frame) {
+					done("Should never be called");
+				});
+			}, /Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue/);
+			done();
+
+				// WORKAROUND Mobile Safari 7.0.0: Weird font-size result (23px)
+//			Frame.create(window.document.body, 600, 400, options, function(frame) {
+//				try {
+//					var styleMe = frame.getElement(".style-me");
+//					var makeLintHappy = styleMe.toDomElement().offsetHeight;  // force reflow
+//					assert.equal(styleMe.getRawStyle("font-size"), "42px");
+//					done();
+//				}
+//				catch(e) {
+//					done(e);
+//				}
+		});
+
 		it("resets iframe loaded with source URL back to original state", function(done) {
 			Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function(frame) {
 				frame.reset();
@@ -113,15 +147,6 @@ describe("Frame", function() {
 			assert.exception(function() {
 				frame.getElement("p");
 			}, /Expected one element to match 'p', but found 2/);
-		});
-
-		it("adds stylesheet link", function(done) {
-			var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
-
-			frame.loadStylesheet("/base/src/_frame_test.css", function() {
-				assert.equal(styleMe.getRawStyle("font-size"), "42px");
-				done();
-			});
 		});
 
 		it("resets frame without src document", function() {

@@ -21,17 +21,42 @@ Me.create = function create(parentElement, width, height, options, callback) {
 		options = {};
 	}
 
+	// WORKAROUND Mobile Safari 7.0.0: see test
+	ensure.that(!(options.src && options.stylesheet), "Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue");
+
 	var iframe = document.createElement("iframe");
 	addLoadListener(iframe, onFrameLoad);
+
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
+
 	if (options.src) iframe.setAttribute("src", options.src);
 	parentElement.appendChild(iframe);
 
 	function onFrameLoad() {
-		callback(new Me(iframe));
+		var frame = new Me(iframe);
+		loadStylesheet(frame, options.stylesheet, function() {
+			callback(frame);
+		});
 	}
 };
+
+function loadStylesheet(self, url, callback) {
+	ensure.signature(arguments, [ Me, [ undefined, String ], Function ]);
+	if (url === undefined) return callback();
+
+	var link = document.createElement("link");
+	addLoadListener(link, onLinkLoad);
+	link.setAttribute("rel", "stylesheet");
+	link.setAttribute("type", "text/css");
+	link.setAttribute("href", url);
+
+	documentHead(self).appendChild(link);
+
+	function onLinkLoad() {
+		callback();
+	}
+}
 
 Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
@@ -49,22 +74,6 @@ Me.prototype.remove = function() {
 	ensure.signature(arguments, []);
 
 	this._domElement.parentNode.removeChild(this._domElement);
-};
-
-Me.prototype.loadStylesheet = function(url, callback) {
-	ensure.signature(arguments, [ String, Function ]);
-
-	var link = document.createElement("link");
-	addLoadListener(link, onLinkLoad);
-	link.setAttribute("rel", "stylesheet");
-	link.setAttribute("type", "text/css");
-	link.setAttribute("href", url);
-
-	documentHead(this).appendChild(link);
-
-	function onLinkLoad() {
-		callback();
-	}
 };
 
 Me.prototype.addElement = function(html) {

@@ -31,3 +31,4 @@ Work remaining:
 * Get assert.deepEqual to show objects
 * Document API so far
 * frame.hasElement() or frame.getElementList()?
+* Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
