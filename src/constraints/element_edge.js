@@ -4,13 +4,26 @@
 var ensure = require("../util/ensure.js");
 var QElement = require("../q_element.js");
 
-var Me = module.exports = function ElementEdge(element) {
+var Me = module.exports = function ElementEdge(element, position) {
+//	ensure.signature(arguments, [ QElement ]);      // TODO: creates circular dependency
 	this._element = element;
+	this._position = position;
 };
 
 Me.top = function top(element) {
-//	ensure.signature(arguments, [ QElement ]);      // TODO: creates circular dependency
-	return new Me(element);
+	return new Me(element, "top");
+};
+
+Me.right = function(element) {
+	return new Me(element, "right");
+};
+
+Me.bottom = function(element) {
+	return new Me(element, "bottom");
+};
+
+Me.left = function(element) {
+	return new Me(element, "left");
 };
 
 Me.prototype.diff = function diff(expected) {
@@ -22,5 +35,5 @@ Me.prototype.diff = function diff(expected) {
 };
 
 function value(self) {
-	return self._element.getRawPosition().top;
+	return self._element.getRawPosition()[self._position];
 }
