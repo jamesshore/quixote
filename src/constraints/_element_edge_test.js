@@ -88,7 +88,24 @@ describe.only("ElementEdge", function() {
 				"but was 40px higher",
 			"shifted up"
 		);
+	});
 
+	it("fails fast when diffing two edges that aren't comparable", function() {
+		var top = ElementEdge.top(one);
+		var right = ElementEdge.right(one);
+		var bottom = ElementEdge.bottom(one);
+		var left = ElementEdge.left(one);
+
+		assert.exception(diffFn(top, right), /Can't compare top edge to right edge/, "top to right");
+		assert.exception(diffFn(right, top), /Can't compare right edge to top edge/, "right to top");
+		assert.exception(diffFn(left, bottom), /Can't compare left edge to bottom edge/, "left to bottom");
+		assert.exception(diffFn(bottom, left), /Can't compare bottom edge to left edge/, "bottom to left");
+
+		function diffFn(actual, expected) {
+			return function() {
+				actual.diff(expected);
+			};
+		}
 	});
 
 });

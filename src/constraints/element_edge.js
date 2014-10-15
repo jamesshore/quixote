@@ -30,10 +30,20 @@ Me.prototype.diff = function diff(expected) {
 		var expectedValue = value(expected);
 
 		if (expected._position === "top" || expected._position === "bottom") {
+			ensure.that(
+				this._position === "top" || this._position === "bottom",
+				"Can't compare " + this._position + " edge to " + expected._position + " edge"
+			);
+
 			if (actualValue < expectedValue) direction = "higher";
 			else direction = "lower";
 		}
 		else {
+			ensure.that(
+				this._position === "left" || this._position === "right",
+				"Can't compare " + this._position + " edge to " + expected._position + " edge"
+			);
+
 			if (actualValue < expectedValue) direction = "to the left";
 			else direction = "to the right";
 		}
