@@ -16,7 +16,9 @@ Me.prototype.toString = function() {
 };
 
 Me.prototype.equals = function(that) {
-	ensure.signature(arguments, [ Me ]);
+	ensure.signature(arguments, [ [Me, Number] ]);
 
-	return this._position === that._position;
+	var thatPosition = (typeof that === "number") ? that : that._position;
+
+	return this._position === thatPosition;
 };
