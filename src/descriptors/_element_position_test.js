@@ -4,11 +4,13 @@
 var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementPosition = require("./element_position.js");
+var Position = require("../values/position.js");
 
 describe("ElementPosition", function() {
 
 	var frame;
 	var one;
+	var x;
 	var y;
 
 	var TOP = 10;
@@ -30,7 +32,13 @@ describe("ElementPosition", function() {
 			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
 		one = frame.getElement("#one");
+		x = ElementPosition.x(one.left, -5);
 		y = ElementPosition.y(one.top, 10);
+	});
+
+	it("resolves to value", function() {
+		assert.objEqual(x.value(), Position.x(15), "x");
+		assert.objEqual(y.value(), Position.y(20), "y");
 	});
 
 	it("describes itself", function() {
@@ -56,7 +64,8 @@ describe("ElementPosition", function() {
 	});
 
 	it("describes match", function() {
-//		assert.equal(top.describeMatch(), "match top edge of element '#one' (10px)");
+		// TODO
+//		assert.equal(y.describeMatch(), "be 10px below top edge of element '#one' (20px)");
 	});
 
 });

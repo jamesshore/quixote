@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var ElementEdge = require("./element_edge.js");
+var Position = require("../values/position.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
@@ -24,10 +25,22 @@ Me.y = function y(edge, relativeAmount) {
 	return new Me(Y_DIMENSION, edge, relativeAmount);
 };
 
+Me.prototype.value = function value() {
+	ensure.signature(arguments, []);
+
+	return this._edge.value().plus(this._amount);
+};
+
 Me.prototype.description = function description() {
 	ensure.signature(arguments, []);
 
 	return relativeAmount(this) + this._edge.description();
+};
+
+Me.prototype.describeMatch = function describeMatch() {
+	ensure.signature(arguments, []);
+
+	return "be " + this.toString();
 };
 
 Me.prototype.toString = function toString() {
