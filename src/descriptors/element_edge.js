@@ -42,12 +42,6 @@ Me.prototype.description = function description() {
 	return this._position + " edge";
 };
 
-Me.prototype.isScalar = function isScalar() {
-	ensure.signature(arguments, []);
-
-	return false;
-};
-
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 

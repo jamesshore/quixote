@@ -47,12 +47,6 @@ Me.prototype.equals = function equals(that) {
 	return (this.diff(that) === "");
 };
 
-Me.prototype.isScalar = function isScalar() {
-	ensure.signature(arguments, []);
-
-	return true;
-};
-
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 
