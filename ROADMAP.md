@@ -31,8 +31,8 @@ element.diff({
 
 ## To Do
 
-* ElementEdge is peeking at private data of Position: fix it
-* Function to resolve ElementEdge? e.g., ElementEdge.is()
+* Position: don't need to be able to compare to a number
+*	ElementEdge: Factor out position strings into constants
 * Need polymorphism in ElementEdge.diff()?
 
 

@@ -19,34 +19,24 @@ Me.prototype.is = function is() {
 	ensure.signature(arguments, []);
 
 	var value = this._element.getRawPosition()[this._position];
-	if (this._position === "top" || this._position === "bottom") return Position.y(value);
-	if (this._position === "right" || this._position === "left") return new Position.x(value);
-
-	ensure.unreachable();
-
-	// TODO Factor out position strings into constants
+	return createPosition(this, value);
 };
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Number, Me] ]);
 
-	var direction;
-
 	var actualValue = this.is();
-//	var expectedValue = (typeof expected === number) ? expected : expected.is();
+	var expectedValue = (typeof expected === "number") ? createPosition(this, expected) : expected.is();
+
+	if (actualValue.equals(expectedValue)) return "";
 
 	if (typeof expected === "number") {
-		if (actualValue.equals(expected)) return "";
-
-		return "Expected " + this.toString(actualValue) + " to be " +
-			expected + "px, but was " + actualValue.diff(expected);
+		return "Expected " + this.toString(actualValue) + " to be " + expectedValue +
+			", but was " + actualValue.diff(expectedValue);
 	}
 
 	else {
-		var expectedValue = expected.is();
-
-		if (actualValue.equals(expectedValue)) return "";
-		else return "Expected " + this.toString(actualValue) + " to match " +
+		return "Expected " + this.toString(actualValue) + " to match " +
 			expected.toString(expectedValue) + ", but was " + actualValue.diff(expectedValue);
 	}
 
@@ -70,4 +60,11 @@ function factoryFn(position) {
 	return function factory(element) {
 		return new Me(element, position);
 	};
+}
+
+function createPosition(self, value) {
+	if (self._position === "top" || self._position === "bottom") return Position.y(value);
+	if (self._position === "right" || self._position === "left") return new Position.x(value);
+
+	ensure.unreachable();
 }
