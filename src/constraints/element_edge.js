@@ -15,12 +15,18 @@ Me.right = factoryFn("right");
 Me.bottom = factoryFn("bottom");
 Me.left = factoryFn("left");
 
+Me.prototype.is = function is() {
+	ensure.signature(arguments, []);
+
+	return this._element.getRawPosition()[this._position];
+};
+
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Number, Me] ]);
 
 	var direction;
 
-	var actualValue = value(this);
+	var actualValue = this.is();
 	if (typeof expected === "number") {
 		if (expected === actualValue) return "";
 		else return "Element '" + this._element.description() + "' " + this.description() + " expected " +
@@ -28,7 +34,7 @@ Me.prototype.diff = function diff(expected) {
 	}
 
 	else {
-		var expectedValue = value(expected);
+		var expectedValue = expected.is();
 
 		if (expected._position === "top" || expected._position === "bottom") {
 			ensure.that(
@@ -63,10 +69,6 @@ Me.prototype.description = function description() {
 
 	return this._position + " edge";
 };
-
-function value(self) {
-	return self._element.getRawPosition()[self._position];
-}
 
 function factoryFn(position) {
 	return function factory(element) {
