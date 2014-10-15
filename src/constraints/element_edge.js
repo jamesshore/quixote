@@ -23,7 +23,7 @@ Me.prototype.diff = function diff(expected) {
 	var actualValue = value(this);
 	if (typeof expected === "number") {
 		if (expected === actualValue) return "";
-		else return "Element '" + this._element.description() + "' " + this._position + " edge expected " +
+		else return "Element '" + this._element.description() + "' " + this.description() + " expected " +
 			expected + ", but was " + actualValue;
 	}
 
@@ -33,7 +33,7 @@ Me.prototype.diff = function diff(expected) {
 		if (expected._position === "top" || expected._position === "bottom") {
 			ensure.that(
 				this._position === "top" || this._position === "bottom",
-				"Can't compare " + this._position + " edge to " + expected._position + " edge"
+				"Can't compare " + this.description() + " to " + expected.description()
 			);
 
 			if (actualValue < expectedValue) direction = "higher";
@@ -42,7 +42,7 @@ Me.prototype.diff = function diff(expected) {
 		else {
 			ensure.that(
 				this._position === "left" || this._position === "right",
-				"Can't compare " + this._position + " edge to " + expected._position + " edge"
+				"Can't compare " + this.description() + " to " + expected.description()
 			);
 
 			if (actualValue < expectedValue) direction = "to the left";
@@ -50,12 +50,18 @@ Me.prototype.diff = function diff(expected) {
 		}
 
 		if (expectedValue === actualValue) return "";
-		else return "Expected " + this._position + " edge of element '" + this._element.description() +
-			"' (" + actualValue + "px) to match " + expected._position + " edge of element '" +
+		else return "Expected " + this.description() + " of element '" + this._element.description() +
+			"' (" + actualValue + "px) to match " + expected.description() + " of element '" +
 			expected._element.description() + "' (" + expectedValue + "px), but was " +
 			Math.abs(expectedValue - actualValue) + "px " + direction;
 	}
 
+};
+
+Me.prototype.description = function description() {
+	ensure.signature(arguments, []);
+
+	return this._position + " edge";
 };
 
 function value(self) {

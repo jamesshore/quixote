@@ -31,6 +31,15 @@ describe("ElementEdge", function() {
 		one = frame.getElement("#one");
 	});
 
+	it("describes itself", function() {
+		var top = ElementEdge.top(one);
+		var left = ElementEdge.left(one);
+
+		assert.equal(top.description(), "top edge");
+
+		// TODO: Factor out top, left, etc.
+	});
+
 	it("diffs against expected value", function() {
 		var top = ElementEdge.top(one);
 		var left = ElementEdge.left(one);
