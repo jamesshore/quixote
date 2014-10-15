@@ -13,6 +13,10 @@ describe("Position", function() {
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
 
+	it("is always scalar", function() {
+		assert.equal(x1.isScalar(), true);
+	});
+
 	it("computes difference", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 

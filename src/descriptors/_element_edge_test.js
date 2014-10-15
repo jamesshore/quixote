@@ -40,6 +40,10 @@ describe("ElementEdge", function() {
 		left = ElementEdge.left(one);
 	});
 
+	it("is never scalar", function() {
+		assert.equal(top.isScalar(), false);
+	});
+
 	it("describes itself", function() {
 		assert.equal(top.description(), "top edge");
 		assert.equal(left.description(), "left edge");

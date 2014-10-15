@@ -30,16 +30,14 @@ Me.prototype.diff = function diff(expected) {
 
 	if (actualValue.equals(expectedValue)) return "";
 
-	if (typeof expected === "number") {
+	if (expectedValue.isScalar()) {
 		return "Expected " + this.toString(actualValue) + " to be " + expectedValue +
 			", but was " + actualValue.diff(expectedValue);
 	}
-
 	else {
 		return "Expected " + this.toString(actualValue) + " to match " +
 			expected.toString(expectedValue) + ", but was " + actualValue.diff(expectedValue);
 	}
-
 };
 
 Me.prototype.description = function description() {
@@ -54,6 +52,12 @@ Me.prototype.toString = function toString(value) {
 	var result = this.description() + " of element '" + this._element.description() + "'";
 	if (value) result += " (" + value + ")";
 	return result;
+};
+
+Me.prototype.isScalar = function isScalar() {
+	ensure.signature(arguments, []);
+
+	return false;
 };
 
 function factoryFn(position) {
