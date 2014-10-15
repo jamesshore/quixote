@@ -4,31 +4,42 @@
 var assert = require("../util/assert.js");
 var Position = require("./position.js");
 
-describe("X Position", function() {
+describe.only("Position", function() {
 
-	var x1a = Position.x(10);
-	var x1b = Position.x(10);
+	var x1 = Position.x(10);
 	var x2 = Position.x(20);
+	var x1b = Position.x(10);
 
-	var y1a = Position.y(50);
+	var y1 = Position.y(50);
+	var y2 = Position.y(80);
+
+	it("computes difference", function() {
+		assert.equal(x1.diff(x1b), "", "same");
+
+		assert.equal(x1.diff(x2), "10px to the left", "left");
+		assert.equal(x2.diff(x1), "10px to the right", "right");
+
+		assert.equal(y1.diff(y2), "30px lower", "lower");
+		assert.equal(y2.diff(y1), "30px higher", "higher");
+	});
 
 	it("converts to string", function() {
-		assert.equal(x1a.toString(), "10px");
+		assert.equal(x1.toString(), "10px");
 	});
 
 	it("is comparable to itself", function() {
-		assert.objEqual(x1a, x1b, "same");
-		assert.objNotEqual(x1a, x2, "different");
+		assert.objEqual(x1, x1b, "same");
+		assert.objNotEqual(x1, x2, "different");
 	});
 
 	it("is comparable to number", function() {
-		assert.objEqual(x1a, 10, "same");
-		assert.objNotEqual(x1a, 20, "different");
+		assert.objEqual(x1, 10, "same");
+		assert.objNotEqual(x1, 20, "different");
 	});
 
 	it("is not comparable to opposite dimension", function() {
 		assert.exception(function() {
-			x1a.equals(y1a);
+			x1.equals(y1);
 		}, /Cannot compare X dimension to Y dimension/);
 	});
 

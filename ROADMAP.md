@@ -31,8 +31,7 @@ element.diff({
 
 ## To Do
 
-* ElementEdge is peeking at private data of XPosition and YPosition: fix it
-* Descriptors need to describe themselves
+* ElementEdge is peeking at private data of Position: fix it
 * Function to resolve ElementEdge? e.g., ElementEdge.is()
 * Need polymorphism in ElementEdge.diff()?
 

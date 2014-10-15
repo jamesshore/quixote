@@ -21,6 +21,21 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
+Me.prototype.diff = function diff(expected) {
+	ensure.signature(arguments, [ Me ]);
+
+	var actualValue = this._position;
+	var expectedValue = expected._position;
+
+	var direction;
+	if (this._dimension === X_DIMENSION) direction = expectedValue > actualValue ? "to the left" : "to the right";
+	else direction = expectedValue > actualValue ? "lower" : "higher";
+
+	var value = Math.abs(expectedValue - actualValue);
+	if (value === 0) return "";
+	else return value + "px " + direction;
+};
+
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
