@@ -10,6 +10,7 @@
 
 	var gaze = require("gaze");
 	var spawn = require("child_process").spawn;
+	var path = require("path");
 
 	var WATCH = [
 		"build/**/*.js",
@@ -35,14 +36,15 @@
 		triggerBuild();    // Always run after startup
 	});
 
-	function triggerBuild(evt, filepath) {
+	function triggerBuild(event, filepath) {
+		logEvent(event, filepath);
 		if (child === null) runJake();
 		else queueAnotherBuild();
 	}
 
 	function runJake() {
 		buildStartedAt = Date.now();
-		console.log("\n> " + COMMAND + " " + args.join(" "));
+		console.log("\n*** RUN> " + COMMAND + " " + args.join(" "));
 		child = spawn(COMMAND, args, { stdio: "inherit" });
 
 		child.once("exit", function(code) {
@@ -54,6 +56,7 @@
 		if (buildQueued) return;
 		if (debounce()) return;
 
+		console.log("*** Build queued");
 		buildQueued = true;
 		child.once("exit", function(code) {
 			buildQueued = false;
@@ -64,6 +67,13 @@
 			var msSinceLastBuild = Date.now() - buildStartedAt;
 			return msSinceLastBuild < 500;
 		}
+	}
+
+	function logEvent(event, filepath) {
+		if (filepath === undefined) return;
+
+		var truncatedPath = path.basename(path.dirname(filepath)) + "/" + path.basename(filepath);
+		console.log("*** " + event.toUpperCase() + ": .../" + truncatedPath);
 	}
 
 }());
