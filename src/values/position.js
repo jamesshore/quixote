@@ -50,9 +50,5 @@ Me.prototype.toString = function toString() {
 };
 
 Me.prototype.equals = function equals(that) {
-	ensure.signature(arguments, [ [Me, Number] ]);
-	if (typeof that === "number") return this._position === that;
-
-	ensure.that(this._dimension === that._dimension, "Cannot compare X dimension to Y dimension");
-	return this._position === that._position;
+	return (this.diff(that) === "");
 };
