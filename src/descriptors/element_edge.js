@@ -33,10 +33,13 @@ Me.prototype.diff = function diff(expected) {
 	var direction;
 
 	var actualValue = this.is();
+//	var expectedValue = (typeof expected === number) ? expected : expected.is();
+
 	if (typeof expected === "number") {
 		if (actualValue.equals(expected)) return "";
-		else return "Element '" + this._element.description() + "' " + this.description() + " expected " +
-			expected + ", but was " + actualValue;
+
+		return "Expected " + this.description() + " of element '" + this._element.description() +
+			"' (" + actualValue + ") to be " + expected + "px, but was " + actualValue.diff(expected);
 	}
 
 	else {

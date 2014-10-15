@@ -52,9 +52,8 @@ describe("ElementEdge", function() {
 		assert.objEqual(left.is(), Position.x(LEFT), "left");
 	});
 
-	it("diffs against expected value", function() {
-		assert.equal(top.diff(13), "Element '#one' top edge expected 13, but was 10px", "top");
-		assert.equal(left.diff(13), "Element '#one' left edge expected 13, but was 20px", "left");
+	it.only("diffs against expected value", function() {
+		assert.equal(top.diff(13), "Expected top edge of element '#one' (10px) to be 13px, but was 3px lower", "top");
 		assert.equal(top.diff(TOP), "", "no difference");
 	});
 
