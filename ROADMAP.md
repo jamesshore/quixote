@@ -12,7 +12,6 @@
 
 ## Current Feature: Relative Positioning
 
-* Clean up mess in ElementEdge.diff()
 * Offset position comparisons (compare left edge to right edge + 10 px)
 * middle and center
 * height and width
@@ -30,10 +29,6 @@ element.diff({
 ```
 
 ## To Do
-
-* Constraints need to describe themselves
-* Function to resolve ElementEdge? e.g., ElementEdge.is()
-* Need polymorphism in ElementEdge.diff()?
 
 
 ## Future Features
@@ -55,3 +50,4 @@ element.diff({
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
 * watch.js rebuilds too often or not enough
 * Modify ensure to give better error message when comparison type is not a constructor
+* `ensure.signature(arguments, [ [undefined, Object] ]);` failed -- look into it (`ElementEdge.toString()`)
