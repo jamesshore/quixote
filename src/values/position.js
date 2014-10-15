@@ -23,6 +23,7 @@ Me.y = function y(value) {
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Me ]);
+	ensure.that(this._dimension === expected._dimension, "Cannot compare X dimension to Y dimension");
 
 	var actualValue = this._position;
 	var expectedValue = expected._position;

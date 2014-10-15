@@ -23,6 +23,12 @@ describe.only("Position", function() {
 		assert.equal(y2.diff(y1), "30px higher", "higher");
 	});
 
+	it("fails fast when computing difference between incompatible dimensions", function() {
+		assert.exception(function() {
+			x1.diff(y1);
+		}, /Cannot compare X dimension to Y dimension/);
+	});
+
 	it("converts to string", function() {
 		assert.equal(x1.toString(), "10px");
 	});
