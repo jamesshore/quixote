@@ -12,7 +12,7 @@
 
 ## Current Feature: Relative Positioning
 
-* Relative position comparisons (compare left edge to right edge)
+* Clean up mess in ElementEdge.diff()
 * Offset position comparisons (compare left edge to right edge + 10 px)
 * middle and center
 * height and width
@@ -29,7 +29,6 @@ element.diff({
 
 ## To Do
 
-* Fail fast with non-sensical comparisons like top to left.
 * Test and fix hardcoded 'top' in ElementEdge.diff 'number' path
 * Constraints need to describe themselves
 * Function to resolve ElementEdge? e.g., ElementEdge.is()
