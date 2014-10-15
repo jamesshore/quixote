@@ -27,17 +27,20 @@ Me.prototype.diff = function diff(expected) {
 
 	var actualValue = this.is();
 	var expectedValue = (typeof expected === "number") ? createPosition(this, expected) : expected.is();
+	if (typeof expected === "number") expected = createPosition(this, expected);
 
 	if (actualValue.equals(expectedValue)) return "";
 
-	if (expectedValue.isScalar()) {
+	if (expected.isScalar()) {
 		return "Expected " + this.toString(actualValue) + " to be " + expectedValue +
 			", but was " + actualValue.diff(expectedValue);
 	}
+
 	else {
 		return "Expected " + this.toString(actualValue) + " to match " +
 			expected.toString(expectedValue) + ", but was " + actualValue.diff(expectedValue);
 	}
+
 };
 
 Me.prototype.description = function description() {
