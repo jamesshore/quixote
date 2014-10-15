@@ -42,25 +42,6 @@ Me.prototype.diff = function diff(expected) {
 	else {
 		var expectedValue = expected.is();
 
-		if (expected._position === "top" || expected._position === "bottom") {
-			ensure.that(
-				this._position === "top" || this._position === "bottom",
-				"Can't compare " + this.description() + " to " + expected.description()
-			);
-
-			if (actualValue._position < expectedValue._position) direction = "higher";
-			else direction = "lower";
-		}
-		else {
-			ensure.that(
-				this._position === "left" || this._position === "right",
-				"Can't compare " + this.description() + " to " + expected.description()
-			);
-
-			if (actualValue._position < expectedValue._position) direction = "to the left";
-			else direction = "to the right";
-		}
-
 		if (actualValue.equals(expectedValue)) return "";
 		else return "Expected " + this.description() + " of element '" + this._element.description() +
 			"' (" + actualValue + ") to match " + expected.description() + " of element '" +

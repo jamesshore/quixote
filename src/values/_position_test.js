@@ -31,7 +31,7 @@ describe("Position", function() {
 	it("fails fast when computing difference between incompatible dimensions", function() {
 		assert.exception(function() {
 			x1.diff(y1);
-		}, /Cannot compare X dimension to Y dimension/);
+		}, /Can't compare X dimension to Y dimension/);
 	});
 
 	it("converts to string", function() {
@@ -51,7 +51,7 @@ describe("Position", function() {
 	it("is not comparable to opposite dimension", function() {
 		assert.exception(function() {
 			x1.equals(y1);
-		}, /Cannot compare X dimension to Y dimension/);
+		}, /Can't compare X dimension to Y dimension/);
 	});
 
 });

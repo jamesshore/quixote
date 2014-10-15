@@ -29,7 +29,7 @@ Me.prototype.diff = function diff(expected) {
 		expectedValue = expected;
 	}
 	else {
-		ensure.that(this._dimension === expected._dimension, "Cannot compare X dimension to Y dimension");
+		ensure.that(this._dimension === expected._dimension, "Can't compare X dimension to Y dimension");
 		expectedValue = expected._position;
 	}
 	var actualValue = this._position;

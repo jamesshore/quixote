@@ -105,10 +105,10 @@ describe("ElementEdge", function() {
 	});
 
 	it("fails fast when diffing two edges that aren't comparable", function() {
-		assert.exception(diffFn(top, right), /Can't compare top edge to right edge/, "top to right");
-		assert.exception(diffFn(right, top), /Can't compare right edge to top edge/, "right to top");
-		assert.exception(diffFn(left, bottom), /Can't compare left edge to bottom edge/, "left to bottom");
-		assert.exception(diffFn(bottom, left), /Can't compare bottom edge to left edge/, "bottom to left");
+		assert.exception(diffFn(top, right), /Can't compare X dimension to Y dimension/, "top to right");
+		assert.exception(diffFn(right, top), /Can't compare X dimension to Y dimension/, "right to top");
+		assert.exception(diffFn(left, bottom), /Can't compare X dimension to Y dimension/, "left to bottom");
+		assert.exception(diffFn(bottom, left), /Can't compare X dimension to Y dimension/, "bottom to left");
 
 		function diffFn(actual, expected) {
 			return function() {
