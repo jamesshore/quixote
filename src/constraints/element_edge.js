@@ -23,7 +23,8 @@ Me.prototype.diff = function diff(expected) {
 	var actualValue = value(this);
 	if (typeof expected === "number") {
 		if (expected === actualValue) return "";
-		else return "Element '" + this._element.description() + "' top edge expected " + expected + ", but was " + actualValue;
+		else return "Element '" + this._element.description() + "' " + this._position + " edge expected " +
+			expected + ", but was " + actualValue;
 	}
 
 	else {

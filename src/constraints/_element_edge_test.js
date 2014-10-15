@@ -32,9 +32,11 @@ describe("ElementEdge", function() {
 	});
 
 	it("diffs against expected value", function() {
-		var edge = ElementEdge.top(one);
-		assert.equal(edge.diff(13), "Element '#one' top edge expected 13, but was 10", "difference");
-		assert.equal(edge.diff(TOP), "", "no difference");
+		var top = ElementEdge.top(one);
+		var left = ElementEdge.left(one);
+		assert.equal(top.diff(13), "Element '#one' top edge expected 13, but was 10", "top");
+		assert.equal(left.diff(13), "Element '#one' left edge expected 13, but was 20", "left");
+		assert.equal(top.diff(TOP), "", "no difference");
 	});
 
 	it("checks every edge", function() {
