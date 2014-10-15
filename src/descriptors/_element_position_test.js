@@ -6,7 +6,7 @@ var quixote = require("../quixote.js");
 var ElementPosition = require("./element_position.js");
 var Position = require("../values/position.js");
 
-describe("ElementPosition", function() {
+describe.only("ElementPosition", function() {
 
 	var frame;
 	var one;
@@ -64,8 +64,7 @@ describe("ElementPosition", function() {
 	});
 
 	it("describes match", function() {
-		// TODO
-//		assert.equal(y.describeMatch(), "be 10px below top edge of element '#one' (20px)");
+		assert.equal(y.describeMatch(), "be 10px below top edge of element '#one' (20px)");
 	});
 
 });

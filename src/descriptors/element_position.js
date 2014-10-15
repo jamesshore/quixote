@@ -40,7 +40,7 @@ Me.prototype.description = function description() {
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 
-	return "be " + this.toString();
+	return "be " + this.toString() + " (" + this.value() + ")";
 };
 
 Me.prototype.toString = function toString() {
