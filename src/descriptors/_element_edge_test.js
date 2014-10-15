@@ -5,6 +5,7 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
+var ElementPosition = require("./element_position.js");
 
 describe("ElementEdge", function() {
 
@@ -40,6 +41,13 @@ describe("ElementEdge", function() {
 		left = ElementEdge.left(one);
 	});
 
+	it("resolves itself to actual value", function() {
+		assert.objEqual(top.value(), Position.y(TOP), "top");
+		assert.objEqual(right.value(), Position.x(RIGHT), "right");
+		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
+		assert.objEqual(left.value(), Position.x(LEFT), "left");
+	});
+
 	it("describes itself", function() {
 		assert.equal(top.description(), "top edge");
 		assert.equal(left.description(), "left edge");
@@ -52,13 +60,6 @@ describe("ElementEdge", function() {
 
 	it("describes match", function() {
 		assert.equal(top.describeMatch(), "match top edge of element '#one' (10px)");
-	});
-
-	it("resolves itself to actual value", function() {
-		assert.objEqual(top.value(), Position.y(TOP), "top");
-		assert.objEqual(right.value(), Position.x(RIGHT), "right");
-		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
-		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
 	it("diffs against expected value", function() {
@@ -91,5 +92,12 @@ describe("ElementEdge", function() {
 			};
 		}
 	});
+
+//	it("can be shifted up or to the right", function() {
+//		var descriptor = top.plus(10);
+//		assert.type(descriptor, ElementPosition);
+//
+//		/* TODO: what about negative values? */
+//	});
 
 });

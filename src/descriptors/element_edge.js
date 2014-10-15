@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
+var ElementPosition = require("./element_position.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -19,6 +20,10 @@ Me.top = factoryFn(TOP);
 Me.right = factoryFn(RIGHT);
 Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
+
+//Me.prototype.plus = function plus() {
+//	return new ElementPosition();
+//};
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
