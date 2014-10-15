@@ -4,8 +4,7 @@
 var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
-var XPosition = require("../values/x_position.js");
-var YPosition = require("../values/y_position.js");
+var Position = require("../values/position.js");
 
 describe("ElementEdge", function() {
 
@@ -47,10 +46,10 @@ describe("ElementEdge", function() {
 	});
 
 	it("resolves itself to actual value", function() {
-		assert.objEqual(top.is(), new YPosition(TOP), "top");
-		assert.objEqual(right.is(), new XPosition(RIGHT), "right");
-		assert.objEqual(bottom.is(), new YPosition(BOTTOM), "bottom");
-		assert.objEqual(left.is(), new XPosition(LEFT), "left");
+		assert.objEqual(top.is(), Position.y(TOP), "top");
+		assert.objEqual(right.is(), Position.x(RIGHT), "right");
+		assert.objEqual(bottom.is(), Position.y(BOTTOM), "bottom");
+		assert.objEqual(left.is(), Position.x(LEFT), "left");
 	});
 
 	it("diffs against expected value", function() {

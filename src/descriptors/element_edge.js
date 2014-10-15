@@ -2,8 +2,7 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var XPosition = require("../values/x_position.js");
-var YPosition = require("../values/y_position.js");
+var Position = require("../values/position.js");
 
 var Me = module.exports = function ElementEdge(element, position) {
 //	ensure.signature(arguments, [ QElement ]);      // TODO: creates circular dependency
@@ -20,8 +19,8 @@ Me.prototype.is = function is() {
 	ensure.signature(arguments, []);
 
 	var value = this._element.getRawPosition()[this._position];
-	if (this._position === "top" || this._position === "bottom") return new YPosition(value);
-	if (this._position === "right" || this._position === "left") return new XPosition(value);
+	if (this._position === "top" || this._position === "bottom") return Position.y(value);
+	if (this._position === "right" || this._position === "left") return new Position.x(value);
 
 	ensure.unreachable();
 

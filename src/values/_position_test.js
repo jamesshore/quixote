@@ -2,13 +2,15 @@
 "use strict";
 
 var assert = require("../util/assert.js");
-var XPosition = require("./x_position.js");
+var Position = require("./position.js");
 
 describe("X Position", function() {
 
-	var x1a = new XPosition(10);
-	var x1b = new XPosition(10);
-	var x2 = new XPosition(20);
+	var x1a = Position.x(10);
+	var x1b = Position.x(10);
+	var x2 = Position.x(20);
+
+	var y1a = Position.y(50);
 
 	it("converts to string", function() {
 		assert.equal(x1a.toString(), "10px");
@@ -22,6 +24,12 @@ describe("X Position", function() {
 	it("is comparable to number", function() {
 		assert.objEqual(x1a, 10, "same");
 		assert.objNotEqual(x1a, 20, "different");
+	});
+
+	it("is not comparable to opposite dimension", function() {
+		assert.exception(function() {
+			x1a.equals(y1a);
+		}, /Cannot compare X dimension to Y dimension/);
 	});
 
 });
