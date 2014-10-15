@@ -55,7 +55,6 @@ describe("ElementEdge", function() {
 
 	it("converts to string", function() {
 		assert.equal(top.toString(), "top edge of element '#one'", "description + element");
-		assert.equal(top.toString(top.value()), "top edge of element '#one' (10px)", "description + element + value");
 	});
 
 	it("describes match", function() {

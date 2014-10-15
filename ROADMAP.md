@@ -32,7 +32,6 @@ element.diff({
 
 ## To Do
 
-* Get rid of toString(actual)?
 * How do we compare ElementEdge and ElementPosition? (and vice-versa?)
   * ElementEdge should delegate to ElementPosition? 
 * ElementPosition: fail fast with non-sensical directions (e.g., left edge + 'x' dimension)

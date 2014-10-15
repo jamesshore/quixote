@@ -41,7 +41,7 @@ Me.prototype.diff = function diff(expected) {
 
 	if (actualValue.equals(expectedValue)) return "";
 
-	return "Expected " + this.toString(actualValue) +
+	return "Expected " + this.toString() + " (" + this.value() + ")" +
 		" to " + expected.describeMatch() +
 		", but was " + actualValue.diff(expectedValue);
 };
@@ -55,15 +55,13 @@ Me.prototype.description = function description() {
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 
-	return "match " + this.toString(this.value());
+	return "match " + this.toString() + " (" + this.value() + ")";
 };
 
-Me.prototype.toString = function toString(value) {
-//	ensure.signature(arguments, [ [undefined, Object] ]);
+Me.prototype.toString = function toString() {
+	ensure.signature(arguments, []);
 
-	var result = this.description() + " of element '" + this._element.description() + "'";
-	if (value) result += " (" + value + ")";
-	return result;
+	return this.description() + " of element '" + this._element.description() + "'";
 };
 
 function factoryFn(position) {
