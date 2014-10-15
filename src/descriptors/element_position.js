@@ -27,11 +27,21 @@ Me.y = function y(edge, relativeAmount) {
 Me.prototype.description = function description() {
 	ensure.signature(arguments, []);
 
-	if (this._amount === 0) return this._edge.description();
+	return relativeAmount(this) + this._edge.description();
+};
+
+Me.prototype.toString = function toString() {
+	ensure.signature(arguments, []);
+
+	return relativeAmount(this) + this._edge.toString();
+};
+
+function relativeAmount(self) {
+	if (self._amount === 0) return "";
 
 	var direction;
-	if (this._dimension === X_DIMENSION) direction = (this._amount < 0) ? "left of" : "right of";
-	else direction = (this._amount < 0) ? "above" : "below";
+	if (self._dimension === X_DIMENSION) direction = (self._amount < 0) ? "left of" : "right of";
+	else direction = (self._amount < 0) ? "above" : "below";
 
-	return Math.abs(this._amount) + "px " + direction + " " + this._edge.description();
-};
+	return Math.abs(self._amount) + "px " + direction + " ";
+}

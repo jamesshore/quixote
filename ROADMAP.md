@@ -30,6 +30,7 @@ element.diff({
 
 ## To Do
 
+* ElementPosition: fail fast with non-sensical directions (e.g., left edge + 'x' dimension)
 
 ## Future Features
 * width and height constraints

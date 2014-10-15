@@ -5,10 +5,11 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementPosition = require("./element_position.js");
 
-describe("ElementPosition", function() {
+describe.only("ElementPosition", function() {
 
 	var frame;
 	var one;
+	var y;
 
 	var TOP = 10;
 	var RIGHT = 150;
@@ -29,6 +30,7 @@ describe("ElementPosition", function() {
 			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
 		one = frame.getElement("#one");
+		y = ElementPosition.y(one.top, 10);
 	});
 
 	it("describes itself", function() {
@@ -49,6 +51,12 @@ describe("ElementPosition", function() {
 		}
 	});
 
-	// TODO: fail fast with non-sensical directions (e.g., above 'x')
+	it("converts to string", function() {
+		assert.equal(y.toString(), "10px below top edge of element '#one'");
+	});
+
+	it("describes match", function() {
+//		assert.equal(top.describeMatch(), "match top edge of element '#one' (10px)");
+	});
 
 });
