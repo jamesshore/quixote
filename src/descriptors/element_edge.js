@@ -4,16 +4,21 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 
+var TOP = "top";
+var RIGHT = "right";
+var BOTTOM = "bottom";
+var LEFT = "left";
+
 var Me = module.exports = function ElementEdge(element, position) {
 //	ensure.signature(arguments, [ QElement ]);      // TODO: creates circular dependency
 	this._element = element;
 	this._position = position;
 };
 
-Me.top = factoryFn("top");
-Me.right = factoryFn("right");
-Me.bottom = factoryFn("bottom");
-Me.left = factoryFn("left");
+Me.top = factoryFn(TOP);
+Me.right = factoryFn(RIGHT);
+Me.bottom = factoryFn(BOTTOM);
+Me.left = factoryFn(LEFT);
 
 Me.prototype.is = function is() {
 	ensure.signature(arguments, []);
@@ -63,8 +68,8 @@ function factoryFn(position) {
 }
 
 function createPosition(self, value) {
-	if (self._position === "top" || self._position === "bottom") return Position.y(value);
-	if (self._position === "right" || self._position === "left") return new Position.x(value);
+	if (self._position === TOP || self._position === BOTTOM) return Position.y(value);
+	if (self._position === RIGHT || self._position === LEFT) return new Position.x(value);
 
 	ensure.unreachable();
 }

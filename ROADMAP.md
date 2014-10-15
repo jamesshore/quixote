@@ -12,7 +12,6 @@
 
 ## Current Feature: Relative Positioning
 
-* Clean up mess in ElementEdge.diff()
 * Offset position comparisons (compare left edge to right edge + 10 px)
 * middle and center
 * height and width
@@ -30,8 +29,6 @@ element.diff({
 ```
 
 ## To Do
-
-*	ElementEdge: Factor out position strings into constants
 
 
 ## Future Features
