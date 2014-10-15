@@ -71,5 +71,11 @@ describe("ElementPosition", function() {
 		assert.equal(y.diff(23), "Expected 10px below top edge of element '#one' (20px) to be 23px, but was 3px lower", "y difference");
 	});
 
+	it("diffs against other positions", function() {
+		assert.equal(
+			x.diff(ElementPosition.x(one.right, -10)),
+			"Expected 5px left of left edge of element '#one' (15px) to be 10px left of right edge of element '#one' (140px), but was 125px to the left");
+	});
+
 
 });
