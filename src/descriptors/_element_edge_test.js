@@ -47,7 +47,7 @@ describe("ElementEdge", function() {
 
 	it("converts to string", function() {
 		assert.equal(top.toString(), "top edge of element '#one'", "description + element");
-		assert.equal(top.toString(top.is()), "top edge of element '#one' (10px)", "description + element + value");
+		assert.equal(top.toString(top.value()), "top edge of element '#one' (10px)", "description + element + value");
 	});
 
 	it("describes match", function() {
@@ -55,22 +55,15 @@ describe("ElementEdge", function() {
 	});
 
 	it("resolves itself to actual value", function() {
-		assert.objEqual(top.is(), Position.y(TOP), "top");
-		assert.objEqual(right.is(), Position.x(RIGHT), "right");
-		assert.objEqual(bottom.is(), Position.y(BOTTOM), "bottom");
-		assert.objEqual(left.is(), Position.x(LEFT), "left");
+		assert.objEqual(top.value(), Position.y(TOP), "top");
+		assert.objEqual(right.value(), Position.x(RIGHT), "right");
+		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
+		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
 	it("diffs against expected value", function() {
 		assert.equal(top.diff(13), "Expected top edge of element '#one' (10px) to be 13px, but was 3px lower", "top");
 		assert.equal(top.diff(TOP), "", "no difference");
-	});
-
-	it("checks every edge", function() {
-		assert.equal(top.diff(TOP), "", "top");
-		assert.equal(right.diff(RIGHT), "", "right");
-		assert.equal(bottom.diff(BOTTOM), "", "bottom");
-		assert.equal(left.diff(LEFT), "", "left");
 	});
 
 	it("diffs against another edge", function() {
@@ -79,44 +72,18 @@ describe("ElementEdge", function() {
 
 		var left2 = ElementEdge.left(two);
 		var top2 = ElementEdge.top(two);
-		var bottom2 = ElementEdge.bottom(two);
 
 		assert.equal(top.diff(top2), "", "no difference");
-
 		assert.equal(
 			left.diff(left2),
 			"Expected left edge of element '#one' (20px) to match left edge of element '#two' (150px), " +
 				"but was 130px to the left",
-			"shifted left"
-		);
-
-		assert.equal(
-			left2.diff(left),
-			"Expected left edge of element '#two' (150px) to match left edge of element '#one' (20px), " +
-				"but was 130px to the right",
-			"shifted right"
-		);
-
-		assert.equal(
-			bottom2.diff(top),
-			"Expected bottom edge of element '#two' (50px) to match top edge of element '#one' (10px), " +
-				"but was 40px higher",
-			"shifted down"
-		);
-
-		assert.equal(
-			top.diff(bottom2),
-			"Expected top edge of element '#one' (10px) to match bottom edge of element '#two' (50px), " +
-				"but was 40px lower",
-			"shifted up"
+			"difference"
 		);
 	});
 
 	it("fails fast when diffing two edges that aren't comparable", function() {
-		assert.exception(diffFn(top, right), /Can't compare X dimension to Y dimension/, "top to right");
-		assert.exception(diffFn(right, top), /Can't compare X dimension to Y dimension/, "right to top");
-		assert.exception(diffFn(left, bottom), /Can't compare X dimension to Y dimension/, "left to bottom");
-		assert.exception(diffFn(bottom, left), /Can't compare X dimension to Y dimension/, "bottom to left");
+		assert.exception(diffFn(top, right), /Can't compare X dimension to Y dimension/);
 
 		function diffFn(actual, expected) {
 			return function() {

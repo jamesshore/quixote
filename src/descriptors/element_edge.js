@@ -20,19 +20,19 @@ Me.right = factoryFn(RIGHT);
 Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
-Me.prototype.is = function is() {
+Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var value = this._element.getRawPosition()[this._position];
-	return createPosition(this, value);
+	var result = this._element.getRawPosition()[this._position];
+	return createPosition(this, result);
 };
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Number, Me] ]);
 	if (typeof expected === "number") expected = createPosition(this, expected);
 
-	var actualValue = this.is();
-	var expectedValue = expected.is();
+	var actualValue = this.value();
+	var expectedValue = expected.value();
 
 	if (actualValue.equals(expectedValue)) return "";
 
@@ -50,7 +50,7 @@ Me.prototype.description = function description() {
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 
-	return "match " + this.toString(this.is());
+	return "match " + this.toString(this.value());
 };
 
 Me.prototype.toString = function toString(value) {

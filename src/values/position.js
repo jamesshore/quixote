@@ -21,7 +21,7 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
-Me.prototype.is = function is() {
+Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
 	return this;
