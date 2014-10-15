@@ -5,7 +5,7 @@ var assert = require("../util/assert.js");
 var YPosition = require("./y_position.js");
 
 
-describe.only("Y Position", function() {
+describe("Y Position", function() {
 
 	it("converts to string", function() {
 		var y1 = new YPosition(10);
