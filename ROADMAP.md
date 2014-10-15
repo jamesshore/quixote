@@ -31,7 +31,8 @@ element.diff({
 
 ## To Do
 
-* Constraints need to describe themselves
+* ElementEdge is peeking at private data of XPosition and YPosition: fix it
+* Descriptors need to describe themselves
 * Function to resolve ElementEdge? e.g., ElementEdge.is()
 * Need polymorphism in ElementEdge.diff()?
 

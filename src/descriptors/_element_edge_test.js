@@ -4,6 +4,8 @@
 var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
+var XPosition = require("../values/x_position.js");
+var YPosition = require("../values/y_position.js");
 
 describe("ElementEdge", function() {
 
@@ -45,13 +47,15 @@ describe("ElementEdge", function() {
 	});
 
 	it("resolves itself to actual value", function() {
-		assert.equal(top.is(), 10, "top");
-		assert.equal(left.is(), 20, "left");
+		assert.objEqual(top.is(), new YPosition(TOP), "top");
+		assert.objEqual(right.is(), new XPosition(RIGHT), "right");
+		assert.objEqual(bottom.is(), new YPosition(BOTTOM), "bottom");
+		assert.objEqual(left.is(), new XPosition(LEFT), "left");
 	});
 
 	it("diffs against expected value", function() {
-		assert.equal(top.diff(13), "Element '#one' top edge expected 13, but was 10", "top");
-		assert.equal(left.diff(13), "Element '#one' left edge expected 13, but was 20", "left");
+		assert.equal(top.diff(13), "Element '#one' top edge expected 13, but was 10px", "top");
+		assert.equal(left.diff(13), "Element '#one' left edge expected 13, but was 20px", "left");
 		assert.equal(top.diff(TOP), "", "no difference");
 	});
 

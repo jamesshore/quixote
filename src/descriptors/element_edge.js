@@ -2,7 +2,8 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var QElement = require("../q_element.js");
+var XPosition = require("../values/x_position.js");
+var YPosition = require("../values/y_position.js");
 
 var Me = module.exports = function ElementEdge(element, position) {
 //	ensure.signature(arguments, [ QElement ]);      // TODO: creates circular dependency
@@ -18,7 +19,13 @@ Me.left = factoryFn("left");
 Me.prototype.is = function is() {
 	ensure.signature(arguments, []);
 
-	return this._element.getRawPosition()[this._position];
+	var value = this._element.getRawPosition()[this._position];
+	if (this._position === "top" || this._position === "bottom") return new YPosition(value);
+	if (this._position === "right" || this._position === "left") return new XPosition(value);
+
+	ensure.unreachable();
+
+	// TODO Factor out position strings into constants
 };
 
 Me.prototype.diff = function diff(expected) {
@@ -28,7 +35,7 @@ Me.prototype.diff = function diff(expected) {
 
 	var actualValue = this.is();
 	if (typeof expected === "number") {
-		if (expected === actualValue) return "";
+		if (actualValue.equals(expected)) return "";
 		else return "Element '" + this._element.description() + "' " + this.description() + " expected " +
 			expected + ", but was " + actualValue;
 	}
@@ -42,7 +49,7 @@ Me.prototype.diff = function diff(expected) {
 				"Can't compare " + this.description() + " to " + expected.description()
 			);
 
-			if (actualValue < expectedValue) direction = "higher";
+			if (actualValue._position < expectedValue._position) direction = "higher";
 			else direction = "lower";
 		}
 		else {
@@ -51,15 +58,15 @@ Me.prototype.diff = function diff(expected) {
 				"Can't compare " + this.description() + " to " + expected.description()
 			);
 
-			if (actualValue < expectedValue) direction = "to the left";
+			if (actualValue._position < expectedValue._position) direction = "to the left";
 			else direction = "to the right";
 		}
 
-		if (expectedValue === actualValue) return "";
+		if (actualValue.equals(expectedValue)) return "";
 		else return "Expected " + this.description() + " of element '" + this._element.description() +
-			"' (" + actualValue + "px) to match " + expected.description() + " of element '" +
-			expected._element.description() + "' (" + expectedValue + "px), but was " +
-			Math.abs(expectedValue - actualValue) + "px " + direction;
+			"' (" + actualValue + ") to match " + expected.description() + " of element '" +
+			expected._element.description() + "' (" + expectedValue + "), but was " +
+			Math.abs(expectedValue._position - actualValue._position) + "px " + direction;
 	}
 
 };
