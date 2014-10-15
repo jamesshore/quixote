@@ -3,6 +3,13 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## Work in Progress
+
+*Fixed:*
+
+* ElementEdge.diff() reports correct edge (instead of saying 'top' for everything)
+
+
 ## 0.2: Basic Position Diff
 
 **14 Oct 2014.** The `diff()` call on QElement allows you to check multiple things with call. In this release, it supports the most basic positioning information: the position of the top, right, bottom, and left edge of the element. 
