@@ -5,7 +5,7 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 
-describe.only("ElementEdge", function() {
+describe("ElementEdge", function() {
 
 	var frame;
 	var one;

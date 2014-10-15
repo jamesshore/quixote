@@ -3,7 +3,7 @@
 
 var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
-var ElementEdge = require("./constraints/element_edge.js");
+var ElementEdge = require("./descriptors/element_edge.js");
 
 var Me = module.exports = function QElement(domElement, description) {
 	ensure.signature(arguments, [ Object, [ String ] ]);
