@@ -23,6 +23,11 @@ describe.only("Position", function() {
 		assert.equal(y2.diff(y1), "30px higher", "higher");
 	});
 
+	it("computes difference relative to a number", function() {
+		assert.equal(x1.diff(10), "", "same");
+		assert.equal(x1.diff(13), "3px to the left", "different");
+	});
+
 	it("fails fast when computing difference between incompatible dimensions", function() {
 		assert.exception(function() {
 			x1.diff(y1);
