@@ -17,6 +17,8 @@
 * middle and center
 * height and width
 * fractional height and width
+* Create QElement.assert()? (Throws an exception if QElement.diff() is not "")
+* Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 
 ```javascript
 element.diff({
