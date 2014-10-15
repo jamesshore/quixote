@@ -16,11 +16,35 @@ Me.bottom = factoryFn("bottom");
 Me.left = factoryFn("left");
 
 Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ Number ]);
+	ensure.signature(arguments, [ [Number, Me] ]);
 
-	var actual = value(this);
-	if (expected === actual) return "";
-	else return "Element '" + this._element.description() + "' top edge expected " + expected + ", but was " + actual;
+	var direction;
+
+	var actualValue = value(this);
+	if (typeof expected === "number") {
+		if (expected === actualValue) return "";
+		else return "Element '" + this._element.description() + "' top edge expected " + expected + ", but was " + actualValue;
+	}
+
+	else {
+		var expectedValue = value(expected);
+
+		if (expected._position === "top" || expected._position === "bottom") {
+			if (actualValue < expectedValue) direction = "higher";
+			else direction = "lower";
+		}
+		else {
+			if (actualValue < expectedValue) direction = "to the left";
+			else direction = "to the right";
+		}
+
+		if (expectedValue === actualValue) return "";
+		else return "Expected " + this._position + " edge of element '" + this._element.description() +
+			"' (" + actualValue + "px) to match " + expected._position + " edge of element '" +
+			expected._element.description() + "' (" + expectedValue + "px), but was " +
+			Math.abs(expectedValue - actualValue) + "px " + direction;
+	}
+
 };
 
 function value(self) {
