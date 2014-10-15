@@ -38,10 +38,6 @@ describe("Position", function() {
 		}, /Can't compare X dimension to Y dimension/);
 	});
 
-	it("converts to string", function() {
-		assert.equal(x1.toString(), "10px");
-	});
-
 	it("is comparable to itself", function() {
 		assert.objEqual(x1, x1b, "same");
 		assert.objNotEqual(x1, x2, "different");
@@ -56,6 +52,14 @@ describe("Position", function() {
 		assert.exception(function() {
 			x1.equals(y1);
 		}, /Can't compare X dimension to Y dimension/);
+	});
+
+	it("converts to string", function() {
+		assert.equal(x1.toString(), "10px");
+	});
+
+	it("describes how it is compared", function() {
+		assert.equal(x1.describeMatch(), "be 10px");
 	});
 
 });

@@ -54,6 +54,10 @@ describe("ElementEdge", function() {
 		assert.equal(top.toString(top.is()), "top edge of element '#one' (10px)", "description + element + value");
 	});
 
+	it("describes match", function() {
+		assert.equal(top.describeMatch(), "match top edge of element '#one' (10px)");
+	});
+
 	it("resolves itself to actual value", function() {
 		assert.objEqual(top.is(), Position.y(TOP), "top");
 		assert.objEqual(right.is(), Position.x(RIGHT), "right");

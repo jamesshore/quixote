@@ -43,12 +43,6 @@ Me.prototype.diff = function diff(expected) {
 	else return value + "px " + direction;
 };
 
-Me.prototype.toString = function toString() {
-	ensure.signature(arguments, []);
-
-	return this._position + "px";
-};
-
 Me.prototype.equals = function equals(that) {
 	return (this.diff(that) === "");
 };
@@ -57,4 +51,16 @@ Me.prototype.isScalar = function isScalar() {
 	ensure.signature(arguments, []);
 
 	return true;
+};
+
+Me.prototype.describeMatch = function describeMatch() {
+	ensure.signature(arguments, []);
+
+	return "be " + this;
+};
+
+Me.prototype.toString = function toString() {
+	ensure.signature(arguments, []);
+
+	return this._position + "px";
 };
