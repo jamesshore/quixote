@@ -28,17 +28,11 @@ Me.prototype.is = function is() {
 };
 
 Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ [Me, Number] ]);
+	ensure.signature(arguments, [ Me ]);
+	ensure.that(this._dimension === expected._dimension, "Can't compare X dimension to Y dimension");
 
-	var expectedValue;
-	if (typeof expected === "number") {
-		expectedValue = expected;
-	}
-	else {
-		ensure.that(this._dimension === expected._dimension, "Can't compare X dimension to Y dimension");
-		expectedValue = expected._position;
-	}
 	var actualValue = this._position;
+	var expectedValue = expected._position;
 
 	var direction;
 	if (this._dimension === X_DIMENSION) direction = expectedValue > actualValue ? "to the left" : "to the right";
@@ -50,6 +44,8 @@ Me.prototype.diff = function diff(expected) {
 };
 
 Me.prototype.equals = function equals(that) {
+	ensure.signature(arguments, [ Me ]);
+
 	return (this.diff(that) === "");
 };
 

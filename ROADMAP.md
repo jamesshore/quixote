@@ -31,9 +31,7 @@ element.diff({
 
 ## To Do
 
-* Position: don't need to be able to compare to a number
 *	ElementEdge: Factor out position strings into constants
-* Need polymorphism in ElementEdge.diff()?
 
 
 ## Future Features

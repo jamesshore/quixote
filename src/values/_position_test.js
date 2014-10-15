@@ -27,11 +27,6 @@ describe("Position", function() {
 		assert.equal(y2.diff(y1), "30px higher", "higher");
 	});
 
-	it("computes difference relative to a number", function() {
-		assert.equal(x1.diff(10), "", "same");
-		assert.equal(x1.diff(13), "3px to the left", "different");
-	});
-
 	it("fails fast when computing difference between incompatible dimensions", function() {
 		assert.exception(function() {
 			x1.diff(y1);
@@ -41,11 +36,6 @@ describe("Position", function() {
 	it("is comparable to itself", function() {
 		assert.objEqual(x1, x1b, "same");
 		assert.objNotEqual(x1, x2, "different");
-	});
-
-	it("is comparable to number", function() {
-		assert.objEqual(x1, 10, "same");
-		assert.objNotEqual(x1, 20, "different");
 	});
 
 	it("is not comparable to opposite dimension", function() {
