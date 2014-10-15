@@ -21,6 +21,12 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
+Me.prototype.is = function is() {
+	ensure.signature(arguments, []);
+
+	return this;
+};
+
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Me, Number] ]);
 

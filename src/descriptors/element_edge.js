@@ -24,10 +24,10 @@ Me.prototype.is = function is() {
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Number, Me] ]);
+	if (typeof expected === "number") expected = createPosition(this, expected);
 
 	var actualValue = this.is();
-	var expectedValue = (typeof expected === "number") ? createPosition(this, expected) : expected.is();
-	if (typeof expected === "number") expected = createPosition(this, expected);
+	var expectedValue = expected.is();
 
 	if (actualValue.equals(expectedValue)) return "";
 

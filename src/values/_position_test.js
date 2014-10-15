@@ -13,6 +13,10 @@ describe("Position", function() {
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
 
+	it("is itself", function() {
+		assert.equal(x1.is(), x1);    // note identity comparison, not objEqual()
+	});
+
 	it("computes difference", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
@@ -50,12 +54,12 @@ describe("Position", function() {
 		}, /Can't compare X dimension to Y dimension/);
 	});
 
-	it("converts to string", function() {
-		assert.equal(x1.toString(), "10px");
-	});
-
 	it("describes how it is compared", function() {
 		assert.equal(x1.describeMatch(), "be 10px");
+	});
+
+	it("converts to string", function() {
+		assert.equal(x1.toString(), "10px");
 	});
 
 });
