@@ -142,6 +142,11 @@ describe("QElement", function() {
 			}, /'XXX' is unknown and can't be used with diff()/);
 		});
 
+		it("diff supports relative comparisons", function() {
+			var two = frame.addElement("<div style='position: absolute; top: 20px;'>two</div>");
+			assert.equal(element.diff({ top: two.top }), "", "relative diff");
+		});
+
 	});
 
 });

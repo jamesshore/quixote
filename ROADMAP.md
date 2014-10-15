@@ -29,6 +29,12 @@ element.diff({
 
 ## To Do
 
+* Fail fast with non-sensical comparisons like top to left.
+* Test and fix hardcoded 'top' in ElementEdge.diff 'number' path
+* Constraints need to describe themselves
+* Function to resolve ElementEdge? e.g., ElementEdge.is()
+* Need polymorphism in ElementEdge.diff()?
+
 
 ## Future Features
 * width and height constraints
