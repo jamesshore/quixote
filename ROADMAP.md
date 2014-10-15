@@ -55,3 +55,4 @@ element.diff({
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
 * watch.js rebuilds too often or not enough
 * Modify ensure to give better error message when comparison type is not a constructor
+* `ensure.signature(arguments, [ [undefined, Object] ]);` failed -- look into it (`ElementEdge.toString()`)

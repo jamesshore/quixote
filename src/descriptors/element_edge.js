@@ -38,17 +38,16 @@ Me.prototype.diff = function diff(expected) {
 	if (typeof expected === "number") {
 		if (actualValue.equals(expected)) return "";
 
-		return "Expected " + this.description() + " of element '" + this._element.description() +
-			"' (" + actualValue + ") to be " + expected + "px, but was " + actualValue.diff(expected);
+		return "Expected " + this.toString(actualValue) + " to be " +
+			expected + "px, but was " + actualValue.diff(expected);
 	}
 
 	else {
 		var expectedValue = expected.is();
 
 		if (actualValue.equals(expectedValue)) return "";
-		else return "Expected " + this.description() + " of element '" + this._element.description() +
-			"' (" + actualValue + ") to match " + expected.description() + " of element '" +
-			expected._element.description() + "' (" + expectedValue + "), but was " + actualValue.diff(expectedValue);
+		else return "Expected " + this.toString(actualValue) + " to match " +
+			expected.toString(expectedValue) + ", but was " + actualValue.diff(expectedValue);
 	}
 
 };
@@ -57,6 +56,14 @@ Me.prototype.description = function description() {
 	ensure.signature(arguments, []);
 
 	return this._position + " edge";
+};
+
+Me.prototype.toString = function toString(value) {
+//	ensure.signature(arguments, [ [undefined, Object] ]);
+
+	var result = this.description() + " of element '" + this._element.description() + "'";
+	if (value) result += " (" + value + ")";
+	return result;
 };
 
 function factoryFn(position) {

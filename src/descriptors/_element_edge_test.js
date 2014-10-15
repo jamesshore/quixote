@@ -45,6 +45,11 @@ describe("ElementEdge", function() {
 		assert.equal(left.description(), "left edge");
 	});
 
+	it("converts to string", function() {
+		assert.equal(top.toString(), "top edge of element '#one'", "description + element");
+		assert.equal(top.toString(top.is()), "top edge of element '#one' (10px)", "description + element + value");
+	});
+
 	it("resolves itself to actual value", function() {
 		assert.objEqual(top.is(), Position.y(TOP), "top");
 		assert.objEqual(right.is(), Position.x(RIGHT), "right");
@@ -52,7 +57,7 @@ describe("ElementEdge", function() {
 		assert.objEqual(left.is(), Position.x(LEFT), "left");
 	});
 
-	it.only("diffs against expected value", function() {
+	it("diffs against expected value", function() {
 		assert.equal(top.diff(13), "Expected top edge of element '#one' (10px) to be 13px, but was 3px lower", "top");
 		assert.equal(top.diff(TOP), "", "no difference");
 	});
