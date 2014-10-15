@@ -21,9 +21,9 @@ Me.right = factoryFn(RIGHT);
 Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
-Me.prototype.plus = function plus() {
-	return new ElementPosition();
-};
+//Me.prototype.plus = function plus() {
+//	return new ElementPosition();
+//};
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
