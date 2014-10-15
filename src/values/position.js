@@ -21,6 +21,12 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
+Me.prototype.plus = function plus(amount) {
+	ensure.signature(arguments, [ Number ]);
+
+	return new Me(this._dimension, this._position + amount);
+};
+
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 

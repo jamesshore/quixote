@@ -5,7 +5,7 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementPosition = require("./element_position.js");
 
-describe.only("ElementPosition", function() {
+describe("ElementPosition", function() {
 
 	var frame;
 	var one;

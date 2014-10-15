@@ -17,6 +17,11 @@ describe("Position", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
 
+	it("adds", function() {
+		assert.objEqual(x1.plus(42), Position.x(52), "x");
+		assert.objEqual(y1.plus(13), Position.y(63), "y");
+	});
+
 	it("computes difference", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
