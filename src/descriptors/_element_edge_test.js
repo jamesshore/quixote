@@ -92,14 +92,14 @@ describe("ElementEdge", function() {
 		assert.equal(
 			bottom2.diff(top),
 			"Expected bottom edge of element '#two' (50px) to match top edge of element '#one' (10px), " +
-				"but was 40px lower",
+				"but was 40px higher",
 			"shifted down"
 		);
 
 		assert.equal(
 			top.diff(bottom2),
 			"Expected top edge of element '#one' (10px) to match bottom edge of element '#two' (50px), " +
-				"but was 40px higher",
+				"but was 40px lower",
 			"shifted up"
 		);
 	});

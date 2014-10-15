@@ -64,8 +64,7 @@ Me.prototype.diff = function diff(expected) {
 		if (actualValue.equals(expectedValue)) return "";
 		else return "Expected " + this.description() + " of element '" + this._element.description() +
 			"' (" + actualValue + ") to match " + expected.description() + " of element '" +
-			expected._element.description() + "' (" + expectedValue + "), but was " +
-			Math.abs(expectedValue._position - actualValue._position) + "px " + direction;
+			expected._element.description() + "' (" + expectedValue + "), but was " + actualValue.diff(expectedValue);
 	}
 
 };
