@@ -66,57 +66,24 @@ describe("ElementEdge", function() {
 		assert.equal(top.diff(TOP), "", "no difference");
 	});
 
-	it("checks every edge", function() {
-		assert.equal(top.diff(TOP), "", "top");
-		assert.equal(right.diff(RIGHT), "", "right");
-		assert.equal(bottom.diff(BOTTOM), "", "bottom");
-		assert.equal(left.diff(LEFT), "", "left");
-	});
-
 	it("diffs against another edge", function() {
 		frame.addElement("<p id='two' style='position: absolute; left: 150px; top: 10px; height: 40px;'>two</p>");
 		var two = frame.getElement("#two");
 
 		var left2 = ElementEdge.left(two);
 		var top2 = ElementEdge.top(two);
-		var bottom2 = ElementEdge.bottom(two);
 
 		assert.equal(top.diff(top2), "", "no difference");
-
 		assert.equal(
 			left.diff(left2),
 			"Expected left edge of element '#one' (20px) to match left edge of element '#two' (150px), " +
 				"but was 130px to the left",
-			"shifted left"
-		);
-
-		assert.equal(
-			left2.diff(left),
-			"Expected left edge of element '#two' (150px) to match left edge of element '#one' (20px), " +
-				"but was 130px to the right",
-			"shifted right"
-		);
-
-		assert.equal(
-			bottom2.diff(top),
-			"Expected bottom edge of element '#two' (50px) to match top edge of element '#one' (10px), " +
-				"but was 40px higher",
-			"shifted down"
-		);
-
-		assert.equal(
-			top.diff(bottom2),
-			"Expected top edge of element '#one' (10px) to match bottom edge of element '#two' (50px), " +
-				"but was 40px lower",
-			"shifted up"
+			"difference"
 		);
 	});
 
 	it("fails fast when diffing two edges that aren't comparable", function() {
-		assert.exception(diffFn(top, right), /Can't compare X dimension to Y dimension/, "top to right");
-		assert.exception(diffFn(right, top), /Can't compare X dimension to Y dimension/, "right to top");
-		assert.exception(diffFn(left, bottom), /Can't compare X dimension to Y dimension/, "left to bottom");
-		assert.exception(diffFn(bottom, left), /Can't compare X dimension to Y dimension/, "bottom to left");
+		assert.exception(diffFn(top, right), /Can't compare X dimension to Y dimension/);
 
 		function diffFn(actual, expected) {
 			return function() {
