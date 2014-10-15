@@ -14,7 +14,7 @@ describe("Position", function() {
 	var y2 = Position.y(80);
 
 	it("is itself", function() {
-		assert.equal(x1.is(), x1);    // note identity comparison, not objEqual()
+		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
 
 	it("computes difference", function() {
