@@ -5,6 +5,7 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
+var ElementPosition = require("./element_position.js");
 
 describe("ElementEdge", function() {
 
@@ -90,6 +91,13 @@ describe("ElementEdge", function() {
 				actual.diff(expected);
 			};
 		}
+	});
+
+	it("can be shifted up or to the right", function() {
+		var descriptor = top.plus(10);
+		assert.type(descriptor, ElementPosition);
+
+		/* TODO: what about negative values? */
 	});
 
 });
