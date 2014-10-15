@@ -13,6 +13,8 @@
 ## Current Feature: Relative Positioning
 
 * Offset position comparisons (compare left edge to right edge + 10 px)
+  * plus
+  * minus
 * middle and center
 * height and width
 * fractional height and width
@@ -31,6 +33,7 @@ element.diff({
 ## To Do
 
 * ElementPosition: fail fast with non-sensical directions (e.g., left edge + 'x' dimension)
+* Get rid of toString(actual)?
 
 ## Future Features
 * width and height constraints

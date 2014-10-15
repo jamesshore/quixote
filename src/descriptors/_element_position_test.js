@@ -6,17 +6,15 @@ var quixote = require("../quixote.js");
 var ElementPosition = require("./element_position.js");
 var Position = require("../values/position.js");
 
-describe.only("ElementPosition", function() {
+describe("ElementPosition", function() {
 
 	var frame;
 	var one;
 	var x;
 	var y;
 
-	var TOP = 10;
-	var RIGHT = 150;
-	var BOTTOM = 70;
-	var LEFT = 20;
+	var X = 15;
+	var Y = 20;
 
 	before(function(done) {
 		frame = quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, done);
@@ -66,5 +64,12 @@ describe.only("ElementPosition", function() {
 	it("describes match", function() {
 		assert.equal(y.describeMatch(), "be 10px below top edge of element '#one' (20px)");
 	});
+
+	it("diffs against expected value", function() {
+		assert.equal(x.diff(15), "", "no difference");
+		assert.equal(x.diff(19), "Expected 5px left of left edge of element '#one' (15px) to be 19px, but was 4px to the left", "x difference");
+		assert.equal(y.diff(23), "Expected 10px below top edge of element '#one' (20px) to be 23px, but was 3px lower", "y difference");
+	});
+
 
 });

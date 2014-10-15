@@ -31,6 +31,21 @@ Me.prototype.value = function value() {
 	return this._edge.value().plus(this._amount);
 };
 
+Me.prototype.diff = function diff(expected) {
+	ensure.signature(arguments, [ Number ]);
+
+	if (typeof expected === "number") expected = createPosition(this, expected);
+
+	var actualValue = this.value();
+	var expectedValue = expected.value();
+
+	if (actualValue.equals(expectedValue)) return "";
+
+	return "Expected " + this.toString() + " (" + this.value() + ")" +
+		" to " + expected.describeMatch() +
+		", but was " + actualValue.diff(expectedValue);
+};
+
 Me.prototype.description = function description() {
 	ensure.signature(arguments, []);
 
@@ -57,4 +72,9 @@ function relativeAmount(self) {
 	else direction = (self._amount < 0) ? "above" : "below";
 
 	return Math.abs(self._amount) + "px " + direction + " ";
+}
+
+function createPosition(self, value) {
+	if (self._dimension === X_DIMENSION) return Position.x(value);
+	else return Position.y(value);
 }
