@@ -44,6 +44,14 @@ describe("ElementPosition", function() {
 		assert.objEqual(y.value(), Position.y(20), "y");
 	});
 
+	it("converts arguments to comparable values", function() {
+		assert.objEqual(x.convert(13), Position.x(13), "x");
+		assert.objEqual(y.convert(13), Position.y(13), "y");
+
+		var descriptor = ElementPosition.x(one.top, 13);
+		assert.equal(x.convert(descriptor), descriptor, "descriptor");
+	});
+
 	it("converts to string", function() {
 		assertX(one.left, 10, "10px right of ", "right");
 		assertX(one.left, -15, "15px left of ", "left");

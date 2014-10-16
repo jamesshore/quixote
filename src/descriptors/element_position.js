@@ -33,6 +33,13 @@ Me.prototype.value = function value() {
 	return this._edge.value().plus(this._amount);
 };
 
+Me.prototype.convert = function convert(arg) {
+	ensure.signature(arguments, [ [Number, Descriptor] ]);
+
+	if (typeof arg === "number") return createPosition(this, arg);
+	else return arg;
+};
+
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Number, Descriptor] ]);
 
