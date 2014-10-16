@@ -13,7 +13,6 @@
 
 ## Current Feature: Advanced Positioning
 
-* middle and center
 * height and width
 * fractional height and width
 * string together ElementPositions 
@@ -38,6 +37,7 @@ element.assert({
 * Git rid of Position.describeMatch()?
 * Clean up QElement tests
 * Should Dimension be a value object?
+* assert.descriptor() which ensures all methods are implemented? (Or something similar?)
 
 
 ## Future Features
