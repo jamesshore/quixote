@@ -74,26 +74,4 @@ describe("ElementPosition", function() {
 		assert.equal(y.describeMatch(), "be 10px below top edge of element '#one' (20px)");
 	});
 
-	it("diffs against expected value", function() {
-		assert.equal(x.diff(15), "", "no difference");
-		assert.equal(x.diff(19), "Expected 5px left of left edge of element '#one' (15px) to be 19px, but was 4px to the left", "x difference");
-		assert.equal(y.diff(23), "Expected 10px below top edge of element '#one' (20px) to be 23px, but was 3px lower", "y difference");
-	});
-
-	it("diffs against other positions", function() {
-		assert.equal(
-			x.diff(ElementPosition.x(one.right, -10)),
-			"Expected 5px left of left edge of element '#one' (15px) to be 10px left of right edge of element '#one' (140px), but was 125px to the left");
-	});
-
-	it("diffs against an element edge", function() {
-		assert.equal(ElementPosition.x(one.left, 0).diff(one.left), "", "same");
-		assert.equal(
-			x.diff(one.left),
-			"Expected 5px left of left edge of element '#one' (15px) to match left edge of element '#one' (20px), but was 5px to the left",
-			"different"
-		);
-	});
-
-
 });
