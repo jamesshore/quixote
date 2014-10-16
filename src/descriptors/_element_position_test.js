@@ -71,7 +71,7 @@ describe("ElementPosition", function() {
 	});
 
 	it("describes match", function() {
-		assert.equal(y.describeMatch(), "be 10px below top edge of element '#one' (20px)");
+		assert.equal(y.describeMatch(), "be " + y.toString() + " (20px)");
 	});
 
 });

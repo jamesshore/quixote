@@ -75,7 +75,7 @@ describe("ElementEdge", function() {
 	});
 
 	it("describes match", function() {
-		assert.equal(top.describeMatch(), "match top edge of element '#one' (10px)");
+		assert.equal(top.describeMatch(), "match " + top.toString() + " (10px)");
 	});
 
 	it("can be shifted up, down, left, and right", function() {
