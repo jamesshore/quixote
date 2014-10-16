@@ -30,6 +30,7 @@ element.assert({
 ## To Do
 
 * Generalize descriptor; simplify creation
+* Resolve createObject duplication()
 * ElementPosition --> RelativePosition?
 
 
