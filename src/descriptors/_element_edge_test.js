@@ -82,6 +82,15 @@ describe("ElementEdge", function() {
 		);
 	});
 
+	it("diffs against an element position", function() {
+		assert.equal(top.diff(bottom.minus(60)), "", "same");
+		assert.equal(
+			top.diff(bottom.minus(50)),
+			"Expected top edge of element '#one' (10px) to be 50px above bottom edge of element '#one' (20px), " +
+				"but was 10px lower",
+			"different");
+	});
+
 	it("fails fast when diffing two edges that aren't comparable", function() {
 		assert.exception(diffFn(top, right), /Can't compare X dimension to Y dimension/);
 

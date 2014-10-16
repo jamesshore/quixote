@@ -44,7 +44,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ [Number, Me] ]);
+	ensure.signature(arguments, [ [Number, ElementPosition, Me] ]);
 	if (typeof expected === "number") expected = createPosition(this, expected);
 
 	var actualValue = this.value();
