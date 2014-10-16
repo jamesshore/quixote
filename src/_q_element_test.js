@@ -68,8 +68,12 @@ describe("QElement", function() {
 		var RIGHT = 150;
 		var BOTTOM = 70;
 		var LEFT = 20;
+
 		var CENTER = 85;
 		var MIDDLE = 40;
+
+		var WIDTH = 130;
+		var HEIGHT = 60;
 
 		var element;
 
@@ -90,6 +94,11 @@ describe("QElement", function() {
 		it("centers", function() {
 			assert.equal(element.center.diff(CENTER), "", "center");
 			assert.equal(element.middle.diff(MIDDLE), "", "middle");
+		});
+
+		it("sizes", function() {
+			assert.equal(element.width.diff(WIDTH), "", "width");
+			assert.equal(element.height.diff(HEIGHT), "", "height");
 		});
 
 	});
