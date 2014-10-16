@@ -29,10 +29,14 @@ element.assert({
 
 ## To Do
 
+* Change descriptor toString() to say `of '#one'` not `of element '#one'`
+* Change QElement to use toString() instead of description()
+
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)
 * How do we deal with descriptors that aren't comparable?
 * Git rid of Position.describeMatch()?
+* Clean up QElement tests
 
 
 ## Future Features
@@ -44,6 +48,7 @@ element.assert({
 
 ## Future To Do / Off-camera
 
+* Can I load the "reset" stylesheet just once for the entire test suite?
 * Is URL checking code causing Mobile Safari to disconnect?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * How do we use ensure.signature in element_edge.js without creating a circular dependency?
