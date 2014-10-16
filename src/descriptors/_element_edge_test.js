@@ -48,13 +48,15 @@ describe("ElementEdge", function() {
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
-	it("describes itself", function() {
-		assert.equal(top.description(), "top edge");
-		assert.equal(left.description(), "left edge");
-	});
-
 	it("converts to string", function() {
-		assert.equal(top.toString(), "top edge of element '#one'", "description + element");
+		assertDesc(one, top, "top edge of ", "top");
+		assertDesc(one, right, "right edge of ", "right");
+		assertDesc(one, bottom, "bottom edge of ", "bottom");
+		assertDesc(one, left, "left edge of ", "left");
+
+		function assertDesc(element, edge, expected, message) {
+			assert.equal(edge.toString(), expected + "element '" + element.description() + "'", message);
+		}
 	});
 
 	it("describes match", function() {

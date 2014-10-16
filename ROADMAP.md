@@ -16,11 +16,10 @@
 * middle and center
 * height and width
 * fractional height and width
-* Create QElement.assert()? (Throws an exception if QElement.diff() is not "")
-* Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
+* string together ElementPositions 
 
 ```javascript
-element.diff({
+element.assert({
   top: foo.top,
   bottom: bar.middle
   left: baz.left.plus(10)
@@ -30,9 +29,15 @@ element.diff({
 
 ## To Do
 
+* Generalize descriptor; simplify creation
+* ElementPosition --> RelativePosition?
+
 
 ## Future Features
 * Should width and height go inside Frame's "options" object?
+* Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
+* Frame.getElement(), Frame.addElement(): take an optional nickname?
+* QElement.description() --> QElement.toString()? 
 
 
 ## Future To Do / Off-camera

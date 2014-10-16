@@ -46,12 +46,6 @@ Me.prototype.diff = function diff(expected) {
 		", but was " + actualValue.diff(expectedValue);
 };
 
-Me.prototype.description = function description() {
-	ensure.signature(arguments, []);
-
-	return relativeAmount(this) + this._edge.description();
-};
-
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 

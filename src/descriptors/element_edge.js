@@ -57,12 +57,6 @@ Me.prototype.diff = function diff(expected) {
 		", but was " + actualValue.diff(expectedValue);
 };
 
-Me.prototype.description = function description() {
-	ensure.signature(arguments, []);
-
-	return this._position + " edge";
-};
-
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 
@@ -72,7 +66,7 @@ Me.prototype.describeMatch = function describeMatch() {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return this.description() + " of element '" + this._element.description() + "'";
+	return this._position + " edge of element '" + this._element.description() + "'";
 };
 
 function factoryFn(position) {
