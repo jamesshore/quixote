@@ -194,9 +194,11 @@ QElement instances have several properties that can be used to make assertions a
 
 Compare the element's properties to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
 
-`element.assert(expected)`
+`element.assert(expected, message)`
 
 * `expected (object)`: An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+
+* `message (optional string)`: If an exception is thrown, this message will be included at the beginning.
 
 Example: `element.assert({ top: 13, bottom: otherElement.top.plus(10) });`
 
