@@ -4,6 +4,7 @@
 var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
 var ElementEdge = require("./descriptors/element_edge.js");
+var ElementCenter = require("./descriptors/element_center.js");
 
 var Me = module.exports = function QElement(domElement, description) {
 	ensure.signature(arguments, [ Object, [ String ] ]);
@@ -15,6 +16,8 @@ var Me = module.exports = function QElement(domElement, description) {
 	this.right = ElementEdge.right(this);
 	this.bottom = ElementEdge.bottom(this);
 	this.left = ElementEdge.left(this);
+
+	this.center = ElementCenter.x(this);
 };
 
 Me.prototype.assert = function assert(expected, message) {

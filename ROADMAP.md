@@ -29,10 +29,14 @@ element.assert({
 
 ## To Do
 
+* Change descriptor toString() to say `of '#one'` not `of element '#one'`
+* Change QElement to use toString() instead of description()
+
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)
 * How do we deal with descriptors that aren't comparable?
 * Git rid of Position.describeMatch()?
+* Clean up QElement tests
 
 
 ## Future Features

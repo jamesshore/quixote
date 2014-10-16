@@ -12,6 +12,10 @@ var Me = module.exports = function ElementCenter(element) {
 };
 Descriptor.extend(Me);
 
+Me.x = function(element) {
+	return new Me(element);
+};
+
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 

@@ -4,6 +4,8 @@
 var assert = require("./util/assert.js");
 var Frame = require("./frame.js");
 var QElement = require("./q_element.js");
+var ElementEdge = require("./descriptors/element_edge.js");
+var ElementCenter = require("./descriptors/element_center.js");
 
 describe("QElement", function() {
 
@@ -58,6 +60,27 @@ describe("QElement", function() {
 
 			assert.match(q.toString().toLowerCase(), /<div baz="quux">foo\s*<p>bar<\/p><\/div>/);
 		});
+	});
+
+	describe("properties:", function() {
+
+		var element;
+
+		beforeEach(function() {
+			element = new QElement(document.body, "body");
+		});
+
+		it("edges", function() {
+			assert.type(element.top, ElementEdge, "top");
+			assert.type(element.right, ElementEdge, "right");
+			assert.type(element.bottom, ElementEdge, "bottom");
+			assert.type(element.left, ElementEdge, "left");
+		});
+
+		it("centers", function() {
+			assert.type(element.center, ElementCenter, "center");
+		});
+
 	});
 
 	describe("raw styles and positions", function() {

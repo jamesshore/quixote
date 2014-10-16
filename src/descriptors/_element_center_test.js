@@ -7,7 +7,7 @@ var Descriptor = require("./descriptor.js");
 var ElementCenter = require("./element_center.js");
 var Position = require("../values/position.js");
 
-describe.only("ElementCenter", function() {
+describe("ElementCenter", function() {
 
 	var TOP = 10;
 	var RIGHT = 150;
