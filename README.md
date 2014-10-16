@@ -17,7 +17,7 @@ Or download [dist/quixote.js](dist/quixote.js).
 
 Quixote must be run in a browser. It's meant to be used with test frameworks such as Karma, Mocha, and Jasmine.
 
-Quixote is a UMD module. If you just load the file directly, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
+Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
 
 *Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the browser is hidden causes very slow tests. If you have trouble with slow tests, make sure your browser windows are visible.
 
@@ -50,7 +50,7 @@ describe("Example", function() {
     frame.reset();
     
     // Get the elements we want to test
-    logo = frame.getElement("#logo");           // use any CSS selector
+    logo = frame.getElement("#logo");       // you can use any CSS selector
     menu = frame.getElement(".menu");
   });
   
@@ -69,7 +69,7 @@ describe("Example", function() {
   });
   
   it("positions menu below logo", function() {
-    // Check that the menu is aligned with the logo
+    // Compare position of menu with position of logo
     menu.assert({
       left: logo.left,            // menu is aligned with logo
       top: logo.bottom.plus(10)   // and below it with a 10px gap
@@ -80,7 +80,7 @@ describe("Example", function() {
     // So far, 'assert()' and 'diff()' only support basic positioning.
     // But you can get any CSS style you want by using 'getRawStyle()'.
   
-    // Get the font-size actually displayed in the browser
+    // Get the font size actually displayed in the browser
     var fontSize = menu.getRawStyle("font-size");  
     
     // You'll need an assertion library like Chai to make assertions.
@@ -97,16 +97,12 @@ There are three primary classes and modules:
 
 * `quixote` is your entry point. It allows you to create a iframe for testing.
 * `Frame` is how you manipulate the DOM inside your test frame.
-* `QElement` allows you to get information about your styled elements.
+* `QElement` allows you to make assertions and get information.
 
-There are also a few descriptor classes used when comparing elements:
+There are also a few classes used with `assert()` and `diff()`:
 
-* `ElementEdge` describes the outer edge of an element (top, left, etc.)
-* `ElementPosition` describes an offset to an element's edge. (10px below the top, etc.)
-
-There's one value class that represents a calculated value. Value objects are immutable.
-
-* `Position` contains an X or Y coordinate.
+* `ElementEdge` represents the outer edge of an element (top, left, etc.)
+* `ElementPosition` represents an offset to an element's edge. (10px below the top, etc.)
 
 
 **The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge. Breaking changes to any method documented here will be mentioned in the [change log](CHANGELOG.md). Any class or method that isn't mentioned should be considered non-public.  
@@ -121,20 +117,20 @@ Create a test iframe.
 
 `frame = quixote.createFrame(width, height, options, callback(err, frame))`
 
-* `frame` (Frame): The newly-created frame. Although the frame is returned immediately, you have to wait for the callback to execute before you can use it.
+* `frame (Frame)`: The newly-created frame. Although the frame is returned immediately, you have to wait for the callback to execute before you can use it.
 
-* `width` (number): Width of the iframe
+* `width (number)`: Width of the iframe
 
-* `height` (number): Height of the iframe
+* `height (number)`: Height of the iframe
 
-* `options` (optional object): Options for creating the frame:
-  * `src` (optional string): URL of an HTML document to load into the frame
-  * `stylesheet` (optional string): URL of a CSS stylesheet to load into the frame
+* `options (optional object)`: Options for creating the frame:
+  * `src (optional string)`: URL of an HTML document to load into the frame
+  * `stylesheet (optional string)`: URL of a CSS stylesheet to load into the frame
   * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet with an HTML document, use a `<link>` tag in the HTML document itself.
   
-* `callback(err, loadedFrame)` (function): Called when the frame has been created. 
-  * `err` (Error or null): Any errors that occurred while loading the frame (always `null`, for now)
-  * `loadedFrame` (Frame): The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
+* `callback(err, loadedFrame) (function)`: Called when the frame has been created. 
+  * `err (Error or null)`: Any errors that occurred while loading the frame (always `null`, for now)
+  * `loadedFrame (Frame)`: The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
 
 
 ### Class: `Frame`
@@ -159,9 +155,9 @@ Retrieve an element matching `selector`. Throws an exception unless exactly one 
 
 `element = frame.getElement(selector)`
 
-* `element` (QElement object): The element that matches your selector.
+* `element (QElement)`: The element that matches your selector.
 
-* `selector` (string): A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
+* `selector (string)`: A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
 
 Example: `var foo = frame.getElement("#foo");`
 
@@ -171,9 +167,9 @@ Create an element and add it to the end of the frame's body. Throws an exception
 
 `element = frame.addElement(html)`
 
-* `element` (QElement object): The element you created.
+* `element (QElement)`: The element you created.
 
-* `html` (string): HTML for your element.
+* `html (string)`: HTML for your element.
 
 Example: `var foo = frame.addElement("<p>foo</p>");`
 
@@ -187,10 +183,10 @@ Example: `var foo = frame.addElement("<p>foo</p>");`
 
 QElement instances have several properties that can be used to make assertions about your element's position and (eventually) styling. You'll typically use these properties with QElement's `assert()` or `diff()` method.
  
-* `top` (ElementEdge): Top edge of the element 
-* `right` (ElementEdge): Right edge
-* `bottom` (ElementEdge): Bottom edge
-* `left` (ElementEdge): Left edge
+* `top (ElementEdge)`: Top edge of the element 
+* `right (ElementEdge)`: Right edge
+* `bottom (ElementEdge)`: Bottom edge
+* `left (ElementEdge)`: Left edge
 
 **Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If there's a cross-browser difference that doesn't show up in the actual page, please file an issue.
 
@@ -200,7 +196,7 @@ Compare the element's properties to a set of expected values and throw an except
 
 `element.assert(expected)`
 
-* `expected` (object): An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+* `expected (object)`: An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
 
 Example: `element.assert({ top: 13, bottom: otherElement.top.plus(10) });`
 
@@ -211,9 +207,9 @@ Compare the element's properties to a set of expected values. This is the same a
 
 `diff = element.diff(expected)`
 
-* `diff` (string): A human-readable description of any differences found, or an empty string if none.
+* `diff (string)`: A human-readable description of any differences found, or an empty string if none.
 
-* `expected` (object): An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+* `expected (object)`: An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
 
 Example: `assert.equal(element.diff({ top: 13, bottom: otherElement.top.plus(10) }), "");`
 
@@ -224,9 +220,9 @@ Determine how an element displays a particular style, as computed by the browser
 
 `style = element.getRawStyle(property)`
 
-* `style` (string): The browser's computed style, or an empty string if the style wasn't recognized.
+* `style (string)`: The browser's computed style, or an empty string if the style wasn't recognized.
  
-* `property` (string): The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
+* `property (string)`: The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
 
 Example: `var fontSize = element.getRawStyle("font-size");`
 
@@ -242,13 +238,13 @@ Determine where an element is displayed within the frame viewport, as computed b
 
 `position = element.getRawPosition()`
 
-* `position` (object): The position of the element relative to the top of the viewport. In other words, if you scroll the viewport down 10 pixels, `top` will be 10 pixels smaller. All values include border and padding, but not margin.
-  * `top` (number): top edge
-  * `right` (number): right edge
-  * `bottom` (number): bottom edge
-  * `left` (number): left edge
-  * `width` (number): width (right edge minus left edge)
-  * `height` (number): height (bottom edge minus top edge)
+* `position (object)`: The position of the element relative to the top of the viewport. In other words, if you scroll the viewport down 10 pixels, `top` will be 10 pixels smaller. All values include border and padding, but not margin.
+  * `top (number)`: top edge
+  * `right (number)`: right edge
+  * `bottom (number)`: bottom edge
+  * `left (number)`: left edge
+  * `width (number)`: width (right edge minus left edge)
+  * `height (number)`: height (bottom edge minus top edge)
 
 Example: `var top = element.getRawPosition().top;`
 
@@ -272,9 +268,9 @@ Get a new position that's further down or to the right. Use this when you're com
  
 `position = edge.plus(pixels)`
 
-* `position` (ElementPosition): The adjusted position.
+* `position (ElementPosition)`: The adjusted position.
 
-* `pixels` (number): The number of pixels to move down or to the right.
+* `pixels (number)`: The number of pixels to move down or to the right.
 
 Example: `element.assert({ top: menu.bottom.plus(10) });` (The top of the element is 10px below the bottom of the menu.)
 
@@ -285,9 +281,9 @@ Get a new position that's further up or to the left. Same as `edge.plus()`, exce
 
 `position = edge.minus(pixels)`
 
-* `position` (ElementPosition): The adjusted position.
+* `position (ElementPosition)`: The adjusted position.
 
-* `pixels` (number): The number of pixels to move up or to the left.
+* `pixels (number)`: The number of pixels to move up or to the left.
 
 Example: `loginButton.assert({ bottom: menu.bottom.minus(5) });` (The bottom of the login button is 5px above the bottom of the menu.)
 
