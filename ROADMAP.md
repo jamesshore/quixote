@@ -13,8 +13,6 @@
 ## Current Feature: Relative Positioning
 
 * Offset position comparisons (compare left edge to right edge + 10 px)
-  * plus
-  * minus
 * middle and center
 * height and width
 * fractional height and width
@@ -33,7 +31,6 @@ element.diff({
 ## To Do
 
 * How do we compare ElementEdge and ElementPosition? (and vice-versa?)
-  * ElementEdge should delegate to ElementPosition? 
 * ElementPosition: fail fast with non-sensical directions (e.g., left edge + 'x' dimension)
 * Better message? "expected ... to be 10px left of right edge (xx), but was 135px to the left)
 

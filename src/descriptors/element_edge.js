@@ -21,9 +21,20 @@ Me.right = factoryFn(RIGHT);
 Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
-//Me.prototype.plus = function plus() {
-//	return new ElementPosition();
-//};
+Me.prototype.plus = function plus(amount) {
+	ensure.signature(arguments, [ Number ]);
+
+	if (this._position === TOP || this._position === BOTTOM) return ElementPosition.y(this, amount);
+	if (this._position === RIGHT || this._position === LEFT) return ElementPosition.x(this, amount);
+
+	ensure.unreachable();
+};
+
+Me.prototype.minus = function minus(amount) {
+	ensure.signature(arguments, [ Number ]);
+
+	return this.plus(amount * -1);
+};
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
@@ -72,7 +83,7 @@ function factoryFn(position) {
 
 function createPosition(self, value) {
 	if (self._position === TOP || self._position === BOTTOM) return Position.y(value);
-	if (self._position === RIGHT || self._position === LEFT) return new Position.x(value);
+	if (self._position === RIGHT || self._position === LEFT) return Position.x(value);
 
 	ensure.unreachable();
 }

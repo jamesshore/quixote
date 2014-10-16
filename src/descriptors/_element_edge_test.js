@@ -92,11 +92,12 @@ describe("ElementEdge", function() {
 		}
 	});
 
-//	it("can be shifted up or to the right", function() {
-//		var descriptor = top.plus(10);
-//		assert.type(descriptor, ElementPosition);
-//
-//		/* TODO: what about negative values? */
-//	});
+	it("can be shifted up, down, left, and right", function() {
+		assert.objEqual(top.plus(10).value(), Position.y(TOP + 10), "down");
+		assert.objEqual(top.minus(10).value(), Position.y(TOP - 10), "up");
+
+		assert.objEqual(left.plus(15).value(), Position.x(LEFT + 15), "right");
+		assert.objEqual(left.minus(25).value(), Position.x(LEFT - 25), "left");
+	});
 
 });
