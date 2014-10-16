@@ -80,6 +80,7 @@ describe("Example", function() {
     // So far, 'assert()' and 'diff()' only support basic positioning.
     // But you can get any CSS style you want by using 'getRawStyle()'.
   
+    // Get the font-size actually displayed in the browser
     var fontSize = menu.getRawStyle("font-size");  
     
     // You'll need an assertion library like Chai to make assertions.
@@ -92,14 +93,23 @@ describe("Example", function() {
 
 ## API
 
-There are three classes and modules available to you:
+There are three primary classes and modules:
 
 * `quixote` is your entry point. It allows you to create a iframe for testing.
 * `Frame` is how you manipulate the DOM inside your test frame.
 * `QElement` allows you to get information about your styled elements.
 
-**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge.
+There are also a few descriptor classes used when comparing elements:
 
+* `ElementEdge` describes the outer edge of an element (top, left, etc.)
+* `ElementPosition` describes an offset to an element's edge. (10px below the top, etc.)
+
+There's one value class that represents a calculated value. Value objects are immutable.
+
+* `Position` contains an X or Y coordinate.
+
+
+**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge. Breaking changes to any method documented here will be mentioned in the [change log](CHANGELOG.md). Any class or method that isn't mentioned should be considered non-public.  
 
 ### Entry Point: `quixote`
 
@@ -175,28 +185,40 @@ Example: `var foo = frame.addElement("<p>foo</p>");`
 
 #### Properties
 
-QElement instances have several properties that can be used to make assertions about your element's position and (eventually) styling. You'll typically use this with QElement's `diff()` method.
+QElement instances have several properties that can be used to make assertions about your element's position and (eventually) styling. You'll typically use these properties with QElement's `assert()` or `diff()` method.
  
-* `top`: Top edge of the element, including (outside) the border and padding, but not including the margin 
-* `right`: Right edge
-* `bottom`: Bottom edge
-* `left`: Left edge
+* `top` (ElementEdge): Top edge of the element 
+* `right` (ElementEdge): Right edge
+* `bottom` (ElementEdge): Bottom edge
+* `left` (ElementEdge): Left edge
+
+**Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If there's a cross-browser difference that doesn't show up in the actual page, please file an issue.
+
+### element.assert()
+
+Compare the element's properties to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
+
+`element.assert(expected)`
+
+* `expected` (object): An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+
+Example: `element.assert({ top: 13, bottom: otherElement.top.plus(10) });`
 
 
-#### element.diff
+#### element.diff()
 
-Compare the element's properties to a set of expected values.
+Compare the element's properties to a set of expected values. This is the same as `assert()` (above), except that it returns a value rather than throwing an exception.
 
 `diff = element.diff(expected)`
 
 * `diff` (string): A human-readable description of any differences found, or an empty string if none.
 
-* `expected` (object): An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number.
+* `expected` (object): An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
 
-Example: `assert.equal(element.diff({ top: 13, bottom: 42 }), "")`
+Example: `assert.equal(element.diff({ top: 13, bottom: otherElement.top.plus(10) }), "");`
 
 
-#### element.getRawStyle
+#### element.getRawStyle()
 
 Determine how an element displays a particular style, as computed by the browser. This uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
 
@@ -206,15 +228,15 @@ Determine how an element displays a particular style, as computed by the browser
  
 * `property` (string): The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
 
-Example: `var fontSize = element.getRawStyle("font-size")`;
+Example: `var fontSize = element.getRawStyle("font-size");`
 
-Cross-Browser Compatibility: `getRawStyle` does not attempt to resolve cross-browser differences, with two exceptions:
+**Compatibility Note:** `getRawStyle` does *not* attempt to resolve cross-browser differences, with two exceptions:
 
 * IE 8 uses `currentStyle` rather than `getComputedStyle()`, and snake-case property names are converted to camelCase to match currentStyle's expectation.
 * Different browsers return `null`, `undefined`, or `""` when a property can't be found. Quixote always returns `""`. 
 
 
-#### element.getRawPosition
+#### element.getRawPosition()
 
 Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change.
 
@@ -230,9 +252,53 @@ Determine where an element is displayed within the frame viewport, as computed b
 
 Example: `var top = element.getRawPosition().top;`
 
-Cross-Browser Compatibility: `getRawPosition()` does not attempt to resolve cross-browser differences, with one exception:
+**Compatibility Note:** `getRawPosition()` does *not* attempt to resolve cross-browser differences, with one exception:
 
 * IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` does, even on IE 8. It calculates them from the other properties.
+
+
+### Class: `ElementEdge`
+
+An `ElementEdge` instance represents the position of one side of an element (the top, left, etc.). The position includes (is outside of) padding and border, but not margin.
+
+Get an ElementEdge instance from `QElement` by using `element.top` or similar. You'll typically use ElementEdge instances with QElement's `assert()` or `diff()` methods.
+
+Example: `element.assert({ left: logo.left });` (The left side of the element is aligned with the left side of the menu.)
+
+
+#### edge.plus()
+
+Get a new position that's further down or to the right. Use this when you're comparing two elements that aren't perfectly aligned--for example, when there's a gap between the elements.
+ 
+`position = edge.plus(pixels)`
+
+* `position` (ElementPosition): The adjusted position.
+
+* `pixels` (number): The number of pixels to move down or to the right.
+
+Example: `element.assert({ top: menu.bottom.plus(10) });` (The top of the element is 10px below the bottom of the menu.)
+
+ 
+#### edge.minus()
+
+Get a new position that's further up or to the left. Same as `edge.plus()`, except in the other direction.
+
+`position = edge.minus(pixels)`
+
+* `position` (ElementPosition): The adjusted position.
+
+* `pixels` (number): The number of pixels to move up or to the left.
+
+Example: `loginButton.assert({ bottom: menu.bottom.minus(5) });` (The bottom of the login button is 5px above the bottom of the menu.)
+
+
+### Class: `ElementPosition`
+
+An `ElementPosition` instance represents an adjusted `ElementEdge`.
+
+Get an ElementPosition instance by calling `plus()` or `minus()` on an `ElementEdge` instance. You'll typically use ElementPosition instances with QElement's `assert()` or `diff()` methods.
+
+Example: `element.assert({ top: menu.bottom.plus(10) });` (The top of the element is 10px below the bottom of the menu.)
 
 
 ## Virtual Hackathon
