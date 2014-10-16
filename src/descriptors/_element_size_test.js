@@ -7,7 +7,7 @@ var Descriptor = require("./descriptor.js");
 var ElementSize = require("./element_size.js");
 var Size = require("../values/size.js");
 
-describe.only("ElementSize", function() {
+describe("ElementSize", function() {
 
 	var WIDTH = 130;
 	var HEIGHT = 60;
@@ -15,6 +15,7 @@ describe.only("ElementSize", function() {
 	var frame;
 	var element;
 	var width;
+	var height;
 
 	before(function(done) {
 		frame = quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, done);
@@ -32,6 +33,7 @@ describe.only("ElementSize", function() {
 		);
 		element = frame.getElement("#one");
 		width = ElementSize.x(element);
+		height = ElementSize.y(element);
 	});
 
 	it("is a descriptor", function() {
@@ -40,6 +42,7 @@ describe.only("ElementSize", function() {
 
 	it("resolves to value", function() {
 		assert.objEqual(width.value(), new Size(WIDTH), "width");
+		assert.objEqual(height.value(), new Size(HEIGHT), "height");
 	});
 
 	it("converts comparison arguments", function() {
@@ -54,6 +57,7 @@ describe.only("ElementSize", function() {
 
 	it("converts to string", function() {
 		assert.equal(width.toString(), "width of element '" + element.description() + "'");
+		assert.equal(height.toString(), "height of element '" + element.description() + "'");
 	});
 
 });

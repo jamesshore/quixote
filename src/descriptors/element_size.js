@@ -5,23 +5,33 @@ var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
 
-var Me = module.exports = function ElementSize(element) {
-	// TODO: circular dependency prevents ensure.signature
+var X_DIMENSION = "x";
+var Y_DIMENSION = "y";
 
+var Me = module.exports = function ElementSize(dimension, element) {
+	// TODO: circular dependency prevents ensure.signature
+	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
+
+	this._dimension = dimension;
 	this._element = element;
 };
 Descriptor.extend(Me);
 
 Me.x = function x(element) {
-	return new Me(element);
+	return new Me(X_DIMENSION, element);
+};
+
+Me.y = function y(element) {
+	return new Me(Y_DIMENSION, element);
 };
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
 	var position = this._element.getRawPosition();
+	var result = (this._dimension === X_DIMENSION) ? position.width : position.height;
 
-	return new Size(position.width);
+	return new Size(result);
 };
 
 Me.prototype.convert = function convert(arg) {
@@ -38,5 +48,6 @@ Me.prototype.describeMatch = function describeMatch() {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return "width of element '" + this._element.description() + "'";
+	var desc = (this._dimension === X_DIMENSION) ? "width" : "height";
+	return desc + " of element '" + this._element.description() + "'";
 };
