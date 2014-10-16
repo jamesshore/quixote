@@ -7,78 +7,83 @@ Quixote is a library for unit testing CSS. You use it with a unit testing framew
 **The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge.
 
 
-## Usage
+## Installation and Usage
 
-The code is in `dist/quixote.js`. It's a UMD module, so it will work with module loaders like Browserify and Require.js. If you're not using a module loader, it will create a global variable named `quixote`. You can also install the library using `npm install quixote`.
+```sh
+$ npm install quixote
+```
 
-See below for an example and API documentation.
+Or download [dist/quixote.js](dist/quixote.js).
 
-*Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the test browser is hidden causes very slow tests. If you have trouble with slow tests, check if your browser windows are visible.
+Quixote must be run in a browser. It's meant to be used with test frameworks such as Karma, Mocha, and Jasmine.
+
+Quixote is a UMD module. If you just load the file directly, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
+
+*Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the browser is hidden causes very slow tests. If you have trouble with slow tests, make sure your browser windows are visible.
 
 
 ## Example
 
-Here's an example using Karma, Mocha, Chai, and Browserify:
+Here's an example using Mocha. In this example, we're testing a page that has a logo and a menu.
 
 ```javascript
-var quixote = require("quixote");     // Load Quixote
-var assert = require("chai").assert   // Load the Chai assertion library
+describe("Example", function() {
 
-describe("Example CSS test", function() {
+  var frame;      // Quixote test frame
+  var logo;       // the logo element on the page
+  var menu;       // the menu element
 
-  // *** TEST SETUP *** //
-
-  // The Quixote test frame we're going to create
-  var frame;
-
-  // Quixote will create a frame and load our HTML and CSS into that frame.
-  // This is slow, so we use the Mocha's before() function to do it just once.
   before(function(done) {
-    // Create a 600 pixel wide by 800 pixel tall iframe and load test.html into it
-    frame = quixote.createFrame(600, 800, { src: "/base/example/test.html" }, done);
+    // Create a 600x800 pixel iframe and load example.html
+    var options = { src: "/base/src/example.html" };
+    frame = quixote.createFrame(600, 800, options, done);
   });
   
-  // When this set of tests is done, erase the test frame
   after(function() {
+    // Destroy the test frame
     frame.remove();
   });
   
-  // Before each test, reset the test frame to a pristine state.
-  // This is faster than re-creating the frame every time.
   beforeEach(function() {
+    // Before each test, reset the test frame to a pristine state.
+    // This is faster than re-creating the frame every time.
     frame.reset();
+    
+    // Get the elements we want to test
+    logo = frame.getElement("#logo");           // use any CSS selector
+    menu = frame.getElement(".menu");
   });
   
-  
-  // *** EXAMPLE TESTS *** //
-  
-  // You can make assertions about the positions of elements
-  it("asserts positions", function() {
-    // Get an element using an #id selector. Any selector can be used.
-    var foo = frame.getElement("#foo");
-
-    // The 'diff()' method allows us to check multiple styles at the same time. It returns
-    // an empty string if everything matches, or an explanation of what's different if not. 
-    assert.equal(foo.diff({
-      top: 42,
-      right: 67,
-      bottom: 99,
-      left: 10
-    }), "");
+  it("positions logo at top of page", function() {
+    // We use the 'assert()' method to check multiple properties
+    // of our element all at once. When something doesn't match, it
+    // throws an error explaining everything that's different.
+    // Alternatively, can use 'diff()' if you'd rather use your own
+    // assertion library.
     
+    // Check that the logo is in the top-left corner
+    logo.assert({
+      top: 10,    // logo is 10px from top of page
+      left: 15    // and 15px from left
+    });
   });
   
-  // You can make assertions about how elements are actually styled
-  it("asserts styles", function() {
-    // Get an element using a .class selector.
-    var bar = frame.getElement(".bar");
-
-    // So far, element.diff() only supports positions. But we can get any CSS style
-    // by calling element.getRawStyle().
-    var fontSize = bar.getRawStyle("font-size");  
+  it("positions menu below logo", function() {
+    // Check that the menu is aligned with the logo
+    menu.assert({
+      left: logo.left,            // menu is aligned with logo
+      top: logo.bottom.plus(10)   // and below it with a 10px gap
+    });
+  });
+  
+  it("uses big font for menu", function() {
+    // So far, 'assert()' and 'diff()' only support basic positioning.
+    // But you can get any CSS style you want by using 'getRawStyle()'.
+  
+    var fontSize = menu.getRawStyle("font-size");  
     
-    // Check it
-    assert.equal(fontSize, "42px");
+    // You'll need an assertion library like Chai to make assertions.
+    assert.equal(fontSize, "18px");
   });
   
 });
