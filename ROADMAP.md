@@ -31,6 +31,9 @@ element.assert({
 
 * Change descriptor toString() to say `of '#one'` not `of element '#one'`
 * Change QElement to use toString() instead of description()
+* Value object superclass?
+  * value()
+  * equals() (defer to diff())
 
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)

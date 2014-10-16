@@ -6,7 +6,7 @@ var quixote = require("../quixote.js");
 var Descriptor = require("./descriptor.js");
 var ElementSize = require("./element_size.js");
 
-describe.only("ElementSize", function() {
+describe("ElementSize", function() {
 
 	var WIDTH = 130;
 	var HEIGHT = 60;
