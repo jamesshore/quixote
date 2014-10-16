@@ -33,6 +33,7 @@ element.assert({
 * Resolve createObject duplication()
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)
+* How do we deal with descriptors that aren't comparable?
 
 
 ## Future Features
