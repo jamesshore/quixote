@@ -394,8 +394,9 @@ Previous commits on the integration branch have "INTEGRATE" in their commit comm
 
 Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com) screencast. Let's Code JavaScript is a screencast series on professional, rigorous web development.
 
-Thanks to our contributors!
-* Jay Bazuzi (@JayBazuzi): Travis CI integration
+Many thanks to our contributors! The @name is the contributors GitHub username. (vX.Y) is the version where their contribution first appeared. 
+* Jay Bazuzi (@JayBazuzi): Travis CI integration (v0.1)
+* @bjornicus: Fail fast if HTML or stylesheet URL is invalid (v0.3) 
 
 
 ## License
