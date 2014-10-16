@@ -63,7 +63,7 @@ exports.noException = function(fn, message) {
 	}
 };
 
-exports.exception = function(fn, expectedRegexp, message) {
+exports.exception = function(fn, expected, message) {
 	message = message ? message + ": " : "";
 	var noException = false;
 	try {
@@ -71,13 +71,19 @@ exports.exception = function(fn, expectedRegexp, message) {
 		noException = true;
 	}
 	catch (e) {
-		if (expectedRegexp) {
-			proclaim.match(
+		if (typeof expected === "string") {
+			proclaim.strictEqual(
 				e.message,
-				expectedRegexp,
-				message + "expected exception message to match " + expectedRegexp + ", but was '" + e + "'"
+				expected,
+				message + "expected exception message to be '" + expected + "', but was '" + e + "'"
 			);
 		}
+		else if (expected instanceof RegExp) proclaim.match(
+			e.message,
+			expected,
+			message + "expected exception message to match " + expected + ", but was '" + e + "'"
+		);
+		else if (expected !== undefined) throw new Error("Unrecognized 'expected' parameter in assertion: " + expected);
 	}
 	if (noException) exports.fail(message + "expected exception");
 };

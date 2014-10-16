@@ -14,11 +14,20 @@ element.diff({
 });
 ```
 
+Also, the new `assert()` method works just like `diff()`, except it automatically throws an exception when a difference is found. This is more convenient than writing `assert.equal(element.diff(...), "")` all the time. Now you can just write `element.assert(...)` instead. 
+
 *Fixed:*
 
-* ElementEdge.diff() reports correct edge (instead of saying 'top' for everything)
+* ElementEdge.diff() reports correct edge instead of saying 'top' for everything.
+
+*Enhanced:*
+
+* ElementEdge.diff() can compare to an ElementPosition (an offset from an edge).
 
 *New properties and methods:*
+
+* QElement
+  * assert()
 
 * ElementEdge
   * plus()
@@ -29,7 +38,7 @@ element.diff({
 * ElementPosition
   * diff()
 
-## 0.2: `diff()` and Absolute Positioning
+## 0.2: Absolute Positioning
 
 **14 Oct 2014.** QElement instances now have a `diff()` method that you can use to check multiple properties simultaneously. In this release, it supports the most basic positioning information: the absolute position of the top, right, bottom, and left edge of the element, like this:
 

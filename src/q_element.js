@@ -17,24 +17,32 @@ var Me = module.exports = function QElement(domElement, description) {
 	this.left = ElementEdge.left(this);
 };
 
-Me.prototype.diff = function(expected) {
+Me.prototype.assert = function assert(expected, message) {
+	ensure.signature(arguments, [ Object, [undefined, String] ]);
+	if (message === undefined) message = "Differences found";
+
+	var diff = this.diff(expected);
+	if (diff !== "") throw new Error(message + ":\n" + diff);
+};
+
+Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Object ]);
 
 	var result = [];
 	var keys = objectKeys(expected);
-	var key, diff, constraint;
+	var key, oneDiff, constraint;
 	for (var i = 0; i < keys.length; i++) {
 		key = keys[i];
 		constraint = this[key];
 		ensure.that(constraint !== undefined, "'" + key + "' is unknown and can't be used with diff()");
-		diff = constraint.diff(expected[key]);
-		if (diff !== "") result.push(diff);
+		oneDiff = constraint.diff(expected[key]);
+		if (oneDiff !== "") result.push(oneDiff);
 	}
 
 	return result.join("\n");
 };
 
-Me.prototype.getRawStyle = function(styleName) {
+Me.prototype.getRawStyle = function getRawStyle(styleName) {
 	ensure.signature(arguments, [ String ]);
 
 	var styles;
@@ -53,7 +61,7 @@ Me.prototype.getRawStyle = function(styleName) {
 	return result;
 };
 
-Me.prototype.getRawPosition = function() {
+Me.prototype.getRawPosition = function getRawPosition() {
 	ensure.signature(arguments, []);
 
 	// WORKAROUND IE8: No TextRectangle.height or .width
@@ -69,23 +77,23 @@ Me.prototype.getRawPosition = function() {
 	};
 };
 
-Me.prototype.toDomElement = function() {
+Me.prototype.toDomElement = function toDomElement() {
 	ensure.signature(arguments, []);
 
 	return this._domElement;
 };
 
-Me.prototype.description = function() {
+Me.prototype.description = function description() {
 	return this._description;
 };
 
-Me.prototype.toString = function() {
+Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
 	return this._domElement.outerHTML;
 };
 
-Me.prototype.equals = function(that) {
+Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [ Me ]);
 
 	return this._domElement === that._domElement;
