@@ -15,6 +15,7 @@
 
 * height and width
 * fractional height and width
+* ElementCenter.plus(), ElementCenter.minus()
 * string together ElementPositions 
 
 ```javascript

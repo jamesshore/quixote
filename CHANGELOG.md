@@ -11,6 +11,7 @@ New properties:
 
 New descriptors:
 * ElementCenter
+* ElementSize
 
 
 ## 0.3: Relative Positioning
