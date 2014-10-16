@@ -55,7 +55,6 @@ describe("ElementEdge", function() {
 
 	it("converts to string", function() {
 		assert.equal(top.toString(), "top edge of element '#one'", "description + element");
-		assert.equal(top.toString(top.value()), "top edge of element '#one' (10px)", "description + element + value");
 	});
 
 	it("describes match", function() {
@@ -83,6 +82,15 @@ describe("ElementEdge", function() {
 		);
 	});
 
+	it("diffs against an element position", function() {
+		assert.equal(top.diff(bottom.minus(60)), "", "same");
+		assert.equal(
+			top.diff(bottom.minus(50)),
+			"Expected top edge of element '#one' (10px) to be 50px above bottom edge of element '#one' (20px), " +
+				"but was 10px lower",
+			"different");
+	});
+
 	it("fails fast when diffing two edges that aren't comparable", function() {
 		assert.exception(diffFn(top, right), /Can't compare X dimension to Y dimension/);
 
@@ -93,11 +101,12 @@ describe("ElementEdge", function() {
 		}
 	});
 
-//	it("can be shifted up or to the right", function() {
-//		var descriptor = top.plus(10);
-//		assert.type(descriptor, ElementPosition);
-//
-//		/* TODO: what about negative values? */
-//	});
+	it("can be shifted up, down, left, and right", function() {
+		assert.objEqual(top.plus(10).value(), Position.y(TOP + 10), "down");
+		assert.objEqual(top.minus(10).value(), Position.y(TOP - 10), "up");
+
+		assert.objEqual(left.plus(15).value(), Position.x(LEFT + 15), "right");
+		assert.objEqual(left.minus(25).value(), Position.x(LEFT - 25), "left");
+	});
 
 });

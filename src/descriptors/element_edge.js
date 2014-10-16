@@ -21,9 +21,20 @@ Me.right = factoryFn(RIGHT);
 Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
-//Me.prototype.plus = function plus() {
-//	return new ElementPosition();
-//};
+Me.prototype.plus = function plus(amount) {
+	ensure.signature(arguments, [ Number ]);
+
+	if (this._position === TOP || this._position === BOTTOM) return ElementPosition.y(this, amount);
+	if (this._position === RIGHT || this._position === LEFT) return ElementPosition.x(this, amount);
+
+	ensure.unreachable();
+};
+
+Me.prototype.minus = function minus(amount) {
+	ensure.signature(arguments, [ Number ]);
+
+	return this.plus(amount * -1);
+};
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
@@ -33,7 +44,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ [Number, Me] ]);
+	ensure.signature(arguments, [ [Number, ElementPosition, Me] ]);
 	if (typeof expected === "number") expected = createPosition(this, expected);
 
 	var actualValue = this.value();
@@ -41,7 +52,7 @@ Me.prototype.diff = function diff(expected) {
 
 	if (actualValue.equals(expectedValue)) return "";
 
-	return "Expected " + this.toString(actualValue) +
+	return "Expected " + this.toString() + " (" + this.value() + ")" +
 		" to " + expected.describeMatch() +
 		", but was " + actualValue.diff(expectedValue);
 };
@@ -55,15 +66,13 @@ Me.prototype.description = function description() {
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
 
-	return "match " + this.toString(this.value());
+	return "match " + this.toString() + " (" + this.value() + ")";
 };
 
-Me.prototype.toString = function toString(value) {
-//	ensure.signature(arguments, [ [undefined, Object] ]);
+Me.prototype.toString = function toString() {
+	ensure.signature(arguments, []);
 
-	var result = this.description() + " of element '" + this._element.description() + "'";
-	if (value) result += " (" + value + ")";
-	return result;
+	return this.description() + " of element '" + this._element.description() + "'";
 };
 
 function factoryFn(position) {
@@ -74,7 +83,7 @@ function factoryFn(position) {
 
 function createPosition(self, value) {
 	if (self._position === TOP || self._position === BOTTOM) return Position.y(value);
-	if (self._position === RIGHT || self._position === LEFT) return new Position.x(value);
+	if (self._position === RIGHT || self._position === LEFT) return Position.x(value);
 
 	ensure.unreachable();
 }
