@@ -29,9 +29,6 @@ element.assert({
 
 ## To Do
 
-* Generalize descriptor; simplify creation
-* Descriptor: stub out methods that should be implemented by subclasses
-* Resolve createObject duplication()
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)
 * How do we deal with descriptors that aren't comparable?
