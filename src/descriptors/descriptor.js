@@ -12,3 +12,28 @@ Me.extend = function extend(Subclass) {
 	Subclass.prototype = shim.objectDotCreate(Me.prototype);
 	Subclass.prototype.constructor = Subclass;
 };
+
+Me.prototype.diff = function diff(expected) {
+	ensure.signature(arguments, [ [Number, Me] ]);
+	expected = this.convert(expected);
+
+	var actualValue = this.value();
+	var expectedValue = expected.value();
+
+	if (actualValue.equals(expectedValue)) return "";
+
+	return "Expected " + this.toString() + " (" + this.value() + ")" +
+		" to " + expected.describeMatch() +
+		", but was " + actualValue.diff(expectedValue);
+};
+
+Me.prototype.value = mustImplement("value");
+Me.prototype.convert = mustImplement("convert");
+Me.prototype.describeMatch = mustImplement("describeMatch");
+Me.prototype.toString = mustImplement("toString");
+
+function mustImplement(name) {
+	return function() {
+		ensure.unreachable("Descriptor subclasses must implement " + name + "() method");
+	};
+}

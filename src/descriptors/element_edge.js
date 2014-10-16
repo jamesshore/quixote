@@ -45,20 +45,6 @@ Me.prototype.value = function value() {
 	return createPosition(this, result);
 };
 
-Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ [Number, Descriptor] ]);
-	expected = this.convert(expected);
-
-	var actualValue = this.value();
-	var expectedValue = expected.value();
-
-	if (actualValue.equals(expectedValue)) return "";
-
-	return "Expected " + this.toString() + " (" + this.value() + ")" +
-		" to " + expected.describeMatch() +
-		", but was " + actualValue.diff(expectedValue);
-};
-
 Me.prototype.convert = function convert(arg) {
 	ensure.signature(arguments, [ [Number, Descriptor] ]);
 

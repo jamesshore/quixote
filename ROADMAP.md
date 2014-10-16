@@ -30,6 +30,7 @@ element.assert({
 ## To Do
 
 * Generalize descriptor; simplify creation
+* Descriptor: stub out methods that should be implemented by subclasses
 * Resolve createObject duplication()
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)
@@ -45,6 +46,7 @@ element.assert({
 
 ## Future To Do / Off-camera
 
+* Is URL checking code causing Mobile Safari to disconnect?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * How do we use ensure.signature in element_edge.js without creating a circular dependency?
 * Rename `Frame` to `QFrame`?
