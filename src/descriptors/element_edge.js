@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var ElementPosition = require("./element_position.js");
+var Descriptor = require("./descriptor.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -15,6 +16,7 @@ var Me = module.exports = function ElementEdge(element, position) {
 	this._element = element;
 	this._position = position;
 };
+Descriptor.extend(Me);
 
 Me.top = factoryFn(TOP);
 Me.right = factoryFn(RIGHT);
@@ -44,7 +46,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ [Number, ElementPosition, Me] ]);
+	ensure.signature(arguments, [ [Number, Descriptor] ]);
 	if (typeof expected === "number") expected = createPosition(this, expected);
 
 	var actualValue = this.value();

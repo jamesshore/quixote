@@ -6,6 +6,7 @@ var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
 var ElementPosition = require("./element_position.js");
+var Descriptor = require("./descriptor.js");
 
 describe("ElementEdge", function() {
 
@@ -39,6 +40,10 @@ describe("ElementEdge", function() {
 		right = ElementEdge.right(one);
 		bottom = ElementEdge.bottom(one);
 		left = ElementEdge.left(one);
+	});
+
+	it("is a descriptor", function() {
+		assert.type(top, Descriptor);
 	});
 
 	it("resolves itself to actual value", function() {

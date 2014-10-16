@@ -4,18 +4,20 @@
 var ensure = require("../util/ensure.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
+var Descriptor = require("./descriptor.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function ElementPosition(dimension, edge, relativeAmount) {
-//	ensure.signature(arguments, [ ElementEdge, Number ]);   // TODO: resolve circular dependency
+//	ensure.signature(arguments, [ String, ElementEdge, Number ]); // TODO: creates circular dependency
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
 	this._edge = edge;
 	this._amount = relativeAmount;
 };
+Descriptor.extend(Me);
 
 Me.x = function x(edge, relativeAmount) {
 	return new Me(X_DIMENSION, edge, relativeAmount);
@@ -32,7 +34,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.diff = function diff(expected) {
-//	ensure.signature(arguments, [ [Number, ElementEdge, Me] ]);   // TODO: resolve circular dependency
+	ensure.signature(arguments, [ [Number, Descriptor] ]);
 
 	if (typeof expected === "number") expected = createPosition(this, expected);
 

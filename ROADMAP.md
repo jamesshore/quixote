@@ -32,6 +32,7 @@ element.assert({
 * Generalize descriptor; simplify creation
 * Resolve createObject duplication()
 * ElementPosition --> RelativePosition?
+* Get rid of big-object-diff (not used at the moment)
 
 
 ## Future Features

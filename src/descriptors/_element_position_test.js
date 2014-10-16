@@ -5,6 +5,7 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var ElementPosition = require("./element_position.js");
 var Position = require("../values/position.js");
+var Descriptor = require("./descriptor.js");
 
 describe("ElementPosition", function() {
 
@@ -32,6 +33,10 @@ describe("ElementPosition", function() {
 		one = frame.getElement("#one");
 		x = ElementPosition.x(one.left, -5);
 		y = ElementPosition.y(one.top, 10);
+	});
+
+	it("is a descriptor", function() {
+		assert.type(x, Descriptor);
 	});
 
 	it("resolves to value", function() {
