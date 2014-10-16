@@ -38,6 +38,11 @@ Also, the new `assert()` method works just like `diff()`, except it automaticall
 
 * ElementPosition
   * diff()
+  
+Patches:
+
+* *0.3.1, 16 Oct 2014:* Documented `message` parameter on `QElement.assert()`   
+
 
 ## 0.2: Absolute Positioning
 
