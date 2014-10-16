@@ -37,6 +37,7 @@ element.assert({
 * How do we deal with descriptors that aren't comparable?
 * Git rid of Position.describeMatch()?
 * Clean up QElement tests
+* Should Dimension be a value object?
 
 
 ## Future Features

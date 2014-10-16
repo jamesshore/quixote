@@ -6,7 +6,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 ## In Progress
 
 New properties:
-* QElement.center (ElementCenter)
+* QElement.center
+* QElement.middle
 
 New descriptors:
 * ElementCenter

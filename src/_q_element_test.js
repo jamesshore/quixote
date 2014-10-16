@@ -79,6 +79,7 @@ describe("QElement", function() {
 
 		it("centers", function() {
 			assert.type(element.center, ElementCenter, "center");
+			assert.type(element.middle, ElementCenter, "middle");
 		});
 
 	});
