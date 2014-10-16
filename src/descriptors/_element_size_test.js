@@ -5,8 +5,9 @@ var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var Descriptor = require("./descriptor.js");
 var ElementSize = require("./element_size.js");
+var Size = require("../values/size.js");
 
-describe("ElementSize", function() {
+describe.only("ElementSize", function() {
 
 	var WIDTH = 130;
 	var HEIGHT = 60;
@@ -35,6 +36,24 @@ describe("ElementSize", function() {
 
 	it("is a descriptor", function() {
 		assert.type(width, Descriptor);
+	});
+
+	it("resolves to value", function() {
+		assert.objEqual(width.value(), new Size(WIDTH), "width");
+	});
+
+	it("converts comparison arguments", function() {
+		assert.objEqual(width.convert(13), new Size(13), "converts numbers to sizes");
+
+		assert.equal(width.convert(width), width, "should return descriptors as-is");
+	});
+
+	it("describes a match", function() {
+		assert.equal(width.describeMatch(), "match " + width.toString() + " (130px)");
+	});
+
+	it("converts to string", function() {
+		assert.equal(width.toString(), "width of element '" + element.description() + "'");
 	});
 
 });

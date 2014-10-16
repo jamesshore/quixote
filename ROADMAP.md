@@ -34,6 +34,8 @@ element.assert({
 * Value object superclass?
   * value()
   * equals() (defer to diff())
+* Change Descriptor.convert() --> Descriptor.convertNumber()
+* Move describeMatch into Descriptor class? (And just override it in particular circumstances?)
 
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)
