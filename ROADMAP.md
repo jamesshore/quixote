@@ -30,7 +30,6 @@ element.diff({
 
 ## To Do
 
-* How do we compare ElementEdge and ElementPosition? (and vice-versa?)
 * ElementPosition: fail fast with non-sensical directions (e.g., left edge + 'x' dimension)
 * Better message? "expected ... to be 10px left of right edge (xx), but was 135px to the left)
 

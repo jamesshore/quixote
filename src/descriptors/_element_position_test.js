@@ -77,5 +77,14 @@ describe("ElementPosition", function() {
 			"Expected 5px left of left edge of element '#one' (15px) to be 10px left of right edge of element '#one' (140px), but was 125px to the left");
 	});
 
+	it("diffs against an element edge", function() {
+		assert.equal(ElementPosition.x(one.left, 0).diff(one.left), "", "same");
+		assert.equal(
+			x.diff(one.left),
+			"Expected 5px left of left edge of element '#one' (15px) to match left edge of element '#one' (20px), but was 5px to the left",
+			"different"
+		);
+	});
+
 
 });
