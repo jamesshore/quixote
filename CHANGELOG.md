@@ -23,6 +23,7 @@ Also, the new `assert()` method works just like `diff()`, except it automaticall
 *Enhanced:*
 
 * ElementEdge.diff() can compare to an ElementPosition (an offset from an edge).
+* Frame.create() fails fast if the HTML or stylesheet URL is invalid. (Contributed by @bjornicus)
 
 *New properties and methods:*
 

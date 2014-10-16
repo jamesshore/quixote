@@ -126,6 +126,28 @@ describe("Frame", function() {
 			});
 		});
 
+		it("fails fast if source URL not found", function(done) {
+		    assert.exception(function() {
+		        Frame.create(window.document.body, 600, 400, {
+		            src: "non_existing.html"
+		        }, function(frame) {
+		            done("Should never be called");
+		        });
+		    }, /The HTML document does not exist at the specified URL/);
+		    done();
+		});
+
+		it("fails fast if stylesheet URL not found", function(done) {
+		    assert.exception(function() {
+		        Frame.create(window.document.body, 600, 400, {
+		            stylesheet: "non_existing.css"
+		        }, function(frame) {
+		            done("Should never be called");
+		        });
+		    }, /The stylesheet does not exist at the specified URL/);
+		    done();
+		});
+
 		it("fails fast if frame is used before it's loaded", function(done) {
 			frame = Frame.create(window.document.body, 600, 400, function() { done(); });
 
@@ -194,15 +216,18 @@ describe("Frame", function() {
 		});
 
 		it("retrieves an element by selector", function() {
-			var expected = frame.addElement("<div id='foo' class='bar'>Irrelevant text</div>");
+			var expected = frame.addElement("<div id='foo' class='bar' baz='boo'>Irrelevant text</div>");
 			var byId = frame.getElement("#foo");
 			var byClass = frame.getElement(".bar");
+			var byAttribute = frame.getElement("[baz]");
 
 			assert.objEqual(byId, expected, "should get element by ID");
 			assert.objEqual(byClass, expected, "should get element by class");
+			assert.objEqual(byAttribute, expected, "should get element by attribute");
 
 			assert.equal(byId.description(), "#foo", "should describe element by selector used (#id)");
 			assert.equal(byClass.description(), ".bar", "should describe element by selector used (.class)");
+			assert.equal(byAttribute.description(), "[baz]", "should describe element by selector used ([attribute])");
 		});
 
 		it("fails fast when retrieving non-existant element", function() {

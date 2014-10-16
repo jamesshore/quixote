@@ -33,6 +33,14 @@ Me.create = function create(parentElement, width, height, options, callback) {
 		"Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue"
 	);
 
+	if (options.src){
+		ensure.that(urlExists(options.src), "The HTML document does not exist at the specified URL");
+	}
+
+	if (options.stylesheet){
+		ensure.that(urlExists(options.stylesheet), "The stylesheet does not exist at the specified URL");
+	}
+
 	var iframe = document.createElement("iframe");
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
@@ -55,6 +63,13 @@ Me.create = function create(parentElement, width, height, options, callback) {
 		}, 0);
 	}
 };
+
+function urlExists(url) {
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  http.send();
+  return http.status !== 404;
+}
 
 function loadStylesheet(self, url, callback) {
 	ensure.signature(arguments, [ Me, [ undefined, String ], Function ]);
