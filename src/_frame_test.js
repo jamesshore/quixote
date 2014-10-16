@@ -50,28 +50,6 @@ describe("Frame", function() {
 			});
 		});
 
-		it("cannot create iframe using source URL which does not exist", function(done) {
-		    assert.exception(function() {
-		        Frame.create(window.document.body, 600, 400, {
-		            src: "non_existing.html"
-		        }, function(frame) {
-		            done("Should never be called");
-		        });
-		    }, /The HTML document does not exist at the specified URL/);
-		    done();
-		});
-
-		it("cannot create iframe using stylesheet link URL which does not exist", function(done) {
-		    assert.exception(function() {
-		        Frame.create(window.document.body, 600, 400, {
-		            stylesheet: "non_existing.css"
-		        }, function(frame) {
-		            done("Should never be called");
-		        });
-		    }, /The stylesheet does not exist at the specified URL/);
-		    done();
-		});
-
 		it("creates iframe using stylesheet link", function(done) {
 			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
 				var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
@@ -146,6 +124,28 @@ describe("Frame", function() {
 				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
 				done();
 			});
+		});
+
+		it("fails fast if source URL not found", function(done) {
+		    assert.exception(function() {
+		        Frame.create(window.document.body, 600, 400, {
+		            src: "non_existing.html"
+		        }, function(frame) {
+		            done("Should never be called");
+		        });
+		    }, /The HTML document does not exist at the specified URL/);
+		    done();
+		});
+
+		it("fails fast if stylesheet URL not found", function(done) {
+		    assert.exception(function() {
+		        Frame.create(window.document.body, 600, 400, {
+		            stylesheet: "non_existing.css"
+		        }, function(frame) {
+		            done("Should never be called");
+		        });
+		    }, /The stylesheet does not exist at the specified URL/);
+		    done();
 		});
 
 		it("fails fast if frame is used before it's loaded", function(done) {
