@@ -4,15 +4,15 @@
 
 * **✔ v0.1** Basic DOM manipulation; raw position and style information
 * **✔ v0.2** "Cooked" absolute position info; initial assertion API
-* Positioning relative to other elements
+* **✔ v0.3** Positioning relative to other elements
+* Advanced positioning (middle, center, height, width, fractions)
 * Positioning relative to page
 * Initial "cooked" styling (colors?)
 * ...more TBD
 
 
-## Current Feature: Relative Positioning
+## Current Feature: Advanced Positioning
 
-* Offset position comparisons (compare left edge to right edge + 10 px)
 * middle and center
 * height and width
 * fractional height and width
@@ -30,11 +30,8 @@ element.diff({
 
 ## To Do
 
-* ElementPosition: fail fast with non-sensical directions (e.g., left edge + 'x' dimension)
-* Better message? "expected ... to be 10px left of right edge (xx), but was 135px to the left)
 
 ## Future Features
-* width and height constraints
 * Should width and height go inside Frame's "options" object?
 
 
