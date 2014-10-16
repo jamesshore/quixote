@@ -44,6 +44,7 @@ element.assert({
 
 ## Future To Do / Off-camera
 
+* Can I load the "reset" stylesheet just once for the entire test suite?
 * Is URL checking code causing Mobile Safari to disconnect?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * How do we use ensure.signature in element_edge.js without creating a circular dependency?
