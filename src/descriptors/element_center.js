@@ -43,6 +43,12 @@ Me.prototype.convert = function convert(arg) {
 	else return Position.y(arg);
 };
 
+Me.prototype.describeMatch = function describeMatch() {
+	ensure.signature(arguments, []);
+
+	return "match " + this.toString() + " (" + this.value() + ")";
+};
+
 Me.prototype.toString = function toString() {
 	var description = (this._dimension === X_DIMENSION) ? "center" : "middle";
 	return description + " of element '" + this._element.description() + "'";

@@ -62,7 +62,7 @@ describe("QElement", function() {
 		});
 	});
 
-	describe.only("property smoke tests", function() {
+	describe("property smoke tests", function() {
 
 		var TOP = 10;
 		var RIGHT = 150;
