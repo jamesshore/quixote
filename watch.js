@@ -65,7 +65,7 @@
 
 		function debounce() {
 			var msSinceLastBuild = Date.now() - buildStartedAt;
-			return msSinceLastBuild < 500;
+			return msSinceLastBuild < 1000;
 		}
 	}
 
