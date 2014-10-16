@@ -13,7 +13,7 @@ describe("Position", function() {
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
 
-	it("is itself", function() {
+	it("responds to value()", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
 
@@ -22,7 +22,7 @@ describe("Position", function() {
 		assert.objEqual(y1.plus(13), Position.y(63), "y");
 	});
 
-	it("computes difference", function() {
+	it("determines difference", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
 		assert.equal(x1.diff(x2), "10px to the left", "left");

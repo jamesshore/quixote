@@ -15,6 +15,7 @@
 
 * height and width
 * fractional height and width
+* ElementCenter.plus(), ElementCenter.minus()
 * string together ElementPositions 
 
 ```javascript
@@ -30,6 +31,11 @@ element.assert({
 
 * Change descriptor toString() to say `of '#one'` not `of element '#one'`
 * Change QElement to use toString() instead of description()
+* Value object superclass?
+  * value()
+  * equals() (defer to diff())
+* Change Descriptor.convert() --> Descriptor.convertNumber()
+* Move describeMatch into Descriptor class? (And just override it in particular circumstances?)
 
 * ElementPosition --> RelativePosition?
 * Get rid of big-object-diff (not used at the moment)
