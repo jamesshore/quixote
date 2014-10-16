@@ -62,24 +62,34 @@ describe("QElement", function() {
 		});
 	});
 
-	describe("properties:", function() {
+	describe("property smoke tests", function() {
+
+		var TOP = 10;
+		var RIGHT = 150;
+		var BOTTOM = 70;
+		var LEFT = 20;
+		var CENTER = 85;
+		var MIDDLE = 40;
 
 		var element;
 
 		beforeEach(function() {
-			element = new QElement(document.body, "body");
+			frame.addElement(
+				"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
+			);
+			element = frame.getElement("#one");
 		});
 
 		it("edges", function() {
-			assert.type(element.top, ElementEdge, "top");
-			assert.type(element.right, ElementEdge, "right");
-			assert.type(element.bottom, ElementEdge, "bottom");
-			assert.type(element.left, ElementEdge, "left");
+			assert.equal(element.top.diff(TOP), "", "top");
+			assert.equal(element.right.diff(RIGHT), "", "right");
+			assert.equal(element.bottom.diff(BOTTOM), "", "bottom");
+			assert.equal(element.left.diff(LEFT), "", "left");
 		});
 
 		it("centers", function() {
-			assert.type(element.center, ElementCenter, "center");
-			assert.type(element.middle, ElementCenter, "middle");
+			assert.equal(element.center.diff(CENTER), "", "center");
+			assert.equal(element.middle.diff(MIDDLE), "", "middle");
 		});
 
 	});
