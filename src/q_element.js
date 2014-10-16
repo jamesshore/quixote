@@ -18,6 +18,7 @@ var Me = module.exports = function QElement(domElement, description) {
 	this.left = ElementEdge.left(this);
 
 	this.center = ElementCenter.x(this);
+	this.middle = ElementCenter.y(this);
 };
 
 Me.prototype.assert = function assert(expected, message) {
