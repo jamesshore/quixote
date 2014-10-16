@@ -1,9 +1,9 @@
 // Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
 "use strict";
 
-// ****
 // Runtime assertions for production code. (Contrast to assert.js, which is for test code.)
-// ****
+
+var shim = require("./shim.js");
 
 exports.that = function(variable, message) {
 	if (message === undefined) message = "Expected condition to be true";
@@ -119,21 +119,12 @@ var EnsureException = exports.EnsureException = function(fnToRemoveFromStackTrac
 	else this.stack = (new Error()).stack;
 	this.message = message;
 };
-EnsureException.prototype = createObject(Error.prototype);
+EnsureException.prototype = shim.objectDotCreate(Error.prototype);
 EnsureException.prototype.constructor = EnsureException;
 EnsureException.prototype.name = "EnsureException";
 
 
 /*****/
-
-// WORKAROUND IE8: no Object.create()
-function createObject(prototype) {
-	if (Object.create) return Object.create(prototype);
-
-	var Temp = function Temp() {};
-	Temp.prototype = prototype;
-	return new Temp();
-}
 
 // WORKAROUND IE8 IE9 IE10 IE11: no function.name
 function functionName(fn) {

@@ -4,7 +4,7 @@
 var assert = require("../util/assert.js");
 var Descriptor = require("./descriptor.js");
 
-describe.only("Descriptor abstract base class", function() {
+describe("Descriptor abstract base class", function() {
 
 	it("can be extended", function() {
 		function Subclass() {}

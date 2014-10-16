@@ -2,21 +2,13 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
+var shim = require("../util/shim.js");
 
 var Me = module.exports = function Descriptor() {};
 
 Me.extend = function extend(Subclass) {
 	ensure.signature(arguments, [ Function ]);
 
-	Subclass.prototype = createObject(Me.prototype);
+	Subclass.prototype = shim.objectDotCreate(Me.prototype);
 	Subclass.prototype.constructor = Subclass;
 };
-
-// WORKAROUND IE8: no Object.create()
-function createObject(prototype) {
-	if (Object.create) return Object.create(prototype);
-
-	var Temp = function Temp() {};
-	Temp.prototype = prototype;
-	return new Temp();
-}
