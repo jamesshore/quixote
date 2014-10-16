@@ -16,11 +16,10 @@
 * middle and center
 * height and width
 * fractional height and width
-* Create QElement.assert()? (Throws an exception if QElement.diff() is not "")
-* Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
+* string together ElementPositions 
 
 ```javascript
-element.diff({
+element.assert({
   top: foo.top,
   bottom: bar.middle
   left: baz.left.plus(10)
@@ -30,13 +29,21 @@ element.diff({
 
 ## To Do
 
+* ElementPosition --> RelativePosition?
+* Get rid of big-object-diff (not used at the moment)
+* How do we deal with descriptors that aren't comparable?
+
 
 ## Future Features
 * Should width and height go inside Frame's "options" object?
+* Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
+* Frame.getElement(), Frame.addElement(): take an optional nickname?
+* QElement.description() --> QElement.toString()? 
 
 
 ## Future To Do / Off-camera
 
+* Is URL checking code causing Mobile Safari to disconnect?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * How do we use ensure.signature in element_edge.js without creating a circular dependency?
 * Rename `Frame` to `QFrame`?

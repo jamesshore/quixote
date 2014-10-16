@@ -6,6 +6,7 @@ var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
 var ElementPosition = require("./element_position.js");
+var Descriptor = require("./descriptor.js");
 
 describe("ElementEdge", function() {
 
@@ -41,6 +42,10 @@ describe("ElementEdge", function() {
 		left = ElementEdge.left(one);
 	});
 
+	it("is a descriptor", function() {
+		assert.type(top, Descriptor);
+	});
+
 	it("resolves itself to actual value", function() {
 		assert.objEqual(top.value(), Position.y(TOP), "top");
 		assert.objEqual(right.value(), Position.x(RIGHT), "right");
@@ -48,13 +53,25 @@ describe("ElementEdge", function() {
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
-	it("describes itself", function() {
-		assert.equal(top.description(), "top edge");
-		assert.equal(left.description(), "left edge");
+	it("converts arguments to comparable values", function() {
+		assert.objEqual(top.convert(13), Position.y(13), "top");
+		assert.objEqual(right.convert(13), Position.x(13), "right");
+		assert.objEqual(bottom.convert(13), Position.y(13), "bottom");
+		assert.objEqual(left.convert(13), Position.x(13), "left");
+
+		var descriptor = ElementPosition.x(top, 13);
+		assert.equal(top.convert(descriptor), descriptor, "descriptor");
 	});
 
 	it("converts to string", function() {
-		assert.equal(top.toString(), "top edge of element '#one'", "description + element");
+		assertDesc(one, top, "top edge of ", "top");
+		assertDesc(one, right, "right edge of ", "right");
+		assertDesc(one, bottom, "bottom edge of ", "bottom");
+		assertDesc(one, left, "left edge of ", "left");
+
+		function assertDesc(element, edge, expected, message) {
+			assert.equal(edge.toString(), expected + "element '" + element.description() + "'", message);
+		}
 	});
 
 	it("describes match", function() {

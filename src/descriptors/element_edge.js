@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var ElementPosition = require("./element_position.js");
+var Descriptor = require("./descriptor.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -15,6 +16,7 @@ var Me = module.exports = function ElementEdge(element, position) {
 	this._element = element;
 	this._position = position;
 };
+Descriptor.extend(Me);
 
 Me.top = factoryFn(TOP);
 Me.right = factoryFn(RIGHT);
@@ -43,24 +45,11 @@ Me.prototype.value = function value() {
 	return createPosition(this, result);
 };
 
-Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ [Number, ElementPosition, Me] ]);
-	if (typeof expected === "number") expected = createPosition(this, expected);
+Me.prototype.convert = function convert(arg) {
+	ensure.signature(arguments, [ [Number, Descriptor] ]);
 
-	var actualValue = this.value();
-	var expectedValue = expected.value();
-
-	if (actualValue.equals(expectedValue)) return "";
-
-	return "Expected " + this.toString() + " (" + this.value() + ")" +
-		" to " + expected.describeMatch() +
-		", but was " + actualValue.diff(expectedValue);
-};
-
-Me.prototype.description = function description() {
-	ensure.signature(arguments, []);
-
-	return this._position + " edge";
+	if (typeof arg === "number") return createPosition(this, arg);
+	else return arg;
 };
 
 Me.prototype.describeMatch = function describeMatch() {
@@ -72,7 +61,7 @@ Me.prototype.describeMatch = function describeMatch() {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return this.description() + " of element '" + this._element.description() + "'";
+	return this._position + " edge of element '" + this._element.description() + "'";
 };
 
 function factoryFn(position) {

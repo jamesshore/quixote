@@ -1,9 +1,9 @@
 // Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
 "use strict";
 
-// ****
 // Runtime assertions for production code. (Contrast to assert.js, which is for test code.)
-// ****
+
+var shim = require("./shim.js");
 
 exports.that = function(variable, message) {
 	if (message === undefined) message = "Expected condition to be true";
@@ -36,8 +36,7 @@ exports.signature = function(args, signature) {
 		arg = args[i];
 		name = "Argument " + i;
 
-		if (!isArray(type)) type = [ type ];
-
+		if (!shim.arrayDotIsArray(type)) type = [ type ];
 		if (!typeMatches(type, arg, name)) {
 			throw new EnsureException(
 				exports.signature,
@@ -89,7 +88,9 @@ function explainType(type) {
 			case null: return "null";
 			default:
 				if (typeof type === "number" && isNaN(type)) return "NaN";
-				else return functionName(type) + " instance";
+				else {
+					return shim.functionDotName(type) + " instance";
+				}
 		}
 	}
 }
@@ -98,15 +99,17 @@ function explainArg(arg) {
 	var type = getType(arg);
 	if (type !== "object") return type;
 
-	var prototype = getPrototype(arg);
+	var prototype = shim.objectDotGetPrototypeOf(arg);
 	if (prototype === null) return "an object without a prototype";
-	else return functionName(prototype.constructor) + " instance";
+	else {
+		return shim.functionDotName(prototype.constructor) + " instance";
+	}
 }
 
 function getType(variable) {
 	var type = typeof variable;
 	if (variable === null) type = "null";
-	if (isArray(variable)) type = "array";
+	if (shim.arrayDotIsArray(variable)) type = "array";
 	if (type === "number" && isNaN(variable)) type = "NaN";
 	return type;
 }
@@ -119,43 +122,6 @@ var EnsureException = exports.EnsureException = function(fnToRemoveFromStackTrac
 	else this.stack = (new Error()).stack;
 	this.message = message;
 };
-EnsureException.prototype = createObject(Error.prototype);
+EnsureException.prototype = shim.objectDotCreate(Error.prototype);
 EnsureException.prototype.constructor = EnsureException;
 EnsureException.prototype.name = "EnsureException";
-
-
-/*****/
-
-// WORKAROUND IE8: no Object.create()
-function createObject(prototype) {
-	if (Object.create) return Object.create(prototype);
-
-	var Temp = function Temp() {};
-	Temp.prototype = prototype;
-	return new Temp();
-}
-
-// WORKAROUND IE8 IE9 IE10 IE11: no function.name
-function functionName(fn) {
-	if (fn.name) return fn.name;
-
-	// This workaround is based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
-	var funcNameRegex = /function\s+(.{1,})\s*\(/;
-	var results = (funcNameRegex).exec((fn).toString());
-	return (results && results.length > 1) ? results[1] : "<anon>";
-}
-
-// WORKAROUND IE8: no Array.isArray
-function isArray(thing) {
-	if (Array.isArray) return Array.isArray(thing);
-
-	return Object.prototype.toString.call(thing) === '[object Array]';
-}
-
-// WORKAROUND IE8: no Object.getPrototypeOf
-function getPrototype(obj) {
-	if (Object.getPrototypeOf) return Object.getPrototypeOf(obj);
-
-	var result = obj.constructor ? obj.constructor.prototype : null;
-	return result || null;
-}
