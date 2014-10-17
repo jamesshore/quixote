@@ -18,6 +18,10 @@ New descriptors:
 New value objects:
 * Size
 
+Reverted:
+* Frame.create() fails fast if the HTML or stylesheet URL is invalid. (Contributed by @bjornicus)
+
+
 
 ## 0.3: Relative Positioning
 

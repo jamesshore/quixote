@@ -29,8 +29,6 @@ element.assert({
 
 ## To Do
 
-* Fix Safari disconnect issue (turn off URL checking?)
-
 * Change descriptor toString() to say `of '#one'` not `of element '#one'`
 * Change QElement to use toString() instead of description()
 * Value object superclass?
@@ -47,6 +45,7 @@ element.assert({
 * Should Dimension be a value object?
 * assert.descriptor() which ensures all methods are implemented? (Or something similar?)
 
+* Investigate re-enabling URL checking (issue #4)
 
 ## Future Features
 * Should width and height go inside Frame's "options" object?
