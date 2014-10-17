@@ -29,45 +29,37 @@ element.assert({
 
 ## To Do
 
-* QElement: use shim.js for objectKeys workaround
 * Replace Descriptor.describeMatch() with simple property (and "to match")
 * Value object superclass?
   * value()
   * equals() (defer to diff())
 * Change Descriptor.convert() --> Descriptor.convertNumber()
-* Move describeMatch into Descriptor class? (And just override it in particular circumstances?)
 
 * ElementPosition --> RelativePosition?
-* Get rid of big-object-diff (not used at the moment)
 * How do we deal with descriptors that aren't comparable?
-* Git rid of Position.describeMatch()?
 * Clean up QElement tests
 * Should Dimension be a value object?
 * assert.descriptor() which ensures all methods are implemented? (Or something similar?)
 
-* Investigate re-enabling URL checking (issue #4)
 
 ## Future Features
+
+* Investigate re-enabling URL checking (issue #4)
 * Should width and height go inside Frame's "options" object?
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Frame.getElement(), Frame.addElement(): take an optional nickname?
 * QElement.description() --> QElement.toString()? 
 
 
-## Future To Do / Off-camera
+## Future To Do
 
-* Can I load the "reset" stylesheet just once for the entire test suite?
-* Is URL checking code causing Mobile Safari to disconnect?
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * How do we use ensure.signature in element_edge.js without creating a circular dependency?
 * Rename `Frame` to `QFrame`?
 * Get IE 8 ensure exceptions to show stack trace
-* Factor out functionName() (duplicated in ensure.js and assert.js)
 * Factor out duplication of message variable manipulation in assert.js
 * Get assert.deepEqual to show objects
-* Document API so far
 * frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
-* watch.js rebuilds too often or not enough
 * Modify ensure to give better error message when comparison type is not a constructor
 * `ensure.signature(arguments, [ [undefined, Object] ]);` failed -- look into it (`ElementEdge.toString()`)
