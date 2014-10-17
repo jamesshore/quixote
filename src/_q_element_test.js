@@ -2,7 +2,7 @@
 "use strict";
 
 var assert = require("./util/assert.js");
-var Frame = require("./frame.js");
+var reset = require("./__reset.js");
 var QElement = require("./q_element.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var ElementCenter = require("./descriptors/element_center.js");
@@ -11,16 +11,8 @@ describe("QElement", function() {
 
 	var frame;
 
-	before(function(done) {
-		frame = Frame.create(window.document.body, 800, 1000, { stylesheet: "/base/src/__reset.css" }, done);
-	});
-
-	after(function() {
-		frame.remove();
-	});
-
-	afterEach(function() {
-		frame.reset();
+	beforeEach(function() {
+		frame = reset.frame;
 	});
 
 	describe("object", function() {

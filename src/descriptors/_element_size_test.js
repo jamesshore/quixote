@@ -2,6 +2,7 @@
 "use strict";
 
 var assert = require("../util/assert.js");
+var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
 var Descriptor = require("./descriptor.js");
 var ElementSize = require("./element_size.js");
@@ -17,17 +18,8 @@ describe("ElementSize", function() {
 	var width;
 	var height;
 
-	before(function(done) {
-		frame = quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, done);
-	});
-
-	after(function() {
-		frame.remove();
-	});
-
 	beforeEach(function() {
-		frame.reset();
-
+		var frame = reset.frame;
 		frame.addElement(
 			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
