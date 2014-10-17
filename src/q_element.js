@@ -3,6 +3,7 @@
 
 var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
+var shim = require("./util/shim.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var ElementCenter = require("./descriptors/element_center.js");
 var ElementSize = require("./descriptors/element_size.js");
@@ -37,7 +38,7 @@ Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Object ]);
 
 	var result = [];
-	var keys = objectKeys(expected);
+	var keys = shim.objectDotKeys(expected);
 	var key, oneDiff, constraint;
 	for (var i = 0; i < keys.length; i++) {
 		key = keys[i];
@@ -104,43 +105,3 @@ Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [ Me ]);
 	return this._domElement === that._domElement;
 };
-
-// WORKAROUND IE8: No Object.keys
-function objectKeys(obj) {
-	if (Object.keys) return Object.keys(obj);
-
-	// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-  var hasOwnProperty = Object.prototype.hasOwnProperty,
-      hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
-      dontEnums = [
-        'toString',
-        'toLocaleString',
-        'valueOf',
-        'hasOwnProperty',
-        'isPrototypeOf',
-        'propertyIsEnumerable',
-        'constructor'
-      ],
-      dontEnumsLength = dontEnums.length;
-
-  if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
-    throw new TypeError('Object.keys called on non-object');
-  }
-
-  var result = [], prop, i;
-
-  for (prop in obj) {
-    if (hasOwnProperty.call(obj, prop)) {
-      result.push(prop);
-    }
-  }
-
-  if (hasDontEnumBug) {
-    for (i = 0; i < dontEnumsLength; i++) {
-      if (hasOwnProperty.call(obj, dontEnums[i])) {
-        result.push(dontEnums[i]);
-      }
-    }
-  }
-  return result;
-}
