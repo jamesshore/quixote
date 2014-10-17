@@ -48,8 +48,8 @@ describe("ElementSize", function() {
 	});
 
 	it("converts to string", function() {
-		assert.equal(width.toString(), "width of element '" + element.description() + "'");
-		assert.equal(height.toString(), "height of element '" + element.description() + "'");
+		assert.equal(width.toString(), "width of " + element);
+		assert.equal(height.toString(), "height of " + element);
 	});
 
 });

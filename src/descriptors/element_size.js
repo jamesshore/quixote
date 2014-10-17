@@ -49,5 +49,5 @@ Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
 	var desc = (this._dimension === X_DIMENSION) ? "width" : "height";
-	return desc + " of element '" + this._element.description() + "'";
+	return desc + " of " + this._element;
 };

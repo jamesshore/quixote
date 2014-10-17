@@ -3,15 +3,16 @@
 
 var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
+var shim = require("./util/shim.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var ElementCenter = require("./descriptors/element_center.js");
 var ElementSize = require("./descriptors/element_size.js");
 
-var Me = module.exports = function QElement(domElement, description) {
+var Me = module.exports = function QElement(domElement, nickname) {
 	ensure.signature(arguments, [ Object, [ String ] ]);
 
 	this._domElement = domElement;
-	this._description = description;
+	this._nickname = nickname;
 
 	this.top = ElementEdge.top(this);
 	this.right = ElementEdge.right(this);
@@ -37,7 +38,7 @@ Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Object ]);
 
 	var result = [];
-	var keys = objectKeys(expected);
+	var keys = shim.Object.keys(expected);
 	var key, oneDiff, constraint;
 	for (var i = 0; i < keys.length; i++) {
 		key = keys[i];
@@ -56,7 +57,7 @@ Me.prototype.getRawStyle = function getRawStyle(styleName) {
 	var styles;
 	var result;
 
-	// WORKAROUND IE8: no getComputedStyle()
+	// WORKAROUND IE 8: no getComputedStyle()
 	if (window.getComputedStyle) {
 		styles = window.getComputedStyle(this._domElement);
 		result = styles.getPropertyValue(styleName);
@@ -72,7 +73,7 @@ Me.prototype.getRawStyle = function getRawStyle(styleName) {
 Me.prototype.getRawPosition = function getRawPosition() {
 	ensure.signature(arguments, []);
 
-	// WORKAROUND IE8: No TextRectangle.height or .width
+	// WORKAROUND IE 8: No TextRectangle.height or .width
 	var rect = this._domElement.getBoundingClientRect();
 	return {
 		left: rect.left,
@@ -87,62 +88,20 @@ Me.prototype.getRawPosition = function getRawPosition() {
 
 Me.prototype.toDomElement = function toDomElement() {
 	ensure.signature(arguments, []);
-
 	return this._domElement;
 };
 
 Me.prototype.description = function description() {
-	return this._description;
+	ensure.signature(arguments, []);
+	return this._nickname;
 };
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-
-	return this._domElement.outerHTML;
+	return "'" + this._nickname + "'";
 };
 
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [ Me ]);
-
 	return this._domElement === that._domElement;
 };
-
-// WORKAROUND IE8: No Object.keys
-function objectKeys(obj) {
-	if (Object.keys) return Object.keys(obj);
-
-	// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-  var hasOwnProperty = Object.prototype.hasOwnProperty,
-      hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
-      dontEnums = [
-        'toString',
-        'toLocaleString',
-        'valueOf',
-        'hasOwnProperty',
-        'isPrototypeOf',
-        'propertyIsEnumerable',
-        'constructor'
-      ],
-      dontEnumsLength = dontEnums.length;
-
-  if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
-    throw new TypeError('Object.keys called on non-object');
-  }
-
-  var result = [], prop, i;
-
-  for (prop in obj) {
-    if (hasOwnProperty.call(obj, prop)) {
-      result.push(prop);
-    }
-  }
-
-  if (hasDontEnumBug) {
-    for (i = 0; i < dontEnumsLength; i++) {
-      if (hasOwnProperty.call(obj, dontEnums[i])) {
-        result.push(dontEnums[i]);
-      }
-    }
-  }
-  return result;
-}

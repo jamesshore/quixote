@@ -23,11 +23,6 @@ describe("QElement", function() {
 			assert.equal(dom, document.body);
 		});
 
-		it("has a description", function() {
-			var element = new QElement(document.body, "description");
-			assert.equal(element.description(), "description");
-		});
-
 		it("compares to another QElement", function() {
 			var head = new QElement(document.querySelector("head"), "head");    // WORKAROUND IE8: no document.head
 			var body1 = new QElement(document.body, "body");
@@ -44,13 +39,9 @@ describe("QElement", function() {
 			assert.objEqual(body1, body2, "should still be equal");
 		});
 
-		it("displays nicely as a string", function() {
-			var element = document.createElement("div");
-			element.setAttribute("baz", "quux");
-			element.innerHTML = "foo<p>bar</p>";
-			var q = new QElement(element, "div");
-
-			assert.match(q.toString().toLowerCase(), /<div baz="quux">foo\s*<p>bar<\/p><\/div>/);
+		it("converts to string", function() {
+			var element = new QElement(document.body, "nickname");
+			assert.equal(element.toString(), "'nickname'");
 		});
 	});
 

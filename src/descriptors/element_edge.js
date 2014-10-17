@@ -61,7 +61,7 @@ Me.prototype.describeMatch = function describeMatch() {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return this._position + " edge of element '" + this._element.description() + "'";
+	return this._position + " edge of " + this._element;
 };
 
 function factoryFn(position) {
