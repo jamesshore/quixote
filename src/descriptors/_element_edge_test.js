@@ -63,7 +63,7 @@ describe("ElementEdge", function() {
 		assertDesc(one, left, "left edge of ", "left");
 
 		function assertDesc(element, edge, expected, message) {
-			assert.equal(edge.toString(), expected + "element '" + element.description() + "'", message);
+			assert.equal(edge.toString(), expected + element, message);
 		}
 	});
 

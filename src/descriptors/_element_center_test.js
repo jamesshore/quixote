@@ -45,8 +45,8 @@ describe("ElementCenter", function() {
 	});
 
 	it("converts to string", function() {
-		assert.equal(center.toString(), "center of element '" + element.description() + "'", "center");
-		assert.equal(middle.toString(), "middle of element '" + element.description() + "'", "middle");
+		assert.equal(center.toString(), "center of " + element, "center");
+		assert.equal(middle.toString(), "middle of " + element, "middle");
 	});
 
 });

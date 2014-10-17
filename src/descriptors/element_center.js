@@ -51,5 +51,5 @@ Me.prototype.describeMatch = function describeMatch() {
 
 Me.prototype.toString = function toString() {
 	var description = (this._dimension === X_DIMENSION) ? "center" : "middle";
-	return description + " of element '" + this._element.description() + "'";
+	return description + " of " + this._element;
 };

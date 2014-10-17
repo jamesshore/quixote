@@ -177,7 +177,7 @@ describe("Frame", function() {
 
 			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body should include new element");
 			assert.objEqual(element, new QElement(body.childNodes[0], "desc"), "element should be present in frame body");
-			assert.equal(element.description(), "<p>foo</p>", "description should match the HTML created");
+			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
 		});
 
 		it("fails fast if adding more than one element at a time", function() {
@@ -196,9 +196,9 @@ describe("Frame", function() {
 			assert.objEqual(byClass, expected, "should get element by class");
 			assert.objEqual(byAttribute, expected, "should get element by attribute");
 
-			assert.equal(byId.description(), "#foo", "should describe element by selector used (#id)");
-			assert.equal(byClass.description(), ".bar", "should describe element by selector used (.class)");
-			assert.equal(byAttribute.description(), "[baz]", "should describe element by selector used ([attribute])");
+			assert.equal(byId.toString(), "'#foo'", "should describe element by selector used (#id)");
+			assert.equal(byClass.toString(), "'.bar'", "should describe element by selector used (.class)");
+			assert.equal(byAttribute.toString(), "'[baz]'", "should describe element by selector used ([attribute])");
 		});
 
 		it("fails fast when retrieving non-existant element", function() {

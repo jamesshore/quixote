@@ -7,11 +7,11 @@ var ElementEdge = require("./descriptors/element_edge.js");
 var ElementCenter = require("./descriptors/element_center.js");
 var ElementSize = require("./descriptors/element_size.js");
 
-var Me = module.exports = function QElement(domElement, description) {
+var Me = module.exports = function QElement(domElement, nickname) {
 	ensure.signature(arguments, [ Object, [ String ] ]);
 
 	this._domElement = domElement;
-	this._description = description;
+	this._nickname = nickname;
 
 	this.top = ElementEdge.top(this);
 	this.right = ElementEdge.right(this);
@@ -87,23 +87,21 @@ Me.prototype.getRawPosition = function getRawPosition() {
 
 Me.prototype.toDomElement = function toDomElement() {
 	ensure.signature(arguments, []);
-
 	return this._domElement;
 };
 
 Me.prototype.description = function description() {
-	return this._description;
+	ensure.signature(arguments, []);
+	return this._nickname;
 };
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-
-	return this._domElement.outerHTML;
+	return "'" + this._nickname + "'";
 };
 
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [ Me ]);
-
 	return this._domElement === that._domElement;
 };
 
