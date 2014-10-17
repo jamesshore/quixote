@@ -36,7 +36,7 @@ describe("ElementEdge", function() {
 	});
 
 	it("is a descriptor", function() {
-		assert.type(top, Descriptor);
+		assert.implements(top, Descriptor);
 	});
 
 	it("resolves itself to actual value", function() {

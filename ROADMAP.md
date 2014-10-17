@@ -29,7 +29,6 @@ element.assert({
 
 ## To Do
 
-* assert.descriptor() which ensures all methods are implemented? (Or something similar?)
 * Replace Descriptor.describeMatch() with simple property (and "to match")
 * ElementPosition --> RelativePosition?
 * Should Dimension be a value object?

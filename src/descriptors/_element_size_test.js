@@ -29,7 +29,7 @@ describe("ElementSize", function() {
 	});
 
 	it("is a descriptor", function() {
-		assert.type(width, Descriptor);
+		assert.implements(width, Descriptor);
 	});
 
 	it("resolves to value", function() {
