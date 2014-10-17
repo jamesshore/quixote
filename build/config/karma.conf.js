@@ -67,6 +67,14 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+
+
+	  // We've increased the following from standard values due to CPU-intensive tests
+	  // causing Karma to think browser has disconnected.
+	  browserNoActivityTimeout: 30 * 1000,
+	  browserDisconnectTimeout: 30 * 1000
+
+
   });
 };
