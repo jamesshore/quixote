@@ -8,6 +8,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 New properties:
 * QElement.center
 * QElement.middle
+* QElement.width
+* QElement.height
 
 New descriptors:
 * ElementCenter
