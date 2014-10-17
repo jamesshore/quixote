@@ -15,7 +15,8 @@
 
 * fractional height and width
 * ElementCenter.plus(), ElementCenter.minus()
-* string together ElementPositions 
+* string together ElementPositions
+* Scrolling (and accounting for scrolling in ElementEdge)
 
 ```javascript
 element.assert({
