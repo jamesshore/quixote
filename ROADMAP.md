@@ -29,7 +29,8 @@ element.assert({
 
 ## To Do
 
-* Add time check and warning to build file
+* Global frame
+* Fix Safari disconnect issue (turn off URL checking?)
 
 * Change descriptor toString() to say `of '#one'` not `of element '#one'`
 * Change QElement to use toString() instead of description()
