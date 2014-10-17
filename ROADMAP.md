@@ -13,10 +13,10 @@
 
 ## Current Feature: Advanced Positioning
 
-* height and width
 * fractional height and width
 * ElementCenter.plus(), ElementCenter.minus()
-* string together ElementPositions 
+* string together ElementPositions
+* Scrolling (and accounting for scrolling in ElementEdge)
 
 ```javascript
 element.assert({
@@ -28,6 +28,8 @@ element.assert({
 ```
 
 ## To Do
+
+* Fix Safari disconnect issue (turn off URL checking?)
 
 * Change descriptor toString() to say `of '#one'` not `of element '#one'`
 * Change QElement to use toString() instead of description()

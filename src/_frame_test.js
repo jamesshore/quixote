@@ -2,6 +2,7 @@
 "use strict";
 
 var assert = require("./util/assert.js");
+var reset = require("./__reset.js");
 var Frame = require("./frame.js");
 var QElement = require("./q_element.js");
 
@@ -11,9 +12,9 @@ describe("Frame", function() {
 
 		var frame;
 
-//		afterEach(function() {
-//			frame.remove();
-//		});
+		afterEach(function() {
+			frame.remove();
+		});
 
 		it("creates iframe DOM element with specified width and height", function(done) {
 			frame = Frame.create(window.document.body, 600, 400, function() {
@@ -187,17 +188,9 @@ describe("Frame", function() {
 		var frame;
 		var frameDom;
 
-		before(function(done) {
-			frame = Frame.create(window.document.body, 800, 1000, done);
+		before(function() {
+			frame = reset.frame;
 			frameDom = frame.toDomElement();
-		});
-
-		after(function() {
-			frame.remove();
-		});
-
-		beforeEach(function() {
-			frame.reset();
 		});
 
 		it("adds an element", function() {

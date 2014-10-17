@@ -12,6 +12,7 @@ describe("Quixote", function() {
 			assert.noException(function() {
 				callbackFrame.getElement("#exists");
 			});
+			frame.remove();
 			done(err);
 		});
 		assert.type(frame, Frame, "createFrame() returns frame object immediately");

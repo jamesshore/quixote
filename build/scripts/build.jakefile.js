@@ -5,6 +5,8 @@
 (function() {
 	"use strict";
 
+	var startTime = Date.now();
+
 	var jshint = require("simplebuild-jshint");
 	var karma = require("../util/karma_runner.js");
 	var browserify = require("../util/browserify_runner.js");
@@ -20,7 +22,10 @@
 
 	desc("Lint, test, and build");
 	task("default", [ "lint", "test", "build" ], function() {
-		console.log("\n\nBUILD OK");
+		var elapsedSeconds = (Date.now() - startTime) / 1000;
+
+		console.log("\n\nBUILD OK  (" + elapsedSeconds.toFixed(2) +  "s)");
+		if (elapsedSeconds > 5) console.log("Warning: Build optimization needed.");
 	});
 
 

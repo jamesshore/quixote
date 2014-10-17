@@ -2,6 +2,7 @@
 "use strict";
 
 var assert = require("../util/assert.js");
+var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
@@ -22,16 +23,8 @@ describe("ElementEdge", function() {
 	var BOTTOM = 70;
 	var LEFT = 20;
 
-	before(function(done) {
-		frame = quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, done);
-	});
-
-	after(function() {
-		frame.remove();
-	});
-
 	beforeEach(function() {
-		frame.reset();
+		var frame = reset.frame;
 		frame.addElement(
 			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
