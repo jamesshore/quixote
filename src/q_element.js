@@ -38,7 +38,7 @@ Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Object ]);
 
 	var result = [];
-	var keys = shim.objectDotKeys(expected);
+	var keys = shim.Object.keys(expected);
 	var key, oneDiff, constraint;
 	for (var i = 0; i < keys.length; i++) {
 		key = keys[i];
@@ -57,7 +57,7 @@ Me.prototype.getRawStyle = function getRawStyle(styleName) {
 	var styles;
 	var result;
 
-	// WORKAROUND IE8: no getComputedStyle()
+	// WORKAROUND IE 8: no getComputedStyle()
 	if (window.getComputedStyle) {
 		styles = window.getComputedStyle(this._domElement);
 		result = styles.getPropertyValue(styleName);
@@ -73,7 +73,7 @@ Me.prototype.getRawStyle = function getRawStyle(styleName) {
 Me.prototype.getRawPosition = function getRawPosition() {
 	ensure.signature(arguments, []);
 
-	// WORKAROUND IE8: No TextRectangle.height or .width
+	// WORKAROUND IE 8: No TextRectangle.height or .width
 	var rect = this._domElement.getBoundingClientRect();
 	return {
 		left: rect.left,

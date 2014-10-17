@@ -36,7 +36,7 @@ exports.signature = function(args, signature) {
 		arg = args[i];
 		name = "Argument " + i;
 
-		if (!shim.arrayDotIsArray(type)) type = [ type ];
+		if (!shim.Array.isArray(type)) type = [ type ];
 		if (!typeMatches(type, arg, name)) {
 			throw new EnsureException(
 				exports.signature,
@@ -89,7 +89,7 @@ function explainType(type) {
 			default:
 				if (typeof type === "number" && isNaN(type)) return "NaN";
 				else {
-					return shim.functionDotName(type) + " instance";
+					return shim.Function.name(type) + " instance";
 				}
 		}
 	}
@@ -99,17 +99,17 @@ function explainArg(arg) {
 	var type = getType(arg);
 	if (type !== "object") return type;
 
-	var prototype = shim.objectDotGetPrototypeOf(arg);
+	var prototype = shim.Object.getPrototypeOf(arg);
 	if (prototype === null) return "an object without a prototype";
 	else {
-		return shim.functionDotName(prototype.constructor) + " instance";
+		return shim.Function.name(prototype.constructor) + " instance";
 	}
 }
 
 function getType(variable) {
 	var type = typeof variable;
 	if (variable === null) type = "null";
-	if (shim.arrayDotIsArray(variable)) type = "array";
+	if (shim.Array.isArray(variable)) type = "array";
 	if (type === "number" && isNaN(variable)) type = "NaN";
 	return type;
 }
@@ -122,6 +122,6 @@ var EnsureException = exports.EnsureException = function(fnToRemoveFromStackTrac
 	else this.stack = (new Error()).stack;
 	this.message = message;
 };
-EnsureException.prototype = shim.objectDotCreate(Error.prototype);
+EnsureException.prototype = shim.Object.create(Error.prototype);
 EnsureException.prototype.constructor = EnsureException;
 EnsureException.prototype.name = "EnsureException";

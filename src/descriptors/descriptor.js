@@ -9,7 +9,7 @@ var Me = module.exports = function Descriptor() {};
 Me.extend = function extend(Subclass) {
 	ensure.signature(arguments, [ Function ]);
 
-	Subclass.prototype = shim.objectDotCreate(Me.prototype);
+	Subclass.prototype = shim.Object.create(Me.prototype);
 	Subclass.prototype.constructor = Subclass;
 };
 

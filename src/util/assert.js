@@ -24,11 +24,10 @@ exports.type = function(obj, expectedType, message) {
 	message = message ? message + ": " : "";
 
 	var actualType = "unknown";
-	var prototype = shim.objectDotGetPrototypeOf(obj);
+	var prototype = shim.Object.getPrototypeOf(obj);
 	if (prototype === null) actualType = "an object without a prototype";
-	else if (prototype.constructor) actualType = shim.functionDotName(prototype.constructor);
-
-	proclaim.isInstanceOf(obj, expectedType, message + "expected object to be instance of " + shim.functionDotName(expectedType) + ", but was " + actualType);
+	else if (prototype.constructor) actualType = shim.Function.name(prototype.constructor);
+	proclaim.isInstanceOf(obj, expectedType, message + "expected object to be instance of " + shim.Function.name(expectedType) + ", but was " + actualType);
 };
 
 exports.equal = function(actual, expected, message) {
