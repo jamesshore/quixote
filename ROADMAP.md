@@ -29,6 +29,8 @@ element.assert({
 
 ## To Do
 
+* Add time check and warning to build file
+
 * Change descriptor toString() to say `of '#one'` not `of element '#one'`
 * Change QElement to use toString() instead of description()
 * Value object superclass?
