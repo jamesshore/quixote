@@ -25,7 +25,7 @@ describe("ElementCenter", function() {
 	});
 
 	it("is a descriptor", function() {
-		assert.type(center, Descriptor);
+		assert.implements(center, Descriptor);
 	});
 
 	it("resolves to value", function() {

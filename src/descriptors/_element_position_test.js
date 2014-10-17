@@ -26,7 +26,7 @@ describe("ElementPosition", function() {
 	});
 
 	it("is a descriptor", function() {
-		assert.type(x, Descriptor);
+		assert.implements(x, Descriptor);
 	});
 
 	it("resolves to value", function() {

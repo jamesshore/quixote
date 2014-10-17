@@ -22,12 +22,21 @@ exports.defined = function(value, message) {
 
 exports.type = function(obj, expectedType, message) {
 	message = message ? message + ": " : "";
+	proclaim.isInstanceOf(
+		obj,
+		expectedType,
+		message + "expected object to be instance of " +
+			shim.Function.name(expectedType) + ", but was " + describeObject(obj)
+	);
+};
 
-	var actualType = "unknown";
-	var prototype = shim.Object.getPrototypeOf(obj);
-	if (prototype === null) actualType = "an object without a prototype";
-	else if (prototype.constructor) actualType = shim.Function.name(prototype.constructor);
-	proclaim.isInstanceOf(obj, expectedType, message + "expected object to be instance of " + shim.Function.name(expectedType) + ", but was " + actualType);
+exports.implements = function(obj, expectedType, message) {
+	exports.type(obj, expectedType, message);
+
+	message = message ? message + ": " : "";
+	proclaim.isDefined(obj.checkAbstractMethods, message + describeObject(obj) + " does not extend an abstract class");
+	var needed = obj.checkAbstractMethods();
+	proclaim.isTrue(needed.length === 0, message + "must implement " + needed.join(" and "));
 };
 
 exports.equal = function(actual, expected, message) {
@@ -93,3 +102,11 @@ exports.exception = function(fn, expected, message) {
 	}
 	if (noException) exports.fail(message + "expected exception");
 };
+
+function describeObject(obj) {
+	var actualType = "unknown";
+	var prototype = shim.Object.getPrototypeOf(obj);
+	if (prototype === null) actualType = "object without a prototype";
+	else if (prototype.constructor) actualType = shim.Function.name(prototype.constructor);
+	return actualType;
+}

@@ -6,6 +6,15 @@ var shim = require("../util/shim.js");
 
 var Me = module.exports = function Descriptor() {};
 
+var ABSTRACT_METHODS = [
+	"value",
+	"convert",
+	"describeMatch",
+	"toString"
+];
+
+createAbstractMethods(ABSTRACT_METHODS);
+
 Me.extend = function extend(Subclass) {
 	ensure.signature(arguments, [ Function ]);
 
@@ -27,13 +36,19 @@ Me.prototype.diff = function diff(expected) {
 		", but was " + actualValue.diff(expectedValue);
 };
 
-Me.prototype.value = mustImplement("value");
-Me.prototype.convert = mustImplement("convert");
-Me.prototype.describeMatch = mustImplement("describeMatch");
-Me.prototype.toString = mustImplement("toString");
+Me.prototype.checkAbstractMethods = function checkAbstractMethods() {
+	var unimplemented = [];
+	var self = this;
+	shim.Array.forEach(ABSTRACT_METHODS, function(name) {
+		if (self[name] === Me.prototype[name]) unimplemented.push(name + "()");
+	});
+	return unimplemented;
+};
 
-function mustImplement(name) {
-	return function() {
-		ensure.unreachable("Descriptor subclasses must implement " + name + "() method");
-	};
+function createAbstractMethods(names) {
+	shim.Array.forEach(names, function(name) {
+		Me.prototype[name] = function() {
+			ensure.unreachable("Descriptor subclasses must implement " + name + "() method");
+		};
+	});
 }

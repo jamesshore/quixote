@@ -30,16 +30,17 @@ element.assert({
 ## To Do
 
 * Replace Descriptor.describeMatch() with simple property (and "to match")
+* ElementPosition --> RelativePosition?
+* Should Dimension be a value object?
+
+* Change Descriptor.convert() --> Descriptor.convertNumber()?
+* How do we deal with descriptors that aren't comparable?
+
+* Clean up QElement tests
+
 * Value object superclass?
   * value()
   * equals() (defer to diff())
-* Change Descriptor.convert() --> Descriptor.convertNumber()
-
-* ElementPosition --> RelativePosition?
-* How do we deal with descriptors that aren't comparable?
-* Clean up QElement tests
-* Should Dimension be a value object?
-* assert.descriptor() which ensures all methods are implemented? (Or something similar?)
 
 
 ## Future Features
