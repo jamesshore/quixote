@@ -6,6 +6,7 @@ var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
 var Pixels = require("../values/pixels.js");
+var ElementSize = require("./element_size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
@@ -13,12 +14,12 @@ var Y_DIMENSION = "y";
 var Me = module.exports = function RelativePosition(dimension, relativeTo, relativeAmount) {
 	var ElementEdge = require("./element_edge.js");       // require() here to break circular dependency
 	var ElementCenter = require("./element_center.js");
-	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], Number ]);
+	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], [Number, ElementSize] ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
 	this._relativeTo = relativeTo;
-	this._amount = new Size(relativeAmount);
+	this._amount = (typeof relativeAmount === "number") ? new Size(relativeAmount) : relativeAmount;
 };
 Descriptor.extend(Me);
 
@@ -33,7 +34,7 @@ Me.y = function y(edge, relativeAmount) {
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	return this._relativeTo.value().plus(this._amount);
+	return this._relativeTo.value().plus(this._amount.value());
 };
 
 Me.prototype.convert = function convert(arg) {

@@ -45,11 +45,9 @@ describe("RelativePosition", function() {
 		assert.objEqual(y.value(), Position.y(TOP + Y_ADJ), "y");
 	});
 
-	it("can be relative to a size", function() {
-//		assert.fail("continue here");
-
-//		x = RelativePosition.x(element.left, element.width);
-//		assert.objEqual(x.value(), Position.x(LEFT + WIDTH), "width");
+	it("computes value relative to a size descriptor", function() {
+		x = RelativePosition.x(element.left, element.width);
+		assert.objEqual(x.value(), Position.x(LEFT + WIDTH));
 	});
 
 	it("converts arguments to comparable values", function() {
