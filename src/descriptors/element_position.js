@@ -10,7 +10,7 @@ var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function ElementPosition(dimension, edge, relativeAmount) {
-//	ensure.signature(arguments, [ String, ElementEdge, Number ]); // TODO: creates circular dependency
+	ensure.signature(arguments, [ String, require("./element_edge.js"), Number ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;

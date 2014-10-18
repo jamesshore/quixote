@@ -9,7 +9,7 @@ var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function ElementSize(dimension, element) {
-	// TODO: circular dependency prevents ensure.signature
+	ensure.signature(arguments, [ String, require("../q_element.js") ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
