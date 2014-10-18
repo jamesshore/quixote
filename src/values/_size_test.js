@@ -23,6 +23,10 @@ describe("Size", function() {
 		assert.objEqual(a1.plus(b), new Size(59));
 	});
 
+	it("converts to pixels", function() {
+		assert.objEqual(a1.toPixels(), new Pixels(52));
+	});
+
 	it("compares", function() {
 		assert.equal(a1.compareTo(b) > 0, true, "bigger");
 		assert.equal(b.compareTo(a1) < 0, true, "smaller");

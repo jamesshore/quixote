@@ -69,6 +69,12 @@ Me.prototype.toString = function toString() {
 	return this._value.toString();
 };
 
+Me.prototype.toPixels = function toPixels() {
+	ensure.signature(arguments, []);
+
+	return this._value;
+};
+
 function ensureComparable(self, other) {
 	ensure.that(self._dimension === other._dimension, "Can't compare X dimension to Y dimension");
 }

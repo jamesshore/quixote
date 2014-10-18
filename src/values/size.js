@@ -56,3 +56,8 @@ Me.prototype.toString = function() {
 	return this._value.toString();
 };
 
+Me.prototype.toPixels = function() {
+	ensure.signature(arguments, []);
+
+	return this._value;
+};

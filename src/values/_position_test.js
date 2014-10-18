@@ -64,6 +64,10 @@ describe("Position", function() {
 		}, /Can't compare X dimension to Y dimension/);
 	});
 
+	it("converts to pixels", function() {
+		assert.objEqual(x1.toPixels(), new Pixels(10));
+	});
+
 	it("toString()", function() {
 		assert.equal(x1.toString(), "10px");
 	});
