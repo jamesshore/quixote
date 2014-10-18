@@ -43,10 +43,6 @@ describe("ElementSize", function() {
 		assert.equal(width.convert(width), width, "should return descriptors as-is");
 	});
 
-	it("describes a match", function() {
-		assert.equal(width.describeMatch(), "match " + width.toString() + " (130px)");
-	});
-
 	it("converts to string", function() {
 		assert.equal(width.toString(), "width of " + element);
 		assert.equal(height.toString(), "height of " + element);

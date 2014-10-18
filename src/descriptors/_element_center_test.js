@@ -40,10 +40,6 @@ describe("ElementCenter", function() {
 		assert.equal(center.convert(center), center, "should return descriptors as-is");
 	});
 
-	it("describes a match", function() {
-		assert.equal(center.describeMatch(), "match " + center.toString() + " (85px)");
-	});
-
 	it("converts to string", function() {
 		assert.equal(center.toString(), "center of " + element, "center");
 		assert.equal(middle.toString(), "middle of " + element, "middle");

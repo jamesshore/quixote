@@ -14,20 +14,6 @@ describe("Descriptor abstract base class", function() {
 		assert.type(new Subclass(), Descriptor);
 	});
 
-	it("ensures that subclasses implement all required methods", function() {
-		var desc = new Descriptor();
-		assertEnsure(desc.value, "value");
-		assertEnsure(desc.convert, "convert");
-		assertEnsure(desc.describeMatch, "describeMatch");
-		assertEnsure(desc.toString, "toString");
-
-		function assertEnsure(fn, name) {
-			assert.exception(function() {
-				fn.call(desc);
-			}, "Descriptor subclasses must implement " + name + "() method", name + "()");
-		}
-	});
-
 	describe("diff", function() {
 
 		it("returns empty string when no difference", function() {
@@ -69,9 +55,7 @@ describe("Descriptor abstract base class", function() {
 			return new Value(this._name);
 		};
 
-		Example.prototype.describeMatch = function describeMatch() {
-			return "be same as " + this.toString() + " (" + this._name + ")";
-		};
+		Example.prototype.joiner = function joiner() { return "to be same as"; };
 
 		Example.prototype.toString = function toString() {
 			return "example " + this._name;

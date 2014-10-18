@@ -60,8 +60,4 @@ describe("ElementPosition", function() {
 		}
 	});
 
-	it("describes match", function() {
-		assert.equal(y.describeMatch(), "be " + y.toString() + " (20px)");
-	});
-
 });

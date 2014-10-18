@@ -9,7 +9,7 @@ var Me = module.exports = function Descriptor() {};
 var ABSTRACT_METHODS = [
 	"value",
 	"convert",
-	"describeMatch",
+	"joiner",
 	"toString"
 ];
 
@@ -31,9 +31,13 @@ Me.prototype.diff = function diff(expected) {
 
 	if (actualValue.equals(expectedValue)) return "";
 
-	return "Expected " + this.toString() + " (" + this.value() + ")" +
-		" to " + expected.describeMatch() +
+	return "Expected " + this.toString() + " (" + this.value() + ") " +
+		expected.describeMatch() +
 		", but was " + actualValue.diff(expectedValue);
+};
+
+Me.prototype.describeMatch = function describeMatch() {
+	return this.joiner() + " " + this.toString() + " (" + this.value() + ")";
 };
 
 Me.prototype.checkAbstractMethods = function checkAbstractMethods() {

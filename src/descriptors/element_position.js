@@ -38,13 +38,10 @@ Me.prototype.convert = function convert(arg) {
 
 	if (typeof arg === "number") return createPosition(this, arg);
 	else return arg;
+
 };
 
-Me.prototype.describeMatch = function describeMatch() {
-	ensure.signature(arguments, []);
-
-	return "be " + this.toString() + " (" + this.value() + ")";
-};
+Me.prototype.joiner = function joiner() { return "to be"; };
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);

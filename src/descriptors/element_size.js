@@ -41,9 +41,7 @@ Me.prototype.convert = function convert(arg) {
 	return new Size(arg);
 };
 
-Me.prototype.describeMatch = function describeMatch() {
-	return "match " + this.toString() + " (" + this.value() + ")";
-};
+Me.prototype.joiner = function joiner() { return "to match"; };
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
