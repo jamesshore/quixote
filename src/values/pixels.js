@@ -21,6 +21,11 @@ Me.prototype.compare = function compare(operand) {
 	return this._amount - operand._amount;
 };
 
+Me.prototype.diff = function diff(expected) {
+	if (this.equals(expected)) return "";
+	return Math.abs(this._amount - expected._amount) + "px";
+};
+
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [ Me ]);
 

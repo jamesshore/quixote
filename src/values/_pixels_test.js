@@ -20,6 +20,12 @@ describe("Pixels", function() {
 		assert.equal(a1.compare(a2) === 0, true, "equal");
 	});
 
+	it("describes difference (always a positive result)", function() {
+		assert.equal(a1.diff(b), "10px", "greater than");
+		assert.equal(b.diff(a1), "10px", "less than");
+		assert.equal(a1.diff(a2), "", "same");
+	});
+
 	it("equals()", function() {
 		assert.objEqual(a1, a2, "same");
 		assert.objNotEqual(a1, b, "different");
