@@ -5,7 +5,7 @@ var ensure = require("../util/ensure.js");
 var Size = require("../values/size.js");
 var Descriptor = require("./descriptor.js");
 
-var Me = module.exports = function(relativeTo, amount) {
+var Me = module.exports = function RelativeSize(relativeTo, amount) {
 	var ElementSize = require("./element_size.js");
 	ensure.signature(arguments, [  ElementSize, Number ]);
 

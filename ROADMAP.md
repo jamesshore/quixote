@@ -36,7 +36,6 @@ element.assert({
 
 ## To Do
 
-* CURRENTLY: RelativePosition may be relative to a RelativeSize
 * POP STASH and look for ElementEdge.plus(ElementSize) test
 
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
