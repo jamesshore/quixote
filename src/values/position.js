@@ -22,9 +22,7 @@ Me.y = function y(value) {
 };
 
 Me.prototype.plus = function plus(amount) {
-	ensure.signature(arguments, [ [Number, Me] ]);
-
-	if (typeof amount === "number") return new Me(this._dimension, this._position + amount);
+	ensure.signature(arguments, [ Me ]);
 
 	ensureComparable(this, amount);
 	return new Me(this._dimension, this._position + amount._position);

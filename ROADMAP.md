@@ -14,6 +14,7 @@
 ## Current Feature: Advanced Positioning
 
 * ElementCenter.plus(), ElementCenter.minus()
+* .plus(ElementSize), .minus(ElementSize)
 * ElementSize.plus(), ElementCenter.minus()
 * fractional height and width
 * string together ElementPositions

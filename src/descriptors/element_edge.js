@@ -25,8 +25,6 @@ Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
 Me.prototype.plus = function plus(amount) {
-	ensure.signature(arguments, [ Number ]);
-
 	if (this._position === TOP || this._position === BOTTOM) return ElementPosition.y(this, amount);
 	if (this._position === RIGHT || this._position === LEFT) return ElementPosition.x(this, amount);
 
