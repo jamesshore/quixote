@@ -27,7 +27,8 @@ Me.y = function(element) {
 };
 
 Me.prototype.plus = function plus(amount) {
-	return ElementPosition.x(this, amount);
+	if (this._dimension === X_DIMENSION) return ElementPosition.x(this, amount);
+	else return ElementPosition.y(this, amount);
 };
 
 Me.prototype.minus = function minus(amount) {

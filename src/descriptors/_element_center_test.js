@@ -48,7 +48,7 @@ describe("ElementCenter", function() {
 		assert.equal(middle.toString(), "middle of " + element, "middle");
 	});
 
-	it.skip("can be shifted up, down, left, and right", function() {
+	it("can be shifted up, down, left, and right", function() {
 		assert.objEqual(center.plus(15).value(), Position.x(CENTER + 15), "right");
 		assert.objEqual(center.minus(25).value(), Position.x(CENTER - 25), "left");
 
