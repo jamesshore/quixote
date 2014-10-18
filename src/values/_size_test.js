@@ -28,9 +28,9 @@ describe("Size", function() {
 	});
 
 	it("compares", function() {
-		assert.equal(a1.compareTo(b) > 0, true, "bigger");
-		assert.equal(b.compareTo(a1) < 0, true, "smaller");
-		assert.equal(b.compareTo(b) === 0, true, "same");
+		assert.equal(a1.compare(b) > 0, true, "bigger");
+		assert.equal(b.compare(a1) < 0, true, "smaller");
+		assert.equal(b.compare(b) === 0, true, "same");
 	});
 
 	it("describes difference", function() {

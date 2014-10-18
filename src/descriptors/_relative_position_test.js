@@ -7,6 +7,7 @@ var quixote = require("../quixote.js");
 var RelativePosition = require("./relative_position.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
+var Size = require("../values/size.js");
 
 describe("RelativePosition", function() {
 
@@ -31,6 +32,11 @@ describe("RelativePosition", function() {
 	it("resolves to value", function() {
 		assert.objEqual(x.value(), Position.x(15), "x");
 		assert.objEqual(y.value(), Position.y(20), "y");
+	});
+
+	it("may be constructed from a Size", function() {
+		x = RelativePosition.x(element.left, new Size(-5));
+		assert.objEqual(x.value(), Position.x(15));
 	});
 
 	it("converts arguments to comparable values", function() {

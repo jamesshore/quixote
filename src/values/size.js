@@ -21,7 +21,7 @@ Me.prototype.plus = function(operand) {
 	return new Me(this._value.plus(operand._value));
 };
 
-Me.prototype.compareTo = function(that) {
+Me.prototype.compare = function(that) {
 	ensure.signature(arguments, [ Me ]);
 	return this._value.compare(that._value);
 };
