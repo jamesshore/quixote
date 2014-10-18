@@ -18,7 +18,13 @@ describe("Size", function() {
 		assert.objEqual(a1.plus(b), new Size(59));
 	});
 
-	it("determines difference", function() {
+	it("compares", function() {
+		assert.equal(a1.compareTo(b) > 0, true, "bigger");
+		assert.equal(b.compareTo(a1) < 0, true, "smaller");
+		assert.equal(b.compareTo(b) === 0, true, "same");
+	});
+
+	it("describes difference", function() {
 		assert.equal(a1.diff(b), "45px larger");
 		assert.equal(b.diff(a1), "45px smaller");
 	});

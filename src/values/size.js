@@ -19,6 +19,10 @@ Me.prototype.plus = function(other) {
 	return new Me(this._value + other._value);
 };
 
+Me.prototype.compareTo = function(that) {
+	return this._value - that._value;
+};
+
 Me.prototype.diff = function(expected) {
 	ensure.signature(arguments, [ Me ]);
 
