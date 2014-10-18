@@ -67,10 +67,6 @@ describe("ElementEdge", function() {
 		}
 	});
 
-	it("describes match", function() {
-		assert.equal(top.describeMatch(), "match " + top.toString() + " (10px)");
-	});
-
 	it("can be shifted up, down, left, and right", function() {
 		assert.objEqual(top.plus(10).value(), Position.y(TOP + 10), "down");
 		assert.objEqual(top.minus(10).value(), Position.y(TOP - 10), "up");

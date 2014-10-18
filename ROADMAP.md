@@ -29,7 +29,6 @@ element.assert({
 
 ## To Do
 
-* Replace Descriptor.describeMatch() with simple property (and "to match")
 * ElementPosition --> RelativePosition?
 * Should Dimension be a value object?
 
@@ -38,7 +37,7 @@ element.assert({
 
 * Clean up QElement tests
 
-* Value object superclass?
+* Value object superclass? (Or "DiffableValue?")
   * value()
   * equals() (defer to diff())
 

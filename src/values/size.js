@@ -32,6 +32,12 @@ Me.prototype.equals = function(that) {
 	return this._value === that._value;
 };
 
+Me.prototype.describeMatch = function describeMatch() {
+	ensure.signature(arguments, []);
+
+	return "be " + this;
+};
+
 Me.prototype.toString = function() {
 	ensure.signature(arguments, []);
 
