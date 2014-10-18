@@ -4,7 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 var Position = require("../values/position.js");
-var ElementPosition = require("./element_position.js");
+var RelativePosition = require("./relative_position.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
@@ -27,8 +27,8 @@ Me.y = function(element) {
 };
 
 Me.prototype.plus = function plus(amount) {
-	if (this._dimension === X_DIMENSION) return ElementPosition.x(this, amount);
-	else return ElementPosition.y(this, amount);
+	if (this._dimension === X_DIMENSION) return RelativePosition.x(this, amount);
+	else return RelativePosition.y(this, amount);
 };
 
 Me.prototype.minus = function minus(amount) {

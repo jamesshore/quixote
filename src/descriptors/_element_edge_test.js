@@ -6,7 +6,7 @@ var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
-var ElementPosition = require("./element_position.js");
+var RelativePosition = require("./relative_position.js");
 var Descriptor = require("./descriptor.js");
 
 describe("ElementEdge", function() {
@@ -52,7 +52,7 @@ describe("ElementEdge", function() {
 		assert.objEqual(bottom.convert(13), Position.y(13), "bottom");
 		assert.objEqual(left.convert(13), Position.x(13), "left");
 
-		var descriptor = ElementPosition.x(top, 13);
+		var descriptor = RelativePosition.x(top, 13);
 		assert.equal(top.convert(descriptor), descriptor, "descriptor");
 	});
 

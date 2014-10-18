@@ -4,11 +4,11 @@
 var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
-var ElementPosition = require("./element_position.js");
+var RelativePosition = require("./relative_position.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
 
-describe("ElementPosition", function() {
+describe("RelativePosition", function() {
 
 	var frame;
 	var one;
@@ -21,8 +21,8 @@ describe("ElementPosition", function() {
 			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
 		one = frame.getElement("#one");
-		x = ElementPosition.x(one.left, -5);
-		y = ElementPosition.y(one.top, 10);
+		x = RelativePosition.x(one.left, -5);
+		y = RelativePosition.y(one.top, 10);
 	});
 
 	it("is a descriptor", function() {
@@ -38,7 +38,7 @@ describe("ElementPosition", function() {
 		assert.objEqual(x.convert(13), Position.x(13), "x");
 		assert.objEqual(y.convert(13), Position.y(13), "y");
 
-		var descriptor = ElementPosition.x(one.top, 13);
+		var descriptor = RelativePosition.x(one.top, 13);
 		assert.equal(x.convert(descriptor), descriptor, "descriptor");
 	});
 
@@ -52,11 +52,11 @@ describe("ElementPosition", function() {
 		assertY(one.top, 0, "", "same y");
 
 		function assertX(edge, amount, expected, message) {
-			assert.equal(ElementPosition.x(edge, amount).toString(), expected + edge.toString(), message);
+			assert.equal(RelativePosition.x(edge, amount).toString(), expected + edge.toString(), message);
 		}
 
 		function assertY(edge, amount, expected, message) {
-			assert.equal(ElementPosition.y(edge, amount).toString(), expected + edge.toString(), message);
+			assert.equal(RelativePosition.y(edge, amount).toString(), expected + edge.toString(), message);
 		}
 	});
 

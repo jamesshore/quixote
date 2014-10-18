@@ -8,7 +8,7 @@ var Descriptor = require("./descriptor.js");
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
-var Me = module.exports = function ElementPosition(dimension, edge, relativeAmount) {
+var Me = module.exports = function RelativePosition(dimension, edge, relativeAmount) {
 	var ElementEdge = require("./element_edge.js");
 	var ElementCenter = require("./element_center.js");
 	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], Number ]);

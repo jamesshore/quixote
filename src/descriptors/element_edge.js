@@ -3,7 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
-var ElementPosition = require("./element_position.js");
+var RelativePosition = require("./relative_position.js");
 var Descriptor = require("./descriptor.js");
 
 var TOP = "top";
@@ -25,8 +25,8 @@ Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
 Me.prototype.plus = function plus(amount) {
-	if (this._position === TOP || this._position === BOTTOM) return ElementPosition.y(this, amount);
-	if (this._position === RIGHT || this._position === LEFT) return ElementPosition.x(this, amount);
+	if (this._position === TOP || this._position === BOTTOM) return RelativePosition.y(this, amount);
+	if (this._position === RIGHT || this._position === LEFT) return RelativePosition.x(this, amount);
 
 	ensure.unreachable();
 };
