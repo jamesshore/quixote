@@ -13,8 +13,9 @@
 
 ## Current Feature: Advanced Positioning
 
-* fractional height and width
 * ElementCenter.plus(), ElementCenter.minus()
+* ElementSize.plus(), ElementCenter.minus()
+* fractional height and width
 * string together ElementPositions
 * Scrolling (and accounting for scrolling in ElementEdge)
 
@@ -29,13 +30,11 @@ element.assert({
 
 ## To Do
 
-* ElementPosition --> RelativePosition?
 * Should Dimension be a value object?
 
+* ElementPosition --> RelativePosition?
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
-
-* Clean up QElement tests
 
 * Value object superclass? (Or "DiffableValue?")
   * value()
@@ -53,8 +52,8 @@ element.assert({
 
 ## Future To Do
 
+* Clean up QElement tests
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
-* How do we use ensure.signature in element_edge.js without creating a circular dependency?
 * Rename `Frame` to `QFrame`?
 * Get IE 8 ensure exceptions to show stack trace
 * Factor out duplication of message variable manipulation in assert.js

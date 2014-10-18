@@ -12,7 +12,8 @@ var BOTTOM = "bottom";
 var LEFT = "left";
 
 var Me = module.exports = function ElementEdge(element, position) {
-//	ensure.signature(arguments, [ QElement ]);      // TODO: creates circular dependency
+	ensure.signature(arguments, [ require("../q_element.js"), String ]);
+
 	this._element = element;
 	this._position = position;
 };
