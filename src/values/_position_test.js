@@ -18,8 +18,14 @@ describe("Position", function() {
 	});
 
 	it("adds", function() {
-		assert.objEqual(x1.plus(42), Position.x(52), "x");
-		assert.objEqual(y1.plus(13), Position.y(63), "y");
+		assert.objEqual(x1.plus(x2), Position.x(30), "x");
+		assert.objEqual(y1.plus(y2), Position.y(130), "y");
+	});
+
+	it("fails fast when adding incompatible dimensions", function() {
+		assert.exception(function() {
+			x1.plus(y1);
+		}, /Can't compare X dimension to Y dimension/);
 	});
 
 	it("determines difference", function() {

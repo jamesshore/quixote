@@ -30,6 +30,7 @@ element.assert({
 
 ## To Do
 
+* Remove Number from Position.plus() signature
 * Should Dimension be a value object?
 
 * ElementPosition --> RelativePosition?

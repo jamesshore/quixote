@@ -22,9 +22,12 @@ Me.y = function y(value) {
 };
 
 Me.prototype.plus = function plus(amount) {
-	ensure.signature(arguments, [ Number ]);
+	ensure.signature(arguments, [ [Number, Me] ]);
 
-	return new Me(this._dimension, this._position + amount);
+	if (typeof amount === "number") return new Me(this._dimension, this._position + amount);
+
+	ensureComparable(this, amount);
+	return new Me(this._dimension, this._position + amount._position);
 };
 
 Me.prototype.value = function value() {
@@ -35,7 +38,7 @@ Me.prototype.value = function value() {
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Me ]);
-	ensure.that(this._dimension === expected._dimension, "Can't compare X dimension to Y dimension");
+	ensureComparable(this, expected);
 
 	var actualValue = this._position;
 	var expectedValue = expected._position;
@@ -66,3 +69,7 @@ Me.prototype.toString = function toString() {
 
 	return this._position + "px";
 };
+
+function ensureComparable(self, other) {
+	ensure.that(self._dimension === other._dimension, "Can't compare X dimension to Y dimension");
+}
