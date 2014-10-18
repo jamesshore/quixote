@@ -14,6 +14,12 @@ describe("Pixels", function() {
 		assert.objEqual(a1.plus(b), new Pixels(30));
 	});
 
+	it("compares", function() {
+		assert.equal(a1.compare(b) < 0, true, "less than");
+		assert.equal(b.compare(a1) > 0, true, "greater than");
+		assert.equal(a1.compare(a2) === 0, true, "equal");
+	});
+
 	it("equals()", function() {
 		assert.objEqual(a1, a2, "same");
 		assert.objNotEqual(a1, b, "different");
