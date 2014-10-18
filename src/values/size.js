@@ -5,7 +5,6 @@ var ensure = require("../util/ensure.js");
 
 var Me = module.exports = function Size(value) {
 	ensure.signature(arguments, [ Number ]);
-	ensure.that(value >= 0, "Doesn't make sense to have negative size, but got " + value);
 
 	this._value = value;
 };
@@ -14,6 +13,16 @@ Me.prototype.value = function() {
 	ensure.signature(arguments, []);
 
 	return this;
+};
+
+Me.prototype.plus = function(other) {
+	ensure.signature(arguments, [ Me ]);
+	return new Me(this._value + other._value);
+};
+
+Me.prototype.compareTo = function(that) {
+	ensure.signature(arguments, [ Me ]);
+	return this._value - that._value;
 };
 
 Me.prototype.diff = function(expected) {

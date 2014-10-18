@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
+var RelativeSize = require("./relative_size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
@@ -23,6 +24,15 @@ Me.x = function x(element) {
 
 Me.y = function y(element) {
 	return new Me(Y_DIMENSION, element);
+};
+
+Me.prototype.plus = function plus(amount) {
+	ensure.signature(arguments, [ Number ]);
+	return new RelativeSize(this, amount);
+};
+
+Me.prototype.minus = function minus(amount) {
+	return this.plus(amount * -1);
 };
 
 Me.prototype.value = function value() {

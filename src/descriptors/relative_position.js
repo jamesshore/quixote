@@ -8,14 +8,14 @@ var Descriptor = require("./descriptor.js");
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
-var Me = module.exports = function RelativePosition(dimension, edge, relativeAmount) {
+var Me = module.exports = function RelativePosition(dimension, relativeTo, relativeAmount) {
 	var ElementEdge = require("./element_edge.js");
 	var ElementCenter = require("./element_center.js");
 	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], Number ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
-	this._edge = edge;
+	this._relativeTo = relativeTo;
 	this._amount = relativeAmount;
 };
 Descriptor.extend(Me);
@@ -32,7 +32,7 @@ Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
 	var amount = (this._dimension === X_DIMENSION) ? Position.x(this._amount) : Position.y(this._amount);
-	return this._edge.value().plus(amount);
+	return this._relativeTo.value().plus(amount);
 };
 
 Me.prototype.convert = function convert(arg) {
@@ -40,7 +40,6 @@ Me.prototype.convert = function convert(arg) {
 
 	if (typeof arg === "number") return createPosition(this, arg);
 	else return arg;
-
 };
 
 Me.prototype.joiner = function joiner() { return "to be"; };
@@ -48,7 +47,7 @@ Me.prototype.joiner = function joiner() { return "to be"; };
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return relativeAmount(this) + this._edge.toString();
+	return relativeAmount(this) + this._relativeTo.toString();
 };
 
 function relativeAmount(self) {

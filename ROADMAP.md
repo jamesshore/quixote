@@ -13,10 +13,16 @@
 
 ## Current Feature: Advanced Positioning
 
-* .plus(ElementSize), .minus(ElementSize)
-* ElementSize.plus(), ElementCenter.minus()
+* NEXT: ElementEdge.plus/minus(ElementSize)
+* RelativeEdge.plus/minus(ElementSize)
+* ElementCenter.plus/minus(ElementSize)
+* ElementCenter.plus/minus(RelativeSize)
+* ElementSize.plus/minus(ElementSize)
+* RelativeSize.plus/minus(ElementSize)
+* RelativeEdge.plus/minus(RelativeEdge)
+* RelativeSize.plus/minus(RelativeSize)
+* Good error messages when mix/matching incompatible elements (e.g., `size.plus(edge)`)
 * fractional height and width
-* string together ElementPositions
 * Scrolling (and accounting for scrolling in ElementEdge)
 
 ```javascript
@@ -30,10 +36,10 @@ element.assert({
 
 ## To Do
 
-* Should Dimension be a value object?
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
 
+* Should Dimension be a value object?
 * Value object superclass? (Or "DiffableValue?")
   * value()
   * equals() (defer to diff())
