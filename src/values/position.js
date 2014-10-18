@@ -8,10 +8,10 @@ var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function Position(dimension, value) {
-	ensure.signature(arguments, [ String, Number ]);
+	ensure.signature(arguments, [ String, [Number, Pixels] ]);
 
 	this._dimension = dimension;
-	this._position = value;
+	this._value = (typeof value === "number") ? new Pixels(value) : value;
 };
 
 Me.x = function x(value) {
@@ -26,7 +26,7 @@ Me.prototype.plus = function plus(amount) {
 	ensure.signature(arguments, [ Me ]);
 
 	ensureComparable(this, amount);
-	return new Me(this._dimension, this._position + amount._position);
+	return new Me(this._dimension, this._value.plus(amount._value));
 };
 
 Me.prototype.value = function value() {
@@ -39,16 +39,16 @@ Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Me ]);
 	ensureComparable(this, expected);
 
-	var actualValue = this._position;
-	var expectedValue = expected._position;
+	var actualValue = this._value;
+	var expectedValue = expected._value;
+	if (actualValue.equals(expectedValue)) return "";
 
 	var direction;
-	if (this._dimension === X_DIMENSION) direction = expectedValue > actualValue ? "to the left" : "to the right";
-	else direction = expectedValue > actualValue ? "lower" : "higher";
+	var comparison = actualValue.compare(expectedValue);
+	if (this._dimension === X_DIMENSION) direction = comparison < 0 ? "to the left" : "to the right";
+	else direction = comparison < 0 ? "lower" : "higher";
 
-	var value = Math.abs(expectedValue - actualValue);
-	if (value === 0) return "";
-	else return value + "px " + direction;
+	return actualValue.diff(expectedValue) + " " + direction;
 };
 
 Me.prototype.equals = function equals(that) {
@@ -66,7 +66,7 @@ Me.prototype.describeMatch = function describeMatch() {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return this._position + "px";
+	return this._value.toString();
 };
 
 function ensureComparable(self, other) {

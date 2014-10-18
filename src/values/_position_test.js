@@ -3,6 +3,7 @@
 
 var assert = require("../util/assert.js");
 var Position = require("./position.js");
+var Pixels = require("./pixels.js");
 
 describe("Position", function() {
 
@@ -12,6 +13,10 @@ describe("Position", function() {
 
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
+
+	it("can be constructed from pixels", function() {
+		assert.objEqual(Position.x(new Pixels(10)), x1);
+	});
 
 	it("responds to value()", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
