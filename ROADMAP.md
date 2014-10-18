@@ -13,12 +13,16 @@
 
 ## Current Feature: Advanced Positioning
 
-* ElementSize.plus(), ElementSize.minus()
-* ElementEdge.plus(ElementSize), ElementEdge.minus(ElementSize)
-* RelativeEdge.plus(ElementSize), RelativeEdge.minus(ElementSize)
-* ElementCenter.plus(ElementSize), ElementCenter.minus(ElementSize)
+* NEXT: ElementEdge.plus/minus(ElementSize)
+* RelativeEdge.plus/minus(ElementSize)
+* ElementCenter.plus/minus(ElementSize)
+* ElementCenter.plus/minus(RelativeSize)
+* ElementSize.plus/minus(ElementSize)
+* RelativeSize.plus/minus(ElementSize)
+* RelativeEdge.plus/minus(RelativeEdge)
+* RelativeSize.plus/minus(RelativeSize)
+* Good error messages when mix/matching incompatible elements (e.g., `size.plus(edge)`)
 * fractional height and width
-* string together ElementPositions
 * Scrolling (and accounting for scrolling in ElementEdge)
 
 ```javascript

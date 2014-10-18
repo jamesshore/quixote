@@ -48,4 +48,9 @@ describe("ElementSize", function() {
 		assert.equal(height.toString(), "height of " + element);
 	});
 
+	it("can be bigger and smaller", function() {
+		assert.objEqual(width.plus(10).value(), new Size(WIDTH + 10), "bigger");
+		assert.objEqual(width.minus(10).value(), new Size(WIDTH - 10), "smaller");
+	});
+
 });
