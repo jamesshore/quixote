@@ -5,7 +5,6 @@ var ensure = require("../util/ensure.js");
 
 var Me = module.exports = function Size(value) {
 	ensure.signature(arguments, [ Number ]);
-	ensure.that(value >= 0, "Doesn't make sense to have negative size, but got " + value);
 
 	this._value = value;
 };
