@@ -13,8 +13,10 @@
 
 ## Current Feature: Advanced Positioning
 
-* .plus(ElementSize), .minus(ElementSize)
-* ElementSize.plus(), ElementCenter.minus()
+* ElementSize.plus(), ElementSize.minus()
+* ElementEdge.plus(ElementSize), ElementEdge.minus(ElementSize)
+* RelativeEdge.plus(ElementSize), RelativeEdge.minus(ElementSize)
+* ElementCenter.plus(ElementSize), ElementCenter.minus(ElementSize)
 * fractional height and width
 * string together ElementPositions
 * Scrolling (and accounting for scrolling in ElementEdge)
@@ -30,10 +32,10 @@ element.assert({
 
 ## To Do
 
-* Should Dimension be a value object?
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
 
+* Should Dimension be a value object?
 * Value object superclass? (Or "DiffableValue?")
   * value()
   * equals() (defer to diff())

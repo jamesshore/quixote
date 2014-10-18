@@ -16,10 +16,12 @@ Me.prototype.value = function() {
 };
 
 Me.prototype.plus = function(other) {
+	ensure.signature(arguments, [ Me ]);
 	return new Me(this._value + other._value);
 };
 
 Me.prototype.compareTo = function(that) {
+	ensure.signature(arguments, [ Me ]);
 	return this._value - that._value;
 };
 
