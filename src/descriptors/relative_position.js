@@ -2,15 +2,16 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
-var Me = module.exports = function ElementPosition(dimension, edge, relativeAmount) {
-	ensure.signature(arguments, [ String, require("./element_edge.js"), Number ]);
+var Me = module.exports = function RelativePosition(dimension, edge, relativeAmount) {
+	var ElementEdge = require("./element_edge.js");
+	var ElementCenter = require("./element_center.js");
+	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], Number ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
@@ -30,7 +31,8 @@ Me.y = function y(edge, relativeAmount) {
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	return this._edge.value().plus(this._amount);
+	var amount = (this._dimension === X_DIMENSION) ? Position.x(this._amount) : Position.y(this._amount);
+	return this._edge.value().plus(amount);
 };
 
 Me.prototype.convert = function convert(arg) {

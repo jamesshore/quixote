@@ -13,6 +13,9 @@ describe("ElementCenter", function() {
 	var center;
 	var middle;
 
+	var CENTER = 85;
+	var MIDDLE = 40;
+
 	beforeEach(function() {
 		var frame = reset.frame;
 
@@ -29,8 +32,8 @@ describe("ElementCenter", function() {
 	});
 
 	it("resolves to value", function() {
-		assert.objEqual(center.value(), Position.x(85), "center");
-		assert.objEqual(middle.value(), Position.y(40), "middle");
+		assert.objEqual(center.value(), Position.x(CENTER), "center");
+		assert.objEqual(middle.value(), Position.y(MIDDLE), "middle");
 	});
 
 	it("converts comparison arguments", function() {
@@ -43,6 +46,14 @@ describe("ElementCenter", function() {
 	it("converts to string", function() {
 		assert.equal(center.toString(), "center of " + element, "center");
 		assert.equal(middle.toString(), "middle of " + element, "middle");
+	});
+
+	it("can be shifted up, down, left, and right", function() {
+		assert.objEqual(center.plus(15).value(), Position.x(CENTER + 15), "right");
+		assert.objEqual(center.minus(25).value(), Position.x(CENTER - 25), "left");
+
+		assert.objEqual(middle.plus(10).value(), Position.y(MIDDLE + 10), "down");
+		assert.objEqual(middle.minus(10).value(), Position.y(MIDDLE - 10), "up");
 	});
 
 });

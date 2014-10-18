@@ -13,7 +13,7 @@
 
 ## Current Feature: Advanced Positioning
 
-* ElementCenter.plus(), ElementCenter.minus()
+* .plus(ElementSize), .minus(ElementSize)
 * ElementSize.plus(), ElementCenter.minus()
 * fractional height and width
 * string together ElementPositions
@@ -31,8 +31,6 @@ element.assert({
 ## To Do
 
 * Should Dimension be a value object?
-
-* ElementPosition --> RelativePosition?
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
 
