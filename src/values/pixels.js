@@ -9,6 +9,12 @@ var Me = module.exports = function Pixels(amount) {
 	this._amount = amount;
 };
 
+Me.prototype.plus = function plus(operand) {
+	ensure.signature(arguments, [ Me ]);
+
+	return new Me(this._amount + operand._amount);
+};
+
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [ Me ]);
 

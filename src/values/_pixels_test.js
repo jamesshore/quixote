@@ -10,6 +10,10 @@ describe("Pixels", function() {
 	var a2 = new Pixels(10);
 	var b = new Pixels(20);
 
+	it("adds", function() {
+		assert.objEqual(a1.plus(b), new Pixels(30));
+	});
+
 	it("equals()", function() {
 		assert.objEqual(a1, a2, "same");
 		assert.objNotEqual(a1, b, "different");

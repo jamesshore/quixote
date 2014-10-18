@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
+var Pixels = require("./pixels.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";

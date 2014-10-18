@@ -46,6 +46,9 @@ element.assert({
   * value()
   * equals() (defer to diff())
 
+* Handful of end-to-end tests that confirm human-readable results of diff()
+* get rid of describeMatch() in value objects? get rid of joiner() in descriptors? 
+
 
 ## Future Features
 
