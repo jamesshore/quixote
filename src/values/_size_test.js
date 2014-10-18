@@ -14,6 +14,10 @@ describe("Size", function() {
 		assert.equal(a1.value(), a1);    // note identity comparison, not objEqual()
 	});
 
+	it("adds", function() {
+		assert.objEqual(a1.plus(b), new Size(59));
+	});
+
 	it("determines difference", function() {
 		assert.equal(a1.diff(b), "45px larger");
 		assert.equal(b.diff(a1), "45px smaller");

@@ -16,6 +16,10 @@ Me.prototype.value = function() {
 	return this;
 };
 
+Me.prototype.plus = function(other) {
+	return new Me(this._value + other._value);
+};
+
 Me.prototype.diff = function(expected) {
 	ensure.signature(arguments, [ Me ]);
 
