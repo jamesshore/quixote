@@ -13,8 +13,9 @@
 
 ## Current Feature: Advanced Positioning
 
-* fractional height and width
 * ElementCenter.plus(), ElementCenter.minus()
+* ElementSize.plus(), ElementCenter.minus()
+* fractional height and width
 * string together ElementPositions
 * Scrolling (and accounting for scrolling in ElementEdge)
 
