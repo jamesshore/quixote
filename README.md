@@ -6,6 +6,8 @@ Quixote is a library for unit testing CSS. You use it with a unit testing framew
 
 **The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge.
 
+**Browser Support:** IE 8+, Firefox, Chrome, Safari, and Mobile Safari. Other modern browsers probably work too. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
+
 
 ## Installation and Usage
 
