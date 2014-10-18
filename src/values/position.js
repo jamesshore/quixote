@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var Pixels = require("./pixels.js");
+var Size = require("./size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
@@ -22,11 +23,11 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
-Me.prototype.plus = function plus(amount) {
-	ensure.signature(arguments, [ Me ]);
+Me.prototype.plus = function plus(operand) {
+	ensure.signature(arguments, [ [Me, Size] ]);
 
-	ensureComparable(this, amount);
-	return new Me(this._dimension, this._value.plus(amount._value));
+	if (operand instanceof Me) ensureComparable(this, operand);
+	return new Me(this._dimension, this._value.plus(operand.toPixels()));
 };
 
 Me.prototype.value = function value() {

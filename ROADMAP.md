@@ -36,6 +36,8 @@ element.assert({
 
 ## To Do
 
+* POP STASH and look for RelativePosition "relative to a size" test. 
+
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
 

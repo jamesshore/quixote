@@ -4,6 +4,7 @@
 var assert = require("../util/assert.js");
 var Position = require("./position.js");
 var Pixels = require("./pixels.js");
+var Size = require("./size.js");
 
 describe("Position", function() {
 
@@ -22,9 +23,13 @@ describe("Position", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
 
-	it("adds", function() {
+	it("adds itself", function() {
 		assert.objEqual(x1.plus(x2), Position.x(30), "x");
 		assert.objEqual(y1.plus(y2), Position.y(130), "y");
+	});
+
+	it("adds size", function() {
+		assert.objEqual(x1.plus(new Size(42)), Position.x(52), "x");
 	});
 
 	it("fails fast when adding incompatible dimensions", function() {
