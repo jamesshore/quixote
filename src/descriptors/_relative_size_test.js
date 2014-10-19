@@ -10,8 +10,8 @@ var Descriptor = require("./descriptor.js");
 describe("RelativeSize", function() {
 
 	var element;
-	var x;
-	var y;
+	var smaller;
+	var bigger;
 
 	beforeEach(function() {
 		var frame = reset.frame;
@@ -19,33 +19,40 @@ describe("RelativeSize", function() {
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
 		element = frame.getElement("#element");
-		x = new RelativeSize(element.width, -5);
-		y = new RelativeSize(element.height, 10);
+		bigger = RelativeSize.larger(element.height, 10);
+		smaller = RelativeSize.smaller(element.width, 5);
 	});
 
 	it("is a descriptor", function() {
-		assert.implements(x, Descriptor);
+		assert.implements(smaller, Descriptor);
 	});
 
 	it("resolves to value", function() {
-		assert.objEqual(x.value(), new Size(125), "x");
-		assert.objEqual(y.value(), new Size(70), "y");
+		assert.objEqual(bigger.value(), new Size(70), "y");
+		assert.objEqual(smaller.value(), new Size(125), "x");
 	});
 
 	it("converts arguments to comparable values", function() {
-		assert.objEqual(x.convert(50), new Size(50), "number");
-		assert.equal(x.convert(x), x, "descriptor");
+		assert.objEqual(smaller.convert(50), new Size(50), "number");
+		assert.equal(smaller.convert(smaller), smaller, "descriptor");
 	});
 
 	it("converts to string", function() {
-		assertString(element.width, 10, "10px larger than ", "larger");
-		assertString(element.width, -15, "15px smaller than ", "smaller");
-		assertString(element.width, 0, "", "same");
+		assertLarger(element.width, 10, "10px larger than ", "larger +");
+		assertLarger(element.width, -15, "15px smaller than ", "larger -");
+		assertLarger(element.width, 0, "", "larger 0");
 
-		function assertString(relativeTo, amount, expected, message) {
-			assert.equal(new RelativeSize(relativeTo, amount).toString(), expected + relativeTo.toString(), message);
+		assertSmaller(element.width, 10, "10px smaller than ", "smaller +");
+		assertSmaller(element.width, -10, "10px larger than ", "smaller -");
+		assertSmaller(element.width, 0, "", "smaller 0");
+
+		function assertLarger(relativeTo, amount, expected, message) {
+			assert.equal(RelativeSize.larger(relativeTo, amount).toString(), expected + relativeTo, message);
 		}
 
+		function assertSmaller(relativeTo, amount, expected, message) {
+			assert.equal(RelativeSize.smaller(relativeTo, amount).toString(), expected + relativeTo, message);
+		}
 	});
 
 

@@ -13,7 +13,6 @@ describe("ElementSize", function() {
 	var WIDTH = 130;
 	var HEIGHT = 60;
 
-	var frame;
 	var element;
 	var width;
 	var height;
@@ -21,9 +20,9 @@ describe("ElementSize", function() {
 	beforeEach(function() {
 		var frame = reset.frame;
 		frame.addElement(
-			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
+			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
-		element = frame.getElement("#one");
+		element = frame.getElement("#element");
 		width = ElementSize.x(element);
 		height = ElementSize.y(element);
 	});
@@ -51,6 +50,12 @@ describe("ElementSize", function() {
 	it("can be bigger and smaller", function() {
 		assert.objEqual(width.plus(10).value(), new Size(WIDTH + 10), "bigger");
 		assert.objEqual(width.minus(10).value(), new Size(WIDTH - 10), "smaller");
+	});
+
+	it("can be modified by the size of another element", function() {
+//		assert.fail("continue here");
+//		assert.objEqual(width.plus(element.width).value(), new Size(WIDTH + WIDTH), "plus");
+//		assert.objEqual(width.minus(element.height).value(), Position.y(TOP + WIDTH - HEIGHT), "minus");
 	});
 
 });

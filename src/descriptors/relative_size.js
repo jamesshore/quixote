@@ -7,12 +7,20 @@ var Descriptor = require("./descriptor.js");
 
 var Me = module.exports = function RelativeSize(relativeTo, amount) {
 	var ElementSize = require("./element_size.js");
-	ensure.signature(arguments, [  ElementSize, Number ]);
+	ensure.signature(arguments, [ ElementSize, Number ]);
 
 	this._relativeTo = relativeTo;
 	this._amount = amount;
 };
 Descriptor.extend(Me);
+
+Me.larger = function larger(relativeTo, amount) {
+	return new Me(relativeTo, amount);
+};
+
+Me.smaller = function smaller(relativeTo, amount) {
+	return new Me(relativeTo, amount * -1);
+};
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
