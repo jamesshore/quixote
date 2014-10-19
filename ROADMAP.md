@@ -7,13 +7,12 @@
 * **✔ v0.3** Positioning relative to other elements
 * Advanced positioning (middle, center, height, width, fractions)
 * Positioning relative to page
-* Initial "cooked" styling (colors?)
+* Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
 
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: ElementEdge.plus/minus(ElementSize)
 * RelativeEdge.plus/minus(ElementSize)
 * ElementCenter.plus/minus(ElementSize)
 * ElementCenter.plus/minus(RelativeSize)
@@ -22,8 +21,10 @@
 * RelativeEdge.plus/minus(RelativeEdge)
 * RelativeSize.plus/minus(RelativeSize)
 * Good error messages when mix/matching incompatible elements (e.g., `size.plus(edge)`)
+* Good error message when accidentally using `undefined` (e.g., `element.top.width`)
 * fractional height and width
 * Scrolling (and accounting for scrolling in ElementEdge)
+* Split out API and contribution documentation (don't want wall of text in readme)
 
 ```javascript
 element.assert({
@@ -35,8 +36,6 @@ element.assert({
 ```
 
 ## To Do
-
-* POP STASH and look for ElementEdge.plus(ElementSize) test
 
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
