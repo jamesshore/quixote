@@ -13,8 +13,7 @@
 
 ## Current Feature: Advanced Positioning
 
-* WORKING ON: RelativePosition.plus/minus(ElementSize)
-* ElementCenter.plus/minus(ElementSize)
+* NEXT: ElementCenter.plus/minus(ElementSize)
 * ElementCenter.plus/minus(RelativeSize)
 * ElementSize.plus/minus(ElementSize)
 * RelativeSize.plus/minus(ElementSize)
@@ -40,10 +39,6 @@ element.assert({
 ```
 
 ## To Do
-
-* CURRENT: RelativePosition test "can be shifted by size of another element" (last one)
-* THEN: test same thing again, but toString(), not value()
-* THEN: RelativePosition.plus/minus(number)
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
