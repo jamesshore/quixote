@@ -13,7 +13,7 @@
 
 ## Current Feature: Advanced Positioning
 
-* RelativePosition.plus/minus(ElementSize)
+* WORKING ON: RelativePosition.plus/minus(ElementSize)
 * ElementCenter.plus/minus(ElementSize)
 * ElementCenter.plus/minus(RelativeSize)
 * ElementSize.plus/minus(ElementSize)
@@ -23,6 +23,7 @@
 * Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
 * Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
 * Good error message when accidentally using `undefined` (e.g., `element.top.width`)
+* All descriptors should take any descriptor as a constructor/factory method parameter
 * fractional height and width
 * Scrolling (and accounting for scrolling in ElementEdge)
 * distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
@@ -39,6 +40,9 @@ element.assert({
 ```
 
 ## To Do
+
+* CURRENT: RelativePosition test "can be shifted by size of another element" (last one)
+* NEXT: test same thing again, but toString(), not value()
 
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?

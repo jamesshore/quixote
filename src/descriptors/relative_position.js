@@ -16,7 +16,7 @@ var MINUS = -1;
 var Me = module.exports = function RelativePosition(dimension, direction, relativeTo, relativeAmount) {
 	var ElementEdge = require("./element_edge.js");       // require() is here due to circular dependency
 	var ElementCenter = require("./element_center.js");
-	ensure.signature(arguments, [ String, Number, [ElementEdge, ElementCenter], [Number, Descriptor] ]);
+	ensure.signature(arguments, [ String, Number, Descriptor, [Number, Descriptor] ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
@@ -39,10 +39,20 @@ Me.left = createFn(X_DIMENSION, MINUS);
 Me.up = createFn(Y_DIMENSION, MINUS);
 
 function createFn(dimension, direction) {
-	return function create(edge, relativeAmount) {
-		return new Me(dimension, direction, edge, relativeAmount);
+	return function create(relativeTo, relativeAmount) {
+		return new Me(dimension, direction, relativeTo, relativeAmount);
 	};
 }
+
+Me.prototype.plus = function plus(amount) {
+	if (this._dimension === X_DIMENSION) return Me.right(this, amount);
+	else return Me.down(this, amount);
+};
+
+Me.prototype.minus = function minus(amount) {
+	if (this._dimension === Y_DIMENSION) return Me.left(this, amount);
+	else return Me.up(this, amount);
+};
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);

@@ -107,4 +107,13 @@ describe("RelativePosition", function() {
 		}
 	});
 
+	it("can be shifted by the size of another element", function() {
+		assert.objEqual(right.plus(element.width).value(), Position.x(LEFT + RIGHT_ADJ + WIDTH), "right +");
+		assert.objEqual(right.minus(element.width).value(), Position.x(LEFT + RIGHT_ADJ - WIDTH), "right -");
+
+		assert.objEqual(down.plus(element.height).value(), Position.y(TOP + DOWN_ADJ + HEIGHT), "down +");
+		assert.objEqual(down.minus(element.height).value(), Position.y(TOP + DOWN_ADJ - HEIGHT), "down -");
+	});
+
+
 });
