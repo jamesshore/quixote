@@ -13,7 +13,6 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: ElementEdge.minus(ElementSize)
 * RelativePosition.plus/minus(ElementSize)
 * ElementCenter.plus/minus(ElementSize)
 * ElementCenter.plus/minus(RelativeSize)
@@ -26,6 +25,8 @@
 * Good error message when accidentally using `undefined` (e.g., `element.top.width`)
 * fractional height and width
 * Scrolling (and accounting for scrolling in ElementEdge)
+* distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
+  - Or save this for another release?
 * Split out API and contribution documentation (don't want wall of text in readme)
 
 ```javascript
@@ -38,8 +39,6 @@ element.assert({
 ```
 
 ## To Do
-
-* CURRENT: ElementEdge.minus (last test in _element_edge_test.js)
 
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?

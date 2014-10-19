@@ -12,7 +12,7 @@ var Me = module.exports = function Position(dimension, value) {
 	ensure.signature(arguments, [ String, [Number, Pixels] ]);
 
 	this._dimension = dimension;
-	this._value = (typeof value === "number") ? new Pixels(value) : value;
+	this._edge = (typeof value === "number") ? new Pixels(value) : value;
 };
 
 Me.x = function x(value) {
@@ -27,14 +27,14 @@ Me.prototype.plus = function plus(operand) {
 	ensure.signature(arguments, [ [Me, Size] ]);
 
 	if (operand instanceof Me) ensureComparable(this, operand);
-	return new Me(this._dimension, this._value.plus(operand.toPixels()));
+	return new Me(this._dimension, this._edge.plus(operand.toPixels()));
 };
 
 Me.prototype.minus = function minus(operand) {
 	ensure.signature(arguments, [ [Me, Size] ]);
 
 	if (operand instanceof Me) ensureComparable(this, operand);
-	return new Me(this._dimension, this._value.minus(operand.toPixels()));
+	return new Me(this._dimension, this._edge.minus(operand.toPixels()));
 };
 
 Me.prototype.value = function value() {
@@ -47,8 +47,8 @@ Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ Me ]);
 	ensureComparable(this, expected);
 
-	var actualValue = this._value;
-	var expectedValue = expected._value;
+	var actualValue = this._edge;
+	var expectedValue = expected._edge;
 	if (actualValue.equals(expectedValue)) return "";
 
 	var direction;
@@ -74,13 +74,13 @@ Me.prototype.describeMatch = function describeMatch() {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return this._value.toString();
+	return this._edge.toString();
 };
 
 Me.prototype.toPixels = function toPixels() {
 	ensure.signature(arguments, []);
 
-	return this._value;
+	return this._edge;
 };
 
 function ensureComparable(self, other) {
