@@ -23,13 +23,16 @@ var Me = module.exports = function RelativePosition(dimension, relativeTo, relat
 };
 Descriptor.extend(Me);
 
-Me.right = function x(edge, relativeAmount) {
-	return new Me(X_DIMENSION, edge, relativeAmount);
-};
+Me.right = createFn(X_DIMENSION);
+Me.down = createFn(Y_DIMENSION);
+Me.left = createFn(X_DIMENSION);
+Me.up = createFn(Y_DIMENSION);
 
-Me.down = function y(edge, relativeAmount) {
-	return new Me(Y_DIMENSION, edge, relativeAmount);
-};
+function createFn(dimension) {
+	return function create(edge, relativeAmount) {
+		return new Me(dimension, edge, relativeAmount);
+	};
+}
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);

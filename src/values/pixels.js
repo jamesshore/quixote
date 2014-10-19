@@ -15,6 +15,12 @@ Me.prototype.plus = function plus(operand) {
 	return new Me(this._amount + operand._amount);
 };
 
+Me.prototype.minus = function minus(operand) {
+	ensure.signature(arguments, [ Me ]);
+
+	return new Me(this._amount - operand._amount);
+};
+
 Me.prototype.compare = function compare(operand) {
 	ensure.signature(arguments, [ Me ]);
 

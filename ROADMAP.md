@@ -39,7 +39,9 @@ element.assert({
 
 ## To Do
 
+* CURRENT: All value objects need minus() method
 * CURRENT: RelativePosition needs .up, .right, .down, and .left factory methods (not .x and .y)
+  * Finish all RelativePosition tests
 * CURRENT: ElementEdge.minus (last test in _element_edge_test.js)
 
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
