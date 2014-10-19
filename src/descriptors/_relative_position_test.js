@@ -17,7 +17,7 @@ describe("RelativePosition", function() {
 	var left;
 	var up;
 
-	var TOP = 10;
+	var TOP = 300;
 	var RIGHT = 150;
 	var BOTTOM = 70;
 	var LEFT = 20;
@@ -33,7 +33,7 @@ describe("RelativePosition", function() {
 	beforeEach(function() {
 		var frame = reset.frame;
 		frame.addElement(
-			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
+			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 300px; height: 60px'>element</p>"
 		);
 		element = frame.getElement("#element");
 		right = RelativePosition.right(element.left, RIGHT_ADJ);
@@ -66,26 +66,44 @@ describe("RelativePosition", function() {
 	it("converts arguments to comparable values", function() {
 		assert.objEqual(right.convert(13), Position.x(13), "right");
 		assert.objEqual(down.convert(13), Position.y(13), "down");
+		assert.objEqual(left.convert(13), Position.x(13), "left");
+		assert.objEqual(up.convert(13), Position.y(13), "up");
 
 		var descriptor = RelativePosition.right(element.top, 13);
 		assert.equal(right.convert(descriptor), descriptor, "descriptor");
 	});
 
 	it("converts to string", function() {
-		assertX(element.left, 10, "10px right of ", "right");
-		assertX(element.left, -15, "15px left of ", "left");
-		assertX(element.left, 0, "", "same right");
+		assertRight(element.left, 10, "10px to right of ", "right +");
+		assertRight(element.left, -15, "15px to left of ", "right -");
+		assertRight(element.left, 0, "", "right 0");
 
-		assertY(element.top, 20, "20px below ", "below");
-		assertY(element.top, -20, "20px above ", "above");
-		assertY(element.top, 0, "", "same down");
+		assertDown(element.top, 20, "20px below ", "down +");
+		assertDown(element.top, -20, "20px above ", "down -");
+		assertDown(element.top, 0, "", "down 0");
 
-		function assertX(edge, amount, expected, message) {
+		assertLeft(element.left, 10, "10px to left of ", "left +");
+		assertLeft(element.left, -10, "10px to right of ", "left -");
+		assertLeft(element.left, 0, "", "left 0");
+
+		assertUp(element.top, 20, "20px above ", "up +");
+		assertUp(element.top, -20, "20px below ", "up -");
+		assertUp(element.top, 0, "", "up 0");
+
+		function assertRight(edge, amount, expected, message) {
 			assert.equal(RelativePosition.right(edge, amount).toString(), expected + edge.toString(), message);
 		}
 
-		function assertY(edge, amount, expected, message) {
+		function assertDown(edge, amount, expected, message) {
 			assert.equal(RelativePosition.down(edge, amount).toString(), expected + edge.toString(), message);
+		}
+
+		function assertLeft(edge, amount, expected, message) {
+			assert.equal(RelativePosition.left(edge, amount).toString(), expected + edge.toString(), message);
+		}
+
+		function assertUp(edge, amount, expected, message) {
+			assert.equal(RelativePosition.up(edge, amount).toString(), expected + edge.toString(), message);
 		}
 	});
 

@@ -10,19 +10,26 @@ var ElementSize = require("./element_size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
-var PLUS = "plus";
-var MINUS = "minus";
+var PLUS = 1;
+var MINUS = -1;
 
 var Me = module.exports = function RelativePosition(dimension, direction, relativeTo, relativeAmount) {
-	var ElementEdge = require("./element_edge.js");       // require() here to break circular dependency
+	var ElementEdge = require("./element_edge.js");       // require() is here due to circular dependency
 	var ElementCenter = require("./element_center.js");
-	ensure.signature(arguments, [ String, String, [ElementEdge, ElementCenter], [Number, Descriptor] ]);
+	ensure.signature(arguments, [ String, Number, [ElementEdge, ElementCenter], [Number, Descriptor] ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
 	this._direction = direction;
 	this._relativeTo = relativeTo;
-	this._amount = (typeof relativeAmount === "number") ? new Size(relativeAmount) : relativeAmount;
+
+	if (typeof relativeAmount === "number") {
+		if (relativeAmount < 0) this._direction *= -1;
+		this._amount = new Size(Math.abs(relativeAmount));
+	}
+	else {
+		this._amount = relativeAmount;
+	}
 };
 Descriptor.extend(Me);
 
@@ -59,17 +66,14 @@ Me.prototype.joiner = function joiner() { return "to be"; };
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	var pixels = this._amount.toPixels();
-	var zero = new Pixels(0);
-	var comparison = pixels.compare(zero);
+	var base = this._relativeTo.toString();
+	if (this._amount.equals(new Size(0))) return base;
 
-	var description = "";
-	if (comparison !== 0) {
-		description = pixels.diff(zero);
-		if (this._dimension === X_DIMENSION) description += (comparison < 0) ? " left of " : " right of ";
-		else description += (comparison < 0) ? " above " : " below ";
-	}
-	return description + this._relativeTo.toString();
+	var relation = this._amount;
+	if (this._dimension === X_DIMENSION) relation += (this._direction === PLUS) ? " to right of " : " to left of ";
+	else relation += (this._direction === PLUS) ? " below " : " above ";
+
+	return relation + base;
 };
 
 function createPosition(self, value) {
