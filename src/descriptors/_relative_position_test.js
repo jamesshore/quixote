@@ -107,4 +107,36 @@ describe("RelativePosition", function() {
 		}
 	});
 
+	it("can be shifted (by the size of another element, in this case)", function() {
+		assert.objEqual(right.plus(element.width).value(), Position.x(LEFT + RIGHT_ADJ + WIDTH), "right +");
+		assert.objEqual(right.minus(element.width).value(), Position.x(LEFT + RIGHT_ADJ - WIDTH), "right -");
+
+		assert.objEqual(down.plus(element.height).value(), Position.y(TOP + DOWN_ADJ + HEIGHT), "down +");
+		assert.objEqual(down.minus(element.height).value(), Position.y(TOP + DOWN_ADJ - HEIGHT), "down -");
+
+		assert.equal(
+			right.plus(element.width).toString(),
+			element.width + " to right of 5px to right of " + element.left,
+			"string"
+		);
+	});
+
+	it("can be shifted by a relative size", function() {
+		var rel = right.plus(element.width.plus(10));
+		assert.objEqual(rel.value(), Position.x(LEFT + RIGHT_ADJ + WIDTH + 10), "value");
+		assert.equal(rel.toString(), element.width.plus(10) + " to right of " + right);
+	});
+
+	it("can be shifted, starting with a number, by a number", function() {
+		var rel = RelativePosition.right(element.left, 10).plus(15);
+		assert.objEqual(rel.value(), Position.x(LEFT + 10 + 15), "value");
+		assert.equal(rel.toString(), "15px to right of 10px to right of " + element.left, "string");
+	});
+
+	it("can be shifted, starting with a size, by a number", function() {
+		var rel = RelativePosition.right(element.left, element.width).plus(15);
+		assert.objEqual(rel.value(), Position.x(LEFT + WIDTH + 15), "value");
+		assert.equal(rel.toString(), "15px to right of " + element.width + " to right of " + element.left, "string");
+	});
+
 });

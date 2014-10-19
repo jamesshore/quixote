@@ -77,7 +77,7 @@ describe("ElementEdge", function() {
 		assert.objEqual(left.minus(25).value(), Position.x(LEFT - 25), "left");
 	});
 
-	it("can shift an element by the size of another element", function() {
+	it("can be shifted by the size of another element", function() {
 		assert.objEqual(top.plus(element.width).value(), Position.y(TOP + WIDTH), "plus");
 		assert.objEqual(bottom.minus(element.height).value(), Position.y(BOTTOM - HEIGHT), "minus");
 	});

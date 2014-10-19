@@ -49,6 +49,12 @@ Me.prototype.checkAbstractMethods = function checkAbstractMethods() {
 	return unimplemented;
 };
 
+Me.prototype.equals = function(equals) {
+	// Descriptors aren't value objects. They're never equal to anything. But sometimes
+	// they're used in the same places value objects are used, and this method gets called.
+	return false;
+};
+
 function createAbstractMethods(names) {
 	shim.Array.forEach(names, function(name) {
 		Me.prototype[name] = function() {
