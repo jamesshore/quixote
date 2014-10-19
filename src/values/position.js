@@ -30,6 +30,13 @@ Me.prototype.plus = function plus(operand) {
 	return new Me(this._dimension, this._value.plus(operand.toPixels()));
 };
 
+Me.prototype.minus = function minus(operand) {
+	ensure.signature(arguments, [ [Me, Size] ]);
+
+	if (operand instanceof Me) ensureComparable(this, operand);
+	return new Me(this._dimension, this._value.minus(operand.toPixels()));
+};
+
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
