@@ -14,13 +14,16 @@ describe("ElementCenter", function() {
 	var middle;
 
 	var CENTER = 85;
-	var MIDDLE = 40;
+	var MIDDLE = 90;
+
+	var WIDTH = 130;
+	var HEIGHT = 60;
 
 	beforeEach(function() {
 		var frame = reset.frame;
 
 		frame.addElement(
-			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
+			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 60px; height: 60px'>one</p>"
 		);
 		element = frame.getElement("#one");
 		center = ElementCenter.x(element);
@@ -54,6 +57,14 @@ describe("ElementCenter", function() {
 
 		assert.objEqual(middle.plus(10).value(), Position.y(MIDDLE + 10), "down");
 		assert.objEqual(middle.minus(10).value(), Position.y(MIDDLE - 10), "up");
+	});
+
+	it("can be shifted by the size of another element", function() {
+		assert.objEqual(center.plus(element.width).value(), Position.x(CENTER + WIDTH), "right");
+		assert.objEqual(center.minus(element.height).value(), Position.x(CENTER - HEIGHT), "left");
+
+		assert.objEqual(middle.plus(element.width).value(), Position.y(MIDDLE + WIDTH), "down");
+		assert.objEqual(middle.minus(element.width).value(), Position.y(MIDDLE - WIDTH), "up");
 	});
 
 });
