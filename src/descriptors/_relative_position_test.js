@@ -33,7 +33,7 @@ describe("RelativePosition", function() {
 		);
 		element = frame.getElement("#element");
 		x = RelativePosition.right(element.left, X_ADJ);
-		y = RelativePosition.y(element.top, Y_ADJ);
+		y = RelativePosition.down(element.top, Y_ADJ);
 	});
 
 	it("is a descriptor", function() {
@@ -77,7 +77,7 @@ describe("RelativePosition", function() {
 		}
 
 		function assertY(edge, amount, expected, message) {
-			assert.equal(RelativePosition.y(edge, amount).toString(), expected + edge.toString(), message);
+			assert.equal(RelativePosition.down(edge, amount).toString(), expected + edge.toString(), message);
 		}
 	});
 

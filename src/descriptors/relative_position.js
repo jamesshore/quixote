@@ -27,7 +27,7 @@ Me.right = function x(edge, relativeAmount) {
 	return new Me(X_DIMENSION, edge, relativeAmount);
 };
 
-Me.y = function y(edge, relativeAmount) {
+Me.down = function y(edge, relativeAmount) {
 	return new Me(Y_DIMENSION, edge, relativeAmount);
 };
 
