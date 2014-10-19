@@ -115,5 +115,9 @@ describe("RelativePosition", function() {
 		assert.objEqual(down.minus(element.height).value(), Position.y(TOP + DOWN_ADJ - HEIGHT), "down -");
 	});
 
+	it("converts 'relative position of a relative size of a size' to a string", function() {
+		assert.equal(right.plus(element.width).toString(), element.width + " to right of " + right);
+	});
+
 
 });

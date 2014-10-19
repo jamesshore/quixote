@@ -79,7 +79,7 @@ Me.prototype.toString = function toString() {
 	var base = this._relativeTo.toString();
 	if (this._amount.equals(new Size(0))) return base;
 
-	var relation = this._amount;
+	var relation = this._amount.toString();
 	if (this._dimension === X_DIMENSION) relation += (this._direction === PLUS) ? " to right of " : " to left of ";
 	else relation += (this._direction === PLUS) ? " below " : " above ";
 

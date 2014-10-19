@@ -42,8 +42,10 @@ element.assert({
 ## To Do
 
 * CURRENT: RelativePosition test "can be shifted by size of another element" (last one)
-* NEXT: test same thing again, but toString(), not value()
+* THEN: test same thing again, but toString(), not value()
+* THEN: RelativePosition.plus/minus(number)
 
+* Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
 
