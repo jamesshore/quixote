@@ -12,10 +12,12 @@ var Size = require("../values/size.js");
 describe("RelativePosition", function() {
 
 	var element;
-	var x;
-	var y;
+	var right;
+	var down;
+	var left;
+	var up;
 
-	var TOP = 10;
+	var TOP = 300;
 	var RIGHT = 150;
 	var BOTTOM = 70;
 	var LEFT = 20;
@@ -23,61 +25,85 @@ describe("RelativePosition", function() {
 	var WIDTH = 130;
 	var HEIGHT = 60;
 
-	var X_ADJ = -5;
-	var Y_ADJ = 10;
+	var RIGHT_ADJ = 5;
+	var DOWN_ADJ = 10;
+	var LEFT_ADJ = 3;
+	var UP_ADJ = 4;
 
 	beforeEach(function() {
 		var frame = reset.frame;
 		frame.addElement(
-			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
+			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 300px; height: 60px'>element</p>"
 		);
 		element = frame.getElement("#element");
-		x = RelativePosition.x(element.left, X_ADJ);
-		y = RelativePosition.y(element.top, Y_ADJ);
+		right = RelativePosition.right(element.left, RIGHT_ADJ);
+		down = RelativePosition.down(element.top, DOWN_ADJ);
+		left = RelativePosition.left(element.left, LEFT_ADJ);
+		up = RelativePosition.up(element.top, UP_ADJ);
 	});
 
 	it("is a descriptor", function() {
-		assert.implements(x, Descriptor);
+		assert.implements(right, Descriptor);
 	});
 
 	it("resolves to value", function() {
-		assert.objEqual(x.value(), Position.x(LEFT + X_ADJ), "x");
-		assert.objEqual(y.value(), Position.y(TOP + Y_ADJ), "y");
+		assert.objEqual(right.value(), Position.x(LEFT + RIGHT_ADJ), "right");
+		assert.objEqual(down.value(), Position.y(TOP + DOWN_ADJ), "down");
+		assert.objEqual(left.value(), Position.x(LEFT - LEFT_ADJ), "left");
+		assert.objEqual(up.value(), Position.y(TOP - UP_ADJ), "up");
 	});
 
 	it("computes value relative to a size descriptor", function() {
-		x = RelativePosition.x(element.left, element.width);
-		assert.objEqual(x.value(), Position.x(LEFT + WIDTH));
+		right = RelativePosition.right(element.left, element.width);
+		assert.objEqual(right.value(), Position.x(LEFT + WIDTH));
 	});
 
 	it("computes value relative to a relative size descriptor", function() {
-		x = RelativePosition.x(element.left, element.width.plus(10));
-		assert.objEqual(x.value(), Position.x(LEFT + WIDTH + 10));
+		right = RelativePosition.right(element.left, element.width.plus(10));
+		assert.objEqual(right.value(), Position.x(LEFT + WIDTH + 10));
 	});
 
 	it("converts arguments to comparable values", function() {
-		assert.objEqual(x.convert(13), Position.x(13), "x");
-		assert.objEqual(y.convert(13), Position.y(13), "y");
+		assert.objEqual(right.convert(13), Position.x(13), "right");
+		assert.objEqual(down.convert(13), Position.y(13), "down");
+		assert.objEqual(left.convert(13), Position.x(13), "left");
+		assert.objEqual(up.convert(13), Position.y(13), "up");
 
-		var descriptor = RelativePosition.x(element.top, 13);
-		assert.equal(x.convert(descriptor), descriptor, "descriptor");
+		var descriptor = RelativePosition.right(element.top, 13);
+		assert.equal(right.convert(descriptor), descriptor, "descriptor");
 	});
 
 	it("converts to string", function() {
-		assertX(element.left, 10, "10px right of ", "right");
-		assertX(element.left, -15, "15px left of ", "left");
-		assertX(element.left, 0, "", "same x");
+		assertRight(element.left, 10, "10px to right of ", "right +");
+		assertRight(element.left, -15, "15px to left of ", "right -");
+		assertRight(element.left, 0, "", "right 0");
 
-		assertY(element.top, 20, "20px below ", "below");
-		assertY(element.top, -20, "20px above ", "above");
-		assertY(element.top, 0, "", "same y");
+		assertDown(element.top, 20, "20px below ", "down +");
+		assertDown(element.top, -20, "20px above ", "down -");
+		assertDown(element.top, 0, "", "down 0");
 
-		function assertX(edge, amount, expected, message) {
-			assert.equal(RelativePosition.x(edge, amount).toString(), expected + edge.toString(), message);
+		assertLeft(element.left, 10, "10px to left of ", "left +");
+		assertLeft(element.left, -10, "10px to right of ", "left -");
+		assertLeft(element.left, 0, "", "left 0");
+
+		assertUp(element.top, 20, "20px above ", "up +");
+		assertUp(element.top, -20, "20px below ", "up -");
+		assertUp(element.top, 0, "", "up 0");
+
+		function assertRight(edge, amount, expected, message) {
+			assert.equal(RelativePosition.right(edge, amount).toString(), expected + edge.toString(), message);
 		}
 
-		function assertY(edge, amount, expected, message) {
-			assert.equal(RelativePosition.y(edge, amount).toString(), expected + edge.toString(), message);
+		function assertDown(edge, amount, expected, message) {
+			assert.equal(RelativePosition.down(edge, amount).toString(), expected + edge.toString(), message);
+		}
+
+		function assertLeft(edge, amount, expected, message) {
+			assert.equal(RelativePosition.left(edge, amount).toString(), expected + edge.toString(), message);
+		}
+
+		function assertUp(edge, amount, expected, message) {
+			assert.equal(RelativePosition.up(edge, amount).toString(), expected + edge.toString(), message);
 		}
 	});
 

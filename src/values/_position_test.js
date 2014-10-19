@@ -23,18 +23,24 @@ describe("Position", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
 
-	it("adds itself", function() {
-		assert.objEqual(x1.plus(x2), Position.x(30), "x");
-		assert.objEqual(y1.plus(y2), Position.y(130), "y");
+	it("arithmetic on itself", function() {
+		assert.objEqual(x1.plus(x2), Position.x(30), "plus x");
+		assert.objEqual(y1.plus(y2), Position.y(130), "plus y");
+		assert.objEqual(x2.minus(x1), Position.x(10), "minus x");
+		assert.objEqual(y2.minus(y1), Position.y(30), "minus y");
 	});
 
-	it("adds size", function() {
-		assert.objEqual(x1.plus(new Size(42)), Position.x(52), "x");
+	it("arithmetic on size", function() {
+		assert.objEqual(x1.plus(new Size(42)), Position.x(52), "plus");
+		assert.objEqual(x1.minus(new Size(7)), Position.x(3), "minus");
 	});
 
 	it("fails fast when adding incompatible dimensions", function() {
 		assert.exception(function() {
 			x1.plus(y1);
+		}, /Can't compare X dimension to Y dimension/);
+		assert.exception(function() {
+			x1.minus(y1);
 		}, /Can't compare X dimension to Y dimension/);
 	});
 

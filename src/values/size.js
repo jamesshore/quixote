@@ -7,7 +7,7 @@ var Pixels = require("./pixels.js");
 var Me = module.exports = function Size(value) {
 	ensure.signature(arguments, [ [Number, Pixels] ]);
 
-	this._value = (typeof value === "number") ? new Pixels(value) : value;
+	this._edge = (typeof value === "number") ? new Pixels(value) : value;
 };
 
 Me.prototype.value = function() {
@@ -18,19 +18,24 @@ Me.prototype.value = function() {
 
 Me.prototype.plus = function(operand) {
 	ensure.signature(arguments, [ Me ]);
-	return new Me(this._value.plus(operand._value));
+	return new Me(this._edge.plus(operand._edge));
+};
+
+Me.prototype.minus = function(operand) {
+	ensure.signature(arguments, [ Me ]);
+	return new Me(this._edge.minus(operand._edge));
 };
 
 Me.prototype.compare = function(that) {
 	ensure.signature(arguments, [ Me ]);
-	return this._value.compare(that._value);
+	return this._edge.compare(that._edge);
 };
 
 Me.prototype.diff = function(expected) {
 	ensure.signature(arguments, [ Me ]);
 
-	var actualValue = this._value;
-	var expectedValue = expected._value;
+	var actualValue = this._edge;
+	var expectedValue = expected._edge;
 
 	if (actualValue.equals(expectedValue)) return "";
 
@@ -41,7 +46,7 @@ Me.prototype.diff = function(expected) {
 Me.prototype.equals = function(that) {
 	ensure.signature(arguments, [ Me ]);
 
-	return this._value.equals(that._value);
+	return this._edge.equals(that._edge);
 };
 
 Me.prototype.describeMatch = function describeMatch() {
@@ -53,11 +58,11 @@ Me.prototype.describeMatch = function describeMatch() {
 Me.prototype.toString = function() {
 	ensure.signature(arguments, []);
 
-	return this._value.toString();
+	return this._edge.toString();
 };
 
 Me.prototype.toPixels = function() {
 	ensure.signature(arguments, []);
 
-	return this._value;
+	return this._edge;
 };

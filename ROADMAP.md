@@ -13,17 +13,20 @@
 
 ## Current Feature: Advanced Positioning
 
-* RelativeEdge.plus/minus(ElementSize)
+* RelativePosition.plus/minus(ElementSize)
 * ElementCenter.plus/minus(ElementSize)
 * ElementCenter.plus/minus(RelativeSize)
 * ElementSize.plus/minus(ElementSize)
 * RelativeSize.plus/minus(ElementSize)
-* RelativeEdge.plus/minus(RelativeEdge)
+* RelativePosition.plus/minus(RelativePosition)
 * RelativeSize.plus/minus(RelativeSize)
-* Good error messages when mix/matching incompatible elements (e.g., `size.plus(edge)`)
+* Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
+* Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
 * Good error message when accidentally using `undefined` (e.g., `element.top.width`)
 * fractional height and width
 * Scrolling (and accounting for scrolling in ElementEdge)
+* distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
+  - Or save this for another release?
 * Split out API and contribution documentation (don't want wall of text in readme)
 
 ```javascript

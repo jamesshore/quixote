@@ -10,23 +10,23 @@ New properties:
 * QElement.middle
 * QElement.width
 * QElement.height
+* ElementEdge.plus
+* ElementEdge.minus
 
 New descriptors:
 * ElementCenter
 * ElementSize
 * RelativeSize
 
-New diffable value objects:
+New value objects:
 * Size
-
-New non-diffable value objects
 * Pixels
 
 Rename:
 * ElementPosition --> RelativePosition
 
 Reverted:
-* Frame.create() fails fast if the HTML or stylesheet URL is invalid. (Contributed by @bjornicus)
+* Frame.create() fails fast if the HTML or stylesheet URL is invalid: removed due to potential test suite execution issues with Mobile Safari
 
 
 

@@ -19,8 +19,9 @@ describe("Size", function() {
 		assert.equal(a1.value(), a1);    // note identity comparison, not objEqual()
 	});
 
-	it("adds", function() {
+	it("arithmetic", function() {
 		assert.objEqual(a1.plus(b), new Size(59));
+		assert.objEqual(a1.minus(b), new Size(45));
 	});
 
 	it("converts to pixels", function() {
