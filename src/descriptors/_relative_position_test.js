@@ -7,6 +7,7 @@ var quixote = require("../quixote.js");
 var RelativePosition = require("./relative_position.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
+var Size = require("../values/size.js");
 
 describe("RelativePosition", function() {
 
@@ -14,14 +15,25 @@ describe("RelativePosition", function() {
 	var x;
 	var y;
 
+	var TOP = 10;
+	var RIGHT = 150;
+	var BOTTOM = 70;
+	var LEFT = 20;
+
+	var WIDTH = 130;
+	var HEIGHT = 60;
+
+	var X_ADJ = -5;
+	var Y_ADJ = 10;
+
 	beforeEach(function() {
 		var frame = reset.frame;
 		frame.addElement(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
 		element = frame.getElement("#element");
-		x = RelativePosition.x(element.left, -5);
-		y = RelativePosition.y(element.top, 10);
+		x = RelativePosition.x(element.left, X_ADJ);
+		y = RelativePosition.y(element.top, Y_ADJ);
 	});
 
 	it("is a descriptor", function() {
@@ -29,8 +41,18 @@ describe("RelativePosition", function() {
 	});
 
 	it("resolves to value", function() {
-		assert.objEqual(x.value(), Position.x(15), "x");
-		assert.objEqual(y.value(), Position.y(20), "y");
+		assert.objEqual(x.value(), Position.x(LEFT + X_ADJ), "x");
+		assert.objEqual(y.value(), Position.y(TOP + Y_ADJ), "y");
+	});
+
+	it("computes value relative to a size descriptor", function() {
+		x = RelativePosition.x(element.left, element.width);
+		assert.objEqual(x.value(), Position.x(LEFT + WIDTH));
+	});
+
+	it("computes value relative to a relative size descriptor", function() {
+		x = RelativePosition.x(element.left, element.width.plus(10));
+		assert.objEqual(x.value(), Position.x(LEFT + WIDTH + 10));
 	});
 
 	it("converts arguments to comparable values", function() {

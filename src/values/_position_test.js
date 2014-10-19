@@ -3,6 +3,8 @@
 
 var assert = require("../util/assert.js");
 var Position = require("./position.js");
+var Pixels = require("./pixels.js");
+var Size = require("./size.js");
 
 describe("Position", function() {
 
@@ -13,13 +15,21 @@ describe("Position", function() {
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
 
+	it("can be constructed from pixels", function() {
+		assert.objEqual(Position.x(new Pixels(10)), x1);
+	});
+
 	it("responds to value()", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
 
-	it("adds", function() {
+	it("adds itself", function() {
 		assert.objEqual(x1.plus(x2), Position.x(30), "x");
 		assert.objEqual(y1.plus(y2), Position.y(130), "y");
+	});
+
+	it("adds size", function() {
+		assert.objEqual(x1.plus(new Size(42)), Position.x(52), "x");
 	});
 
 	it("fails fast when adding incompatible dimensions", function() {
@@ -44,6 +54,10 @@ describe("Position", function() {
 		}, /Can't compare X dimension to Y dimension/);
 	});
 
+	it("describes how it is compared", function() {
+		assert.equal(x1.describeMatch(), "be 10px");
+	});
+
 	it("is comparable to itself", function() {
 		assert.objEqual(x1, x1b, "same");
 		assert.objNotEqual(x1, x2, "different");
@@ -55,11 +69,11 @@ describe("Position", function() {
 		}, /Can't compare X dimension to Y dimension/);
 	});
 
-	it("describes how it is compared", function() {
-		assert.equal(x1.describeMatch(), "be 10px");
+	it("converts to pixels", function() {
+		assert.objEqual(x1.toPixels(), new Pixels(10));
 	});
 
-	it("converts to string", function() {
+	it("toString()", function() {
 		assert.equal(x1.toString(), "10px");
 	});
 

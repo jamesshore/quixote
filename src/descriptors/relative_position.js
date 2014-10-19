@@ -4,19 +4,22 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
+var Size = require("../values/size.js");
+var Pixels = require("../values/pixels.js");
+var ElementSize = require("./element_size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function RelativePosition(dimension, relativeTo, relativeAmount) {
-	var ElementEdge = require("./element_edge.js");
+	var ElementEdge = require("./element_edge.js");       // require() here to break circular dependency
 	var ElementCenter = require("./element_center.js");
-	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], Number ]);
+	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], [Number, Descriptor] ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
 	this._relativeTo = relativeTo;
-	this._amount = relativeAmount;
+	this._amount = (typeof relativeAmount === "number") ? new Size(relativeAmount) : relativeAmount;
 };
 Descriptor.extend(Me);
 
@@ -31,8 +34,7 @@ Me.y = function y(edge, relativeAmount) {
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var amount = (this._dimension === X_DIMENSION) ? Position.x(this._amount) : Position.y(this._amount);
-	return this._relativeTo.value().plus(amount);
+	return this._relativeTo.value().plus(this._amount.value());
 };
 
 Me.prototype.convert = function convert(arg) {
@@ -47,18 +49,18 @@ Me.prototype.joiner = function joiner() { return "to be"; };
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return relativeAmount(this) + this._relativeTo.toString();
+	var pixels = this._amount.toPixels();
+	var zero = new Pixels(0);
+	var comparison = pixels.compare(zero);
+
+	var description = "";
+	if (comparison !== 0) {
+		description = pixels.diff(zero);
+		if (this._dimension === X_DIMENSION) description += (comparison < 0) ? " left of " : " right of ";
+		else description += (comparison < 0) ? " above " : " below ";
+	}
+	return description + this._relativeTo.toString();
 };
-
-function relativeAmount(self) {
-	if (self._amount === 0) return "";
-
-	var direction;
-	if (self._dimension === X_DIMENSION) direction = (self._amount < 0) ? "left of" : "right of";
-	else direction = (self._amount < 0) ? "above" : "below";
-
-	return Math.abs(self._amount) + "px " + direction + " ";
-}
 
 function createPosition(self, value) {
 	if (self._dimension === X_DIMENSION) return Position.x(value);

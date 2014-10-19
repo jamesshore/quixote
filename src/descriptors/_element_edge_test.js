@@ -11,8 +11,7 @@ var Descriptor = require("./descriptor.js");
 
 describe("ElementEdge", function() {
 
-	var frame;
-	var one;
+	var element;
 	var top;
 	var right;
 	var bottom;
@@ -23,16 +22,19 @@ describe("ElementEdge", function() {
 	var BOTTOM = 70;
 	var LEFT = 20;
 
+	var WIDTH = 130;
+	var HEIGHT = 60;
+
 	beforeEach(function() {
 		var frame = reset.frame;
 		frame.addElement(
-			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
+			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
-		one = frame.getElement("#one");
-		top = ElementEdge.top(one);
-		right = ElementEdge.right(one);
-		bottom = ElementEdge.bottom(one);
-		left = ElementEdge.left(one);
+		element = frame.getElement("#element");
+		top = ElementEdge.top(element);
+		right = ElementEdge.right(element);
+		bottom = ElementEdge.bottom(element);
+		left = ElementEdge.left(element);
 	});
 
 	it("is a descriptor", function() {
@@ -57,10 +59,10 @@ describe("ElementEdge", function() {
 	});
 
 	it("converts to string", function() {
-		assertDesc(one, top, "top edge of ", "top");
-		assertDesc(one, right, "right edge of ", "right");
-		assertDesc(one, bottom, "bottom edge of ", "bottom");
-		assertDesc(one, left, "left edge of ", "left");
+		assertDesc(element, top, "top edge of ", "top");
+		assertDesc(element, right, "right edge of ", "right");
+		assertDesc(element, bottom, "bottom edge of ", "bottom");
+		assertDesc(element, left, "left edge of ", "left");
 
 		function assertDesc(element, edge, expected, message) {
 			assert.equal(edge.toString(), expected + element, message);
@@ -73,6 +75,11 @@ describe("ElementEdge", function() {
 
 		assert.objEqual(left.plus(15).value(), Position.x(LEFT + 15), "right");
 		assert.objEqual(left.minus(25).value(), Position.x(LEFT - 25), "left");
+	});
+
+	it("can shift an element by the size of another element", function() {
+		assert.objEqual(top.plus(element.width).value(), Position.y(TOP + WIDTH), "plus");
+//		assert.objEqual(bottom.minus(element.height).value(), Position.y(TOP - HEIGHT), "minus");
 	});
 
 });

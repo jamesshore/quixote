@@ -25,7 +25,6 @@
 		var elapsedSeconds = (Date.now() - startTime) / 1000;
 
 		console.log("\n\nBUILD OK  (" + elapsedSeconds.toFixed(2) +  "s)");
-		if (elapsedSeconds > 5) console.log("Warning: Build optimization needed.");
 	});
 
 

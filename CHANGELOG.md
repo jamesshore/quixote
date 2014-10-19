@@ -16,8 +16,11 @@ New descriptors:
 * ElementSize
 * RelativeSize
 
-New value objects:
+New diffable value objects:
 * Size
+
+New non-diffable value objects
+* Pixels
 
 Rename:
 * ElementPosition --> RelativePosition
