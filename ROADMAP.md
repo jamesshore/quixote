@@ -13,11 +13,9 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: ElementCenter.plus/minus(ElementSize)
-* ElementCenter.plus/minus(RelativeSize)
+* NEXT: ElementCenter.plus/minus(RelativeSize)
 * ElementSize.plus/minus(ElementSize)
 * RelativeSize.plus/minus(ElementSize)
-* RelativePosition.plus/minus(RelativePosition)
 * RelativeSize.plus/minus(RelativeSize)
 * Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
 * Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 

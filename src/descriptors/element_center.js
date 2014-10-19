@@ -32,7 +32,8 @@ Me.prototype.plus = function plus(amount) {
 };
 
 Me.prototype.minus = function minus(amount) {
-	return this.plus(amount * -1);
+	if (this._dimension === X_DIMENSION) return RelativePosition.left(this, amount);
+	else return RelativePosition.up(this, amount);
 };
 
 Me.prototype.value = function value() {
