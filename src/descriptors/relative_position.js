@@ -10,34 +10,41 @@ var ElementSize = require("./element_size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
+var PLUS = "plus";
+var MINUS = "minus";
 
-var Me = module.exports = function RelativePosition(dimension, relativeTo, relativeAmount) {
+var Me = module.exports = function RelativePosition(dimension, direction, relativeTo, relativeAmount) {
 	var ElementEdge = require("./element_edge.js");       // require() here to break circular dependency
 	var ElementCenter = require("./element_center.js");
-	ensure.signature(arguments, [ String, [ElementEdge, ElementCenter], [Number, Descriptor] ]);
+	ensure.signature(arguments, [ String, String, [ElementEdge, ElementCenter], [Number, Descriptor] ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
+	this._direction = direction;
 	this._relativeTo = relativeTo;
 	this._amount = (typeof relativeAmount === "number") ? new Size(relativeAmount) : relativeAmount;
 };
 Descriptor.extend(Me);
 
-Me.right = createFn(X_DIMENSION);
-Me.down = createFn(Y_DIMENSION);
-Me.left = createFn(X_DIMENSION);
-Me.up = createFn(Y_DIMENSION);
+Me.right = createFn(X_DIMENSION, PLUS);
+Me.down = createFn(Y_DIMENSION, PLUS);
+Me.left = createFn(X_DIMENSION, MINUS);
+Me.up = createFn(Y_DIMENSION, MINUS);
 
-function createFn(dimension) {
+function createFn(dimension, direction) {
 	return function create(edge, relativeAmount) {
-		return new Me(dimension, edge, relativeAmount);
+		return new Me(dimension, direction, edge, relativeAmount);
 	};
 }
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	return this._relativeTo.value().plus(this._amount.value());
+	var baseValue = this._relativeTo.value();
+	var relativeValue = this._amount.value();
+
+	if (this._direction === PLUS) return baseValue.plus(relativeValue);
+	else return baseValue.minus(relativeValue);
 };
 
 Me.prototype.convert = function convert(arg) {

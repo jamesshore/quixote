@@ -49,8 +49,7 @@ describe("RelativePosition", function() {
 	it("resolves to value", function() {
 		assert.objEqual(right.value(), Position.x(LEFT + RIGHT_ADJ), "right");
 		assert.objEqual(down.value(), Position.y(TOP + DOWN_ADJ), "down");
-		//TODO
-//		assert.objEqual(left.value(), Position.x(TOP - LEFT_ADJ), "left");
+		assert.objEqual(left.value(), Position.x(LEFT - LEFT_ADJ), "left");
 	});
 
 	it("computes value relative to a size descriptor", function() {
