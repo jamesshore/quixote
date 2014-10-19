@@ -23,7 +23,7 @@ var Me = module.exports = function RelativePosition(dimension, relativeTo, relat
 };
 Descriptor.extend(Me);
 
-Me.x = function x(edge, relativeAmount) {
+Me.right = function x(edge, relativeAmount) {
 	return new Me(X_DIMENSION, edge, relativeAmount);
 };
 

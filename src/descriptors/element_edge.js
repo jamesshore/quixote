@@ -29,11 +29,13 @@ Me.prototype.plus = function plus(amount) {
 	ensure.signature(arguments, [ [Number, ElementSize] ]);
 
 	if (this._value === TOP || this._value === BOTTOM) return RelativePosition.y(this, amount);
-	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.x(this, amount);
+	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.right(this, amount);
 	ensure.unreachable();
 };
 
 Me.prototype.minus = function minus(amount) {
+	ensure.signature(arguments, [ Number ]);
+
 	return this.plus(amount * -1);
 };
 

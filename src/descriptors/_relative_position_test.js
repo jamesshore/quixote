@@ -32,7 +32,7 @@ describe("RelativePosition", function() {
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
 		element = frame.getElement("#element");
-		x = RelativePosition.x(element.left, X_ADJ);
+		x = RelativePosition.right(element.left, X_ADJ);
 		y = RelativePosition.y(element.top, Y_ADJ);
 	});
 
@@ -46,12 +46,12 @@ describe("RelativePosition", function() {
 	});
 
 	it("computes value relative to a size descriptor", function() {
-		x = RelativePosition.x(element.left, element.width);
+		x = RelativePosition.right(element.left, element.width);
 		assert.objEqual(x.value(), Position.x(LEFT + WIDTH));
 	});
 
 	it("computes value relative to a relative size descriptor", function() {
-		x = RelativePosition.x(element.left, element.width.plus(10));
+		x = RelativePosition.right(element.left, element.width.plus(10));
 		assert.objEqual(x.value(), Position.x(LEFT + WIDTH + 10));
 	});
 
@@ -59,7 +59,7 @@ describe("RelativePosition", function() {
 		assert.objEqual(x.convert(13), Position.x(13), "x");
 		assert.objEqual(y.convert(13), Position.y(13), "y");
 
-		var descriptor = RelativePosition.x(element.top, 13);
+		var descriptor = RelativePosition.right(element.top, 13);
 		assert.equal(x.convert(descriptor), descriptor, "descriptor");
 	});
 
@@ -73,7 +73,7 @@ describe("RelativePosition", function() {
 		assertY(element.top, 0, "", "same y");
 
 		function assertX(edge, amount, expected, message) {
-			assert.equal(RelativePosition.x(edge, amount).toString(), expected + edge.toString(), message);
+			assert.equal(RelativePosition.right(edge, amount).toString(), expected + edge.toString(), message);
 		}
 
 		function assertY(edge, amount, expected, message) {

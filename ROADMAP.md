@@ -13,14 +13,16 @@
 
 ## Current Feature: Advanced Positioning
 
-* RelativeEdge.plus/minus(ElementSize)
+* NEXT: ElementEdge.minus(ElementSize)
+* RelativePosition.plus/minus(ElementSize)
 * ElementCenter.plus/minus(ElementSize)
 * ElementCenter.plus/minus(RelativeSize)
 * ElementSize.plus/minus(ElementSize)
 * RelativeSize.plus/minus(ElementSize)
-* RelativeEdge.plus/minus(RelativeEdge)
+* RelativePosition.plus/minus(RelativePosition)
 * RelativeSize.plus/minus(RelativeSize)
-* Good error messages when mix/matching incompatible elements (e.g., `size.plus(edge)`)
+* Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
+* Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
 * Good error message when accidentally using `undefined` (e.g., `element.top.width`)
 * fractional height and width
 * Scrolling (and accounting for scrolling in ElementEdge)
@@ -36,6 +38,9 @@ element.assert({
 ```
 
 ## To Do
+
+* CURRENT: RelativePosition needs .up, .right, .down, and .left factory methods (not .x and .y)
+* CURRENT: ElementEdge.minus (last test in _element_edge_test.js)
 
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
