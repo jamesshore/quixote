@@ -36,9 +36,11 @@ element.assert({
 
 ## To Do
 
-* CURRENT: see failing test. Just finished modifying ensure.signature to display nice message.
-* Factor out code to determine class name, instance name (oop module?)
+* CURRENT: Factor out code to determine class name, instance name (oop module?)
+  * Modify ensure.js to use oop.js
 * Remove ensure.signature custom message?
+* THEN: Factor out Value superclass
+* THEN: "fails nicely when diffing incompatible elements" in QElement test
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?

@@ -17,24 +17,19 @@ Me.prototype.value = function() {
 	return this;
 };
 
-Me.prototype.plus = function(operand) {
-	ensureCompatibility(arguments, Me, "add");
+Me.prototype.plus = wrap(function(operand) {
 	return new Me(this._edge.plus(operand._edge));
-};
+});
 
-Me.prototype.minus = function(operand) {
-	ensure.signature(arguments, [ Me ]);
+Me.prototype.minus = wrap(function(operand) {
 	return new Me(this._edge.minus(operand._edge));
-};
+});
 
-Me.prototype.compare = function(that) {
-	ensure.signature(arguments, [ Me ]);
+Me.prototype.compare = wrap(function(that) {
 	return this._edge.compare(that._edge);
-};
+});
 
-Me.prototype.diff = function(expected) {
-	ensure.signature(arguments, [ Me ]);
-
+Me.prototype.diff = wrap(function(expected) {
 	var actualValue = this._edge;
 	var expectedValue = expected._edge;
 
@@ -42,13 +37,11 @@ Me.prototype.diff = function(expected) {
 
 	var desc = actualValue.compare(expectedValue) > 0 ? " larger" : " smaller";
 	return actualValue.diff(expectedValue) + desc;
-};
+});
 
-Me.prototype.equals = function(that) {
-	ensure.signature(arguments, [ Me ]);
-
+Me.prototype.equals = wrap(function(that) {
 	return this._edge.equals(that._edge);
-};
+});
 
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
@@ -68,10 +61,17 @@ Me.prototype.toPixels = function() {
 	return this._edge;
 };
 
-function ensureCompatibility(args) {
-	if (!(args[0] instanceof Me)) {
-		throw new Error(shim.Function.name(Me) + " isn't compatible with " + shim.Function.name(args[0].constructor));
-	}
+function wrap(fn) {
+	return function() {
+		ensureCompatibility(arguments);
+		return fn.apply(this, arguments);
+	};
+}
 
-	ensure.signature(args, [ Me ]);
+function ensureCompatibility(args) {
+	for (var i = 0; i < args.length; i++) {   // args is not an Array, can't use forEach
+		if (!(args[i] instanceof Me)) {
+			throw new Error(shim.Function.name(Me) + " isn't compatible with " + shim.Function.name(args[i].constructor));
+		}
+	}
 }
