@@ -13,9 +13,7 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: RelativeSize.plus/minus(ElementSize)
-* RelativeSize.plus/minus(RelativeSize)
-* Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
+* NEXT: Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
 * Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
 * Good error message when accidentally using `undefined` (e.g., `element.top.width`)
 * All descriptors should take any descriptor as a constructor/factory method parameter

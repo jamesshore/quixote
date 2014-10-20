@@ -16,6 +16,9 @@ describe("RelativeSize", function() {
 	var WIDTH = 130;
 	var HEIGHT = 60;
 
+	var LARGER = HEIGHT + 10;
+	var SMALLER = WIDTH - 5;
+
 	beforeEach(function() {
 		var frame = reset.frame;
 		frame.addElement(
@@ -68,5 +71,12 @@ describe("RelativeSize", function() {
 		}
 	});
 
+	it("can be shifted", function() {
+		assert.objEqual(larger.plus(10).value(), new Size(LARGER + 10), "plus number");
+		assert.objEqual(larger.minus(10).value(), new Size(LARGER - 10), "minus number");
+
+		assert.objEqual(larger.plus(element.width).value(), new Size(LARGER + WIDTH), "plus size");
+		assert.objEqual(larger.plus(element.width.plus(10)).value(), new Size(LARGER + WIDTH + 10), "plus relative size");
+	});
 
 });
