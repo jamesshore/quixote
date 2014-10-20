@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var shim = require("../util/shim.js");
+var oop = require("../util/oop.js");
 
 var Me = module.exports = function Descriptor() {};
 
@@ -15,12 +16,7 @@ var ABSTRACT_METHODS = [
 
 createAbstractMethods(ABSTRACT_METHODS);
 
-Me.extend = function extend(Subclass) {
-	ensure.signature(arguments, [ Function ]);
-
-	Subclass.prototype = shim.Object.create(Me.prototype);
-	Subclass.prototype.constructor = Subclass;
-};
+Me.extend = oop.extendFn(Me);
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Number, Me] ]);

@@ -18,3 +18,10 @@ exports.instanceName = function(obj) {
 
 	return shim.Function.name(constructor);
 };
+
+exports.extendFn = function extendFn(parentConstructor) {
+	return function(childConstructor) {
+		childConstructor.prototype = shim.Object.create(parentConstructor.prototype);
+		childConstructor.prototype.constructor = childConstructor;
+	};
+};
