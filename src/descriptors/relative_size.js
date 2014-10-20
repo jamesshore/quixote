@@ -10,7 +10,7 @@ var MINUS = -1;
 
 var Me = module.exports = function RelativeSize(direction, relativeTo, amount) {
 	var ElementSize = require("./element_size.js");
-	ensure.signature(arguments, [ Number, ElementSize, [Number, Descriptor] ]);
+	ensure.signature(arguments, [ Number, Descriptor, [Number, Descriptor] ]);
 
 	this._direction = direction;
 	this._relativeTo = relativeTo;
@@ -31,6 +31,14 @@ Me.larger = function larger(relativeTo, amount) {
 
 Me.smaller = function smaller(relativeTo, amount) {
 	return new Me(MINUS, relativeTo, amount);
+};
+
+Me.prototype.plus = function plus(amount) {
+	return Me.larger(this, amount);
+};
+
+Me.prototype.minus = function minus(amount) {
+	return Me.smaller(this, amount);
 };
 
 Me.prototype.value = function value() {
