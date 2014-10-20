@@ -11,7 +11,10 @@ describe("RelativeSize", function() {
 
 	var element;
 	var smaller;
-	var bigger;
+	var larger;
+
+	var WIDTH = 130;
+	var HEIGHT = 60;
 
 	beforeEach(function() {
 		var frame = reset.frame;
@@ -19,7 +22,7 @@ describe("RelativeSize", function() {
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
 		element = frame.getElement("#element");
-		bigger = RelativeSize.larger(element.height, 10);
+		larger = RelativeSize.larger(element.height, 10);
 		smaller = RelativeSize.smaller(element.width, 5);
 	});
 
@@ -28,8 +31,14 @@ describe("RelativeSize", function() {
 	});
 
 	it("resolves to value", function() {
-		assert.objEqual(bigger.value(), new Size(70), "y");
+		assert.objEqual(larger.value(), new Size(70), "y");
 		assert.objEqual(smaller.value(), new Size(125), "x");
+	});
+
+	it("computes value relative to a size descriptor", function() {
+//		assert.fail("Continue here");
+//		var rel = RelativeSize.larger(element.height, element.width);
+//		assert.objEqual(rel.value(), new Size(HEIGHT + WIDTH));
 	});
 
 	it("converts arguments to comparable values", function() {

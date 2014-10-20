@@ -37,9 +37,7 @@ element.assert({
 
 ## To Do
 
-* IN PROGRESS: RelativeSize.bigger/smaller (factory methods)
-  * CURRENT: find everyone using the old constructor; make them use factory methods
-  * THEN: non-numbers (another RelativeSize)
+* CURRENT: RelativeSize.bigger/smaller takes RelativeSize, not just numbers
 * THEN: ElementSize.plus/minus(ElementSize)
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
