@@ -18,8 +18,9 @@ exports.unreachable = function(message) {
 	throw new EnsureException(exports.unreachable, message);
 };
 
-exports.signature = function(args, signature) {
+exports.signature = function(args, signature, messages) {
 	signature = signature || [];
+	messages = messages || [];
 	var expectedArgCount = signature.length;
 	var actualArgCount = args.length;
 
@@ -38,10 +39,9 @@ exports.signature = function(args, signature) {
 
 		if (!shim.Array.isArray(type)) type = [ type ];
 		if (!typeMatches(type, arg, name)) {
-			throw new EnsureException(
-				exports.signature,
-				name + " expected " + explainType(type) + ", but was " + explainArg(arg)
-			);
+			var message = messages[i];
+			if (message === undefined) message = name + " expected " + explainType(type) + ", but was ";
+			throw new EnsureException(exports.signature, message + explainArg(arg));
 		}
 	}
 };
