@@ -53,9 +53,8 @@ describe("ElementSize", function() {
 	});
 
 	it("can be modified by the size of another element", function() {
-//		assert.fail("continue here");
-//		assert.objEqual(width.plus(element.width).value(), new Size(WIDTH + WIDTH), "plus");
-//		assert.objEqual(width.minus(element.height).value(), Position.y(TOP + WIDTH - HEIGHT), "minus");
+		assert.objEqual(width.plus(element.width).value(), new Size(WIDTH + WIDTH), "plus");
+		assert.objEqual(width.minus(element.height).value(), new Size(WIDTH - HEIGHT), "minus");
 	});
 
 });

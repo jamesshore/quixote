@@ -27,13 +27,11 @@ Me.y = function y(element) {
 };
 
 Me.prototype.plus = function plus(amount) {
-	ensure.signature(arguments, [ Number ]);
 	return RelativeSize.larger(this, amount);
 };
 
 Me.prototype.minus = function minus(amount) {
-	ensure.signature(arguments, [ Number ]);
-	return this.plus(amount * -1);
+	return RelativeSize.smaller(this, amount);
 };
 
 Me.prototype.value = function value() {
