@@ -36,9 +36,13 @@ describe("RelativeSize", function() {
 	});
 
 	it("computes value relative to a size descriptor", function() {
-//		assert.fail("Continue here");
-//		var rel = RelativeSize.larger(element.height, element.width);
-//		assert.objEqual(rel.value(), new Size(HEIGHT + WIDTH));
+		var rel = RelativeSize.larger(element.height, element.width);
+		assert.objEqual(rel.value(), new Size(HEIGHT + WIDTH));
+	});
+
+	it("computes value relative to a relative size descriptor", function() {
+		var rel = RelativeSize.larger(element.height, element.width.plus(10));
+		assert.objEqual(rel.value(), new Size(HEIGHT + WIDTH + 10));
 	});
 
 	it("converts arguments to comparable values", function() {

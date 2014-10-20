@@ -13,9 +13,9 @@
 
 ## Current Feature: Advanced Positioning
 
-* IN PROGRESS: RelativeSize.plus/minus(ElementSize)
+* IN PROGRESS: ElementSize.plus/minus(ElementSize)
+* RelativeSize.plus/minus(ElementSize)
 * RelativeSize.plus/minus(RelativeSize)
-* ElementSize.plus/minus(ElementSize)
 * Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
 * Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
 * Good error message when accidentally using `undefined` (e.g., `element.top.width`)
@@ -37,8 +37,7 @@ element.assert({
 
 ## To Do
 
-* CURRENT: RelativeSize.bigger/smaller takes RelativeSize, not just numbers
-* THEN: ElementSize.plus/minus(ElementSize)
+* CURRENT: ElementSize.plus/minus(ElementSize)
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
