@@ -15,7 +15,8 @@
 
 * NEXT: Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
 * Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
-* Good error message when accidentally using `undefined` (e.g., `element.top.width`)
+* Good error message when accidentally using `undefined` (e.g., `edge.diff(element.xxx)`, `size.plus(element.xxx)`
+* Good error message when accidentally diffing with invalid parameter (e.g., `element.diff({ xxx: ... })`) 
 * All descriptors should take any descriptor as a constructor/factory method parameter
 * fractional height and width
 * Scrolling (and accounting for scrolling in ElementEdge)

@@ -84,6 +84,18 @@ describe("QElement", function() {
 			assert.equal(element.height.diff(HEIGHT), "", "height");
 		});
 
+		it("fails nicely when adding incompatible elements", function() {
+			assert.fail("continue here");
+
+			element.width.plus(element.top).value();
+		});
+
+		it("fails nicely when diffing incompatible elements", function() {
+//			assert.fail("this is next");
+
+//			element.width.diff(element.top);
+		});
+
 	});
 
 	describe("raw styles and positions", function() {
