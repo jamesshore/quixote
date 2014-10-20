@@ -4,6 +4,7 @@
 // Runtime assertions for production code. (Contrast to assert.js, which is for test code.)
 
 var shim = require("./shim.js");
+var oop = require("./oop.js");
 
 exports.that = function(variable, message) {
 	if (message === undefined) message = "Expected condition to be true";
@@ -18,8 +19,9 @@ exports.unreachable = function(message) {
 	throw new EnsureException(exports.unreachable, message);
 };
 
-exports.signature = function(args, signature) {
+exports.signature = function(args, signature, messages) {
 	signature = signature || [];
+	messages = messages || [];
 	var expectedArgCount = signature.length;
 	var actualArgCount = args.length;
 
@@ -38,10 +40,8 @@ exports.signature = function(args, signature) {
 
 		if (!shim.Array.isArray(type)) type = [ type ];
 		if (!typeMatches(type, arg, name)) {
-			throw new EnsureException(
-				exports.signature,
-				name + " expected " + explainType(type) + ", but was " + explainArg(arg)
-			);
+			var message = name + " expected " + explainType(type) + ", but was ";
+			throw new EnsureException(exports.signature, message + explainArg(arg));
 		}
 	}
 };
@@ -89,7 +89,7 @@ function explainType(type) {
 			default:
 				if (typeof type === "number" && isNaN(type)) return "NaN";
 				else {
-					return shim.Function.name(type) + " instance";
+					return oop.className(type) + " instance";
 				}
 		}
 	}
@@ -99,11 +99,7 @@ function explainArg(arg) {
 	var type = getType(arg);
 	if (type !== "object") return type;
 
-	var prototype = shim.Object.getPrototypeOf(arg);
-	if (prototype === null) return "an object without a prototype";
-	else {
-		return shim.Function.name(prototype.constructor) + " instance";
-	}
+	return oop.instanceName(arg) + " instance";
 }
 
 function getType(variable) {

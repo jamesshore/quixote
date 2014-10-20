@@ -154,7 +154,6 @@ describe("Ensure", function() {
 				"required parameter"
 			);
 		});
-
 	});
 
 	function wrap(fn) {

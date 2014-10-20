@@ -6,6 +6,7 @@
 * **✔ v0.2** "Cooked" absolute position info; initial assertion API
 * **✔ v0.3** Positioning relative to other elements
 * Advanced positioning (middle, center, height, width, fractions)
+* API hardening
 * Positioning relative to page
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
@@ -15,7 +16,8 @@
 
 * NEXT: Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
 * Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
-* Good error message when accidentally using `undefined` (e.g., `element.top.width`)
+* Good error message when accidentally using `undefined` (e.g., `edge.diff(element.xxx)`, `size.plus(element.xxx)`
+* Good error message when accidentally diffing with invalid parameter (e.g., `element.diff({ xxx: ... })`) 
 * All descriptors should take any descriptor as a constructor/factory method parameter
 * fractional height and width
 * Scrolling (and accounting for scrolling in ElementEdge)
@@ -33,6 +35,9 @@ element.assert({
 ```
 
 ## To Do
+
+* NEXT: Factor out Value superclass
+* THEN: "fails nicely when diffing incompatible elements" in QElement test
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?

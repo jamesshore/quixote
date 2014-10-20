@@ -2,6 +2,8 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
+var shim = require("../util/shim.js");
+var oop = require("../util/oop.js");
 var Pixels = require("./pixels.js");
 
 var Me = module.exports = function Size(value) {
@@ -16,24 +18,19 @@ Me.prototype.value = function() {
 	return this;
 };
 
-Me.prototype.plus = function(operand) {
-	ensure.signature(arguments, [ Me ]);
+Me.prototype.plus = wrap(function(operand) {
 	return new Me(this._edge.plus(operand._edge));
-};
+});
 
-Me.prototype.minus = function(operand) {
-	ensure.signature(arguments, [ Me ]);
+Me.prototype.minus = wrap(function(operand) {
 	return new Me(this._edge.minus(operand._edge));
-};
+});
 
-Me.prototype.compare = function(that) {
-	ensure.signature(arguments, [ Me ]);
+Me.prototype.compare = wrap(function(that) {
 	return this._edge.compare(that._edge);
-};
+});
 
-Me.prototype.diff = function(expected) {
-	ensure.signature(arguments, [ Me ]);
-
+Me.prototype.diff = wrap(function(expected) {
 	var actualValue = this._edge;
 	var expectedValue = expected._edge;
 
@@ -41,13 +38,11 @@ Me.prototype.diff = function(expected) {
 
 	var desc = actualValue.compare(expectedValue) > 0 ? " larger" : " smaller";
 	return actualValue.diff(expectedValue) + desc;
-};
+});
 
-Me.prototype.equals = function(that) {
-	ensure.signature(arguments, [ Me ]);
-
+Me.prototype.equals = wrap(function(that) {
 	return this._edge.equals(that._edge);
-};
+});
 
 Me.prototype.describeMatch = function describeMatch() {
 	ensure.signature(arguments, []);
@@ -66,3 +61,18 @@ Me.prototype.toPixels = function() {
 
 	return this._edge;
 };
+
+function wrap(fn) {
+	return function() {
+		ensureCompatibility(arguments);
+		return fn.apply(this, arguments);
+	};
+}
+
+function ensureCompatibility(args) {
+	for (var i = 0; i < args.length; i++) {   // args is not an Array, can't use forEach
+		if (!(args[i] instanceof Me)) {
+			throw new Error(oop.className(Me) + " isn't compatible with " + oop.instanceName(args[i]));
+		}
+	}
+}
