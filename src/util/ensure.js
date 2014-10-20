@@ -4,6 +4,7 @@
 // Runtime assertions for production code. (Contrast to assert.js, which is for test code.)
 
 var shim = require("./shim.js");
+var oop = require("./oop.js");
 
 exports.that = function(variable, message) {
 	if (message === undefined) message = "Expected condition to be true";
@@ -89,7 +90,7 @@ function explainType(type) {
 			default:
 				if (typeof type === "number" && isNaN(type)) return "NaN";
 				else {
-					return shim.Function.name(type) + " instance";
+					return oop.className(type) + " instance";
 				}
 		}
 	}
@@ -99,11 +100,7 @@ function explainArg(arg) {
 	var type = getType(arg);
 	if (type !== "object") return type;
 
-	var prototype = shim.Object.getPrototypeOf(arg);
-	if (prototype === null) return "an object without a prototype";
-	else {
-		return shim.Function.name(prototype.constructor) + " instance";
-	}
+	return oop.instanceName(arg) + " instance";
 }
 
 function getType(variable) {
