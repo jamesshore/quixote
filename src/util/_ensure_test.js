@@ -154,10 +154,6 @@ describe("Ensure", function() {
 				"required parameter"
 			);
 		});
-
-		it("displays custom messages", function() {
-			assert.exception(signature([], [ Number ], [ "I got: " ]), /I got: undefined/);
-		});
 	});
 
 	function wrap(fn) {

@@ -40,8 +40,7 @@ exports.signature = function(args, signature, messages) {
 
 		if (!shim.Array.isArray(type)) type = [ type ];
 		if (!typeMatches(type, arg, name)) {
-			var message = messages[i];
-			if (message === undefined) message = name + " expected " + explainType(type) + ", but was ";
+			var message = name + " expected " + explainType(type) + ", but was ";
 			throw new EnsureException(exports.signature, message + explainArg(arg));
 		}
 	}

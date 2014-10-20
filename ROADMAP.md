@@ -36,8 +36,7 @@ element.assert({
 
 ## To Do
 
-* NEXT: Remove ensure.signature custom message?
-* THEN: Factor out Value superclass
+* NEXT: Factor out Value superclass
 * THEN: "fails nicely when diffing incompatible elements" in QElement test
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
