@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
+var shim = require("../util/shim.js");
 var Pixels = require("./pixels.js");
 
 var Me = module.exports = function Size(value) {
@@ -17,7 +18,7 @@ Me.prototype.value = function() {
 };
 
 Me.prototype.plus = function(operand) {
-	ensure.signature(arguments, [ Me ]);
+	ensureCompatibility(arguments, Me, "add");
 	return new Me(this._edge.plus(operand._edge));
 };
 
@@ -66,3 +67,11 @@ Me.prototype.toPixels = function() {
 
 	return this._edge;
 };
+
+function ensureCompatibility(args) {
+	if (!(args[0] instanceof Me)) {
+		throw new Error(shim.Function.name(Me) + " isn't compatible with " + shim.Function.name(args[0].constructor));
+	}
+
+	ensure.signature(args, [ Me ]);
+}

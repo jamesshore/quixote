@@ -85,9 +85,9 @@ describe("QElement", function() {
 		});
 
 		it("fails nicely when adding incompatible elements", function() {
-//			assert.fail("continue here");
-//
-//			element.width.plus(element.top).value();
+			assert.exception(function() {
+				element.width.plus(element.top).value();
+			}, /Size isn't compatible with Position/);
 		});
 
 		it("fails nicely when diffing incompatible elements", function() {

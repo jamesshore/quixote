@@ -6,6 +6,7 @@
 * **✔ v0.2** "Cooked" absolute position info; initial assertion API
 * **✔ v0.3** Positioning relative to other elements
 * Advanced positioning (middle, center, height, width, fractions)
+* API hardening
 * Positioning relative to page
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
@@ -34,6 +35,10 @@ element.assert({
 ```
 
 ## To Do
+
+* CURRENT: see failing test. Just finished modifying ensure.signature to display nice message.
+* Factor out code to determine class name, instance name (oop module?)
+* Remove ensure.signature custom message?
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
