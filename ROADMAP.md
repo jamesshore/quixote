@@ -36,9 +36,7 @@ element.assert({
 
 ## To Do
 
-* CURRENT: Factor out code to determine class name, instance name (oop module?)
-  * Modify ensure.js to use oop.js
-* Remove ensure.signature custom message?
+* NEXT: Remove ensure.signature custom message?
 * THEN: Factor out Value superclass
 * THEN: "fails nicely when diffing incompatible elements" in QElement test
 

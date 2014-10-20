@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var shim = require("../util/shim.js");
+var oop = require("../util/oop.js");
 var Pixels = require("./pixels.js");
 
 var Me = module.exports = function Size(value) {
@@ -71,7 +72,7 @@ function wrap(fn) {
 function ensureCompatibility(args) {
 	for (var i = 0; i < args.length; i++) {   // args is not an Array, can't use forEach
 		if (!(args[i] instanceof Me)) {
-			throw new Error(shim.Function.name(Me) + " isn't compatible with " + shim.Function.name(args[i].constructor));
+			throw new Error(oop.className(Me) + " isn't compatible with " + oop.instanceName(args[i]));
 		}
 	}
 }
