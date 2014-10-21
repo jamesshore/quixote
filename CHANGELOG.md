@@ -28,6 +28,10 @@ Rename:
 Reverted:
 * Frame.create() fails fast if the HTML or stylesheet URL is invalid: removed due to potential test suite execution issues with Mobile Safari
 
+Notable changes:
+* Improved diffs
+* Better errors
+
 
 ## 0.3: Relative Positioning
 
@@ -41,6 +45,10 @@ element.diff({
 ```
 
 Also, the new `assert()` method works just like `diff()`, except it automatically throws an exception when a difference is found. This is more convenient than writing `assert.equal(element.diff(...), "")` all the time. Now you can just write `element.assert(...)` instead. 
+  
+Patches:
+
+* *0.3.1, 16 Oct 2014:* Documented `message` parameter on `QElement.assert()`   
 
 *Fixed:*
 
@@ -64,10 +72,6 @@ Also, the new `assert()` method works just like `diff()`, except it automaticall
 
 * ElementPosition
   * diff()
-  
-Patches:
-
-* *0.3.1, 16 Oct 2014:* Documented `message` parameter on `QElement.assert()`   
 
 
 ## 0.2: Absolute Positioning
