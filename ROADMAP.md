@@ -31,9 +31,6 @@ element.assert({
 
 * CURRENT: clean up. See below items
 
-* Inline Descriptor.describeMatch()? (It's obsolete, I think)
-  * Delete Descriptor.joiner()
-  * Delete Value.describeMatch()
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 
 * Handful of end-to-end tests that confirm human-readable results of diff()

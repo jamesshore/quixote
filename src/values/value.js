@@ -29,11 +29,6 @@ Me.prototype.equals = function equals(that) {
 	return this.diff(that) === "";
 };
 
-Me.prototype.describeMatch = function describeMatch() {
-	ensure.signature(arguments, []);
-	return "be " + this;
-};
-
 function ensureCompatibility(self, compatible, args) {
 	var arg;
 	for (var i = 0; i < args.length; i++) {   // args is not an Array, can't use forEach
