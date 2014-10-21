@@ -16,11 +16,17 @@ oop.makeAbstract(Me, [
 Me.prototype.diff = function diff(expected) {
 	var expectedType = typeof expected;
 	if (expected === null) expectedType = "null";
+
 	if (expectedType === "undefined") {
 		throw new Error("Can't compare " + this + " to " + expected + ". Did you misspell a property name?");
 	}
-	if (expectedType !== "number" && expectedType !== "object") {
-		throw new Error("Can't compare " + this + " to " + expectedType + ".");
+	if (expectedType !== "number") {
+		if (expectedType !== "object") {
+			throw new Error("Can't compare " + this + " to " + expectedType + ".");
+		}
+		if (!(expected instanceof Me)) {
+			throw new Error("Can't compare " + this + " to " + oop.instanceName(expected) + " instances.");
+		}
 	}
 
 	try {
