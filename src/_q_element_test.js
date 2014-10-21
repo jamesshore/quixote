@@ -165,11 +165,11 @@ describe("QElement", function() {
 
 	describe("end-to-end text rendering", function() {
 
-//		it("fails nicely when invalid property is diff'd", function() {
-//			assert.exception(function() {
-//				element.diff({ XXX: "non-existant" });
-//			}, "'#element' doesn't have a property named 'XXX'. Did you misspell it?");
-//		});
+		it("fails nicely when invalid property is diff'd", function() {
+			assert.exception(function() {
+				element.diff({ XXX: "non-existant" });
+			}, "'#element' doesn't have a property named 'XXX'. Did you misspell it?");
+		});
 
 		it("fails nicely when adding incompatible elements", function() {
 			assert.exception(function() {
