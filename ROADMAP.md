@@ -37,15 +37,8 @@ element.assert({
   * Delete Descriptor.joiner()
   * Delete Value.describeMatch()
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
-* How do we deal with descriptors that aren't comparable?
-
-* Should Dimension be a value object?
-* Value object superclass? (Or "DiffableValue?")
-  * value()
-  * equals() (defer to diff())
 
 * Handful of end-to-end tests that confirm human-readable results of diff()
-* get rid of describeMatch() in value objects? get rid of joiner() in descriptors? 
 
 
 ## Future Features
@@ -54,7 +47,6 @@ element.assert({
 * Should width and height go inside Frame's "options" object?
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Frame.getElement(), Frame.addElement(): take an optional nickname?
-* QElement.description() --> QElement.toString()? 
 * Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
 
 

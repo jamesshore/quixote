@@ -91,11 +91,6 @@ Me.prototype.toDomElement = function toDomElement() {
 	return this._domElement;
 };
 
-Me.prototype.description = function description() {
-	ensure.signature(arguments, []);
-	return this._nickname;
-};
-
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 	return "'" + this._nickname + "'";
