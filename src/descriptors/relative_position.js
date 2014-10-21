@@ -69,8 +69,6 @@ Me.prototype.convert = function convert(arg) {
 	else return arg;
 };
 
-Me.prototype.joiner = function joiner() { return "to be"; };
-
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 

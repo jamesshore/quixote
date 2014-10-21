@@ -29,7 +29,6 @@ Reverted:
 * Frame.create() fails fast if the HTML or stylesheet URL is invalid: removed due to potential test suite execution issues with Mobile Safari
 
 
-
 ## 0.3: Relative Positioning
 
 **15 Oct 2014.** QElement's `diff()` method now supports checking relative positions. As well as specifying an absolute position, you can also describe your element relative to other elements. You can also specify an offset if elements aren't exactly aligned:

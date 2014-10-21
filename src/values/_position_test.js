@@ -69,10 +69,6 @@ describe("Position", function() {
 		}, /Can't compare X dimension to Y dimension/);
 	});
 
-	it("describes how it is compared", function() {
-		assert.equal(x1.describeMatch(), "be 10px");
-	});
-
 	it("is comparable to itself", function() {
 		assert.objEqual(x1, x1b, "same");
 		assert.objNotEqual(x1, x2, "different");
