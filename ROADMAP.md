@@ -35,10 +35,11 @@ element.assert({
 
 ## To Do
 
-* CURRENT: Check all Descriptor classes for unneeded ensure.signature()
 * NEXT: Check Value.safe()'s support for null and undefined
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
+  * Delete Descriptor.joiner()
+  * Delete Value.describeMatch()
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
 * How do we deal with descriptors that aren't comparable?
 

@@ -51,8 +51,6 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.convert = function convert(arg) {
-	ensure.signature(arguments, [ [Number, Descriptor] ]);
-
 	if (typeof arg === "number") return createPosition(this, arg);
 	else return arg;
 };
@@ -61,7 +59,6 @@ Me.prototype.joiner = function joiner() { return "to match"; };
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-
 	return this._edge + " edge of " + this._element;
 };
 

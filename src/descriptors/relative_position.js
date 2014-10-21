@@ -65,8 +65,6 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.convert = function convert(arg) {
-	ensure.signature(arguments, [ [Number, Descriptor] ]);
-
 	if (typeof arg === "number") return createPosition(this, arg);
 	else return arg;
 };
