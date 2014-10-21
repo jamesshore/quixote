@@ -52,8 +52,6 @@ Me.prototype.convert = function convert(arg) {
 	else return Position.y(arg);
 };
 
-Me.prototype.joiner = function joiner() { return "to match"; };
-
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
