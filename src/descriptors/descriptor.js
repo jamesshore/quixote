@@ -14,8 +14,11 @@ oop.makeAbstract(Me, [
 ]);
 
 Me.prototype.diff = function diff(expected) {
+	if (expected === undefined) {
+		throw new Error("Can't compare " + this + " to " + expected + ". Did you misspell a property name?");
+	}
+
 	try {
-		ensure.signature(arguments, [ [Number, Me] ]);
 		expected = this.convert(expected);
 
 		var actualValue = this.value();

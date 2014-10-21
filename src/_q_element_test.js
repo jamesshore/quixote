@@ -96,6 +96,20 @@ describe("QElement", function() {
 			}, "Can't compare width of '#element' to top edge of '#element': Size isn't compatible with Position");
 		});
 
+		it("fails nicely when diffing 'undefined' accidentally", function() {
+			assert.exception(function() {
+				element.width.diff(element.noSuchProperty);
+			}, "Can't compare width of '#element' to undefined. Did you misspell a property name?");
+		});
+
+		it("fails nicely when diffing unsupported primitive", function() {
+			// TODO
+		});
+
+		it("fails nicely when diffing unsupported object", function() {
+			// TODO
+		});
+
 	});
 
 	describe("raw styles and positions", function() {
