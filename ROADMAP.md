@@ -29,8 +29,6 @@ element.assert({
 
 ## To Do
 
-* CURRENT: Handful of end-to-end tests that confirm human-readable results of diff()
-
 
 ## Future Features
 

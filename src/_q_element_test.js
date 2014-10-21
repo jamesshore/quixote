@@ -165,7 +165,16 @@ describe("QElement", function() {
 
 	describe("end-to-end text rendering", function() {
 
-		it("provides nice explanation of differences", function() {
+		it("provides nice explanation when descriptor doesn't match a hand-coded value", function() {
+			assert.equal(
+				element.width.diff(60),
+				"width of '#element' was 70px larger than expected.\n" +
+				"  Expected: 60px\n" +
+				"  But was:  130px"
+			);
+		});
+
+		it("provides nice explanation when relative difference between elements", function() {
 			assert.equal(
 				element.width.diff(element.height),
 				"width of '#element' was 70px larger than expected.\n" +

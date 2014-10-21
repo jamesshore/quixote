@@ -21,8 +21,11 @@ Me.prototype.diff = function diff(expected) {
 		if (actualValue.equals(expectedValue)) return "";
 
 		var difference = actualValue.diff(expectedValue);
+		var expectedDesc = expectedValue.toString();
+		if (expected instanceof Me) expectedDesc += " (" + expected + ")";
+
 		return this + " was " + difference + " than expected.\n" +
-			"  Expected: " + expectedValue + " (" + expected + ")\n" +
+			"  Expected: " + expectedDesc + "\n" +
 			"  But was:  " + actualValue;
 	}
 	catch (err) {
