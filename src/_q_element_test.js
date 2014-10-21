@@ -103,10 +103,23 @@ describe("QElement", function() {
 		});
 
 		it("fails nicely when diffing unsupported primitive", function() {
-			// TODO
+			assertPrimitiveError(true, "boolean");
+			assertPrimitiveError("foo", "string");
+			assertPrimitiveError(function() {}, "function");
+			assertPrimitiveError(null, "null");
+
+			function assertPrimitiveError(arg, expected) {
+				assert.exception(function() {
+					element.width.diff(arg);
+				}, "Can't compare width of '#element' to " + expected + ".");
+			}
 		});
 
 		it("fails nicely when diffing unsupported object", function() {
+			// TODO
+		});
+
+		it("doesn't fail when diffing arbitrary value object", function() {
 			// TODO
 		});
 
