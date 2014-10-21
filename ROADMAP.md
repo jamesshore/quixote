@@ -19,10 +19,11 @@
 * Good error message when accidentally using `undefined` (e.g., `edge.diff(element.xxx)`, `size.plus(element.xxx)`
 * Good error message when accidentally diffing with invalid parameter (e.g., `element.diff({ xxx: ... })`) 
 * All descriptors should take any descriptor as a constructor/factory method parameter
+
 * fractional height and width
+
 * Scrolling (and accounting for scrolling in ElementEdge)
-* distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
-  - Or save this for another release?
+
 * Split out API and contribution documentation (don't want wall of text in readme)
 
 ```javascript
@@ -59,6 +60,7 @@ element.assert({
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Frame.getElement(), Frame.addElement(): take an optional nickname?
 * QElement.description() --> QElement.toString()? 
+* Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
 
 
 ## Future To Do
