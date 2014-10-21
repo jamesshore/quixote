@@ -37,9 +37,7 @@ describe("ElementSize", function() {
 	});
 
 	it("converts comparison arguments", function() {
-		assert.objEqual(width.convert(13), new Size(13), "converts numbers to sizes");
-
-		assert.equal(width.convert(width), width, "should return descriptors as-is");
+		assert.objEqual(width.convert(13, "number"), new Size(13), "converts numbers to sizes");
 	});
 
 	it("converts to string", function() {

@@ -49,13 +49,10 @@ describe("ElementEdge", function() {
 	});
 
 	it("converts arguments to comparable values", function() {
-		assert.objEqual(top.convert(13), Position.y(13), "top");
-		assert.objEqual(right.convert(13), Position.x(13), "right");
-		assert.objEqual(bottom.convert(13), Position.y(13), "bottom");
-		assert.objEqual(left.convert(13), Position.x(13), "left");
-
-		var descriptor = RelativePosition.right(top, 13);
-		assert.equal(top.convert(descriptor), descriptor, "descriptor");
+		assert.objEqual(top.convert(13, "number"), Position.y(13), "top");
+		assert.objEqual(right.convert(13, "number"), Position.x(13), "right");
+		assert.objEqual(bottom.convert(13, "number"), Position.y(13), "bottom");
+		assert.objEqual(left.convert(13, "number"), Position.x(13), "left");
 	});
 
 	it("converts to string", function() {

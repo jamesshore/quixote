@@ -40,10 +40,8 @@ describe("ElementCenter", function() {
 	});
 
 	it("converts comparison arguments", function() {
-		assert.objEqual(center.convert(13), Position.x(13), "should convert numbers to x-positions");
-		assert.objEqual(middle.convert(13), Position.y(13), "should convert numbers to y-positions");
-
-		assert.equal(center.convert(center), center, "should return descriptors as-is");
+		assert.objEqual(center.convert(13, "number"), Position.x(13), "should convert numbers to x-positions");
+		assert.objEqual(middle.convert(13, "number"), Position.y(13), "should convert numbers to y-positions");
 	});
 
 	it("converts to string", function() {

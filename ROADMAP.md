@@ -29,11 +29,7 @@ element.assert({
 
 ## To Do
 
-* CURRENT: clean up. See below items
-
-* Change Descriptor.convert() --> Descriptor.convertNumber()?
-
-* Handful of end-to-end tests that confirm human-readable results of diff()
+* CURRENT: Handful of end-to-end tests that confirm human-readable results of diff()
 
 
 ## Future Features

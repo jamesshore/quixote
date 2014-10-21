@@ -51,9 +51,8 @@ Me.prototype.value = function value() {
 	else return baseValue.minus(relativeValue);
 };
 
-Me.prototype.convert = function convert(arg) {
-	if (typeof arg === "number") return new Size(arg);
-	else return arg;
+Me.prototype.convert = function convert(arg, type) {
+	if (type === "number") return new Size(arg);
 };
 
 Me.prototype.toString = function toString() {

@@ -50,9 +50,8 @@ Me.prototype.value = function value() {
 	return createPosition(this, result);
 };
 
-Me.prototype.convert = function convert(arg) {
-	if (typeof arg === "number") return createPosition(this, arg);
-	else return arg;
+Me.prototype.convert = function convert(arg, type) {
+	if (type === "number") return createPosition(this, arg);
 };
 
 Me.prototype.toString = function toString() {

@@ -49,8 +49,7 @@ describe("RelativeSize", function() {
 	});
 
 	it("converts arguments to comparable values", function() {
-		assert.objEqual(smaller.convert(50), new Size(50), "number");
-		assert.equal(smaller.convert(smaller), smaller, "descriptor");
+		assert.objEqual(smaller.convert(50, "number"), new Size(50), "number");
 	});
 
 	it("converts to string", function() {
