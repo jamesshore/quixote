@@ -35,6 +35,7 @@ element.assert({
 
 ## To Do
 
+* CURRENT: Check all Descriptor classes for unneeded ensure.signature()
 * NEXT: Check Value.safe()'s support for null and undefined
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)

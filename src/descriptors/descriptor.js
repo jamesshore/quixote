@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var oop = require("../util/oop.js");
+var Value = require("../values/value.js");
 
 var Me = module.exports = function Descriptor() {};
 Me.extend = oop.extendFn(Me);
@@ -24,7 +25,7 @@ Me.prototype.diff = function diff(expected) {
 		if (expectedType !== "object") {
 			throw new Error("Can't compare " + this + " to " + expectedType + ".");
 		}
-		if (!(expected instanceof Me)) {
+		if (!(expected instanceof Me) && !(expected instanceof Value)) {
 			throw new Error("Can't compare " + this + " to " + oop.instanceName(expected) + " instances.");
 		}
 	}
