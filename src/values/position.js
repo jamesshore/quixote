@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
+var Value = require("./value.js");
 var Pixels = require("./pixels.js");
 var Size = require("./size.js");
 
@@ -14,6 +15,7 @@ var Me = module.exports = function Position(dimension, value) {
 	this._dimension = dimension;
 	this._edge = (typeof value === "number") ? new Pixels(value) : value;
 };
+Value.extend(Me);
 
 Me.x = function x(value) {
 	return new Me(X_DIMENSION, value);
@@ -23,28 +25,21 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
-Me.prototype.plus = function plus(operand) {
-	ensure.signature(arguments, [ [Me, Size] ]);
-
-	if (operand instanceof Me) ensureComparable(this, operand);
-	return new Me(this._dimension, this._edge.plus(operand.toPixels()));
+Me.prototype.compatibility = function compatibility() {
+	return [ Me, Size ];
 };
 
-Me.prototype.minus = function minus(operand) {
-	ensure.signature(arguments, [ [Me, Size] ]);
+Me.prototype.plus = Value.safe(function plus(operand) {
+	ensureComparable(this, operand);
+	return new Me(this._dimension, this._edge.plus(operand.toPixels()));
+});
 
+Me.prototype.minus = Value.safe(function minus(operand) {
 	if (operand instanceof Me) ensureComparable(this, operand);
 	return new Me(this._dimension, this._edge.minus(operand.toPixels()));
-};
+});
 
-Me.prototype.value = function value() {
-	ensure.signature(arguments, []);
-
-	return this;
-};
-
-Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ Me ]);
+Me.prototype.diff = Value.safe(function diff(expected) {
 	ensureComparable(this, expected);
 
 	var actualValue = this._edge;
@@ -57,19 +52,7 @@ Me.prototype.diff = function diff(expected) {
 	else direction = comparison < 0 ? "lower" : "higher";
 
 	return actualValue.diff(expectedValue) + " " + direction;
-};
-
-Me.prototype.equals = function equals(that) {
-	ensure.signature(arguments, [ Me ]);
-
-	return (this.diff(that) === "");
-};
-
-Me.prototype.describeMatch = function describeMatch() {
-	ensure.signature(arguments, []);
-
-	return "be " + this;
-};
+});
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
@@ -84,5 +67,7 @@ Me.prototype.toPixels = function toPixels() {
 };
 
 function ensureComparable(self, other) {
-	ensure.that(self._dimension === other._dimension, "Can't compare X dimension to Y dimension");
+	if (other instanceof Me) {
+		ensure.that(self._dimension === other._dimension, "Can't compare X dimension to Y dimension");
+	}
 }

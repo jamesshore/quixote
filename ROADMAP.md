@@ -38,7 +38,6 @@ element.assert({
 ## To Do
 
 * CURRENT: Factor out Value superclass
-  * Position
   * Pixels
 * THEN: "fails nicely when diffing incompatible elements" in QElement test
 
