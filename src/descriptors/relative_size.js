@@ -17,7 +17,7 @@ var Me = module.exports = function RelativeSize(direction, relativeTo, amount) {
 	this._relativeTo = relativeTo;
 
 	if (typeof amount === "number") {
-		this._amount = new Size(Math.abs(amount));
+		this._amount = Size.create(Math.abs(amount));
 		if (amount < 0) this._direction *= -1;
 	}
 	else {
@@ -57,14 +57,14 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return new Size(arg);
+	if (type === "number") return Size.create(arg);
 };
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
 	var base = this._relativeTo.toString();
-	if (this._amount.equals(new Size(0))) return base;
+	if (this._amount.equals(Size.create(0))) return base;
 
 	var relation = this._amount.toString();
 	if (this._direction === PLUS) relation += " larger than ";

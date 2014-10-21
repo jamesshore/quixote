@@ -14,9 +14,7 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: fractional height and width
-
-* Scrolling (and accounting for scrolling in ElementEdge)
+* NEXT: Scrolling (and accounting for scrolling in ElementEdge)
 
 ```javascript
 element.assert({
@@ -29,7 +27,7 @@ element.assert({
 
 ## To Do
 
-* Use factory methods, not constructors, to create value objects
+
 
 ## Future Features
 

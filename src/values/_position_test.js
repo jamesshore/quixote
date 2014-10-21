@@ -21,7 +21,7 @@ describe("Position", function() {
 	});
 
 	it("can be constructed from pixels", function() {
-		assert.objEqual(Position.x(new Pixels(10)), x1);
+		assert.objEqual(Position.x(Pixels.create(10)), x1);
 	});
 
 	it("responds to value()", function() {
@@ -36,8 +36,8 @@ describe("Position", function() {
 	});
 
 	it("performs arithmetic on size", function() {
-		assert.objEqual(x1.plus(new Size(42)), Position.x(52), "plus");
-		assert.objEqual(x1.minus(new Size(7)), Position.x(3), "minus");
+		assert.objEqual(x1.plus(Size.create(42)), Position.x(52), "plus");
+		assert.objEqual(x1.minus(Size.create(7)), Position.x(3), "minus");
 	});
 
 	it("fails fast when adding incompatible dimensions", function() {
@@ -75,7 +75,7 @@ describe("Position", function() {
 	});
 
 	it("converts to pixels", function() {
-		assert.objEqual(x1.toPixels(), new Pixels(10));
+		assert.objEqual(x1.toPixels(), Pixels.create(10));
 	});
 
 	it("converts to string", function() {

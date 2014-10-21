@@ -13,7 +13,7 @@ var Me = module.exports = function Position(dimension, value) {
 	ensure.signature(arguments, [ String, [Number, Pixels] ]);
 
 	this._dimension = dimension;
-	this._value = (typeof value === "number") ? new Pixels(value) : value;
+	this._value = (typeof value === "number") ? Pixels.create(value) : value;
 };
 Value.extend(Me);
 

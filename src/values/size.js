@@ -8,9 +8,13 @@ var Pixels = require("./pixels.js");
 var Me = module.exports = function Size(value) {
 	ensure.signature(arguments, [ [Number, Pixels] ]);
 
-	this._value = (typeof value === "number") ? new Pixels(value) : value;
+	this._value = (typeof value === "number") ? Pixels.create(value) : value;
 };
 Value.extend(Me);
+
+Me.create = function create(value) {
+	return new Me(value);
+};
 
 Me.prototype.compatibility = function compatibility() {
 	return [ Me ];

@@ -7,18 +7,18 @@ var Value = require("./value.js");
 
 describe("Pixels", function() {
 
-	var a1 = new Pixels(10);
-	var a2 = new Pixels(10);
-	var b = new Pixels(20);
+	var a1 = Pixels.create(10);
+	var a2 = Pixels.create(10);
+	var b = Pixels.create(20);
 
 	it("is a value object", function() {
 		assert.implements(a1, Value);
 	});
 
 	it("arithmetic", function() {
-		assert.objEqual(a1.plus(b), new Pixels(30));
-		assert.objEqual(b.minus(a1), new Pixels(10));
-		assert.objEqual(a1.times(3), new Pixels(30));
+		assert.objEqual(a1.plus(b), Pixels.create(30));
+		assert.objEqual(b.minus(a1), Pixels.create(10));
+		assert.objEqual(a1.times(3), Pixels.create(30));
 	});
 
 	it("compares", function() {

@@ -25,7 +25,7 @@ var Me = module.exports = function RelativePosition(dimension, direction, relati
 
 	if (typeof relativeAmount === "number") {
 		if (relativeAmount < 0) this._direction *= -1;
-		this._amount = new Size(Math.abs(relativeAmount));
+		this._amount = Size.create(Math.abs(relativeAmount));
 	}
 	else {
 		this._amount = relativeAmount;
@@ -72,7 +72,7 @@ Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
 	var base = this._relativeTo.toString();
-	if (this._amount.equals(new Size(0))) return base;
+	if (this._amount.equals(Size.create(0))) return base;
 
 	var relation = this._amount.toString();
 	if (this._dimension === X_DIMENSION) relation += (this._direction === PLUS) ? " to right of " : " to left of ";
