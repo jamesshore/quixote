@@ -17,6 +17,7 @@ New descriptors:
 * ElementCenter
 * ElementSize
 * RelativeSize
+* SizeMultiple
 
 New value objects:
 * Size
