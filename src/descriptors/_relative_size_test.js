@@ -70,10 +70,13 @@ describe("RelativeSize", function() {
 		}
 	});
 
-	it("can be shifted", function() {
+	it("can be arithmaticated", function() {
 		assert.objEqual(larger.plus(10).value(), new Size(LARGER + 10), "plus number");
 		assert.objEqual(larger.minus(10).value(), new Size(LARGER - 10), "minus number");
+		assert.objEqual(larger.times(3).value(), new Size(LARGER * 3), "multiplied");
+	});
 
+	it("can be modified (but not multiplied) by the size of another element", function() {
 		assert.objEqual(larger.plus(element.width).value(), new Size(LARGER + WIDTH), "plus size");
 		assert.objEqual(larger.plus(element.width.plus(10)).value(), new Size(LARGER + WIDTH + 10), "plus relative size");
 	});
