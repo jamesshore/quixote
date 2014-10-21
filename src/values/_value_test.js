@@ -32,16 +32,30 @@ describe("Value abstract base class", function() {
 		assert.objNotEqual(a1, b, "different");
 	});
 
-	it("provides way to fail fast when operating on incompatible objects", function() {
-		assert.noException(function() {
-			a1.diff(new Example2());
-		}, "in compatibility list");
+	describe("safety check", function() {
 
-		assert.exception(function() {
-			a1.diff({});
-		}, /Example isn't compatible with Object/, "not compatible");
+		it("does nothing when object is in compatibility list", function() {
+			assert.noException(function() {
+				a1.diff(new Example2());
+			}, "in compatibility list");
+		});
+
+		it("fails fast when operating on incompatible types", function() {
+			check(undefined, "undefined");
+			check(null, "null");
+			check(true, "boolean");
+			check("foo", "string");
+			check(function() {}, "function");
+			check({}, "Object");
+
+			function check(arg, expected) {
+				assert.exception(function() {
+					a1.diff(arg);
+				}, "Example isn't compatible with " + expected, expected);
+			}
+		});
+
 	});
-
 
 	function Example(value) {
 		this._value = value;

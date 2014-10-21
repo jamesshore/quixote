@@ -14,11 +14,7 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: Good error message when accidentally using `undefined` (e.g., `edge.diff(element.xxx)`, `size.plus(element.xxx)`
-* Good error message when accidentally diffing with invalid parameter (e.g., `element.diff({ xxx: ... })`) 
-* All descriptors should take any descriptor as a constructor/factory method parameter
-
-* fractional height and width
+* NEXT: fractional height and width
 
 * Scrolling (and accounting for scrolling in ElementEdge)
 
@@ -35,7 +31,7 @@ element.assert({
 
 ## To Do
 
-* NEXT: Check Value.safe()'s support for null and undefined
+* CURRENT: clean up. See below items
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
   * Delete Descriptor.joiner()
