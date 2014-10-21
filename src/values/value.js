@@ -36,13 +36,23 @@ Me.prototype.describeMatch = function describeMatch() {
 
 function ensureCompatibility(self, compatible, args) {
 	var arg;
-	var allowed;
 	for (var i = 0; i < args.length; i++) {   // args is not an Array, can't use forEach
 		arg = args[i];
-		allowed = false;
-		for (var j = 0; j < compatible.length; j++) {
-			if (arg instanceof compatible[j]) allowed = true;
-		}
-		if (!allowed) throw new Error(oop.instanceName(self) + " isn't compatible with " + oop.instanceName(arg));
+		checkOneArg(self, compatible, arg);
+	}
+}
+
+function checkOneArg(self, compatible, arg) {
+	var type = typeof arg;
+	if (arg === null) type = "null";
+	if (type !== "object") throwError(type);
+
+	for (var i = 0; i < compatible.length; i++) {
+		if (arg instanceof compatible[i]) return;
+	}
+	throwError(oop.instanceName(arg));
+
+	function throwError(type) {
+		throw new Error(oop.instanceName(self) + " isn't compatible with " + type);
 	}
 }
