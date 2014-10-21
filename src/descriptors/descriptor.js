@@ -2,7 +2,6 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var shim = require("../util/shim.js");
 var oop = require("../util/oop.js");
 
 var Me = module.exports = function Descriptor() {};
@@ -15,17 +14,22 @@ oop.makeAbstract(Me, [
 ]);
 
 Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ [Number, Me] ]);
-	expected = this.convert(expected);
+	try {
+		ensure.signature(arguments, [ [Number, Me] ]);
+		expected = this.convert(expected);
 
-	var actualValue = this.value();
-	var expectedValue = expected.value();
+		var actualValue = this.value();
+		var expectedValue = expected.value();
 
-	if (actualValue.equals(expectedValue)) return "";
+		if (actualValue.equals(expectedValue)) return "";
 
-	return "Expected " + this.toString() + " (" + this.value() + ") " +
-		expected.describeMatch() +
-		", but was " + actualValue.diff(expectedValue);
+		return "Expected " + this.toString() + " (" + this.value() + ") " +
+			expected.describeMatch() +
+			", but was " + actualValue.diff(expectedValue);
+	}
+	catch (err) {
+		throw new Error("Can't compare " + this + " to " + expected + ": " + err.message);
+	}
 };
 
 Me.prototype.describeMatch = function describeMatch() {

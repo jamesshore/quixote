@@ -36,31 +36,53 @@ describe("Descriptor abstract base class", function() {
 			assert.equal(example.diff(1), "");
 		});
 
-		function Example(name) {
-			ensure.signature(arguments, [ [String, Number] ]);
+		it("wraps diff errors in an explanation", function() {
+			var example = new Example(1);
+			var error = new ErrorDescriptor();
 
-			this._name = name;
-		}
+			assert.exception(function() {
+				example.diff(error);
+			}, "Can't compare " + example + " to " + error + ": ErrorDescriptor error");
+		});
 
-		Descriptor.extend(Example);
-
-		Example.prototype.convert = function convert(arg) {
-			ensure.signature(arguments, [ [Descriptor, Number ]]);
-
-			if (typeof arg === "number") return new Value(arg);
-			else return arg;
-		};
-
-		Example.prototype.value = function value() {
-			return new Value(this._name);
-		};
-
-		Example.prototype.joiner = function joiner() { return "to be same as"; };
-
-		Example.prototype.toString = function toString() {
-			return "example " + this._name;
-		};
 	});
+
+
+	function Example(name) {
+		ensure.signature(arguments, [ [String, Number] ]);
+		this._name = name;
+	}
+	Descriptor.extend(Example);
+
+	Example.prototype.convert = function convert(arg) {
+		ensure.signature(arguments, [ [Descriptor, Number ]]);
+
+		if (typeof arg === "number") return new Value(arg);
+		else return arg;
+	};
+
+	Example.prototype.value = function value() {
+		return new Value(this._name);
+	};
+
+	Example.prototype.joiner = function joiner() { return "to be same as"; };
+
+	Example.prototype.toString = function toString() {
+		return "example " + this._name;
+	};
+
+
+	function ErrorDescriptor(name) {}
+	Descriptor.extend(ErrorDescriptor);
+
+	ErrorDescriptor.prototype.value = function value() {
+		throw new Error("ErrorDescriptor error");
+	};
+
+	ErrorDescriptor.prototype.toString = function toString() {
+		return "ErrorDescriptor";
+	};
+
 
 	function Value(name) {
 		this._name = name;

@@ -14,9 +14,7 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: Good error messages when adding incompatible elements (e.g., `size.plus(edge)`)
-* Good error messages when comparing incompatible elements (e.g., `edge.diff(size)`?) 
-* Good error message when accidentally using `undefined` (e.g., `edge.diff(element.xxx)`, `size.plus(element.xxx)`
+* NEXT: Good error message when accidentally using `undefined` (e.g., `edge.diff(element.xxx)`, `size.plus(element.xxx)`
 * Good error message when accidentally diffing with invalid parameter (e.g., `element.diff({ xxx: ... })`) 
 * All descriptors should take any descriptor as a constructor/factory method parameter
 
@@ -36,8 +34,6 @@ element.assert({
 ```
 
 ## To Do
-
-* NEXT: "fails nicely when diffing incompatible elements" in QElement test
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?

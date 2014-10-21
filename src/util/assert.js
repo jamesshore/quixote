@@ -90,13 +90,13 @@ exports.exception = function(fn, expected, message) {
 			proclaim.strictEqual(
 				e.message,
 				expected,
-				message + "expected exception message to be '" + expected + "', but was '" + e + "'"
+				message + "expected exception message to be '" + expected + "', but was '" + e.message + "'"
 			);
 		}
 		else if (expected instanceof RegExp) proclaim.match(
 			e.message,
 			expected,
-			message + "expected exception message to match " + expected + ", but was '" + e + "'"
+			message + "expected exception message to match " + expected + ", but was '" + e.message + "'"
 		);
 		else if (expected !== undefined) throw new Error("Unrecognized 'expected' parameter in assertion: " + expected);
 	}
