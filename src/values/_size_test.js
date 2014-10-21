@@ -17,7 +17,7 @@ describe("Size", function() {
 	});
 
 	it("can be constructed from pixels", function() {
-		assert.objEqual(Size.create(new Pixels(52)), a1);
+		assert.objEqual(Size.create(Pixels.create(52)), a1);
 	});
 
 	it("arithmetic", function() {
@@ -27,7 +27,7 @@ describe("Size", function() {
 	});
 
 	it("converts to pixels", function() {
-		assert.objEqual(a1.toPixels(), new Pixels(52));
+		assert.objEqual(a1.toPixels(), Pixels.create(52));
 	});
 
 	it("compares", function() {

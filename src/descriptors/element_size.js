@@ -45,11 +45,11 @@ Me.prototype.value = function value() {
 	var position = this._element.getRawPosition();
 	var result = (this._dimension === X_DIMENSION) ? position.width : position.height;
 
-	return new Size(result);
+	return Size.create(result);
 };
 
 Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return new Size(arg);
+	if (type === "number") return Size.create(arg);
 };
 
 Me.prototype.toString = function toString() {

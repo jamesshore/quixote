@@ -30,11 +30,11 @@ describe("SizeMultiple", function() {
 	});
 
 	it("resolves to value", function() {
-		assert.objEqual(twice.value(), new Size(WIDTH * 2));
+		assert.objEqual(twice.value(), Size.create(WIDTH * 2));
 	});
 
 	it("converts comparison arguments", function() {
-		assert.objEqual(twice.convert(19, "number"), new Size(19));
+		assert.objEqual(twice.convert(19, "number"), Size.create(19));
 	});
 
 	it("renders to string", function() {
@@ -72,9 +72,9 @@ describe("SizeMultiple", function() {
 	});
 
 	it("can be arithmaticated", function() {
-		assert.objEqual(twice.plus(10).value(), new Size(TWICE + 10), "bigger");
-		assert.objEqual(twice.minus(10).value(), new Size(TWICE - 10), "smaller");
-		assert.objEqual(twice.times(3).value(), new Size(TWICE * 3), "multiplied");
+		assert.objEqual(twice.plus(10).value(), Size.create(TWICE + 10), "bigger");
+		assert.objEqual(twice.minus(10).value(), Size.create(TWICE - 10), "smaller");
+		assert.objEqual(twice.times(3).value(), Size.create(TWICE * 3), "multiplied");
 	});
 
 });

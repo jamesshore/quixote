@@ -42,7 +42,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return new Size(arg);
+	if (type === "number") return Size.create(arg);
 };
 
 Me.prototype.toString = function toString() {
