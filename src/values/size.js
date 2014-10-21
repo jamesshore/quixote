@@ -2,8 +2,7 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var shim = require("../util/shim.js");
-var oop = require("../util/oop.js");
+var Value = require("./value.js");
 var Pixels = require("./pixels.js");
 
 var Me = module.exports = function Size(value) {
@@ -11,26 +10,25 @@ var Me = module.exports = function Size(value) {
 
 	this._edge = (typeof value === "number") ? new Pixels(value) : value;
 };
+Value.extend(Me);
 
-Me.prototype.value = function() {
-	ensure.signature(arguments, []);
-
-	return this;
+Me.prototype.compatibility = function compatibility() {
+	return [ Me ];
 };
 
-Me.prototype.plus = wrap(function(operand) {
+Me.prototype.plus = Value.safe(function(operand) {
 	return new Me(this._edge.plus(operand._edge));
 });
 
-Me.prototype.minus = wrap(function(operand) {
+Me.prototype.minus = Value.safe(function(operand) {
 	return new Me(this._edge.minus(operand._edge));
 });
 
-Me.prototype.compare = wrap(function(that) {
+Me.prototype.compare = Value.safe(function(that) {
 	return this._edge.compare(that._edge);
 });
 
-Me.prototype.diff = wrap(function(expected) {
+Me.prototype.diff = Value.safe(function(expected) {
 	var actualValue = this._edge;
 	var expectedValue = expected._edge;
 
@@ -40,39 +38,12 @@ Me.prototype.diff = wrap(function(expected) {
 	return actualValue.diff(expectedValue) + desc;
 });
 
-Me.prototype.equals = wrap(function(that) {
-	return this._edge.equals(that._edge);
-});
-
-Me.prototype.describeMatch = function describeMatch() {
-	ensure.signature(arguments, []);
-
-	return "be " + this;
-};
-
 Me.prototype.toString = function() {
 	ensure.signature(arguments, []);
-
 	return this._edge.toString();
 };
 
 Me.prototype.toPixels = function() {
 	ensure.signature(arguments, []);
-
 	return this._edge;
 };
-
-function wrap(fn) {
-	return function() {
-		ensureCompatibility(arguments);
-		return fn.apply(this, arguments);
-	};
-}
-
-function ensureCompatibility(args) {
-	for (var i = 0; i < args.length; i++) {   // args is not an Array, can't use forEach
-		if (!(args[i] instanceof Me)) {
-			throw new Error(oop.className(Me) + " isn't compatible with " + oop.instanceName(args[i]));
-		}
-	}
-}

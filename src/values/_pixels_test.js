@@ -3,12 +3,17 @@
 
 var assert = require("../util/assert.js");
 var Pixels = require("./pixels.js");
+var Value = require("./value.js");
 
 describe("Pixels", function() {
 
 	var a1 = new Pixels(10);
 	var a2 = new Pixels(10);
 	var b = new Pixels(20);
+
+	it("is a value object", function() {
+		assert.implements(a1, Value);
+	});
 
 	it("arithmetic", function() {
 		assert.objEqual(a1.plus(b), new Pixels(30));
@@ -27,12 +32,7 @@ describe("Pixels", function() {
 		assert.equal(a1.diff(a2), "", "same");
 	});
 
-	it("equals()", function() {
-		assert.objEqual(a1, a2, "same");
-		assert.objNotEqual(a1, b, "different");
-	});
-
-	it("toString()", function() {
+	it("converts to string", function() {
 		assert.equal(a1.toString(), "10px");
 	});
 
