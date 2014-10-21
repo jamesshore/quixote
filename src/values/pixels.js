@@ -10,6 +10,10 @@ var Me = module.exports = function Pixels(amount) {
 };
 Value.extend(Me);
 
+Me.create = function create(amount) {
+	return new Me(amount);
+};
+
 Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };

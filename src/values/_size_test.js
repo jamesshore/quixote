@@ -8,22 +8,22 @@ var Pixels = require("./pixels.js");
 
 describe("Size", function() {
 
-	var a1 = new Size(52);
-	var a2 = new Size(52);
-	var b = new Size(7);
+	var a1 = Size.create(52);
+	var a2 = Size.create(52);
+	var b = Size.create(7);
 
 	it("is a value object", function() {
 		assert.implements(a1, Value);
 	});
 
 	it("can be constructed from pixels", function() {
-		assert.objEqual(new Size(new Pixels(52)), a1);
+		assert.objEqual(Size.create(new Pixels(52)), a1);
 	});
 
 	it("arithmetic", function() {
-		assert.objEqual(a1.plus(b), new Size(59));
-		assert.objEqual(a1.minus(b), new Size(45));
-		assert.objEqual(b.times(3), new Size(21));
+		assert.objEqual(a1.plus(b), Size.create(59));
+		assert.objEqual(a1.minus(b), Size.create(45));
+		assert.objEqual(b.times(3), Size.create(21));
 	});
 
 	it("converts to pixels", function() {

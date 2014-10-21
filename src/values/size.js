@@ -12,6 +12,10 @@ var Me = module.exports = function Size(value) {
 };
 Value.extend(Me);
 
+Me.create = function create(value) {
+	return new Me(value);
+};
+
 Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };
