@@ -4,6 +4,7 @@
 var assert = require("../util/assert.js");
 var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
+var Value = require("../values/value.js");
 
 describe("Descriptor abstract base class", function() {
 
@@ -36,13 +37,48 @@ describe("Descriptor abstract base class", function() {
 			assert.equal(example.diff(1), "");
 		});
 
+	});
+
+	describe("error handling", function() {
+
+		var example;
+
+		beforeEach(function() {
+			example = new Example(1);
+		});
+
 		it("wraps diff errors in an explanation", function() {
-			var example = new Example(1);
 			var error = new ErrorDescriptor();
 
 			assert.exception(function() {
 				example.diff(error);
 			}, "Can't compare " + example + " to " + error + ": ErrorDescriptor error");
+		});
+
+		it("fails nicely when diffing 'undefined' accidentally", function() {
+			assert.exception(function() {
+				example.diff(undefined);
+			}, "Can't compare example 1 to undefined. Did you misspell a property name?");
+		});
+
+		it("fails nicely when diffing unsupported types", function() {
+			assertPrimitiveError(true, "boolean");
+			assertPrimitiveError("foo", "string");
+			assertPrimitiveError(function() {}, "function");
+			assertPrimitiveError(null, "null");
+			assertPrimitiveError({}, "Object instances");
+
+			function assertPrimitiveError(arg, expected) {
+				assert.exception(function() {
+					example.diff(arg);
+				}, "Can't compare example 1 to " + expected + ".");
+			}
+		});
+
+		it("doesn't fail when diffing arbitrary value object", function() {
+			assert.noException(function() {
+				example.diff(new ExampleValue());
+			});
 		});
 
 	});
@@ -55,14 +91,12 @@ describe("Descriptor abstract base class", function() {
 	Descriptor.extend(Example);
 
 	Example.prototype.convert = function convert(arg) {
-		ensure.signature(arguments, [ [Descriptor, Number ]]);
-
-		if (typeof arg === "number") return new Value(arg);
+		if (typeof arg === "number") return new ExampleValue(arg);
 		else return arg;
 	};
 
 	Example.prototype.value = function value() {
-		return new Value(this._name);
+		return new ExampleValue(this._name);
 	};
 
 	Example.prototype.joiner = function joiner() { return "to be same as"; };
@@ -84,26 +118,25 @@ describe("Descriptor abstract base class", function() {
 	};
 
 
-	function Value(name) {
+	function ExampleValue(name) {
 		this._name = name;
 	}
+	Value.extend(ExampleValue);
 
-	Value.prototype.value = function value() {
+	ExampleValue.prototype.compatibility = function compatibility() {
+		return [ ExampleValue ];
+	};
+
+	ExampleValue.prototype.value = function value() {
 		return this;
 	};
 
-	Value.prototype.diff = function diff(expected) {
-		if (this.equals(expected)) return "";
+	ExampleValue.prototype.diff = Value.safe(function diff(expected) {
+		if (this._name === expected._name) return "";
 		else return "different";
-	};
+	});
 
-	Value.prototype.equals = function equals(that) {
-		ensure.signature(arguments, [ Value ]);
-
-		return this._name === that._name;
-	};
-
-	Value.prototype.toString = function toString() {
+	ExampleValue.prototype.toString = function toString() {
 		return this._name;
 	};
 

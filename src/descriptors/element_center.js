@@ -46,8 +46,6 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.convert = function convert(arg) {
-	ensure.signature(arguments, [ [Number, Descriptor ]]);
-
 	if (typeof arg !== "number") return arg;
 
 	if (this._dimension === X_DIMENSION) return Position.x(arg);
@@ -57,6 +55,8 @@ Me.prototype.convert = function convert(arg) {
 Me.prototype.joiner = function joiner() { return "to match"; };
 
 Me.prototype.toString = function toString() {
+	ensure.signature(arguments, []);
+
 	var description = (this._dimension === X_DIMENSION) ? "center" : "middle";
 	return description + " of " + this._element;
 };

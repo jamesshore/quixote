@@ -44,9 +44,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.convert = function convert(arg) {
-	ensure.signature(arguments, [ [Number, Descriptor] ]);
 	if (typeof arg !== "number") return arg;
-
 	return new Size(arg);
 };
 

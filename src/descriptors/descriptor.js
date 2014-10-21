@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var oop = require("../util/oop.js");
+var Value = require("../values/value.js");
 
 var Me = module.exports = function Descriptor() {};
 Me.extend = oop.extendFn(Me);
@@ -14,8 +15,22 @@ oop.makeAbstract(Me, [
 ]);
 
 Me.prototype.diff = function diff(expected) {
+	var expectedType = typeof expected;
+	if (expected === null) expectedType = "null";
+
+	if (expectedType === "undefined") {
+		throw new Error("Can't compare " + this + " to " + expected + ". Did you misspell a property name?");
+	}
+	if (expectedType !== "number") {
+		if (expectedType !== "object") {
+			throw new Error("Can't compare " + this + " to " + expectedType + ".");
+		}
+		if (!(expected instanceof Me) && !(expected instanceof Value)) {
+			throw new Error("Can't compare " + this + " to " + oop.instanceName(expected) + " instances.");
+		}
+	}
+
 	try {
-		ensure.signature(arguments, [ [Number, Me] ]);
 		expected = this.convert(expected);
 
 		var actualValue = this.value();
