@@ -32,6 +32,7 @@ element.assert({
 * CURRENT: clean up. See below items
 
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
+  * Provide default implementation of convert() (do nothing; just return 'undefined')
 
 * Handful of end-to-end tests that confirm human-readable results of diff()
 

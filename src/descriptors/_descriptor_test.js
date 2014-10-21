@@ -90,9 +90,8 @@ describe("Descriptor abstract base class", function() {
 	}
 	Descriptor.extend(Example);
 
-	Example.prototype.convert = function convert(arg) {
-		if (typeof arg === "number") return new ExampleValue(arg);
-		else return arg;
+	Example.prototype.convert = function convert(arg, type) {
+		if (type === "number") return new ExampleValue(arg);
 	};
 
 	Example.prototype.value = function value() {
