@@ -44,7 +44,6 @@ element.assert({
 
 ## Future To Do
 
-* Clean up QElement tests
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * Rename `Frame` to `QFrame`?
 * Get IE 8 ensure exceptions to show stack trace

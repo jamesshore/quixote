@@ -9,10 +9,26 @@ var ElementCenter = require("./descriptors/element_center.js");
 
 describe("QElement", function() {
 
+	var TOP = 10;
+	var RIGHT = 150;
+	var BOTTOM = 70;
+	var LEFT = 20;
+
+	var CENTER = 85;
+	var MIDDLE = 40;
+
+	var WIDTH = 130;
+	var HEIGHT = 60;
+
 	var frame;
+	var element;
 
 	beforeEach(function() {
 		frame = reset.frame;
+		frame.addElement(
+			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
+		);
+		element = frame.getElement("#element");
 	});
 
 	describe("object", function() {
@@ -45,27 +61,7 @@ describe("QElement", function() {
 		});
 	});
 
-	describe("property smoke tests", function() {
-
-		var TOP = 10;
-		var RIGHT = 150;
-		var BOTTOM = 70;
-		var LEFT = 20;
-
-		var CENTER = 85;
-		var MIDDLE = 40;
-
-		var WIDTH = 130;
-		var HEIGHT = 60;
-
-		var element;
-
-		beforeEach(function() {
-			frame.addElement(
-				"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
-			);
-			element = frame.getElement("#element");
-		});
+	describe("properties", function() {
 
 		it("edges", function() {
 			assert.equal(element.top.diff(TOP), "", "top");
@@ -82,18 +78,6 @@ describe("QElement", function() {
 		it("sizes", function() {
 			assert.equal(element.width.diff(WIDTH), "", "width");
 			assert.equal(element.height.diff(HEIGHT), "", "height");
-		});
-
-		it("fails nicely when adding incompatible elements", function() {
-			assert.exception(function() {
-				element.width.plus(element.top).value();
-			}, "Size isn't compatible with Position");
-		});
-
-		it("fails nicely when diffing incompatible elements", function() {
-			assert.exception(function() {
-				element.width.diff(element.top);
-			}, "Can't compare width of '#element' to top edge of '#element': Size isn't compatible with Position");
 		});
 
 	});
@@ -129,25 +113,6 @@ describe("QElement", function() {
 
 
 	describe("diff", function() {
-		var TOP = 20;
-		var RIGHT = 90;
-		var BOTTOM = 70;
-		var LEFT = 30;
-
-		var element;
-
-		beforeEach(function() {
-			element = frame.addElement(
-				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
-			);
-		});
-
-		it("operates on edges", function() {
-			assert.equal(element.top.diff(TOP), "", "top");
-			assert.equal(element.right.diff(RIGHT), "", "right");
-			assert.equal(element.bottom.diff(BOTTOM), "", "bottom");
-			assert.equal(element.left.diff(LEFT), "", "left");
-		});
 
 		it("diffs one property", function() {
 			var expected = element.top.diff(600);
@@ -174,14 +139,8 @@ describe("QElement", function() {
 			assert.equal(element.diff({ top: TOP, right: RIGHT, bottom: 200}), bottomDiff, "one difference");
 		});
 
-		it("fails fast when invalid property is provided", function() {
-			assert.exception(function() {
-				element.diff({ XXX: "non-existant" });
-			}, /'XXX' is unknown and can't be used with diff()/);
-		});
-
 		it("supports relative comparisons", function() {
-			var two = frame.addElement("<div style='position: absolute; top: 20px;'>two</div>");
+			var two = frame.addElement("<div style='position: absolute; top: " + TOP + "px;'>two</div>");
 			assert.equal(element.diff({ top: two.top }), "", "relative diff");
 		});
 
@@ -199,6 +158,29 @@ describe("QElement", function() {
 			assert.exception(function() {
 				element.assert({ top: 600 }, "a message");
 			}, "a message:\n" + diff, "different, with a message");
+		});
+
+	});
+
+
+	describe("end-to-end text rendering", function() {
+
+//		it("fails nicely when invalid property is diff'd", function() {
+//			assert.exception(function() {
+//				element.diff({ XXX: "non-existant" });
+//			}, "'#element' doesn't have a property named 'XXX'. Did you misspell it?");
+//		});
+
+		it("fails nicely when adding incompatible elements", function() {
+			assert.exception(function() {
+				element.width.plus(element.top).value();
+			}, "Size isn't compatible with Position");
+		});
+
+		it("fails nicely when diffing incompatible elements", function() {
+			assert.exception(function() {
+				element.width.diff(element.top);
+			}, "Can't compare width of '#element' to top edge of '#element': Size isn't compatible with Position");
 		});
 
 	});
