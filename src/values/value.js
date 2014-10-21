@@ -19,3 +19,8 @@ Me.prototype.value = function value() {
 Me.prototype.equals = function equals(that) {
 	return this.diff(that) === "";
 };
+
+Me.prototype.describeMatch = function describeMatch() {
+	ensure.signature(arguments, []);
+	return "be " + this;
+};

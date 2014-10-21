@@ -3,6 +3,7 @@
 
 var assert = require("../util/assert.js");
 var Size = require("./size.js");
+var Value = require("./value.js");
 var Pixels = require("./pixels.js");
 
 describe("Size", function() {
@@ -11,12 +12,12 @@ describe("Size", function() {
 	var a2 = new Size(52);
 	var b = new Size(7);
 
-	it("can be constructed from pixels", function() {
-		assert.objEqual(new Size(new Pixels(52)), a1);
+	it("is a value object", function() {
+		assert.implements(a1, Value);
 	});
 
-	it("responds to value()", function() {
-		assert.equal(a1.value(), a1);    // note identity comparison, not objEqual()
+	it("can be constructed from pixels", function() {
+		assert.objEqual(new Size(new Pixels(52)), a1);
 	});
 
 	it("arithmetic", function() {
@@ -40,12 +41,7 @@ describe("Size", function() {
 		assert.equal(a1.diff(a2), "");
 	});
 
-	it("equals()", function() {
-		assert.objEqual(a1, a2, "same");
-		assert.objNotEqual(a1, b, "different");
-	});
-
-	it("toString()", function() {
+	it("converts to string", function() {
 		assert.equal(a1.toString(), "52px");
 	});
 

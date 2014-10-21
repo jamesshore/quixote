@@ -2,8 +2,8 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var shim = require("../util/shim.js");
 var oop = require("../util/oop.js");
+var Value = require("./value.js");
 var Pixels = require("./pixels.js");
 
 var Me = module.exports = function Size(value) {
@@ -11,12 +11,7 @@ var Me = module.exports = function Size(value) {
 
 	this._edge = (typeof value === "number") ? new Pixels(value) : value;
 };
-
-Me.prototype.value = function() {
-	ensure.signature(arguments, []);
-
-	return this;
-};
+Value.extend(Me);
 
 Me.prototype.plus = wrap(function(operand) {
 	return new Me(this._edge.plus(operand._edge));
@@ -40,25 +35,13 @@ Me.prototype.diff = wrap(function(expected) {
 	return actualValue.diff(expectedValue) + desc;
 });
 
-Me.prototype.equals = wrap(function(that) {
-	return this._edge.equals(that._edge);
-});
-
-Me.prototype.describeMatch = function describeMatch() {
-	ensure.signature(arguments, []);
-
-	return "be " + this;
-};
-
 Me.prototype.toString = function() {
 	ensure.signature(arguments, []);
-
 	return this._edge.toString();
 };
 
 Me.prototype.toPixels = function() {
 	ensure.signature(arguments, []);
-
 	return this._edge;
 };
 
