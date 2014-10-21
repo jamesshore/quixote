@@ -24,8 +24,8 @@ Me.prototype.minus = Value.safe(function minus(operand) {
 	return new Me(this._value.minus(operand._value));
 });
 
-Me.prototype.multiply = function multiply(operand) {
-	return new Me(this._value.multiply(operand));
+Me.prototype.times = function times(operand) {
+	return new Me(this._value.times(operand));
 };
 
 Me.prototype.compare = Value.safe(function compare(that) {

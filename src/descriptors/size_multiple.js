@@ -38,7 +38,7 @@ Me.prototype.times = function times(amount) {
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	return this._relativeTo.value().multiply(this._multiple);
+	return this._relativeTo.value().times(this._multiple);
 };
 
 Me.prototype.convert = function convert(arg, type) {

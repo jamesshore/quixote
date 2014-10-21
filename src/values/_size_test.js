@@ -23,7 +23,7 @@ describe("Size", function() {
 	it("arithmetic", function() {
 		assert.objEqual(a1.plus(b), new Size(59));
 		assert.objEqual(a1.minus(b), new Size(45));
-		assert.objEqual(b.multiply(3), new Size(21));
+		assert.objEqual(b.times(3), new Size(21));
 	});
 
 	it("converts to pixels", function() {

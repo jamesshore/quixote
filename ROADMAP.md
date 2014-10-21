@@ -29,9 +29,6 @@ element.assert({
 
 ## To Do
 
-* NEXT: Nice error when doing something nonsensical (e.g., `el.width.multiply(el.top)`)?
-* Rename multiply() to times()?
-
 * Use factory methods, not constructors, to create value objects
 
 ## Future Features
