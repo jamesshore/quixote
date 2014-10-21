@@ -47,7 +47,6 @@ element.assert({
 * Should width and height go inside Frame's "options" object?
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Frame.getElement(), Frame.addElement(): take an optional nickname?
-* QElement.description() --> QElement.toString()? 
 * Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
 
 
