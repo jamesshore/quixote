@@ -6,6 +6,16 @@ var Value = require("./value.js");
 
 describe("Value abstract base class", function() {
 
+	var a1;
+	var a2;
+	var b;
+
+	beforeEach(function() {
+		a1 = new Example("a");
+		a2 = new Example("a");
+		b = new Example("b");
+	});
+
 	it("can be extended", function() {
 		function Subclass() {}
 
@@ -14,17 +24,22 @@ describe("Value abstract base class", function() {
 	});
 
 	it("responds to value() with itself", function() {
-		var a = new Example();
-		assert.equal(a.value(), a);    // note identity comparison, not objEqual()
+		assert.equal(a1.value(), a1);    // note identity comparison, not objEqual()
 	});
 
 	it("determines equality (relies on `diff()`)", function() {
-		var a1 = new Example("a");
-		var a2 = new Example("a");
-		var b = new Example("b");
-
 		assert.objEqual(a1, a2, "same");
 		assert.objNotEqual(a1, b, "different");
+	});
+
+	it("provides way to fail fast when operating on incompatible objects", function() {
+		assert.noException(function() {
+			a1.diff(new Example2());
+		}, "in compatibility list");
+
+		assert.exception(function() {
+			a1.diff({});
+		}, /Example isn't compatible with Object/, "not compatible");
 	});
 
 
@@ -33,12 +48,18 @@ describe("Value abstract base class", function() {
 	}
 	Value.extend(Example);
 
-	Example.prototype.diff = function diff(expected) {
-		return (this._value === expected._value) ? "" : "different";
+	Example.prototype.compatibility = function compatibility() {
+		return [ Example, Example2 ];
 	};
+
+	Example.prototype.diff = Value.safe(function diff(expected) {
+		return (this._value === expected._value) ? "" : "different";
+	});
 
 	Example.prototype.toString = function toString() {
 		return "" + this._value;
 	};
+
+	function Example2() {}
 
 });

@@ -13,19 +13,23 @@ var Me = module.exports = function Size(value) {
 };
 Value.extend(Me);
 
-Me.prototype.plus = wrap(function(operand) {
+Me.prototype.compatibility = function compatibility() {
+	return [ Me ];
+};
+
+Me.prototype.plus = Value.safe(function(operand) {
 	return new Me(this._edge.plus(operand._edge));
 });
 
-Me.prototype.minus = wrap(function(operand) {
+Me.prototype.minus = Value.safe(function(operand) {
 	return new Me(this._edge.minus(operand._edge));
 });
 
-Me.prototype.compare = wrap(function(that) {
+Me.prototype.compare = Value.safe(function(that) {
 	return this._edge.compare(that._edge);
 });
 
-Me.prototype.diff = wrap(function(expected) {
+Me.prototype.diff = Value.safe(function(expected) {
 	var actualValue = this._edge;
 	var expectedValue = expected._edge;
 
@@ -44,18 +48,3 @@ Me.prototype.toPixels = function() {
 	ensure.signature(arguments, []);
 	return this._edge;
 };
-
-function wrap(fn) {
-	return function() {
-		ensureCompatibility(arguments);
-		return fn.apply(this, arguments);
-	};
-}
-
-function ensureCompatibility(args) {
-	for (var i = 0; i < args.length; i++) {   // args is not an Array, can't use forEach
-		if (!(args[i] instanceof Me)) {
-			throw new Error(oop.className(Me) + " isn't compatible with " + oop.instanceName(args[i]));
-		}
-	}
-}
