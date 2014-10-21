@@ -13,7 +13,7 @@ var Me = module.exports = function Position(dimension, value) {
 	ensure.signature(arguments, [ String, [Number, Pixels] ]);
 
 	this._dimension = dimension;
-	this._edge = (typeof value === "number") ? new Pixels(value) : value;
+	this._value = (typeof value === "number") ? new Pixels(value) : value;
 };
 Value.extend(Me);
 
@@ -31,19 +31,19 @@ Me.prototype.compatibility = function compatibility() {
 
 Me.prototype.plus = Value.safe(function plus(operand) {
 	ensureComparable(this, operand);
-	return new Me(this._dimension, this._edge.plus(operand.toPixels()));
+	return new Me(this._dimension, this._value.plus(operand.toPixels()));
 });
 
 Me.prototype.minus = Value.safe(function minus(operand) {
 	if (operand instanceof Me) ensureComparable(this, operand);
-	return new Me(this._dimension, this._edge.minus(operand.toPixels()));
+	return new Me(this._dimension, this._value.minus(operand.toPixels()));
 });
 
 Me.prototype.diff = Value.safe(function diff(expected) {
 	ensureComparable(this, expected);
 
-	var actualValue = this._edge;
-	var expectedValue = expected._edge;
+	var actualValue = this._value;
+	var expectedValue = expected._value;
 	if (actualValue.equals(expectedValue)) return "";
 
 	var direction;
@@ -57,13 +57,13 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	return this._edge.toString();
+	return this._value.toString();
 };
 
 Me.prototype.toPixels = function toPixels() {
 	ensure.signature(arguments, []);
 
-	return this._edge;
+	return this._value;
 };
 
 function ensureComparable(self, other) {

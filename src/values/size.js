@@ -8,7 +8,7 @@ var Pixels = require("./pixels.js");
 var Me = module.exports = function Size(value) {
 	ensure.signature(arguments, [ [Number, Pixels] ]);
 
-	this._edge = (typeof value === "number") ? new Pixels(value) : value;
+	this._value = (typeof value === "number") ? new Pixels(value) : value;
 };
 Value.extend(Me);
 
@@ -16,21 +16,25 @@ Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };
 
-Me.prototype.plus = Value.safe(function(operand) {
-	return new Me(this._edge.plus(operand._edge));
+Me.prototype.plus = Value.safe(function plus(operand) {
+	return new Me(this._value.plus(operand._value));
 });
 
-Me.prototype.minus = Value.safe(function(operand) {
-	return new Me(this._edge.minus(operand._edge));
+Me.prototype.minus = Value.safe(function minus(operand) {
+	return new Me(this._value.minus(operand._value));
 });
 
-Me.prototype.compare = Value.safe(function(that) {
-	return this._edge.compare(that._edge);
+Me.prototype.multiply = function multiply(operand) {
+	return new Me(this._value.multiply(operand));
+};
+
+Me.prototype.compare = Value.safe(function compare(that) {
+	return this._value.compare(that._value);
 });
 
-Me.prototype.diff = Value.safe(function(expected) {
-	var actualValue = this._edge;
-	var expectedValue = expected._edge;
+Me.prototype.diff = Value.safe(function diff(expected) {
+	var actualValue = this._value;
+	var expectedValue = expected._value;
 
 	if (actualValue.equals(expectedValue)) return "";
 
@@ -38,12 +42,12 @@ Me.prototype.diff = Value.safe(function(expected) {
 	return actualValue.diff(expectedValue) + desc;
 });
 
-Me.prototype.toString = function() {
+Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._edge.toString();
+	return this._value.toString();
 };
 
-Me.prototype.toPixels = function() {
+Me.prototype.toPixels = function toPixels() {
 	ensure.signature(arguments, []);
-	return this._edge;
+	return this._value;
 };
