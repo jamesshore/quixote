@@ -5,6 +5,7 @@ var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
 var RelativeSize = require("./relative_size.js");
+var SizeMultiple = require("./size_multiple.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
@@ -32,6 +33,10 @@ Me.prototype.plus = function plus(amount) {
 
 Me.prototype.minus = function minus(amount) {
 	return RelativeSize.smaller(this, amount);
+};
+
+Me.prototype.times = function times(amount) {
+	return SizeMultiple.create(this, amount);
 };
 
 Me.prototype.value = function value() {
