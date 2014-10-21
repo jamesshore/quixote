@@ -18,8 +18,6 @@
 
 * Scrolling (and accounting for scrolling in ElementEdge)
 
-* Split out API and contribution documentation (don't want wall of text in readme)
-
 ```javascript
 element.assert({
   top: foo.top,
@@ -43,6 +41,7 @@ element.assert({
 
 ## Future Features
 
+* Split out API and contribution documentation (don't want wall of text in readme)
 * Investigate re-enabling URL checking (issue #4)
 * Should width and height go inside Frame's "options" object?
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)

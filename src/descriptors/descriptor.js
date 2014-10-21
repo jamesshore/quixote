@@ -10,7 +10,6 @@ Me.extend = oop.extendFn(Me);
 oop.makeAbstract(Me, [
 	"value",
 	"convert",
-	"joiner",
 	"toString"
 ]);
 
@@ -39,16 +38,12 @@ Me.prototype.diff = function diff(expected) {
 		if (actualValue.equals(expectedValue)) return "";
 
 		return "Expected " + this.toString() + " (" + this.value() + ") " +
-			expected.describeMatch() +
+			"to be " + expected + " (" + expectedValue + ")" +
 			", but was " + actualValue.diff(expectedValue);
 	}
 	catch (err) {
 		throw new Error("Can't compare " + this + " to " + expected + ": " + err.message);
 	}
-};
-
-Me.prototype.describeMatch = function describeMatch() {
-	return this.joiner() + " " + this.toString() + " (" + this.value() + ")";
 };
 
 Me.prototype.equals = function(equals) {

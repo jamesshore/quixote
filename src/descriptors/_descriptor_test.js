@@ -28,7 +28,7 @@ describe("Descriptor abstract base class", function() {
 
 			assert.equal(
 				example1.diff(example2),
-				"Expected example one (one) to be same as example two (two), but was different"
+				"Expected example one (one) to be example two (two), but was different"
 			);
 		});
 
