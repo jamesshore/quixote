@@ -18,6 +18,7 @@ describe("Pixels", function() {
 	it("arithmetic", function() {
 		assert.objEqual(a1.plus(b), new Pixels(30));
 		assert.objEqual(b.minus(a1), new Pixels(10));
+		assert.objEqual(a1.multiply(3), new Pixels(30));
 	});
 
 	it("compares", function() {
