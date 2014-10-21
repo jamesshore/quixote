@@ -18,6 +18,23 @@ Me.create = function create(relativeTo, multiple) {
 	return new Me(relativeTo, multiple);
 };
 
+function relativeSize() {
+	// break circular dependency
+	return require("./relative_size.js");
+}
+
+Me.prototype.plus = function plus(amount) {
+	return relativeSize().larger(this, amount);
+};
+
+Me.prototype.minus = function minus(amount) {
+	return relativeSize().smaller(this, amount);
+};
+
+Me.prototype.times = function times(amount) {
+	return Me.create(this, amount);
+};
+
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 

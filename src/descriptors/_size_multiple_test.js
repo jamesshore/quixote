@@ -11,6 +11,7 @@ describe("SizeMultiple", function() {
 
 	var WIDTH = 130;
 	var HEIGHT = 60;
+	var TWICE = WIDTH * 2;
 
 	var element;
 	var twice;
@@ -68,6 +69,12 @@ describe("SizeMultiple", function() {
 			var descriptor = SizeMultiple.create(element.width, multiple);
 			assert.equal(descriptor.toString(), expected + element.width, message);
 		}
+	});
+
+	it("can be arithmaticated", function() {
+		assert.objEqual(twice.plus(10).value(), new Size(TWICE + 10), "bigger");
+		assert.objEqual(twice.minus(10).value(), new Size(TWICE - 10), "smaller");
+		assert.objEqual(twice.times(3).value(), new Size(TWICE * 3), "multiplied");
 	});
 
 });
