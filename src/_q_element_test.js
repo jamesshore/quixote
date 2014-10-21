@@ -165,6 +165,15 @@ describe("QElement", function() {
 
 	describe("end-to-end text rendering", function() {
 
+		it("provides nice explanation of differences", function() {
+			assert.equal(
+				element.width.diff(element.height),
+				"width of '#element' was 70px larger than expected.\n" +
+				"  Expected: 60px (height of '#element')\n" +
+				"  But was:  130px"
+			);
+		});
+
 		it("fails nicely when invalid property is diff'd", function() {
 			assert.exception(function() {
 				element.diff({ XXX: "non-existant" });

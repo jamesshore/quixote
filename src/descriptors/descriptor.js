@@ -20,9 +20,10 @@ Me.prototype.diff = function diff(expected) {
 
 		if (actualValue.equals(expectedValue)) return "";
 
-		return "Expected " + this.toString() + " (" + this.value() + ") " +
-			"to be " + expected + " (" + expectedValue + ")" +
-			", but was " + actualValue.diff(expectedValue);
+		var difference = actualValue.diff(expectedValue);
+		return this + " was " + difference + " than expected.\n" +
+			"  Expected: " + expectedValue + " (" + expected + ")\n" +
+			"  But was:  " + actualValue;
 	}
 	catch (err) {
 		throw new Error("Can't compare " + this + " to " + expected + ": " + err.message);
