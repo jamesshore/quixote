@@ -29,7 +29,6 @@ element.assert({
 
 ## To Do
 
-* CURRENT: Size and Pixels .multiply()
 * CURRENT: SizeMultiplier descriptor
 * Deal with case of Position not having multiply() method? Is that necessary? (Value object default methods?)
 * Nice error when doing something nonsensical (e.g., `el.width.multiply(el.top)`)

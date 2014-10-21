@@ -142,7 +142,7 @@ In this case, we represent the background color of an element, so a good value f
 Here's our test and production code:
 
 ```javascript
-it("converts to string", function() {
+it("renders to string", function() {
   assert.equal(color.toString(), "background color of " + element);
 });
 ```
@@ -150,7 +150,7 @@ it("converts to string", function() {
 ```javascript
 Me.prototype.toString = function toString() {
   // check parameters
-	ensure.signature(arguments, []);
+  ensure.signature(arguments, []);
 
   return "background color of " + this._element;
 };
