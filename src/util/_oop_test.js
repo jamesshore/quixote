@@ -56,4 +56,29 @@ describe("OOP module", function() {
 		assert.equal(Child.prototype.constructor, Child, "constructor property");
 	});
 
+	it("turns a class into an abstract base class", function() {
+		// WORKAROUND IE 8: IE 8 doesn't have function.bind and I'm too lazy to implement a shim for it right now.
+		if (!Function.prototype.bind) return;
+
+		function Parent() {}
+		Parent.extend = oop.extendFn(Parent);
+
+		oop.makeAbstract(Parent, [ "foo", "bar", "baz" ]);
+		var obj = new Parent();
+
+		assert.exception(obj.foo.bind(obj), "Parent subclasses must implement foo() method", "foo()");
+		assert.exception(obj.bar.bind(obj), "Parent subclasses must implement bar() method", "bar()");
+		assert.exception(obj.baz.bind(obj), "Parent subclasses must implement baz() method", "baz()");
+
+		function Child() {}
+		Parent.extend(Child);
+		Child.prototype.baz = function() {};
+
+		assert.deepEqual(
+			new Child().checkAbstractMethods(),
+			[ "foo()", "bar()" ],
+			"should know which methods are unimplemented"
+		);
+	});
+
 });

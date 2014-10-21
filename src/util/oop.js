@@ -25,3 +25,21 @@ exports.extendFn = function extendFn(parentConstructor) {
 		childConstructor.prototype.constructor = childConstructor;
 	};
 };
+
+exports.makeAbstract = function makeAbstract(constructor, methods) {
+	var name = shim.Function.name(constructor);
+	shim.Array.forEach(methods, function(method) {
+		constructor.prototype[method] = function() {
+			throw new Error(name + " subclasses must implement " + method + "() method");
+		};
+	});
+
+	constructor.prototype.checkAbstractMethods = function checkAbstractMethods() {
+		var unimplemented = [];
+		var self = this;
+		shim.Array.forEach(methods, function(name) {
+			if (self[name] === constructor.prototype[name]) unimplemented.push(name + "()");
+		});
+		return unimplemented;
+	};
+};

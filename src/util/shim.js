@@ -74,7 +74,7 @@ exports.Function = {
 		var funcNameRegex = /function\s+(.{1,})\s*\(/;
 		var results = (funcNameRegex).exec((fn).toString());
 		return (results && results.length > 1) ? results[1] : "<anon>";
-	}
+	},
 
 };
 

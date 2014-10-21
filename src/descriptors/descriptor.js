@@ -6,17 +6,13 @@ var shim = require("../util/shim.js");
 var oop = require("../util/oop.js");
 
 var Me = module.exports = function Descriptor() {};
-
-var ABSTRACT_METHODS = [
+Me.extend = oop.extendFn(Me);
+oop.makeAbstract(Me, [
 	"value",
 	"convert",
 	"joiner",
 	"toString"
-];
-
-createAbstractMethods(ABSTRACT_METHODS);
-
-Me.extend = oop.extendFn(Me);
+]);
 
 Me.prototype.diff = function diff(expected) {
 	ensure.signature(arguments, [ [Number, Me] ]);
@@ -36,25 +32,8 @@ Me.prototype.describeMatch = function describeMatch() {
 	return this.joiner() + " " + this.toString() + " (" + this.value() + ")";
 };
 
-Me.prototype.checkAbstractMethods = function checkAbstractMethods() {
-	var unimplemented = [];
-	var self = this;
-	shim.Array.forEach(ABSTRACT_METHODS, function(name) {
-		if (self[name] === Me.prototype[name]) unimplemented.push(name + "()");
-	});
-	return unimplemented;
-};
-
 Me.prototype.equals = function(equals) {
 	// Descriptors aren't value objects. They're never equal to anything. But sometimes
 	// they're used in the same places value objects are used, and this method gets called.
 	return false;
 };
-
-function createAbstractMethods(names) {
-	shim.Array.forEach(names, function(name) {
-		Me.prototype[name] = function() {
-			ensure.unreachable("Descriptor subclasses must implement " + name + "() method");
-		};
-	});
-}
