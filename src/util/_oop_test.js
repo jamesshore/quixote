@@ -20,8 +20,8 @@ describe("OOP module", function() {
 	});
 
 	it("determines name of object's class", function() {
-		// WORKAROUND IE 8: IE 8's object creation is screwy, so we skip this test
-		if (!Object.create) return;
+		// WORKAROUND IE 8: The IE 8 getPrototypeOf shim is incomplete, so we skip this test
+		if (!Object.getPrototypeOf) return;
 
 		function Me() {}
 		assert.equal(oop.instanceName(new Me()), "Me", "named class");
@@ -39,6 +39,46 @@ describe("OOP module", function() {
 
 		var noPrototype = shim.Object.create(null);
 		assert.equal(oop.instanceName(noPrototype), "<no prototype>", "no prototype");
+	});
+
+	it("creates extend function", function() {
+		// WORKAROUND IE 8: The IE 8 getPrototypeOf shim is incomplete, so we skip this test
+		// The production code works fine on IE 8, but the test relies on getPrototypeOf().
+		if (!Object.getPrototypeOf) return;
+
+		function Parent() {}
+		Parent.extend = oop.extendFn(Parent);
+
+		function Child() {}
+		Parent.extend(Child);
+
+		assert.equal(shim.Object.getPrototypeOf(Child.prototype).constructor, Parent, "prototype chain");
+		assert.equal(Child.prototype.constructor, Child, "constructor property");
+	});
+
+	it("turns a class into an abstract base class", function() {
+		// WORKAROUND IE 8: IE 8 doesn't have function.bind and I'm too lazy to implement a shim for it right now.
+		if (!Function.prototype.bind) return;
+
+		function Parent() {}
+		Parent.extend = oop.extendFn(Parent);
+
+		oop.makeAbstract(Parent, [ "foo", "bar", "baz" ]);
+		var obj = new Parent();
+
+		assert.exception(obj.foo.bind(obj), "Parent subclasses must implement foo() method", "foo()");
+		assert.exception(obj.bar.bind(obj), "Parent subclasses must implement bar() method", "bar()");
+		assert.exception(obj.baz.bind(obj), "Parent subclasses must implement baz() method", "baz()");
+
+		function Child() {}
+		Parent.extend(Child);
+		Child.prototype.baz = function() {};
+
+		assert.deepEqual(
+			new Child().checkAbstractMethods(),
+			[ "foo()", "bar()" ],
+			"should know which methods are unimplemented"
+		);
 	});
 
 });

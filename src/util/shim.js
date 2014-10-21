@@ -13,6 +13,7 @@ exports.Object = {
 	},
 
 	// WORKAROUND IE 8: no Object.getPrototypeOf
+	// Caution: Doesn't work on IE 8 if constructor has been changed, as is the case with a subclass.
 	getPrototypeOf: function getPrototypeOf(obj) {
 		if (Object.getPrototypeOf) return Object.getPrototypeOf(obj);
 
@@ -73,7 +74,7 @@ exports.Function = {
 		var funcNameRegex = /function\s+(.{1,})\s*\(/;
 		var results = (funcNameRegex).exec((fn).toString());
 		return (results && results.length > 1) ? results[1] : "<anon>";
-	}
+	},
 
 };
 
