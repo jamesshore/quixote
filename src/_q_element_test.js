@@ -183,6 +183,21 @@ describe("QElement", function() {
 			);
 		});
 
+		it("renders multiple differences nicely", function() {
+			assert.equal(
+				element.diff({
+					width: element.height,
+					top: 13
+				}),
+				"width of '#element' was 70px larger than expected.\n" +
+				"  Expected: 60px (height of '#element')\n" +
+				"  But was:  130px\n" +
+				"top edge of '#element' was 3px lower than expected.\n" +
+				"  Expected: 13px\n" +
+				"  But was:  10px"
+			);
+		});
+
 		it("fails nicely when invalid property is diff'd", function() {
 			assert.exception(function() {
 				element.diff({ XXX: "non-existant" });
