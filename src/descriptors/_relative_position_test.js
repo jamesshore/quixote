@@ -64,13 +64,10 @@ describe("RelativePosition", function() {
 	});
 
 	it("converts arguments to comparable values", function() {
-		assert.objEqual(right.convert(13), Position.x(13), "right");
-		assert.objEqual(down.convert(13), Position.y(13), "down");
-		assert.objEqual(left.convert(13), Position.x(13), "left");
-		assert.objEqual(up.convert(13), Position.y(13), "up");
-
-		var descriptor = RelativePosition.right(element.top, 13);
-		assert.equal(right.convert(descriptor), descriptor, "descriptor");
+		assert.objEqual(right.convert(13, "number"), Position.x(13), "right");
+		assert.objEqual(down.convert(13, "number"), Position.y(13), "down");
+		assert.objEqual(left.convert(13, "number"), Position.x(13), "left");
+		assert.objEqual(up.convert(13, "number"), Position.y(13), "up");
 	});
 
 	it("converts to string", function() {

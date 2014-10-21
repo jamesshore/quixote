@@ -43,9 +43,8 @@ Me.prototype.value = function value() {
 	return new Size(result);
 };
 
-Me.prototype.convert = function convert(arg) {
-	if (typeof arg !== "number") return arg;
-	return new Size(arg);
+Me.prototype.convert = function convert(arg, type) {
+	if (type === "number") return new Size(arg);
 };
 
 Me.prototype.toString = function toString() {

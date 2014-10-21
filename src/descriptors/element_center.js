@@ -45,11 +45,8 @@ Me.prototype.value = function value() {
 	else return Position.y(position.top + ((position.bottom - position.top) / 2));
 };
 
-Me.prototype.convert = function convert(arg) {
-	if (typeof arg !== "number") return arg;
-
-	if (this._dimension === X_DIMENSION) return Position.x(arg);
-	else return Position.y(arg);
+Me.prototype.convert = function convert(arg, type) {
+	if (type === "number") return (this._dimension === X_DIMENSION) ? Position.x(arg) : Position.y(arg);
 };
 
 Me.prototype.toString = function toString() {
