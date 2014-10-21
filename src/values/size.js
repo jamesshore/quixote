@@ -2,7 +2,6 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var oop = require("../util/oop.js");
 var Value = require("./value.js");
 var Pixels = require("./pixels.js");
 

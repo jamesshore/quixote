@@ -37,9 +37,7 @@ element.assert({
 
 ## To Do
 
-* CURRENT: Factor out Value superclass
-  * Pixels
-* THEN: "fails nicely when diffing incompatible elements" in QElement test
+* NEXT: "fails nicely when diffing incompatible elements" in QElement test
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
