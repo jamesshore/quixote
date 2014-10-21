@@ -17,23 +17,35 @@ describe("Descriptor abstract base class", function() {
 
 	describe("diff", function() {
 
+		var example;
+
+		beforeEach(function() {
+			example = new Example(1);
+		});
+
 		it("returns empty string when no difference", function() {
-			var example = new Example("one");
 			assert.equal(example.diff(example), "");
 		});
 
-		it("describes differences when descriptors resolve to different value", function() {
-			var example1 = new Example("one");
-			var example2 = new Example("two");
-
+		it("describes differences between a descriptor and a value", function() {
 			assert.equal(
-				example1.diff(example2),
-				"Expected example one (one) to be example two (two), but was different"
+				example.diff(2),
+				"example 1 was different than expected.\n" +
+					"  Expected: 2\n" +
+					"  But was:  1"
+			);
+		});
+
+		it("describes differences between two descriptors", function() {
+			assert.equal(
+				example.diff(new Example("two")),
+				"example 1 was different than expected.\n" +
+					"  Expected: two (example two)\n" +
+					"  But was:  1"
 			);
 		});
 
 		it("converts values before comparing them", function() {
-			var example = new Example(1);
 			assert.equal(example.diff(1), "");
 		});
 

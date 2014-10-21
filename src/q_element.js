@@ -39,12 +39,15 @@ Me.prototype.diff = function diff(expected) {
 
 	var result = [];
 	var keys = shim.Object.keys(expected);
-	var key, oneDiff, constraint;
+	var key, oneDiff, descriptor;
 	for (var i = 0; i < keys.length; i++) {
 		key = keys[i];
-		constraint = this[key];
-		ensure.that(constraint !== undefined, "'" + key + "' is unknown and can't be used with diff()");
-		oneDiff = constraint.diff(expected[key]);
+		descriptor = this[key];
+		ensure.that(
+				descriptor !== undefined,
+				this + " doesn't have a property named '" + key + "'. Did you misspell it?"
+		);
+		oneDiff = descriptor.diff(expected[key]);
 		if (oneDiff !== "") result.push(oneDiff);
 	}
 

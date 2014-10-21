@@ -29,8 +29,6 @@ element.assert({
 
 ## To Do
 
-* CURRENT: Handful of end-to-end tests that confirm human-readable results of diff()
-
 
 ## Future Features
 
@@ -44,13 +42,7 @@ element.assert({
 
 ## Future To Do
 
-* Clean up QElement tests
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * Rename `Frame` to `QFrame`?
-* Get IE 8 ensure exceptions to show stack trace
-* Factor out duplication of message variable manipulation in assert.js
-* Get assert.deepEqual to show objects
 * frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
-* Modify ensure to give better error message when comparison type is not a constructor
-* `ensure.signature(arguments, [ [undefined, Object] ]);` failed -- look into it (`ElementEdge.toString()`)
