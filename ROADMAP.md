@@ -29,6 +29,11 @@ element.assert({
 
 ## To Do
 
+* CURRENT: SizeMultiplier descriptor
+* Deal with case of not having multiply() method? Is that possible? (Value object default methods?)
+* Nice error when doing something nonsensical (e.g., `el.width.multiply(el.top)`)
+
+* Use factory methods, not constructors, to create value objects
 
 ## Future Features
 
