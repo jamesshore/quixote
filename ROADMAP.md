@@ -29,8 +29,9 @@ element.assert({
 
 ## To Do
 
+* CURRENT: Size and Pixels .multiply()
 * CURRENT: SizeMultiplier descriptor
-* Deal with case of not having multiply() method? Is that possible? (Value object default methods?)
+* Deal with case of Position not having multiply() method? Is that necessary? (Value object default methods?)
 * Nice error when doing something nonsensical (e.g., `el.width.multiply(el.top)`)
 
 * Use factory methods, not constructors, to create value objects

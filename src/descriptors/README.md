@@ -11,7 +11,7 @@ A descriptor has the following key features, which should be implemented in this
 
 * It has tests.
 * It provides factory methods for construction.
-* It converts itself to a Value object. (`value()`)
+* It resolves itself to a Value object. (`value()`)
 * It converts primitives to Value objects that are comparable to itself. (`convert(arg, type)`)
 * It renders itself as a string. (`toString()`)
 * It extends the `Descriptor` base class.
@@ -30,6 +30,7 @@ Start out by creating a simple testbed. In our case, we need an element with a b
 var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var BackgroundColor = require("./background_color.js");
+var Descriptor = require("./descriptor.js");
 
 describe("BackgroundColor", function() {
   
@@ -64,6 +65,7 @@ We have a convention of using factory methods, not constructors, to create all d
 "use strict";
 
 var ensure = require("../util/ensure.js");
+var Descriptor = require("./descriptor.js");
 
 var Me = module.exports = function BackgroundColor(element) {
   // Check that the constructor is called with the correct parameter types
@@ -82,7 +84,7 @@ Me.create = function create(element) {
 ```
 
 
-## Convert to Value (`value()`)
+## Calculate Value (`value()`)
 
 A descriptor is a *description* of a CSS property. Descriptors don't actually calculate the value of the property until `value()` is called, so this method is where the magic happens.
 
