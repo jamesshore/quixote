@@ -11,16 +11,17 @@ A descriptor has the following key features, which should be implemented in this
 
 * It has tests.
 * It provides factory methods for construction.
-* It converts itself to a Value object. (`value()`)
+* It resolves itself to a Value object. (`value()`)
 * It converts primitives to Value objects that are comparable to itself. (`convert(arg, type)`)
 * It renders itself as a string. (`toString()`)
 * It extends the `Descriptor` base class.
+* It is returned from QElement or another descriptor
 * Optional: It provides properties or methods that return other descriptors.
 
 The following explanations use the (as yet fictional) example of a `BackgroundColor` descriptor. It represents the `background-color` CSS property.
 
 
-## Tests
+## Create tests
 
 Start out by creating a simple testbed. In our case, we need an element with a background color.
 
@@ -30,6 +31,7 @@ Start out by creating a simple testbed. In our case, we need an element with a b
 var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var BackgroundColor = require("./background_color.js");
+var Descriptor = require("./descriptor.js");
 
 describe("BackgroundColor", function() {
   
@@ -56,7 +58,7 @@ describe("BackgroundColor", function() {
 ```
 
 
-## Factory Methods
+## Implement factory methods
 
 We have a convention of using factory methods, not constructors, to create all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
  
@@ -64,6 +66,7 @@ We have a convention of using factory methods, not constructors, to create all d
 "use strict";
 
 var ensure = require("../util/ensure.js");
+var Descriptor = require("./descriptor.js");
 
 var Me = module.exports = function BackgroundColor(element) {
   // Check that the constructor is called with the correct parameter types
@@ -82,7 +85,7 @@ Me.create = function create(element) {
 ```
 
 
-## Convert to Value (`value()`)
+## Calculate value (`value()`)
 
 A descriptor is a *description* of a CSS property. Descriptors don't actually calculate the value of the property until `value()` is called, so this method is where the magic happens.
 
@@ -140,7 +143,7 @@ In this case, we represent the background color of an element, so a good value f
 Here's our test and production code:
 
 ```javascript
-it("converts to string", function() {
+it("renders to string", function() {
   assert.equal(color.toString(), "background color of " + element);
 });
 ```
@@ -148,7 +151,7 @@ it("converts to string", function() {
 ```javascript
 Me.prototype.toString = function toString() {
   // check parameters
-	ensure.signature(arguments, []);
+  ensure.signature(arguments, []);
 
   return "background color of " + this._element;
 };
@@ -172,6 +175,27 @@ Descriptor.extend(Me);
 ```
 
 
-## Optional properties or methods
+## Return from property
 
-You can also provide properties or methods that return other descriptors. For example, we might want to add a `darken()` method that provides a relative color. See `element_center.js` for an example.
+For a descriptor to be accessible by users, it must be returned from a property on `QElement` or another descriptor.
+
+In our case, we'll add a `QElement.backgroundColor` property. The tests and code are simple because the heavy lifting is done in the descriptor.
+
+In the QElement tests, we add a test to the "properties" `describe` block:
+
+```javascript
+it("colors", function() {
+  assert.equal(element.backgroundColor.diff(COLOR), "", "background color");
+});
+```
+
+And in the QElement constructor, we create the property:
+
+```javascript
+this.backgroundColor = BackgroundColor.create(this);
+```
+
+
+## Add optional properties or methods
+
+Your new descriptor can itself provide properties or methods that return other descriptors. For example, we might want to add a `darken()` method that returns a `RelativeColor` descriptor. See `ElementCenter.plus` for an example.

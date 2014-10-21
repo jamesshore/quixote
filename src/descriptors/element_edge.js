@@ -20,7 +20,7 @@ var Me = module.exports = function ElementEdge(element, position) {
 	);
 
 	this._element = element;
-	this._edge = position;
+	this._value = position;
 };
 Descriptor.extend(Me);
 
@@ -32,21 +32,21 @@ Me.left = factoryFn(LEFT);
 Me.prototype.plus = function plus(amount) {
 	ensure.signature(arguments, [ [Number, ElementSize] ]);
 
-	if (this._edge === RIGHT || this._edge === LEFT) return RelativePosition.right(this, amount);
-	if (this._edge === TOP || this._edge === BOTTOM) return RelativePosition.down(this, amount);
+	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.right(this, amount);
+	if (this._value === TOP || this._value === BOTTOM) return RelativePosition.down(this, amount);
 };
 
 Me.prototype.minus = function minus(amount) {
 	ensure.signature(arguments, [ [Number, ElementSize] ]);
 
-	if (this._edge === RIGHT || this._edge === LEFT) return RelativePosition.left(this, amount);
-	if (this._edge === TOP || this._edge === BOTTOM) return RelativePosition.up(this, amount);
+	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.left(this, amount);
+	if (this._value === TOP || this._value === BOTTOM) return RelativePosition.up(this, amount);
 };
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var result = this._element.getRawPosition()[this._edge];
+	var result = this._element.getRawPosition()[this._value];
 	return createPosition(this, result);
 };
 
@@ -56,7 +56,7 @@ Me.prototype.convert = function convert(arg, type) {
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._edge + " edge of " + this._element;
+	return this._value + " edge of " + this._element;
 };
 
 function factoryFn(position) {
@@ -66,6 +66,6 @@ function factoryFn(position) {
 }
 
 function createPosition(self, value) {
-	if (self._edge === TOP || self._edge === BOTTOM) return Position.y(value);
-	if (self._edge === RIGHT || self._edge === LEFT) return Position.x(value);
+	if (self._value === TOP || self._value === BOTTOM) return Position.y(value);
+	if (self._value === RIGHT || self._value === LEFT) return Position.x(value);
 }

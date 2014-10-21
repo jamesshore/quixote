@@ -22,6 +22,12 @@ Me.prototype.minus = Value.safe(function minus(operand) {
 	return new Me(this._amount - operand._amount);
 });
 
+Me.prototype.times = function times(operand) {
+	ensure.signature(arguments, [ Number ]);
+
+	return new Me(this._amount * operand);
+};
+
 Me.prototype.compare = Value.safe(function compare(operand) {
 	return this._amount - operand._amount;
 });
