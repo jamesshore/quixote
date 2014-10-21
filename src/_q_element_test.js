@@ -91,9 +91,11 @@ describe("QElement", function() {
 		});
 
 		it("fails nicely when diffing incompatible elements", function() {
-//			assert.fail("this is next");
-
-//			element.width.diff(element.top);
+//			assert.fail("continue here");
+//
+//			assert.exception(function() {
+//				element.width.diff(element.top);
+//			}, "Error: Can't compare width of '#element' to top of '#element': Size isn't compatible with Position");
 		});
 
 	});

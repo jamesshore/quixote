@@ -37,7 +37,8 @@ element.assert({
 
 ## To Do
 
-* NEXT: "fails nicely when diffing incompatible elements" in QElement test
+* CURRENT: Descriptor.diff wraps errors in an explanation
+* CURRENT: "fails nicely when diffing incompatible elements" in QElement test
 
 * Inline Descriptor.describeMatch()? (It's obsolete, I think)
 * Change Descriptor.convert() --> Descriptor.convertNumber()?
