@@ -176,7 +176,7 @@ describe("Frame", function() {
 			var body = frameDom.contentDocument.body;
 
 			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body should include new element");
-			assert.objEqual(element, new QElement(body.childNodes[0], "desc"), "element should be present in frame body");
+			assert.objEqual(element, new QElement(body.childNodes[0], frame, "desc"), "element should be present in frame body");
 			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
 		});
 

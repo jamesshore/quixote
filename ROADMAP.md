@@ -28,8 +28,9 @@ element.assert({
 
 ## To Do
 
-* NEXT: Move Frame workarounds to shim.js
-* ElementEdge account for scroll position
+* CURRENT: QElement points to its containing frame
+
+* STASHED: ElementEdge account for scroll position
 
 
 ## Future Features
