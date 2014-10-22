@@ -108,12 +108,13 @@ There are also a few classes used with `assert()` and `diff()`:
 * `ElementEdge` represents the outer edge of an element (top, left, etc.)
 * `ElementPosition` represents an offset to an element's edge. (10px below the top, etc.)
 
-
 **The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge. Breaking changes to any method documented here will be mentioned in the [change log](CHANGELOG.md). Any class or method that isn't mentioned should be considered non-public.  
+
 
 ### Entry Point: `quixote`
 
 The `quixote` module just has one method: `quixote.createFrame()`. You'll use this to create your test frame. For performance, it's best to do this just once per test suite.
+
 
 #### quixote.createFrame()
 
@@ -128,13 +129,15 @@ Create a test iframe.
 * `height (number)`: Height of the iframe
 
 * `options (optional object)`: Options for creating the frame:
-  * `src (optional string)`: URL of an HTML document to load into the frame
+  * `src (optional string)`: URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors.
   * `stylesheet (optional string)`: URL of a CSS stylesheet to load into the frame
   * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet with an HTML document, use a `<link>` tag in the HTML document itself.
   
 * `callback(err, loadedFrame) (function)`: Called when the frame has been created. 
   * `err (Error or null)`: Any errors that occurred while loading the frame (always `null`, for now)
   * `loadedFrame (Frame)`: The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
+
+**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe. We work around the problem using a scrolling container [as described by David Walsh](http://davidwalsh.name/scroll-iframes-ios). This workaround may result in subtle incompatibilities on Mobile Safari. We will document or work around them when we find them. If you see an issue on Mobile Safari that seems related, please [open an issue](https://github.com/jamesshore/quixote/issues).
 
 
 ### Class: `Frame`

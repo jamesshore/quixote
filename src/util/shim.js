@@ -1,84 +1,6 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
-exports.Object = {
-
-	// WORKAROUND IE 8: no Object.create()
-	create: function create(prototype) {
-		if (Object.create) return Object.create(prototype);
-
-		var Temp = function Temp() {};
-		Temp.prototype = prototype;
-		return new Temp();
-	},
-
-	// WORKAROUND IE 8: no Object.getPrototypeOf
-	// Caution: Doesn't work on IE 8 if constructor has been changed, as is the case with a subclass.
-	getPrototypeOf: function getPrototypeOf(obj) {
-		if (Object.getPrototypeOf) return Object.getPrototypeOf(obj);
-
-		var result = obj.constructor ? obj.constructor.prototype : null;
-		return result || null;
-	},
-
-	// WORKAROUND IE 8: No Object.keys
-	keys: function keys(obj) {
-		if (Object.keys) return Object.keys(obj);
-
-		// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-	  var hasOwnProperty = Object.prototype.hasOwnProperty,
-	      hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
-	      dontEnums = [
-	        'toString',
-	        'toLocaleString',
-	        'valueOf',
-	        'hasOwnProperty',
-	        'isPrototypeOf',
-	        'propertyIsEnumerable',
-	        'constructor'
-	      ],
-	      dontEnumsLength = dontEnums.length;
-
-	  if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
-	    throw new TypeError('Object.keys called on non-object');
-	  }
-
-	  var result = [], prop, i;
-
-	  for (prop in obj) {
-	    if (hasOwnProperty.call(obj, prop)) {
-	      result.push(prop);
-	    }
-	  }
-
-	  if (hasDontEnumBug) {
-	    for (i = 0; i < dontEnumsLength; i++) {
-	      if (hasOwnProperty.call(obj, dontEnums[i])) {
-	        result.push(dontEnums[i]);
-	      }
-	    }
-	  }
-	  return result;
-	}
-
-};
-
-
-exports.Function = {
-
-	// WORKAROUND IE 8, IE 9, IE 10, IE 11: no function.name
-	name: function name(fn) {
-		if (fn.name) return fn.name;
-
-		// Based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
-		var funcNameRegex = /function\s+(.{1,})\s*\(/;
-		var results = (funcNameRegex).exec((fn).toString());
-		return (results && results.length > 1) ? results[1] : "<anon>";
-	},
-
-};
-
-
 exports.Array = {
 
 	// WORKAROUND IE 8: no Array.isArray
@@ -150,6 +72,132 @@ exports.Array = {
       k++;
     }
     // 8. return undefined
+	}
+
+};
+
+
+exports.EventTarget = {
+
+	// WORKAROUND IE8: no EventTarget.addEventListener()
+	addEventListener: function addEventListener(element, event, callback) {
+		if (element.addEventListener) return element.addEventListener(event, callback);
+
+		element.attachEvent("on" + event, callback);
+	}
+
+};
+
+
+exports.Document = {
+
+	// WORKAROUND IE8: no document.head
+	head: function head(doc) {
+		if (doc.head) return doc.head;
+
+		return doc.querySelector("head");
+	}
+
+};
+
+
+exports.Function = {
+
+	// WORKAROUND IE 8, IE 9, IE 10, IE 11: no function.name
+	name: function name(fn) {
+		if (fn.name) return fn.name;
+
+		// Based on code by Jason Bunting et al, http://stackoverflow.com/a/332429
+		var funcNameRegex = /function\s+(.{1,})\s*\(/;
+		var results = (funcNameRegex).exec((fn).toString());
+		return (results && results.length > 1) ? results[1] : "<anon>";
+	},
+
+};
+
+
+exports.Object = {
+
+	// WORKAROUND IE 8: no Object.create()
+	create: function create(prototype) {
+		if (Object.create) return Object.create(prototype);
+
+		var Temp = function Temp() {};
+		Temp.prototype = prototype;
+		return new Temp();
+	},
+
+	// WORKAROUND IE 8: no Object.getPrototypeOf
+	// Caution: Doesn't work on IE 8 if constructor has been changed, as is the case with a subclass.
+	getPrototypeOf: function getPrototypeOf(obj) {
+		if (Object.getPrototypeOf) return Object.getPrototypeOf(obj);
+
+		var result = obj.constructor ? obj.constructor.prototype : null;
+		return result || null;
+	},
+
+	// WORKAROUND IE 8: No Object.keys
+	keys: function keys(obj) {
+		if (Object.keys) return Object.keys(obj);
+
+		// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+	  var hasOwnProperty = Object.prototype.hasOwnProperty,
+	      hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+	      dontEnums = [
+	        'toString',
+	        'toLocaleString',
+	        'valueOf',
+	        'hasOwnProperty',
+	        'isPrototypeOf',
+	        'propertyIsEnumerable',
+	        'constructor'
+	      ],
+	      dontEnumsLength = dontEnums.length;
+
+	  if (typeof obj !== 'object' && (typeof obj !== 'function' || obj === null)) {
+	    throw new TypeError('Object.keys called on non-object');
+	  }
+
+	  var result = [], prop, i;
+
+	  for (prop in obj) {
+	    if (hasOwnProperty.call(obj, prop)) {
+	      result.push(prop);
+	    }
+	  }
+
+	  if (hasDontEnumBug) {
+	    for (i = 0; i < dontEnumsLength; i++) {
+	      if (hasOwnProperty.call(obj, dontEnums[i])) {
+	        result.push(dontEnums[i]);
+	      }
+	    }
+	  }
+	  return result;
+	}
+
+};
+
+
+exports.Window = {
+
+	// WORKAROUND IE 8: No Window.pageXOffset
+	pageXOffset: function(window, document) {
+		if (window.pageXOffset !== undefined) return window.pageXOffset;
+
+		// Based on https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY
+		var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+		return isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft;
+	},
+
+
+	// WORKAROUND IE 8: No Window.pageYOffset
+	pageYOffset: function(window, document) {
+		if (window.pageYOffset !== undefined) return window.pageYOffset;
+
+		// Based on https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY
+		var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+		return isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
 	}
 
 };

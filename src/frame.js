@@ -2,18 +2,22 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var shim = require("./util/shim.js");
 var QElement = require("./q_element.js");
 
-var Me = module.exports = function Frame(domElement) {
-	ensure.signature(arguments, [ Object ]);
-	ensure.that(domElement.tagName === "IFRAME", "DOM element must be an iframe");
+var Me = module.exports = function Frame(frameDom, scrollContainerDom) {
+	ensure.signature(arguments, [ Object, Object ]);
+	ensure.that(frameDom.tagName === "IFRAME", "Frame DOM element must be an iframe");
+	ensure.that(scrollContainerDom.tagName === "DIV", "Scroll container DOM element must be a div");
 
-	this._domElement = domElement;
+	this._domElement = frameDom;
+	this._scrollContainer = scrollContainerDom;
 	this._loaded = false;
 	this._removed = false;
 };
 
 function loaded(self) {
+	ensure.that(self._scrollContainer.childNodes[0] === self._domElement, "iframe must be embedded in the scroll container");
 	self._loaded = true;
 	self._document = self._domElement.contentDocument;
 	self._originalBody = self._document.body.innerHTML;
@@ -33,15 +37,26 @@ Me.create = function create(parentElement, width, height, options, callback) {
 		"Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue"
 	);
 
+	// WORKAROUND Mobile Safari 7.0.0: Does not respect iframe width and height attributes
+	// See also http://davidwalsh.name/scroll-iframes-ios
+	var scrollContainer = document.createElement("div");
+	scrollContainer.setAttribute("style",
+		"-webkit-overflow-scrolling: touch; " +
+		"overflow-y: scroll; " +
+		"width: " + width + "px; " +
+		"height: " + height + "px;"
+	);
+
 	var iframe = document.createElement("iframe");
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
 	iframe.setAttribute("frameborder", "0");    // WORKAROUND IE 8: don't include frame border in position calcs
 	if (options.src) iframe.setAttribute("src", options.src);
 
-	var frame = new Me(iframe);
-	addLoadListener(iframe, onFrameLoad);
-	parentElement.appendChild(iframe);
+	var frame = new Me(iframe, scrollContainer);
+	shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+	scrollContainer.appendChild(iframe);
+	parentElement.appendChild(scrollContainer);
 	return frame;
 
 	function onFrameLoad() {
@@ -61,13 +76,12 @@ function loadStylesheet(self, url, callback) {
 	if (url === undefined) return callback();
 
 	var link = document.createElement("link");
-	addLoadListener(link, onLinkLoad);
+	shim.EventTarget.addEventListener(link, "load", onLinkLoad);
 	link.setAttribute("rel", "stylesheet");
 	link.setAttribute("type", "text/css");
 	link.setAttribute("href", url);
 
-	documentHead(self).appendChild(link);
-
+	shim.Document.head(self._document).appendChild(link);
 	function onLinkLoad() {
 		callback();
 	}
@@ -78,6 +92,7 @@ Me.prototype.reset = function() {
 	ensureUsable(this);
 
 	this._document.body.innerHTML = this._originalBody;
+	this.scroll(0, 0);
 };
 
 Me.prototype.toDomElement = function() {
@@ -93,7 +108,9 @@ Me.prototype.remove = function() {
 	if (this._removed) return;
 
 	this._removed = true;
-	this._domElement.parentNode.removeChild(this._domElement);
+
+	var scrollContainer = this._domElement.parentNode;
+	scrollContainer.parentNode.removeChild(scrollContainer);
 };
 
 Me.prototype.addElement = function(html) {
@@ -121,17 +138,30 @@ Me.prototype.getElement = function(selector) {
 	return new QElement(nodes[0], selector);
 };
 
-// WORKAROUND IE8: no addEventListener()
-function addLoadListener(iframeDom, callback) {
-	if (iframeDom.addEventListener) iframeDom.addEventListener("load", callback);
-	else iframeDom.attachEvent("onload", callback);
-}
+Me.prototype.scroll = function scroll(x, y) {
+	ensure.signature(arguments, [ Number, Number ]);
 
-// WORKAROUND IE8: no document.head
-function documentHead(self) {
-	if (self._document.head) return self._document.head;
-	else return self._document.querySelector("head");
-}
+	this._domElement.contentWindow.scroll(x, y);
+
+	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable, but we can scroll the container.
+	// There's probably some cases where this isn't real enough.
+	if (navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i)) {
+		// It would be nice if this used feature detection rather than user agent inspection.
+		this._scrollContainer.scrollLeft = x;
+		this._scrollContainer.scrollTop = y;
+	}
+};
+
+Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
+	ensure.signature(arguments, []);
+
+	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable, so scroll() scrolls the container instead.
+	// We need to account for that.
+	return {
+		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollLeft,
+		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollTop
+	};
+};
 
 function ensureUsable(self) {
 	ensureLoaded(self);

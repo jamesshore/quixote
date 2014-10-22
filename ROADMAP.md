@@ -28,6 +28,8 @@ element.assert({
 
 ## To Do
 
+* NEXT: Move Frame workarounds to shim.js
+* ElementEdge account for scroll position
 
 
 ## Future Features
