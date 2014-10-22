@@ -14,22 +14,10 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: Scrolling (and accounting for scrolling in ElementEdge)
+* NEXT: Documentation
 
-```javascript
-element.assert({
-  top: foo.top,
-  bottom: bar.middle
-  left: baz.left.plus(10)
-  right: baz.left.plus(element.width)
-  center: foo.top.plus(element.height.times(1/3))
-});
-```
 
 ## To Do
-
-* NEXT: Move Frame workarounds to shim.js
-* ElementEdge account for scroll position
 
 
 ## Future Features

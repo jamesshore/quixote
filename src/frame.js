@@ -3,6 +3,7 @@
 
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
+var quixote = require("./quixote.js");
 var QElement = require("./q_element.js");
 
 var Me = module.exports = function Frame(frameDom, scrollContainerDom) {
@@ -92,7 +93,7 @@ Me.prototype.reset = function() {
 	ensureUsable(this);
 
 	this._document.body.innerHTML = this._originalBody;
-	this.scroll(0, 0);
+	if (quixote.browser.canScroll()) this.scroll(0, 0);
 };
 
 Me.prototype.toDomElement = function() {
@@ -126,7 +127,7 @@ Me.prototype.addElement = function(html) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._document.body.appendChild(insertedElement);
-	return new QElement(insertedElement, html);
+	return new QElement(insertedElement, this, html);
 };
 
 Me.prototype.getElement = function(selector) {
@@ -135,7 +136,7 @@ Me.prototype.getElement = function(selector) {
 
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
-	return new QElement(nodes[0], selector);
+	return new QElement(nodes[0], this, selector);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
@@ -143,23 +144,18 @@ Me.prototype.scroll = function scroll(x, y) {
 
 	this._domElement.contentWindow.scroll(x, y);
 
-	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable, but we can scroll the container.
-	// There's probably some cases where this isn't real enough.
-	if (navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i)) {
-		// It would be nice if this used feature detection rather than user agent inspection.
-		this._scrollContainer.scrollLeft = x;
-		this._scrollContainer.scrollTop = y;
-	}
+	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable because it's already full size.
+	// We can scroll the container, but that's not the same thing. We fail fast here on the
+	// assumption that scrolling the container isn't enough.
+	ensure.that(quixote.browser.canScroll(), "Quixote can't scroll this browser's test frame");
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensure.signature(arguments, []);
 
-	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable, so scroll() scrolls the container instead.
-	// We need to account for that.
 	return {
-		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollLeft,
-		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollTop
+		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document),
+		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document)
 	};
 };
 

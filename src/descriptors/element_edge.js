@@ -42,12 +42,13 @@ Me.prototype.minus = function minus(amount) {
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var result = this._element.getRawPosition()[this._value];
-	return createPosition(this, result);
+	var edge = this._element.getRawPosition()[this._value];
+	var scroll = this._element.frame.getRawScrollPosition();
+	return createPosition(this, edge, scroll);
 };
 
 Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return createPosition(this, arg);
+	if (type === "number") return createPosition(this, arg, { x: 0, y: 0 });
 };
 
 Me.prototype.toString = function toString() {
@@ -61,7 +62,7 @@ function factoryFn(position) {
 	};
 }
 
-function createPosition(self, value) {
-	if (self._value === TOP || self._value === BOTTOM) return Position.y(value);
-	if (self._value === RIGHT || self._value === LEFT) return Position.x(value);
+function createPosition(self, value, scrollPos) {
+	if (self._value === RIGHT || self._value === LEFT) return Position.x(value + scrollPos.x);
+	else return Position.y(value + scrollPos.y);
 }

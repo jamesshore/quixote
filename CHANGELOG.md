@@ -24,8 +24,9 @@ New value objects:
 * Pixels
 
 New methods:
-* Frame.scroll()
-* Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim, Mobile Safari scroll container)
+* quixote.browser.canScroll()
+* Frame.scroll() (Compatibility note: fails fast on Mobile Safari)
+* Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim)
 
 Rename:
 * ElementPosition --> RelativePosition

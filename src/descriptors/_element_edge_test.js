@@ -11,6 +11,7 @@ var Descriptor = require("./descriptor.js");
 
 describe("ElementEdge", function() {
 
+	var frame;
 	var element;
 	var top;
 	var right;
@@ -26,7 +27,7 @@ describe("ElementEdge", function() {
 	var HEIGHT = 60;
 
 	beforeEach(function() {
-		var frame = reset.frame;
+		frame = reset.frame;
 		frame.addElement(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
@@ -41,7 +42,7 @@ describe("ElementEdge", function() {
 		assert.implements(top, Descriptor);
 	});
 
-	it("resolves itself to actual value", function() {
+	it("resolves to value", function() {
 		assert.objEqual(top.value(), Position.y(TOP), "top");
 		assert.objEqual(right.value(), Position.x(RIGHT), "right");
 		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
@@ -64,6 +65,19 @@ describe("ElementEdge", function() {
 		function assertDesc(element, edge, expected, message) {
 			assert.equal(edge.toString(), expected + element, message);
 		}
+	});
+
+	it("accounts for scrolling", function() {
+		if (!quixote.browser.canScroll()) return;
+
+		frame.addElement("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
+
+		frame.scroll(50, 60);
+
+		assert.objEqual(top.value(), Position.y(TOP), "top");
+		assert.objEqual(right.value(), Position.x(RIGHT), "right");
+		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
+		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
 	it("can be shifted up, down, left, and right", function() {

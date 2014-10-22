@@ -8,11 +8,14 @@ var ElementEdge = require("./descriptors/element_edge.js");
 var ElementCenter = require("./descriptors/element_center.js");
 var ElementSize = require("./descriptors/element_size.js");
 
-var Me = module.exports = function QElement(domElement, nickname) {
-	ensure.signature(arguments, [ Object, [ String ] ]);
+var Me = module.exports = function QElement(domElement, qframe, nickname) {
+	var Frame = require("./frame.js");    // break circular dependency
+	ensure.signature(arguments, [ Object, Frame, [ String ] ]);
 
 	this._domElement = domElement;
 	this._nickname = nickname;
+
+	this.frame = qframe;
 
 	this.top = ElementEdge.top(this);
 	this.right = ElementEdge.right(this);
