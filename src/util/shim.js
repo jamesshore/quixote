@@ -77,6 +77,18 @@ exports.Array = {
 };
 
 
+exports.EventTarget = {
+
+	// WORKAROUND IE8: no EventTarget.addEventListener()
+	addEventListener: function addEventListener(element, event, callback) {
+		if (element.addEventListener) return element.addEventListener(event, callback);
+
+		element.attachEvent("on" + event, callback);
+	}
+
+};
+
+
 exports.Function = {
 
 	// WORKAROUND IE 8, IE 9, IE 10, IE 11: no function.name

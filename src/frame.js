@@ -54,7 +54,7 @@ Me.create = function create(parentElement, width, height, options, callback) {
 	if (options.src) iframe.setAttribute("src", options.src);
 
 	var frame = new Me(iframe, scrollContainer);
-	addLoadListener(iframe, onFrameLoad);
+	shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
 	scrollContainer.appendChild(iframe);
 	parentElement.appendChild(scrollContainer);
 	return frame;
@@ -76,7 +76,7 @@ function loadStylesheet(self, url, callback) {
 	if (url === undefined) return callback();
 
 	var link = document.createElement("link");
-	addLoadListener(link, onLinkLoad);
+	shim.EventTarget.addEventListener(link, "load", onLinkLoad);
 	link.setAttribute("rel", "stylesheet");
 	link.setAttribute("type", "text/css");
 	link.setAttribute("href", url);
@@ -163,12 +163,6 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollTop
 	};
 };
-
-// WORKAROUND IE8: no addEventListener()
-function addLoadListener(iframeDom, callback) {
-	if (iframeDom.addEventListener) iframeDom.addEventListener("load", callback);
-	else iframeDom.attachEvent("onload", callback);
-}
 
 // WORKAROUND IE8: no document.head
 function documentHead(self) {
