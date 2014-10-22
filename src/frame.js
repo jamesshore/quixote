@@ -121,6 +121,21 @@ Me.prototype.getElement = function(selector) {
 	return new QElement(nodes[0], selector);
 };
 
+Me.prototype.scroll = function scroll(x, y) {
+	ensure.signature(arguments, [ Number, Number ]);
+
+	this._domElement.contentWindow.scroll(x, y);
+};
+
+Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
+	ensure.signature(arguments, []);
+
+	return {
+		x: this._domElement.contentWindow.pageXOffset,
+		y: this._domElement.contentWindow.pageYOffset
+	};
+};
+
 // WORKAROUND IE8: no addEventListener()
 function addLoadListener(iframeDom, callback) {
 	if (iframeDom.addEventListener) iframeDom.addEventListener("load", callback);

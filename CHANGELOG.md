@@ -23,6 +23,10 @@ New value objects:
 * Size
 * Pixels
 
+New methods:
+* Frame.scroll()
+* Frame.getRawScrollPosition()
+
 Rename:
 * ElementPosition --> RelativePosition
 
