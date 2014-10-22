@@ -4,11 +4,11 @@
 
 Quixote is a library for unit testing CSS. You use it with a unit testing framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem).
 
-**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge.
-
 **Browser Support:** IE 8+, Firefox, Chrome, Safari, and Mobile Safari are known to work. Other modern browsers probably work too. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
 
-**Performance:** Fast. The Quixote test suite runs over 1000 tests across eight browsers. It completes in 4.3 seconds.
+**Performance:** Fast. Quixote's own test suite runs over 1000 tests across eight browsers. It completes in 4.3 seconds.
+
+**The API will change!** This is an early version. Don't use this code if you don't want to be on the bleeding edge.
 
 
 ## Installation and Usage
@@ -28,14 +28,17 @@ Quixote is a UMD module. If you just load the file using a `<script>` tag, it wi
 
 ## Example
 
-Here's an example using Mocha. In this example, we're testing a page that has a logo and a menu.
+In this example, we're testing a page that has a logo, a menu, and three columns of content.
 
 ```javascript
 describe("Example", function() {
 
-  var frame;      // Quixote test frame
-  var logo;       // the logo element on the page
-  var menu;       // the menu element
+  var frame;        // Quixote test frame
+  var logo;         // the logo element on the page
+  var menu;         // the menu element
+  var contentLeft;  // our three columns of content
+  var contentMiddle;     
+  var contentRight;   
 
   before(function(done) {
     // Create a 600x800 pixel iframe and load example.html
@@ -56,6 +59,9 @@ describe("Example", function() {
     // Get the elements we want to test
     logo = frame.getElement("#logo");       // you can use any CSS selector
     menu = frame.getElement(".menu");
+    contentLeft = frame.getElement(".content-left");
+    contentMiddle = frame.getElement(".content-middle");
+    contentRight = frame.getElement(".content-right");
   });
   
   it("positions logo at top of page", function() {
@@ -65,7 +71,7 @@ describe("Example", function() {
     // Alternatively, can use 'diff()' if you'd rather use your own
     // assertion library.
     
-    // Check that the logo is in the top-left corner
+    // Check that the logo is in a fixed position on the page
     logo.assert({
       top: 10,    // logo is 10px from top of page
       left: 15    // and 15px from left
@@ -80,8 +86,33 @@ describe("Example", function() {
     });
   });
   
+  it("groups content into three columns", function() {
+    // Compare size and position of content columns to the menu
+    
+    // left column
+    contentLeft.assert({
+      left: menu.left,                // aligned with left edge of menu
+      width: menu.width.times(1/3)    // one-third width of menu
+    });
+    
+    // We can also factor out useful expressions:
+    var columnWidth = menu.width.times(1/3);
+    
+    // middle column
+    contentMiddle.assert({
+      center: menu.center,            // aligned with center of menu
+      width: columnWidth
+    });
+    
+    // right column 
+    contentRight.assert({
+      right: menu.right,              // aligned with right edge of menu
+      width: columnWidth
+    });
+  });
+  
   it("uses big font for menu", function() {
-    // So far, 'assert()' and 'diff()' only support basic positioning.
+    // So far, 'assert()' and 'diff()' only support positioning.
     // But you can get any CSS style you want by using 'getRawStyle()'.
   
     // Get the font size actually displayed in the browser
@@ -94,6 +125,18 @@ describe("Example", function() {
 });
 ```
 
+Quixote provides plain-english, easily-scannable error messages. For example, if the content columns in the example above had an error, you would get an error message like this:
+
+```
+Error: Differences found:
+left edge of '.contentLeft' was 10px further left than expected.
+  Expected: 10px (left edge of '.menu')
+  But was:  0px
+width of '.contentLeft' was 20px larger than expected.
+  Expected: 200px (one third of width of '.menu')
+  But was:  220px
+```
+
 
 ## API
 
@@ -103,12 +146,25 @@ There are three primary classes and modules:
 * `Frame` is how you manipulate the DOM inside your test frame.
 * `QElement` allows you to make assertions and get information.
 
-There are also a few classes used with `assert()` and `diff()`:
+You'll use these two methods the most:
 
-* `ElementEdge` represents the outer edge of an element (top, left, etc.)
-* `ElementPosition` represents an offset to an element's edge. (10px below the top, etc.)
+* `QElement.assert()` checks multiple properties of an element and throws a nice error message if they don't match. You can also use `QElement.diff()` if you'd rather use your own assertion library.
+* `QElement.getRawStyle()` looks up a specific CSS style. Use this for any styles that don't have descriptors.
 
-**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge. Breaking changes to any method documented here will be mentioned in the [change log](CHANGELOG.md). Any class or method that isn't mentioned should be considered non-public.  
+The `assert()` and `diff()` methods use "descriptor" objects that represent some aspect of an element. For example, `ElementEdge` represents the position of an edge of an element.
+
+Get a descriptors by accessing properties on `QElement`. For example, `element.top` gives you an `ElementEdge` descriptor representing the top edge of an element.
+
+Some descriptors have additional properties and methods you can call. For example, `element.width.times(1/3)` corresponds to one-third the width of an element. See the documentation below for details about the properties available on each descriptor.
+
+
+### API Compatibility
+
+**The API will change!** This is an early version. Don't use this code if you don't want to be on the bleeding edge.
+
+Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
+
+Breaking changes to any property or method documented here will be mentioned in the [change log](CHANGELOG.md). All other properties and methods should be considered non-public and subject to change at any time.
 
 
 ### Entry Point: `quixote`
@@ -197,7 +253,7 @@ QElement instances have several properties that can be used to make assertions a
 
 **Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If there's a cross-browser difference that doesn't show up in the actual page, please file an issue.
 
-### element.assert()
+#### element.assert()
 
 Compare the element's properties to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
 
