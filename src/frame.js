@@ -155,8 +155,6 @@ Me.prototype.scroll = function scroll(x, y) {
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensure.signature(arguments, []);
 
-	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable, so scroll() scrolls the container instead.
-	// We need to account for that.
 	return {
 		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollLeft,
 		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollTop

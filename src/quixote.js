@@ -7,3 +7,14 @@ var Frame = require("./frame.js");
 exports.createFrame = function(width, height, options, callback) {
 	return Frame.create(document.body, width, height, options, callback);
 };
+
+exports.browser = {};
+
+exports.browser.canScroll = function canScroll() {
+	// It would be nice if this used feature detection rather than browser detection
+	return (!isMobileSafari());
+};
+
+function isMobileSafari() {
+	return navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i);
+}
