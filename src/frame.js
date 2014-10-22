@@ -81,8 +81,7 @@ function loadStylesheet(self, url, callback) {
 	link.setAttribute("type", "text/css");
 	link.setAttribute("href", url);
 
-	documentHead(self).appendChild(link);
-
+	shim.Document.head(self._document).appendChild(link);
 	function onLinkLoad() {
 		callback();
 	}
@@ -163,12 +162,6 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollTop
 	};
 };
-
-// WORKAROUND IE8: no document.head
-function documentHead(self) {
-	if (self._document.head) return self._document.head;
-	else return self._document.querySelector("head");
-}
 
 function ensureUsable(self) {
 	ensureLoaded(self);

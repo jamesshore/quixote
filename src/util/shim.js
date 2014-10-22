@@ -89,6 +89,18 @@ exports.EventTarget = {
 };
 
 
+exports.Document = {
+
+	// WORKAROUND IE8: no document.head
+	head: function head(doc) {
+		if (doc.head) return doc.head;
+
+		return doc.querySelector("head");
+	}
+
+};
+
+
 exports.Function = {
 
 	// WORKAROUND IE 8, IE 9, IE 10, IE 11: no function.name
