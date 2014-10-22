@@ -25,6 +25,7 @@ element.assert({
 
 * Improved diff messages
 * Better errors
+* ElementEdge.plus() and ElementEdge.minus() can be passed a descriptor (for example, `element.top.plus(element.width)`). 
 
 *Reverted:*
 * Frame.create() fails fast if the HTML or stylesheet URL is invalid: temporarily removed due to potential test suite execution issues with Mobile Safari
@@ -35,8 +36,8 @@ element.assert({
 * QElement.middle
 * QElement.width
 * QElement.height
-* ElementEdge.plus
-* ElementEdge.minus
+* RelativePosition.plus
+* RelativePosition.minus
 
 *New descriptors:*
 
@@ -53,8 +54,8 @@ element.assert({
 *New methods:*
 
 * quixote.browser.canScroll()
-* Frame.scroll() (Compatibility note: fails fast on Mobile Safari)
-* Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim)
+* Frame.scroll()
+* Frame.getRawScrollPosition()
 
 *Renamed:*
 * ElementPosition --> RelativePosition

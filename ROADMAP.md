@@ -39,3 +39,4 @@
 * frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
 * Consider taking out ensure.signature() calls; they may restrict more than they help
+* "Fuzz" pixel comparisons to account for browsers' pixel inexactitude?
