@@ -22,6 +22,7 @@ element.assert({
   bottom: bar.middle
   left: baz.left.plus(10)
   right: baz.left.plus(element.width)
+  center: foo.top.plus(element.height.times(1/3))
 });
 ```
 
@@ -45,3 +46,4 @@ element.assert({
 * Rename `Frame` to `QFrame`?
 * frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
+* Consider taking out ensure.signature() calls; they may restrict more than they help
