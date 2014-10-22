@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var shim = require("./util/shim.js");
 var QElement = require("./q_element.js");
 
 var Me = module.exports = function Frame(domElement) {
@@ -131,8 +132,8 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensure.signature(arguments, []);
 
 	return {
-		x: this._domElement.contentWindow.pageXOffset,
-		y: this._domElement.contentWindow.pageYOffset
+		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document),
+		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document)
 	};
 };
 
