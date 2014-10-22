@@ -28,9 +28,7 @@ element.assert({
 
 ## To Do
 
-* CURRENT: QElement points to its containing frame
-
-* STASHED: ElementEdge account for scroll position
+* CURRENT: ElementEdge account for scroll position
 
 
 ## Future Features

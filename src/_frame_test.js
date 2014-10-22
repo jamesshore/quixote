@@ -223,8 +223,7 @@ describe("Frame", function() {
 		});
 
 		it("scrolls", function() {
-			// put an element outside the window bounds so the window can be scrolled
-			frame.addElement("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>element</div>");
+			frame.addElement("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
 			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0}, "should start at (0, 0)");
 
