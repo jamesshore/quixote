@@ -3,7 +3,19 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## In Progress
+## 0.4: Advanced Positioning
+
+**22 Oct 2014.** This release adds a host of new positioning options. You can get the width and height of elements, look at the center (horizontal) or middle (vertical) of elements, and you can mix and match any descriptor with any other. For example, you could check if your element is in the center third below an 'other' element:
+  
+```javascript
+element.assert({
+  top: other.bottom.plus(10),     // we're 10px below the other element
+  center: other.center,           // we're centered below that element
+  width: other.width.times(1/3)   // and we're one-third its width
+});
+```
+
+This release also provides improved error reporting and descriptions.
 
 New properties:
 * QElement.center
@@ -37,6 +49,9 @@ Reverted:
 Notable changes:
 * Improved diffs
 * Better errors
+
+Fixed:
+* Position comparisons were reversed on the vertical axis. (When comparing 10px to an expected value of 13px, Quixote said the actual was "3px lower" than expected, not "3px higher." Although the *number* is lower, the actual *position* on the page is higher.)
 
 
 ## 0.3: Relative Positioning

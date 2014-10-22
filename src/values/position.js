@@ -48,8 +48,8 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 
 	var direction;
 	var comparison = actualValue.compare(expectedValue);
-	if (this._dimension === X_DIMENSION) direction = comparison < 0 ? "to the left" : "to the right";
-	else direction = comparison < 0 ? "lower" : "higher";
+	if (this._dimension === X_DIMENSION) direction = comparison < 0 ? "further left" : "further right";
+	else direction = comparison < 0 ? "higher" : "lower";
 
 	return actualValue.diff(expectedValue) + " " + direction;
 });

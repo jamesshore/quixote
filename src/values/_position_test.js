@@ -52,11 +52,11 @@ describe("Position", function() {
 	it("determines difference", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
-		assert.equal(x1.diff(x2), "10px to the left", "left");
-		assert.equal(x2.diff(x1), "10px to the right", "right");
+		assert.equal(x1.diff(x2), "10px further left", "less than expected - horizontal");
+		assert.equal(x2.diff(x1), "10px further right", "more than expected - horizontal");
 
-		assert.equal(y1.diff(y2), "30px lower", "lower");
-		assert.equal(y2.diff(y1), "30px higher", "higher");
+		assert.equal(y1.diff(y2), "30px higher", "less than expected - vertical");
+		assert.equal(y2.diff(y1), "30px lower", "more than expected - vertical");
 
 		assert.exception(function() {
 			x1.equals(y1);
