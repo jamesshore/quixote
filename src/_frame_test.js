@@ -22,7 +22,7 @@ describe("Frame", function() {
 
 				var iframe = frame.toDomElement();
 				assert.equal(iframe.tagName, "IFRAME", "should create an iframe tag");
-				assert.equal(iframe.parentNode, window.document.body, "iframe should go inside element we provide");
+				assert.equal(iframe.parentNode.parentNode, window.document.body, "iframe should go inside element we provide");
 				assert.equal(iframe.width, "600", "width should match provided value");
 				assert.equal(iframe.height, "400", "height should match provided value");
 
@@ -222,16 +222,19 @@ describe("Frame", function() {
 			assert.equal(frameDom.contentDocument.body.innerHTML, "", "frame body");
 		});
 
-		it.only("scrolls", function() {
+		it("scrolls", function() {
 			// put an element outside the window bounds so the window can be scrolled
 			frame.addElement("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>element</div>");
 
 			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0}, "should start at (0, 0)");
 
+			frame.scroll(0, 0);
 			frame.scroll(150, 300);
 			assert.equal(frame.getRawScrollPosition().x, 150, "should have scrolled right");
 			assert.equal(frame.getRawScrollPosition().y, 300, "should have scrolled down");
 		});
+
+		//TODO: frame.reset() also resets scroll position
 
 	});
 

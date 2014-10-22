@@ -1,0 +1,38 @@
+<html>
+<body>
+<script>
+    function run() {
+        "use strict";
+        try {
+            var frame = document.getElementById("frame");
+            var container = document.getElementById("container");
+
+            frame.contentWindow.scrollBy(10, 10);
+            container.scrollTop = container.scrollTop + 10;
+            container.scrollLeft = container.scrollLeft + 10;
+            log("container: (" + container.scrollLeft + ", " + container.scrollTop + ")");
+            log("frame: (" + frame.contentWindow.pageXOffset + ", " + frame.contentWindow.pageYOffset + ")");
+        }
+        catch(err) {
+            log(err);
+        }
+    }
+
+    function log(text) {
+        var status = document.getElementById("status");
+        status.innerHTML += "<li>" + text + "</li>";
+    }
+</script>
+
+<div id="container" style="-webkit-overflow-scrolling: touch; overflow-y: scroll; overflow: scroll; width: 400px; height: 200px;">
+    <iframe id="frame" src="inner.html" width="400" height="200"></iframe>
+    <!--<iframe src="http://www.microsoft.com/en-us/default.aspx" width="400" height="200"></iframe>-->
+
+
+</div>
+<button type="button" onclick="run()">Click Me</button>
+<div>Status:
+    <ol id="status"></ol>
+</div>
+</body>
+</html>

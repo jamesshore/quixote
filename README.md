@@ -128,7 +128,7 @@ Create a test iframe.
 * `height (number)`: Height of the iframe
 
 * `options (optional object)`: Options for creating the frame:
-  * `src (optional string)`: URL of an HTML document to load into the frame
+  * `src (optional string)`: URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors.
   * `stylesheet (optional string)`: URL of a CSS stylesheet to load into the frame
   * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet with an HTML document, use a `<link>` tag in the HTML document itself.
   

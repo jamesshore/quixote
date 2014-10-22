@@ -25,7 +25,7 @@ New value objects:
 
 New methods:
 * Frame.scroll()
-* Frame.getRawScrollPosition()
+* Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim, Mobile Safari scroll container)
 
 Rename:
 * ElementPosition --> RelativePosition
