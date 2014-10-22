@@ -15,9 +15,22 @@ element.assert({
 });
 ```
 
-This release also provides improved error reporting and descriptions.
+**No breaking changes.**
 
-New properties:
+*Fixed:*
+
+* Position comparisons are no longer reversed on the vertical axis. (When comparing 10px to an expected value of 13px, Quixote said the actual was "3px lower" than expected, not "3px higher." Although the *number* is lower, the actual *position* on the page is higher.)
+
+*Enhanced:*
+
+* Improved diff messages
+* Better errors
+
+*Reverted:*
+* Frame.create() fails fast if the HTML or stylesheet URL is invalid: temporarily removed due to potential test suite execution issues with Mobile Safari
+
+*New properties:*
+
 * QElement.center
 * QElement.middle
 * QElement.width
@@ -25,33 +38,26 @@ New properties:
 * ElementEdge.plus
 * ElementEdge.minus
 
-New descriptors:
+*New descriptors:*
+
 * ElementCenter
 * ElementSize
 * RelativeSize
 * SizeMultiple
 
-New value objects:
+*New value objects:*
+
 * Size
 * Pixels
 
-New methods:
+*New methods:*
+
 * quixote.browser.canScroll()
 * Frame.scroll() (Compatibility note: fails fast on Mobile Safari)
 * Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim)
 
-Rename:
+*Renamed:*
 * ElementPosition --> RelativePosition
-
-Reverted:
-* Frame.create() fails fast if the HTML or stylesheet URL is invalid: removed due to potential test suite execution issues with Mobile Safari
-
-Notable changes:
-* Improved diffs
-* Better errors
-
-Fixed:
-* Position comparisons were reversed on the vertical axis. (When comparing 10px to an expected value of 13px, Quixote said the actual was "3px lower" than expected, not "3px higher." Although the *number* is lower, the actual *position* on the page is higher.)
 
 
 ## 0.3: Relative Positioning
@@ -66,8 +72,10 @@ element.diff({
 ```
 
 Also, the new `assert()` method works just like `diff()`, except it automatically throws an exception when a difference is found. This is more convenient than writing `assert.equal(element.diff(...), "")` all the time. Now you can just write `element.assert(...)` instead. 
+ 
+**No breaking changes.**
   
-Patches:
+*Patches:*
 
 * *0.3.1, 16 Oct 2014:* Documented `message` parameter on `QElement.assert()`   
 
@@ -82,17 +90,13 @@ Patches:
 
 *New properties and methods:*
 
-* QElement
-  * assert()
-
-* ElementEdge
-  * plus()
-  * minus()
+* QElement.assert()
+* ElementEdge.plus()
+* ElementEdge.minus()
   
-*New classes:*
+*New descriptors:*
 
 * ElementPosition
-  * diff()
 
 
 ## 0.2: Absolute Positioning
@@ -119,16 +123,20 @@ element.diff({
 
 * Frame.create() and quixote.createFrame() now return the frame immediately, as well as passing it into the callback. You still need to wait for the callback before using the frame.
 
-*New properties and methods:*
+*New properties:*
 
-* QElement
-  * top, right, bottom, left
-  * diff()
+* QElement.top
+* QElement.right
+* QElement.bottom
+* QElement.left
 
-*New classes:*
+*New methods:*
+
+* QElement.diff()
+
+*New descriptors:*
 
 * ElementEdge
-  * diff()
 
 
 ## 0.1: Raw Styles and Positions
