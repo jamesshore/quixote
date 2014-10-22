@@ -5,7 +5,7 @@
 * **✔ v0.1** Basic DOM manipulation; raw position and style information
 * **✔ v0.2** "Cooked" absolute position info; initial assertion API
 * **✔ v0.3** Positioning relative to other elements
-* Advanced positioning (middle, center, height, width, fractions)
+* Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * API hardening
 * Positioning relative to page
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
@@ -22,6 +22,7 @@ element.assert({
   bottom: bar.middle
   left: baz.left.plus(10)
   right: baz.left.plus(element.width)
+  center: foo.top.plus(element.height.times(1/3))
 });
 ```
 
@@ -45,3 +46,4 @@ element.assert({
 * Rename `Frame` to `QFrame`?
 * frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
+* Consider taking out ensure.signature() calls; they may restrict more than they help

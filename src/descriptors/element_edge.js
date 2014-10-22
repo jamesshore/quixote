@@ -30,15 +30,11 @@ Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
 Me.prototype.plus = function plus(amount) {
-	ensure.signature(arguments, [ [Number, ElementSize] ]);
-
 	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.right(this, amount);
 	if (this._value === TOP || this._value === BOTTOM) return RelativePosition.down(this, amount);
 };
 
 Me.prototype.minus = function minus(amount) {
-	ensure.signature(arguments, [ [Number, ElementSize] ]);
-
 	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.left(this, amount);
 	if (this._value === TOP || this._value === BOTTOM) return RelativePosition.up(this, amount);
 };

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
+// Copyright (c) 2013-2014 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
 "use strict";
 
 // Runtime assertions for production code. (Contrast to assert.js, which is for test code.)
