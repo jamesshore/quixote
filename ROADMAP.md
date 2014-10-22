@@ -28,8 +28,6 @@ element.assert({
 
 ## To Do
 
-* CURRENT: QElement.browser.canScroll
-* CURRENT: Frame.scroll fail fast if can't scroll
 * CURRENT: ElementEdge account for scroll position (re-enable test)
 
 

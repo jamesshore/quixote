@@ -3,6 +3,7 @@
 
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
+var quixote = require("./quixote.js");
 var QElement = require("./q_element.js");
 
 var Me = module.exports = function Frame(frameDom, scrollContainerDom) {
@@ -92,7 +93,7 @@ Me.prototype.reset = function() {
 	ensureUsable(this);
 
 	this._document.body.innerHTML = this._originalBody;
-	this.scroll(0, 0);
+	if (quixote.browser.canScroll()) this.scroll(0, 0);
 };
 
 Me.prototype.toDomElement = function() {
@@ -143,13 +144,9 @@ Me.prototype.scroll = function scroll(x, y) {
 
 	this._domElement.contentWindow.scroll(x, y);
 
-	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable, but we can scroll the container.
-	// There's probably some cases where this isn't real enough.
-	if (navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i)) {
-		// It would be nice if this used feature detection rather than user agent inspection.
-		this._scrollContainer.scrollLeft = x;
-		this._scrollContainer.scrollTop = y;
-	}
+	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable. We can scroll the container, but that's
+	// not the same thing. We fail fast here on the assumption that scrolling the container isn't enough.
+	ensure.that(quixote.browser.canScroll(), "Quixote can't scroll this browser's test frame");
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {

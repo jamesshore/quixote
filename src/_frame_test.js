@@ -3,6 +3,7 @@
 
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
+var quixote = require("./quixote.js");
 var Frame = require("./frame.js");
 var QElement = require("./q_element.js");
 
@@ -223,6 +224,8 @@ describe("Frame", function() {
 		});
 
 		it("scrolls", function() {
+			if (!quixote.browser.canScroll()) return;
+
 			frame.addElement("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
 			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0}, "should start at (0, 0)");
@@ -234,6 +237,15 @@ describe("Frame", function() {
 			frame.reset();
 			assert.equal(frame.getRawScrollPosition().x, 0, "should have reset X scroll position");
 			assert.equal(frame.getRawScrollPosition().y, 0, "should have reset Y scroll position");
+		});
+
+		it("fails fast if browser can't scroll", function() {
+			if (quixote.browser.canScroll()) return;
+
+			assert.exception(function() {
+				frame.scroll(10, 10);
+			}, "Quixote can't scroll this browser's test frame");
+
 		});
 
 	});
