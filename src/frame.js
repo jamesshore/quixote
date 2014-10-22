@@ -93,6 +93,7 @@ Me.prototype.reset = function() {
 	ensureUsable(this);
 
 	this._document.body.innerHTML = this._originalBody;
+	this.scroll(0, 0);
 };
 
 Me.prototype.toDomElement = function() {

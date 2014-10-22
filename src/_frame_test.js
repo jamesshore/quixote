@@ -228,13 +228,14 @@ describe("Frame", function() {
 
 			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0}, "should start at (0, 0)");
 
-			frame.scroll(0, 0);
 			frame.scroll(150, 300);
 			assert.equal(frame.getRawScrollPosition().x, 150, "should have scrolled right");
 			assert.equal(frame.getRawScrollPosition().y, 300, "should have scrolled down");
-		});
 
-		//TODO: frame.reset() also resets scroll position
+			frame.reset();
+			assert.equal(frame.getRawScrollPosition().x, 0, "should have reset X scroll position");
+			assert.equal(frame.getRawScrollPosition().y, 0, "should have reset Y scroll position");
+		});
 
 	});
 
