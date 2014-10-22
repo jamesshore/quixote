@@ -26,7 +26,7 @@ New value objects:
 New methods:
 * quixote.browser.canScroll()
 * Frame.scroll() (Compatibility note: fails fast on Mobile Safari)
-* Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim, Mobile Safari scroll container)
+* Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim)
 
 Rename:
 * ElementPosition --> RelativePosition

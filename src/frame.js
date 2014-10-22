@@ -144,8 +144,9 @@ Me.prototype.scroll = function scroll(x, y) {
 
 	this._domElement.contentWindow.scroll(x, y);
 
-	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable. We can scroll the container, but that's
-	// not the same thing. We fail fast here on the assumption that scrolling the container isn't enough.
+	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable because it's already full size.
+	// We can scroll the container, but that's not the same thing. We fail fast here on the
+	// assumption that scrolling the container isn't enough.
 	ensure.that(quixote.browser.canScroll(), "Quixote can't scroll this browser's test frame");
 };
 
@@ -153,8 +154,8 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensure.signature(arguments, []);
 
 	return {
-		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollLeft,
-		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document) + this._scrollContainer.scrollTop
+		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document),
+		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document)
 	};
 };
 
