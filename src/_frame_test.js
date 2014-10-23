@@ -181,6 +181,11 @@ describe("Frame", function() {
 			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
 		});
 
+		it("uses optional nickname with added elements", function() {
+			var element = frame.add("<p>foo</p>", "my element");
+			assert.equal(element.toString(), "'my element'");
+		});
+
 		it("fails fast if adding more than one element at a time", function() {
 			assert.exception(function() {
 				frame.add("<p>foo</p><div>bar</div>");
