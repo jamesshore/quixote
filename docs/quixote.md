@@ -17,7 +17,7 @@ Create a test iframe. This is a slow operation, so it's best to use `Frame.reset
 
 `frame = quixote.createFrame(width, height, options, callback(err, frame))`
 
-* `frame (`[`Frame`](Frame.md)`)` The newly-created frame. Although the frame is returned immediately, you have to wait for the callback to execute before you can use it.
+* `frame (`[`QFrame`](QFrame.md)`)` The newly-created frame. Although the frame is returned immediately, you have to wait for the callback to execute before you can use it.
 
 * `width (number)` Width of the iframe
 
@@ -30,7 +30,7 @@ Create a test iframe. This is a slow operation, so it's best to use `Frame.reset
   
 * `callback(err, loadedFrame) (function)` Called when the frame has been created. 
   * `err (Error or null)` Any errors that occurred while loading the frame (always `null`, for now)
-  * `loadedFrame (`[`Frame`](Frame.md)`)` The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
+  * `loadedFrame (`[`QFrame`](QFrame.md)`)` The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
 
 **Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe. We work around the problem using a scrolling container [as described by David Walsh](http://davidwalsh.name/scroll-iframes-ios). This workaround may result in subtle incompatibilities on Mobile Safari. We will document or work around them when we find them. If you see an issue on Mobile Safari that seems related, please [open an issue](https://github.com/jamesshore/quixote/issues).
 

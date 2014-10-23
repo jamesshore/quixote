@@ -22,8 +22,6 @@
 
 ## To Do
 
-* Rename code
-* Rename frame.js and _frame_test.js
 * Rename Frame.md
 * Update Frame.md
 * Update api.md
