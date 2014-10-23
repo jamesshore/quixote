@@ -39,7 +39,7 @@ Retrieve an element matching `selector`. Throws an exception unless exactly one 
 
 `element = frame.getElement(selector)`
 
-* `element (`[`QElement](QElement.md)`)` The element that matches your selector.
+* `element (`[`QElement`](QElement.md)`)` The element that matches your selector.
 
 * `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
 
@@ -56,7 +56,7 @@ Create an element and add it to the end of the frame's body. Throws an exception
 
 `element = frame.addElement(html)`
 
-* `element (`[`QElement](QElement.md)`)` The element you created.
+* `element (`[`QElement`](QElement.md)`)` The element you created.
 
 * `html (string)` HTML for your element.
 
