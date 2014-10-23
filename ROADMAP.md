@@ -27,7 +27,6 @@
 
 ## To Do
 
-* Update placeholder documentation
 * Split out API docs
 * Split out contributor docs
 
