@@ -2,13 +2,23 @@
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
 
-Quixote is a library for unit testing CSS. You use it with a unit testing framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem).
+Quixote is a library for unit testing CSS. It lets you make assertions about your pages' elements, their relationships, and how they are actually styled by the browser. It has a compact, powerful API and produces beautiful failure messages.
 
-**Browser Support:** IE 8+, Firefox, Chrome, Safari, and Mobile Safari are known to work. Other modern browsers probably work too. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
+```javascript
+menu.assert({
+  top: logo.bottom.plus(10)   // menu is 10px below logo
+});
+```
+
+```
+top edge of '.menu' was 13px lower than expected.
+  Expected: 50px (10px below bottom edge of '#logo')
+  But was:  63px
+```
+
+**Browser Support:** IE 8+, Firefox, Chrome, Safari, Mobile Safari, and other modern browsers. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
 
 **Performance:** Fast. Quixote's own test suite runs over 1000 tests across eight browsers. It completes in 4.3 seconds.
-
-**The API will change!** This is an early version. Don't use this code if you don't want to be on the bleeding edge.
 
 
 ## Installation and Usage
@@ -19,7 +29,7 @@ $ npm install quixote
 
 Or download [dist/quixote.js](dist/quixote.js).
 
-Quixote must be run in a browser. It's meant to be used with test frameworks such as Karma, Mocha, and Jasmine.
+Quixote must be run in a browser. It's meant to be used with test frameworks such as [Karma](http://karma-runner.github.io), [Mocha](http://visionmedia.github.io/mocha/), or [Jasmine](http://jasmine.github.io/).
 
 Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
 
@@ -28,113 +38,64 @@ Quixote is a UMD module. If you just load the file using a `<script>` tag, it wi
 
 ## Example
 
-In this example, we're testing a page that has a logo, a menu, and three columns of content.
-
 ```javascript
+// Quixote works with your existing test framework.
+// In this case, we're using Mocha.
+
 describe("Example", function() {
 
   var frame;        // Quixote test frame
   var logo;         // the logo element on the page
   var menu;         // the menu element
-  var contentLeft;  // our three columns of content
-  var contentMiddle;     
-  var contentRight;   
 
+  // Create the test frame once for all your tests.
+  // In this case, we're loading example.html into a 600x800px frame.
   before(function(done) {
-    // Create a 600x800 pixel iframe and load example.html
     var options = { src: "/base/src/example.html" };
     frame = quixote.createFrame(600, 800, options, done);
   });
   
+  // Destroy the test frame after your tests are done.
   after(function() {
     // Destroy the test frame
     frame.remove();
   });
   
+  // Reset the test frame before (or after) each test. This is
+  // faster than re-creating the frame for every test.
   beforeEach(function() {
-    // Before each test, reset the test frame to a pristine state.
-    // This is faster than re-creating the frame every time.
     frame.reset();
     
     // Get the elements we want to test
     logo = frame.getElement("#logo");       // you can use any CSS selector
     menu = frame.getElement(".menu");
-    contentLeft = frame.getElement(".content-left");
-    contentMiddle = frame.getElement(".content-middle");
-    contentRight = frame.getElement(".content-right");
   });
   
-  it("positions logo at top of page", function() {
-    // We use the 'assert()' method to check multiple properties
-    // of our element all at once. When something doesn't match, it
-    // throws an error explaining everything that's different.
-    // Alternatively, can use 'diff()' if you'd rather use your own
-    // assertion library.
-    
-    // Check that the logo is in a fixed position on the page
-    logo.assert({
-      top: 10,    // logo is 10px from top of page
-      left: 15    // and 15px from left
-    });
-  });
-  
+  // Here's our test.
   it("positions menu below logo", function() {
-    // Compare position of menu with position of logo
+    // The 'assert()' method checks multiple properties at once.
     menu.assert({
-      left: logo.left,            // menu is aligned with logo
-      top: logo.bottom.plus(10)   // and below it with a 10px gap
-    });
-  });
-  
-  it("groups content into three columns", function() {
-    // Compare size and position of content columns to the menu
     
-    // left column
-    contentLeft.assert({
-      left: menu.left,                // aligned with left edge of menu
-      width: menu.width.times(1/3)    // one-third width of menu
-    });
-    
-    // We can also factor out useful expressions:
-    var columnWidth = menu.width.times(1/3);
-    
-    // middle column
-    contentMiddle.assert({
-      center: menu.center,            // aligned with center of menu
-      width: columnWidth
-    });
-    
-    // right column 
-    contentRight.assert({
-      right: menu.right,              // aligned with right edge of menu
-      width: columnWidth
+      // We can check a hard-coded value
+      left: 15,    // menu is 15px from left side of page
+      
+      // Or, better yet, check the relationship between elements
+      top: logo.bottom.plus(10)   // menu is 10px below logo
     });
   });
   
   it("uses big font for menu", function() {
-    // So far, 'assert()' and 'diff()' only support positioning.
-    // But you can get any CSS style you want by using 'getRawStyle()'.
+    // So far, 'assert()' only checks positions.
+    // But you can check any CSS style you want by using 'getRawStyle()'.
   
     // Get the font size actually displayed in the browser
     var fontSize = menu.getRawStyle("font-size");  
     
-    // You'll need an assertion library like Chai to make assertions.
+    // Use your preferred assertion library (such as Chai) to make assertions.
     assert.equal(fontSize, "18px");
   });
   
 });
-```
-
-Quixote provides plain-english, easily-scannable error messages. For example, if the content columns in the example above had an error, you would get an error message like this:
-
-```
-Error: Differences found:
-left edge of '.contentLeft' was 10px further left than expected.
-  Expected: 10px (left edge of '.menu')
-  But was:  0px
-width of '.contentLeft' was 20px larger than expected.
-  Expected: 200px (one third of width of '.menu')
-  But was:  220px
 ```
 
 
@@ -156,7 +117,7 @@ These are the methods you'll use most often:
 
 * `element.getRawStyle(style)` looks up a specific CSS style. You can use it for anything `assert()` doesn't support yet.
 
-The `assert()` function looks at the properties of your element and checks them against hardcoded values *or* other element's properties. For example, `element.assert({ top: 10 });` or `element.assert({ top: otherElement.bottom })`.
+The `assert()` function looks at the properties of your element and checks them against hardcoded values or other element's properties. For example, `element.assert({ top: 10 });` or `element.assert({ top: otherElement.bottom })`.
 
 Element properties can be mixed and matched in a variety of ways. For details, see [the API documentation](docs/api.md).
 

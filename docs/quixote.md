@@ -9,6 +9,10 @@ Use the `quixote` module to create your test frame and check browser compatibili
 
 #### quixote.createFrame()
 
+```
+Stability: 2 - Unstable
+```
+
 Create a test iframe. This is a slow operation, so it's best to use `Frame.reset()` rather than creating a fresh frame before each test.
 
 `frame = quixote.createFrame(width, height, options, callback(err, frame))`
@@ -31,6 +35,10 @@ Create a test iframe. This is a slow operation, so it's best to use `Frame.reset
 **Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe. We work around the problem using a scrolling container [as described by David Walsh](http://davidwalsh.name/scroll-iframes-ios). This workaround may result in subtle incompatibilities on Mobile Safari. We will document or work around them when we find them. If you see an issue on Mobile Safari that seems related, please [open an issue](https://github.com/jamesshore/quixote/issues).
 
 #### quixote.browser
+
+```
+Stability: 1 - Experimental
+```
 
 Methods for checking browser compatibility. There's just one so far.
 

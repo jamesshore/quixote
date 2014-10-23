@@ -9,12 +9,20 @@
 
 #### frame.reset()
 
+```
+Stability: 2 - Unstable
+```
+
 Reset the frame back to the state it was in immediately after you called `quixote.createFrame()`.
 
 `frame.reset()`
 
 
 #### frame.remove()
+
+```
+Stability: 2 - Unstable
+```
 
 Remove the test frame entirely.
 
@@ -23,11 +31,15 @@ Remove the test frame entirely.
 
 #### frame.getElement()
 
+```
+Stability: 2 - Unstable
+```
+
 Retrieve an element matching `selector`. Throws an exception unless exactly one matching element is found.
 
 `element = frame.getElement(selector)`
 
-* `element (`[`QElement](QElement.md)`)` The element that matches your selector.
+* `element (`[`QElement`](QElement.md)`)` The element that matches your selector.
 
 * `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
 
@@ -36,11 +48,15 @@ Example: `var foo = frame.getElement("#foo");`
 
 #### frame.addElement()
 
+```
+Stability: 2 - Unstable
+```
+
 Create an element and add it to the end of the frame's body. Throws an exception unless exactly one element is created.
 
 `element = frame.addElement(html)`
 
-* `element (`[`QElement](QElement.md)`)` The element you created.
+* `element (`[`QElement`](QElement.md)`)` The element you created.
 
 * `html (string)` HTML for your element.
 
@@ -48,6 +64,10 @@ Example: `var foo = frame.addElement("<p>foo</p>");`
 
 
 #### frame.scroll()
+
+```
+Stability: 1 - Experimental
+```
 
 Scroll the top-left corner of the frame to a specific (x, y) coordinate. Throws an exception on Mobile Safari; see compatibility note.
 
@@ -63,6 +83,10 @@ Example: `frame.scroll(50, 60);`
 
 
 #### frame.getRawScrollPosition()
+
+```
+Stability: 1 - Experimental
+```
 
 Determine the (x, y) coordinate of the top-left corner of the frame. This uses [pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollX) and [pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY) under the covers. (On IE 8, it uses [scrollLeft](http://msdn.microsoft.com/en-us/library/ie/ms534617%28v=vs.85%29.aspx) and [scrollTop](http://msdn.microsoft.com/en-us/library/ie/ms534618%28v=vs.85%29.aspx).)
 
