@@ -22,12 +22,12 @@ Create a test iframe. This is a slow operation, so it's best to use `Frame.reset
 * `options (optional object)` Options for creating the frame:
   * `width (optional number)` Width of the iframe. Defaults to a large value (see stability note below).
   * `height (optional number)` Height of the iframe. Defaults to a large value (see stability note below).
-  * `src (optional string)` URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors.
-  * `stylesheet (optional string)` URL of a CSS stylesheet to load into the frame
-  * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet with an HTML document, use a `<link>` tag in the HTML document itself.
+  * `src (optional string)` URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors. Defaults to loading nothing.
+  * `stylesheet (optional string)` URL of a CSS stylesheet to load into the frame. Defaults to loading nothing.
+  * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet *and* an HTML document, use a `<link>` tag in the HTML document itself.
   
 * `callback(err, loadedFrame) (function)` Called when the frame has been created. 
-  * `err (Error or null)` Any errors that occurred while loading the frame (always `null`, for now)
+  * `err (Error or null)` Any errors that occurred while loading the frame (always `null`, for now).
   * `loadedFrame (`[`QFrame`](QFrame.md)`)` The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
 
 **Stability Note:** The default width and height are chosen to be "sufficiently large" for most uses. It may increase or decrease in the future. If you need a specific size for your frame, be sure to specify it, even if your needs match the current default.

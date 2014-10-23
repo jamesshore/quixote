@@ -1,6 +1,6 @@
 # Quixote API: Descriptors
 
-Descriptors describe an aspect of an element and its styling.
+Descriptors represent some aspect of how an element is displayed, such as its width or the position of its top edge.
 
 [Return to the API overview.](api.md)
 
@@ -9,14 +9,14 @@ Descriptors describe an aspect of an element and its styling.
 
 ### Descriptor Chaining
 
-Many descriptors provide access to additional descriptors via properties or methods. Those chaining options are documented with each descriptor, below.
+A descriptor may have properties or methods that return additional descriptors. Those chaining options are documented with each descriptor, below.
 
 Example: `element.assert({ bottom: otherElement.top.plus(10) });`
 
 
 ### Common API
 
-Descriptors all share the same API. In most cases, you won't need to call these methods. Instead, use [`QElement.assert()`](QElement.md) (or `diff()`).
+All descriptors implement the following API. In most cases, you won't need to call this method directly. Instead, use [`QElement.assert()`](QElement.md) or [`QElement.diff()`](QElement.md).
 
 
 #### diff()
@@ -25,28 +25,15 @@ Descriptors all share the same API. In most cases, you won't need to call these 
 Stability: 2 - Unstable
 ```
 
-Compare the descriptor's value to a hardcoded value or another descriptor's value. This is the same as calling [`QElement.diff()`](QElement.md), except that it operates on just one descriptor at a time.
+Compare the descriptor's value to a hardcoded value or another descriptor's value. This is the same as calling [`QElement.diff()`](QElement.md), except that it operates on just one descriptor at a time. Throws an exception if the expected value isn't compatible with the descriptor.
 
 `diff = descriptor.diff(expected)`
 
 * `diff (string)` A human-readable description of any differences found, or an empty string if none.
 
-* `expected (any)` The expected value as a descriptor or hardcoded value. If the expected value can't be compared to this descriptor, `diff()` will throw an explanatory error.
+* `expected (any)` The expected value as a descriptor or hardcoded value.
 
-Example: `(element.diff(otherElement.top);`
-
-
-#### value()
-
-```
-Stability: 2 - Unstable
-```
-
-Calculate the value described by the descriptor and return it. It's better to use the descriptor itself for assertions, because you get better error messages. 
-
-`value = descriptor.value()`
-
-* `value (object)` A value object representing the calculated value. Value objects can only be converted to strings or compared to other value objects. 
+Example: `var diff = element.diff(otherElement.top);`
 
 
 ### Descriptor: `ElementEdge`
@@ -55,7 +42,7 @@ Calculate the value described by the descriptor and return it. It's better to us
 Stability: 2 - Unstable
 ```
 
-Represents the position of one side of an element (the top, left, etc.). The position includes padding and border, but not margin. Get an ElementEdge from `QElement` with a property such as `element.top`.
+Represents the position of one side of an element (the top, left, etc.). The position includes padding and border, but not margin.
 
 Chainable descriptors:
  
@@ -69,7 +56,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents the horizontal center or vertical middle of an element. Get an ElementCenter from `QElement` with a property such as `element.center`.
+Represents the horizontal center or vertical middle of an element.
 
 Example: The center of the element is centered with the menu: `element.assert({ center: menu.center });`
 
@@ -85,7 +72,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents an adjusted position. Get a RelativePosition by calling `plus(amount)` or `minus(amount)` on another descriptor. `amount` may be a number or another descriptor.
+Represents an adjusted position. `RelativePosition` is created with an `amount`, which may be a number or another descriptor.
  
 Example: The top of the element is 10px below the bottom of the menu: `element.assert({ top: menu.bottom.plus(10) });`
 
@@ -101,7 +88,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents the width or height of an element. Get an ElementSize from `QElement` with a property such as `element.width`.
+Represents the width or height of an element.
 
 Example: The width of an element is the same as its height: `element.assert({ width: element.height });`
 
@@ -109,7 +96,7 @@ Chainable descriptors:
 
 * `plus(amount) (RelativeSize)` Bigger.
 * `minus(amount) (RelativeSize)` Smaller.
-* `times(amount) (SizeMultiple)` A multiple or fraction.
+* `times(multiplier) (SizeMultiple)` A multiple or fraction.
 
 
 ### Descriptor: `RelativeSize`
@@ -118,7 +105,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents an adjusted size. Get a RelativeSize by calling `plus(amount)` or `minus(amount)` on another descriptor. `amount` may be a number or another descriptor.
+Represents an adjusted size. `RelativeSize` is created with an `amount`, which may be a number or another descriptor.
  
 Example: The element is 20px narrower than the menu: `element.assert({ width: menu.width.minus(20) });`
 
@@ -126,7 +113,7 @@ Chainable descriptors:
 
 * `plus(amount) (RelativeSize)` Bigger.
 * `minus(amount) (RelativeSize)` Smaller.
-* `times(amount) (SizeMultiple)` A multiple or fraction.
+* `times(multiplier) (SizeMultiple)` A multiple or fraction.
 
 
 ### Descriptor: `SizeMultiple`
@@ -135,7 +122,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents an adjusted size. Get a SizeMultiple by calling `times(muliplier)` on another descriptor. `multiplier` must be a number.
+Represents an adjusted size. `SizeMultiple` is created with a `multiplier`, which must be a number.
 
 Example: The element is a golden rectangle: `element.assert({ width: element.height.times(1.618) });`
 
@@ -143,5 +130,4 @@ Chainable descriptors:
 
 * `plus(amount) (RelativeSize)` Bigger.
 * `minus(amount) (RelativeSize)` Smaller.
-* `times(amount) (SizeMultiple)` A multiple or fraction.
-
+* `times(multiplier) (SizeMultiple)` A multiple or fraction.

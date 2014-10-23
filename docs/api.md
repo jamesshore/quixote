@@ -12,7 +12,7 @@ There are four primary classes and modules:
 * [`QElement`](QElement.md) allows you to make assertions and get information.
 * [`QElementList`](QElementList.md) contains a list of QElements.
 
-Your assertions (using `QElement.assert()` or `QElement.diff()`) will use properties or methods that return "Descriptors." Descriptors describe some aspect of an element and its CSS. They're documented here:
+Assertions (using `QElement.assert()` or `QElement.diff()`) operate on [`QElement`](QElement.md) properties. Those properties are Descriptor objects. They're documented here:
 
 * [Descriptors](descriptors.md)
 
@@ -50,7 +50,7 @@ Unless serious bugs are found, this code will not ever
 change.  Please do not suggest changes in this area; they will be refused.
 ```
 
-Breaking changes to any property or method documented here will be described in the [change log](../CHANGELOG.md). All other properties and methods should be considered non-public and may change at any time.
+Breaking changes to any property or method in the API documentation will be described in the [change log](../CHANGELOG.md). All other properties and methods should be considered non-public and may change at any time.
 
 Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
 

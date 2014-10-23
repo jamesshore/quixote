@@ -73,7 +73,7 @@ Example `var fooList = frame.getAll(".foo");`
 Stability: 2 - Unstable
 ```
 
-Create an element and add it to the end of the frame's body. Throws an exception unless exactly one element is created.
+Create an element and append it to the frame's body. Throws an exception unless exactly one element is created. (But that one element may contain children.)
 
 `element = frame.add(html, nickname)`
 
@@ -92,7 +92,7 @@ Example: `var foo = frame.add("<p>foo</p>", "foo");`
 Stability: 1 - Experimental
 ```
 
-Scroll the top-left corner of the frame to a specific (x, y) coordinate. Throws an exception on Mobile Safari; see compatibility note.
+Scroll the top-left corner of the frame to a specific (x, y) coordinate.
 
 `frame.scroll(x, y)`
 
@@ -102,7 +102,9 @@ Scroll the top-left corner of the frame to a specific (x, y) coordinate. Throws 
 
 Example: `frame.scroll(50, 60);`
 
-**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described under `quixote.createFrame()`. We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size. As a result, it can't be scrolled. To notify you of the problem, we throw an exception on Mobile Safari. If you still want to call this method and you don't want your tests to fail on Mobile Safari (for example, if you're testing multiple browsers), you can use `quixote.browser.canScroll()` to provide an alternate code path for Mobile Safari.
+**Compatibility Note:** This method throws an exception on Mobile Safari. To check if this method will throw an exception, use [`quixote.browser.canScroll()`](quixote.md).
+
+* Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size. As a result, it can't be scrolled.
 
 
 #### frame.getRawScrollPosition()

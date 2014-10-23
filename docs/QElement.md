@@ -13,19 +13,17 @@
 Stability: 1 - Experimental
 ```
 
-QElement instances have several descriptor properties that can be used to make assertions about your element. You'll typically use these properties with `QElement.assert()` or `QElement.diff()` method. 
- 
-Descriptors are documented in more detail under their class names.
+QElement instances have several descriptor properties that can be used to make assertions about your element. You'll typically use these properties with `QElement.assert()` or `QElement.diff()`. 
  
 * `top, right, bottom, left (`[`ElementEdge`](descriptors.md)`)` Top, right, etc. edge of the element
 * `center, middle (`[`ElementCenter`](descriptors.md)`)` Horizontal center and vertical middle of the element
 * `width, height (`[`ElementSize`](descriptors.md)`)` Width and height of the element
 
-**Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If there's a cross-browser difference that doesn't show up in the actual page, please file an issue.
+**Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If you discover a cross-browser incompatibility that's not visible on the actual page, please file an issue.
 
-**Pixel Rounding Note:** Browsers handle pixel rounding in different ways. As a result, if two values are within 0.5px of each other, we consider them to be the same. This only applies to pixel values, not all numbers.
+**Pixel Rounding Note:** Browsers handle pixel rounding in different ways. We consider pixel values to be the same if they're within 0.5px of each other.
 
-If you discover that you're having rounding errors that are *greater* than 0.5px, make sure your test browsers are set to a zoom level of 100%. Zooming can exaggerate rounding errors.
+If you have rounding errors that are *greater* than 0.5px, make sure your test browsers are set to a zoom level of 100%. Zooming can exaggerate rounding errors.
 
 
 #### element.assert()
@@ -38,7 +36,7 @@ Compare the element's properties to a set of expected values and throw an except
 
 `element.assert(expected, message)`
 
-* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a hard-coded value or another property.
 
 * `message (optional string)` If an exception is thrown, this message will be included at the beginning.
 
@@ -57,7 +55,7 @@ Compare the element's properties to a set of expected values. This is the same a
 
 * `diff (string)` A human-readable description of any differences found, or an empty string if none.
 
-* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a hard-coded value or another property.
 
 Example: `assert.equal(element.diff({ top: 13, bottom: otherElement.top.plus(10) }), "");`
 
@@ -68,7 +66,7 @@ Example: `assert.equal(element.diff({ top: 13, bottom: otherElement.top.plus(10)
 Stability: 2 - Unstable
 ```
 
-Determine how an element displays a particular style, as computed by the browser. This uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
+Determine how the browser is actually rendering an element's style. This uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
 
 `style = element.getRawStyle(property)`
 
@@ -90,11 +88,11 @@ Example: `var fontSize = element.getRawStyle("font-size");`
 Stability: 2 - Unstable
 ```
 
-Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change.
+Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change. You can use [`QFrame.getRawScrollPosition`](QFrame.md) to compensate for the effect of scrolling.
 
 `position = element.getRawPosition()`
 
-* `position (object)` The position of the element relative to the top of the viewport. In other words, if you scroll the viewport down 10 pixels, `top` will be 10 pixels smaller. All values include border and padding, but not margin.
+* `position (object)` The position of the element relative to the top-left corner of the viewport. In other words, if you scroll the document down 10 pixels, `top` will be 10 pixels larger. All values include border and padding, but not margin.
   * `top (number)` top edge
   * `right (number)` right edge
   * `bottom (number)` bottom edge
@@ -106,7 +104,7 @@ Example: `var top = element.getRawPosition().top;`
 
 **Compatibility Note:** `getRawPosition()` does *not* attempt to resolve cross-browser differences, with one exception:
 
-* IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` does, even on IE 8. It calculates them from the other properties.
+* IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` calculates them from the other properties.
 
 
 #### element.toDomElement()
