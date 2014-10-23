@@ -29,7 +29,7 @@ Remove the test frame entirely.
 `frame.remove()`
 
 
-#### frame.getElement()
+#### frame.get()
 
 ```
 Stability: 2 - Unstable
@@ -37,16 +37,18 @@ Stability: 2 - Unstable
 
 Retrieve an element matching `selector`. Throws an exception unless exactly one matching element is found.
 
-`element = frame.getElement(selector)`
+`element = frame.getElement(selector, nickname)`
 
 * `element (`[`QElement`](QElement.md)`)` The element that matches your selector.
 
-* `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
+* `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
+
+* `nickname (optional string)` The name to use when describing your element in error messages. Uses the selector by default.
 
 Example: `var foo = frame.getElement("#foo");`
 
 
-#### frame.addElement()
+#### frame.add()
 
 ```
 Stability: 2 - Unstable
@@ -54,13 +56,15 @@ Stability: 2 - Unstable
 
 Create an element and add it to the end of the frame's body. Throws an exception unless exactly one element is created.
 
-`element = frame.addElement(html)`
+`element = frame.addElement(html, nickname)`
 
 * `element (`[`QElement`](QElement.md)`)` The element you created.
 
 * `html (string)` HTML for your element.
 
-Example: `var foo = frame.addElement("<p>foo</p>");`
+* `nickname (optional string)` The name to use when describing your element in error messages. Uses the html by default.
+
+Example: `var foo = frame.addElement("<p>foo</p>", "foo");`
 
 
 #### frame.scroll()

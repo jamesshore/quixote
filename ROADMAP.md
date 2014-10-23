@@ -18,7 +18,7 @@
 * Rename Frame.getElement, Frame.addElement --> get, add
 * width and height inside Frame's "options" object
 * Rename `Frame` to `QFrame`
-* frame.getElementList()?
+* frame.getAll()
 * Consider taking out ensure.signature() calls; they may restrict more than they help
 * Real-world trial
 
