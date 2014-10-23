@@ -32,5 +32,5 @@
 
 ## Future To Do
 
-* Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
+* Should toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
