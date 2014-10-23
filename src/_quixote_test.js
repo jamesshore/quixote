@@ -3,7 +3,7 @@
 
 var assert = require("./util/assert.js");
 var quixote = require("./quixote.js");
-var QFrame = require("./frame.js");
+var QFrame = require("./q_frame.js");
 
 describe("Quixote", function() {
 

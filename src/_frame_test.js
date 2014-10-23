@@ -4,7 +4,7 @@
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var quixote = require("./quixote.js");
-var QFrame = require("./frame.js");
+var QFrame = require("./q_frame.js");
 var QElement = require("./q_element.js");
 
 describe("QFrame", function() {

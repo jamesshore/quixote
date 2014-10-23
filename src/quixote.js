@@ -2,7 +2,7 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
-var QFrame = require("./frame.js");
+var QFrame = require("./q_frame.js");
 
 exports.createFrame = function(width, height, options, callback) {
 	return QFrame.create(document.body, width, height, options, callback);
