@@ -123,3 +123,15 @@ Determine the (x, y) coordinate of the top-left corner of the frame. This uses [
 
 * IE 8 uses `scrollLeft` and `scrollTop` rather than `pageXOffset` and `pageYOffset`.
 
+
+#### frame.toDomElement()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve the underlying [`HTMLIFrameElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement) DOM element for the frame.
+ 
+`dom = frame.toDomElement()`
+
+* `dom (`[`HTMLIFrameElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement)`)` The DOM element.

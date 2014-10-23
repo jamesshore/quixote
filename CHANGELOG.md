@@ -14,6 +14,11 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * Frame.get(), .add() takes optional nickname parameter
 
+*New methods:*
+
+* Frame.getAll()
+* Frame.toDomElement()
+* QElement.toDomElement()
 
 ## 0.4: Advanced Positioning
 
@@ -170,7 +175,6 @@ element.diff({
 * Frame
   * Frame.create()
   * reset()
-  * toDomElement()
   * remove()
   * addElement()
   * getElement()
@@ -178,9 +182,6 @@ element.diff({
 * QElement
   * getRawStyle()
   * getRawPosition()
-  * toDomElement()
-  * toString()
-  * equals()
   
 
 ## 0.0: Infrastructure

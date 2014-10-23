@@ -107,3 +107,16 @@ Example: `var top = element.getRawPosition().top;`
 **Compatibility Note:** `getRawPosition()` does *not* attempt to resolve cross-browser differences, with one exception:
 
 * IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` does, even on IE 8. It calculates them from the other properties.
+
+
+#### element.toDomElement()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve the underlying [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) DOM element for the frame.
+ 
+`dom = element.toDomElement()`
+
+* `dom (`[`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)`)` The DOM element.
