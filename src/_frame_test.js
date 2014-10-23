@@ -46,7 +46,7 @@ describe("Frame", function() {
 		it("creates iframe using source URL", function(done) {
 			var frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				assert.noException(function() {
-					frame.getElement("#exists");
+					frame.get("#exists");
 				});
 				done();
 			});
@@ -54,7 +54,7 @@ describe("Frame", function() {
 
 		it("creates iframe using stylesheet link", function(done) {
 			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
-				var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
+				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
 			});
@@ -76,7 +76,7 @@ describe("Frame", function() {
 				// WORKAROUND Mobile Safari 7.0.0: Weird font-size result (23px)
 //			Frame.create(window.document.body, 600, 400, options, function(frame) {
 //				try {
-//					var styleMe = frame.getElement(".style-me");
+//					var styleMe = frame.get(".style-me");
 //					var makeLintHappy = styleMe.toDomElement().offsetHeight;  // force reflow
 //					assert.equal(styleMe.getRawStyle("font-size"), "42px");
 //					done();
@@ -90,7 +90,7 @@ describe("Frame", function() {
 			frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				frame.reset();
 				assert.noException(function() {
-					frame.getElement("#exists");
+					frame.get("#exists");
 				});
 				done();
 			});
@@ -99,7 +99,7 @@ describe("Frame", function() {
 		it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
 			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
 				frame.reset();
-				var styleMe = frame.addElement("<div class='style-me'>Foo</div>");
+				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
 			});
@@ -122,7 +122,7 @@ describe("Frame", function() {
 		// WORKAROUND IE 8: getClientRect() includes frame border in positions
 		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
 			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function() {
-				var element = frame.addElement("<p>Foo</p>");
+				var element = frame.add("<p>Foo</p>");
 				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
 				done();
 			});
@@ -142,8 +142,8 @@ describe("Frame", function() {
 				expected,
 				"technically, removing the frame works, but it's complicated, so it should just fail"
 			);
-			assert.exception(function() { frame.addElement("<p></p>"); }, expected, "addElement()");
-			assert.exception(function() { frame.getElement("foo"); }, expected, "getElement()");
+			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
+			assert.exception(function() { frame.get("foo"); }, expected, "get()");
 		});
 
 		it("fails fast if frame is used after it's removed", function(done) {
@@ -153,8 +153,8 @@ describe("Frame", function() {
 				frame.remove();
 				assert.exception(function() { frame.reset(); }, expected, "reset()");
 				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
-				assert.exception(function() { frame.addElement("<p></p>"); }, expected, "addElement()");
-				assert.exception(function() { frame.getElement("foo"); }, expected, "getElement()");
+				assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
+				assert.exception(function() { frame.get("foo"); }, expected, "get()");
 
 				done();
 			});
@@ -173,7 +173,7 @@ describe("Frame", function() {
 		});
 
 		it("adds an element", function() {
-			var element = frame.addElement("<p>foo</p>");
+			var element = frame.add("<p>foo</p>");
 			var body = frameDom.contentDocument.body;
 
 			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body should include new element");
@@ -183,15 +183,15 @@ describe("Frame", function() {
 
 		it("fails fast if adding more than one element at a time", function() {
 			assert.exception(function() {
-				frame.addElement("<p>foo</p><div>bar</div>");
+				frame.add("<p>foo</p><div>bar</div>");
 			}, /Expected one element, but got 2 \(<p>foo<\/p><div>bar<\/div>\)/);
 		});
 
 		it("retrieves an element by selector", function() {
-			var expected = frame.addElement("<div id='foo' class='bar' baz='boo'>Irrelevant text</div>");
-			var byId = frame.getElement("#foo");
-			var byClass = frame.getElement(".bar");
-			var byAttribute = frame.getElement("[baz]");
+			var expected = frame.add("<div id='foo' class='bar' baz='boo'>Irrelevant text</div>");
+			var byId = frame.get("#foo");
+			var byClass = frame.get(".bar");
+			var byAttribute = frame.get("[baz]");
 
 			assert.objEqual(byId, expected, "should get element by ID");
 			assert.objEqual(byClass, expected, "should get element by class");
@@ -204,20 +204,20 @@ describe("Frame", function() {
 
 		it("fails fast when retrieving non-existant element", function() {
 			assert.exception(function() {
-				frame.getElement(".blah");
+				frame.get(".blah");
 			}, /Expected one element to match '\.blah', but found 0/);
 		});
 
 		it("fails fast when retrieving too many elements", function() {
-			frame.addElement("<div><p>One</p><p>Two</p></div>");
+			frame.add("<div><p>One</p><p>Two</p></div>");
 
 			assert.exception(function() {
-				frame.getElement("p");
+				frame.get("p");
 			}, /Expected one element to match 'p', but found 2/);
 		});
 
 		it("resets frame without src document", function() {
-			frame.addElement("<div>Foo</div>");
+			frame.add("<div>Foo</div>");
 			frame.reset();
 
 			assert.equal(frameDom.contentDocument.body.innerHTML, "", "frame body");
@@ -226,7 +226,7 @@ describe("Frame", function() {
 		it("scrolls", function() {
 			if (!quixote.browser.canScroll()) return;
 
-			frame.addElement("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
+			frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
 			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0}, "should start at (0, 0)");
 

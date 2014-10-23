@@ -32,10 +32,10 @@ describe("RelativePosition", function() {
 
 	beforeEach(function() {
 		var frame = reset.frame;
-		frame.addElement(
+		frame.add(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 300px; height: 60px'>element</p>"
 		);
-		element = frame.getElement("#element");
+		element = frame.get("#element");
 		right = RelativePosition.right(element.left, RIGHT_ADJ);
 		down = RelativePosition.down(element.top, DOWN_ADJ);
 		left = RelativePosition.left(element.left, LEFT_ADJ);

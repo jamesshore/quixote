@@ -114,7 +114,7 @@ Me.prototype.remove = function() {
 	scrollContainer.parentNode.removeChild(scrollContainer);
 };
 
-Me.prototype.addElement = function(html) {
+Me.prototype.add = function(html) {
 	ensure.signature(arguments, [ String ]);
 	ensureUsable(this);
 
@@ -130,7 +130,7 @@ Me.prototype.addElement = function(html) {
 	return new QElement(insertedElement, this, html);
 };
 
-Me.prototype.getElement = function(selector) {
+Me.prototype.get = function(selector) {
 	ensure.signature(arguments, [ String ]);
 	ensureUsable(this);
 

@@ -14,21 +14,15 @@
 
 ## Current Feature: API Hardening
 
-* Split out API and contribution documentation (don't want wall of text in readme)
-* API Stability notes (ref http://nodejs.org/api/documentation.html#documentation_stability_index)
-* Frame.getElement(), Frame.addElement(): take an optional nickname
-* Rename Frame.getElement, Frame.addElement --> get, add
+* Frame.get(), Frame.add(): take an optional nickname
 * width and height inside Frame's "options" object
 * Rename `Frame` to `QFrame`
-* frame.getElementList()?
+* frame.getAll()
 * Consider taking out ensure.signature() calls; they may restrict more than they help
 * Real-world trial
 
 
 ## To Do
-
-* Split out API docs
-* Split out contributor docs
 
 
 ## Future Features

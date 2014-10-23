@@ -28,10 +28,10 @@ describe("ElementEdge", function() {
 
 	beforeEach(function() {
 		frame = reset.frame;
-		frame.addElement(
+		frame.add(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
-		element = frame.getElement("#element");
+		element = frame.get("#element");
 		top = ElementEdge.top(element);
 		right = ElementEdge.right(element);
 		bottom = ElementEdge.bottom(element);
@@ -70,7 +70,7 @@ describe("ElementEdge", function() {
 	it("accounts for scrolling", function() {
 		if (!quixote.browser.canScroll()) return;
 
-		frame.addElement("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
+		frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
 		frame.scroll(50, 60);
 

@@ -64,7 +64,7 @@ These are the methods you'll use most often:
 
 * `frame.reset()` resets the test frame. Call this before or after each test to reset to a known-good state. (This is faster than creating a new frame each time.)
 
-* `element = frame.getElement(selector)` gets an element out of the frame. Call this for each element you want to test.
+* `element = frame.get(selector, nickname)` gets an element out of the frame. Call this for each element you want to test.
  
 * `element.assert({ property, property, ... });` checks the styling of an element. Call this in each test.
 

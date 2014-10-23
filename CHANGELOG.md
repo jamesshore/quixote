@@ -5,6 +5,15 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## In Progress
 
+***Breaking changes:***
+
+* Frame.getElement() --> Frame.get()
+* Frame.addElement() --> Frame.add()
+
+*Enhanced:*
+
+* Frame.get(), .add() takes optional nickname parameter
+
 
 ## 0.4: Advanced Positioning
 
@@ -22,7 +31,7 @@ element.assert({
 
 *Patches:*
 
-* *0.4.1, 22 Oct 2014:* Documented `SizeMultiple` additional descriptors.   
+* *0.4.1, 22 Oct 2014:* Documented `SizeMultiple`'s additional descriptors.   
 
 
 *Fixed:*
