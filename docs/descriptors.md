@@ -79,7 +79,7 @@ Chainable descriptors:
 
 Represents the width or height of an element. Get an ElementSize from `QElement` with a property such as `element.width`.
 
-Example: The width of an element is the same as its height: `element.assert({ width: element.height });
+Example: The width of an element is the same as its height: `element.assert({ width: element.height });`
 
 Chainable descriptors:
 

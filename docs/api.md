@@ -20,12 +20,12 @@ There are three primary classes and modules:
 * [`Frame`](Frame.md) is how you manipulate the DOM inside your test frame.
 * [`QElement`](QElement.md) allows you to make assertions and get information.
 
-Your assertions (using `QElement.assert()` or `QElement.diff()`) will use properties or methods that return "Descriptors." They're documented here:
+Your assertions (using `QElement.assert()` or `QElement.diff()`) will use properties or methods that return "Descriptors." Descriptors describe some aspect of an element and its CSS. They're documented here:
 
-* [Descriptors](descriptors.md) describe some aspect of an element and its CSS.
+* [Descriptors](descriptors.md)
 
 
-## Summary
+## Overview
 
 These are the methods you'll use most often:
 
