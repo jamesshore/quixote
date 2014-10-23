@@ -14,7 +14,6 @@
 
 ## Current Feature: API Hardening
 
-* width and height inside Frame's "options" object
 * Consider taking out ensure.signature() calls; they may restrict more than they help
 * Real-world trial
 

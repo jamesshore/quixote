@@ -25,13 +25,15 @@ function loaded(self) {
 	self._originalBody = self._document.body.innerHTML;
 }
 
-Me.create = function create(parentElement, width, height, options, callback) {
-	ensure.signature(arguments, [ Object, Number, Number, [ Object, Function ], [ undefined, Function ] ]);
+Me.create = function create(parentElement, options, callback) {
+	ensure.signature(arguments, [ Object, [ Object, Function ], [ undefined, Function ] ]);
 
 	if (callback === undefined) {
 		callback = options;
 		options = {};
 	}
+	var width = options.width || 2000;
+	var height = options.height || 2000;
 
 	// WORKAROUND Mobile Safari 7.0.0: weird style results occur when both src and stylesheet are loaded (see test)
 	ensure.that(

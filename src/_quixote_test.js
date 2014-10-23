@@ -8,7 +8,7 @@ var QFrame = require("./q_frame.js");
 describe("Quixote", function() {
 
 	it("creates frame", function(done) {
-		var frame = quixote.createFrame(600, 400, { src: "/base/src/_q_frame_test.html" }, function(err, callbackFrame) {
+		var frame = quixote.createFrame({ src: "/base/src/_q_frame_test.html" }, function(err, callbackFrame) {
 			assert.noException(function() {
 				callbackFrame.get("#exists");
 			});

@@ -18,7 +18,7 @@ describe("QFrame", function() {
 		});
 
 		it("creates iframe DOM element with specified width and height", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, function() {
+			frame = QFrame.create(window.document.body, { width: 600, height: 400 }, function() {
 				assert.type(frame, QFrame, "frame");
 
 				var iframe = frame.toDomElement();
@@ -31,8 +31,19 @@ describe("QFrame", function() {
 			});
 		});
 
+		it("use default values when no options provided", function(done) {
+			frame = QFrame.create(window.document.body, function() {
+				var iframe = frame.toDomElement();
+
+				assert.equal(iframe.width, "2000", "default width");
+				assert.equal(iframe.height, "2000", "default height");
+
+				done();
+			});
+		});
+
 		it("returns frame immediately upon creation", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, function(err, loadedFrame) {
+			frame = QFrame.create(window.document.body, function(err, loadedFrame) {
 				assert.equal(frame, loadedFrame, "should return same frame as passed in callback");
 				done(err);
 			});
@@ -40,11 +51,11 @@ describe("QFrame", function() {
 		});
 
 		it("does not fail in Mocha if Mocha's 'done' is passed as frame callback", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, done);
+			frame = QFrame.create(window.document.body, done);
 		});
 
 		it("creates iframe using source URL", function(done) {
-			var frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_q_frame_test.html" }, function() {
+			var frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
 				assert.noException(function() {
 					frame.get("#exists");
 				});
@@ -53,7 +64,7 @@ describe("QFrame", function() {
 		});
 
 		it("creates iframe using stylesheet link", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
+			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
@@ -67,7 +78,7 @@ describe("QFrame", function() {
 			};
 
 			assert.exception(function() {
-				frame = QFrame.create(window.document.body, 600, 400, options, function() {
+				frame = QFrame.create(window.document.body, options, function() {
 					done("Should never be called");
 				});
 			}, /Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue/);
@@ -87,7 +98,7 @@ describe("QFrame", function() {
 		});
 
 		it("resets iframe loaded with source URL without destroying source document", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_q_frame_test.html" }, function() {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
 				frame.reset();
 				assert.noException(function() {
 					frame.get("#exists");
@@ -97,7 +108,7 @@ describe("QFrame", function() {
 		});
 
 		it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
+			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 				frame.reset();
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
@@ -106,7 +117,7 @@ describe("QFrame", function() {
 		});
 
 		it("destroys itself", function(done) {
-			frame = QFrame.create(window.document.body, 800, 1000, function() {
+			frame = QFrame.create(window.document.body, function() {
 				var numChildren = document.body.childNodes.length;
 
 				frame.remove();
@@ -121,7 +132,7 @@ describe("QFrame", function() {
 
 		// WORKAROUND IE 8: getClientRect() includes frame border in positions
 		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function() {
+			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/__reset.css" }, function() {
 				var element = frame.add("<p>Foo</p>");
 				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
 				done();
@@ -129,7 +140,7 @@ describe("QFrame", function() {
 		});
 
 		it("fails fast if frame is used before it's loaded", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, function() { done(); });
+			frame = QFrame.create(window.document.body, function() { done(); });
 
 			var expected = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
 			assert.exception(function() { frame.reset(); }, expected, "resetting frame should be a no-op");
@@ -149,7 +160,7 @@ describe("QFrame", function() {
 		it("fails fast if frame is used after it's removed", function(done) {
 			var expected = /Attempted to use frame after it was removed/;
 
-			frame = QFrame.create(window.document.body, 600, 400, function() {
+			frame = QFrame.create(window.document.body, function() {
 				frame.remove();
 				assert.exception(function() { frame.reset(); }, expected, "reset()");
 				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");

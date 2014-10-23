@@ -4,13 +4,15 @@
 var ensure = require("./util/ensure.js");
 var QFrame = require("./q_frame.js");
 
-exports.createFrame = function(width, height, options, callback) {
-	return QFrame.create(document.body, width, height, options, callback);
+exports.createFrame = function(options, callback) {
+	return QFrame.create(document.body, options, callback);
 };
 
 exports.browser = {};
 
 exports.browser.canScroll = function canScroll() {
+	ensure.signature(arguments, []);
+
 	// It would be nice if this used feature detection rather than browser detection
 	return (!isMobileSafari());
 };
