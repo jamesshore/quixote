@@ -44,7 +44,7 @@ describe("QFrame", function() {
 		});
 
 		it("creates iframe using source URL", function(done) {
-			var frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
+			var frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_q_frame_test.html" }, function() {
 				assert.noException(function() {
 					frame.get("#exists");
 				});
@@ -53,7 +53,7 @@ describe("QFrame", function() {
 		});
 
 		it("creates iframe using stylesheet link", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
+			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
@@ -62,8 +62,8 @@ describe("QFrame", function() {
 
 		it("cannot create iframe using stylesheet and source URL simultaneously", function(done) {
 			var options = {
-				src: "/base/src/_frame_test.html",
-				stylesheet: "/base/src/_frame_test.css"
+				src: "/base/src/_q_frame_test.html",
+				stylesheet: "/base/src/_q_frame_test.css"
 			};
 
 			assert.exception(function() {
@@ -87,7 +87,7 @@ describe("QFrame", function() {
 		});
 
 		it("resets iframe loaded with source URL without destroying source document", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
+			frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_q_frame_test.html" }, function() {
 				frame.reset();
 				assert.noException(function() {
 					frame.get("#exists");
@@ -97,7 +97,7 @@ describe("QFrame", function() {
 		});
 
 		it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
-			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
+			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 				frame.reset();
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
