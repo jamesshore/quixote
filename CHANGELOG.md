@@ -9,23 +9,27 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ***Breaking changes:***
 
-* Renamed Frame.getElement() --> Frame.get()
-* Renamed Frame.addElement() --> Frame.add()
+* Renamed QFrame.getElement() --> QFrame.get()
+* Renamed QFrame.addElement() --> QFrame.add()
 * Moved quixote.createFrame() width and height parameters into options object
 
 *Enhanced:*
 
-* Frame.get() and Frame.add() take an optional "nickname" parameter
+* QFrame.get() and QFrame.add() take an optional "nickname" parameter
 
 *New methods:*
 
-* Frame.getAll()
-* Frame.toDomElement()
+* QFrame.getAll()
+* QFrame.toDomElement()
 * QElement.toDomElement()
 
 *New classes:*
 
 * QElementList
+
+*Renamed:*
+
+* Frame --> QFrame
 
 
 ## 0.4: Advanced Positioning
