@@ -9,7 +9,9 @@ Use the `quixote` module to create your test frame and check browser compatibili
 
 #### quixote.createFrame()
 
-```Stability: 2 - Unstable```
+```
+Stability: 2 - Unstable
+```
 
 Create a test iframe. This is a slow operation, so it's best to use `Frame.reset()` rather than creating a fresh frame before each test.
 

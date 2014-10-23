@@ -9,6 +9,10 @@
 
 #### frame.reset()
 
+```
+Stability: 2 - Unstable
+```
+
 Reset the frame back to the state it was in immediately after you called `quixote.createFrame()`.
 
 `frame.reset()`
@@ -16,12 +20,20 @@ Reset the frame back to the state it was in immediately after you called `quixot
 
 #### frame.remove()
 
+```
+Stability: 2 - Unstable
+```
+
 Remove the test frame entirely.
 
 `frame.remove()`
 
 
 #### frame.getElement()
+
+```
+Stability: 2 - Unstable
+```
 
 Retrieve an element matching `selector`. Throws an exception unless exactly one matching element is found.
 
@@ -36,6 +48,10 @@ Example: `var foo = frame.getElement("#foo");`
 
 #### frame.addElement()
 
+```
+Stability: 2 - Unstable
+```
+
 Create an element and add it to the end of the frame's body. Throws an exception unless exactly one element is created.
 
 `element = frame.addElement(html)`
@@ -48,6 +64,10 @@ Example: `var foo = frame.addElement("<p>foo</p>");`
 
 
 #### frame.scroll()
+
+```
+Stability: 1 - Experimental
+```
 
 Scroll the top-left corner of the frame to a specific (x, y) coordinate. Throws an exception on Mobile Safari; see compatibility note.
 
@@ -63,6 +83,10 @@ Example: `frame.scroll(50, 60);`
 
 
 #### frame.getRawScrollPosition()
+
+```
+Stability: 1 - Experimental
+```
 
 Determine the (x, y) coordinate of the top-left corner of the frame. This uses [pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollX) and [pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY) under the covers. (On IE 8, it uses [scrollLeft](http://msdn.microsoft.com/en-us/library/ie/ms534617%28v=vs.85%29.aspx) and [scrollTop](http://msdn.microsoft.com/en-us/library/ie/ms534618%28v=vs.85%29.aspx).)
 

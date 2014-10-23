@@ -9,9 +9,13 @@
 
 #### Descriptors
 
+```
+Stability: 1 - Experimental
+```
+
 QElement instances have several descriptor properties that can be used to make assertions about your element. You'll typically use these properties with `QElement.assert()` or `QElement.diff()` method. 
  
-Descriptors are documented in more detail under their class names, below.
+Descriptors are documented in more detail under their class names.
  
 * `top, right, bottom, left (`[`ElementEdge`](descriptors.md)`)` Top, right, etc. edge of the element
 * `center, middle (`[`ElementCenter`](descriptors.md)`)` Horizontal center and vertical middle of the element
@@ -26,6 +30,10 @@ If you discover that you're having rounding errors that are *greater* than 0.5px
 
 #### element.assert()
 
+```
+Stability: 2 - Unstable
+```
+
 Compare the element's properties to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
 
 `element.assert(expected, message)`
@@ -39,6 +47,10 @@ Example: `element.assert({ top: 13, bottom: otherElement.top.plus(10) });`
 
 #### element.diff()
 
+```
+Stability: 2 - Unstable
+```
+
 Compare the element's properties to a set of expected values. This is the same as `assert()` (above), except that it returns a value rather than throwing an exception.
 
 `diff = element.diff(expected)`
@@ -51,6 +63,10 @@ Example: `assert.equal(element.diff({ top: 13, bottom: otherElement.top.plus(10)
 
 
 #### element.getRawStyle()
+
+```
+Stability: 2 - Unstable
+```
 
 Determine how an element displays a particular style, as computed by the browser. This uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
 
@@ -69,6 +85,10 @@ Example: `var fontSize = element.getRawStyle("font-size");`
 
 
 #### element.getRawPosition()
+
+```
+Stability: 2 - Unstable
+```
 
 Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change.
 

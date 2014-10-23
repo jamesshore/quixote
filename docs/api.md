@@ -29,7 +29,7 @@ compatibility should not be expected.
 Stability: 1 - Experimental
 This feature was introduced recently, and may change
 or be removed in future versions.  Please try it out and provide feedback.
-If it addresses a use-case that is important to you, tell the node core team.
+If it addresses a use-case that is important to you, tell the core team.
 
 Stability: 2 - Unstable
 The API is in the process of settling, but has not yet had
