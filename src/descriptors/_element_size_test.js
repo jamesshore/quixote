@@ -19,7 +19,7 @@ describe("ElementSize", function() {
 
 	beforeEach(function() {
 		var frame = reset.frame;
-		frame.addElement(
+		frame.add(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
 		element = frame.get("#element");

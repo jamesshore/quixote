@@ -22,7 +22,7 @@ describe("ElementCenter", function() {
 	beforeEach(function() {
 		var frame = reset.frame;
 
-		frame.addElement(
+		frame.add(
 			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 60px; height: 60px'>one</p>"
 		);
 		element = frame.get("#one");

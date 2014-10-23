@@ -114,7 +114,7 @@ Me.prototype.remove = function() {
 	scrollContainer.parentNode.removeChild(scrollContainer);
 };
 
-Me.prototype.addElement = function(html) {
+Me.prototype.add = function(html) {
 	ensure.signature(arguments, [ String ]);
 	ensureUsable(this);
 

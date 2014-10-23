@@ -47,7 +47,7 @@ describe("BackgroundColor", function() {
     var frame = reset.frame;
     
     // add our test element
-    frame.addElement(
+    frame.add(
       "<p id='element' style='background-color: " + COLOR + "'>element</p>"
     );
     element = frame.get("#element");

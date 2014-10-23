@@ -25,7 +25,7 @@ describe("QElement", function() {
 
 	beforeEach(function() {
 		frame = reset.frame;
-		frame.addElement(
+		frame.add(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
 		element = frame.get("#element");
@@ -89,17 +89,17 @@ describe("QElement", function() {
 	describe("raw styles and positions", function() {
 
 		it("retrieves raw style", function() {
-			var element = frame.addElement("<div style='font-size: 42px'></div>");
+			var element = frame.add("<div style='font-size: 42px'></div>");
 			assert.equal(element.getRawStyle("font-size"), "42px", "raw style");
 		});
 
 		it("returns empty string when raw style doesn't exist", function() {
-			var element = frame.addElement("<div></div>");
+			var element = frame.add("<div></div>");
 			assert.equal(element.getRawStyle("non-existant"), "", "non-existant style");
 		});
 
 		it("retrieves raw element position", function() {
-			var element = frame.addElement(
+			var element = frame.add(
 				"<div style='position: absolute; left: 30px; width: 60px; top: 20px; height: 50px;'></div>"
 			);
 			assert.deepEqual(element.getRawPosition(), {
@@ -144,7 +144,7 @@ describe("QElement", function() {
 		});
 
 		it("supports relative comparisons", function() {
-			var two = frame.addElement("<div style='position: absolute; top: " + TOP + "px;'>two</div>");
+			var two = frame.add("<div style='position: absolute; top: " + TOP + "px;'>two</div>");
 			assert.equal(element.diff({ top: two.top }), "", "relative diff");
 		});
 
@@ -170,7 +170,7 @@ describe("QElement", function() {
 	describe("end-to-end", function() {
 
 		it("handles fractions well", function() {
-			frame.addElement(
+			frame.add(
 				"<p id='golden' style='position: absolute; left: 20px; width: 162px; top: 10px; height: 100px'>golden</p>"
 			);
 			var goldenRect = frame.get("#golden");

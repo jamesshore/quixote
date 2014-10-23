@@ -56,7 +56,7 @@ Stability: 2 - Unstable
 
 Create an element and add it to the end of the frame's body. Throws an exception unless exactly one element is created.
 
-`element = frame.addElement(html, nickname)`
+`element = frame.add(html, nickname)`
 
 * `element (`[`QElement`](QElement.md)`)` The element you created.
 
@@ -64,7 +64,7 @@ Create an element and add it to the end of the frame's body. Throws an exception
 
 * `nickname (optional string)` The name to use when describing your element in error messages. Uses the html by default.
 
-Example: `var foo = frame.addElement("<p>foo</p>", "foo");`
+Example: `var foo = frame.add("<p>foo</p>", "foo");`
 
 
 #### frame.scroll()
