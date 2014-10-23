@@ -16,7 +16,7 @@ Breaking changes to any property or method documented here will be mentioned in 
 
 There are three primary classes and modules:
 
-* [`quixote`](quixote.md) is your entry point. It allows you to create a iframe for testing.
+* [`quixote`](quixote.md) is your entry point. It allows you to create an iframe for testing.
 * [`Frame`](Frame.md) is how you manipulate the DOM inside your test frame.
 * [`QElement`](QElement.md) allows you to make assertions and get information.
 
