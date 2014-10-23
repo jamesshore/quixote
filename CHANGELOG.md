@@ -3,23 +3,30 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## In Progress
+## 0.5: API Hardening
+
+**23 Oct 2014.** API stability was the goal of this release. The API has been thoroughly reviewed and tweaked with the goal of reducing future changes. Other small changes were made to make the API production-ready, and the documentation received a thorough review and update.
 
 ***Breaking changes:***
 
-* Frame.getElement() --> Frame.get()
-* Frame.addElement() --> Frame.add()
-* Width and height moved into options object
+* Renamed Frame.getElement() --> Frame.get()
+* Renamed Frame.addElement() --> Frame.add()
+* Moved quixote.createFrame() width and height parameters into options object
 
 *Enhanced:*
 
-* Frame.get(), .add() takes optional nickname parameter
+* Frame.get() and Frame.add() take an optional "nickname" parameter
 
 *New methods:*
 
 * Frame.getAll()
 * Frame.toDomElement()
 * QElement.toDomElement()
+
+*New classes:*
+
+* QElementList
+
 
 ## 0.4: Advanced Positioning
 

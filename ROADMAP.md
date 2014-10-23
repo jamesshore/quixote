@@ -6,7 +6,7 @@
 * **✔ v0.2** "Cooked" absolute position info; initial assertion API
 * **✔ v0.3** Positioning relative to other elements
 * **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
-* API hardening
+* **✔ v0.5** API hardening
 * Positioning relative to page
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
@@ -14,10 +14,12 @@
 
 ## Current Feature: API Hardening
 
-* Real-world trial
+* Done
 
 
 ## To Do
+
+* Done
 
 
 ## Future Features
