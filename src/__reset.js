@@ -12,7 +12,7 @@ var quixote = require("./quixote.js");
 var frame;
 
 before(function(done) {
-	frame = quixote.createFrame(500, 500, { stylesheet: "/base/src/__reset.css" }, done);
+	frame = quixote.createFrame({ width: 500, height: 500, stylesheet: "/base/src/__reset.css" }, done);
 	exports.frame = frame;
 });
 
