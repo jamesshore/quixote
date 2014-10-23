@@ -6,7 +6,6 @@ var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
 
 var Me = module.exports = function SizeMultiple(relativeTo, multiple) {
-	var ElementSize = require("./element_size.js");
 	ensure.signature(arguments, [ Descriptor, Number ]);
 
 	this._relativeTo = relativeTo;

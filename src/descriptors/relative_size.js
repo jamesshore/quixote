@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Size = require("../values/size.js");
 var Descriptor = require("./descriptor.js");
+var Value = require("../values/value.js");
 var SizeMultiple = require("./size_multiple.js");
 
 var PLUS = 1;
@@ -11,7 +12,7 @@ var MINUS = -1;
 
 var Me = module.exports = function RelativeSize(direction, relativeTo, amount) {
 	var ElementSize = require("./element_size.js");
-	ensure.signature(arguments, [ Number, Descriptor, [Number, Descriptor] ]);
+	ensure.signature(arguments, [ Number, Descriptor, [Number, Descriptor, Value] ]);
 
 	this._direction = direction;
 	this._relativeTo = relativeTo;

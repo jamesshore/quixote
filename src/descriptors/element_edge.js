@@ -13,7 +13,8 @@ var BOTTOM = "bottom";
 var LEFT = "left";
 
 var Me = module.exports = function ElementEdge(element, position) {
-	ensure.signature(arguments, [ require("../q_element.js"), String ]);
+	var QElement = require("../q_element.js");      // break circular dependency
+	ensure.signature(arguments, [  QElement, String ]);
 	ensure.that(
 		position === TOP || position === RIGHT || position === BOTTOM || position === LEFT,
 		"Unknown position: " + position

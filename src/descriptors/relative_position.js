@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
+var Value = require("../values/value.js");
 var Size = require("../values/size.js");
 var Pixels = require("../values/pixels.js");
 var ElementSize = require("./element_size.js");
@@ -14,9 +15,7 @@ var PLUS = 1;
 var MINUS = -1;
 
 var Me = module.exports = function RelativePosition(dimension, direction, relativeTo, relativeAmount) {
-	var ElementEdge = require("./element_edge.js");       // require() is here due to circular dependency
-	var ElementCenter = require("./element_center.js");
-	ensure.signature(arguments, [ String, Number, Descriptor, [Number, Descriptor] ]);
+	ensure.signature(arguments, [ String, Number, Descriptor, [Number, Descriptor, Value] ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
 	this._dimension = dimension;
