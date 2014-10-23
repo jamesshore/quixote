@@ -181,7 +181,7 @@ describe("Frame", function() {
 			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
 		});
 
-		it("uses optional nickname with added elements", function() {
+		it("uses optional nickname to describe added elements", function() {
 			var element = frame.add("<p>foo</p>", "my element");
 			assert.equal(element.toString(), "'my element'");
 		});
@@ -205,6 +205,12 @@ describe("Frame", function() {
 			assert.equal(byId.toString(), "'#foo'", "should describe element by selector used (#id)");
 			assert.equal(byClass.toString(), "'.bar'", "should describe element by selector used (.class)");
 			assert.equal(byAttribute.toString(), "'[baz]'", "should describe element by selector used ([attribute])");
+		});
+
+		it("uses optional nickname to describe retrieved elements", function() {
+			frame.add("<div id='foo'>Irrelevant text</div>");
+			var element = frame.get("#foo", "Bestest Element Ever!!");
+			assert.equal(element.toString(), "'Bestest Element Ever!!'");
 		});
 
 		it("fails fast when retrieving non-existant element", function() {
