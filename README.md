@@ -138,7 +138,7 @@ width of '.contentLeft' was 20px larger than expected.
 ```
 
 
-## API
+## API Overview
 
 [Detailed API documentation is here.](docs/api.md)
 
@@ -156,16 +156,16 @@ These are the methods you'll use most often:
 
 The `assert()` function looks at the properties of your element and checks them against hardcoded values *or* other element's properties. For example, `element.assert({ top: 10 });` or `element.assert({ top: otherElement.bottom })`.
 
-The properties use objects called "Descriptors." Descriptors can be mixed and matched in a variety of ways. For details, see [the API documentation](docs/api.md).
+Element properties can be mixed and matched in a variety of ways. For details, see [the API documentation](docs/api.md).
 
 
 ## Contributing
 
-Pull requests are welcome! Here's some specific contributions we're looking for:
+Pull requests are welcome! Here are some specific contributions we're looking for:
 
-* **Try Quixote on your own projects.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you or [create an issue](https://github.com/jamesshore/quixote/issues) for anything that doesn't work smoothly.
+* **Let us know how Quixote works for you.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you. [Create an issue](https://github.com/jamesshore/quixote/issues) if anything didn't work smoothly or if you had trouble understanding something.
 
-* **Create new descriptors.** Descriptors are how Quixote translates CSS into cross-platform tests. They're often small and simple, and the best are designed to mix and match with other descriptors. Our [descriptor creation tutorial is here](src/descriptors/README.md).
+* **Create new descriptors.** Descriptors are small classes that describe how to calculate and describe CSS. Our [descriptor creation tutorial is here](src/descriptors/README.md).
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  

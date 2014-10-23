@@ -11,9 +11,9 @@ A descriptor has the following key features, which should be implemented in this
 
 * It has tests.
 * It provides factory methods for construction.
-* It resolves itself to a Value object. (`value()`)
-* It converts primitives to Value objects that are comparable to itself. (`convert(arg, type)`)
-* It renders itself as a string. (`toString()`)
+* It resolves itself to a Value object: `value()`
+* It converts primitives to Value objects that are comparable to itself: `convert(arg, type)`
+* It renders itself as a string: `toString()`
 * It extends the `Descriptor` base class.
 * It is returned from QElement or another descriptor
 * Optional: It provides properties or methods that return other descriptors.
@@ -23,7 +23,9 @@ The following explanations use the (as yet fictional) example of a `BackgroundCo
 
 ## Create tests
 
-Start out by creating a simple testbed. In our case, we need an element with a background color.
+Start out by creating a testbed that contains an element including the style you're going to test.
+
+For our `BackgroundColor` example, we create an element that has a background color.
 
 ```javascript
 "use strict";
@@ -41,7 +43,7 @@ describe("BackgroundColor", function() {
   var color;                  // the descriptor under test
   
   beforeEach(function() {
-    // get the test frame
+    // get the test frame (for speed, we reuse the same frame, containing a reset stylesheet, for all Quixote tests)
     var frame = reset.frame;
     
     // add our test element
@@ -60,7 +62,7 @@ describe("BackgroundColor", function() {
 
 ## Implement factory methods
 
-We have a convention of using factory methods, not constructors, to create all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
+We have a convention of using factory methods, not constructors, to instantiate all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
  
 ```javascript
 "use strict";
@@ -69,9 +71,10 @@ var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 
 var Me = module.exports = function BackgroundColor(element) {
-  // Check that the constructor is called with the correct parameter types
-  // Normally we would do the require at the top of the file, but we need to break a circular dependency with QElement. 
+  // Normally we would do this require at the top of the file, but we need to break a circular
+  // dependency with QElement. 
   var QElement = require("./q_element.js");
+  // Check that the constructor is called with the correct parameter types.
   ensure.signature(arguments, [ QElement ]);
   
   // store the element for later
@@ -79,17 +82,18 @@ var Me = module.exports = function BackgroundColor(element) {
 };
 
 Me.create = function create(element) {
-  // Simply call the constructor. We don't call 'ensure.signature()' because the constructor already does that.
+  // Our factory method. It just calls the constructor. More complicated descriptors might do more.
+  // We don't call 'ensure.signature()' here because the constructor already does that.
   return new BackgroundColor(element);
 };
 ```
 
 
-## Calculate value (`value()`)
+## Calculate value: `value()`
 
-A descriptor is a *description* of a CSS property. Descriptors don't actually calculate the value of the property until `value()` is called, so this method is where the magic happens.
+A descriptor is a *description* of a CSS property. They don't store the value of the property, but they know how to calculate it on demand.
 
-We start by testing that our descriptor gives us the actual background-color of our test element. We're assuming that we have an (also fictional) `Color` value object, and that we've required it at some point.
+For our `BackgroundColor` example, we start by testing that our descriptor gives us the actual background-color of our test element. We're assuming that we have an (also fictional) `Color` value object, and that we've required it at some point.
 
 ```javascript
 it("resolves to value", function() {
@@ -101,7 +105,8 @@ We implement it by getting `background-color` from our element. Note that `value
  
 ```javascript
 Me.prototype.value = function() {
-  ensure.signature(arguments, []);      // more parameter checking
+  // check parameters
+  ensure.signature(arguments, []);
   
   // get the style
   var style = this._element.getRawStyle("background-color");
@@ -112,35 +117,11 @@ Me.prototype.value = function() {
 ```
 
 
-## Convert primitives (`convert()`)
-
-In some cases, the user might try to compare our descriptor to a primitive type. By default, this results in an error. The `convert()` method allows us to handle whichever primitives we want.
- 
-Any primitives that aren't handled should be ignored, resulting in a return value of `undefined`.
-
-Our test and production code:
-
-```javascript
-it("converts comparison arguments", function() {
-  assert.objEqual(color.convert("#aabbcc", "string"), Color.create("#aabbcc"));
-});
-```
-
-```javascript
-Me.prototype.convert = function convert(arg, type) {
-  // We don't check parameters because they're checked for us by the caller 
-	if (type === "string") return Color.create(arg);
-};
-```
-
-
 ## Render to a string (`toString()`)
 
-Remember, a descriptor is a *description* of a CSS property, not the value of the property, so when we render to a string, we want to *describe* the property. This human-readable description will be used when describing differences.
+Remember, a descriptor is a *description* of a CSS property, not the value of the property. When we render it to a string, we want to *describe* the property. This human-readable description will be used when describing differences.
 
-In this case, we represent the background color of an element, so a good value for `toString()` might be something like "background color of 'element'".
-
-Here's our test and production code:
+In the case of our `BackgroundColor` example, a good value for `toString()` might be something like "background color of 'element'".
 
 ```javascript
 it("renders to string", function() {
@@ -158,9 +139,31 @@ Me.prototype.toString = function toString() {
 ```
 
 
+## Convert primitives (`convert()`)
+
+If the user tries to compare our descriptor to a primitive type, `convert()` will be called by the `Descriptor` base class. Any type we support should be converted to a value object here. The value object should do the parsing, so all this function needs to do is decide which factory method to invoke.
+
+Any type that isn't supported should be ignored (resulting in `undefined` being returned). Returning `undefined` results in a nice error message.
+
+Our `BackgroundColor` example converts a string to a `Color` value, but ignores everything else:
+
+```javascript
+it("converts comparison arguments", function() {
+  assert.objEqual(color.convert("#aabbcc", "string"), Color.create("#aabbcc"));
+});
+```
+
+```javascript
+Me.prototype.convert = function convert(arg, type) {
+  // We don't check parameters because we can be called with anything. 
+	if (type === "string") return Color.create(arg);
+};
+```
+
+
 ## Extend `Descriptor` base class
 
-All descriptors have to extend Descriptor in order to work properly. We do this last because the tests will fail if the other methods aren't implemented.
+All descriptors have to extend `Descriptor` in order to work properly. We do this last because the tests will fail if the other methods aren't implemented.
 
 Our tests and code:
 
@@ -175,27 +178,35 @@ Descriptor.extend(Me);
 ```
 
 
-## Return from property
+## Expose with a property
 
 For a descriptor to be accessible by users, it must be returned from a property on `QElement` or another descriptor.
 
-In our case, we'll add a `QElement.backgroundColor` property. The tests and code are simple because the heavy lifting is done in the descriptor.
+For our `BackgroundColor` example, we'll add a `QElement.backgroundColor` property. The tests and code are simple because the heavy lifting is done in the descriptor.
 
 In the QElement tests, we add a test to the "properties" `describe` block:
 
 ```javascript
-it("colors", function() {
-  assert.equal(element.backgroundColor.diff(COLOR), "", "background color");
-});
+describe("properties", function() {
+  ⋮
+  it("colors", function() {
+    assert.equal(element.backgroundColor.diff(COLOR), "", "background color");
+  });
+  ⋮
 ```
 
 And in the QElement constructor, we create the property:
 
 ```javascript
-this.backgroundColor = BackgroundColor.create(this);
+var Me = module.exports = function QElement(domElement, qframe, nickname) {
+  ⋮
+  this.backgroundColor = BackgroundColor.create(this);
+  ⋮
 ```
 
 
-## Add optional properties or methods
+## That's it!
 
-Your new descriptor can itself provide properties or methods that return other descriptors. For example, we might want to add a `darken()` method that returns a `RelativeColor` descriptor. See `ElementCenter.plus` for an example.
+Your descriptor is done.
+
+Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For our `BackgroundColor` example, we might want to add a `darken()` method that returns a `RelativeColor` descriptor. See `ElementCenter.plus` for an example.
