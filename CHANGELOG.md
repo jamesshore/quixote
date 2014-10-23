@@ -3,6 +3,9 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## In Progress
+
+
 ## 0.4: Advanced Positioning
 
 **22 Oct 2014.** This release adds a host of new positioning options. You can get the width and height of elements, look at the center (horizontal) or middle (vertical) of elements, and you can mix and match any descriptor with any other. For example, you could check if your element is in the center third below an 'other' element:

@@ -12,31 +12,33 @@
 * ...more TBD
 
 
-## Current Feature: Advanced Positioning
+## Current Feature: API Hardening
 
-* Done!
+* Split out API and contribution documentation (don't want wall of text in readme)
+* API Stability notes (ref http://nodejs.org/api/documentation.html#documentation_stability_index)
+* Frame.getElement(), Frame.addElement(): take an optional nickname
+* Rename Frame.getElement, Frame.addElement --> get, add
+* width and height inside Frame's "options" object
+* Rename `Frame` to `QFrame`
+* frame.getElementList()?
+* Consider taking out ensure.signature() calls; they may restrict more than they help
+* Real-world trial
 
 
 ## To Do
 
-* Done!
+* Split out API docs
+* Split out contributor docs
 
 
 ## Future Features
 
-* Split out API and contribution documentation (don't want wall of text in readme)
-* Investigate re-enabling URL checking (issue #4)
-* Should width and height go inside Frame's "options" object?
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
-* Frame.getElement(), Frame.addElement(): take an optional nickname?
 * Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
+* Investigate re-enabling URL checking (issue #4)
 
 
 ## Future To Do
 
 * Should frame.toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
-* Rename `Frame` to `QFrame`?
-* frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
-* Consider taking out ensure.signature() calls; they may restrict more than they help
-* "Fuzz" pixel comparisons to account for browsers' pixel inexactitude?
