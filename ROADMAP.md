@@ -14,18 +14,12 @@
 
 ## Current Feature: API Hardening
 
-* Rename `Frame` to `QFrame`
 * width and height inside Frame's "options" object
 * Consider taking out ensure.signature() calls; they may restrict more than they help
 * Real-world trial
 
 
 ## To Do
-
-* Rename Frame.md
-* Update Frame.md
-* Update api.md
-* Update readme
 
 
 ## Future Features
