@@ -14,7 +14,6 @@
 
 ## Current Feature: API Hardening
 
-* Consider taking out ensure.signature() calls; they may restrict more than they help
 * Real-world trial
 
 
@@ -30,5 +29,6 @@
 
 ## Future To Do
 
+* Need better solution for ensure.signature() in RelativePosition and RelativeSize constructors. (Common base class?)
 * Should toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
