@@ -5,6 +5,7 @@ var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
 var quixote = require("./quixote.js");
 var QElement = require("./q_element.js");
+var QElementList = require("./q_element_list.js");
 
 var Me = module.exports = function Frame(frameDom, scrollContainerDom) {
 	ensure.signature(arguments, [ Object, Object ]);
@@ -139,6 +140,13 @@ Me.prototype.get = function(selector, nickname) {
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
 	return new QElement(nodes[0], this, nickname);
+};
+
+Me.prototype.getAll = function(selector, nickname) {
+	ensure.signature(arguments, [ String, [undefined, String] ]);
+	if (nickname === undefined) nickname = selector;
+
+	return new QElementList(this._document.querySelectorAll(selector), this, nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {

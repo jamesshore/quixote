@@ -202,9 +202,7 @@ describe("Frame", function() {
 			assert.objEqual(byClass, expected, "should get element by class");
 			assert.objEqual(byAttribute, expected, "should get element by attribute");
 
-			assert.equal(byId.toString(), "'#foo'", "should describe element by selector used (#id)");
-			assert.equal(byClass.toString(), "'.bar'", "should describe element by selector used (.class)");
-			assert.equal(byAttribute.toString(), "'[baz]'", "should describe element by selector used ([attribute])");
+			assert.equal(byId.toString(), "'#foo'", "should describe element by selector used");
 		});
 
 		it("uses optional nickname to describe retrieved elements", function() {
@@ -225,6 +223,16 @@ describe("Frame", function() {
 			assert.exception(function() {
 				frame.get("p");
 			}, /Expected one element to match 'p', but found 2/);
+		});
+
+		it("retrieves a list of elements", function() {
+			frame.add("<div><p id='p1'>One</p><p>Two</p><p>Three</p></div>");
+			var some = frame.getAll("p");
+			var named = frame.getAll("p", "my name");
+
+			assert.objEqual(some.at(0), frame.get("#p1"), "should get a working list");
+			assert.equal(some.toString(), "'p' list", "should describe it by its selector");
+			assert.equal(named.toString(), "'my name' list", "should use nickname when provided");
 		});
 
 		it("resets frame without src document", function() {
