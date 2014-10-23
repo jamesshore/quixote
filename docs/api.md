@@ -12,7 +12,7 @@ There are four primary classes and modules:
 * [`QElement`](QElement.md) allows you to make assertions and get information.
 * [`QElementList`](QElementList.md) contains a list of QElements.
 
-Your assertions (using `QElement.assert()` or `QElement.diff()`) will use properties or methods that return "Descriptors." Descriptors describe some aspect of an element and its CSS. They're documented here:
+Assertions (using `QElement.assert()` or `QElement.diff()`) operate on [`QElement`](QElement.md) properties. Those properties are Descriptor objects. They're documented here:
 
 * [Descriptors](descriptors.md)
 
