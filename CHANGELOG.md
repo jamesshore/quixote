@@ -22,6 +22,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QFrame.getAll()
 * QFrame.toDomElement()
 * QElement.toDomElement()
+* Descriptor.diff()
 
 *New classes:*
 
