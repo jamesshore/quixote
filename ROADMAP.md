@@ -21,9 +21,7 @@
 
 ## To Do
 
-* Default width and height to 2000px
 * Document default width and height; note that it may change
-* __reset.js: use default width and height
 * Update API docs (quixote.md, QFrame.md)
 
 
