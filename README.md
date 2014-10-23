@@ -110,13 +110,13 @@ These are the methods you'll use most often:
 
 * `frame.reset()` resets the test frame. Call this before or after each test to reset to a known-good state. (This is faster than creating a new frame each time.)
 
-* `element = frame.get(selector, nickname)` gets an element out of the frame. Call this for each element you want to test.
+* `element = frame.get(selector)` gets an element out of the frame. Call this for each element you want to test. You can also use `frame.getAll(selector)` to get multiple elements.
  
 * `element.assert({ property, property, ... });` checks the styling of an element. Call this in each test.
 
 * `element.getRawStyle(style)` looks up a specific CSS style. You can use it for anything `assert()` doesn't support yet.
 
-The `assert()` function looks at the properties of your element and checks them against hardcoded values or other element's properties. For example, `element.assert({ top: 10 });` or `element.assert({ top: otherElement.bottom })`.
+The `assert()` function looks at the properties of your element and checks them against hardcoded values *or* other element's properties. For example, `element.assert({ top: 10 });` or `element.assert({ top: otherElement.bottom })`.
 
 Element properties can be mixed and matched in a variety of ways. For details, see [the API documentation](docs/api.md).
 

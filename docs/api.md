@@ -5,11 +5,12 @@ For a Quixote overview, installation notes, and an example, see [the readme](../
 
 ## Table of Contents
 
-There are three primary classes and modules:
+There are four primary classes and modules:
 
 * [`quixote`](quixote.md) is your entry point. It allows you to create an iframe for testing.
 * [`Frame`](Frame.md) is how you manipulate the DOM inside your test frame.
 * [`QElement`](QElement.md) allows you to make assertions and get information.
+* [`QElementList`](QElementList.md) contains a list of QElements.
 
 Your assertions (using `QElement.assert()` or `QElement.diff()`) will use properties or methods that return "Descriptors." Descriptors describe some aspect of an element and its CSS. They're documented here:
 
@@ -64,7 +65,7 @@ These are the methods you'll use most often:
 
 * `frame.reset()` resets the test frame. Call this before or after each test to reset to a known-good state. (This is faster than creating a new frame each time.)
 
-* `element = frame.get(selector, nickname)` gets an element out of the frame. Call this for each element you want to test.
+* `element = frame.get(selector)` gets an element out of the frame. Call this for each element you want to test. You can also use `frame.getAll(selector)` to get a list of elements.
  
 * `element.assert({ property, property, ... });` checks the styling of an element. Call this in each test.
 
