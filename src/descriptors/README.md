@@ -117,7 +117,7 @@ Me.prototype.value = function() {
 ```
 
 
-## Render to a string (`toString()`)
+## Render to a string: `toString()`
 
 Remember, a descriptor is a *description* of a CSS property, not the value of the property. When we render it to a string, we want to *describe* the property. This human-readable description will be used when describing differences.
 
@@ -139,7 +139,7 @@ Me.prototype.toString = function toString() {
 ```
 
 
-## Convert primitives (`convert()`)
+## Convert primitives: `convert()`
 
 If the user tries to compare our descriptor to a primitive type, `convert()` will be called by the `Descriptor` base class. Any type we support should be converted to a value object here. The value object should do the parsing, so all this function needs to do is decide which factory method to invoke.
 
