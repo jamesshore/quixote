@@ -161,91 +161,19 @@ The properties use objects called "Descriptors." Descriptors can be mixed and ma
 
 ## Contributing
 
+Pull requests are welcome! Here's some specific contributions we're looking for:
 
-There are many useful ways to contribute. Here's a few:
+* **Try Quixote on your own projects.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you or [create an issue](https://github.com/jamesshore/quixote/issues) for anything that doesn't work smoothly.
 
-* **Try Quixote on your own projects.** Download the code, try it out, and [create issues](https://github.com/jamesshore/quixote/issues) for anything that doesn't work smoothly. The bleeding-edge distribution is at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) and you can install the current official release from npm using `npm install quixote`.
-
-* **Submit a pull request.** See below for instructions.
+* **Create new descriptors.** Descriptors are how Quixote translates CSS into cross-platform tests. They're often small and simple, and the best are designed to mix and match with other descriptors. Our [descriptor creation tutorial is here](src/descriptors/README.md).
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  
-* **Build the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation. I plan to write API documentation as we go, but I don't expect to have time to create the site itself during the hackathon. You can find the site source code in the `docs` folder. (If you work on this, I'd appreciate visual consistency with my other big projects, [letscodejavascript.com](http://www.letscodejavascript.com) and [objectplayground.com](http://www.objectplayground.com). In particular, you can [find the Object Playground styles here](https://github.com/jamesshore/object_playground/blob/master/src/site.css).) 
+* **Start the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation, but so far, everything's just in markdown files. The website source code is in [docs](docs). The [Object Playground site](http://www.objectplayground.com) and [stylesheet](https://github.com/jamesshore/object_playground/blob/master/src/site.css) are a good starting point.
 
 * **Tell your friends and colleagues.** Even if you can't contribute anything, spreading the word is a big help. Let people know about Quixote and why you like it.
 
-
-### Pull Requests
-
-Pull requests are welcome. Please [create an issue](https://github.com/jamesshore/quixote/issues) describing the problem or feature that your pull request addresses, then link the pull request to the issue. That will allow us to discuss the issue and consider alternate solutions more easily.
-
-To create a pull request:
-
-1. **[Create an issue](https://github.com/jamesshore/quixote/issues)** on GitHub describing the problem or feature you're addressing. Add a comment saying that you're working on a pull request to address it. (It's probably a good idea to search the existing issues first to see if anybody else is talking about the same thing.)  
-2. **[Fork the Quixote repository](https://help.github.com/articles/fork-a-repo/)** on GitHub.
-3. **Clone the fork** to your computer by following the "Setup" instructions below. (Use your GitHub user name instead of `jamesshore` in step 2.)
-4. **Run the tests** by following the "Running the Tests" instructions below. 
-5. **Create a branch** to make your changes in: `git checkout -b <branch_name>`.
-6. **Make your changes**, committing as desired. When you're done, make sure the tests pass.
-7. **Push your changes** to GitHub: `git push`.
-8. **[Create a pull request](https://help.github.com/articles/creating-a-pull-request/)** on GitHub. Add a comment referencing the issue it addresses.
-
-Thank you for your contribution!
-
-
-### Setup
-
-To work with the code on your own computer:
-
-1. Install [Node.js](http://nodejs.org/download/).
-2. Clone the GitHub repository: `git clone https://github.com/jamesshore/quixote.git`
-3. All commands must run from the root of the source tree: `cd quixote`.
-
-
-### Running the Tests
-
-1. Run `./jake.sh karma` to start the Karma server.
-2. Start the browsers you want to test and point each one at `http://localhost:9876`.
-3. Run `./jake.sh loose=true` to build and test, or `./watch.js loose=true` to automatically rebuild when you make a change.
-
-At this time, the build has only been tested on Mac OS X. It should also work on Unix without any trouble. It's theoretically capable of working on Windows, but needs some script work before that's easy and convenient.
-
-
-#### Build parameters
-
-You can pass the following options to `./jake.sh`:
-
-* `-T` displays available build targets.
-
-* `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js).
-
-* `capture=Firefox,Safari` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you'll need to install the appropriate launcher first; e.g., `npm install karma-firefox-launcher`.
-
-
-#### Other build scripts
-
-* `./integrate.sh` validates the dev branch and merges it into the known-good master branch.
-* `./release.sh` publishes to npm, github, and our [documentation site](http://www.quixote-css.com).
-
-Only the project maintainer (James Shore) is likely to need these scripts. 
-
-
-### Finding Your Way Around
-
-* `build` contains build scripts.
-* `docs` contains the documentation website (online at [quixote-css.com](http://quixote-css.com)).
-* `dist` contains the compiled library (downloadable at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) or using `npm install quixote`).
-* `src` contains the source code and tests. Test code starts with an underscore.
-* `node_modules` contains third-party libraries needed for build automation.
-* `vendor` contains third-party libraries needed for Quixote itself.
-
-
-### Branches
-
-* `master` is the known-good integration branch. This branch should always build and pass its tests.
-* `dev` is for work in progress.
-
-Previous commits on the integration branch have "INTEGRATE" in their commit comment.
+Information about [setting up the code and submitting pull requests is here](CONTRIBUTING.md). Please [create an issue](https://github.com/jamesshore/quixote/issues) for anything you start on. It will act as a central point for coordination and let other people know that work is in progress.
 
 
 ## Credits
