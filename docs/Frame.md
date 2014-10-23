@@ -35,7 +35,7 @@ Remove the test frame entirely.
 Stability: 2 - Unstable
 ```
 
-Retrieve an element matching `selector`. Throws an exception unless exactly one matching element is found.
+Retrieve an element matching a selector. Throws an exception unless exactly one matching element is found. If you don't want the possibility of an exception, use `frame.getAll()` instead.
 
 `element = frame.get(selector, nickname)`
 
@@ -46,6 +46,25 @@ Retrieve an element matching `selector`. Throws an exception unless exactly one 
 * `nickname (optional string)` The name to use when describing your element in error messages. Uses the selector by default.
 
 Example: `var foo = frame.get("#foo");`
+
+
+#### frame.getAll()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve a list of elements matching a selector. If you want to ensure that exactly one element is retrieved, use `frame.get()` instead.
+
+`list = frame.getAll(selector, nickname)`
+
+* `list` (`[`QElementList`](QElementList.md`)` The elements that match your selector.
+
+* `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
+
+* `nickname (optional string)` The name to use when describing your list in error messages. Uses the selector by default.
+
+Example `var fooList = frame.getAll(".foo");`
 
 
 #### frame.add()

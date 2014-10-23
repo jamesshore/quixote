@@ -14,16 +14,14 @@
 
 ## Current Feature: API Hardening
 
-* frame.getAll()
-* width and height inside Frame's "options" object
 * Rename `Frame` to `QFrame`
+* width and height inside Frame's "options" object
 * Consider taking out ensure.signature() calls; they may restrict more than they help
 * Real-world trial
 
 
 ## To Do
 
-* getAll() documentation (including API summary in readme and api.md?)
 
 ## Future Features
 
