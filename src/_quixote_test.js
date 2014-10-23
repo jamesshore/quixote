@@ -3,19 +3,19 @@
 
 var assert = require("./util/assert.js");
 var quixote = require("./quixote.js");
-var Frame = require("./frame.js");
+var QFrame = require("./q_frame.js");
 
 describe("Quixote", function() {
 
 	it("creates frame", function(done) {
-		var frame = quixote.createFrame(600, 400, { src: "/base/src/_frame_test.html" }, function(err, callbackFrame) {
+		var frame = quixote.createFrame(600, 400, { src: "/base/src/_q_frame_test.html" }, function(err, callbackFrame) {
 			assert.noException(function() {
 				callbackFrame.get("#exists");
 			});
 			frame.remove();
 			done(err);
 		});
-		assert.type(frame, Frame, "createFrame() returns frame object immediately");
+		assert.type(frame, QFrame, "createFrame() returns frame object immediately");
 	});
 
 });

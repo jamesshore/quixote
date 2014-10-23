@@ -9,8 +9,8 @@ var ElementCenter = require("./descriptors/element_center.js");
 var ElementSize = require("./descriptors/element_size.js");
 
 var Me = module.exports = function QElement(domElement, frame, nickname) {
-	var Frame = require("./frame.js");    // break circular dependency
-	ensure.signature(arguments, [ Object, Frame, String ]);
+	var QFrame = require("./q_frame.js");    // break circular dependency
+	ensure.signature(arguments, [ Object, QFrame, String ]);
 
 	this._domElement = domElement;
 	this._nickname = nickname;

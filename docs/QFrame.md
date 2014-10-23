@@ -1,6 +1,6 @@
-# Quixote API: `Frame`
+# Quixote API: `QFrame`
 
-`Frame` instances allow you to control your test frame. You'll use this to create and retrieve elements. Of particular use is `frame.reset()`, which you should call before each test. You'll also need to call `frame.remove()` after all your CSS tests are complete.
+`QFrame` instances allow you to control your test frame. You'll use this to create and retrieve elements. Of particular use is `frame.reset()`, which you should call before each test. You'll also need to call `frame.remove()` after all your CSS tests are complete.
 
 [Return to the API overview.](api.md)
 
