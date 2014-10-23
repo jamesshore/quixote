@@ -130,7 +130,7 @@ Me.prototype.addElement = function(html) {
 	return new QElement(insertedElement, this, html);
 };
 
-Me.prototype.getElement = function(selector) {
+Me.prototype.get = function(selector) {
 	ensure.signature(arguments, [ String ]);
 	ensureUsable(this);
 

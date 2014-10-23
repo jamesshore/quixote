@@ -14,8 +14,8 @@
 
 ## Current Feature: API Hardening
 
-* Frame.getElement(), Frame.addElement(): take an optional nickname
 * Rename Frame.getElement, Frame.addElement --> get, add
+* Frame.get(), Frame.add(): take an optional nickname
 * width and height inside Frame's "options" object
 * Rename `Frame` to `QFrame`
 * frame.getAll()

@@ -28,7 +28,7 @@ describe("QElement", function() {
 		frame.addElement(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
-		element = frame.getElement("#element");
+		element = frame.get("#element");
 	});
 
 	describe("object", function() {
@@ -173,7 +173,7 @@ describe("QElement", function() {
 			frame.addElement(
 				"<p id='golden' style='position: absolute; left: 20px; width: 162px; top: 10px; height: 100px'>golden</p>"
 			);
-			var goldenRect = frame.getElement("#golden");
+			var goldenRect = frame.get("#golden");
 			var goldenRatio = 1.6180339887;
 
 			goldenRect.assert({

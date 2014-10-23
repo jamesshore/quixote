@@ -37,7 +37,7 @@ Stability: 2 - Unstable
 
 Retrieve an element matching `selector`. Throws an exception unless exactly one matching element is found.
 
-`element = frame.getElement(selector, nickname)`
+`element = frame.get(selector, nickname)`
 
 * `element (`[`QElement`](QElement.md)`)` The element that matches your selector.
 
@@ -45,7 +45,7 @@ Retrieve an element matching `selector`. Throws an exception unless exactly one 
 
 * `nickname (optional string)` The name to use when describing your element in error messages. Uses the selector by default.
 
-Example: `var foo = frame.getElement("#foo");`
+Example: `var foo = frame.get("#foo");`
 
 
 #### frame.add()

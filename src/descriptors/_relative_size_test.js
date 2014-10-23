@@ -24,7 +24,7 @@ describe("RelativeSize", function() {
 		frame.addElement(
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
 		);
-		element = frame.getElement("#element");
+		element = frame.get("#element");
 		larger = RelativeSize.larger(element.height, 10);
 		smaller = RelativeSize.smaller(element.width, 5);
 	});

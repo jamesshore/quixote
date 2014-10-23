@@ -10,7 +10,7 @@ describe("Quixote", function() {
 	it("creates frame", function(done) {
 		var frame = quixote.createFrame(600, 400, { src: "/base/src/_frame_test.html" }, function(err, callbackFrame) {
 			assert.noException(function() {
-				callbackFrame.getElement("#exists");
+				callbackFrame.get("#exists");
 			});
 			frame.remove();
 			done(err);

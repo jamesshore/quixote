@@ -50,7 +50,7 @@ describe("BackgroundColor", function() {
     frame.addElement(
       "<p id='element' style='background-color: " + COLOR + "'>element</p>"
     );
-    element = frame.getElement("#element");
+    element = frame.get("#element");
     
     // create the test descriptor
     color = BackgroundColor.create(element);

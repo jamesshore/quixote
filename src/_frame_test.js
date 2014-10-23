@@ -46,7 +46,7 @@ describe("Frame", function() {
 		it("creates iframe using source URL", function(done) {
 			var frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				assert.noException(function() {
-					frame.getElement("#exists");
+					frame.get("#exists");
 				});
 				done();
 			});
@@ -76,7 +76,7 @@ describe("Frame", function() {
 				// WORKAROUND Mobile Safari 7.0.0: Weird font-size result (23px)
 //			Frame.create(window.document.body, 600, 400, options, function(frame) {
 //				try {
-//					var styleMe = frame.getElement(".style-me");
+//					var styleMe = frame.get(".style-me");
 //					var makeLintHappy = styleMe.toDomElement().offsetHeight;  // force reflow
 //					assert.equal(styleMe.getRawStyle("font-size"), "42px");
 //					done();
@@ -90,7 +90,7 @@ describe("Frame", function() {
 			frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				frame.reset();
 				assert.noException(function() {
-					frame.getElement("#exists");
+					frame.get("#exists");
 				});
 				done();
 			});
@@ -143,7 +143,7 @@ describe("Frame", function() {
 				"technically, removing the frame works, but it's complicated, so it should just fail"
 			);
 			assert.exception(function() { frame.addElement("<p></p>"); }, expected, "addElement()");
-			assert.exception(function() { frame.getElement("foo"); }, expected, "getElement()");
+			assert.exception(function() { frame.get("foo"); }, expected, "get()");
 		});
 
 		it("fails fast if frame is used after it's removed", function(done) {
@@ -154,7 +154,7 @@ describe("Frame", function() {
 				assert.exception(function() { frame.reset(); }, expected, "reset()");
 				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
 				assert.exception(function() { frame.addElement("<p></p>"); }, expected, "addElement()");
-				assert.exception(function() { frame.getElement("foo"); }, expected, "getElement()");
+				assert.exception(function() { frame.get("foo"); }, expected, "get()");
 
 				done();
 			});
@@ -189,9 +189,9 @@ describe("Frame", function() {
 
 		it("retrieves an element by selector", function() {
 			var expected = frame.addElement("<div id='foo' class='bar' baz='boo'>Irrelevant text</div>");
-			var byId = frame.getElement("#foo");
-			var byClass = frame.getElement(".bar");
-			var byAttribute = frame.getElement("[baz]");
+			var byId = frame.get("#foo");
+			var byClass = frame.get(".bar");
+			var byAttribute = frame.get("[baz]");
 
 			assert.objEqual(byId, expected, "should get element by ID");
 			assert.objEqual(byClass, expected, "should get element by class");
@@ -204,7 +204,7 @@ describe("Frame", function() {
 
 		it("fails fast when retrieving non-existant element", function() {
 			assert.exception(function() {
-				frame.getElement(".blah");
+				frame.get(".blah");
 			}, /Expected one element to match '\.blah', but found 0/);
 		});
 
@@ -212,7 +212,7 @@ describe("Frame", function() {
 			frame.addElement("<div><p>One</p><p>Two</p></div>");
 
 			assert.exception(function() {
-				frame.getElement("p");
+				frame.get("p");
 			}, /Expected one element to match 'p', but found 2/);
 		});
 

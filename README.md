@@ -66,8 +66,8 @@ describe("Example", function() {
     frame.reset();
     
     // Get the elements we want to test
-    logo = frame.getElement("#logo");       // you can use any CSS selector
-    menu = frame.getElement(".menu");
+    logo = frame.get("#logo");       // you can use any CSS selector
+    menu = frame.get(".menu");
   });
   
   // Here's our test.
