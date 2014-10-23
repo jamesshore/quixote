@@ -40,7 +40,7 @@ Quixote is a UMD module. If you just load the file using a `<script>` tag, it wi
 
 ```javascript
 // Quixote works with your existing test framework.
-// In this case, we're using Mocha.
+// In this example, we're using Mocha.
 
 describe("Example", function() {
 
@@ -49,7 +49,7 @@ describe("Example", function() {
   var menu;         // the menu element
 
   // Create the test frame once for all your tests.
-  // In this case, we're loading example.html into a 600x800px frame.
+  // Here we load example.html. You can also create elements programmatically.
   before(function(done) {
     var options = { src: "/base/src/example.html" };
     frame = quixote.createFrame(600, 800, options, done);
@@ -57,7 +57,6 @@ describe("Example", function() {
   
   // Destroy the test frame after your tests are done.
   after(function() {
-    // Destroy the test frame
     frame.remove();
   });
   
@@ -74,8 +73,8 @@ describe("Example", function() {
   // Here's our test.
   it("positions menu below logo", function() {
     // The 'assert()' method checks multiple properties at once.
+    // You can also use 'diff()' with your favorite assertion library.
     menu.assert({
-    
       // We can check a hard-coded value
       left: 15,    // menu is 15px from left side of page
       
@@ -85,7 +84,7 @@ describe("Example", function() {
   });
   
   it("uses big font for menu", function() {
-    // So far, 'assert()' only checks positions.
+    // Sometimes, 'assert()' doesn't support what you need.
     // But you can check any CSS style you want by using 'getRawStyle()'.
   
     // Get the font size actually displayed in the browser

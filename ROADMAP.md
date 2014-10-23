@@ -14,8 +14,6 @@
 
 ## Current Feature: API Hardening
 
-* Split out API and contribution documentation (don't want wall of text in readme)
-* API Stability notes (ref http://nodejs.org/api/documentation.html#documentation_stability_index)
 * Frame.getElement(), Frame.addElement(): take an optional nickname
 * Rename Frame.getElement, Frame.addElement --> get, add
 * width and height inside Frame's "options" object
@@ -26,9 +24,6 @@
 
 
 ## To Do
-
-* Split out API docs
-* Split out contributor docs
 
 
 ## Future Features
