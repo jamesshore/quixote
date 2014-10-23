@@ -104,7 +104,7 @@ Example: `frame.scroll(50, 60);`
 
 **Compatibility Note:** This method throws an exception on Mobile Safari. To check if this method will throw an exception, use [`quixote.browser.canScroll()`](quixote.md).
 
-* Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size. As a result, it can't be scrolled. To notify you of the problem, we throw an exception.
+* Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size. As a result, it can't be scrolled.
 
 
 #### frame.getRawScrollPosition()
