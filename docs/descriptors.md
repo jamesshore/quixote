@@ -9,7 +9,7 @@ Descriptors represent some aspect of how an element is displayed, such as its wi
 
 ### Descriptor Chaining
 
-A descriptors may have properties or methods that return additional descriptors. Those chaining options are documented with each descriptor, below.
+A descriptor may have properties or methods that return additional descriptors. Those chaining options are documented with each descriptor, below.
 
 Example: `element.assert({ bottom: otherElement.top.plus(10) });`
 
@@ -25,13 +25,13 @@ All descriptors implement the following API. In most cases, you won't need to ca
 Stability: 2 - Unstable
 ```
 
-Compare the descriptor's value to a hardcoded value or another descriptor's value. This is the same as calling [`QElement.diff()`](QElement.md), except that it operates on just one descriptor at a time.
+Compare the descriptor's value to a hardcoded value or another descriptor's value. This is the same as calling [`QElement.diff()`](QElement.md), except that it operates on just one descriptor at a time. Throws an exception if the expected value isn't compatible with the descriptor.
 
 `diff = descriptor.diff(expected)`
 
 * `diff (string)` A human-readable description of any differences found, or an empty string if none.
 
-* `expected (any)` The expected value as a descriptor or hardcoded value. If the expected value can't be compared to this descriptor, `diff()` will throw an explanatory error.
+* `expected (any)` The expected value as a descriptor or hardcoded value.
 
 Example: `var diff = element.diff(otherElement.top);`
 
@@ -72,7 +72,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents an adjusted position. `RelativePosition` is created with an `amount`. It may be a number or another descriptor.
+Represents an adjusted position. `RelativePosition` is created with an `amount`, which may be a number or another descriptor.
  
 Example: The top of the element is 10px below the bottom of the menu: `element.assert({ top: menu.bottom.plus(10) });`
 
@@ -105,7 +105,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents an adjusted size. `RelativeSize` is created with an `amount`. It may be a number or another descriptor.
+Represents an adjusted size. `RelativeSize` is created with an `amount`, which may be a number or another descriptor.
  
 Example: The element is 20px narrower than the menu: `element.assert({ width: menu.width.minus(20) });`
 
@@ -122,7 +122,7 @@ Chainable descriptors:
 Stability: 2 - Unstable
 ```
 
-Represents an adjusted size. `SizeMultiple` is created with a `multiplier`. It must be a number.
+Represents an adjusted size. `SizeMultiple` is created with a `multiplier`, which must be a number.
 
 Example: The element is a golden rectangle: `element.assert({ width: element.height.times(1.618) });`
 
