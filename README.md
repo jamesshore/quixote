@@ -435,15 +435,22 @@ Represents an adjusted size. Get a SizeMultiple by calling `times(muliplier)` on
 
 Example: The element is a golden rectangle: `element.assert({ width: element.height.times(1.618) });`
 
+#### Additional descriptors
+
+ElementSize provides access to additional descriptors:
+
+* `plus(amount) (RelativeSize)` Bigger.
+* `minus(amount) (RelativeSize)` Smaller.
+* `times(amount) (SizeMultiple)` A multiple or fraction.
 
 
 ## Contributing
 
 There are many useful ways to contribute. Here's a few:
 
-* **Try Quixote on your own projects.** Download the code, try it out, and create issues describing works well and what needs improvement. The bleeding-edge distribution is at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) and you can install the current official release from npm using `npm install quixote`.
+* **Try Quixote on your own projects.** Download the code, try it out, and [create issues](https://github.com/jamesshore/quixote/issues) for anything that doesn't work smoothly. The bleeding-edge distribution is at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) and you can install the current official release from npm using `npm install quixote`.
 
-* **Submit pull request.** See below for instructions.
+* **Submit a pull request.** See below for instructions.
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  

@@ -17,6 +17,11 @@ element.assert({
 
 **No breaking changes.**
 
+*Patches:*
+
+* *0.4.1, 22 Oct 2014:* Documented `SizeMultiple` additional descriptors.   
+
+
 *Fixed:*
 
 * Position comparisons are no longer reversed on the vertical axis. (When comparing 10px to an expected value of 13px, Quixote said the actual was "3px lower" than expected, not "3px higher." Although the *number* is lower, the actual *position* on the page is higher.)
