@@ -28,6 +28,7 @@ element.assert({
 * ElementEdge.plus() and ElementEdge.minus() can be passed a descriptor (for example, `element.top.plus(element.width)`). 
 
 *Reverted:*
+
 * Frame.create() fails fast if the HTML or stylesheet URL is invalid: temporarily removed due to potential test suite execution issues with Mobile Safari
 
 *New properties:*

@@ -287,6 +287,11 @@ Descriptors are documented in more detail under their class names, below.
 
 **Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If there's a cross-browser difference that doesn't show up in the actual page, please file an issue.
 
+**Pixel Rounding Note:** Browsers handle pixel rounding in different ways. As a result, if two values are within 0.5px of each other, we consider them to be the same. This only applies to pixel values, not all numbers.
+
+If you discover that you're having rounding errors that are *greater* than 0.5px, make sure your test browsers are set to a zoom level of 100%. Zooming can exaggerate rounding errors.
+
+
 #### element.assert()
 
 Compare the element's properties to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
