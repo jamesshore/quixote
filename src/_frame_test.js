@@ -202,9 +202,7 @@ describe("Frame", function() {
 			assert.objEqual(byClass, expected, "should get element by class");
 			assert.objEqual(byAttribute, expected, "should get element by attribute");
 
-			assert.equal(byId.toString(), "'#foo'", "should describe element by selector used (#id)");
-			assert.equal(byClass.toString(), "'.bar'", "should describe element by selector used (.class)");
-			assert.equal(byAttribute.toString(), "'[baz]'", "should describe element by selector used ([attribute])");
+			assert.equal(byId.toString(), "'#foo'", "should describe element by selector used");
 		});
 
 		it("uses optional nickname to describe retrieved elements", function() {

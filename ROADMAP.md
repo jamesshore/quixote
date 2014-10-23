@@ -23,6 +23,11 @@
 
 ## To Do
 
+* Frame.getAll
+* getAll() documentation (including API summary in readme and api.md?)
+* QElementList documentation
+  * length()
+  * at() -- mention that it's zero-based, document negative indices
 
 ## Future Features
 
