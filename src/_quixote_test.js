@@ -3,7 +3,7 @@
 
 var assert = require("./util/assert.js");
 var quixote = require("./quixote.js");
-var Frame = require("./frame.js");
+var QFrame = require("./frame.js");
 
 describe("Quixote", function() {
 
@@ -15,7 +15,7 @@ describe("Quixote", function() {
 			frame.remove();
 			done(err);
 		});
-		assert.type(frame, Frame, "createFrame() returns frame object immediately");
+		assert.type(frame, QFrame, "createFrame() returns frame object immediately");
 	});
 
 });

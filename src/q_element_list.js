@@ -5,8 +5,8 @@ var ensure = require("./util/ensure.js");
 var QElement = require("./q_element.js");
 
 var Me = module.exports = function QElementList(nodeList, frame, nickname) {
-	var Frame = require("./frame.js");    // break circular dependency
-	ensure.signature(arguments, [ Object, Frame, String ]);
+	var QFrame = require("./frame.js");    // break circular dependency
+	ensure.signature(arguments, [ Object, QFrame, String ]);
 
 	this._nodeList = nodeList;
 	this._frame = frame;

@@ -7,9 +7,9 @@ var quixote = require("./quixote.js");
 var QElement = require("./q_element.js");
 var QElementList = require("./q_element_list.js");
 
-var Me = module.exports = function Frame(frameDom, scrollContainerDom) {
+var Me = module.exports = function QFrame(frameDom, scrollContainerDom) {
 	ensure.signature(arguments, [ Object, Object ]);
-	ensure.that(frameDom.tagName === "IFRAME", "Frame DOM element must be an iframe");
+	ensure.that(frameDom.tagName === "IFRAME", "QFrame DOM element must be an iframe");
 	ensure.that(scrollContainerDom.tagName === "DIV", "Scroll container DOM element must be a div");
 
 	this._domElement = frameDom;
@@ -175,7 +175,7 @@ function ensureUsable(self) {
 }
 
 function ensureLoaded(self) {
-	ensure.that(self._loaded, "Frame not loaded: Wait for frame creation callback to execute before using frame");
+	ensure.that(self._loaded, "QFrame not loaded: Wait for frame creation callback to execute before using frame");
 }
 
 function ensureNotRemoved(self) {

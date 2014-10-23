@@ -4,10 +4,10 @@
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var quixote = require("./quixote.js");
-var Frame = require("./frame.js");
+var QFrame = require("./frame.js");
 var QElement = require("./q_element.js");
 
-describe("Frame", function() {
+describe("QFrame", function() {
 
 	describe("creation and removal", function() {
 
@@ -18,8 +18,8 @@ describe("Frame", function() {
 		});
 
 		it("creates iframe DOM element with specified width and height", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, function() {
-				assert.type(frame, Frame, "frame");
+			frame = QFrame.create(window.document.body, 600, 400, function() {
+				assert.type(frame, QFrame, "frame");
 
 				var iframe = frame.toDomElement();
 				assert.equal(iframe.tagName, "IFRAME", "should create an iframe tag");
@@ -32,19 +32,19 @@ describe("Frame", function() {
 		});
 
 		it("returns frame immediately upon creation", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, function(err, loadedFrame) {
+			frame = QFrame.create(window.document.body, 600, 400, function(err, loadedFrame) {
 				assert.equal(frame, loadedFrame, "should return same frame as passed in callback");
 				done(err);
 			});
-			assert.defined(frame, "valid Frame object should be returned from create() method");
+			assert.defined(frame, "valid QFrame object should be returned from create() method");
 		});
 
 		it("does not fail in Mocha if Mocha's 'done' is passed as frame callback", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, done);
+			frame = QFrame.create(window.document.body, 600, 400, done);
 		});
 
 		it("creates iframe using source URL", function(done) {
-			var frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
+			var frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				assert.noException(function() {
 					frame.get("#exists");
 				});
@@ -53,7 +53,7 @@ describe("Frame", function() {
 		});
 
 		it("creates iframe using stylesheet link", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
+			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
 				done();
@@ -67,14 +67,14 @@ describe("Frame", function() {
 			};
 
 			assert.exception(function() {
-				frame = Frame.create(window.document.body, 600, 400, options, function() {
+				frame = QFrame.create(window.document.body, 600, 400, options, function() {
 					done("Should never be called");
 				});
 			}, /Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue/);
 			done();
 
 				// WORKAROUND Mobile Safari 7.0.0: Weird font-size result (23px)
-//			Frame.create(window.document.body, 600, 400, options, function(frame) {
+//			QFrame.create(window.document.body, 600, 400, options, function(frame) {
 //				try {
 //					var styleMe = frame.get(".style-me");
 //					var makeLintHappy = styleMe.toDomElement().offsetHeight;  // force reflow
@@ -87,7 +87,7 @@ describe("Frame", function() {
 		});
 
 		it("resets iframe loaded with source URL without destroying source document", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
+			frame = QFrame.create(window.document.body, 600, 400, { src: "/base/src/_frame_test.html" }, function() {
 				frame.reset();
 				assert.noException(function() {
 					frame.get("#exists");
@@ -97,7 +97,7 @@ describe("Frame", function() {
 		});
 
 		it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
+			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/_frame_test.css" }, function() {
 				frame.reset();
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
 				assert.equal(styleMe.getRawStyle("font-size"), "42px");
@@ -106,7 +106,7 @@ describe("Frame", function() {
 		});
 
 		it("destroys itself", function(done) {
-			frame = Frame.create(window.document.body, 800, 1000, function() {
+			frame = QFrame.create(window.document.body, 800, 1000, function() {
 				var numChildren = document.body.childNodes.length;
 
 				frame.remove();
@@ -121,7 +121,7 @@ describe("Frame", function() {
 
 		// WORKAROUND IE 8: getClientRect() includes frame border in positions
 		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function() {
+			frame = QFrame.create(window.document.body, 600, 400, { stylesheet: "/base/src/__reset.css" }, function() {
 				var element = frame.add("<p>Foo</p>");
 				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
 				done();
@@ -129,7 +129,7 @@ describe("Frame", function() {
 		});
 
 		it("fails fast if frame is used before it's loaded", function(done) {
-			frame = Frame.create(window.document.body, 600, 400, function() { done(); });
+			frame = QFrame.create(window.document.body, 600, 400, function() { done(); });
 
 			var expected = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
 			assert.exception(function() { frame.reset(); }, expected, "resetting frame should be a no-op");
@@ -149,7 +149,7 @@ describe("Frame", function() {
 		it("fails fast if frame is used after it's removed", function(done) {
 			var expected = /Attempted to use frame after it was removed/;
 
-			frame = Frame.create(window.document.body, 600, 400, function() {
+			frame = QFrame.create(window.document.body, 600, 400, function() {
 				frame.remove();
 				assert.exception(function() { frame.reset(); }, expected, "reset()");
 				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
