@@ -225,6 +225,16 @@ describe("Frame", function() {
 			}, /Expected one element to match 'p', but found 2/);
 		});
 
+		it("retrieves a list of elements", function() {
+			frame.add("<div><p id='p1'>One</p><p>Two</p><p>Three</p></div>");
+			var some = frame.getAll("p");
+			var named = frame.getAll("p", "my name");
+
+			assert.objEqual(some.at(0), frame.get("#p1"), "should get a working list");
+			assert.equal(some.toString(), "'p' list", "should describe it by its selector");
+			assert.equal(named.toString(), "'my name' list", "should use nickname when provided");
+		});
+
 		it("resets frame without src document", function() {
 			frame.add("<div>Foo</div>");
 			frame.reset();

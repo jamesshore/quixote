@@ -6,7 +6,7 @@ var QElement = require("./q_element.js");
 
 var Me = module.exports = function QElementList(nodeList, frame, nickname) {
 	var Frame = require("./frame.js");    // break circular dependency
-	ensure.signature(arguments, [ Object, Frame, [undefined, String] ]);
+	ensure.signature(arguments, [ Object, Frame, String ]);
 
 	this._nodeList = nodeList;
 	this._frame = frame;
