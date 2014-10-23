@@ -59,7 +59,7 @@ Class names may change at any time. Don't construct classes manually or refer to
 
 These are the methods you'll use most often:
 
-* `quixote.createFrame(width, height, options, callback(err, frame))` creates the test frame. Call this once per test suite.
+* `quixote.createFrame(options, callback(err, frame))` creates the test frame. Call this once per test suite.
 
 * `frame.remove()` removes the test frame. Call this once per test suite.
 
