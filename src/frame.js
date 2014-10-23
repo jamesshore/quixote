@@ -114,8 +114,9 @@ Me.prototype.remove = function() {
 	scrollContainer.parentNode.removeChild(scrollContainer);
 };
 
-Me.prototype.add = function(html) {
-	ensure.signature(arguments, [ String ]);
+Me.prototype.add = function(html, nickname) {
+	ensure.signature(arguments, [ String, [undefined, String] ]);
+	if (nickname === undefined) nickname = html;
 	ensureUsable(this);
 
 	var tempElement = document.createElement("div");
@@ -127,16 +128,17 @@ Me.prototype.add = function(html) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._document.body.appendChild(insertedElement);
-	return new QElement(insertedElement, this, html);
+	return new QElement(insertedElement, this, nickname);
 };
 
-Me.prototype.get = function(selector) {
-	ensure.signature(arguments, [ String ]);
+Me.prototype.get = function(selector, nickname) {
+	ensure.signature(arguments, [ String, [undefined, String] ]);
+	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
-	return new QElement(nodes[0], this, selector);
+	return new QElement(nodes[0], this, nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
