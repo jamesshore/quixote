@@ -167,7 +167,19 @@ describe("QElement", function() {
 	});
 
 
-	describe("end-to-end text rendering", function() {
+	describe("end-to-end", function() {
+
+		it("handles fractions well", function() {
+			frame.addElement(
+				"<p id='golden' style='position: absolute; left: 20px; width: 162px; top: 10px; height: 100px'>golden</p>"
+			);
+			var goldenRect = frame.getElement("#golden");
+			var goldenRatio = 1.6180339887;
+
+			goldenRect.assert({
+				width: goldenRect.height.times(goldenRatio)
+			});
+		});
 
 		it("provides nice explanation when descriptor doesn't match a hand-coded value", function() {
 			assert.equal(
@@ -196,7 +208,7 @@ describe("QElement", function() {
 				"width of '#element' was 70px larger than expected.\n" +
 				"  Expected: 60px (height of '#element')\n" +
 				"  But was:  130px\n" +
-				"top edge of '#element' was 3px lower than expected.\n" +
+				"top edge of '#element' was 3px higher than expected.\n" +
 				"  Expected: 13px\n" +
 				"  But was:  10px"
 			);

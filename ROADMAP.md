@@ -5,7 +5,7 @@
 * **✔ v0.1** Basic DOM manipulation; raw position and style information
 * **✔ v0.2** "Cooked" absolute position info; initial assertion API
 * **✔ v0.3** Positioning relative to other elements
-* Advanced positioning (middle, center, height, width, arithmetic, fractions)
+* **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * API hardening
 * Positioning relative to page
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
@@ -14,10 +14,12 @@
 
 ## Current Feature: Advanced Positioning
 
-* NEXT: Documentation
+* Done!
 
 
 ## To Do
+
+* Done!
 
 
 ## Future Features
@@ -37,3 +39,4 @@
 * frame.hasElement() or frame.getElementList()?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
 * Consider taking out ensure.signature() calls; they may restrict more than they help
+* "Fuzz" pixel comparisons to account for browsers' pixel inexactitude?

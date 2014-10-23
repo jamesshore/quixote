@@ -33,12 +33,19 @@ Me.prototype.times = function times(operand) {
 };
 
 Me.prototype.compare = Value.safe(function compare(operand) {
-	return this._amount - operand._amount;
+	var difference = this._amount - operand._amount;
+	if (Math.abs(difference) <= 0.5) return 0;
+	else return difference;
 });
 
 Me.prototype.diff = Value.safe(function diff(expected) {
-	if (this._amount === expected._amount) return "";
-	return Math.abs(this._amount - expected._amount) + "px";
+	if (this.compare(expected) === 0) return "";
+
+	var difference = Math.abs(this._amount - expected._amount);
+
+	var desc = difference;
+	if (difference * 100 !== Math.floor(difference * 100)) desc = "about " + difference.toFixed(2);
+	return desc + "px";
 });
 
 Me.prototype.toString = function toString() {

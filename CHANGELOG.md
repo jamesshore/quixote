@@ -3,40 +3,63 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## In Progress
+## 0.4: Advanced Positioning
 
-New properties:
+**22 Oct 2014.** This release adds a host of new positioning options. You can get the width and height of elements, look at the center (horizontal) or middle (vertical) of elements, and you can mix and match any descriptor with any other. For example, you could check if your element is in the center third below an 'other' element:
+  
+```javascript
+element.assert({
+  top: other.bottom.plus(10),     // we're 10px below the other element
+  center: other.center,           // we're centered below that element
+  width: other.width.times(1/3)   // and we're one-third its width
+});
+```
+
+**No breaking changes.**
+
+*Fixed:*
+
+* Position comparisons are no longer reversed on the vertical axis. (When comparing 10px to an expected value of 13px, Quixote said the actual was "3px lower" than expected, not "3px higher." Although the *number* is lower, the actual *position* on the page is higher.)
+
+*Enhanced:*
+
+* Improved diff messages
+* Better errors
+* ElementEdge.plus() and ElementEdge.minus() can be passed a descriptor (for example, `element.top.plus(element.width)`). 
+
+*Reverted:*
+
+* Frame.create() fails fast if the HTML or stylesheet URL is invalid: temporarily removed due to potential test suite execution issues with Mobile Safari
+
+*New properties:*
+
 * QElement.center
 * QElement.middle
 * QElement.width
 * QElement.height
-* ElementEdge.plus
-* ElementEdge.minus
+* RelativePosition.plus
+* RelativePosition.minus
 
-New descriptors:
+*New descriptors:*
+
 * ElementCenter
 * ElementSize
 * RelativeSize
 * SizeMultiple
 
-New value objects:
+*New value objects:*
+
 * Size
 * Pixels
 
-New methods:
+*New methods:*
+
 * quixote.browser.canScroll()
-* Frame.scroll() (Compatibility note: fails fast on Mobile Safari)
-* Frame.getRawScrollPosition() (Compatibility notes: IE 8 shim)
+* Frame.scroll()
+* Frame.getRawScrollPosition()
 
-Rename:
+*Renamed:*
 * ElementPosition --> RelativePosition
-
-Reverted:
-* Frame.create() fails fast if the HTML or stylesheet URL is invalid: removed due to potential test suite execution issues with Mobile Safari
-
-Notable changes:
-* Improved diffs
-* Better errors
 
 
 ## 0.3: Relative Positioning
@@ -51,8 +74,10 @@ element.diff({
 ```
 
 Also, the new `assert()` method works just like `diff()`, except it automatically throws an exception when a difference is found. This is more convenient than writing `assert.equal(element.diff(...), "")` all the time. Now you can just write `element.assert(...)` instead. 
+ 
+**No breaking changes.**
   
-Patches:
+*Patches:*
 
 * *0.3.1, 16 Oct 2014:* Documented `message` parameter on `QElement.assert()`   
 
@@ -67,17 +92,13 @@ Patches:
 
 *New properties and methods:*
 
-* QElement
-  * assert()
-
-* ElementEdge
-  * plus()
-  * minus()
+* QElement.assert()
+* ElementEdge.plus()
+* ElementEdge.minus()
   
-*New classes:*
+*New descriptors:*
 
 * ElementPosition
-  * diff()
 
 
 ## 0.2: Absolute Positioning
@@ -104,16 +125,20 @@ element.diff({
 
 * Frame.create() and quixote.createFrame() now return the frame immediately, as well as passing it into the callback. You still need to wait for the callback before using the frame.
 
-*New properties and methods:*
+*New properties:*
 
-* QElement
-  * top, right, bottom, left
-  * diff()
+* QElement.top
+* QElement.right
+* QElement.bottom
+* QElement.left
 
-*New classes:*
+*New methods:*
+
+* QElement.diff()
+
+*New descriptors:*
 
 * ElementEdge
-  * diff()
 
 
 ## 0.1: Raw Styles and Positions

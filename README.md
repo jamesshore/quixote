@@ -4,11 +4,11 @@
 
 Quixote is a library for unit testing CSS. You use it with a unit testing framework such as [Mocha](http://visionmedia.github.io/mocha/) or [Jasmine](http://jasmine.github.io/). It works particularly well when combined with a cross-browser test runner such as [Karma](http://karma-runner.github.io/0.12/index.html) or [Test'em](https://github.com/airportyh/testem).
 
-**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge.
-
 **Browser Support:** IE 8+, Firefox, Chrome, Safari, and Mobile Safari are known to work. Other modern browsers probably work too. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
 
-**Performance:** Fast. The Quixote test suite runs over 1000 tests across eight browsers. It completes in 4.3 seconds.
+**Performance:** Fast. Quixote's own test suite runs over 1000 tests across eight browsers. It completes in 4.3 seconds.
+
+**The API will change!** This is an early version. Don't use this code if you don't want to be on the bleeding edge.
 
 
 ## Installation and Usage
@@ -28,14 +28,17 @@ Quixote is a UMD module. If you just load the file using a `<script>` tag, it wi
 
 ## Example
 
-Here's an example using Mocha. In this example, we're testing a page that has a logo and a menu.
+In this example, we're testing a page that has a logo, a menu, and three columns of content.
 
 ```javascript
 describe("Example", function() {
 
-  var frame;      // Quixote test frame
-  var logo;       // the logo element on the page
-  var menu;       // the menu element
+  var frame;        // Quixote test frame
+  var logo;         // the logo element on the page
+  var menu;         // the menu element
+  var contentLeft;  // our three columns of content
+  var contentMiddle;     
+  var contentRight;   
 
   before(function(done) {
     // Create a 600x800 pixel iframe and load example.html
@@ -56,6 +59,9 @@ describe("Example", function() {
     // Get the elements we want to test
     logo = frame.getElement("#logo");       // you can use any CSS selector
     menu = frame.getElement(".menu");
+    contentLeft = frame.getElement(".content-left");
+    contentMiddle = frame.getElement(".content-middle");
+    contentRight = frame.getElement(".content-right");
   });
   
   it("positions logo at top of page", function() {
@@ -65,7 +71,7 @@ describe("Example", function() {
     // Alternatively, can use 'diff()' if you'd rather use your own
     // assertion library.
     
-    // Check that the logo is in the top-left corner
+    // Check that the logo is in a fixed position on the page
     logo.assert({
       top: 10,    // logo is 10px from top of page
       left: 15    // and 15px from left
@@ -80,8 +86,33 @@ describe("Example", function() {
     });
   });
   
+  it("groups content into three columns", function() {
+    // Compare size and position of content columns to the menu
+    
+    // left column
+    contentLeft.assert({
+      left: menu.left,                // aligned with left edge of menu
+      width: menu.width.times(1/3)    // one-third width of menu
+    });
+    
+    // We can also factor out useful expressions:
+    var columnWidth = menu.width.times(1/3);
+    
+    // middle column
+    contentMiddle.assert({
+      center: menu.center,            // aligned with center of menu
+      width: columnWidth
+    });
+    
+    // right column 
+    contentRight.assert({
+      right: menu.right,              // aligned with right edge of menu
+      width: columnWidth
+    });
+  });
+  
   it("uses big font for menu", function() {
-    // So far, 'assert()' and 'diff()' only support basic positioning.
+    // So far, 'assert()' and 'diff()' only support positioning.
     // But you can get any CSS style you want by using 'getRawStyle()'.
   
     // Get the font size actually displayed in the browser
@@ -94,6 +125,18 @@ describe("Example", function() {
 });
 ```
 
+Quixote provides plain-english, easily-scannable error messages. For example, if the content columns in the example above had an error, you would get an error message like this:
+
+```
+Error: Differences found:
+left edge of '.contentLeft' was 10px further left than expected.
+  Expected: 10px (left edge of '.menu')
+  But was:  0px
+width of '.contentLeft' was 20px larger than expected.
+  Expected: 200px (one third of width of '.menu')
+  But was:  220px
+```
+
 
 ## API
 
@@ -103,41 +146,59 @@ There are three primary classes and modules:
 * `Frame` is how you manipulate the DOM inside your test frame.
 * `QElement` allows you to make assertions and get information.
 
-There are also a few classes used with `assert()` and `diff()`:
+You'll use these two methods the most:
 
-* `ElementEdge` represents the outer edge of an element (top, left, etc.)
-* `ElementPosition` represents an offset to an element's edge. (10px below the top, etc.)
+* `QElement.assert()` checks multiple properties of an element and throws a nice error message if they don't match. You can also use `QElement.diff()` if you'd rather use your own assertion library.
+* `QElement.getRawStyle()` looks up a specific CSS style. Use this for any styles that don't have descriptors.
 
-**The API will change!** This is a very early version. Don't use this code if you don't want to be on the bleeding edge. Breaking changes to any method documented here will be mentioned in the [change log](CHANGELOG.md). Any class or method that isn't mentioned should be considered non-public.  
+The `assert()` and `diff()` methods use "descriptor" objects that represent some aspect of an element. For example, `ElementEdge` represents the position of an edge of an element.
+
+Get a descriptors by accessing properties on `QElement`. For example, `element.top` gives you an `ElementEdge` descriptor representing the top edge of an element.
+
+Some descriptors have additional properties and methods you can call. For example, `element.width.times(1/3)` corresponds to one-third the width of an element. See the documentation below for details about the properties available on each descriptor.
+
+
+### API Compatibility
+
+**The API will change!** This is an early version. Don't use this code if you don't want to be on the bleeding edge.
+
+Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
+
+Breaking changes to any property or method documented here will be mentioned in the [change log](CHANGELOG.md). All other properties and methods should be considered non-public and subject to change at any time.
 
 
 ### Entry Point: `quixote`
 
-The `quixote` module just has one method: `quixote.createFrame()`. You'll use this to create your test frame. For performance, it's best to do this just once per test suite.
-
+Use the `quixote` module to create your test frame and check browser compatibility.
 
 #### quixote.createFrame()
 
-Create a test iframe.
+Create a test iframe. This is a slow operation, so it's best to use `Frame.reset()` rather than creating a fresh frame before each test.
 
 `frame = quixote.createFrame(width, height, options, callback(err, frame))`
 
-* `frame (Frame)`: The newly-created frame. Although the frame is returned immediately, you have to wait for the callback to execute before you can use it.
+* `frame (Frame)` The newly-created frame. Although the frame is returned immediately, you have to wait for the callback to execute before you can use it.
 
-* `width (number)`: Width of the iframe
+* `width (number)` Width of the iframe
 
-* `height (number)`: Height of the iframe
+* `height (number)` Height of the iframe
 
-* `options (optional object)`: Options for creating the frame:
-  * `src (optional string)`: URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors.
-  * `stylesheet (optional string)`: URL of a CSS stylesheet to load into the frame
+* `options (optional object)` Options for creating the frame:
+  * `src (optional string)` URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors.
+  * `stylesheet (optional string)` URL of a CSS stylesheet to load into the frame
   * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet with an HTML document, use a `<link>` tag in the HTML document itself.
   
-* `callback(err, loadedFrame) (function)`: Called when the frame has been created. 
-  * `err (Error or null)`: Any errors that occurred while loading the frame (always `null`, for now)
-  * `loadedFrame (Frame)`: The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
+* `callback(err, loadedFrame) (function)` Called when the frame has been created. 
+  * `err (Error or null)` Any errors that occurred while loading the frame (always `null`, for now)
+  * `loadedFrame (Frame)` The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
 
 **Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe. We work around the problem using a scrolling container [as described by David Walsh](http://davidwalsh.name/scroll-iframes-ios). This workaround may result in subtle incompatibilities on Mobile Safari. We will document or work around them when we find them. If you see an issue on Mobile Safari that seems related, please [open an issue](https://github.com/jamesshore/quixote/issues).
+
+#### quixote.browser
+
+Methods for checking browser compatibility. There's just one so far.
+
+* `quixote.browser.canScroll()`: Returns `true` if the browser can scroll the test iframe. See `Frame.scroll()` for details.
 
 
 ### Class: `Frame`
@@ -162,9 +223,9 @@ Retrieve an element matching `selector`. Throws an exception unless exactly one 
 
 `element = frame.getElement(selector)`
 
-* `element (QElement)`: The element that matches your selector.
+* `element (QElement)` The element that matches your selector.
 
-* `selector (string)`: A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
+* `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limitated to CSS2 selectors only.
 
 Example: `var foo = frame.getElement("#foo");`
 
@@ -174,11 +235,39 @@ Create an element and add it to the end of the frame's body. Throws an exception
 
 `element = frame.addElement(html)`
 
-* `element (QElement)`: The element you created.
+* `element (QElement)` The element you created.
 
-* `html (string)`: HTML for your element.
+* `html (string)` HTML for your element.
 
 Example: `var foo = frame.addElement("<p>foo</p>");`
+
+#### frame.scroll()
+
+Scroll the top-left corner of the frame to a specific (x, y) coordinate. Throws an exception on Mobile Safari; see compatibility note.
+
+`frame.scroll(x, y)`
+
+* `x (number)` The x coordinate to scroll to.
+
+* `y (number)` The y coordinate to scroll to.
+
+Example: `frame.scroll(50, 60);`
+
+**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described under `quixote.createFrame()`. We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size. As a result, it can't be scrolled. To notify you of the problem, we throw an exception on Mobile Safari. If you still want to call this method and you don't want your tests to fail on Mobile Safari (for example, if you're testing multiple browsers), you can use `quixote.browser.canScroll()` to provide an alternate code path for Mobile Safari.
+
+#### frame.getRawScrollPosition()
+
+Determine the (x, y) coordinate of the top-left corner of the frame. This uses [pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollX) and [pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY) under the covers. (On IE 8, it uses [scrollLeft](http://msdn.microsoft.com/en-us/library/ie/ms534617%28v=vs.85%29.aspx) and [scrollTop](http://msdn.microsoft.com/en-us/library/ie/ms534618%28v=vs.85%29.aspx).)
+
+`position = frame.getRawScrollPosition()`
+
+* `position (Object)` The (x, y) coordinate:
+  * `x (number)` The x coordinate.
+  * `y (number)` The y coordinate.
+
+**Compatibility Note:** `getRawScrollPosition` does *not* attempt to resolve cross-browser differences, with one exception:
+
+* IE 8 uses `scrollLeft` and `scrollTop` rather than `pageXOffset` and `pageYOffset`.
 
 
 ### Class: `QElement`
@@ -186,26 +275,32 @@ Example: `var foo = frame.addElement("<p>foo</p>");`
 `QElement` instances represent individual HTML tags. You'll use them to get information about how the elements on your page are styled.
 
 
-#### Properties
+#### Descriptors
 
-QElement instances have several properties that can be used to make assertions about your element's position and (eventually) styling. You'll typically use these properties with QElement's `assert()` or `diff()` method.
+QElement instances have several descriptor properties that can be used to make assertions about your element. You'll typically use these properties with `QElement.assert()` or `QElement.diff()` method. 
  
-* `top (ElementEdge)`: Top edge of the element 
-* `right (ElementEdge)`: Right edge
-* `bottom (ElementEdge)`: Bottom edge
-* `left (ElementEdge)`: Left edge
+Descriptors are documented in more detail under their class names, below.
+ 
+* `top, right, bottom, left (ElementEdge)` Top, right, etc. edge of the element
+* `center, middle (ElementCenter)` Horizontal center and vertical middle of the element
+* `width, height (ElementSize)` Width and height of the element
 
 **Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If there's a cross-browser difference that doesn't show up in the actual page, please file an issue.
 
-### element.assert()
+**Pixel Rounding Note:** Browsers handle pixel rounding in different ways. As a result, if two values are within 0.5px of each other, we consider them to be the same. This only applies to pixel values, not all numbers.
+
+If you discover that you're having rounding errors that are *greater* than 0.5px, make sure your test browsers are set to a zoom level of 100%. Zooming can exaggerate rounding errors.
+
+
+#### element.assert()
 
 Compare the element's properties to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
 
 `element.assert(expected, message)`
 
-* `expected (object)`: An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
 
-* `message (optional string)`: If an exception is thrown, this message will be included at the beginning.
+* `message (optional string)` If an exception is thrown, this message will be included at the beginning.
 
 Example: `element.assert({ top: 13, bottom: otherElement.top.plus(10) });`
 
@@ -216,9 +311,9 @@ Compare the element's properties to a set of expected values. This is the same a
 
 `diff = element.diff(expected)`
 
-* `diff (string)`: A human-readable description of any differences found, or an empty string if none.
+* `diff (string)` A human-readable description of any differences found, or an empty string if none.
 
-* `expected (object)`: An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
+* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a number or another property.
 
 Example: `assert.equal(element.diff({ top: 13, bottom: otherElement.top.plus(10) }), "");`
 
@@ -229,9 +324,9 @@ Determine how an element displays a particular style, as computed by the browser
 
 `style = element.getRawStyle(property)`
 
-* `style (string)`: The browser's computed style, or an empty string if the style wasn't recognized.
+* `style (string)` The browser's computed style, or an empty string if the style wasn't recognized.
  
-* `property (string)`: The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
+* `property (string)` The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
 
 Example: `var fontSize = element.getRawStyle("font-size");`
 
@@ -247,13 +342,13 @@ Determine where an element is displayed within the frame viewport, as computed b
 
 `position = element.getRawPosition()`
 
-* `position (object)`: The position of the element relative to the top of the viewport. In other words, if you scroll the viewport down 10 pixels, `top` will be 10 pixels smaller. All values include border and padding, but not margin.
-  * `top (number)`: top edge
-  * `right (number)`: right edge
-  * `bottom (number)`: bottom edge
-  * `left (number)`: left edge
-  * `width (number)`: width (right edge minus left edge)
-  * `height (number)`: height (bottom edge minus top edge)
+* `position (object)` The position of the element relative to the top of the viewport. In other words, if you scroll the viewport down 10 pixels, `top` will be 10 pixels smaller. All values include border and padding, but not margin.
+  * `top (number)` top edge
+  * `right (number)` right edge
+  * `bottom (number)` bottom edge
+  * `left (number)` left edge
+  * `width (number)` width (right edge minus left edge)
+  * `height (number)` height (bottom edge minus top edge)
 
 Example: `var top = element.getRawPosition().top;`
 
@@ -262,84 +357,115 @@ Example: `var top = element.getRawPosition().top;`
 * IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` does, even on IE 8. It calculates them from the other properties.
 
 
-### Class: `ElementEdge`
+### Descriptor: `ElementEdge`
 
-An `ElementEdge` instance represents the position of one side of an element (the top, left, etc.). The position includes (is outside of) padding and border, but not margin.
+Represents the position of one side of an element (the top, left, etc.). The position includes padding and border, but not margin. Get an ElementEdge from `QElement` with a property such as `element.top`.
 
-Get an ElementEdge instance from `QElement` by using `element.top` or similar. You'll typically use ElementEdge instances with QElement's `assert()` or `diff()` methods.
+Example: The left side of the element is aligned with the left side of the menu: `element.assert({ left: logo.left });`
 
-Example: `element.assert({ left: logo.left });` (The left side of the element is aligned with the left side of the menu.)
+#### Additional descriptors
 
-
-#### edge.plus()
-
-Get a new position that's further down or to the right. Use this when you're comparing two elements that aren't perfectly aligned--for example, when there's a gap between the elements.
+ElementEdge provides access to additional descriptors:
  
-`position = edge.plus(pixels)`
+* `plus(amount) (RelativePosition)` Further down or to the right.
+* `minus(amount) (RelativePosition)` Further up or to the left.
 
-* `position (ElementPosition)`: The adjusted position.
 
-* `pixels (number)`: The number of pixels to move down or to the right.
+### Descriptor: `ElementCenter`
 
-Example: `element.assert({ top: menu.bottom.plus(10) });` (The top of the element is 10px below the bottom of the menu.)
+Represents the horizontal center or vertical middle of an element. Get an ElementCenter from `QElement` with a property such as `element.center`.
 
+Example: The center of the element is centered with the menu: `element.assert({ center: menu.center });`
+
+#### Additional descriptors
+
+ElementEdge provides access to additional descriptors:
  
-#### edge.minus()
-
-Get a new position that's further up or to the left. Same as `edge.plus()`, except in the other direction.
-
-`position = edge.minus(pixels)`
-
-* `position (ElementPosition)`: The adjusted position.
-
-* `pixels (number)`: The number of pixels to move up or to the left.
-
-Example: `loginButton.assert({ bottom: menu.bottom.minus(5) });` (The bottom of the login button is 5px above the bottom of the menu.)
+* `plus(amount) (RelativePosition)` Further down or to the right.
+* `minus(amount) (RelativePosition)` Further up or to the left.
 
 
-### Class: `ElementPosition`
+### Descriptor: `RelativePosition`
 
-An `ElementPosition` instance represents an adjusted `ElementEdge`.
+Represents an adjusted position. Get a RelativePosition by calling `plus(amount)` or `minus(amount)` on another descriptor. `amount` may be a number or another descriptor.
+ 
+Example: The top of the element is 10px below the bottom of the menu: `element.assert({ top: menu.bottom.plus(10) });`
 
-Get an ElementPosition instance by calling `plus()` or `minus()` on an `ElementEdge` instance. You'll typically use ElementPosition instances with QElement's `assert()` or `diff()` methods.
+#### Additional descriptors
 
-Example: `element.assert({ top: menu.bottom.plus(10) });` (The top of the element is 10px below the bottom of the menu.)
+RelativePosition provides access to additional descriptors:
 
-
-## Virtual Hackathon
-
-This project will developed live Oct 13-16, 2014 starting at 10am PDT (GMT-7). You can watch and participate at [hitbox.tv/jamesshore](http://hitbox.tv/jamesshore) . 
+* `plus(amount) (RelativePosition)` Further down or to the right.
+* `minus(amount) (RelativePosition)` Further up or to the left.
 
 
-### How to Contribute
+### Descriptor: `ElementSize`
 
-Thanks for your interest! There are many useful ways to contribute. Here's a few:
+Represents the width or height of an element. Get an ElementSize from `QElement` with a property such as `element.width`.
 
-* **Participate in the Virtual Hackathon.** We're starting on Monday, October 13th at 10am PDT (GMT-7). Watch [the livestream](http://hitbox.tv/jamesshore), participate in the chat, and provide suggestions and feedback. (Note: to participate in the chat, you'll need a [hitbox account](http://www.hitbox.tv).) 
+Example: The width of an element is the same as its height: `element.assert({ width: element.height });
 
-* **Try Quixote on your own projects.** Download the code, try it out, and let us know what works well and what needs improvement. The bleeding-edge distribution is at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) and you can install the current official release from npm using `npm install quixote`.
+#### Additional descriptors
+
+ElementSize provides access to additional descriptors:
+
+* `plus(amount) (RelativeSize)` Bigger.
+* `minus(amount) (RelativeSize)` Smaller.
+* `times(amount) (SizeMultiple)` A multiple or fraction.
+
+
+### Descriptor: `RelativeSize`
+
+Represents an adjusted size. Get a RelativeSize by calling `plus(amount)` or `minus(amount)` on another descriptor. `amount` may be a number or another descriptor.
+ 
+Example: The element is 20px narrower than the menu: `element.assert({ width: menu.width.minus(20) });`
+
+#### Additional descriptors
+
+RelativeSize provides access to additional descriptors:
+
+* `plus(amount) (RelativeSize)` Bigger.
+* `minus(amount) (RelativeSize)` Smaller.
+* `times(amount) (SizeMultiple)` A multiple or fraction.
+
+
+### Descriptor: `SizeMultiple`
+
+Represents an adjusted size. Get a SizeMultiple by calling `times(muliplier)` on another descriptor. `multiplier` must be a number.
+
+Example: The element is a golden rectangle: `element.assert({ width: element.height.times(1.618) });`
+
+
+
+## Contributing
+
+There are many useful ways to contribute. Here's a few:
+
+* **Try Quixote on your own projects.** Download the code, try it out, and create issues describing works well and what needs improvement. The bleeding-edge distribution is at [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js) and you can install the current official release from npm using `npm install quixote`.
+
+* **Submit pull request.** See below for instructions.
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  
 * **Build the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation. I plan to write API documentation as we go, but I don't expect to have time to create the site itself during the hackathon. You can find the site source code in the `docs` folder. (If you work on this, I'd appreciate visual consistency with my other big projects, [letscodejavascript.com](http://www.letscodejavascript.com) and [objectplayground.com](http://www.objectplayground.com). In particular, you can [find the Object Playground styles here](https://github.com/jamesshore/object_playground/blob/master/src/site.css).) 
 
-* **Tell your friends and colleagues.** Even if you can't participate yourself, spreading the word is a big help. Let people know what's going on and how to participate.
+* **Tell your friends and colleagues.** Even if you can't contribute anything, spreading the word is a big help. Let people know about Quixote and why you like it.
 
 
-#### Pull Requests
+### Pull Requests
 
-Pull requests are welcome! Please [create an issue](https://github.com/jamesshore/quixote/issues) describing the problem or feature that your pull request addresses, then link the pull request to the issue. That will allow us to discuss the issue and consider alternate solutions more easily.
+Pull requests are welcome. Please [create an issue](https://github.com/jamesshore/quixote/issues) describing the problem or feature that your pull request addresses, then link the pull request to the issue. That will allow us to discuss the issue and consider alternate solutions more easily.
 
 To create a pull request:
 
-1. [Create an issue](https://github.com/jamesshore/quixote/issues) on GitHub describing the problem or feature you're addressing. Add a comment saying that you're working on a pull request to address it. (It's probably a good idea to search the existing issues first to see if anybody else is talking about the same thing.)  
-2. [Fork the Quixote repository](https://help.github.com/articles/fork-a-repo/) on GitHub.
-3. Clone the fork to your computer by following the "Setup" instructions below. (Use your GitHub user name instead of `jamesshore` in step 2.)
-4. Run the tests by following the "Running the Tests" instructions below. 
-5. Check out a branch to make your changes in: `git checkout -b <branch_name>`.
-6. Make your changes, committing as desired. When you're done, make sure the tests pass.
-7. Push your changes to GitHub: `git push`.
-8. [Create a pull request](https://help.github.com/articles/creating-a-pull-request/) on GitHub. Add a comment referencing the issue it addresses.
+1. **[Create an issue](https://github.com/jamesshore/quixote/issues)** on GitHub describing the problem or feature you're addressing. Add a comment saying that you're working on a pull request to address it. (It's probably a good idea to search the existing issues first to see if anybody else is talking about the same thing.)  
+2. **[Fork the Quixote repository](https://help.github.com/articles/fork-a-repo/)** on GitHub.
+3. **Clone the fork** to your computer by following the "Setup" instructions below. (Use your GitHub user name instead of `jamesshore` in step 2.)
+4. **Run the tests** by following the "Running the Tests" instructions below. 
+5. **Create a branch** to make your changes in: `git checkout -b <branch_name>`.
+6. **Make your changes**, committing as desired. When you're done, make sure the tests pass.
+7. **Push your changes** to GitHub: `git push`.
+8. **[Create a pull request](https://help.github.com/articles/creating-a-pull-request/)** on GitHub. Add a comment referencing the issue it addresses.
 
 Thank you for your contribution!
 
