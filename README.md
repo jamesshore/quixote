@@ -52,7 +52,7 @@ describe("Example", function() {
   // Here we load example.html. You can also create elements programmatically.
   before(function(done) {
     var options = { src: "/base/src/example.html" };
-    frame = quixote.createFrame(600, 800, options, done);
+    frame = quixote.createFrame(options, done);
   });
   
   // Destroy the test frame after your tests are done.

@@ -13,6 +13,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * Renamed QFrame.addElement() --> QFrame.add()
 * Moved quixote.createFrame() width and height parameters into options object
 
+*Patches:*
+
+* *0.5.1, 24 Oct 2014:* Fixed `quixote.createFrame` parameters in the README example. 
+
 *Enhanced:*
 
 * QFrame.get() and QFrame.add() take an optional "nickname" parameter
