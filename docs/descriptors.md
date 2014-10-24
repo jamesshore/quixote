@@ -33,7 +33,7 @@ Compare the descriptor's value to a hardcoded value or another descriptor's valu
 
 * `expected (any)` The expected value as a descriptor or hardcoded value.
 
-Example: `var diff = element.diff(otherElement.top);`
+Example: `var diff = element.top.diff(otherElement.top);`
 
 
 ### Descriptor: `ElementEdge`
