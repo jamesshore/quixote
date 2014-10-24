@@ -54,7 +54,7 @@ You can pass the following options to `./jake.sh`:
 
 * `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js).
 
-* `capture=Firefox,Safari` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you'll need to install the appropriate launcher first; e.g., `npm install karma-firefox-launcher`.
+* `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you'll need to install the appropriate launcher first; e.g., `npm install karma-firefox-launcher`.
 
 **Other build scripts**
 
@@ -79,7 +79,6 @@ Other top-level directories contain infrastructure and support.
 * `dist` contains the compiled library.
 * `spikes` contains one-off experiments.
 * `src` contains the source code and tests. Test code starts with an underscore.
-  * `src/
 * `node_modules` contains third-party libraries needed for the build scripts.
 * `vendor` contains third-party libraries needed for Quixote itself.
 

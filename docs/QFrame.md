@@ -58,7 +58,7 @@ Retrieve a list of elements matching a selector. If you want to ensure that exac
 
 `list = frame.getAll(selector, nickname)`
 
-* `list` (`[`QElementList`](QElementList.md`)` The elements that match your selector.
+* `list (`[`QElementList`](QElementList.md`)` The elements that match your selector.
 
 * `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
 

@@ -52,7 +52,7 @@ describe("Example", function() {
   // Here we load example.html. You can also create elements programmatically.
   before(function(done) {
     var options = { src: "/base/src/example.html" };
-    frame = quixote.createFrame(600, 800, options, done);
+    frame = quixote.createFrame(options, done);
   });
   
   // Destroy the test frame after your tests are done.
@@ -116,7 +116,7 @@ These are the methods you'll use most often:
 
 * `element.getRawStyle(style)` looks up a specific CSS style. You can use it for anything `assert()` doesn't support yet.
 
-The `assert()` function looks at the properties of your element and checks them against hardcoded values or other element's properties. For example, `element.assert({ top: 10 });` or `element.assert({ top: otherElement.bottom })`.
+The `assert()` function looks at the properties of your element and checks them against hardcoded values or other element's properties. For example, `element.assert({ top: 10 })` or `element.assert({ top: otherElement.bottom })`.
 
 Element properties can be mixed and matched in a variety of ways. For details, see [the API documentation](docs/api.md).
 
