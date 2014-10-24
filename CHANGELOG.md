@@ -15,7 +15,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Patches:*
 
-* *0.5.1, 24 Oct 2014:* Fixed `quixote.createFrame` parameters in the README example. 
+* *0.5.1, 24 Oct 2014:* Minor documentation fixes. The most serious fix (and the motivation for this patch release) was a correction to the `quixote.createFrame` parameters in the README example.
 
 *Enhanced:*
 
