@@ -43,14 +43,15 @@ describe("BackgroundColor", function() {
   var color;                  // the descriptor under test
   
   beforeEach(function() {
-    // get the test frame (for speed, we reuse the same frame, containing a reset stylesheet, for all Quixote tests)
+    // get the test frame (for speed, we reuse the same frame, containing a reset 
+    // stylesheet, for all Quixote tests)
     var frame = reset.frame;
     
     // add our test element
-    frame.add(
-      "<p id='element' style='background-color: " + COLOR + "'>element</p>"
+    element = frame.add(
+      "<p id='element' style='background-color: " + COLOR + "'>element</p>",
+      "element"
     );
-    element = frame.get("#element");
     
     // create the test descriptor
     color = BackgroundColor.create(element);
@@ -143,7 +144,7 @@ Me.prototype.toString = function toString() {
 
 If the user tries to compare our descriptor to a primitive type, `convert()` will be called by the `Descriptor` base class. Any type we support should be converted to a value object here. The value object should do the parsing, so all this function needs to do is decide which factory method to invoke.
 
-Any type that isn't supported should be ignored (resulting in `undefined` being returned). Returning `undefined` results in a nice error message.
+Any type that isn't supported should be ignored (resulting in `undefined` being returned). The base class turns `undefined` results into a nice error message.
 
 Our `BackgroundColor` example converts a string to a `Color` value, but ignores everything else:
 
@@ -155,8 +156,7 @@ it("converts comparison arguments", function() {
 
 ```javascript
 Me.prototype.convert = function convert(arg, type) {
-  // We don't check parameters because we can be called with anything. 
-	if (type === "string") return Color.create(arg);
+  if (type === "string") return Color.create(arg);
 };
 ```
 
@@ -169,11 +169,14 @@ Our tests and code:
 
 ```javascript
 it("is a descriptor", function() {
-  assert.implements(center, Descriptor);
+  assert.implements(color, Descriptor);
 });
 ```
 
 ```javascript
+var Me = module.exports = function BackgroundColor(element) {
+  ⋮
+};
 Descriptor.extend(Me);
 ```
 
@@ -192,7 +195,6 @@ describe("properties", function() {
   it("colors", function() {
     assert.equal(element.backgroundColor.diff(COLOR), "", "background color");
   });
-  ⋮
 ```
 
 And in the QElement constructor, we create the property:
@@ -201,7 +203,6 @@ And in the QElement constructor, we create the property:
 var Me = module.exports = function QElement(domElement, qframe, nickname) {
   ⋮
   this.backgroundColor = BackgroundColor.create(this);
-  ⋮
 ```
 
 
@@ -209,4 +210,6 @@ var Me = module.exports = function QElement(domElement, qframe, nickname) {
 
 Your descriptor is done.
 
-Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For our `BackgroundColor` example, we might want to add a `darken()` method that returns a `RelativeColor` descriptor. See `ElementCenter.plus` for an example.
+Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For example, we might want to add a `darken()` method to `BackgroundColor` that returns a `RelativeColor` descriptor.
+
+For a complete descriptor example, see [`ElementCenter`](element_center.js) and [its tests](_element_center.js). 

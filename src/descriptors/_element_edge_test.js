@@ -28,10 +28,10 @@ describe("ElementEdge", function() {
 
 	beforeEach(function() {
 		frame = reset.frame;
-		frame.add(
-			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>"
+		element = frame.add(
+			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>element</p>",
+			"element"
 		);
-		element = frame.get("#element");
 		top = ElementEdge.top(element);
 		right = ElementEdge.right(element);
 		bottom = ElementEdge.bottom(element);
