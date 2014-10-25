@@ -13,19 +13,19 @@ describe("PageSize", function() {
 	var WIDTH = reset.WIDTH;
 	var HEIGHT = reset.HEIGHT;
 
+	var frame;
+	var contentDoc;
 	var width;
 	var height;
-	var frame;
 
 	beforeEach(function() {
 		frame = reset.frame;
 	});
 
 	beforeEach(function() {
-		var doc = frame.toDomElement().contentDocument;
-		doc.body.style.backgroundColor = "blue";
-		width = PageSize.x(doc);
-		height = PageSize.y(doc);
+		contentDoc = frame.toDomElement().contentDocument;
+		width = PageSize.x(contentDoc);
+		height = PageSize.y(contentDoc);
 	});
 
 	it("is a descriptor", function() {
@@ -33,6 +33,12 @@ describe("PageSize", function() {
 	});
 
 	it("matches frame size when everything fits in the window", function() {
+		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
+
+	it("accounts for body padding", function() {
+		contentDoc.body.style.padding = "1px 2px 4px 8px";
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});

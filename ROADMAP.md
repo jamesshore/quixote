@@ -22,7 +22,6 @@
 
 ## To Do: Page width, height
 
-* width, height equal to frame size
 * test body padding
 * test body border
 * test body margin
