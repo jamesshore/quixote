@@ -9,17 +9,23 @@
 
 var quixote = require("./quixote.js");
 
-var frame;
+exports.WIDTH = 800;
+exports.HEIGHT = 900;
 
 before(function(done) {
-	frame = quixote.createFrame({ stylesheet: "/base/src/__reset.css" }, done);
-	exports.frame = frame;
+	var options = {
+		width: exports.WIDTH,
+		height: exports.HEIGHT,
+		stylesheet: "/base/src/__reset.css"
+	};
+
+	exports.frame = quixote.createFrame(options, done);
 });
 
 after(function() {
-	frame.remove();
+	exports.frame.remove();
 });
 
 beforeEach(function() {
-	frame.reset();
+	exports.frame.reset();
 });

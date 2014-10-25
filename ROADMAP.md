@@ -20,9 +20,12 @@
 * Frame top, right, bottom, left
 
 
-## To Do
+## To Do: Page width, height
 
-* TBD
+* width, height equal to frame size
+* account for body margin
+* account for vertical scrollbar
+* page bigger than frame (horz, vert)
 
 
 ## Future Features
