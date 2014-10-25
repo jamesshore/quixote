@@ -21,8 +21,14 @@ Me.x = function x(document) {
 	return new Me(X_DIMENSION, document);
 };
 
+Me.y = function y(document) {
+	return new Me(Y_DIMENSION, document);
+};
+
 Me.prototype.value = function() {
-	var value = this._document.body.clientWidth;
+	var width = this._document.body.clientWidth;
+	var height = this._document.body.clientHeight;
+	var value = this._dimension === X_DIMENSION ? width : height;
 
 	return Size.create(value);
 };

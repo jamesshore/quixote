@@ -23,7 +23,9 @@
 ## To Do: Page width, height
 
 * width, height equal to frame size
-* account for body margin
+* test body padding
+* test body border
+* test body margin
 * account for vertical scrollbar
 * page bigger than frame (horz, vert)
 * 'page' property in QFrame

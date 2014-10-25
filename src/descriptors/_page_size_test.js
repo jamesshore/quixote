@@ -14,6 +14,7 @@ describe("PageSize", function() {
 	var HEIGHT = reset.HEIGHT;
 
 	var width;
+	var height;
 	var frame;
 
 	beforeEach(function() {
@@ -24,6 +25,7 @@ describe("PageSize", function() {
 		var doc = frame.toDomElement().contentDocument;
 		doc.body.style.backgroundColor = "blue";
 		width = PageSize.x(doc);
+		height = PageSize.y(doc);
 	});
 
 	it("is a descriptor", function() {
@@ -32,6 +34,7 @@ describe("PageSize", function() {
 
 	it("matches frame size when everything fits in the window", function() {
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
 	//it("resolves to value", function() {
