@@ -11,6 +11,7 @@ var quixote = require("./quixote.js");
 
 exports.WIDTH = 800;
 exports.HEIGHT = 900;
+exports.DEBUG = true;
 
 before(function(done) {
 	var options = {
@@ -23,7 +24,7 @@ before(function(done) {
 });
 
 after(function() {
-	exports.frame.remove();
+	if (!exports.DEBUG) exports.frame.remove();
 });
 
 beforeEach(function() {

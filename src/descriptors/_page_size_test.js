@@ -24,8 +24,8 @@ describe("PageSize", function() {
 
 	beforeEach(function() {
 		contentDoc = frame.toDomElement().contentDocument;
-		width = PageSize.x(contentDoc);
-		height = PageSize.y(contentDoc);
+		width = PageSize.x(frame);
+		height = PageSize.y(frame);
 	});
 
 	it("is a descriptor", function() {
@@ -47,6 +47,12 @@ describe("PageSize", function() {
 		contentDoc.body.style.borderWidth = "1px 2px 4px 8px";
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
+
+	it("accounts for body margin", function() {
+		contentDoc.body.style.margin = "1px 2px 4px 8px";
+		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		//assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
 	//it("resolves to value", function() {

@@ -15,6 +15,8 @@
 ## Current Feature: Positioning relative to page
 
 * Page width, height
+* Frame.reset(): reset body style AND/OR Document that toDomElement() can interfere with frame.reset()
+* Test whether box-sizing affects ElementSize
 * Page top, right, bottom, left
 * Frame width, height
 * Frame top, right, bottom, left
@@ -25,10 +27,14 @@
 * test body padding
 * test body border
 * test body margin
+* test box-sizing
 * account for vertical scrollbar
 * page bigger than frame (horz, vert)
+* Pass 'body' into PageSize, not contentDocument?
 * 'page' property in QFrame
-* Document PageSize descriptor, QFrame.page
+* 'body' property in QFrame?
+* Document API (PageSize descriptor, QFrame.page, QFrame.body)
+* Changelog
 
 
 ## Future Features
