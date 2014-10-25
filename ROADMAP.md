@@ -24,10 +24,6 @@
 
 ## To Do: Page width, height
 
-* test body padding
-* test body border
-* test body margin
-* test box-sizing
 * account for vertical scrollbar
 * page bigger than frame (horz, vert)
 * Pass 'body' into PageSize, not contentDocument?

@@ -11,7 +11,7 @@ var quixote = require("./quixote.js");
 
 exports.WIDTH = 800;
 exports.HEIGHT = 900;
-exports.DEBUG = true;
+exports.DEBUG = false;
 
 before(function(done) {
 	var options = {
@@ -25,6 +25,7 @@ before(function(done) {
 
 after(function() {
 	if (!exports.DEBUG) exports.frame.remove();
+	else console.log("WARNING: __reset.js DEBUG mode on; test frame not removed");
 });
 
 beforeEach(function() {

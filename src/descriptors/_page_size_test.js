@@ -50,11 +50,23 @@ describe("PageSize", function() {
 	});
 
 	it("accounts for body margin", function() {
-		contentDoc.body.style.margin = "2px 4px 8px 16px";
-		//contentDoc.body.style.border = "solid 2px red";
-		//contentDoc.documentElement.style.backgroundColor = "blue";
+		contentDoc.body.style.padding = "1px 2px 4px 8px";
+		contentDoc.body.style.margin = "1px 2px 4px 8px";
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
+
+	it("ignores box model", function() {
+		contentDoc.body.style.padding = "1px 2px 4px 8px";
+		contentDoc.body.style.margin = "16px 32px 64px 128px";
+
+		contentDoc.body.style.boxSizing = "border-box";
+		assert.objEqual(width.value(), Size.create(WIDTH), "border-box width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "border-box height");
+
+		contentDoc.body.style.boxSizing = "content-box";
+		assert.objEqual(width.value(), Size.create(WIDTH), "content-box width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
 	});
 
 	//it("resolves to value", function() {
