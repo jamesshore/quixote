@@ -12,14 +12,17 @@
 * ...more TBD
 
 
-## Current Feature: API Hardening
+## Current Feature: Positioning relative to page
 
-* Done
+* Page width, height
+* Page top, right, bottom, left
+* Frame width, height
+* Frame top, right, bottom, left
 
 
 ## To Do
 
-* Done
+* TBD
 
 
 ## Future Features
