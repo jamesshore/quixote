@@ -26,6 +26,8 @@
 * account for body margin
 * account for vertical scrollbar
 * page bigger than frame (horz, vert)
+* 'page' property in QFrame
+* Document PageSize descriptor, QFrame.page
 
 
 ## Future Features
