@@ -43,6 +43,12 @@ describe("PageSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
+	it("accounts for body border", function() {
+		contentDoc.body.style.borderWidth = "1px 2px 4px 8px";
+		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
+
 	//it("resolves to value", function() {
 	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");
 	//	assert.objEqual(height.value(), Size.create(HEIGHT), "height");
