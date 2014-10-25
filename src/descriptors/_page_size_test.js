@@ -50,9 +50,11 @@ describe("PageSize", function() {
 	});
 
 	it("accounts for body margin", function() {
-		contentDoc.body.style.margin = "1px 2px 4px 8px";
+		contentDoc.body.style.margin = "2px 4px 8px 16px";
+		//contentDoc.body.style.border = "solid 2px red";
+		//contentDoc.documentElement.style.backgroundColor = "blue";
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
-		//assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
 	//it("resolves to value", function() {

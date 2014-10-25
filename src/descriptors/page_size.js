@@ -44,9 +44,14 @@ Me.prototype.value = function() {
 	//dump("documentElement right", documentRect.right);
 
 	//var width = bodyPosition.width + marginLeft + marginRight;
+
 	var width = documentRect.width;
 
-	var height = body.toDomElement().clientHeight;
+	// WORKAROUND Firefox 32: document bounding box collapses to body element
+	// WORKAROUND IE 9: body.clientHeight doesn't include margins
+	// ...so we try both and take whichever is larger
+	// (Note: body.clientHeight *is* correct on IE 8 (!), IE 10, and IE 11.)
+	var height = Math.max(documentRect.height, body.toDomElement().clientHeight);
 
 
 
