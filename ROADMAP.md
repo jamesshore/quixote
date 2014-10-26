@@ -37,7 +37,11 @@
 * Center & middle for all. (Modify ElementCenter to be generic?)
 
 
-## To Do
+## To Do: QFrame.viewport()
+
+* QFrame.viewport()
+* Changelog
+* API docs (QViewport, QFrame.viewport()
 
 
 ## Future Features
