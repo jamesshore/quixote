@@ -86,6 +86,29 @@ Create an element and append it to the frame's body. Throws an exception unless 
 Example: `var foo = frame.add("<p>foo</p>", "foo");`
 
 
+#### frame.viewport()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve properties relating to the frame's viewport (the part of the frame that you can see, not including scrollbars).
+
+`viewport = frame.viewport()`
+
+* `viewport (`[`QViewport`](QViewport.md)`)` The viewport properties.
+
+Example: Assert that a banner is displayed at the top of the window and all the way from side to side.
+
+```
+var viewport = frame.viewport();
+banner.assert({
+  top: viewport.top(),
+  left: viewport.left(),
+  width: viewport.width(),
+});
+```
+
 #### frame.scroll()
 
 ```

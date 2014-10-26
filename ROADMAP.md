@@ -14,7 +14,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* QFrame.viewport()
 * ViewportSize plus(), minus(), times()
 * Test and document QUIRKS MODE fix in QFrame.js
   * ViewportSize: test behavior when in quirks mode?
@@ -39,9 +38,6 @@
 
 
 ## To Do: QFrame.viewport()
-
-* Changelog
-* API docs (QViewport, QFrame.viewport()
 
 
 ## Future Features
