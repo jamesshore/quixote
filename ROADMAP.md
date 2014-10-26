@@ -35,6 +35,7 @@
 * Document top, right, bottom, left
 * QFrame.document()
 * Center & middle for all. (Modify ElementCenter to be generic?)
+* QFrame: document difference between viewport, document, and page
 
 
 ## To Do: QFrame.viewport()

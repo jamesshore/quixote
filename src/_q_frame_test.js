@@ -6,6 +6,7 @@ var reset = require("./__reset.js");
 var quixote = require("./quixote.js");
 var QFrame = require("./q_frame.js");
 var QElement = require("./q_element.js");
+var QViewport = require("./q_viewport.js");
 
 describe("QFrame", function() {
 
@@ -155,6 +156,7 @@ describe("QFrame", function() {
 			);
 			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 			assert.exception(function() { frame.get("foo"); }, expected, "get()");
+			assert.exception(function() { frame.viewport(); }, expected, "viewport()");
 		});
 
 		it("fails fast if frame is used after it's removed", function(done) {
@@ -166,6 +168,7 @@ describe("QFrame", function() {
 				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
 				assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 				assert.exception(function() { frame.get("foo"); }, expected, "get()");
+				assert.exception(function() { frame.viewport(); }, expected, "viewport()");
 
 				done();
 			});
@@ -181,6 +184,10 @@ describe("QFrame", function() {
 		before(function() {
 			frame = reset.frame;
 			frameDom = frame.toDomElement();
+		});
+
+		it("provides access to viewport descriptors", function() {
+			assert.type(frame.viewport(), QViewport);
 		});
 
 		it("adds an element", function() {

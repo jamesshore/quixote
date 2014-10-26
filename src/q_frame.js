@@ -6,6 +6,7 @@ var shim = require("./util/shim.js");
 var quixote = require("./quixote.js");
 var QElement = require("./q_element.js");
 var QElementList = require("./q_element_list.js");
+var QViewport = require("./q_viewport.js");
 
 var Me = module.exports = function QFrame(frameDom, scrollContainerDom) {
 	ensure.signature(arguments, [ Object, Object ]);
@@ -134,6 +135,13 @@ Me.prototype.remove = function() {
 
 	var scrollContainer = this._domElement.parentNode;
 	scrollContainer.parentNode.removeChild(scrollContainer);
+};
+
+Me.prototype.viewport = function() {
+	ensure.signature(arguments, []);
+	ensureUsable(this);
+
+	return new QViewport(this);
 };
 
 Me.prototype.add = function(html, nickname) {
