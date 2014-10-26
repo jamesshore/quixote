@@ -39,31 +39,30 @@ describe("PageSize", function() {
 	});
 
 	it("matches frame size when everything fits in the window", function() {
-		//reset.DEBUG = true;
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
-		//assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
-	//it("accounts for body padding", function() {
-	//	contentDoc.body.style.padding = "1px 2px 4px 8px";
-	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");
-	//	assert.objEqual(height.value(), Size.create(HEIGHT), "height");
-	//});
-	//
-	//it("accounts for body border", function() {
-	//	contentDoc.body.style.borderWidth = "1px 2px 4px 8px";
-	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");
-	//	assert.objEqual(height.value(), Size.create(HEIGHT), "height");
-	//});
-	//
+	it("accounts for body padding", function() {
+		contentDoc.body.style.padding = "1px 2px 4px 8px";
+		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
+
+	it("accounts for body border", function() {
+		contentDoc.body.style.borderWidth = "1px 2px 4px 8px";
+		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
+
 	//it("accounts for body margin", function() {
-	//	contentDoc.body.style.padding = "1px 2px 4px 8px";
-	//	contentDoc.body.style.margin = "1px 2px 4px 8px";
-	//
-	//	assert.objEqual(width.value(), fullWidthEl.width.plus(20).value(), "width");
-	//	assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+		//contentDoc.body.style.padding = "1px 2px 4px 8px";
+		//contentDoc.body.style.margin = "1px 2px 4px 8px";
+		//
+		//assert.objEqual(width.value(), fullWidthEl.width.plus(20).value(), "width");
+		//assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	//});
-	//
+
 	//it("ignores box model", function() {
 	//	contentDoc.body.style.padding = "1px 2px 4px 8px";
 	//	contentDoc.body.style.margin = "16px 32px 64px 128px";
