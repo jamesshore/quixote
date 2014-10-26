@@ -15,6 +15,11 @@
 ## Current Feature: Positioning relative to page
 
 * Viewport width, height
+* ViewportSize plus(), minus(), times()
+* QFrame.viewport()
+* Test and document QUIRKS MODE fix in QFrame.js
+* Test and document proper solution to Mobile Safari and its "full size frame" issue.
+  * Perhaps just a better browser inspection
 * Viewport top, right, bottom, left
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
@@ -23,23 +28,17 @@
 * Test whether box-sizing affects ElementSize
 * Page width, height
 * Page top, right, bottom, left
+* QFrame.page()
 * Document width, height
 * Document top, right, bottom, left
+* QFrame.document()
 * Center & middle for all. (Modify ElementCenter to be generic?)
 
 
 ## To Do: Viewport width, height
 
-* Remaining ViewportSize methods
-* RelativeSize stuff
-* Pass 'body' into ViewportSize, not contentDocument?
-* 'page' property in QFrame
-* 'body' property in QFrame?
-* Test and document QUIRKS MODE fix in QFrame.js
-* Test and document proper solution to Mobile Safari and its "full size frame" issue.
-  * Perhaps just a better browser inspection
-* Document API (PageSize descriptor, QFrame.page, QFrame.body)
 * Changelog
+* Document API (ViewportSize descriptor)
 
 
 ## Future Features

@@ -45,7 +45,7 @@ Me.prototype.value = function() {
 	//    fails on IE 8, 9, 10: includes scrollbar
 	// html.clientWidth
 	// html.scrollWidth
-	//    WORKS!
+	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
 	// not yet tried: contentWindow.*
 
 	// Height techniques I've tried: (Note that results are different in quirks mode)

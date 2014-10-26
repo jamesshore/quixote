@@ -3,6 +3,17 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## In Progress: Page Positioning Comparisons
+
+***Breaking changes:***
+
+* (TEMP?) Frame no longer contained in scrolling container on Safari, which may cause some rendering problems
+
+*New descriptors:*
+
+* ViewportSize
+
+
 ## 0.5: API Hardening
 
 **23 Oct 2014.** API stability was the goal of this release. The API has been thoroughly reviewed and tweaked with the goal of reducing future changes. Other small changes were made to make the API production-ready, and the documentation received a thorough review and update.
@@ -101,7 +112,7 @@ element.assert({
 * ElementPosition --> RelativePosition
 
 
-## 0.3: Relative Positioning
+## 0.3: Element-to-Element Positioning Comparisons
 
 **15 Oct 2014.** QElement's `diff()` method now supports checking relative positions. As well as specifying an absolute position, you can also describe your element relative to other elements. You can also specify an offset if elements aren't exactly aligned:
 
