@@ -23,16 +23,20 @@
 * Page top, right, bottom, left
 * Frame width, height
 * Frame top, right, bottom, left
+* Document width, height
+* Document top, right, bottom, left
+* Center & middle for all. (Modify ElementCenter to be generic?)
 
 
 ## To Do: Page width, height
 
-* Test and document QUIRKS MODE fix in QFrame.js
-* account for vertical scrollbar
+* NEXT: Deal with Mobile Safari and its "full size frame" issue.
+* PageSize --> FrameSize
 * page bigger than frame (horz, vert)
 * Pass 'body' into PageSize, not contentDocument?
 * 'page' property in QFrame
 * 'body' property in QFrame?
+* Test and document QUIRKS MODE fix in QFrame.js
 * Document API (PageSize descriptor, QFrame.page, QFrame.body)
 * Changelog
 

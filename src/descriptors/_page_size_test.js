@@ -82,30 +82,60 @@ describe("PageSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
 	});
 
-	it("width accounts for scrollbar", function() {
-		frame.add(
-			"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
-			"left: 100px; width: 100px; height: 100px; background-color: green'>force scrollbar</div>"
-		);
-		var fullWidth = frame.add(
-			"<div style='width: 100%; background-color: red;'>full width</div>"
-		);
-
-		assert.objEqual(width.value(), fullWidth.width.value());
-	});
-
-	it("height accounts for scrollbar", function() {
+	it("accounts for elements outside width of frame", function() {
 		frame.add(
 			"<div style='position: absolute; left: " + (WIDTH + 100) + "px; " +
-			"top: 100px; width: 100px; height: 100px; background-color: green'>force scrollbar</div>"
+			"top: 100px; width: 100px; height: 100px; background-color: green'>force scrolling</div>"
 		);
 		var fullHeight = frame.add(
 			"<div style='position: absolute; top: 0px; bottom: 0px; " +
 			"width: 100px; background-color: red;'>full height</div>"
 		);
 
-		assert.objEqual(height.value(), fullHeight.height.value());
+		assert.objEqual(width.value(), Size.create(WIDTH), "width should not include element outside frame");
+		assert.objEqual(height.value(), fullHeight.height.value(), "height should account for scrollbar");
 	});
+
+	it("accounts for elements outside height of frame ", function() {
+		frame.add(
+			"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
+			"left: 100px; width: 100px; height: 100px; background-color: green'>force scrolling</div>"
+		);
+		var fullWidth = frame.add(
+			"<div style='width: 100%; background-color: red;'>full width</div>"
+		);
+
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height should not include element outside frame");
+		assert.objEqual(width.value(), fullWidth.width.value(), "width should account for scrollbar");
+	});
+
+	//it("accounts for elements wider than frame", function() {
+	//	frame.add(
+	//		"<div style='position: absolute; left: " + (WIDTH + 100) + "px; " +
+	//		"top: 100px; width: 100px; height: 100px; background-color: green'>force scrollbar</div>"
+	//	);
+	//	var fullHeight = frame.add(
+	//		"<div style='position: absolute; top: 0px; bottom: 0px; " +
+	//		"width: 100px; background-color: red;'>full height</div>"
+	//	);
+	//
+	//	assert.objEqual(height.value(), fullHeight.height.value());
+	//});
+	//
+	//it.only("width includes content larger than frame", function() {
+	//	reset.DEBUG = true;
+	//
+	//	frame.add(
+	//		"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
+	//		"left: 100px; width: 100px; height: 100px; background-color: green'>taller than frame</div>"
+	//	);
+	//	frame.add(
+	//		"<div style='position: absolute; left: " + (WIDTH + 100) + "px; " +
+	//		"top: 100px; width: 100px; height: 100px; background-color: green'>wider than frame</div>"
+	//	);
+	//	assert.objEqual(width.value(), Size.create(WIDTH + 200), "width");
+	//	assert.objEqual(height.value(), Size.create(HEIGHT + 200), "height");
+	//});
 
 	//it("resolves to value", function() {
 	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");
