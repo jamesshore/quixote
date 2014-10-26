@@ -31,6 +31,7 @@ Me.prototype.value = function() {
 	var frameDoc = this._frame.toDomElement().contentDocument;
 	var docEl = new QElement(frameDoc.documentElement, this._frame, "doc element");
 	var body = this._frame.get("body");
+	var bodyDom = body.toDomElement();
 
 	var bodyPosition = body.getRawPosition();
 	var marginLeft = pxToInt(body.getRawStyle("margin-left"));
@@ -43,15 +44,25 @@ Me.prototype.value = function() {
 	//dump("documentElement left", documentRect.left);
 	//dump("documentElement right", documentRect.right);
 
+	//dump("documentRect.width", documentRect.width);
+	//dump("client width", bodyDom.clientWidth);
+	//dump("scroll width", bodyDom.scrollWidth);
+	//dump("offset width", bodyDom.offsetWidth);
+
 	//var width = bodyPosition.width + marginLeft + marginRight;
 
-	var width = documentRect.width;
+	// WORKAROUND IE 8, IE 9, IE 10: document bounding box includes vertical scrollbar
+	// so this doesn't work: var width = documentRect.width;
+	// WORKAROUND IE 9: body.clientWidth doesn't include margins
+	// so this doesn't work: var width = bodyDom.clientWidth;
+	var width = bodyDom.scrollWidth;
+
 
 	// WORKAROUND Firefox 32: document bounding box collapses to body element
 	// WORKAROUND IE 9: body.clientHeight doesn't include margins
 	// ...so we try both and take whichever is larger
 	// (Note: body.clientHeight *is* correct on IE 8 (!), IE 10, and IE 11.)
-	var height = Math.max(documentRect.height, body.toDomElement().clientHeight);
+	var height = Math.max(documentRect.height, bodyDom.clientHeight);
 
 
 

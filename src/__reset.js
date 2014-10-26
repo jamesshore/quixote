@@ -9,8 +9,8 @@
 
 var quixote = require("./quixote.js");
 
-exports.WIDTH = 800;
-exports.HEIGHT = 900;
+exports.WIDTH = 500;
+exports.HEIGHT = 400;
 exports.DEBUG = false;
 
 before(function(done) {

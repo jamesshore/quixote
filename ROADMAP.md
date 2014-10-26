@@ -16,6 +16,7 @@
 
 * Page width, height
 * Frame.reset(): reset body style AND/OR Document that toDomElement() can interfere with frame.reset()
+* Test-drive need for scroll container
 * Test whether box-sizing affects ElementSize
 * Page top, right, bottom, left
 * Frame width, height
@@ -24,6 +25,7 @@
 
 ## To Do: Page width, height
 
+* Test and document QUIRKS MODE fix in QFrame.js
 * account for vertical scrollbar
 * page bigger than frame (horz, vert)
 * Pass 'body' into PageSize, not contentDocument?

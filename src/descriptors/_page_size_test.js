@@ -17,6 +17,7 @@ describe("PageSize", function() {
 	var contentDoc;
 	var width;
 	var height;
+	var fullWidthEl;
 
 	beforeEach(function() {
 		frame = reset.frame;
@@ -26,6 +27,11 @@ describe("PageSize", function() {
 		contentDoc = frame.toDomElement().contentDocument;
 		width = PageSize.x(frame);
 		height = PageSize.y(frame);
+
+		contentDoc.body.style.backgroundColor = "blue";
+		fullWidthEl = frame.add(
+			"<div style='width: 100%; background-color: red;'>full width</div>"
+		);
 	});
 
 	it("is a descriptor", function() {
@@ -33,41 +39,58 @@ describe("PageSize", function() {
 	});
 
 	it("matches frame size when everything fits in the window", function() {
+		//reset.DEBUG = true;
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
-		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+		//assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
-	it("accounts for body padding", function() {
-		contentDoc.body.style.padding = "1px 2px 4px 8px";
-		assert.objEqual(width.value(), Size.create(WIDTH), "width");
-		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
-	});
-
-	it("accounts for body border", function() {
-		contentDoc.body.style.borderWidth = "1px 2px 4px 8px";
-		assert.objEqual(width.value(), Size.create(WIDTH), "width");
-		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
-	});
-
-	it("accounts for body margin", function() {
-		contentDoc.body.style.padding = "1px 2px 4px 8px";
-		contentDoc.body.style.margin = "1px 2px 4px 8px";
-		assert.objEqual(width.value(), Size.create(WIDTH), "width");
-		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
-	});
-
-	it("ignores box model", function() {
-		contentDoc.body.style.padding = "1px 2px 4px 8px";
-		contentDoc.body.style.margin = "16px 32px 64px 128px";
-
-		contentDoc.body.style.boxSizing = "border-box";
-		assert.objEqual(width.value(), Size.create(WIDTH), "border-box width");
-		assert.objEqual(height.value(), Size.create(HEIGHT), "border-box height");
-
-		contentDoc.body.style.boxSizing = "content-box";
-		assert.objEqual(width.value(), Size.create(WIDTH), "content-box width");
-		assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
-	});
+	//it("accounts for body padding", function() {
+	//	contentDoc.body.style.padding = "1px 2px 4px 8px";
+	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");
+	//	assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	//});
+	//
+	//it("accounts for body border", function() {
+	//	contentDoc.body.style.borderWidth = "1px 2px 4px 8px";
+	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");
+	//	assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	//});
+	//
+	//it("accounts for body margin", function() {
+	//	contentDoc.body.style.padding = "1px 2px 4px 8px";
+	//	contentDoc.body.style.margin = "1px 2px 4px 8px";
+	//
+	//	assert.objEqual(width.value(), fullWidthEl.width.plus(20).value(), "width");
+	//	assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	//});
+	//
+	//it("ignores box model", function() {
+	//	contentDoc.body.style.padding = "1px 2px 4px 8px";
+	//	contentDoc.body.style.margin = "16px 32px 64px 128px";
+	//
+	//	contentDoc.body.style.boxSizing = "border-box";
+	//	assert.objEqual(width.value(), Size.create(WIDTH), "border-box width");
+	//	assert.objEqual(height.value(), Size.create(HEIGHT), "border-box height");
+	//
+	//	contentDoc.body.style.boxSizing = "content-box";
+	//	assert.objEqual(width.value(), Size.create(WIDTH), "content-box width");
+	//	assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
+	//});
+	//
+	//it("accounts for vertical scrollbar", function() {
+	//	reset.DEBUG = true;
+	//	frame.add(
+	//		"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
+	//		"left: 100px; width: 100px; height: 100px;'>force scrollbar</div>"
+	//	);
+	//	var fullWidth = frame.add(
+	//		"<div style='width: 100%; border: solid 1px red; box-sizing: border-box;'>full width</div>"
+	//	);
+	//	//console.log("" + fullWidth.width.value());
+	//	//console.log("" + width.value());
+	//
+	//	assert.objEqual(width.value(), fullWidth.width.value(), "width should be smaller to account for scrollbar");
+	//});
 
 	//it("resolves to value", function() {
 	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");

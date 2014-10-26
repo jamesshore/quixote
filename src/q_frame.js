@@ -44,26 +44,45 @@ Me.create = function create(parentElement, options, callback) {
 	// WORKAROUND Mobile Safari 7.0.0: Does not respect iframe width and height attributes
 	// See also http://davidwalsh.name/scroll-iframes-ios
 	var scrollContainer = document.createElement("div");
-	scrollContainer.setAttribute("style",
-		"-webkit-overflow-scrolling: touch; " +
-		"overflow-y: scroll; " +
-		"width: " + width + "px; " +
-		"height: " + height + "px;"
-	);
+	//scrollContainer.setAttribute("style",
+	//	"-webkit-overflow-scrolling: touch; " +
+	//	"overflow-y: scroll; " +
+	//	"width: " + width + "px; " +
+	//	"height: " + height + "px;"
+	//);
 
 	var iframe = document.createElement("iframe");
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
 	iframe.setAttribute("frameborder", "0");    // WORKAROUND IE 8: don't include frame border in position calcs
-	if (options.src) iframe.setAttribute("src", options.src);
+
+	if (options.src !== undefined) {
+		iframe.setAttribute("src", options.src);
+		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+	}
 
 	var frame = new Me(iframe, scrollContainer);
-	shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
 	scrollContainer.appendChild(iframe);
 	parentElement.appendChild(scrollContainer);
+
+	// WORKAROUND IE 8: ensure that the frame is in standards mode, not quirks mode.
+	if (options.src === undefined) {
+		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+		var noQuirksMode = "<!DOCTYPE html>\n" +
+			"<html>" +
+			"<head></head><body></body>" +
+			"</html>";
+		iframe.contentWindow.document.open();
+		iframe.contentWindow.document.write(noQuirksMode);
+		iframe.contentWindow.document.close();
+	}
+
 	return frame;
 
 	function onFrameLoad() {
+
+		//console.log("FRAME LOAD");
+
 		// WORKAROUND Mobile Safari 7.0.0, Safari 6.2.0, Chrome 38.0.2125: frame is loaded synchronously
 		// We force it to be asynchronous here
 		setTimeout(function() {
