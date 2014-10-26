@@ -30,8 +30,7 @@
 
 ## To Do: Page width, height
 
-* PageSize --> FrameSize
-* page bigger than frame (horz, vert)
+* PageSize --> ViewportSize
 * Pass 'body' into PageSize, not contentDocument?
 * 'page' property in QFrame
 * 'body' property in QFrame?
