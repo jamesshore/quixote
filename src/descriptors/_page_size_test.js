@@ -29,9 +29,9 @@ describe("PageSize", function() {
 		height = PageSize.y(frame);
 
 		contentDoc.body.style.backgroundColor = "blue";
-		fullWidthEl = frame.add(
-			"<div style='width: 100%; background-color: red;'>full width</div>"
-		);
+		//fullWidthEl = frame.add(
+		//	"<div style='width: 100%; background-color: red;'>full width</div>"
+		//);
 	});
 
 	it("is a descriptor", function() {
@@ -55,13 +55,12 @@ describe("PageSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
-	//it("accounts for body margin", function() {
-		//contentDoc.body.style.padding = "1px 2px 4px 8px";
-		//contentDoc.body.style.margin = "1px 2px 4px 8px";
-		//
-		//assert.objEqual(width.value(), fullWidthEl.width.plus(20).value(), "width");
-		//assert.objEqual(height.value(), Size.create(HEIGHT), "height");
-	//});
+	it("accounts for body margin", function() {
+		contentDoc.body.style.margin = "1px 2px 4px 8px";
+
+		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
 
 	//it("ignores box model", function() {
 	//	contentDoc.body.style.padding = "1px 2px 4px 8px";

@@ -55,9 +55,18 @@ Me.prototype.value = function() {
 	// so this doesn't work: var width = documentRect.width;
 	// WORKAROUND IE 9: body.clientWidth doesn't include margins
 	// so this doesn't work: var width = bodyDom.clientWidth;
-	var width = bodyDom.scrollWidth;
 
-	// Height techniques I've tried:
+
+	// Width techniques I've tried: (Note that results are different in quirks mode)
+	// body.scrollWidth
+	//    works on Safari, Mobile Safari, Chrome
+	//    fails on Firefox, IE 8, 9, 10, 11: doesn't include margin
+	// documentElement.getBoundingClientRect().width
+	//    WORKS!
+
+	var width = docEl.getRawPosition().width;
+
+	// Height techniques I've tried: (Note that results are different in quirks mode)
 	// documentElement.getBoundingClientRect().height
 	//    works on IE 8, 9, 10, 11;
 	//    fails on Safari, Mobile Safari, Chrome, Firefox: only includes height of content
@@ -79,7 +88,10 @@ Me.prototype.value = function() {
 	//    works on IE 8, 9, 10
 	//    fails on IE 11, Safari, Mobile Safari, Chrome: only includes height of content
 	// html.clientHeight
-	//    WORKS!
+	//    WORKS! on Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
+
+	// still to be tried
+	// contentWindow.*
 
 	var htmlDom = this._frame.get("html").toDomElement();
 	var height = htmlDom.clientHeight;
