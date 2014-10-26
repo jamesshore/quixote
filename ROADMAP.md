@@ -30,13 +30,14 @@
 
 ## To Do: Page width, height
 
-* NEXT: Deal with Mobile Safari and its "full size frame" issue.
 * PageSize --> FrameSize
 * page bigger than frame (horz, vert)
 * Pass 'body' into PageSize, not contentDocument?
 * 'page' property in QFrame
 * 'body' property in QFrame?
 * Test and document QUIRKS MODE fix in QFrame.js
+* Test and document proper solution to Mobile Safari and its "full size frame" issue.
+  * Perhaps just a better browser inspection
 * Document API (PageSize descriptor, QFrame.page, QFrame.body)
 * Changelog
 

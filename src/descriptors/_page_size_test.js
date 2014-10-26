@@ -92,6 +92,12 @@ describe("PageSize", function() {
 			"width: 100px; background-color: red;'>full height</div>"
 		);
 
+		if (!quixote.browser.canScroll()) {
+			// WORKAROUND Mobile Safari 7.0.0: ignores frame width and height
+			assert.objEqual(width.value(), Size.create(WIDTH + 200), "Mobile Safari ignores frame width");
+			return;
+		}
+
 		assert.objEqual(width.value(), Size.create(WIDTH), "width should not include element outside frame");
 		assert.objEqual(height.value(), fullHeight.height.value(), "height should account for scrollbar");
 	});
@@ -104,6 +110,12 @@ describe("PageSize", function() {
 		var fullWidth = frame.add(
 			"<div style='width: 100%; background-color: red;'>full width</div>"
 		);
+
+		if (!quixote.browser.canScroll()) {
+			// WORKAROUND Mobile Safari 7.0.0: ignores frame width and height
+			assert.objEqual(height.value(), Size.create(HEIGHT + 200), "Mobile Safari ignores frame height");
+			return;
+		}
 
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height should not include element outside frame");
 		assert.objEqual(width.value(), fullWidth.width.value(), "width should account for scrollbar");
