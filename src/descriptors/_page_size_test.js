@@ -82,8 +82,7 @@ describe("PageSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
 	});
 
-	it.only("accounts for vertical scrollbar", function() {
-		reset.DEBUG = true;
+	it("width accounts for scrollbar", function() {
 		frame.add(
 			"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
 			"left: 100px; width: 100px; height: 100px; background-color: green'>force scrollbar</div>"
@@ -91,10 +90,21 @@ describe("PageSize", function() {
 		var fullWidth = frame.add(
 			"<div style='width: 100%; background-color: red;'>full width</div>"
 		);
-		//console.log("" + fullWidth.width.value());
-		//console.log("" + width.value());
 
-		assert.objEqual(width.value(), fullWidth.width.value(), "width should be smaller to account for scrollbar");
+		assert.objEqual(width.value(), fullWidth.width.value());
+	});
+
+	it("height accounts for scrollbar", function() {
+		frame.add(
+			"<div style='position: absolute; left: " + (WIDTH + 100) + "px; " +
+			"top: 100px; width: 100px; height: 100px; background-color: green'>force scrollbar</div>"
+		);
+		var fullHeight = frame.add(
+			"<div style='position: absolute; top: 0px; bottom: 0px; " +
+			"width: 100px; background-color: red;'>full height</div>"
+		);
+
+		assert.objEqual(height.value(), fullHeight.height.value());
 	});
 
 	//it("resolves to value", function() {
