@@ -40,7 +40,6 @@
 
 ## To Do: QFrame.viewport()
 
-* QFrame.viewport()
 * Changelog
 * API docs (QViewport, QFrame.viewport()
 
