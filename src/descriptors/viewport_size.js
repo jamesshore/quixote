@@ -72,11 +72,16 @@ Me.prototype.value = function() {
 	// html.clientHeight
 	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
 	// not yet tried: contentWindow.*
-	
+
 	var value = (this._dimension === X_DIMENSION) ? html.clientWidth : html.clientHeight;
 	return Size.create(value);
 };
 
+Me.prototype.convert = function(value, type) {
+	if (type === "number") return Size.create(value);
+};
+
 Me.prototype.toString = function() {
-	ensure.unreachable("TODO");
+	var desc = (this._dimension === X_DIMENSION) ? "width" : "height";
+	return desc + " of viewport";
 };

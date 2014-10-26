@@ -14,24 +14,25 @@
 
 ## Current Feature: Positioning relative to page
 
-* Page width, height
-* Frame.reset(): reset body style AND/OR Document that toDomElement() can interfere with frame.reset()
+* Viewport width, height
+* Viewport top, right, bottom, left
+* Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
   * take out workaround in _page_size_test.js
 * Test-drive need for scroll container
 * Test whether box-sizing affects ElementSize
+* Page width, height
 * Page top, right, bottom, left
-* Frame width, height
-* Frame top, right, bottom, left
 * Document width, height
 * Document top, right, bottom, left
 * Center & middle for all. (Modify ElementCenter to be generic?)
 
 
-## To Do: Page width, height
+## To Do: Viewport width, height
 
-* PageSize --> ViewportSize
-* Pass 'body' into PageSize, not contentDocument?
+* Remaining ViewportSize methods
+* RelativeSize stuff
+* Pass 'body' into ViewportSize, not contentDocument?
 * 'page' property in QFrame
 * 'body' property in QFrame?
 * Test and document QUIRKS MODE fix in QFrame.js

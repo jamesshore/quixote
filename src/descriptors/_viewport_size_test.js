@@ -136,15 +136,15 @@ describe("ViewportSize", function() {
 		);
 	});
 
-	//it("converts comparison arguments", function() {
-	//	assert.objEqual(width.convert(13, "number"), Size.create(13), "converts numbers to sizes");
-	//});
-	//
-	//it("converts to string", function() {
-	//	assert.equal(width.toString(), "width of " + element);
-	//	assert.equal(height.toString(), "height of " + element);
-	//});
-	//
+	it("converts comparison arguments", function() {
+		assert.objEqual(width.convert(13, "number"), Size.create(13), "converts numbers to sizes");
+	});
+
+	it("converts to string", function() {
+		assert.equal(width.toString(), "width of viewport");
+		assert.equal(height.toString(), "height of viewport");
+	});
+
 	//it("can be arithmaticated (yes, that's a word now)", function() {
 	//	assert.objEqual(width.plus(10).value(), Size.create(WIDTH + 10), "bigger");
 	//	assert.objEqual(width.minus(10).value(), Size.create(WIDTH - 10), "smaller");
