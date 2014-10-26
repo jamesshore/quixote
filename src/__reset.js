@@ -9,17 +9,25 @@
 
 var quixote = require("./quixote.js");
 
-var frame;
+exports.WIDTH = 500;
+exports.HEIGHT = 400;
+exports.DEBUG = false;
 
 before(function(done) {
-	frame = quixote.createFrame({ stylesheet: "/base/src/__reset.css" }, done);
-	exports.frame = frame;
+	var options = {
+		width: exports.WIDTH,
+		height: exports.HEIGHT,
+		stylesheet: "/base/src/__reset.css"
+	};
+
+	exports.frame = quixote.createFrame(options, done);
 });
 
 after(function() {
-	frame.remove();
+	if (!exports.DEBUG) exports.frame.remove();
+	else console.log("WARNING: __reset.js DEBUG mode on; test frame not removed");
 });
 
 beforeEach(function() {
-	frame.reset();
+	exports.frame.reset();
 });
