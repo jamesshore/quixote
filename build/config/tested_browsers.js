@@ -10,7 +10,9 @@ module.exports = [
 	"IE 10.0.0 (Windows 7)",
 	"IE 11.0.0 (Windows 7)",
 	"Firefox 32.0.0 (Mac OS X 10.8)",
+	"Firefox 33.0.0 (Windows 7)",
 	"Chrome 38.0.2125 (Mac OS X 10.8.5)",
+	"Chrome 38.0.2125 (Windows 7)",
 	"Safari 6.2.0 (Mac OS X 10.8.5)",
 	"Mobile Safari 7.0.0 (iOS 7.1)"
 ];
