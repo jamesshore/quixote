@@ -16,8 +16,8 @@
 
 * Page width, height
 * Frame.reset(): reset body style AND/OR Document that toDomElement() can interfere with frame.reset()
-  * take out workaround in _page_size_test.js
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
+  * take out workaround in _page_size_test.js
 * Test-drive need for scroll container
 * Test whether box-sizing affects ElementSize
 * Page top, right, bottom, left

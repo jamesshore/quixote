@@ -17,7 +17,6 @@ describe("ViewportSize", function() {
 	var contentDoc;
 	var width;
 	var height;
-	var fullWidthEl;
 
 	beforeEach(function() {
 		frame = reset.frame;
@@ -32,6 +31,8 @@ describe("ViewportSize", function() {
 	});
 
 	afterEach(function() {
+		if (reset.DEBUG) return;
+
 		contentDoc.body.style.backgroundColor = "";
 		contentDoc.body.style.padding = "0";
 		contentDoc.body.style.borderWidth = "0";
@@ -79,7 +80,7 @@ describe("ViewportSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
 	});
 
-	it("accounts for elements outside width of frame", function() {
+	it("accounts for effects of elements to right of viewport", function() {
 		frame.add(
 			"<div style='position: absolute; left: " + (WIDTH + 100) + "px; " +
 			"top: 100px; width: 100px; height: 100px; background-color: green'>force scrolling</div>"
@@ -99,7 +100,7 @@ describe("ViewportSize", function() {
 		assert.objEqual(height.value(), fullHeight.height.value(), "height should account for scrollbar");
 	});
 
-	it("accounts for elements outside height of frame ", function() {
+	it("accounts for effects of elements below viewport", function() {
 		frame.add(
 			"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
 			"left: 100px; width: 100px; height: 100px; background-color: green'>force scrolling</div>"
@@ -116,6 +117,23 @@ describe("ViewportSize", function() {
 
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height should not include element outside frame");
 		assert.objEqual(width.value(), fullWidth.width.value(), "width should account for scrollbar");
+	});
+
+	it("ignores elements shifted off-screen using negative margin", function() {
+		frame.add(
+			"<div style='margin-left: -40px; margin-top: -80px; position: relative; " +
+			"width: 100px; height: 100px; background-color: red;'>moved off-screen</div>"
+		);
+
+		assert.objEqual(width.value(), Size.create(WIDTH), "width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
+	});
+
+	it("ignores elements positioned off-screen using negative position", function() {
+		frame.add(
+			"<div style='position: absolute; left: -40px; top: -80px; " +
+			"width: 100px; height: 100px; background-color: red;'>off-screen</div>"
+		);
 	});
 
 	//it("converts comparison arguments", function() {
