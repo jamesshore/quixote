@@ -32,6 +32,8 @@ Me.prototype.value = function() {
 	var docEl = new QElement(frameDoc.documentElement, this._frame, "doc element");
 	var body = this._frame.get("body");
 	var bodyDom = body.toDomElement();
+	var html = this._frame.get("html");
+	var htmlDom = html.toDomElement();
 
 	var bodyPosition = body.getRawPosition();
 	var marginLeft = pxToInt(body.getRawStyle("margin-left"));
@@ -58,13 +60,29 @@ Me.prototype.value = function() {
 
 
 	// Width techniques I've tried: (Note that results are different in quirks mode)
+	// documentElement.getBoundingClientRect().width
+	//    works on Safari, Mobile Safari, Chrome, Firefox
+	//    fails on IE 8, 9, 10: includes scrollbar
+	// body.clientWidth
+	// body.offsetWidth
+	// body.getBoundingClientRect().width
+	//    fails on all browsers: doesn't include margin
 	// body.scrollWidth
 	//    works on Safari, Mobile Safari, Chrome
 	//    fails on Firefox, IE 8, 9, 10, 11: doesn't include margin
-	// documentElement.getBoundingClientRect().width
+	// html.getBoundingClientRect().width
+	// html.offsetWidth
+	//    works on Safari, Mobile Safari, Chrome, Firefox
+	//    fails on IE 8, 9, 10: includes scrollbar
+	// html.clientWidth
+	// html.scrollWidth
 	//    WORKS!
 
-	var width = docEl.getRawPosition().width;
+	// still to be tried
+	// contentWindow.*
+
+	var width = htmlDom.clientWidth;
+
 
 	// Height techniques I've tried: (Note that results are different in quirks mode)
 	// documentElement.getBoundingClientRect().height
@@ -81,19 +99,21 @@ Me.prototype.value = function() {
 	//    fails on Firefox, IE 8, 9, 10, 11: only includes height of content
 	// documentElement.clientHeight, offsetHeight, scrollHeight
 	//    no such property (undefined)
-	// html.scrollHeight
-	//    works on Firefox, IE 8, 9, 10, 11
-	//    fails on Safari, Mobile Safari, Chrome: only includes height of content
 	// html.offsetHeight
 	//    works on IE 8, 9, 10
 	//    fails on IE 11, Safari, Mobile Safari, Chrome: only includes height of content
+	// html.scrollHeight
+	//    works on Firefox, IE 8, 9, 10, 11
+	//    fails on Safari, Mobile Safari, Chrome: only includes height of content
 	// html.clientHeight
-	//    WORKS! on Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
+	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
 
 	// still to be tried
 	// contentWindow.*
 
-	var htmlDom = this._frame.get("html").toDomElement();
+
+
+
 	var height = htmlDom.clientHeight;
 
 

@@ -34,6 +34,13 @@ describe("PageSize", function() {
 		//);
 	});
 
+	afterEach(function() {
+		//contentDoc.body.setAttribute("style", "");
+		contentDoc.body.style.padding = "0";
+		contentDoc.body.style.borderWidth = "0";
+		contentDoc.body.style.margin = "0";
+	});
+
 	it("is a descriptor", function() {
 		assert.implements(width, Descriptor);
 	});
@@ -62,33 +69,33 @@ describe("PageSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
-	//it("ignores box model", function() {
-	//	contentDoc.body.style.padding = "1px 2px 4px 8px";
-	//	contentDoc.body.style.margin = "16px 32px 64px 128px";
-	//
-	//	contentDoc.body.style.boxSizing = "border-box";
-	//	assert.objEqual(width.value(), Size.create(WIDTH), "border-box width");
-	//	assert.objEqual(height.value(), Size.create(HEIGHT), "border-box height");
-	//
-	//	contentDoc.body.style.boxSizing = "content-box";
-	//	assert.objEqual(width.value(), Size.create(WIDTH), "content-box width");
-	//	assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
-	//});
-	//
-	//it("accounts for vertical scrollbar", function() {
-	//	reset.DEBUG = true;
-	//	frame.add(
-	//		"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
-	//		"left: 100px; width: 100px; height: 100px;'>force scrollbar</div>"
-	//	);
-	//	var fullWidth = frame.add(
-	//		"<div style='width: 100%; border: solid 1px red; box-sizing: border-box;'>full width</div>"
-	//	);
-	//	//console.log("" + fullWidth.width.value());
-	//	//console.log("" + width.value());
-	//
-	//	assert.objEqual(width.value(), fullWidth.width.value(), "width should be smaller to account for scrollbar");
-	//});
+	it("ignores box model", function() {
+		contentDoc.body.style.padding = "1px 2px 4px 8px";
+		contentDoc.body.style.margin = "16px 32px 64px 128px";
+
+		contentDoc.body.style.boxSizing = "border-box";
+		assert.objEqual(width.value(), Size.create(WIDTH), "border-box width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "border-box height");
+
+		contentDoc.body.style.boxSizing = "content-box";
+		assert.objEqual(width.value(), Size.create(WIDTH), "content-box width");
+		assert.objEqual(height.value(), Size.create(HEIGHT), "content-box height");
+	});
+
+	it.only("accounts for vertical scrollbar", function() {
+		reset.DEBUG = true;
+		frame.add(
+			"<div style='position: absolute; top: " + (HEIGHT + 100) + "px; " +
+			"left: 100px; width: 100px; height: 100px; background-color: green'>force scrollbar</div>"
+		);
+		var fullWidth = frame.add(
+			"<div style='width: 100%; background-color: red;'>full width</div>"
+		);
+		//console.log("" + fullWidth.width.value());
+		//console.log("" + width.value());
+
+		assert.objEqual(width.value(), fullWidth.width.value(), "width should be smaller to account for scrollbar");
+	});
 
 	//it("resolves to value", function() {
 	//	assert.objEqual(width.value(), Size.create(WIDTH), "width");
