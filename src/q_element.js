@@ -17,6 +17,7 @@ var Me = module.exports = function QElement(domElement, frame, nickname) {
 
 	this.frame = frame;
 
+	// properties
 	this.top = ElementEdge.top(this);
 	this.right = ElementEdge.right(this);
 	this.bottom = ElementEdge.bottom(this);

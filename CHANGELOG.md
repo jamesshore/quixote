@@ -9,6 +9,15 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * (TEMP?) Frame no longer contained in scrolling container on Safari, which may cause some rendering problems
 
+*New classes:*
+
+* QViewport
+
+*New properties:*
+
+* QViewport.width
+* QViewport.height
+
 *New descriptors:*
 
 * ViewportSize

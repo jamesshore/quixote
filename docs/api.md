@@ -5,17 +5,20 @@ For a Quixote overview, installation notes, and an example, see [the readme](../
 
 ## Table of Contents
 
-There are four primary classes and modules:
+There are three primary classes and modules:
 
 * [`quixote`](quixote.md) is your entry point. It allows you to create an iframe for testing.
 * [`QFrame`](QFrame.md) is how you manipulate the DOM inside your test frame.
 * [`QElement`](QElement.md) allows you to make assertions and get information.
-* [`QElementList`](QElementList.md) contains a list of QElements.
 
 Assertions (using `QElement.assert()` or `QElement.diff()`) operate on [`QElement`](QElement.md) properties. Those properties are Descriptor objects. They're documented here:
 
 * [Descriptors](descriptors.md)
 
+There are also several supporting classes:
+
+* [`QElementList`](QElementList.md) contains a list of QElements.
+* [`QViewport`](QViewport.md) contains properties for the test frame's viewport (the part you can see)
 
 ## Compatibility
 

@@ -14,7 +14,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* QFrame.viewport()
 * ViewportSize plus(), minus(), times()
 * Test and document QUIRKS MODE fix in QFrame.js
   * ViewportSize: test behavior when in quirks mode?
@@ -35,9 +34,10 @@
 * Document top, right, bottom, left
 * QFrame.document()
 * Center & middle for all. (Modify ElementCenter to be generic?)
+* QFrame: document difference between viewport, document, and page
 
 
-## To Do
+## To Do: QFrame.viewport()
 
 
 ## Future Features
