@@ -26,6 +26,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * QFrame.viewport()
 
+
 ## 0.5: API Hardening
 
 **23 Oct 2014.** API stability was the goal of this release. The API has been thoroughly reviewed and tweaked with the goal of reducing future changes. Other small changes were made to make the API production-ready, and the documentation received a thorough review and update.
