@@ -17,10 +17,15 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * QViewport.width
 * QViewport.height
+* QViewport.top
+* QViewport.right
+* QViewport.bottom
+* QViewport.left
 
 *New descriptors:*
 
 * ViewportSize
+* ViewportEdge
 
 *New methods:*
 

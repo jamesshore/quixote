@@ -38,8 +38,6 @@
 
 ## To Do: Viewport top, right, bottom, left
 
-* QViewport
-* Changelog
 * API doc
 
 
