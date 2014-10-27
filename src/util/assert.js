@@ -50,6 +50,7 @@ exports.equal = function(actual, expected, message) {
 
 exports.objEqual = function(actual, expected, message) {
 	message = message ? message + ": " : "";
+	proclaim.isDefined(actual, message + "expected object, but was undefined");
 	proclaim.isTrue(actual.equals(expected), message + "object equality expected '" + expected + "', but got '" + actual + "'");
 };
 
