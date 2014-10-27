@@ -39,11 +39,11 @@
 
 ## To Do: Document width, height
 
-* remove methods, tests, implement SizeDescriptor
-  * SizeMultiple
+* "How to create a descriptor" doc (for SizeDescriptor)
+-- integrate --
+* DocumentSize
 * Changelog
 * API doc
-* "How to create a descriptor" doc (for SizeDescriptor)
 
 
 ## Future Features

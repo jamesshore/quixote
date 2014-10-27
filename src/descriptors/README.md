@@ -10,20 +10,20 @@ This directory is for descriptors.
 A descriptor has the following key features, which should be implemented in this order.
 
 * It has tests.
+* It extends a `Descriptor` base class.
 * It provides factory methods for construction.
 * It resolves itself to a Value object: `value()`
-* It converts primitives to Value objects that are comparable to itself: `convert(arg, type)`
+* Optional: It converts primitives to Value objects that are comparable to itself: `convert(arg, type)`
 * It renders itself as a string: `toString()`
-* It extends the `Descriptor` base class.
 * It is returned from QElement or another descriptor
 * Optional: It provides properties or methods that return other descriptors.
 
 The following explanations use the (as yet fictional) example of a `BackgroundColor` descriptor. It represents the `background-color` CSS property.
 
 
-## Create tests
+## Create testbed
 
-Start out by creating a testbed that contains an element including the style you're going to test.
+Start out by creating a test element for the style you're going to test.
 
 For our `BackgroundColor` example, we create an element that has a background color.
 
@@ -90,11 +90,45 @@ Me.create = function create(element) {
 ```
 
 
+## Extend `Descriptor` base class
+
+All descriptors have to extend `Descriptor` or another base class (such as `SizeDescriptor`) in order to work properly.
+
+Our tests:
+
+```javascript
+it("is a descriptor", function() {
+  assert.implements(color, Descriptor);
+});
+```
+
+Our code:
+
+```javascript
+var Me = module.exports = function BackgroundColor(element) {
+  ⋮
+};
+Descriptor.extend(Me);
+```
+
+Temporary implementation so the tests pass:
+
+```javascript
+Me.prototype.value = function() {
+  ensure.unreachable();
+};
+
+Me.prototype.toString = function() {
+  ensure.unreachable();
+};
+```
+
+
 ## Calculate value: `value()`
 
 A descriptor is a *description* of a CSS property. They don't store the value of the property, but they know how to calculate it on demand.
 
-For our `BackgroundColor` example, we start by testing that our descriptor gives us the actual background-color of our test element. We're assuming that we have an (also fictional) `Color` value object, and that we've required it at some point.
+For our `BackgroundColor` example, we start by testing that our descriptor gives us the actual background color of our test element. We're assuming that we have an (also fictional) `Color` value object, and that we've required it at some point.
 
 ```javascript
 it("resolves to value", function() {
@@ -146,6 +180,8 @@ If the user tries to compare our descriptor to a primitive type, `convert()` wil
 
 Any type that isn't supported should be ignored (resulting in `undefined` being returned). The base class turns `undefined` results into a nice error message.
 
+If you use one of the pre-built descriptor base classes (such as `SizeDescriptor`), this method may already be implemented for you.
+
 Our `BackgroundColor` example converts a string to a `Color` value, but ignores everything else:
 
 ```javascript
@@ -158,26 +194,6 @@ it("converts comparison arguments", function() {
 Me.prototype.convert = function convert(arg, type) {
   if (type === "string") return Color.create(arg);
 };
-```
-
-
-## Extend `Descriptor` base class
-
-All descriptors have to extend `Descriptor` in order to work properly. We do this last because the tests will fail if the other methods aren't implemented.
-
-Our tests and code:
-
-```javascript
-it("is a descriptor", function() {
-  assert.implements(color, Descriptor);
-});
-```
-
-```javascript
-var Me = module.exports = function BackgroundColor(element) {
-  ⋮
-};
-Descriptor.extend(Me);
 ```
 
 
