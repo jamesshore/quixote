@@ -4,6 +4,8 @@
 var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
+var RelativeSize = require("./relative_size.js");
+var SizeMultiple = require("./size_multiple.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
@@ -25,10 +27,22 @@ Me.y = function y(frame) {
 	return new Me(Y_DIMENSION, frame);
 };
 
+Me.prototype.plus = function(amount) {
+	return RelativeSize.larger(this, amount);
+};
+
+Me.prototype.minus = function(amount) {
+	return RelativeSize.smaller(this, amount);
+};
+
+Me.prototype.times = function(amount) {
+	return SizeMultiple.create(this, amount);
+};
+
 Me.prototype.value = function() {
 	var html = this._frame.get("html").toDomElement();
 
-	// Width techniques I've tried: (Note that results are different in quirks mode)
+	// Width techniques I've tried: (Note: results are different in quirks mode)
 	// documentElement.getBoundingClientRect().width
 	//    works on Safari, Mobile Safari, Chrome, Firefox
 	//    fails on IE 8, 9, 10: includes scrollbar

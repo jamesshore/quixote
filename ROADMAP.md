@@ -39,6 +39,8 @@
 
 ## To Do: QFrame.viewport()
 
+* changelog
+* api doc
 
 ## Future Features
 
