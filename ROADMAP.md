@@ -14,7 +14,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* Viewport top, right, bottom, left
 * Document width, height
 * Document top, right, bottom, left
 * QFrame.document()
@@ -36,9 +35,7 @@
 * Test whether box-sizing affects ElementSize
 
 
-## To Do: Viewport top, right, bottom, left
-
-* API doc
+## To Do:
 
 
 ## Future Features
