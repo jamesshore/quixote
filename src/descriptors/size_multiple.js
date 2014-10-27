@@ -3,6 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
+var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
 
 var Me = module.exports = function SizeMultiple(relativeTo, multiple) {
@@ -11,37 +12,16 @@ var Me = module.exports = function SizeMultiple(relativeTo, multiple) {
 	this._relativeTo = relativeTo;
 	this._multiple = multiple;
 };
-Descriptor.extend(Me);
+SizeDescriptor.extend(Me);
 
 Me.create = function create(relativeTo, multiple) {
 	return new Me(relativeTo, multiple);
-};
-
-function relativeSize() {
-	// break circular dependency
-	return require("./relative_size.js");
-}
-
-Me.prototype.plus = function plus(amount) {
-	return relativeSize().larger(this, amount);
-};
-
-Me.prototype.minus = function minus(amount) {
-	return relativeSize().smaller(this, amount);
-};
-
-Me.prototype.times = function times(amount) {
-	return Me.create(this, amount);
 };
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
 	return this._relativeTo.value().times(this._multiple);
-};
-
-Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return Size.create(arg);
 };
 
 Me.prototype.toString = function toString() {

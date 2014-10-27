@@ -5,13 +5,11 @@ var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var SizeMultiple = require("./size_multiple.js");
 var Size = require("../values/size.js");
-var Descriptor = require("./descriptor.js");
+var SizeDescriptor = require("./size_descriptor.js");
 
 describe("SizeMultiple", function() {
 
 	var WIDTH = 130;
-	var HEIGHT = 60;
-	var TWICE = WIDTH * 2;
 
 	var element;
 	var twice;
@@ -25,16 +23,12 @@ describe("SizeMultiple", function() {
 		twice = SizeMultiple.create(element.width, 2);
 	});
 
-	it("is a descriptor", function() {
-	  assert.implements(twice, Descriptor);
+	it("is a size descriptor", function() {
+	  assert.implements(twice, SizeDescriptor);
 	});
 
 	it("resolves to value", function() {
 		assert.objEqual(twice.value(), Size.create(WIDTH * 2));
-	});
-
-	it("converts comparison arguments", function() {
-		assert.objEqual(twice.convert(19, "number"), Size.create(19));
 	});
 
 	it("renders to string", function() {
@@ -69,12 +63,6 @@ describe("SizeMultiple", function() {
 			var descriptor = SizeMultiple.create(element.width, multiple);
 			assert.equal(descriptor.toString(), expected + element.width, message);
 		}
-	});
-
-	it("can be arithmaticated", function() {
-		assert.objEqual(twice.plus(10).value(), Size.create(TWICE + 10), "bigger");
-		assert.objEqual(twice.minus(10).value(), Size.create(TWICE - 10), "smaller");
-		assert.objEqual(twice.times(3).value(), Size.create(TWICE * 3), "multiplied");
 	});
 
 });
