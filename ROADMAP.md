@@ -39,9 +39,7 @@
 
 ## To Do: Document width, height
 
-* Factor out SizeDescriptor
 * remove methods, tests, implement SizeDescriptor
-  * ViewportSize
   * SizeMultiple
 * Changelog
 * API doc

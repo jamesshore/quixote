@@ -2,7 +2,7 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var Descriptor = require("./descriptor.js");
+var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
 var RelativeSize = require("./relative_size.js");
 var SizeMultiple = require("./size_multiple.js");
@@ -17,31 +17,12 @@ var Me = module.exports = function PageSize(dimension, frame) {
 	this._dimension = dimension;
 	this._frame = frame;
 };
-Descriptor.extend(Me);
+SizeDescriptor.extend(Me);
 
-Me.x = function x(frame) {
-	return new Me(X_DIMENSION, frame);
-};
-
-Me.y = function y(frame) {
-	return new Me(Y_DIMENSION, frame);
-};
-
-Me.prototype.plus = function(amount) {
-	return RelativeSize.larger(this, amount);
-};
-
-Me.prototype.minus = function(amount) {
-	return RelativeSize.smaller(this, amount);
-};
-
-Me.prototype.times = function(amount) {
-	return SizeMultiple.create(this, amount);
-};
+Me.x = factoryFn(X_DIMENSION);
+Me.y = factoryFn(Y_DIMENSION);
 
 Me.prototype.value = function() {
-	var html = this._frame.get("html").toDomElement();
-
 	// Width techniques I've tried: (Note: results are different in quirks mode)
 	// documentElement.getBoundingClientRect().width
 	//    works on Safari, Mobile Safari, Chrome, Firefox
@@ -87,15 +68,18 @@ Me.prototype.value = function() {
 	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
 	// not yet tried: contentWindow.*
 
+	var html = this._frame.get("html").toDomElement();
 	var value = (this._dimension === X_DIMENSION) ? html.clientWidth : html.clientHeight;
 	return Size.create(value);
-};
-
-Me.prototype.convert = function(value, type) {
-	if (type === "number") return Size.create(value);
 };
 
 Me.prototype.toString = function() {
 	var desc = (this._dimension === X_DIMENSION) ? "width" : "height";
 	return desc + " of viewport";
 };
+
+function factoryFn(dimension) {
+	return function factory(frame) {
+		return new Me(dimension, frame);
+	};
+}
