@@ -53,7 +53,14 @@ Me.prototype.value = function() {
 	}
 };
 
+Me.prototype.convert = function(value, type) {
+	if (type !== "number") return undefined;
+
+	if (this._position === LEFT || this._position === RIGHT) return Position.x(value);
+	if (this._position === TOP || this._position === BOTTOM) return Position.y(value);
+};
+
 Me.prototype.toString = function() {
 	ensure.signature(arguments, []);
-	return "TODO";
+	return this._position + " edge of viewport";
 };

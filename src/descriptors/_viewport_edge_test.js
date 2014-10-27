@@ -65,4 +65,26 @@ describe("ViewportEdge", function() {
 		assert.objEqual(bottom.value(), Position.y(20).plus(frame.viewport().height.value()), "bottom");
 	});
 
+	it("converts comparison arguments", function() {
+		assert.objEqual(top.convert(13, "number"), Position.y(13), "top");
+		assert.objEqual(right.convert(13, "number"), Position.x(13), "right");
+		assert.objEqual(bottom.convert(13, "number"), Position.y(13), "bottom");
+		assert.objEqual(left.convert(13, "number"), Position.x(13), "left");
+	});
+
+	it("converts to string", function() {
+		assert.equal(top.toString(), "top edge of viewport");
+		assert.equal(right.toString(), "right edge of viewport");
+		assert.equal(bottom.toString(), "bottom edge of viewport");
+		assert.equal(left.toString(), "left edge of viewport");
+	});
+
+	//it("can be arithmaticated", function() {
+	//	assert.objEqual(width.plus(10).value(), Size.create(WIDTH + 10), "bigger");
+	//	assert.objEqual(width.minus(10).value(), Size.create(WIDTH - 10), "smaller");
+	//	assert.objEqual(width.times(3).value(), Size.create(WIDTH * 3), "multiplied");
+	//});
+
+	it("works end-to-end with fixed-position element");
+
 });

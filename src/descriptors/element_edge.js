@@ -21,7 +21,7 @@ var Me = module.exports = function ElementEdge(element, position) {
 	);
 
 	this._element = element;
-	this._value = position;
+	this._position = position;
 };
 Descriptor.extend(Me);
 
@@ -31,19 +31,19 @@ Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
 Me.prototype.plus = function plus(amount) {
-	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.right(this, amount);
-	if (this._value === TOP || this._value === BOTTOM) return RelativePosition.down(this, amount);
+	if (this._position === RIGHT || this._position === LEFT) return RelativePosition.right(this, amount);
+	if (this._position === TOP || this._position === BOTTOM) return RelativePosition.down(this, amount);
 };
 
 Me.prototype.minus = function minus(amount) {
-	if (this._value === RIGHT || this._value === LEFT) return RelativePosition.left(this, amount);
-	if (this._value === TOP || this._value === BOTTOM) return RelativePosition.up(this, amount);
+	if (this._position === RIGHT || this._position === LEFT) return RelativePosition.left(this, amount);
+	if (this._position === TOP || this._position === BOTTOM) return RelativePosition.up(this, amount);
 };
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var edge = this._element.getRawPosition()[this._value];
+	var edge = this._element.getRawPosition()[this._position];
 	var scroll = this._element.frame.getRawScrollPosition();
 	return createPosition(this, edge, scroll);
 };
@@ -54,7 +54,7 @@ Me.prototype.convert = function convert(arg, type) {
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._value + " edge of " + this._element;
+	return this._position + " edge of " + this._element;
 };
 
 function factoryFn(position) {
@@ -64,6 +64,6 @@ function factoryFn(position) {
 }
 
 function createPosition(self, value, scrollPos) {
-	if (self._value === RIGHT || self._value === LEFT) return Position.x(value + scrollPos.x);
+	if (self._position === RIGHT || self._position === LEFT) return Position.x(value + scrollPos.x);
 	else return Position.y(value + scrollPos.y);
 }
