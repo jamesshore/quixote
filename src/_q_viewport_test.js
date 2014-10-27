@@ -20,4 +20,11 @@ describe("QViewport", function() {
 		assert.equal(viewport.height.diff(reset.HEIGHT), "", "height");
 	});
 
+	it("has edge properties", function() {
+		assert.equal(viewport.top.diff(0), "", "top");
+		assert.equal(viewport.right.diff(reset.WIDTH), "", "right");
+		assert.equal(viewport.bottom.diff(reset.HEIGHT), "", "bottom");
+		assert.equal(viewport.left.diff(0), "", "left");
+	});
+
 });
