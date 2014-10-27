@@ -5,13 +5,11 @@ var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var SizeMultiple = require("./size_multiple.js");
 var Size = require("../values/size.js");
-var Descriptor = require("./descriptor.js");
+var SizeDescriptor = require("./size_descriptor.js");
 
 describe("SizeMultiple", function() {
 
 	var WIDTH = 130;
-	var HEIGHT = 60;
-	var TWICE = WIDTH * 2;
 
 	var element;
 	var twice;
@@ -25,16 +23,12 @@ describe("SizeMultiple", function() {
 		twice = SizeMultiple.create(element.width, 2);
 	});
 
-	it("is a descriptor", function() {
-	  assert.implements(twice, Descriptor);
+	it("is a size descriptor", function() {
+	  assert.implements(twice, SizeDescriptor);
 	});
 
 	it("resolves to value", function() {
 		assert.objEqual(twice.value(), Size.create(WIDTH * 2));
-	});
-
-	it("converts comparison arguments", function() {
-		assert.objEqual(twice.convert(19, "number"), Size.create(19));
 	});
 
 	it("renders to string", function() {
@@ -45,20 +39,20 @@ describe("SizeMultiple", function() {
 
 		// vulgar fractions
 		check(1/2, "half of ", "1/2");
-		check(1/3, "one third of ", "1/3");
-		check(2/3, "two thirds of ", "2/3");
-		check(1/4, "one quarter of ", "1/4");
-		check(3/4, "three quarters of ", "3/4");
-		check(1/5, "one fifth of ", "1/5");
-		check(2/5, "two fifths of ", "2/5");
-		check(3/5, "three fifths of ", "3/5");
-		check(4/5, "four fifths of ", "4/5");
-		check(1/6, "one sixth of ", "1/6");
-		check(5/6, "five sixths of ", "5/6");
-		check(1/8, "one eighth of ", "1/8");
-		check(3/8, "three eighths of ", "3/8");
-		check(5/8, "five eighths of ", "5/8");
-		check(7/8, "seven eighths of ", "7/8");
+		check(1/3, "one-third of ", "1/3");
+		check(2/3, "two-thirds of ", "2/3");
+		check(1/4, "one-quarter of ", "1/4");
+		check(3/4, "three-quarters of ", "3/4");
+		check(1/5, "one-fifth of ", "1/5");
+		check(2/5, "two-fifths of ", "2/5");
+		check(3/5, "three-fifths of ", "3/5");
+		check(4/5, "four-fifths of ", "4/5");
+		check(1/6, "one-sixth of ", "1/6");
+		check(5/6, "five-sixths of ", "5/6");
+		check(1/8, "one-eighth of ", "1/8");
+		check(3/8, "three-eighths of ", "3/8");
+		check(5/8, "five-eighths of ", "5/8");
+		check(7/8, "seven-eighths of ", "7/8");
 
 		// percentages
 		check(0.1, "10% of ", "10%");
@@ -69,12 +63,6 @@ describe("SizeMultiple", function() {
 			var descriptor = SizeMultiple.create(element.width, multiple);
 			assert.equal(descriptor.toString(), expected + element.width, message);
 		}
-	});
-
-	it("can be arithmaticated", function() {
-		assert.objEqual(twice.plus(10).value(), Size.create(TWICE + 10), "bigger");
-		assert.objEqual(twice.minus(10).value(), Size.create(TWICE - 10), "smaller");
-		assert.objEqual(twice.times(3).value(), Size.create(TWICE * 3), "multiplied");
 	});
 
 });

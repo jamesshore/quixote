@@ -8,6 +8,7 @@
 * **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * **✔ v0.5** API hardening
 * Positioning relative to page
+* Dogfooding and real-world usage
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
 
@@ -26,16 +27,23 @@
 * Test and document QUIRKS MODE fix in QFrame.js
   * ViewportSize: test behavior when in quirks mode?
 * Test and document proper solution to Mobile Safari and its "full size frame" issue.
+  * Test-drive need for scroll container
   * Perhaps just a better browser inspection
   * If 'scrollContainer' fix is removed, update API docs
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
   * take out workaround in _viewport_size_test.js and _viewport_edge_test.js
-* Test-drive need for scroll container
 * Test whether box-sizing affects ElementSize
+* Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do:
+## To Do: Document width, height
+
+* "How to create a descriptor" doc (for SizeDescriptor)
+-- integrate --
+* DocumentSize
+* Changelog
+* API doc
 
 
 ## Future Features

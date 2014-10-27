@@ -4,7 +4,7 @@
 var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
-var Descriptor = require("./descriptor.js");
+var SizeDescriptor = require("./size_descriptor.js");
 var ViewportSize = require("./viewport_size.js");
 var Size = require("../values/size.js");
 
@@ -39,8 +39,8 @@ describe("ViewportSize", function() {
 		contentDoc.body.style.margin = "0";
 	});
 
-	it("is a descriptor", function() {
-		assert.implements(width, Descriptor);
+	it("is a size descriptor", function() {
+		assert.implements(width, SizeDescriptor);
 	});
 
 	it("matches frame size when everything fits in the window", function() {
@@ -136,19 +136,9 @@ describe("ViewportSize", function() {
 		);
 	});
 
-	it("converts comparison arguments", function() {
-		assert.objEqual(width.convert(13, "number"), Size.create(13), "converts numbers to sizes");
-	});
-
 	it("converts to string", function() {
 		assert.equal(width.toString(), "width of viewport");
 		assert.equal(height.toString(), "height of viewport");
-	});
-
-	it("can be arithmaticated", function() {
-		assert.objEqual(width.plus(10).value(), Size.create(WIDTH + 10), "bigger");
-		assert.objEqual(width.minus(10).value(), Size.create(WIDTH - 10), "smaller");
-		assert.objEqual(width.times(3).value(), Size.create(WIDTH * 3), "multiplied");
 	});
 
 });
