@@ -39,20 +39,20 @@ describe("SizeMultiple", function() {
 
 		// vulgar fractions
 		check(1/2, "half of ", "1/2");
-		check(1/3, "one third of ", "1/3");
-		check(2/3, "two thirds of ", "2/3");
-		check(1/4, "one quarter of ", "1/4");
-		check(3/4, "three quarters of ", "3/4");
-		check(1/5, "one fifth of ", "1/5");
-		check(2/5, "two fifths of ", "2/5");
-		check(3/5, "three fifths of ", "3/5");
-		check(4/5, "four fifths of ", "4/5");
-		check(1/6, "one sixth of ", "1/6");
-		check(5/6, "five sixths of ", "5/6");
-		check(1/8, "one eighth of ", "1/8");
-		check(3/8, "three eighths of ", "3/8");
-		check(5/8, "five eighths of ", "5/8");
-		check(7/8, "seven eighths of ", "7/8");
+		check(1/3, "one-third of ", "1/3");
+		check(2/3, "two-thirds of ", "2/3");
+		check(1/4, "one-quarter of ", "1/4");
+		check(3/4, "three-quarters of ", "3/4");
+		check(1/5, "one-fifth of ", "1/5");
+		check(2/5, "two-fifths of ", "2/5");
+		check(3/5, "three-fifths of ", "3/5");
+		check(4/5, "four-fifths of ", "4/5");
+		check(1/6, "one-sixth of ", "1/6");
+		check(5/6, "five-sixths of ", "5/6");
+		check(1/8, "one-eighth of ", "1/8");
+		check(3/8, "three-eighths of ", "3/8");
+		check(5/8, "five-eighths of ", "5/8");
+		check(7/8, "seven-eighths of ", "7/8");
 
 		// percentages
 		check(0.1, "10% of ", "10%");
