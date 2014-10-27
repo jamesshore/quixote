@@ -105,9 +105,15 @@ Chainable descriptors:
 Stability: 1 - Experimental
 ```
 
-Represents the width or height of the viewport, excluding scrollbars (unless they disappear / overlap content, as on Mac OS X). Note that, due to scrollbars, this may be smaller than the actual frame size.
+Represents the width or height of the viewport, excluding scrollbars (unless they disappear and/or overlap content, as on Mac OS X). Note that, due to scrollbars, the viewport size may be smaller than the actual frame size.
 
-Example: The element is as wide as the viewport: `element.assert({ width: frame.viewport().width });`
+Example: An element is as wide as the viewport: `element.assert({ width: frame.viewport().width });`
+
+Chainable descriptors:
+
+* `plus(amount) (RelativeSize)` Bigger.
+* `minus(amount) (RelativeSize)` Smaller.
+* `times(multiplier) (SizeMultiple)` A multiple or fraction.
 
 **Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size, and the results from this descriptor reflect that fact.
 

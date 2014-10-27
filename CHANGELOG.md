@@ -22,6 +22,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * ViewportSize
 
+*New methods:*
+
+* QFrame.viewport()
+
 
 ## 0.5: API Hardening
 
