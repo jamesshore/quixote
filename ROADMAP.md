@@ -15,8 +15,6 @@
 ## Current Feature: Positioning relative to page
 
 * Viewport top, right, bottom, left
-  * Rely on ViewportSize for the heavy lifting
-  * Need to handle scrolling
 * Document width, height
 * Document top, right, bottom, left
 * QFrame.document()
@@ -39,6 +37,10 @@
 
 
 ## To Do: Viewport top, right, bottom, left
+
+* QViewport
+* Changelog
+* API doc
 
 
 ## Future Features

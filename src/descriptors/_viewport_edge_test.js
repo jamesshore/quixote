@@ -54,7 +54,7 @@ describe("ViewportEdge", function() {
 
 		frame.add(
 			"<div style='position: absolute; left: " + (WIDTH + 100) + "px; top: " + (HEIGHT + 100) + "px; " +
-			"width: 100px; height: 100px; background-color: green'>make scrollable</div>"
+			"width: 100px; height: 100px; background-color: green'>scroll enabler</div>"
 		);
 		frame.scroll(10, 20);
 
@@ -85,6 +85,30 @@ describe("ViewportEdge", function() {
 	//	assert.objEqual(width.times(3).value(), Size.create(WIDTH * 3), "multiplied");
 	//});
 
-	it("works end-to-end with fixed-position element");
+	it("works end-to-end with fixed-position element", function() {
+		if (!quixote.browser.canScroll()) return;
+
+		frame.add(
+			"<div style='position: absolute; left: " + (WIDTH + 100) + "px; top: " + (HEIGHT + 100) + "px; " +
+			"width: 100px; height: 100px; background-color: green'>scroll enabler</div>"
+		);
+		var sticky = frame.add(
+			"<div style='position: fixed; width: 100%; height: 20px; background-color: red;'>Sticky</div>",
+			"sticky"
+		);
+
+		sticky.assert({
+			top: top,
+			left: left,
+			right: right
+		}, "should start at top");
+
+		frame.scroll(10, 20);
+		sticky.assert({
+			top: top,
+			left: left,
+			right: right
+		}, "should stay stuck to top even after scrolling");
+	});
 
 });
