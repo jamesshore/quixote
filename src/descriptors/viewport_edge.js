@@ -37,11 +37,17 @@ function factoryFn(position) {
 Me.prototype.value = function() {
 	ensure.signature(arguments, []);
 
+	var Pixels = require("../values/pixels.js");
+
+	var scroll = this._frame.getRawScrollPosition();
+	var x = Position.x(scroll.x);
+	var y = Position.y(scroll.y);
+
 	switch(this._position) {
-		case TOP: return Position.y(0);
-		case RIGHT: return Position.x(this._frame.viewport().width.value().toPixels());
-		case BOTTOM: return Position.y(this._frame.viewport().height.value().toPixels());
-		case LEFT: return Position.x(0);
+		case TOP: return y;
+		case RIGHT: return x.plus(this._frame.viewport().width.value());
+		case BOTTOM: return y.plus(this._frame.viewport().height.value());
+		case LEFT: return x;
 
 		default: ensure.unreachable();
 	}

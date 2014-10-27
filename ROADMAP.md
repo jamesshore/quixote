@@ -33,7 +33,7 @@
   * If 'scrollContainer' fix is removed, update API docs
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
-  * take out workaround in _page_size_test.js
+  * take out workaround in _viewport_size_test.js and _viewport_edge_test.js
 * Test-drive need for scroll container
 * Test whether box-sizing affects ElementSize
 
