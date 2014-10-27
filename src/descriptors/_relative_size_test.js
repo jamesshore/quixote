@@ -5,7 +5,7 @@ var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var RelativeSize = require("./relative_size.js");
 var Size = require("../values/size.js");
-var Descriptor = require("./descriptor.js");
+var SizeDescriptor = require("./size_descriptor.js");
 
 describe("RelativeSize", function() {
 
@@ -15,9 +15,6 @@ describe("RelativeSize", function() {
 
 	var WIDTH = 130;
 	var HEIGHT = 60;
-
-	var LARGER = HEIGHT + 10;
-	var SMALLER = WIDTH - 5;
 
 	beforeEach(function() {
 		var frame = reset.frame;
@@ -29,8 +26,8 @@ describe("RelativeSize", function() {
 		smaller = RelativeSize.smaller(element.width, 5);
 	});
 
-	it("is a descriptor", function() {
-		assert.implements(smaller, Descriptor);
+	it("is a size descriptor", function() {
+		assert.implements(smaller, SizeDescriptor);
 	});
 
 	it("resolves to value", function() {
@@ -46,10 +43,6 @@ describe("RelativeSize", function() {
 	it("computes value relative to a relative size descriptor", function() {
 		var rel = RelativeSize.larger(element.height, element.width.plus(10));
 		assert.objEqual(rel.value(), Size.create(HEIGHT + WIDTH + 10));
-	});
-
-	it("converts arguments to comparable values", function() {
-		assert.objEqual(smaller.convert(50, "number"), Size.create(50), "number");
 	});
 
 	it("converts to string", function() {
@@ -68,17 +61,6 @@ describe("RelativeSize", function() {
 		function assertSmaller(relativeTo, amount, expected, message) {
 			assert.equal(RelativeSize.smaller(relativeTo, amount).toString(), expected + relativeTo, message);
 		}
-	});
-
-	it("can be arithmaticated", function() {
-		assert.objEqual(larger.plus(10).value(), Size.create(LARGER + 10), "plus number");
-		assert.objEqual(larger.minus(10).value(), Size.create(LARGER - 10), "minus number");
-		assert.objEqual(larger.times(3).value(), Size.create(LARGER * 3), "multiplied");
-	});
-
-	it("can be modified (but not multiplied) by the size of another element", function() {
-		assert.objEqual(larger.plus(element.width).value(), Size.create(LARGER + WIDTH), "plus size");
-		assert.objEqual(larger.plus(element.width.plus(10)).value(), Size.create(LARGER + WIDTH + 10), "plus relative size");
 	});
 
 });

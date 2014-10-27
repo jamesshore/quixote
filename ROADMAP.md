@@ -41,12 +41,11 @@
 
 * Factor out SizeDescriptor
 * remove methods, tests, implement SizeDescriptor
-  * ElementSize
-  * RelativeSize
   * ViewportSize
   * SizeMultiple
 * Changelog
 * API doc
+* "How to create a descriptor" doc (for SizeDescriptor)
 
 
 ## Future Features
