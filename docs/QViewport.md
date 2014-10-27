@@ -15,7 +15,8 @@ Stability: 1 - Experimental
 
 QViewport instances have several descriptor properties. You'll typically use these properties as comparisons for [`QElement.assert()`](QElement.md) or [`QElement.diff()`](QElement.md).
 
-* `width, height (`[`ViewportSize`](descriptors.md)`)` Width and height of the viewport
+* `top, right, bottom, left (`[`ViewportEdge`](descriptors.md)`)` Top, right, etc. edge of viewport
+* `width, height (`[`ViewportSize`](descriptors.md)`)` Width and height of viewport
 
 Example: The element is as wide as the viewport: `element.assert({ width: frame.viewport().width });`
 

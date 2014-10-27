@@ -151,9 +151,4 @@ describe("ViewportSize", function() {
 		assert.objEqual(width.times(3).value(), Size.create(WIDTH * 3), "multiplied");
 	});
 
-	//it("can be modified (but not multiplied) by the size of another element", function() {
-	//	assert.objEqual(width.plus(element.width).value(), Size.create(WIDTH + WIDTH), "plus");
-	//	assert.objEqual(width.minus(element.height).value(), Size.create(WIDTH - HEIGHT), "minus");
-	//});
-
 });

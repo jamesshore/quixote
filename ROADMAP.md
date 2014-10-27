@@ -14,19 +14,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* Test and document QUIRKS MODE fix in QFrame.js
-  * ViewportSize: test behavior when in quirks mode?
-* Test and document proper solution to Mobile Safari and its "full size frame" issue.
-  * Perhaps just a better browser inspection
-  * If 'scrollContainer' fix is removed, update API docs
-* Viewport top, right, bottom, left
-  * Rely on ViewportSize for the heavy lifting
-  * Need to handle scrolling
-* Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
-  * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
-  * take out workaround in _page_size_test.js
-* Test-drive need for scroll container
-* Test whether box-sizing affects ElementSize
 * Document width, height
 * Document top, right, bottom, left
 * QFrame.document()
@@ -36,6 +23,16 @@
 * QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
 * QFrame: document difference between viewport, document, and page
+* Test and document QUIRKS MODE fix in QFrame.js
+  * ViewportSize: test behavior when in quirks mode?
+* Test and document proper solution to Mobile Safari and its "full size frame" issue.
+  * Perhaps just a better browser inspection
+  * If 'scrollContainer' fix is removed, update API docs
+* Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
+  * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
+  * take out workaround in _viewport_size_test.js and _viewport_edge_test.js
+* Test-drive need for scroll container
+* Test whether box-sizing affects ElementSize
 
 
 ## To Do:

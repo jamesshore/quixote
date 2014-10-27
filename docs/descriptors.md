@@ -42,12 +42,25 @@ Example: `var diff = element.top.diff(otherElement.top);`
 Stability: 2 - Unstable
 ```
 
-Represents the position of one side of an element (the top, left, etc.). The position includes padding and border, but not margin.
+Represents the position of one side of an element (the top, left, etc.) relative to the top-left corner of the document. The position includes padding and border, but not margin.
 
 Chainable descriptors:
  
 * `plus(amount) (RelativePosition)` Further down or to the right.
 * `minus(amount) (RelativePosition)` Further up or to the left.
+
+
+### Descriptor: `ViewportEdge`
+
+```
+Stability: 1 - Experimental
+```
+
+Represents the position of one side of the viewport relative to the top-left corner of the document. Scrollbars are not included, unless they disappear and/or overlap content, as on Mac OS X.
+
+Example: An element is fixed to the bottom of the viewport: `element.assert({ bottom: frame.viewport().bottom });`
+
+**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size.
 
 
 ### Descriptor: `ElementCenter`
@@ -105,7 +118,7 @@ Chainable descriptors:
 Stability: 1 - Experimental
 ```
 
-Represents the width or height of the viewport, excluding scrollbars (unless they disappear and/or overlap content, as on Mac OS X). Note that, due to scrollbars, the viewport size may be smaller than the actual frame size.
+Represents the width or height of the viewport. Scrollbars are not included, unless they disappear and/or overlap content, as on Mac OS X. As a result, the viewport size may be smaller than the actual frame size.
 
 Example: An element is as wide as the viewport: `element.assert({ width: frame.viewport().width });`
 
