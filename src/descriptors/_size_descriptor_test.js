@@ -1,0 +1,42 @@
+// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+"use strict";
+
+var assert = require("../util/assert.js");
+var SizeDescriptor = require("./size_descriptor.js");
+var Descriptor = require("./descriptor.js");
+var Size = require("../values/size.js");
+
+describe("SizeDescriptor", function() {
+
+	var SIZE = 30;
+
+	var example;
+
+	beforeEach(function() {
+		example = new ExampleSizeDescriptor(SIZE);
+	});
+
+	it("is a descriptor", function() {
+		assert.type(example, Descriptor);
+	});
+
+	it("converts comparison arguments", function() {
+		assert.objEqual(example.convert(13, "number"), Size.create(13), "converts numbers to sizes");
+	});
+
+	it("can be arithmaticated (yes, that's a word now)", function() {
+		assert.objEqual(example.plus(10).value(), Size.create(SIZE + 10), "bigger");
+		assert.objEqual(example.minus(10).value(), Size.create(SIZE - 10), "smaller");
+		assert.objEqual(example.times(3).value(), Size.create(SIZE * 3), "multiplied");
+	});
+
+});
+
+function ExampleSizeDescriptor(size) {
+	this._size = Size.create(size);
+}
+SizeDescriptor.extend(ExampleSizeDescriptor);
+
+ExampleSizeDescriptor.prototype.value = function() {
+	return this._size;
+};
