@@ -16,8 +16,8 @@
 ## Current Feature: Positioning relative to page
 
 * Document width, height
-* Document top, right, bottom, left
 * QFrame.document()
+* Document top, right, bottom, left
 * Page width, height
   * SizeDescriptor superclass for plus(), minus(), times()?
 * Page top, right, bottom, left
@@ -32,19 +32,22 @@
   * If 'scrollContainer' fix is removed, update API docs
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
-  * take out workaround in _viewport_size_test.js and _viewport_edge_test.js
+  * take out workaround in `_viewport_size_test.js, _viewport_edge_test.js, _document_size_test.js`
 * Test whether box-sizing affects ElementSize
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
 ## To Do: Document width, height
 
-* "How to create a descriptor" doc (for SizeDescriptor)
--- integrate --
+* QFrame.body()
 * DocumentSize
-* Changelog
+* Changelog (DocumentSize, QFrame.body()
 * API doc
 
+* QFrame.document()
+* QDocument.width(), height()
+* Changelog
+* API doc
 
 ## Future Features
 
