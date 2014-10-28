@@ -39,10 +39,9 @@
 
 ## To Do: Document width, height
 
-* QFrame.body()
 * DocumentSize
-* Changelog (DocumentSize, QFrame.body()
-* API doc
+* Changelog (DocumentSize, QFrame.body())
+* API doc (DocumentSize, QFrame.body())
 
 * QFrame.document()
 * QDocument.width(), height()
