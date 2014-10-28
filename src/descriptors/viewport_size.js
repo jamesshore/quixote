@@ -23,6 +23,8 @@ Me.x = factoryFn(X_DIMENSION);
 Me.y = factoryFn(Y_DIMENSION);
 
 Me.prototype.value = function() {
+	ensure.signature(arguments, []);
+
 	// Width techniques I've tried: (Note: results are different in quirks mode)
 	// documentElement.getBoundingClientRect().width
 	//    works on Safari, Mobile Safari, Chrome, Firefox
@@ -74,6 +76,8 @@ Me.prototype.value = function() {
 };
 
 Me.prototype.toString = function() {
+	ensure.signature(arguments, []);
+
 	var desc = (this._dimension === X_DIMENSION) ? "width" : "height";
 	return desc + " of viewport";
 };

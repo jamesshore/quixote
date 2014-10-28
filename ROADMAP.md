@@ -40,6 +40,8 @@
 ## To Do: Document width, height
 
 * DocumentSize
+  * test margin
+  * test absolute positioning
 * Changelog (DocumentSize, QFrame.body())
 * API doc (DocumentSize, QFrame.body())
 
