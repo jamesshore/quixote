@@ -71,6 +71,7 @@ Me.prototype.value = function() {
 	// element width style wider than viewport; body and html width styles at default
 	// BROWSER BEHAVIOR: html and body border extend to width of viewport and not beyond (except on Mobile Safari)
 	// Correct result is element width + body border-left + html border-left (except on Mobile Safari)
+	// Mobile Safari uses a layout viewport, so it's expected to include body border-right and html border-right.
 	//    html.getBoundingClientRect().width
 	//      ✔ Mobile Safari: element width + body border + html border
 	//      ~ Safari, Chrome, Firefox, IE 8, 9, 10, 11: viewport width
@@ -105,9 +106,21 @@ Me.prototype.value = function() {
 
 	// html height style smaller than viewport height; body height style smaller than html height style
 	//  NOTE: These tests were conducted when correct result was height of viewport.
-	//    html.clientWidth
+	//    html.clientHeight
 	//      ✔ Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11: height of viewport
 
+	// element height style taller than viewport; body and html width styles at default
+	// BROWSER BEHAVIOR: html and body border enclose entire element
+	// Correct result is element width + body border-top + html border-top + body border-bottom + html border-bottom
+	//    html.clientHeight
+	//      ✔ Mobile Safari: element height + all borders
+	//      ~ Safari, Chrome, Firefox, IE 8, 9, 10, 11: height of viewport
+	//    html.scrollHeight
+	//      ✔ Firefox, IE 8, 9, 10, 11: element height + all borders
+	//      ✘ Safari, Mobile Safari, Chrome: element height + html border-bottom
+	//    body.scrollHeight
+	//      ✔ Safari, Mobile Safari, Chrome: element height + all borders
+	//      ~ Firefox, IE 8, 9, 10, 11: element height (body height - body border)
 
 
 	var htmlEl = this._frame.get("html");
@@ -119,7 +132,7 @@ Me.prototype.value = function() {
 	var width = Math.max(body.scrollWidth, html.scrollWidth);
 
 	// BEST HEIGHT ANSWER SO FAR (ASSUMING VIEWPORT IS MINIMUM ANSWER):
-	var height = Math.max(html.clientHeight);
+	var height = Math.max(body.scrollHeight, html.scrollHeight);
 
 	var value = (this._dimension === X_DIMENSION) ? width : height;
 	return Size.create(value);

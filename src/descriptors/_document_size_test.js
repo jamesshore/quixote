@@ -178,8 +178,8 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), Size.create(FRAME_HEIGHT));
 		});
 
-		it.only("doesn't include horizontal scrollbar when content wider but shorter than viewport", function() {
-			reset.DEBUG = true;
+		it("doesn't include horizontal scrollbar when content wider but shorter than viewport", function() {
+			//reset.DEBUG = true;
 
 			frame.add(
 				"<div style='position: absolute; left: " + (FRAME_WIDTH + 100) + "px; " +
@@ -189,19 +189,18 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), frame.viewport().height.value());
 		});
 
-		//it("accounts for elements wider than viewport", function() {
-		//	//reset.DEBUG = true;
-		//
-		//	var element = frame.add(
-		//		"<div style='width: " + (FRAME_WIDTH + 2000) + "px; height: 100px; " +
-		//		"background-color: purple'>el</div>"
-		//	);
-		//
-		//	var expected = FRAME_WIDTH + 2000 + HTML_BORDER_LEFT + BODY_BORDER_LEFT;
-		//	if (!quixote.browser.canScroll()) expected += HTML_BORDER_RIGHT + BODY_BORDER_RIGHT;
-		//	assert.objEqual(width.value(), Size.create(expected));
-		//});
-		//
+		it("accounts for elements taller than viewport", function() {
+			//reset.DEBUG = true;
+
+			var element = frame.add(
+				"<div style='width: 100px; height: " + (FRAME_HEIGHT + 2000) + "px;" +
+				"background-color: purple'>el</div>"
+			);
+
+			var expected = FRAME_HEIGHT + 2000 + HTML_BORDER_TOP + BODY_BORDER_TOP + HTML_BORDER_BOTTOM + BODY_BORDER_BOTTOM;
+			assert.objEqual(height.value(), Size.create(expected));
+		});
+
 		//it("accounts for elements relatively-positioned to right of viewport", function() {
 		//	//reset.DEBUG = true;
 		//
