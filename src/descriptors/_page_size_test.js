@@ -4,11 +4,11 @@
 var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
-var DocumentSize = require("./document_size.js");
+var PageSize = require("./page_size.js");
 var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
 
-describe("DocumentSize", function() {
+describe("PageSize", function() {
 
 	var FRAME_WIDTH = reset.WIDTH;
 	var FRAME_HEIGHT = reset.HEIGHT;
@@ -29,8 +29,8 @@ describe("DocumentSize", function() {
 
 	beforeEach(function() {
 		frame = reset.frame;
-		width = DocumentSize.x(frame);
-		height = DocumentSize.y(frame);
+		width = PageSize.x(frame);
+		height = PageSize.y(frame);
 
 		var contentDocument = frame.toDomElement().contentDocument;
 		htmlStyle = contentDocument.documentElement.style;

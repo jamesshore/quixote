@@ -9,7 +9,7 @@ var Size = require("../values/size.js");
 var X_DIMENSION = "width";
 var Y_DIMENSION = "height";
 
-var Me = module.exports = function DocumentSize(dimension, frame) {
+var Me = module.exports = function PageSize(dimension, frame) {
 	ensure.signature(arguments, [ String, QFrame ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
@@ -37,12 +37,15 @@ Me.prototype.value = function() {
 	//      Doesn't apply transformations.
 	//    scrollWidth: entire width of element, including any part that's not visible due to scrollbars. Rounds to
 	//      an integer. Doesn't apply transformations. Not clear if it includes scrollbars, but I think not. Also
-	//      not clear if it includes borders or padding. (But from tests, apparently not borders.)
+	//      not clear if it includes borders or padding. (But from tests, apparently not borders. Except on root
+	//      element and body element, which have special results that vary by browser.)
 
 	// TEST RESULTS: WIDTH
 	//   ✔ = correct answer
 	//   ✘ = incorrect answer and diverges from spec
 	//   ~ = incorrect answer, but matches spec
+	// BROWSERS TESTED: Safari 6.2.0 (Mac OS X 10.8.5); Mobile Safari 7.0.0 (iOS 7.1); Firefox 32.0.0 (Mac OS X 10.8);
+	//    Firefox 33.0.0 (Windows 7); Chrome 38.0.2125 (Mac OS X 10.8.5); Chrome 38.0.2125 (Windows 7); IE 8, 9, 10, 11
 
 	// html width style smaller than viewport width; body width style smaller than html width style
 	//  NOTE: These tests were conducted when correct result was width of border. That has been changed
@@ -122,11 +125,9 @@ Me.prototype.value = function() {
 	//      ✔ Safari, Mobile Safari, Chrome: element height + all borders
 	//      ~ Firefox, IE 8, 9, 10, 11: element height (body height - body border)
 
-
-	var htmlEl = this._frame.get("html");
-	var bodyEl = this._frame.get("body");
-	var html = htmlEl.toDomElement();
-	var body = bodyEl.toDomElement();
+	var document = this._frame.toDomElement().contentDocument;
+	var html = document.documentElement;
+	var body = document.body;
 
 	// BEST WIDTH ANSWER SO FAR (ASSUMING VIEWPORT IS MINIMUM ANSWER):
 	var width = Math.max(body.scrollWidth, html.scrollWidth);
@@ -134,70 +135,7 @@ Me.prototype.value = function() {
 	// BEST HEIGHT ANSWER SO FAR (ASSUMING VIEWPORT IS MINIMUM ANSWER):
 	var height = Math.max(body.scrollHeight, html.scrollHeight);
 
-	var value = (this._dimension === X_DIMENSION) ? width : height;
-	return Size.create(value);
-
-
-	// body.getBoundingClientRect().width
-	//    works on Mobile Safari
-	//    fails on all others: doesn't account for positioned elements
-	//    also fails on IE 8, 9, 10: includes scrollbar
-	// html.getBoundingClientRect().width
-	// html.scrollWidth
-	//    works on Mobile Safari, Firefox, IE 8, 9, 10, 11
-	//    fails on Safari, Chrome: doesn't account for absolutely positioned element
-
-	// NOT YET TRIED (from ViewportSize notes)
-	// body.clientWidth
-	// body.offsetWidth
-	// body.getBoundingClientRect().width
-	//    fails on all browsers: doesn't include margin
-	// body.scrollWidth
-	//    works on Safari, Mobile Safari, Chrome
-	//    fails on Firefox, IE 8, 9, 10, 11: doesn't include margin
-	// html.getBoundingClientRect().width
-	// html.offsetWidth
-	//    works on Safari, Mobile Safari, Chrome, Firefox
-	//    fails on IE 8, 9, 10: includes scrollbar
-	// html.clientWidth
-	// html.scrollWidth
-	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
-	// not yet tried: contentWindow.*
-
-
-
-	// Height techniques I've tried:
-	// body.getBoundingClientRect().height
-	// html.clientHeight
-	//    fails on all browsers: doesn't account for positioned elements
-	// html.scrollHeight
-	//    fails on Firefox, IE 8, 9, 10, 11: doesn't collapse to content
-
-	// NOT YET TRIED (from ViewportSize notes)
-	// documentElement.getBoundingClientRect().height
-	//    works on IE 8, 9, 10, 11;
-	//    fails on Safari, Mobile Safari, Chrome, Firefox: only includes height of content
-	// body.clientHeight
-	// body.offsetHeight
-	// body.getBoundingClientRect().height
-	//    fails on all browsers: only includes height of content
-	// body getComputedStyle("height")
-	//    fails on all browsers: IE8 returns "auto"; others only include height of content
-	// body.scrollHeight
-	//    works on Safari, Mobile Safari, Chrome;
-	//    fails on Firefox, IE 8, 9, 10, 11: only includes height of content
-	// documentElement.clientHeight, offsetHeight, scrollHeight
-	//    no such property (undefined)
-	// html.offsetHeight
-	//    works on IE 8, 9, 10
-	//    fails on IE 11, Safari, Mobile Safari, Chrome: only includes height of content
-	// html.scrollHeight
-	//    works on Firefox, IE 8, 9, 10, 11
-	//    fails on Safari, Mobile Safari, Chrome: only includes height of content
-	// html.clientHeight
-	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
-	// not yet tried: contentWindow.*
-
+	return Size.create(this._dimension === X_DIMENSION ? width : height);
 };
 
 Me.prototype.toString = function() {

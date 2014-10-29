@@ -43,8 +43,6 @@
 
 ## To Do: Document width, height
 
-* DocumentSize height
-* Rename DocumentSize --> PageSize (too hard to get document size on IE 8, 9, 10)
 * Changelog (DocumentSize, QFrame.body())
 * API doc (DocumentSize, QFrame.body())
 
