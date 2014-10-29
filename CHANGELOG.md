@@ -12,6 +12,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 *New classes:*
 
 * QViewport
+* QPage
 
 *New properties:*
 
@@ -21,6 +22,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QViewport.right
 * QViewport.bottom
 * QViewport.left
+* QPage.width
+* QPage.height
 
 *New descriptors:*
 
@@ -31,6 +34,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 *New methods:*
 
 * QFrame.viewport()
+* QFrame.page()
 * QFrame.body()
 
 

@@ -100,12 +100,35 @@ Retrieve properties relating to the frame's viewport (the part of the frame that
 
 Example: Assert that a banner is displayed at the top of the window and all the way from side to side.
 
-```
+```javascript
 var viewport = frame.viewport();
 banner.assert({
   top: viewport.top(),
   left: viewport.left(),
   width: viewport.width(),
+});
+```
+
+
+#### frame.page()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve properties relating to the frame's page (everthing you can see or scroll to, not including scrollbars).
+
+`page = frame.page()`
+
+* `viewport (`[`QViewport`](QViewport.md)`)` The viewport properties.
+
+Example: Assert that a sidebar extends the entire height of the page.
+
+```javascript
+var page = frame.page();
+element.assert({
+  top: page.top,
+  height: page.height
 });
 ```
 
