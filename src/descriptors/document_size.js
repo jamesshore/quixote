@@ -45,6 +45,8 @@ Me.prototype.value = function() {
 	//   ~ = incorrect answer, but matches spec
 
 	// html width style smaller than viewport width; body width style smaller than html width style
+	//  NOTE: These tests were conducted when correct result was width of border. That has been changed
+	//  to "width of viewport."
 	//    html.getBoundingClientRect().width
 	//      ✘ IE 8, 9, 10: width of viewport
 	//      ✔ Safari, Mobile Safari, Chrome, Firefox, IE 11: width of html, including border
@@ -96,18 +98,28 @@ Me.prototype.value = function() {
 	//      ✔ Safari, Chrome: element width + body border-left + html border-left (matches actual browser)
 	//      ~ Firefox, IE 8, 9, 10, 11: element width
 
+	// TEST RESULTS: HEIGHT
+	//   ✔ = correct answer
+	//   ✘ = incorrect answer and diverges from spec
+	//   ~ = incorrect answer, but matches spec
+
+	// html height style smaller than viewport height; body height style smaller than html height style
+	//  NOTE: These tests were conducted when correct result was height of viewport.
+	//    html.clientWidth
+	//      ✔ Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11: height of viewport
+
+
 
 	var htmlEl = this._frame.get("html");
 	var bodyEl = this._frame.get("body");
 	var html = htmlEl.toDomElement();
 	var body = bodyEl.toDomElement();
 
-	var width = body.scrollWidth;
-	var height = -1;
-
-
 	// BEST WIDTH ANSWER SO FAR (ASSUMING VIEWPORT IS MINIMUM ANSWER):
-	width = Math.max(body.scrollWidth, html.scrollWidth);
+	var width = Math.max(body.scrollWidth, html.scrollWidth);
+
+	// BEST HEIGHT ANSWER SO FAR (ASSUMING VIEWPORT IS MINIMUM ANSWER):
+	var height = Math.max(html.clientHeight);
 
 	var value = (this._dimension === X_DIMENSION) ? width : height;
 	return Size.create(value);
