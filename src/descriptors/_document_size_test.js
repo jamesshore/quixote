@@ -85,7 +85,7 @@ describe("DocumentSize", function() {
 	});
 
 	it("accounts for elements relatively-positioned to right of viewport", function() {
-		reset.DEBUG = true;
+		//reset.DEBUG = true;
 
 		frame.add(
 			"<div style='position: relative; left: " + (FRAME_WIDTH + 10) + "px; " +
@@ -96,15 +96,20 @@ describe("DocumentSize", function() {
 		assert.objEqual(width.value(), Size.create(expected));
 	});
 
-	//it("accounts for absolutely-positioned elements", function() {
-	//	//reset.DEBUG = true;
-	//
-	//	frame.add(
-	//		"<div style='position: absolute ; left: " + (FRAME_WIDTH + 10) + "px; top: " + (FRAME_HEIGHT + 20) + "px;" +
-	//		"width: 40px; height: 80px; background-color: green'>el</div>"
-	//	);
-	//	assert.objEqual(width.value(), Size.create(FRAME_WIDTH + 50), "width should include element");
-	//	//assert.objEqual(height.value(), Size.create(HEIGHT + 100), "height should include element");
+	it("accounts for elements absolutely-positioned to right of viewport", function() {
+		//reset.DEBUG = true;
+
+		frame.add(
+			"<div style='position: absolute; left: " + (FRAME_WIDTH + 10) + "px; " +
+			"width: 40px; height: 80px; background-color: green'>el</div>"
+		);
+
+		var expected = FRAME_WIDTH + 10 + 40;
+		assert.objEqual(width.value(), Size.create(expected));
+	});
+
+	//it("doesn't include vertical scrollbar", function() {
+	//	assert.fail("continue here");
 	//});
 	//
 	//it("accounts for margin", function() {

@@ -27,7 +27,6 @@ Me.prototype.value = function() {
 	// USEFUL READING: http://www.quirksmode.org/mobile/viewports.html
 	// and http://www.quirksmode.org/mobile/viewports2.html
 
-
 	// API SEMANTICS.
 	// Ref https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Determining_the_dimensions_of_elements
 	//    getBoundingClientRect().width: sum of bounding boxes of element (the displayed width of the element,
