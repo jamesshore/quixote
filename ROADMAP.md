@@ -15,17 +15,11 @@
 
 ## Current Feature: Positioning relative to page
 
-* Document width, height
-* QFrame.document()
-* Document top, right, bottom, left
 * Page width, height
-  * SizeDescriptor superclass for plus(), minus(), times()?
 * Page top, right, bottom, left
 * QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
-* QFrame: document difference between viewport, document, and page
-* Test ElementEdge with border, margin, padding (change getRawPosition() docs if border not included)
-* Test ElementSize with border, margin, padding
+* QFrame: document difference between viewport and page
 * Test and document QUIRKS MODE fix in QFrame.js
   * ViewportSize: test behavior when in quirks mode?
 * Test and document proper solution to Mobile Safari and its "full size frame" issue.
@@ -41,7 +35,7 @@
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do: Document width, height
+## To Do: Page width, height
 
 * QFrame.document()
 * QDocument.width(), height()
