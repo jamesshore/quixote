@@ -15,7 +15,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* Page width, height
 * Page top, right, bottom, left
 * QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
@@ -35,11 +34,8 @@
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do: Page width, height
+## To Do:
 
-* Changelog
-* API doc
-  * Include compatibility note about difficulty of determining document size and resultant unreliability/issue reports needed
 
 ## Future Features
 
