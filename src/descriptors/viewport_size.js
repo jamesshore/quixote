@@ -23,10 +23,15 @@ Me.x = factoryFn(X_DIMENSION);
 Me.y = factoryFn(Y_DIMENSION);
 
 Me.prototype.value = function() {
+	ensure.signature(arguments, []);
+
+	// USEFUL READING: http://www.quirksmode.org/mobile/viewports.html
+	// and http://www.quirksmode.org/mobile/viewports2.html
+
+	// BROWSERS TESTED: Safari 6.2.0 (Mac OS X 10.8.5); Mobile Safari 7.0.0 (iOS 7.1); Firefox 32.0.0 (Mac OS X 10.8);
+	//    Firefox 33.0.0 (Windows 7); Chrome 38.0.2125 (Mac OS X 10.8.5); Chrome 38.0.2125 (Windows 7); IE 8, 9, 10, 11
+
 	// Width techniques I've tried: (Note: results are different in quirks mode)
-	// documentElement.getBoundingClientRect().width
-	//    works on Safari, Mobile Safari, Chrome, Firefox
-	//    fails on IE 8, 9, 10: includes scrollbar
 	// body.clientWidth
 	// body.offsetWidth
 	// body.getBoundingClientRect().width
@@ -38,15 +43,11 @@ Me.prototype.value = function() {
 	// html.offsetWidth
 	//    works on Safari, Mobile Safari, Chrome, Firefox
 	//    fails on IE 8, 9, 10: includes scrollbar
-	// html.clientWidth
 	// html.scrollWidth
+	// html.clientWidth
 	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
-	// not yet tried: contentWindow.*
 
 	// Height techniques I've tried: (Note that results are different in quirks mode)
-	// documentElement.getBoundingClientRect().height
-	//    works on IE 8, 9, 10, 11;
-	//    fails on Safari, Mobile Safari, Chrome, Firefox: only includes height of content
 	// body.clientHeight
 	// body.offsetHeight
 	// body.getBoundingClientRect().height
@@ -56,8 +57,7 @@ Me.prototype.value = function() {
 	// body.scrollHeight
 	//    works on Safari, Mobile Safari, Chrome;
 	//    fails on Firefox, IE 8, 9, 10, 11: only includes height of content
-	// documentElement.clientHeight, offsetHeight, scrollHeight
-	//    no such property (undefined)
+	// html.getBoundingClientRect().height
 	// html.offsetHeight
 	//    works on IE 8, 9, 10
 	//    fails on IE 11, Safari, Mobile Safari, Chrome: only includes height of content
@@ -66,7 +66,6 @@ Me.prototype.value = function() {
 	//    fails on Safari, Mobile Safari, Chrome: only includes height of content
 	// html.clientHeight
 	//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
-	// not yet tried: contentWindow.*
 
 	var html = this._frame.get("html").toDomElement();
 	var value = (this._dimension === X_DIMENSION) ? html.clientWidth : html.clientHeight;
@@ -74,6 +73,8 @@ Me.prototype.value = function() {
 };
 
 Me.prototype.toString = function() {
+	ensure.signature(arguments, []);
+
 	var desc = (this._dimension === X_DIMENSION) ? "width" : "height";
 	return desc + " of viewport";
 };

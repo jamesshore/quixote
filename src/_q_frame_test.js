@@ -157,6 +157,7 @@ describe("QFrame", function() {
 			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 			assert.exception(function() { frame.get("foo"); }, expected, "get()");
 			assert.exception(function() { frame.viewport(); }, expected, "viewport()");
+			assert.exception(function() { frame.body(); }, expected, "body()");
 		});
 
 		it("fails fast if frame is used after it's removed", function(done) {
@@ -169,6 +170,7 @@ describe("QFrame", function() {
 				assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 				assert.exception(function() { frame.get("foo"); }, expected, "get()");
 				assert.exception(function() { frame.viewport(); }, expected, "viewport()");
+				assert.exception(function() { frame.body(); }, expected, "body()");
 
 				done();
 			});
@@ -188,6 +190,11 @@ describe("QFrame", function() {
 
 		it("provides access to viewport descriptors", function() {
 			assert.type(frame.viewport(), QViewport);
+		});
+
+		it("retrieves body element", function() {
+			assert.objEqual(frame.body(), new QElement(frameDom.contentDocument.body, frame, "body"), "body element");
+			assert.equal(frame.body().toString(), "'body'", "body description");
 		});
 
 		it("adds an element", function() {

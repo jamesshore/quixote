@@ -16,41 +16,45 @@
 ## Current Feature: Positioning relative to page
 
 * Document width, height
-* Document top, right, bottom, left
 * QFrame.document()
+* Document top, right, bottom, left
 * Page width, height
   * SizeDescriptor superclass for plus(), minus(), times()?
 * Page top, right, bottom, left
 * QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
 * QFrame: document difference between viewport, document, and page
+* Test ElementEdge with border, margin, padding (change getRawPosition() docs if border not included)
+* Test ElementSize with border, margin, padding
 * Test and document QUIRKS MODE fix in QFrame.js
   * ViewportSize: test behavior when in quirks mode?
 * Test and document proper solution to Mobile Safari and its "full size frame" issue.
+  * ref http://www.quirksmode.org/mobile/viewports2.html
   * Test-drive need for scroll container
   * Perhaps just a better browser inspection
   * If 'scrollContainer' fix is removed, update API docs
+  * Take out canScroll() workaround in _document_size_test.js
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
-  * take out workaround in _viewport_size_test.js and _viewport_edge_test.js
+  * take out workaround in `_viewport_size_test.js, _viewport_edge_test.js, _document_size_test.js`
 * Test whether box-sizing affects ElementSize
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
 ## To Do: Document width, height
 
-* "How to create a descriptor" doc (for SizeDescriptor)
--- integrate --
-* DocumentSize
+* QFrame.document()
+* QDocument.width(), height()
 * Changelog
 * API doc
-
+  * Include compatibility note about difficulty of determining document size and resultant unreliability/issue reports needed
 
 ## Future Features
 
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
 * Investigate re-enabling URL checking (issue #4)
+* Consider how to support less-than, greater-than, etc. Use case: "the bottom edge of 'foo' is above the fold (600px)".
 
 
 ## Future To Do

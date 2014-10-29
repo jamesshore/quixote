@@ -36,6 +36,16 @@ describe("ElementSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
+	it("includes border and padding, but not margin", function() {
+		var style = element.toDomElement().style;
+
+		style.border = "solid 4px red";
+		style.padding = "8px";
+		style.margin = "16px";
+		style.boxSizing = "content-box";
+		assert.objEqual(width.value(), Size.create(WIDTH + (4*2) + (8*2)), "width");
+	});
+
 	it("converts to string", function() {
 		assert.equal(width.toString(), "width of " + element);
 		assert.equal(height.toString(), "height of " + element);

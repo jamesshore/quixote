@@ -144,6 +144,12 @@ Me.prototype.viewport = function() {
 	return new QViewport(this);
 };
 
+Me.prototype.body = function() {
+	ensure.signature(arguments, []);
+
+	return this.get("body");
+};
+
 Me.prototype.add = function(html, nickname) {
 	ensure.signature(arguments, [ String, [undefined, String] ]);
 	if (nickname === undefined) nickname = html;

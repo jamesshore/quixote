@@ -109,6 +109,20 @@ banner.assert({
 });
 ```
 
+
+#### frame.body()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieves the frame's `body` element.
+
+`body = frame.body()`
+
+* body (`[`QElement`](QElement.md)`)` The body element.
+
+
 #### frame.scroll()
 
 ```

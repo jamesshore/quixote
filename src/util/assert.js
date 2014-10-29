@@ -48,6 +48,12 @@ exports.equal = function(actual, expected, message) {
 	proclaim.strictEqual(actual, expected, message + "expected '" + expected + "', but got '" + actual + "'");
 };
 
+exports.lte = function(actual, expected, message) {
+	message = message ? message + ": " : "";
+
+	proclaim.isTrue(actual <= expected, message + "expected <= '" + expected + "', but got '" + actual + "'");
+};
+
 exports.objEqual = function(actual, expected, message) {
 	message = message ? message + ": " : "";
 	proclaim.isDefined(actual, message + "expected object, but was undefined");

@@ -121,7 +121,7 @@ describe("ViewportSize", function() {
 
 	it("ignores elements shifted off-screen using negative margin", function() {
 		frame.add(
-			"<div style='margin-left: -40px; margin-top: -80px; position: relative; " +
+			"<div style='margin-left: -40px; margin-top: -80px;" +
 			"width: 100px; height: 100px; background-color: red;'>moved off-screen</div>"
 		);
 

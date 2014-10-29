@@ -56,11 +56,11 @@ Chainable descriptors:
 Stability: 1 - Experimental
 ```
 
-Represents the position of one side of the viewport relative to the top-left corner of the document. Scrollbars are not included, unless they disappear and/or overlap content, as on Mac OS X.
+Represents the position of one side of the viewport (that is, the visible portion of the webpage) relative to the top-left corner of the document. Doesn't include scrollbars.
 
 Example: An element is fixed to the bottom of the viewport: `element.assert({ bottom: frame.viewport().bottom });`
 
-**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size.
+**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size, so the viewport is also full size.
 
 
 ### Descriptor: `ElementCenter`
@@ -118,7 +118,7 @@ Chainable descriptors:
 Stability: 1 - Experimental
 ```
 
-Represents the width or height of the viewport. Scrollbars are not included, unless they disappear and/or overlap content, as on Mac OS X. As a result, the viewport size may be smaller than the actual frame size.
+Represents the width or height of the viewport (that is, the visible portion of the webpage), not including scrollbars.
 
 Example: An element is as wide as the viewport: `element.assert({ width: frame.viewport().width });`
 
@@ -130,6 +130,24 @@ Chainable descriptors:
 
 **Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size, and the results from this descriptor reflect that fact.
 
+
+### Descriptor: `PageSize`
+
+```
+Stability: 1 - Experimental
+```
+
+Represents the width or height of everything the user can see or scroll to. Doesn't include scrollbars, but does include the entire viewport, even if the document is smaller than the viewport.
+
+Example: An element spans the entire width of the page, even if the page is wider than the body (it can happen): `element.assert({ width: frame.page().width });`
+
+Chainable descriptors:
+
+* `plus(amount) (RelativeSize)` Bigger.
+* `minus(amount) (RelativeSize)` Smaller.
+* `times(multiplier) (SizeMultiple)` A multiple or fraction.
+
+**Compatibility Note:** There is no standard way to get the width or height of the page (or document). We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use this descriptor, perform a visual check to make sure it's working as expected, and please report compatibility problems.
 
 
 ### Descriptor: `RelativeSize`
