@@ -225,17 +225,21 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), Size.create(expected));
 		});
 
-		//it("ignores margin extending past right edge of viewport", function() {
-		//	//reset.DEBUG = true;
-		//
-		//	var element = frame.add(
-		//		"<div style='width: 100%; margin-right: 100px; height: 100px; " +
-		//		"background-color: purple'>el</div>"
-		//	);
-		//
-		//	assert.objEqual(width.value(), frame.viewport().width.value());
-		//});
-		//
+		it("INCLUDES margin extending below viewport", function() {
+			//reset.DEBUG = true;
+
+			htmlStyle.border = "0";
+			bodyStyle.border = "0";
+
+			var element = frame.add(
+				"<div style='height: " + FRAME_HEIGHT + "px; margin-bottom: 100px; width: 100px; " +
+				"background-color: purple'>el</div>"
+			);
+
+			var expected = FRAME_HEIGHT + 100;
+			assert.objEqual(height.value(), Size.create(expected));
+		});
+
 		//it("ignores element positioned to left of viewport using negative margin", function() {
 		//	//reset.DEBUG = true;
 		//
