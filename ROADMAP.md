@@ -24,12 +24,16 @@
 * QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
 * QFrame: document difference between viewport, document, and page
+* Test ElementEdge with border, margin, padding (change getRawPosition() docs if border not included)
+* Test ElementSize with border, margin, padding
 * Test and document QUIRKS MODE fix in QFrame.js
   * ViewportSize: test behavior when in quirks mode?
 * Test and document proper solution to Mobile Safari and its "full size frame" issue.
+  * ref http://www.quirksmode.org/mobile/viewports2.html
   * Test-drive need for scroll container
   * Perhaps just a better browser inspection
   * If 'scrollContainer' fix is removed, update API docs
+  * Take out canScroll() workaround in _document_size_test.js
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
   * take out workaround in `_viewport_size_test.js, _viewport_edge_test.js, _document_size_test.js`
@@ -40,8 +44,8 @@
 ## To Do: Document width, height
 
 * DocumentSize
-  * test margin
   * test absolute positioning
+  * test margin (negative and positive)
 * Changelog (DocumentSize, QFrame.body())
 * API doc (DocumentSize, QFrame.body())
 
@@ -55,6 +59,7 @@
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
 * Investigate re-enabling URL checking (issue #4)
+* Consider how to support less-than, greater-than, etc. Use case: "the bottom edge of 'foo' is above the fold (600px)".
 
 
 ## Future To Do

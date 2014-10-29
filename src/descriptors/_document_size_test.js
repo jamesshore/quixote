@@ -2,16 +2,23 @@
 "use strict";
 
 var assert = require("../util/assert.js");
-var reset =require("../__reset.js");
+var reset = require("../__reset.js");
+var quixote = require("../quixote.js");
 var DocumentSize = require("./document_size.js");
 var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
 
 describe("DocumentSize", function() {
 
-	var BORDER = 4;
+	var FRAME_WIDTH = reset.WIDTH;
+	var FRAME_HEIGHT = reset.HEIGHT;
+	var HTML_BORDER_LEFT = 1;
+	var HTML_BORDER_RIGHT = 2;
+	var BODY_BORDER_LEFT = 4;
+	var BODY_BORDER_RIGHT = 8;
 
 	var frame;
+	var htmlStyle;
 	var bodyStyle;
 	var width;
 	var height;
@@ -21,9 +28,17 @@ describe("DocumentSize", function() {
 		width = DocumentSize.x(frame);
 		height = DocumentSize.y(frame);
 
-		bodyStyle = frame.toDomElement().contentDocument.body.style;
+		var contentDocument = frame.toDomElement().contentDocument;
+		htmlStyle = contentDocument.documentElement.style;
+		htmlStyle.border = "solid 7px green";
+		htmlStyle.borderLeft = "solid " + HTML_BORDER_LEFT + "px green";
+		htmlStyle.borderRight = "solid " + HTML_BORDER_RIGHT + "px green";
+
+		bodyStyle = contentDocument.body.style;
 		bodyStyle.backgroundColor = "blue";
-		bodyStyle.border = "solid 2px red";
+		bodyStyle.border = "solid 7px red";
+		bodyStyle.borderLeft = "solid " + BODY_BORDER_LEFT + "px red";
+		bodyStyle.borderRight = "solid " + BODY_BORDER_RIGHT + "px red";
 	});
 
 	afterEach(function() {
@@ -31,33 +46,88 @@ describe("DocumentSize", function() {
 
 		bodyStyle.backgroundColor = "";
 		bodyStyle.border = "";
+		bodyStyle.width = "";
+		bodyStyle.height = "";
+		bodyStyle.boxSizing = "";
+
+		htmlStyle.width = "";
+		htmlStyle.height = "";
+		htmlStyle.border = "";
 	});
 
 	it("is a size descriptor", function() {
 		assert.implements(width, SizeDescriptor);
 	});
 
-	it("handles content smaller than viewport", function() {
-		frame.add(
-			"<div style='width: 40px; height: 80px; background-color: green'>element</div>"
+	it("uses viewport width when html and body width is smaller than viewport", function() {
+		//reset.DEBUG = true;
+
+		bodyStyle.boxSizing = "content-box";
+		bodyStyle.width = "75px";
+		bodyStyle.height = "150px";
+		htmlStyle.width = "100px";
+		htmlStyle.height = "200px";
+
+		assert.objEqual(width.value(), Size.create(FRAME_WIDTH));
+	});
+
+	it("accounts for content wider than viewport", function() {
+		//reset.DEBUG = true;
+
+		var element = frame.add(
+			"<div style='width: " + (FRAME_WIDTH + 200) + "px; height: 100px; " +
+			"background-color: purple'>el</div>"
 		);
-		assert.objEqual(width.value(), frame.viewport().width.value(), "width should extend to edge of viewport");
-		assert.objEqual(height.value(), Size.create(80 + BORDER), "height should collapse to content");
+
+		var expected = FRAME_WIDTH + 200 + HTML_BORDER_LEFT + BODY_BORDER_LEFT;
+		if (!quixote.browser.canScroll()) expected += HTML_BORDER_RIGHT + BODY_BORDER_RIGHT;
+		assert.objEqual(width.value(), Size.create(expected));
 	});
 
 	//it("handles content larger than viewport", function() {
+	//	var widthBorder = (quixote.browser.canScroll()) ? BORDER : BORDER * 2;
+	//
+	//	frame.add(
+	//		"<div style='width: " + (FRAME_WIDTH + 40) + "px; height: " +  (FRAME_HEIGHT + 80) + "px; " +
+	//		"background-color: green'>el</div>"
+	//	);
+	//	assert.objEqual(width.value(), Size.create(40 + widthBorder + FRAME_WIDTH), "width should extend past viewport");
+	//	assert.objEqual(height.value(), Size.create(80 + BORDER*2 + FRAME_HEIGHT), "height should extend past viewport");
+	//});
+	//
+	//it("accounts for relatively-positioned elements", function() {
+	//	frame.add(
+	//		"<div style='position: relative; left: " + (FRAME_WIDTH + 10) + "px; top: " + (FRAME_HEIGHT + 20) + "px;" +
+	//		"width: 40px; height: 80px; background-color: green'>el</div>"
+	//	);
+	//	assert.objEqual(width.value(), Size.create(FRAME_WIDTH + BORDER + 50), "width should include element");
+	//	assert.objEqual(height.value(), Size.create(FRAME_HEIGHT + BORDER + 100), "height should include element");
+	//});
+	//
+	//it("accounts for absolutely-positioned elements", function() {
+	//	//reset.DEBUG = true;
+	//
+	//	frame.add(
+	//		"<div style='position: absolute ; left: " + (FRAME_WIDTH + 10) + "px; top: " + (FRAME_HEIGHT + 20) + "px;" +
+	//		"width: 40px; height: 80px; background-color: green'>el</div>"
+	//	);
+	//	assert.objEqual(width.value(), Size.create(FRAME_WIDTH + 50), "width should include element");
+	//	//assert.objEqual(height.value(), Size.create(HEIGHT + 100), "height should include element");
+	//});
+	//
+	//it("accounts for margin", function() {
+	//	frame.add(
+	//		"<div style='width: " + FRAME_WIDTH + "px; background-color: green; height: 100px; margin-left: 10px; margin-right: 20px;'>el</div>"
+	//	);
 	//
 	//});
-	
-	//it("accounts for absolutely-positioned elements", function() {
-	//	frame.add(
-	//		"<div style='position: absolute; left: 10; top: 20;" +
-	//		"width: 40px; height: 80px; background-color: green'>element</div>"
-	//	);
-	//	assert.objEqual(width.value(), frame.viewport().width.value(), "width should extend to edge of viewport");
-	//	assert.objEqual(height.value(), Size.create(80 + BORDER), "height should collapse to content");
-	//});
 
-	// TODO: relative position; fixed position
+	// TODO: fixed position
+
+	// TODO: padding, margin, border  (on element AND on body)
+
+	// TODO: negative margin; negative absolute position
+
+	// TODO: test case of <html> tag styled with width smaller than viewport
 
 });

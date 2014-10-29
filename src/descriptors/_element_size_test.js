@@ -36,7 +36,7 @@ describe("ElementSize", function() {
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
 
-	it.only("includes border and padding, but not margin", function() {
+	it("includes border and padding, but not margin", function() {
 		var style = element.toDomElement().style;
 
 		style.border = "solid 4px red";
