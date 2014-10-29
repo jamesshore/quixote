@@ -201,11 +201,11 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), Size.create(expected));
 		});
 
-		it.only("accounts for elements relatively-positioned below viewport", function() {
-			reset.DEBUG = true;
+		it("accounts for elements relatively-positioned below viewport", function() {
+			//reset.DEBUG = true;
 
 			frame.add(
-				"<div style='position: relative; top: " + (FRAME_HEIGHT+ 10) + "px; " +
+				"<div style='position: relative; top: " + (FRAME_HEIGHT + 10) + "px; " +
 				"width: 40px; height: 80px; background-color: green'>el</div>"
 			);
 
@@ -213,18 +213,18 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), Size.create(expected));
 		});
 
-		//it("accounts for elements absolutely-positioned to right of viewport", function() {
-		//	//reset.DEBUG = true;
-		//
-		//	frame.add(
-		//		"<div style='position: absolute; left: " + (FRAME_WIDTH + 10) + "px; " +
-		//		"width: 40px; height: 80px; background-color: green'>el</div>"
-		//	);
-		//
-		//	var expected = FRAME_WIDTH + 10 + 40;
-		//	assert.objEqual(width.value(), Size.create(expected));
-		//});
-		//
+		it("accounts for elements absolutely-positioned below viewport", function() {
+			//reset.DEBUG = true;
+
+			frame.add(
+				"<div style='position: absolute; top: " + (FRAME_HEIGHT + 10) + "px; " +
+				"width: 40px; height: 80px; background-color: green'>el</div>"
+			);
+
+			var expected = FRAME_HEIGHT + 10 + 80;
+			assert.objEqual(height.value(), Size.create(expected));
+		});
+
 		//it("ignores margin extending past right edge of viewport", function() {
 		//	//reset.DEBUG = true;
 		//
