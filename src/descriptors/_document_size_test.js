@@ -71,6 +71,17 @@ describe("DocumentSize", function() {
 		assert.objEqual(width.value(), Size.create(FRAME_WIDTH));
 	});
 
+	it("doesn't include vertical scrollbar when content taller but narrower than viewport", function() {
+		//reset.DEBUG = true;
+
+		frame.add(
+			"<div style='position: absolute; top: " + (FRAME_HEIGHT + 100) + "px; " +
+			"left: 100px; width: 100px; height: 100px; background-color: green'>force scrolling</div>"
+		);
+
+		assert.objEqual(width.value(), frame.viewport().width.value());
+	});
+
 	it("accounts for elements wider than viewport", function() {
 		//reset.DEBUG = true;
 
@@ -108,10 +119,6 @@ describe("DocumentSize", function() {
 		assert.objEqual(width.value(), Size.create(expected));
 	});
 
-	//it("doesn't include vertical scrollbar", function() {
-	//	assert.fail("continue here");
-	//});
-	//
 	//it("accounts for margin", function() {
 	//	frame.add(
 	//		"<div style='width: " + FRAME_WIDTH + "px; background-color: green; height: 100px; margin-left: 10px; margin-right: 20px;'>el</div>"
