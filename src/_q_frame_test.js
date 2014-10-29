@@ -192,6 +192,10 @@ describe("QFrame", function() {
 			assert.type(frame.viewport(), QViewport);
 		});
 
+		//it("provides access to page descriptors", function() {
+		//	assert.type(frame.page(), QPage);
+		//});
+
 		it("retrieves body element", function() {
 			assert.objEqual(frame.body(), new QElement(frameDom.contentDocument.body, frame, "body"), "body element");
 			assert.equal(frame.body().toString(), "'body'", "body description");

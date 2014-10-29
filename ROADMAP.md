@@ -37,8 +37,6 @@
 
 ## To Do: Page width, height
 
-* QFrame.document()
-* QDocument.width(), height()
 * Changelog
 * API doc
   * Include compatibility note about difficulty of determining document size and resultant unreliability/issue reports needed
