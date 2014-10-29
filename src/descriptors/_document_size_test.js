@@ -178,17 +178,17 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), Size.create(FRAME_HEIGHT));
 		});
 
-		//it("doesn't include vertical scrollbar when content taller but narrower than viewport", function() {
-		//	//reset.DEBUG = true;
-		//
-		//	frame.add(
-		//		"<div style='position: absolute; top: " + (FRAME_HEIGHT + 100) + "px; " +
-		//		"left: 100px; width: 100px; height: 100px; background-color: green'>force scrolling</div>"
-		//	);
-		//
-		//	assert.objEqual(width.value(), frame.viewport().width.value());
-		//});
-		//
+		it.only("doesn't include horizontal scrollbar when content wider but shorter than viewport", function() {
+			reset.DEBUG = true;
+
+			frame.add(
+				"<div style='position: absolute; left: " + (FRAME_WIDTH + 100) + "px; " +
+				"top: 100px; width: 100px; height: 100px; background-color: green'>force scrolling</div>"
+			);
+
+			assert.objEqual(height.value(), frame.viewport().height.value());
+		});
+
 		//it("accounts for elements wider than viewport", function() {
 		//	//reset.DEBUG = true;
 		//
