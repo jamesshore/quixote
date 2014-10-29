@@ -65,6 +65,11 @@ describe("DocumentSize", function() {
 		assert.implements(width, SizeDescriptor);
 	});
 
+	it("converts to string", function() {
+		assert.equal(width.toString(), "width of page");
+		assert.equal(height.toString(), "height of page");
+	});
+
 
 	describe("width", function() {
 

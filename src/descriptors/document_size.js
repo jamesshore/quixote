@@ -202,7 +202,8 @@ Me.prototype.value = function() {
 
 Me.prototype.toString = function() {
 	ensure.signature(arguments, []);
-	ensure.unreachable();
+
+	return this._dimension + " of page";
 };
 
 function factoryFn(dimension) {
