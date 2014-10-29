@@ -201,18 +201,18 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), Size.create(expected));
 		});
 
-		//it("accounts for elements relatively-positioned to right of viewport", function() {
-		//	//reset.DEBUG = true;
-		//
-		//	frame.add(
-		//		"<div style='position: relative; left: " + (FRAME_WIDTH + 10) + "px; " +
-		//		"width: 40px; height: 80px; background-color: green'>el</div>"
-		//	);
-		//
-		//	var expected = FRAME_WIDTH + 10 + 40 + HTML_BORDER_LEFT + BODY_BORDER_LEFT;
-		//	assert.objEqual(width.value(), Size.create(expected));
-		//});
-		//
+		it.only("accounts for elements relatively-positioned below viewport", function() {
+			reset.DEBUG = true;
+
+			frame.add(
+				"<div style='position: relative; top: " + (FRAME_HEIGHT+ 10) + "px; " +
+				"width: 40px; height: 80px; background-color: green'>el</div>"
+			);
+
+			var expected = FRAME_HEIGHT + 10 + 80 + HTML_BORDER_TOP + BODY_BORDER_TOP;
+			assert.objEqual(height.value(), Size.create(expected));
+		});
+
 		//it("accounts for elements absolutely-positioned to right of viewport", function() {
 		//	//reset.DEBUG = true;
 		//
