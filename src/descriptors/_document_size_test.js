@@ -71,39 +71,31 @@ describe("DocumentSize", function() {
 		assert.objEqual(width.value(), Size.create(FRAME_WIDTH));
 	});
 
-	it("accounts for content wider than viewport", function() {
+	it("accounts for elements wider than viewport", function() {
 		//reset.DEBUG = true;
 
 		var element = frame.add(
-			"<div style='width: " + (FRAME_WIDTH + 200) + "px; height: 100px; " +
+			"<div style='width: " + (FRAME_WIDTH + 2000) + "px; height: 100px; " +
 			"background-color: purple'>el</div>"
 		);
 
-		var expected = FRAME_WIDTH + 200 + HTML_BORDER_LEFT + BODY_BORDER_LEFT;
+		var expected = FRAME_WIDTH + 2000 + HTML_BORDER_LEFT + BODY_BORDER_LEFT;
 		if (!quixote.browser.canScroll()) expected += HTML_BORDER_RIGHT + BODY_BORDER_RIGHT;
 		assert.objEqual(width.value(), Size.create(expected));
 	});
 
-	//it("handles content larger than viewport", function() {
-	//	var widthBorder = (quixote.browser.canScroll()) ? BORDER : BORDER * 2;
-	//
-	//	frame.add(
-	//		"<div style='width: " + (FRAME_WIDTH + 40) + "px; height: " +  (FRAME_HEIGHT + 80) + "px; " +
-	//		"background-color: green'>el</div>"
-	//	);
-	//	assert.objEqual(width.value(), Size.create(40 + widthBorder + FRAME_WIDTH), "width should extend past viewport");
-	//	assert.objEqual(height.value(), Size.create(80 + BORDER*2 + FRAME_HEIGHT), "height should extend past viewport");
-	//});
-	//
-	//it("accounts for relatively-positioned elements", function() {
-	//	frame.add(
-	//		"<div style='position: relative; left: " + (FRAME_WIDTH + 10) + "px; top: " + (FRAME_HEIGHT + 20) + "px;" +
-	//		"width: 40px; height: 80px; background-color: green'>el</div>"
-	//	);
-	//	assert.objEqual(width.value(), Size.create(FRAME_WIDTH + BORDER + 50), "width should include element");
-	//	assert.objEqual(height.value(), Size.create(FRAME_HEIGHT + BORDER + 100), "height should include element");
-	//});
-	//
+	it("accounts for elements relatively-positioned to right of viewport", function() {
+		reset.DEBUG = true;
+
+		frame.add(
+			"<div style='position: relative; left: " + (FRAME_WIDTH + 10) + "px; " +
+			"width: 40px; height: 80px; background-color: green'>el</div>"
+		);
+
+		var expected = FRAME_WIDTH + 10 + 40 + HTML_BORDER_LEFT + BODY_BORDER_LEFT;
+		assert.objEqual(width.value(), Size.create(expected));
+	});
+
 	//it("accounts for absolutely-positioned elements", function() {
 	//	//reset.DEBUG = true;
 	//

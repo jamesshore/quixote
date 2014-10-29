@@ -46,6 +46,7 @@
 * DocumentSize
   * test absolute positioning
   * test margin (negative and positive)
+* Rename DocumentSize --> PageSize (too hard to get document size on IE 8, 9, 10)
 * Changelog (DocumentSize, QFrame.body())
 * API doc (DocumentSize, QFrame.body())
 
