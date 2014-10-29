@@ -119,14 +119,23 @@ describe("DocumentSize", function() {
 		assert.objEqual(width.value(), Size.create(expected));
 	});
 
+	it("ignores margin extending past right edge of viewport", function() {
+		//reset.DEBUG = true;
+
+		var element = frame.add(
+			"<div style='width: 100%; margin-right: 100px; height: 100px; " +
+			"background-color: purple'>el</div>"
+		);
+
+		assert.objEqual(width.value(), frame.viewport().width.value());
+	});
+
 	//it("accounts for margin", function() {
 	//	frame.add(
 	//		"<div style='width: " + FRAME_WIDTH + "px; background-color: green; height: 100px; margin-left: 10px; margin-right: 20px;'>el</div>"
 	//	);
 	//
 	//});
-
-	// TODO: fixed position
 
 	// TODO: padding, margin, border  (on element AND on body)
 
