@@ -147,7 +147,7 @@ describe("DocumentSize", function() {
 				"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
 			);
 
-			assert.objEqual(width.value(), frame.viewport().width.value(), "width");
+			assert.objEqual(width.value(), frame.viewport().width.value());
 		});
 
 		it("ignores element positioned to left of viewport using negative position", function() {
@@ -158,7 +158,7 @@ describe("DocumentSize", function() {
 				"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
 			);
 
-			assert.objEqual(width.value(), frame.viewport().width.value(), "width");
+			assert.objEqual(width.value(), frame.viewport().width.value());
 		});
 
 	});
@@ -240,27 +240,27 @@ describe("DocumentSize", function() {
 			assert.objEqual(height.value(), Size.create(expected));
 		});
 
-		//it("ignores element positioned to left of viewport using negative margin", function() {
-		//	//reset.DEBUG = true;
-		//
-		//	frame.add(
-		//		"<div style='margin-left: -40px; " +
-		//		"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
-		//	);
-		//
-		//	assert.objEqual(width.value(), frame.viewport().width.value(), "width");
-		//});
-		//
-		//it("ignores element positioned to left of viewport using negative position", function() {
-		//	//reset.DEBUG = true;
-		//
-		//	frame.add(
-		//		"<div style='position: relative; left: -40px; " +
-		//		"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
-		//	);
-		//
-		//	assert.objEqual(width.value(), frame.viewport().width.value(), "width");
-		//});
+		it("ignores element positioned above viewport using negative margin", function() {
+			//reset.DEBUG = true;
+
+			frame.add(
+				"<div style='margin-top: -40px; " +
+				"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
+			);
+
+			assert.objEqual(height.value(), frame.viewport().height.value());
+		});
+
+		it("ignores element positioned above viewport using negative position", function() {
+			//reset.DEBUG = true;
+
+			frame.add(
+				"<div style='position: relative; top: -40px; " +
+				"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
+			);
+
+			assert.objEqual(height.value(), frame.viewport().height.value());
+		});
 
 	});
 

@@ -52,6 +52,7 @@
 * QDocument.width(), height()
 * Changelog
 * API doc
+  * Include compatibility note about difficulty of determining document size and resultant unreliability/issue reports needed
 
 ## Future Features
 
