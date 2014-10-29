@@ -130,17 +130,26 @@ describe("DocumentSize", function() {
 		assert.objEqual(width.value(), frame.viewport().width.value());
 	});
 
-	//it("accounts for margin", function() {
-	//	frame.add(
-	//		"<div style='width: " + FRAME_WIDTH + "px; background-color: green; height: 100px; margin-left: 10px; margin-right: 20px;'>el</div>"
-	//	);
-	//
-	//});
+	it("ignores element positioned to left of viewport using negative margin", function() {
+		//reset.DEBUG = true;
 
-	// TODO: padding, margin, border  (on element AND on body)
+		frame.add(
+			"<div style='margin-left: -40px; " +
+			"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
+		);
 
-	// TODO: negative margin; negative absolute position
+		assert.objEqual(width.value(), frame.viewport().width.value(), "width");
+	});
 
-	// TODO: test case of <html> tag styled with width smaller than viewport
+	it("ignores element positioned to left of viewport using negative position", function() {
+		//reset.DEBUG = true;
+
+		frame.add(
+			"<div style='position: relative; left: -40px; " +
+			"width: 100px; height: 100px; background-color: purple;'>off-screen</div>"
+		);
+
+		assert.objEqual(width.value(), frame.viewport().width.value(), "width");
+	});
 
 });
