@@ -7,7 +7,7 @@ var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
 var RelativePosition = require("./relative_position.js");
-var Descriptor = require("./descriptor.js");
+var PositionDescriptor = require("./position_descriptor.js");
 
 describe("ElementEdge", function() {
 
@@ -38,8 +38,8 @@ describe("ElementEdge", function() {
 		left = ElementEdge.left(element);
 	});
 
-	it("is a descriptor", function() {
-		assert.implements(top, Descriptor);
+	it("is a position descriptor", function() {
+		assert.implements(top, PositionDescriptor);
 	});
 
 	it("resolves to value", function() {
@@ -78,19 +78,6 @@ describe("ElementEdge", function() {
 		assert.objEqual(right.value(), Position.x(RIGHT), "right");
 		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
-	});
-
-	it("can be shifted up, down, left, and right", function() {
-		assert.objEqual(top.plus(10).value(), Position.y(TOP + 10), "down");
-		assert.objEqual(top.minus(10).value(), Position.y(TOP - 10), "up");
-
-		assert.objEqual(left.plus(15).value(), Position.x(LEFT + 15), "right");
-		assert.objEqual(left.minus(25).value(), Position.x(LEFT - 25), "left");
-	});
-
-	it("can be shifted by the size of another element", function() {
-		assert.objEqual(top.plus(element.width).value(), Position.y(TOP + WIDTH), "plus");
-		assert.objEqual(bottom.minus(element.height).value(), Position.y(BOTTOM - HEIGHT), "minus");
 	});
 
 });
