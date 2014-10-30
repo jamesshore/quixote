@@ -43,10 +43,10 @@ describe("Position", function() {
 	it("fails fast when adding incompatible dimensions", function() {
 		assert.exception(function() {
 			x1.plus(y1);
-		}, /Can't compare X dimension to Y dimension/);
+		}, /Can't compare X coordinate to Y coordinate/);
 		assert.exception(function() {
 			x1.minus(y1);
-		}, /Can't compare X dimension to Y dimension/);
+		}, /Can't compare X coordinate to Y coordinate/);
 	});
 
 	it("determines difference", function() {
@@ -60,13 +60,13 @@ describe("Position", function() {
 
 		assert.exception(function() {
 			x1.equals(y1);
-		}, /Can't compare X dimension to Y dimension/, "incompatible dimensions");
+		}, /Can't compare X coordinate to Y coordinate/, "incompatible dimensions");
 	});
 
 	it("fails fast when computing difference between incompatible dimensions", function() {
 		assert.exception(function() {
 			x1.diff(y1);
-		}, /Can't compare X dimension to Y dimension/);
+		}, /Can't compare X coordinate to Y coordinate/);
 	});
 
 	it("is comparable to itself", function() {

@@ -15,6 +15,7 @@
 
 ## Current Feature: Positioning relative to page
 
+* Factor out PositionDescriptor
 * Page top, right, bottom, left
 * QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
@@ -34,7 +35,7 @@
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do:
+## To Do: Factor out PositionDescriptor
 
 
 ## Future Features
@@ -42,7 +43,9 @@
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
 * Investigate re-enabling URL checking (issue #4)
-* Consider how to support less-than, greater-than, etc. Use case: "the bottom edge of 'foo' is above the fold (600px)".
+* Consider how to support less-than, greater-than, etc.
+  * Use case: "the bottom edge of 'foo' is above the fold (600px)".
+  * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
 
 
 ## Future To Do

@@ -33,10 +33,10 @@ describe("SizeDescriptor", function() {
 });
 
 function ExampleSizeDescriptor(size) {
-	this._size = Size.create(size);
+	this.position = Size.create(size);
 }
 SizeDescriptor.extend(ExampleSizeDescriptor);
 
 ExampleSizeDescriptor.prototype.value = function() {
-	return this._size;
+	return this.position;
 };

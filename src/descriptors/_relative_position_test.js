@@ -6,7 +6,7 @@ var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
 var RelativePosition = require("./relative_position.js");
 var Position = require("../values/position.js");
-var Descriptor = require("./descriptor.js");
+var PositionDescriptor = require("./position_descriptor.js");
 var Size = require("../values/size.js");
 
 describe("RelativePosition", function() {
@@ -42,8 +42,8 @@ describe("RelativePosition", function() {
 		up = RelativePosition.up(element.top, UP_ADJ);
 	});
 
-	it("is a descriptor", function() {
-		assert.implements(right, Descriptor);
+	it("is a position descriptor", function() {
+		assert.implements(right, PositionDescriptor);
 	});
 
 	it("resolves to value", function() {
@@ -102,38 +102,6 @@ describe("RelativePosition", function() {
 		function assertUp(edge, amount, expected, message) {
 			assert.equal(RelativePosition.up(edge, amount).toString(), expected + edge.toString(), message);
 		}
-	});
-
-	it("can be shifted (by the size of another element, in this case)", function() {
-		assert.objEqual(right.plus(element.width).value(), Position.x(LEFT + RIGHT_ADJ + WIDTH), "right +");
-		assert.objEqual(right.minus(element.width).value(), Position.x(LEFT + RIGHT_ADJ - WIDTH), "right -");
-
-		assert.objEqual(down.plus(element.height).value(), Position.y(TOP + DOWN_ADJ + HEIGHT), "down +");
-		assert.objEqual(down.minus(element.height).value(), Position.y(TOP + DOWN_ADJ - HEIGHT), "down -");
-
-		assert.equal(
-			right.plus(element.width).toString(),
-			element.width + " to right of 5px to right of " + element.left,
-			"string"
-		);
-	});
-
-	it("can be shifted by a relative size", function() {
-		var rel = right.plus(element.width.plus(10));
-		assert.objEqual(rel.value(), Position.x(LEFT + RIGHT_ADJ + WIDTH + 10), "value");
-		assert.equal(rel.toString(), element.width.plus(10) + " to right of " + right);
-	});
-
-	it("can be shifted, starting with a number, by a number", function() {
-		var rel = RelativePosition.right(element.left, 10).plus(15);
-		assert.objEqual(rel.value(), Position.x(LEFT + 10 + 15), "value");
-		assert.equal(rel.toString(), "15px to right of 10px to right of " + element.left, "string");
-	});
-
-	it("can be shifted, starting with a size, by a number", function() {
-		var rel = RelativePosition.right(element.left, element.width).plus(15);
-		assert.objEqual(rel.value(), Position.x(LEFT + WIDTH + 15), "value");
-		assert.equal(rel.toString(), "15px to right of " + element.width + " to right of " + element.left, "string");
 	});
 
 });
