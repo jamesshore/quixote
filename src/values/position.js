@@ -68,6 +68,6 @@ Me.prototype.toPixels = function toPixels() {
 
 function ensureComparable(self, other) {
 	if (other instanceof Me) {
-		ensure.that(self._dimension === other._dimension, "Can't compare X dimension to Y dimension");
+		ensure.that(self._dimension === other._dimension, "Can't compare X coordinate to Y coordinate");
 	}
 }
