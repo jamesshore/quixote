@@ -37,9 +37,6 @@
 
 ## To Do: Factor out PositionDescriptor
 
-* Use it from existing descriptors
-  * ViewportEdge
-  * RelativePosition
 * Changelog
   * ViewportEdge.plus, minus
 * API docs

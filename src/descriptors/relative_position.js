@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
+var PositionDescriptor = require("./position_descriptor.js");
 var Value = require("../values/value.js");
 var Size = require("../values/size.js");
 var Pixels = require("../values/pixels.js");
@@ -16,7 +17,10 @@ var MINUS = -1;
 
 var Me = module.exports = function RelativePosition(dimension, direction, relativeTo, relativeAmount) {
 	ensure.signature(arguments, [ String, Number, Descriptor, [Number, Descriptor, Value] ]);
-	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
+
+	if (dimension === X_DIMENSION) PositionDescriptor.x(this);
+	else if (dimension === Y_DIMENSION) PositionDescriptor.y(this);
+	else ensure.unreachable("Unknown dimension: " + dimension);
 
 	this._dimension = dimension;
 	this._direction = direction;
@@ -30,7 +34,7 @@ var Me = module.exports = function RelativePosition(dimension, direction, relati
 		this._amount = relativeAmount;
 	}
 };
-Descriptor.extend(Me);
+PositionDescriptor.extend(Me);
 
 Me.right = createFn(X_DIMENSION, PLUS);
 Me.down = createFn(Y_DIMENSION, PLUS);
@@ -43,16 +47,6 @@ function createFn(dimension, direction) {
 	};
 }
 
-Me.prototype.plus = function plus(amount) {
-	if (this._dimension === X_DIMENSION) return Me.right(this, amount);
-	else return Me.down(this, amount);
-};
-
-Me.prototype.minus = function minus(amount) {
-	if (this._dimension === X_DIMENSION) return Me.left(this, amount);
-	else return Me.up(this, amount);
-};
-
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
@@ -61,10 +55,6 @@ Me.prototype.value = function value() {
 
 	if (this._direction === PLUS) return baseValue.plus(relativeValue);
 	else return baseValue.minus(relativeValue);
-};
-
-Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return createPosition(this, arg);
 };
 
 Me.prototype.toString = function toString() {
@@ -79,8 +69,3 @@ Me.prototype.toString = function toString() {
 
 	return relation + base;
 };
-
-function createPosition(self, value) {
-	if (self._dimension === X_DIMENSION) return Position.x(value);
-	else return Position.y(value);
-}
