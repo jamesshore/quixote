@@ -44,6 +44,8 @@ Stability: 2 - Unstable
 
 Represents the position of one side of an element (the top, left, etc.) relative to the top-left corner of the document. The position includes padding and border, but not margin.
 
+Example: The right side of the logo is flush with the right of the navbar: `logo.assert({ right: navbar.right });`
+
 Chainable descriptors:
  
 * `plus(amount) (RelativePosition)` Further down or to the right.
@@ -59,6 +61,11 @@ Stability: 1 - Experimental
 Represents the position of one side of the viewport (that is, the visible portion of the webpage) relative to the top-left corner of the document. Doesn't include scrollbars.
 
 Example: An element is fixed to the bottom of the viewport: `element.assert({ bottom: frame.viewport().bottom });`
+
+Chainable descriptors:
+
+* `plus(amount) (RelativePosition)` Further down or to the right.
+* `minus(amount) (RelativePosition)` Further up or to the left.
 
 **Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size, so the viewport is also full size.
 

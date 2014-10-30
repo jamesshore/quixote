@@ -37,18 +37,15 @@
 
 ## To Do: Factor out PositionDescriptor
 
-* Changelog
-  * ViewportEdge.plus, minus
-* API docs
-  * ViewportEdge.plus, minus
-
 
 ## Future Features
 
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
 * Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
 * Investigate re-enabling URL checking (issue #4)
-* Consider how to support less-than, greater-than, etc. Use case: "the bottom edge of 'foo' is above the fold (600px)".
+* Consider how to support less-than, greater-than, etc.
+  * Use case: "the bottom edge of 'foo' is above the fold (600px)".
+  * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
 
 
 ## Future To Do
