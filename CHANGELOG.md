@@ -24,12 +24,17 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QViewport.left
 * QPage.width
 * QPage.height
+* QPage.top
+* QPage.right
+* QPage.bottom
+* QPage.left
 
 *New descriptors:*
 
 * ViewportSize
 * ViewportEdge
 * PageSize
+* PageEdge
 
 *New methods:*
 
