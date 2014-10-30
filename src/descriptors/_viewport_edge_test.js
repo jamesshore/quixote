@@ -14,7 +14,6 @@ describe("ViewportEdge", function() {
 	var HEIGHT = reset.HEIGHT;
 
 	var frame;
-	var bodyStyle;
 	var top;
 	var right;
 	var bottom;
@@ -27,14 +26,6 @@ describe("ViewportEdge", function() {
 		right = ViewportEdge.right(frame);
 		bottom = ViewportEdge.bottom(frame);
 		left = ViewportEdge.left(frame);
-
-		bodyStyle = frame.toDomElement().contentDocument.body.style;
-		bodyStyle.backgroundColor = "blue";
-	});
-
-	afterEach(function() {
-		if (reset.DEBUG) return;
-		bodyStyle.backgroundColor = "";
 	});
 
 	it("is a position descriptor", function() {

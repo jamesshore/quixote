@@ -9,6 +9,12 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * (TEMP?) Frame no longer contained in scrolling container on Safari, which may cause some rendering problems
 
+*New methods:*
+
+* QFrame.viewport()
+* QFrame.page()
+* QFrame.body()
+
 *New classes:*
 
 * QViewport
@@ -24,18 +30,17 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QViewport.left
 * QPage.width
 * QPage.height
+* QPage.top
+* QPage.right
+* QPage.bottom
+* QPage.left
 
 *New descriptors:*
 
 * ViewportSize
 * ViewportEdge
 * PageSize
-
-*New methods:*
-
-* QFrame.viewport()
-* QFrame.page()
-* QFrame.body()
+* PageEdge
 
 
 ## 0.5: API Hardening

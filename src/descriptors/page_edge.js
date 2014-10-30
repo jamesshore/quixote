@@ -10,15 +10,15 @@ var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function ViewportEdge(position, frame) {
+var Me = module.exports = function PageEdge(edge, frame) {
 	var QFrame = require("../q_frame.js");    // break circular dependency
 	ensure.signature(arguments, [ String, QFrame ]);
 
-	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
-	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
-	else ensure.unreachable("Unknown position: " + position);
+	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
+	else if (edge === TOP || edge === BOTTOM) PositionDescriptor.y(this);
+	else ensure.unreachable("Unknown edge: " + edge);
 
-	this._position = position;
+	this._edge = edge;
 	this._frame = frame;
 };
 PositionDescriptor.extend(Me);
@@ -28,30 +28,37 @@ Me.right = factoryFn(RIGHT);
 Me.bottom = factoryFn(BOTTOM);
 Me.left = factoryFn(LEFT);
 
-Me.prototype.value = function() {
+Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var scroll = this._frame.getRawScrollPosition();
-	var x = Position.x(scroll.x);
-	var y = Position.y(scroll.y);
+	var x = Position.x(0);
+	var y = Position.y(0);
 
-	switch(this._position) {
+	switch(this._edge) {
 		case TOP: return y;
-		case RIGHT: return x.plus(this._frame.viewport().width.value());
-		case BOTTOM: return y.plus(this._frame.viewport().height.value());
+		case RIGHT: return x.plus(this._frame.page().width.value());
+		case BOTTOM: return y.plus(this._frame.page().height.value());
 		case LEFT: return x;
 
 		default: ensure.unreachable();
 	}
 };
 
-Me.prototype.toString = function() {
+Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._position + " edge of viewport";
+
+	switch(this._edge) {
+		case TOP: return "top of page";
+		case RIGHT: return "right side of page";
+		case BOTTOM: return "bottom of page";
+		case LEFT: return "left side of page";
+
+		default: ensure.unreachable();
+	}
 };
 
-function factoryFn(position) {
+function factoryFn(edge) {
 	return function factory(frame) {
-		return new Me(position, frame);
+		return new Me(edge, frame);
 	};
 }

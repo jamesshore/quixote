@@ -2,7 +2,6 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var QFrame = require("../q_frame.js");
 var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
 
@@ -10,6 +9,7 @@ var X_DIMENSION = "width";
 var Y_DIMENSION = "height";
 
 var Me = module.exports = function PageSize(dimension, frame) {
+	var QFrame = require("../q_frame.js");    // break circular dependency
 	ensure.signature(arguments, [ String, QFrame ]);
 	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
 
