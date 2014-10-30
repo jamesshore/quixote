@@ -70,6 +70,24 @@ Chainable descriptors:
 **Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size, so the viewport is also full size.
 
 
+### Descriptor: `PageEdge`
+
+```
+Stability: 1 - Experimental
+```
+
+Represents the position of one side of the page (that is, everything the user can see or scroll to). Doesn't include scrollbars, but does include the entire viewport, even if the document is smaller than the viewport.
+
+Example: An element is flush with the right-hand side of the page: `element.assert({ right: frame.page().right });`
+
+Chainable descriptors:
+
+* `plus(amount) (RelativePosition)` Further down or to the right.
+* `minus(amount) (RelativePosition)` Further up or to the left.
+
+**Compatibility Note:** There is no standard way to get the size of the page (or document). We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use this descriptor, perform a visual check to make sure it's working as expected, and please report compatibility problems.
+
+
 ### Descriptor: `ElementCenter`
 
 ```
@@ -154,7 +172,7 @@ Chainable descriptors:
 * `minus(amount) (RelativeSize)` Smaller.
 * `times(multiplier) (SizeMultiple)` A multiple or fraction.
 
-**Compatibility Note:** There is no standard way to get the width or height of the page (or document). We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use this descriptor, perform a visual check to make sure it's working as expected, and please report compatibility problems.
+**Compatibility Note:** There is no standard way to get the size of the page (or document). We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use this descriptor, perform a visual check to make sure it's working as expected, and please report compatibility problems.
 
 
 ### Descriptor: `RelativeSize`

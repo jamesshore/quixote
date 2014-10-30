@@ -116,7 +116,7 @@ banner.assert({
 Stability: 1 - Experimental
 ```
 
-Retrieve properties relating to the frame's page (everthing you can see or scroll to, not including scrollbars).
+Retrieve properties relating to the frame's page (everything you can see or scroll to, not including scrollbars).
 
 `page = frame.page()`
 
@@ -126,7 +126,7 @@ Example: Assert that a sidebar extends the entire height of the page.
 
 ```javascript
 var page = frame.page();
-element.assert({
+sidebar.assert({
   top: page.top,
   height: page.height
 });

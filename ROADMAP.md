@@ -15,8 +15,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* Page top, right, bottom, left
-* QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
 * QFrame: document difference between viewport and page
 * Test and document QUIRKS MODE fix in QFrame.js
@@ -34,12 +32,7 @@
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do: Page top, right, bottom, left
-
-* changelog
-* API docs
-  * PageEdge
-  * QPage.top, right, bottom, left
+## To Do:
 
 
 ## Future Features
