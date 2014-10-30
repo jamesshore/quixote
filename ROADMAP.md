@@ -36,10 +36,10 @@
 
 ## To Do: Page top, right, bottom, left
 
-* PageEdge descriptor
-* QPage.top, right, bottom, left
 * changelog
 * API docs
+  * PageEdge
+  * QPage.top, right, bottom, left
 
 
 ## Future Features

@@ -22,11 +22,11 @@ describe("QPage", function() {
 		assert.equal(page.height.diff(1300), "", "height");
 	});
 
-	//it("has edge properties", function() {
-	//	assert.equal(page.top.diff(0), "", "top");
-	//	assert.equal(page.right.diff(reset.WIDTH), "", "right");
-	//	assert.equal(page.bottom.diff(reset.HEIGHT), "", "bottom");
-	//	assert.equal(page.left.diff(0), "", "left");
-	//});
+	it("has edge properties", function() {
+		assert.equal(page.top.diff(0), "", "top");
+		assert.equal(page.right.diff(1100), "", "right");
+		assert.equal(page.bottom.diff(1300), "", "bottom");
+		assert.equal(page.left.diff(0), "", "left");
+	});
 
 });
