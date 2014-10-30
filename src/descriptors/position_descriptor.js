@@ -11,30 +11,39 @@ function RelativePosition() {
 	return require("./relative_position.js");   	// break circular dependency
 }
 
+var X_DIMENSION = "x";
+var Y_DIMENSION = "y";
+
 var Me = module.exports = function PositionDescriptor(dimension) {
 	ensure.signature(arguments, [ String ]);
+	ensure.unreachable("PositionDescriptor is abstract and should not be constructed directly.");
 
 	this._dimension = dimension;
 };
 Descriptor.extend(Me);
 Me.extend = oop.extendFn(Me);
 
-Me.X_DIMENSION = "x";
-Me.Y_DIMENSION = "y";
+Me.x = factoryFn(X_DIMENSION);
+Me.y = factoryFn(Y_DIMENSION);
 
 Me.prototype.plus = function plus(amount) {
-	if (this._dimension === Me.X_DIMENSION) return RelativePosition().right(this, amount);
+	if (this._dimension === X_DIMENSION) return RelativePosition().right(this, amount);
 	else return RelativePosition().down(this, amount);
 };
 
 Me.prototype.minus = function minus(amount) {
-	if (this._dimension === Me.X_DIMENSION) return RelativePosition().left(this, amount);
+	if (this._dimension === X_DIMENSION) return RelativePosition().left(this, amount);
 	else return RelativePosition().up(this, amount);
 };
 
 Me.prototype.convert = function convert(arg, type) {
 	if (type !== "number") return;
 
-	return this._dimension === Me.X_DIMENSION ? Position.x(arg) : Position.y(arg);
+	return this._dimension === X_DIMENSION ? Position.x(arg) : Position.y(arg);
 };
 
+function factoryFn(dimension) {
+	return function factory(self) {
+		self._dimension = dimension;
+	};
+}

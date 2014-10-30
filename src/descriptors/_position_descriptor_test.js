@@ -15,8 +15,8 @@ describe("PositionDescriptor", function() {
 	var y;
 
 	beforeEach(function() {
-		x = new Example(PositionDescriptor.X_DIMENSION, X);
-		y = new Example(PositionDescriptor.Y_DIMENSION, Y);
+		x = new Example("x", X);
+		y = new Example("y", Y);
 	});
 
 	it("is a descriptor", function() {
@@ -40,9 +40,14 @@ describe("PositionDescriptor", function() {
 
 
 function Example(dimension, value) {
-	PositionDescriptor.call(this, dimension);
-	if (dimension === PositionDescriptor.X_DIMENSION) this._position = Position.x(value);
-	else this._position = Position.y(value);
+	if (dimension === "x") {
+		PositionDescriptor.x(this);
+		this._position = Position.x(value);
+	}
+	else {
+		PositionDescriptor.y(this);
+		this._position = Position.y(value);
+	}
 }
 PositionDescriptor.extend(Example);
 
