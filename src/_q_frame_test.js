@@ -7,6 +7,7 @@ var quixote = require("./quixote.js");
 var QFrame = require("./q_frame.js");
 var QElement = require("./q_element.js");
 var QViewport = require("./q_viewport.js");
+var QPage = require("./q_page.js");
 
 describe("QFrame", function() {
 
@@ -157,6 +158,7 @@ describe("QFrame", function() {
 			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 			assert.exception(function() { frame.get("foo"); }, expected, "get()");
 			assert.exception(function() { frame.viewport(); }, expected, "viewport()");
+			assert.exception(function() { frame.page(); }, expected, "page()");
 			assert.exception(function() { frame.body(); }, expected, "body()");
 		});
 
@@ -170,6 +172,7 @@ describe("QFrame", function() {
 				assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 				assert.exception(function() { frame.get("foo"); }, expected, "get()");
 				assert.exception(function() { frame.viewport(); }, expected, "viewport()");
+				assert.exception(function() { frame.page(); }, expected, "page()");
 				assert.exception(function() { frame.body(); }, expected, "body()");
 
 				done();
@@ -192,9 +195,9 @@ describe("QFrame", function() {
 			assert.type(frame.viewport(), QViewport);
 		});
 
-		//it("provides access to page descriptors", function() {
-		//	assert.type(frame.page(), QPage);
-		//});
+		it("provides access to page descriptors", function() {
+			assert.type(frame.page(), QPage);
+		});
 
 		it("retrieves body element", function() {
 			assert.objEqual(frame.body(), new QElement(frameDom.contentDocument.body, frame, "body"), "body element");
