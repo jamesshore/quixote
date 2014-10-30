@@ -5,7 +5,7 @@ var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
 var ViewportEdge = require("./viewport_edge.js");
-var Descriptor = require("./descriptor.js");
+var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
 
 describe("ViewportEdge", function() {
@@ -37,8 +37,8 @@ describe("ViewportEdge", function() {
 		bodyStyle.backgroundColor = "";
 	});
 
-	it("is a descriptor", function() {
-		assert.implements(top, Descriptor);
+	it("is a position descriptor", function() {
+		assert.implements(top, PositionDescriptor);
 	});
 
 	it("values match viewport size", function() {
@@ -78,12 +78,6 @@ describe("ViewportEdge", function() {
 		assert.equal(bottom.toString(), "bottom edge of viewport");
 		assert.equal(left.toString(), "left edge of viewport");
 	});
-
-	//it("can be arithmaticated", function() {
-	//	assert.objEqual(width.plus(10).value(), Size.create(WIDTH + 10), "bigger");
-	//	assert.objEqual(width.minus(10).value(), Size.create(WIDTH - 10), "smaller");
-	//	assert.objEqual(width.times(3).value(), Size.create(WIDTH * 3), "multiplied");
-	//});
 
 	it("works end-to-end with fixed-position element", function() {
 		if (!quixote.browser.canScroll()) return;

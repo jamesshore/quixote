@@ -38,11 +38,12 @@
 ## To Do: Factor out PositionDescriptor
 
 * Use it from existing descriptors
-  * ElementEdge
-  * RelativePosition
   * ViewportEdge
+  * RelativePosition
 * Changelog
+  * ViewportEdge.plus, minus
 * API docs
+  * ViewportEdge.plus, minus
 
 
 ## Future Features

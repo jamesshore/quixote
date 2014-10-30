@@ -15,10 +15,10 @@ var LEFT = "left";
 var Me = module.exports = function ElementEdge(element, position) {
 	var QElement = require("../q_element.js");      // break circular dependency
 	ensure.signature(arguments, [ QElement, String ]);
-	ensure.that(
-		position === TOP || position === RIGHT || position === BOTTOM || position === LEFT,
-		"Unknown position: " + position
-	);
+
+	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
+	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
+	else ensure.unreachable("Unknown position: " + position);
 
 	this._element = element;
 	this._position = position;
@@ -47,9 +47,6 @@ Me.prototype.toString = function toString() {
 
 function factoryFn(position) {
 	return function factory(element) {
-		var result = new Me(element, position);
-		if (position === LEFT || position === RIGHT) PositionDescriptor.x(result);
-		else PositionDescriptor.y(result);
-		return result;
+		return new Me(element, position);
 	};
 }
