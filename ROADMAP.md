@@ -15,7 +15,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* Factor out PositionDescriptor
 * Page top, right, bottom, left
 * QFrame.page()
 * Center & middle for all. (Modify ElementCenter to be generic?)
@@ -35,7 +34,12 @@
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do: Factor out PositionDescriptor
+## To Do: Page top, right, bottom, left
+
+* PageEdge descriptor
+* QPage.top, right, bottom, left
+* changelog
+* API docs
 
 
 ## Future Features
