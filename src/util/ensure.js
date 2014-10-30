@@ -19,9 +19,8 @@ exports.unreachable = function(message) {
 	throw new EnsureException(exports.unreachable, message);
 };
 
-exports.signature = function(args, signature, messages) {
+exports.signature = function(args, signature) {
 	signature = signature || [];
-	messages = messages || [];
 	var expectedArgCount = signature.length;
 	var actualArgCount = args.length;
 

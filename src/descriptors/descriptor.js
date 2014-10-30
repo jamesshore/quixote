@@ -5,7 +5,9 @@ var ensure = require("../util/ensure.js");
 var oop = require("../util/oop.js");
 var Value = require("../values/value.js");
 
-var Me = module.exports = function Descriptor() {};
+var Me = module.exports = function Descriptor() {
+	ensure.unreachable("Descriptor is abstract and should not be constructed directly.");
+};
 Me.extend = oop.extendFn(Me);
 oop.makeAbstract(Me, [
 	"value",

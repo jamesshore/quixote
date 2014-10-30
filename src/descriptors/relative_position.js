@@ -49,7 +49,7 @@ Me.prototype.plus = function plus(amount) {
 };
 
 Me.prototype.minus = function minus(amount) {
-	if (this._dimension === Y_DIMENSION) return Me.left(this, amount);
+	if (this._dimension === X_DIMENSION) return Me.left(this, amount);
 	else return Me.up(this, amount);
 };
 
