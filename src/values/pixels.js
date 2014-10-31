@@ -32,6 +32,10 @@ Me.prototype.times = function times(operand) {
 	return new Me(this._amount * operand);
 };
 
+Me.prototype.average = Value.safe(function average(operand) {
+	return new Me((this._amount + operand._amount) / 2);
+});
+
 Me.prototype.compare = Value.safe(function compare(operand) {
 	var difference = this._amount - operand._amount;
 	if (Math.abs(difference) <= 0.5) return 0;

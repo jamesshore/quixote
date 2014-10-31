@@ -23,6 +23,7 @@ describe("ElementCenter", function() {
 			"<p id='one' style='position: absolute; left: 20px; width: 130px; top: 60px; height: 60px'>one</p>"
 		);
 		element = frame.get("#one");
+
 		center = ElementCenter.x(element);
 		middle = ElementCenter.y(element);
 	});
