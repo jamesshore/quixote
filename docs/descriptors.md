@@ -88,13 +88,13 @@ Chainable descriptors:
 **Compatibility Note:** There is no standard way to get the size of the page (or document). We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use this descriptor, perform a visual check to make sure it's working as expected, and please report compatibility problems.
 
 
-### Descriptor: `ElementCenter`
+### Descriptor: `Center`
 
 ```
 Stability: 2 - Unstable
 ```
 
-Represents the horizontal center or vertical middle of an element.
+Represents the midpoint between two coordinates.
 
 Example: The center of the element is centered with the menu: `element.assert({ center: menu.center });`
 

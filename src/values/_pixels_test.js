@@ -15,13 +15,15 @@ describe("Pixels", function() {
 		assert.implements(a1, Value);
 	});
 
-	it("arithmetic", function() {
-		assert.objEqual(a1.plus(b), Pixels.create(30));
-		assert.objEqual(b.minus(a1), Pixels.create(10));
-		assert.objEqual(a1.times(3), Pixels.create(30));
+	it("performs arithmetic", function() {
+		assert.objEqual(a1.plus(b), Pixels.create(30), "addition");
+		assert.objEqual(b.minus(a1), Pixels.create(10), "subtraction");
+		assert.objEqual(a1.times(3), Pixels.create(30), "multiplication");
+		assert.objEqual(a1.average(b), Pixels.create(15), "average");
+		assert.objEqual(b.average(a1), Pixels.create(15), "average should not care about ordering");
 	});
 
-	it("compares", function() {
+	it("performs comparisons", function() {
 		assert.equal(a1.compare(b) < 0, true, "less than");
 		assert.equal(b.compare(a1) > 0, true, "greater than");
 		assert.equal(a1.compare(a2) === 0, true, "equal");

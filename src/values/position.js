@@ -30,17 +30,22 @@ Me.prototype.compatibility = function compatibility() {
 };
 
 Me.prototype.plus = Value.safe(function plus(operand) {
-	ensureComparable(this, operand);
+	checkAxis(this, operand);
 	return new Me(this._dimension, this._value.plus(operand.toPixels()));
 });
 
 Me.prototype.minus = Value.safe(function minus(operand) {
-	if (operand instanceof Me) ensureComparable(this, operand);
+	checkAxis(this, operand);
 	return new Me(this._dimension, this._value.minus(operand.toPixels()));
 });
 
+Me.prototype.midpoint = Value.safe(function midpoint(operand) {
+	checkAxis(this, operand);
+	return new Me(this._dimension, this._value.average(operand.toPixels()));
+});
+
 Me.prototype.diff = Value.safe(function diff(expected) {
-	ensureComparable(this, expected);
+	checkAxis(this, expected);
 
 	var actualValue = this._value;
 	var expectedValue = expected._value;
@@ -56,17 +61,15 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-
 	return this._value.toString();
 };
 
 Me.prototype.toPixels = function toPixels() {
 	ensure.signature(arguments, []);
-
 	return this._value;
 };
 
-function ensureComparable(self, other) {
+function checkAxis(self, other) {
 	if (other instanceof Me) {
 		ensure.that(self._dimension === other._dimension, "Can't compare X coordinate to Y coordinate");
 	}

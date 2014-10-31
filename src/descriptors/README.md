@@ -228,4 +228,4 @@ Your descriptor is done.
 
 Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For example, we might want to add a `darken()` method to `BackgroundColor` that returns a `RelativeColor` descriptor.
 
-For a complete descriptor example, see [`ElementCenter`](element_center.js) and [its tests](_element_center.js). 
+For a complete descriptor example, see [`ElementSize`](element_size.js) and [its tests](_element_size_test.js).
