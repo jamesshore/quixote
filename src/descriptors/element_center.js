@@ -9,7 +9,7 @@ var RelativePosition = require("./relative_position.js");
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
-var Me = module.exports = function ElementCenter(dimension, element1, element2, description) {
+var Me = module.exports = function ElementCenter(dimension, position1, position2, description) {
 	ensure.signature(arguments, [ String, PositionDescriptor, PositionDescriptor, String ]);
 
 	if (dimension === X_DIMENSION) PositionDescriptor.x(this);
@@ -17,8 +17,8 @@ var Me = module.exports = function ElementCenter(dimension, element1, element2, 
 	else ensure.unreachable("Unknown dimension: " + dimension);
 
 	this._dimension = dimension;
-	this._element1 = element1;
-	this._element2 = element2;
+	this._position1 = position1;
+	this._position2 = position2;
 	this._description = description;
 };
 PositionDescriptor.extend(Me);
@@ -28,7 +28,7 @@ Me.y = factoryFn(Y_DIMENSION);
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
-	return this._element1.value().midpoint(this._element2.value());
+	return this._position1.value().midpoint(this._position2.value());
 };
 
 Me.prototype.toString = function toString() {
@@ -37,8 +37,7 @@ Me.prototype.toString = function toString() {
 };
 
 function factoryFn(dimension) {
-	return function(element) {
-		if (dimension === X_DIMENSION) return new Me(dimension, element.left, element.right, "center of " + element);
-		else return new Me(dimension, element.top, element.bottom, "middle of " + element);
+	return function(position1, position2, description) {
+		return new Me(dimension, position1, position2, description);
 	};
 }

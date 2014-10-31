@@ -24,8 +24,8 @@ describe("ElementCenter", function() {
 		);
 		element = frame.get("#one");
 
-		center = ElementCenter.x(element);
-		middle = ElementCenter.y(element);
+		center = ElementCenter.x(element.left, element.right, "horizontal description");
+		middle = ElementCenter.y(element.top, element.bottom, "vertical description");
 	});
 
 	it("is a position descriptor", function() {
@@ -43,8 +43,8 @@ describe("ElementCenter", function() {
 	});
 
 	it("converts to string", function() {
-		assert.equal(center.toString(), "center of " + element, "center");
-		assert.equal(middle.toString(), "middle of " + element, "middle");
+		assert.equal(center.toString(), "horizontal description", "center");
+		assert.equal(middle.toString(), "vertical description", "middle");
 	});
 
 });

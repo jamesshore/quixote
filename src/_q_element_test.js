@@ -77,6 +77,8 @@ describe("QElement", function() {
 		it("centers", function() {
 			assert.equal(element.center.diff(CENTER), "", "center");
 			assert.equal(element.middle.diff(MIDDLE), "", "middle");
+			assert.equal(element.center.toString(), "center of " + element, "center description");
+			assert.equal(element.middle.toString(), "middle of " + element, "middle description");
 		});
 
 		it("sizes", function() {
