@@ -16,7 +16,7 @@ Stability: 1 - Experimental
 QElement instances have several descriptor properties that can be used to make assertions about your element. You'll typically use these properties with `QElement.assert()` or `QElement.diff()`. 
  
 * `top, right, bottom, left (`[`ElementEdge`](descriptors.md)`)` Top, right, etc. edge of the element
-* `center, middle (`[`ElementCenter`](descriptors.md)`)` Horizontal center and vertical middle of the element
+* `center, middle (`[`Center`](descriptors.md)`)` Horizontal center and vertical middle of the element
 * `width, height (`[`ElementSize`](descriptors.md)`)` Width and height of the element
 
 **Compatibility Note:** We make every attempt to ensure that these properties work the same across browsers. If you discover a cross-browser incompatibility that's not visible on the actual page, please file an issue.

@@ -5,7 +5,6 @@ var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var QElement = require("./q_element.js");
 var ElementEdge = require("./descriptors/element_edge.js");
-var ElementCenter = require("./descriptors/element_center.js");
 
 describe("QElement", function() {
 

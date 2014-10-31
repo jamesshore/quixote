@@ -9,7 +9,7 @@ var RelativePosition = require("./relative_position.js");
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
-var Me = module.exports = function ElementCenter(dimension, position1, position2, description) {
+var Me = module.exports = function Center(dimension, position1, position2, description) {
 	ensure.signature(arguments, [ String, PositionDescriptor, PositionDescriptor, String ]);
 
 	if (dimension === X_DIMENSION) PositionDescriptor.x(this);

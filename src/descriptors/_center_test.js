@@ -4,10 +4,10 @@
 var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var PositionDescriptor = require("./position_descriptor.js");
-var ElementCenter = require("./element_center.js");
+var Center = require("./center.js");
 var Position = require("../values/position.js");
 
-describe("ElementCenter", function() {
+describe("Center", function() {
 
 	var element;
 	var center;
@@ -24,8 +24,8 @@ describe("ElementCenter", function() {
 		);
 		element = frame.get("#one");
 
-		center = ElementCenter.x(element.left, element.right, "horizontal description");
-		middle = ElementCenter.y(element.top, element.bottom, "vertical description");
+		center = Center.x(element.left, element.right, "horizontal description");
+		middle = Center.y(element.top, element.bottom, "vertical description");
 	});
 
 	it("is a position descriptor", function() {

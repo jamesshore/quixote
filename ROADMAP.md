@@ -34,6 +34,9 @@
 
 ## To Do:
 
+* QViewport.center, middle
+* QPage.center, middle
+
 
 ## Future Features
 

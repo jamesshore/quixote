@@ -42,6 +42,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * PageSize
 * PageEdge
 
+*Renamed:*
+
+* ElementCenter --> Center
+
 
 ## 0.5: API Hardening
 
