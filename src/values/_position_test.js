@@ -40,13 +40,11 @@ describe("Position", function() {
 		assert.objEqual(x1.minus(Size.create(7)), Position.x(3), "minus");
 	});
 
-	it("fails fast when adding incompatible dimensions", function() {
-		assert.exception(function() {
-			x1.plus(y1);
-		}, /Can't compare X coordinate to Y coordinate/);
-		assert.exception(function() {
-			x1.minus(y1);
-		}, /Can't compare X coordinate to Y coordinate/);
+	it("computes midpoint", function() {
+		assert.objEqual(x1.midpoint(x2), Position.x(15), "left to right");
+		assert.objEqual(x2.midpoint(x1), Position.x(15), "right to left");
+		assert.objEqual(y1.midpoint(y2), Position.y(65), "top to bottom");
+		assert.objEqual(y2.midpoint(y1), Position.y(65), "bottom to top");
 	});
 
 	it("determines difference", function() {
@@ -57,21 +55,15 @@ describe("Position", function() {
 
 		assert.equal(y1.diff(y2), "30px higher", "less than expected - vertical");
 		assert.equal(y2.diff(y1), "30px lower", "more than expected - vertical");
-
-		assert.exception(function() {
-			x1.equals(y1);
-		}, /Can't compare X coordinate to Y coordinate/, "incompatible dimensions");
 	});
 
-	it("fails fast when computing difference between incompatible dimensions", function() {
-		assert.exception(function() {
-			x1.diff(y1);
-		}, /Can't compare X coordinate to Y coordinate/);
-	});
-
-	it("is comparable to itself", function() {
-		assert.objEqual(x1, x1b, "same");
-		assert.objNotEqual(x1, x2, "different");
+	it("fails fast when doing stuff with incompatible dimensions", function() {
+		var expected = "Can't compare X coordinate to Y coordinate";
+		assert.exception(function() { x1.plus(y1); }, expected, "plus");
+		assert.exception(function() { x1.minus(y1); }, expected, "minus");
+		assert.exception(function() { x1.midpoint(y1); }, expected, "midpoint");
+		assert.exception(function() { x1.equals(y1); }, expected, "equals");
+		assert.exception(function() { x1.diff(y1); }, expected, "diff");
 	});
 
 	it("converts to pixels", function() {
