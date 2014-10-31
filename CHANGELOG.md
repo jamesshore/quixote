@@ -28,6 +28,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QViewport.right
 * QViewport.bottom
 * QViewport.left
+* QViewport.center
+* QViewport.middle
 * QPage.width
 * QPage.height
 * QPage.top
