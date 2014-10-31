@@ -7,6 +7,9 @@ var QPage = require("./q_page.js");
 
 describe("QPage", function() {
 
+	var WIDTH = reset.WIDTH + 200;
+	var HEIGHT = reset.HEIGHT + 200;
+
 	var frame;
 	var page;
 
@@ -14,19 +17,29 @@ describe("QPage", function() {
 		frame = reset.frame;
 		page = new QPage(frame);
 
-		frame.add("<div style='position: absolute; left: 1000px; top: 1200px; width: 100px; height: 100px;'>element</div>");
+		frame.add(
+			"<div style='position: absolute; left: " + (WIDTH - 100) + "px; top: " + (HEIGHT - 100) + "px; " +
+			"width: 100px; height: 100px;'>element</div>"
+		);
 	});
 
 	it("has size properties", function() {
-		assert.equal(page.width.diff(1100), "", "width");
-		assert.equal(page.height.diff(1300), "", "height");
+		assert.equal(page.width.diff(WIDTH), "", "width");
+		assert.equal(page.height.diff(HEIGHT), "", "height");
 	});
 
 	it("has edge properties", function() {
 		assert.equal(page.top.diff(0), "", "top");
-		assert.equal(page.right.diff(1100), "", "right");
-		assert.equal(page.bottom.diff(1300), "", "bottom");
+		assert.equal(page.right.diff(WIDTH), "", "right");
+		assert.equal(page.bottom.diff(HEIGHT), "", "bottom");
 		assert.equal(page.left.diff(0), "", "left");
+	});
+
+	it("has center properties", function() {
+		assert.equal(page.center.diff(WIDTH / 2), "", "center");
+		assert.equal(page.middle.diff(HEIGHT / 2), "", "middle");
+		assert.equal(page.center.toString(), "center of page", "center description");
+		assert.equal(page.middle.toString(), "middle of page", "middle description");
 	});
 
 });
