@@ -2,7 +2,7 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var Descriptor = require("./descriptor.js");
+var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
 var RelativePosition = require("./relative_position.js");
 
@@ -12,30 +12,18 @@ var Y_DIMENSION = "y";
 var Me = module.exports = function ElementCenter(dimension, element) {
 	var QElement = require("../q_element.js");    // break circular dependency
 	ensure.signature(arguments, [ String, QElement ]);
-	ensure.that(dimension === X_DIMENSION || dimension === Y_DIMENSION, "Unrecognized dimension: " + dimension);
+
+	if (dimension === X_DIMENSION) PositionDescriptor.x(this);
+	else if (dimension === Y_DIMENSION) PositionDescriptor.y(this);
+	else ensure.unreachable("Unknown dimension: " + dimension);
 
 	this._dimension = dimension;
 	this._element = element;
 };
-Descriptor.extend(Me);
+PositionDescriptor.extend(Me);
 
-Me.x = function(element) {
-	return new Me(X_DIMENSION, element);
-};
-
-Me.y = function(element) {
-	return new Me(Y_DIMENSION, element);
-};
-
-Me.prototype.plus = function plus(amount) {
-	if (this._dimension === X_DIMENSION) return RelativePosition.right(this, amount);
-	else return RelativePosition.down(this, amount);
-};
-
-Me.prototype.minus = function minus(amount) {
-	if (this._dimension === X_DIMENSION) return RelativePosition.left(this, amount);
-	else return RelativePosition.up(this, amount);
-};
+Me.x = factoryFn(X_DIMENSION);
+Me.y = factoryFn(Y_DIMENSION);
 
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
@@ -46,13 +34,15 @@ Me.prototype.value = function value() {
 	else return Position.y(position.top + ((position.bottom - position.top) / 2));
 };
 
-Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return (this._dimension === X_DIMENSION) ? Position.x(arg) : Position.y(arg);
-};
-
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
 	var description = (this._dimension === X_DIMENSION) ? "center" : "middle";
 	return description + " of " + this._element;
 };
+
+function factoryFn(dimension) {
+	return function(element) {
+		return new Me(dimension, element);
+	};
+}
