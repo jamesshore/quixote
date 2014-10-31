@@ -27,4 +27,11 @@ describe("QViewport", function() {
 		assert.equal(viewport.left.diff(0), "", "left");
 	});
 
+	it("has center properties", function() {
+		assert.equal(viewport.center.diff(reset.WIDTH / 2), "", "center");
+		assert.equal(viewport.middle.diff(reset.HEIGHT / 2), "", "middle");
+		assert.equal(viewport.center.toString(), "center of viewport", "center description");
+		assert.equal(viewport.middle.toString(), "middle of viewport", "middle description");
+	});
+
 });

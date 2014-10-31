@@ -35,8 +35,11 @@
 ## To Do:
 
 * QViewport.center, middle
+  * changelog
+  * API
 * QPage.center, middle
-
+  * changelog
+  * API
 
 ## Future Features
 
