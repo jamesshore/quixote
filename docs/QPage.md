@@ -31,6 +31,10 @@ element.assert({
 });
 ```
 
-**Compatibility Note:** There is no standard way to get the dimensions of the page. We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use the properties on this class, perform a visual check to make sure it's working as expected, and please report compatibility problems.
+**Compatibility Notes:**
 
-**Additional Notes:** See the compatibility and pixel-rounding notes on [QElement's descriptors](QElement.md).
+* There is no standard way to get the dimensions of the page. We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use the properties on this class, perform a visual check to make sure it's working as expected, and please report compatibility problems.
+
+* The current solution for page dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. It does *not* work on pages without a doctype. If support for an alternate (or no) doctype is important to you, please let us know by opening an issue.
+
+* See also the compatibility and pixel-rounding notes in [QElement's "descriptors" section](QElement.md).

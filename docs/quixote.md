@@ -22,7 +22,7 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
 * `options (optional object)` Options for creating the frame:
   * `width (optional number)` Width of the iframe. Defaults to a large value (see stability note below).
   * `height (optional number)` Height of the iframe. Defaults to a large value (see stability note below).
-  * `src (optional string)` URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors. Defaults to loading nothing.
+  * `src (optional string)` URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors. Defaults to an empty document with `<!DOCTYPE html>` (to enable standards-mode rendering).
   * `stylesheet (optional string)` URL of a CSS stylesheet to load into the frame. Defaults to loading nothing.
   * Note: `src` and `stylesheet` may not be used at the same time. To load a stylesheet *and* an HTML document, use a `<link>` tag in the HTML document itself.
   

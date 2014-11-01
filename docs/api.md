@@ -20,7 +20,7 @@ There are also several supporting classes:
 * [`QElementList`](QElementList.md) contains a list of QElements.
 * [`QViewport`](QViewport.md) contains properties for the test frame's viewport (the part you can see)
 
-## Compatibility
+## Stability
 
 Each section is marked with a *stability index* corresponding to [the Node.js stability indices](http://nodejs.org/api/documentation.html#documentation_stability_index). They have the following meaning:
  

@@ -7,6 +7,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ***Breaking changes:***
 
+* Frames created without the `src` option are created with `<!DOCTYPE html>` to enable standards mode.
 * (TEMP?) Frame no longer contained in scrolling container on Safari, which may cause some rendering problems
 
 *New methods:*
