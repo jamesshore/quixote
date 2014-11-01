@@ -36,6 +36,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QPage.right
 * QPage.bottom
 * QPage.left
+* QPage.center
+* QPage.middle
 
 *New descriptors:*
 

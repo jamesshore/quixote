@@ -18,7 +18,8 @@ Stability: 1 - Experimental
 QPage instances have several descriptor properties. You'll typically use these properties as comparisons for [`QElement.assert()`](QElement.md) or [`QElement.diff()`](QElement.md).
 
 * `top, right, bottom, left (`[`PageEdge`](descriptors.md)`)` Top, right, etc. edge of the page
-* `width, height (`[`PageSize`](descriptors.md)`)` Width and height of page
+* `center, middle (`[`Center`](descriptors.md)`)` Horizontal center and vertical middle of the page
+* `width, height (`[`PageSize`](descriptors.md)`)` Width and height of the page
 
 Example: The element extends the entire height of the page:
 
