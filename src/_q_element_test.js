@@ -117,7 +117,7 @@ describe("QElement", function() {
 	});
 
 
-	describe("diff", function() {
+	describe("diff and assert", function() {
 
 		it("diffs one property", function() {
 			var expected = element.top.diff(600);
@@ -158,11 +158,11 @@ describe("QElement", function() {
 
 			assert.exception(function() {
 				element.assert({ top: 600 });
-			}, "Differences found:\n" + diff, "different");
+			}, "Differences found:\n" + diff + "\n", "different");
 
 			assert.exception(function() {
 				element.assert({ top: 600 }, "a message");
-			}, "a message:\n" + diff, "different, with a message");
+			}, "a message:\n" + diff + "\n", "different, with a message");
 		});
 
 	});
