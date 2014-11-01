@@ -15,8 +15,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* Center & middle for all. (Modify ElementCenter to be generic?)
-* QFrame: document difference between viewport and page
 * Test and document QUIRKS MODE fix in QFrame.js
   * ViewportSize: test behavior when in quirks mode?
 * Test and document proper solution to Mobile Safari and its "full size frame" issue.
@@ -28,15 +26,12 @@
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
   * take out workaround in `_viewport_size_test.js, _viewport_edge_test.js, _document_size_test.js`
-* Test whether box-sizing affects ElementSize
+* QFrame: document difference between viewport and page
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
 ## To Do:
 
-* QPage.center, middle
-  * changelog
-  * API
 
 ## Future Features
 
