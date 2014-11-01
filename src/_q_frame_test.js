@@ -16,6 +16,8 @@ describe("QFrame", function() {
 		var frame;
 
 		afterEach(function() {
+			if (reset.DEBUG) return;
+
 			frame.remove();
 		});
 
@@ -50,6 +52,18 @@ describe("QFrame", function() {
 				done(err);
 			});
 			assert.defined(frame, "valid QFrame object should be returned from create() method");
+		});
+
+		it("creates frames in standards mode when they don't have src link", function(done) {
+			frame = QFrame.create(window.document.body, { width: 600, height: 400 }, function(err, loadedFrame) {
+				var style = frame.body().toDomElement().style;
+				style.backgroundColor = "blue";
+				style.margin = "0";
+				var element = frame.add("<div style='width: 100%; height: 100px; background-color: green'>full width</div>");
+
+				element.assert({ width: 600 }, "in quirks mode, element doesn't span full width of viewport");
+				done();
+			});
 		});
 
 		it("does not fail in Mocha if Mocha's 'done' is passed as frame callback", function(done) {

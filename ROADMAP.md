@@ -30,7 +30,12 @@
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do:
+## To Do: Test and document Quirks mode fix in QFrame.js
+
+* Test
+* Changelog
+* API docs: Quixote.createFrame
+* API docs: QViewport() and QPage(): page must be in standards mode
 
 
 ## Future Features
