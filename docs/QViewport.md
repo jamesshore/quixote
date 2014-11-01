@@ -21,4 +21,10 @@ QViewport instances have several descriptor properties. You'll typically use the
 
 Example: The element is as wide as the viewport: `element.assert({ width: frame.viewport().width });`
 
-**Notes:** See the compatibility and pixel-rounding notes on [QElement's descriptors](QElement.md).
+**Compatibility Notes:**
+
+* Although there is a standard way to get the dimensions of the viewport, it may not be supported by all browsers. We have confirmed that it works on our tested browsers (in some cases; see below), but it may not work on all browsers. If you use the properties on this class, perform a visual check to make sure it's working as expected, and please report compatibility problems.
+
+* The current solution for viewport dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. It does *not* work on pages without a doctype. If support for an alternate (or no) doctype is important to you, please let us know by opening an issue.
+
+* See also the compatibility and pixel-rounding notes in [QElement's "descriptors" section](QElement.md).

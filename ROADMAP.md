@@ -15,11 +15,9 @@
 
 ## Current Feature: Positioning relative to page
 
-* Test and document QUIRKS MODE fix in QFrame.js
-  * ViewportSize: test behavior when in quirks mode?
 * Test and document proper solution to Mobile Safari and its "full size frame" issue.
   * ref http://www.quirksmode.org/mobile/viewports2.html
-  * Test-drive need for scroll container
+  * Test-drive need for scroll container (for example, does it affect element widths?)
   * Perhaps just a better browser inspection
   * If 'scrollContainer' fix is removed, update API docs
   * Take out canScroll() workaround in _document_size_test.js

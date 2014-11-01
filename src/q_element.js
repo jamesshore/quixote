@@ -35,7 +35,7 @@ Me.prototype.assert = function assert(expected, message) {
 	if (message === undefined) message = "Differences found";
 
 	var diff = this.diff(expected);
-	if (diff !== "") throw new Error(message + ":\n" + diff);
+	if (diff !== "") throw new Error(message + ":\n" + diff + "\n");
 };
 
 Me.prototype.diff = function diff(expected) {
