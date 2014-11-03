@@ -1,6 +1,6 @@
 # Quixote API
 
-For a Quixote overview, installation notes, and an example, see [the readme](../README.md).
+For an overview, installation notes, and an example, see [the readme](../README.md).
 
 
 ## Table of Contents
@@ -19,6 +19,7 @@ There are also several supporting classes:
 
 * [`QElementList`](QElementList.md) contains a list of QElements.
 * [`QViewport`](QViewport.md) contains properties for the test frame's viewport (the part you can see)
+
 
 ## Stability
 
@@ -56,22 +57,3 @@ change.  Please do not suggest changes in this area; they will be refused.
 Breaking changes to any property or method in the API documentation will be described in the [change log](../CHANGELOG.md). All other properties and methods should be considered non-public and may change at any time.
 
 Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
-
-
-## Overview
-
-These are the methods you'll use most often:
-
-* `quixote.createFrame(options, callback(err, frame))` creates the test frame. Call this once per test suite.
-
-* `frame.remove()` removes the test frame. Call this once per test suite.
-
-* `frame.reset()` resets the test frame. Call this before or after each test to reset to a known-good state. (This is faster than creating a new frame each time.)
-
-* `element = frame.get(selector)` gets an element out of the frame. Call this for each element you want to test. You can also use `frame.getAll(selector)` to get a list of elements.
- 
-* `element.assert({ property, property, ... });` checks the styling of an element. Call this in each test.
-
-* `element.getRawStyle(style)` looks up a specific CSS style. You can use it for anything `assert()` doesn't support yet.
-
-The `assert()` function looks at the properties of your element and checks them against hardcoded values or other elements' properties. For example, `element.assert({ top: 10 })` or `element.assert({ top: otherElement.bottom })`.

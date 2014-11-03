@@ -152,7 +152,7 @@ Retrieves the frame's `body` element.
 Stability: 1 - Experimental
 ```
 
-Scroll the top-left corner of the frame to a specific (x, y) coordinate.
+Scroll the page so that top-left corner of the frame is as close as possible to an (x, y) coordinate. Note that the page may not scroll at all in some cases, such as when the frame already displays the entire page.
 
 `frame.scroll(x, y)`
 
@@ -161,10 +161,6 @@ Scroll the top-left corner of the frame to a specific (x, y) coordinate.
 * `y (number)` The y coordinate to scroll to.
 
 Example: `frame.scroll(50, 60);`
-
-**Compatibility Note:** This method throws an exception on Mobile Safari. To check if this method will throw an exception, use [`quixote.browser.canScroll()`](quixote.md).
-
-* Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size. As a result, it can't be scrolled.
 
 
 #### frame.getRawScrollPosition()

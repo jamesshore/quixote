@@ -30,6 +30,9 @@
 
 ## To Do:
 
+* Rename quixote.browser.canScroll()
+* Remove exception in QFrame.scroll()
+
 
 ## Future Features
 
