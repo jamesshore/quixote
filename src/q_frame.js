@@ -115,7 +115,7 @@ Me.prototype.reset = function() {
 	ensureUsable(this);
 
 	this._document.body.innerHTML = this._originalBody;
-	if (!quixote.browser.enlargesFrameToPageSize()) this.scroll(0, 0);
+	this.scroll(0, 0);
 };
 
 Me.prototype.toDomElement = function() {
@@ -194,11 +194,6 @@ Me.prototype.scroll = function scroll(x, y) {
 	ensure.signature(arguments, [ Number, Number ]);
 
 	this._domElement.contentWindow.scroll(x, y);
-
-	// WORKAROUND Mobile Safari 7.0.0: frame is not scrollable because it's already full size.
-	// We can scroll the container, but that's not the same thing. We fail fast here on the
-	// assumption that scrolling the container isn't enough.
-	ensure.that(!quixote.browser.enlargesFrameToPageSize(), "Quixote can't scroll this browser's test frame");
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
