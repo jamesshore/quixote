@@ -21,7 +21,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QViewport
 * QPage
 
-*New properties:*
+*New descriptors:*
 
 * QViewport.width
 * QViewport.height
@@ -39,17 +39,6 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QPage.left
 * QPage.center
 * QPage.middle
-
-*New descriptors:*
-
-* ViewportSize
-* ViewportEdge
-* PageSize
-* PageEdge
-
-*Renamed:*
-
-* ElementCenter --> Center
 
 
 ## 0.5: API Hardening
@@ -119,35 +108,31 @@ element.assert({
 
 * Frame.create() fails fast if the HTML or stylesheet URL is invalid: temporarily removed due to potential test suite execution issues with Mobile Safari
 
-*New properties:*
-
-* QElement.center
-* QElement.middle
-* QElement.width
-* QElement.height
-* RelativePosition.plus
-* RelativePosition.minus
-
-*New descriptors:*
-
-* ElementCenter
-* ElementSize
-* RelativeSize
-* SizeMultiple
-
-*New value objects:*
-
-* Size
-* Pixels
-
 *New methods:*
 
 * quixote.browser.canScroll()
 * Frame.scroll()
 * Frame.getRawScrollPosition()
 
-*Renamed:*
-* ElementPosition --> RelativePosition
+*New descriptors:*
+
+* QElement.center
+* QElement.middle
+* QElement.width
+* QElement.height
+* ElementCenter.plus()
+* ElementCenter.minus()
+* RelativePosition.plus()
+* RelativePosition.minus()
+* ElementSize.plus()
+* ElementSize.minus()
+* ElementSize.times()
+* RelativeSize.plus()
+* RelativeSize.minus()
+* RelativeSize.times()
+* SizeMultiple.plus()
+* SizeMultiple.minus()
+* SizeMultiple.times()
 
 
 ## 0.3: Element-to-Element Positioning Comparisons
@@ -178,15 +163,14 @@ Also, the new `assert()` method works just like `diff()`, except it automaticall
 * ElementEdge.diff() can compare to an ElementPosition (an offset from an edge).
 * Frame.create() fails fast if the HTML or stylesheet URL is invalid. (Contributed by @bjornicus)
 
-*New properties and methods:*
+*New methods:*
 
 * QElement.assert()
-* ElementEdge.plus()
-* ElementEdge.minus()
-  
+
 *New descriptors:*
 
-* ElementPosition
+* ElementEdge.plus()
+* ElementEdge.minus()
 
 
 ## 0.2: Absolute Positioning
@@ -213,20 +197,16 @@ element.diff({
 
 * Frame.create() and quixote.createFrame() now return the frame immediately, as well as passing it into the callback. You still need to wait for the callback before using the frame.
 
-*New properties:*
-
-* QElement.top
-* QElement.right
-* QElement.bottom
-* QElement.left
-
 *New methods:*
 
 * QElement.diff()
 
 *New descriptors:*
 
-* ElementEdge
+* QElement.top
+* QElement.right
+* QElement.bottom
+* QElement.left
 
 
 ## 0.1: Raw Styles and Positions

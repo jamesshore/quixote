@@ -18,7 +18,7 @@ top edge of '.menu' was 13px lower than expected.
 
 **Browser Support:** IE 8+, Firefox, Chrome, Safari, Mobile Safari, and other modern browsers. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
 
-**Performance:** Fast. Quixote's own test suite runs about 200 tests/sec.
+**Performance:** Fast. Quixote's own test suite runs over 200 tests/sec.
 
 
 ## Installation and Usage
