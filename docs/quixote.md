@@ -42,5 +42,5 @@ Stability: 1 - Experimental
 
 Methods for checking browser compatibility. There's just one so far.
 
-* `quixote.browser.canScroll()`: Returns `true` if the browser can scroll the test iframe. See [`Frame.scroll()`](Frame.md) for details.
+* `quixote.browser.canScroll()`: Returns `true` if the browser can scroll the test iframe. See [`QFrame.scroll()`](QFrame.md) for details.
 
