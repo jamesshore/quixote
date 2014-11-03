@@ -10,11 +10,11 @@ exports.createFrame = function(options, callback) {
 
 exports.browser = {};
 
-exports.browser.canScroll = function canScroll() {
+exports.browser.enlargesFrameToPageSize = function canScroll() {
 	ensure.signature(arguments, []);
 
 	// It would be nice if this used feature detection rather than browser detection
-	return (!isMobileSafari());
+	return (isMobileSafari());
 };
 
 function isMobileSafari() {

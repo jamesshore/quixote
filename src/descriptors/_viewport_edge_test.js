@@ -41,7 +41,7 @@ describe("ViewportEdge", function() {
 	});
 
 	it("values account for scrolling", function() {
-		if (!quixote.browser.canScroll()) return;
+		if (quixote.browser.enlargesFrameToPageSize()) return;
 
 		frame.add(
 			"<div style='position: absolute; left: " + (WIDTH + 100) + "px; top: " + (HEIGHT + 100) + "px; " +
@@ -71,7 +71,7 @@ describe("ViewportEdge", function() {
 	});
 
 	it("works end-to-end with fixed-position element", function() {
-		if (!quixote.browser.canScroll()) return;
+		if (quixote.browser.enlargesFrameToPageSize()) return;
 
 		frame.add(
 			"<div style='position: absolute; left: " + (WIDTH + 100) + "px; top: " + (HEIGHT + 100) + "px; " +

@@ -289,7 +289,7 @@ describe("QFrame", function() {
 		});
 
 		it("scrolls", function() {
-			if (!quixote.browser.canScroll()) return;
+			if (quixote.browser.enlargesFrameToPageSize()) return;
 
 			frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
@@ -305,7 +305,7 @@ describe("QFrame", function() {
 		});
 
 		it("fails fast if browser can't scroll", function() {
-			if (quixote.browser.canScroll()) return;
+			if (!quixote.browser.enlargesFrameToPageSize()) return;
 
 			assert.exception(function() {
 				frame.scroll(10, 10);

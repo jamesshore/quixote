@@ -8,7 +8,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 ***Breaking changes:***
 
 * Frames created without the `src` option are created with `<!DOCTYPE html>` to enable standards mode.
-* Renamed `quixote.browser.canScroll()` --> `quixote.browser.sizesFrameToPage()`.
+* Replaced `quixote.browser.canScroll()` with `quixote.browser.enlargesFrameToPageSize()`, which has the opposite return value.
 * QFrame.scroll() no longer throws an exception when called on Mobile Safari.
 
 *Enhancements:*
