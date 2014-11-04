@@ -46,7 +46,7 @@ logo.assert({
 Stability: 1 - Experimental
 ```
 
-The viewport is the part of the webpage you can see, not including scrollbars. Viewport positions and sizes provide information about what parts of the webpage are actually visible. They're most useful as a basis of comparison with element positions and sizes.
+The viewport is the part of the webpage you can see, not including scrollbars. Viewport position and size descriptors provide information about what parts of the webpage are actually visible. They're useful for comparing to element positions and sizes.
 
 Viewport positions and sizes are available on [`QFrame.viewport()`](QFrame.md).
 
@@ -71,9 +71,9 @@ disclaimer.assert({
 
 **Compatibility Notes:**
 
-* Although there *is* a standard way to get the dimensions of the viewport, and we've confirmed that it works on our [tested browsers](../build/config/tested_browsers.js), it may not be supported properly by all browsers. If you use these descriptors, perform a visual check to make sure it's working as expected, and please report compatibility problems.
+* Although there *is* a standard way to get the dimensions of the viewport, and we've confirmed that it works on our [tested browsers](../build/config/tested_browsers.js), it may not be supported properly by all browsers. If you use these descriptors, perform a visual check to make sure they're working as expected, and please report compatibility problems.
 
-* In particular, the current solution for viewport dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. It does *not* work on pages without a doctype. If support for an alternate (or no) doctype is important to you, please let us know by opening an issue.
+* In particular, the current solution for viewport dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. They do *not* work on pages without a doctype. If support for another doctype is important to you, please let us know by opening an issue.
 
 * Mobile Safari sometimes ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). This can result in the viewport being larger than expected.
 
@@ -84,7 +84,7 @@ disclaimer.assert({
 Stability: 1 - Experimental
 ```
 
-The page is everything the user can see or scroll to, not including scrollbars. It's at least the size of the viewport. Page positions and sizes provide information about the boundaries of the page. They're most useful as a basis of comparison with element positions and sizes.
+The page is everything the user can see or scroll to, not including scrollbars. It's at least as big as the viewport. Page position and size descriptors provide information about the boundaries of the page. They're useful for comparing to element positions and sizes.
 
 Page positions and sizes are available on [`QFrame.page()`](QFrame.md).
 
@@ -111,7 +111,7 @@ sidebar.assert({
 
 * There is no standard way to get the dimensions of the page. We have implemented a solution that works on our [tested browsers](../build/config/tested_browsers.js), but it may not work on all browsers. If you use these descriptors, perform a visual check to make sure they're working as expected, and please report compatibility problems.
 
-* In particular, the current solution for page dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. It does *not* work on pages without a doctype. If support for an alternate (or no) doctype is important to you, please let us know by opening an issue.
+* In particular, the current solution for page dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. They do *not* work on pages without a doctype. If support for another doctype is important to you, please let us know by opening an issue.
 
 
 ### Common API
