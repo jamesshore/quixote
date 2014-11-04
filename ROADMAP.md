@@ -21,6 +21,7 @@
 ## To Do: 0.6 documentation
 
 * Move QElement, QPage, QViewport properties into descriptors.md
+* Make comparing Position to Size throw an exception
 * Create PositionDescriptor.md
 * Create SizeDescriptor.md
 * Remove QPage, QViewport

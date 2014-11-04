@@ -30,7 +30,7 @@ Element positions and sizes are available on all [`QElement`](QElement.md) insta
 * `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
 * `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
 
-Example: The logo matches the height of the navbar and is aligned to its right edge:
+Example: "The logo matches the height of the navbar and is aligned to its right edge."
 
 ```javascript
 logo.assert({
@@ -59,7 +59,7 @@ Viewport positions and sizes are available on [`QFrame.viewport()`](QFrame.md).
 * `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the viewport.
 * `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the viewport.
 
-Example: The cookie disclaimer stretches across the bottom of the viewport:
+Example: "The cookie disclaimer stretches across the bottom of the viewport."
 
 ```javascript
 var viewport = frame.viewport();
@@ -97,7 +97,7 @@ Page positions and sizes are available on [`QFrame.page()`](QFrame.md).
 * `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the page.
 * `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the page.
 
-Example: The sidebar extends down the left side of the page:
+Example: "The sidebar extends down the left side of the page."
 
 ```javascript
 var page = frame.page();
@@ -136,90 +136,6 @@ This is the same as calling [`QElement.diff()`](QElement.md), except that it ope
 * `expected (any)` The expected value.
 
 Example: `var diff = element.top.diff(otherElement.top);`
-
-
-### Descriptor: `ElementEdge`
-
-```
-Stability: 2 - Unstable
-```
-
-Represents the position of one side of an element (the top, left, etc.) relative to the top-left corner of the document. The position includes padding and border, but not margin.
-
-Example: The right side of the logo is flush with the right of the navbar: `logo.assert({ right: navbar.right });`
-
-Chainable descriptors:
- 
-* `plus(amount) (RelativePosition)` Further down or to the right.
-* `minus(amount) (RelativePosition)` Further up or to the left.
-
-
-### Descriptor: `ViewportEdge`
-
-```
-Stability: 1 - Experimental
-```
-
-Represents the position of one side of the viewport (that is, the visible portion of the webpage) relative to the top-left corner of the document. Doesn't include scrollbars.
-
-Example: An element is fixed to the bottom of the viewport: `element.assert({ bottom: frame.viewport().bottom });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativePosition)` Further down or to the right.
-* `minus(amount) (RelativePosition)` Further up or to the left.
-
-**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size, so the viewport is also full size.
-
-
-### Descriptor: `PageEdge`
-
-```
-Stability: 1 - Experimental
-```
-
-Represents the position of one side of the page (that is, everything the user can see or scroll to). Doesn't include scrollbars, but does include the entire viewport, even if the document is smaller than the viewport.
-
-Example: An element is flush with the right-hand side of the page: `element.assert({ right: frame.page().right });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativePosition)` Further down or to the right.
-* `minus(amount) (RelativePosition)` Further up or to the left.
-
-**Compatibility Note:** There is no standard way to get the size of the page (or document). We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use this descriptor, perform a visual check to make sure it's working as expected, and please report compatibility problems.
-
-
-### Descriptor: `Center`
-
-```
-Stability: 2 - Unstable
-```
-
-Represents the midpoint between two coordinates.
-
-Example: The center of the element is centered with the menu: `element.assert({ center: menu.center });`
-
-Chainable descriptors:
- 
-* `plus(amount) (RelativePosition)` Further down or to the right.
-* `minus(amount) (RelativePosition)` Further up or to the left.
-
-
-### Descriptor: `RelativePosition`
-
-```
-Stability: 2 - Unstable
-```
-
-Represents an adjusted position. `RelativePosition` is created with an `amount`, which may be a number or another descriptor.
- 
-Example: The top of the element is 10px below the bottom of the menu: `element.assert({ top: menu.bottom.plus(10) });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativePosition)` Further down or to the right.
-* `minus(amount) (RelativePosition)` Further up or to the left.
 
 
 ### Descriptor: `ElementSize`
