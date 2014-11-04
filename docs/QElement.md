@@ -18,7 +18,7 @@ QElement instances have several descriptor properties. They are documented in th
 Stability: 2 - Unstable
 ```
 
-Compare the element's properties to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
+Compare the element's descriptors to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
 
 `element.assert(expected, message)`
 
@@ -41,7 +41,7 @@ element.assert({
 Stability: 2 - Unstable
 ```
 
-Compare the element's properties to a set of expected values. This is the same as `assert()` (above), except that it returns a value rather than throwing an exception.
+Compare the element's descriptors to a set of expected values. This is the same as `assert()` (above), except that it returns a value rather than throwing an exception.
 
 `diff = element.diff(expected)`
 

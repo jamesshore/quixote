@@ -9,7 +9,7 @@ There are three primary classes and modules:
 
 * [`quixote`](quixote.md) is your entry point. It allows you to create an iframe for testing.
 * [`QFrame`](QFrame.md) is how you manipulate the DOM inside your test frame.
-* [`QElement`](QElement.md) allows you to make assertions and get information.
+* [`QElement`](QElement.md) allows you to make assertions and get styling information.
 
 Assertions (using [`QElement.assert()`](QElement.md)) operate on "Descriptors." They're documented here:
 
