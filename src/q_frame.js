@@ -18,10 +18,12 @@ var Me = module.exports = function QFrame(frameDom) {
 	this._removed = false;
 };
 
-function loaded(self) {
+function loaded(self, width, height) {
 	self._loaded = true;
 	self._document = self._domElement.contentDocument;
 	self._originalBody = self._document.body.innerHTML;
+	self._originalWidth = width;
+	self._originalHeight = height;
 }
 
 Me.create = function create(parentElement, options, callback) {
@@ -71,7 +73,7 @@ Me.create = function create(parentElement, options, callback) {
 		// WORKAROUND Mobile Safari 7.0.0, Safari 6.2.0, Chrome 38.0.2125: frame is loaded synchronously
 		// We force it to be asynchronous here
 		setTimeout(function() {
-			loaded(frame);
+			loaded(frame, width, height);
 			loadStylesheet(frame, options.stylesheet, function() {
 				callback(null, frame);
 			});
@@ -101,6 +103,7 @@ Me.prototype.reset = function() {
 
 	this._document.body.innerHTML = this._originalBody;
 	this.scroll(0, 0);
+	this.resize(this._originalWidth, this._originalHeight);
 };
 
 Me.prototype.toDomElement = function() {
@@ -186,6 +189,13 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document),
 		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document)
 	};
+};
+
+Me.prototype.resize = function resize(width, height) {
+	ensure.signature(arguments, [ Number, Number ]);
+
+	this._domElement.setAttribute("width", "" + width);
+	this._domElement.setAttribute("height", "" + height);
 };
 
 function ensureUsable(self) {

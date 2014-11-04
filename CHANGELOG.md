@@ -21,6 +21,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QFrame.viewport()
 * QFrame.page()
 * QFrame.body()
+* QFrame.resize()
 
 *New classes:*
 

@@ -309,6 +309,19 @@ describe("QFrame", function() {
 			assert.equal(frame.getRawScrollPosition().y, 0, "should have reset Y scroll position");
 		});
 
+		it("can resize frame", function() {
+			frame.resize(reset.WIDTH - 100, reset.HEIGHT - 100);
+			assert.equal(frame.viewport().width.diff(reset.WIDTH - 100), "", "width");
+			assert.equal(frame.viewport().height.diff(reset.HEIGHT - 100), "", "height");
+		});
+
+		it("resets frame to original size", function() {
+			frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
+			frame.reset();
+			assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
+			assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
+		});
+
 	});
 
 });

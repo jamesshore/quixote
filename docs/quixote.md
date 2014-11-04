@@ -41,7 +41,7 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
 Stability: 1 - Experimental
 ```
 
-Methods for checking browser compatibility. There's just one so far. Must be called after `quixote.createFrame()` has been called, or an exception will be thrown.
+Methods for checking browser compatibility. (There's just one so far.) Must be called after `quixote.createFrame()` has been called, or an exception will be thrown.
 
 * `quixote.browser.enlargesFrameToPageSize()`: Returns `true` if the browser uses the page width and/or height, instead of the requested frame width and/or height, when the page is larger the frame.
 
