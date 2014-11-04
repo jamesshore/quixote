@@ -19,3 +19,17 @@ describe("Quixote", function() {
 	});
 
 });
+
+describe("Browser capability", function() {
+
+	it("detects whether browser expands frame to fit size of page", function() {
+		var mobileSafari = navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i) !== null;
+
+		assert.equal(
+			quixote.browser.enlargesFrameToPageSize(),
+			mobileSafari,
+			"everything but Mobile Safari should respect frame size"
+		);
+	});
+
+});
