@@ -17,7 +17,7 @@ Stability: 2 - Unstable
 
 Size descriptors may be compared to another size descriptor or to a number.
 
-At present, comparisons are artificially limited. It's possible to allow more flexibility, such as comparing sizes to positions. The current approach is an experiment to see if it's more useful to fail fast than provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
+At present, comparisons are artificially limited. It's possible to allow more flexibility, such as comparing sizes to positions. The current approach is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
 
 
 ### Common API
