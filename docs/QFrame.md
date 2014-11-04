@@ -17,7 +17,15 @@ Reset the frame back to the state it was in immediately after you called `quixot
 
 `frame.reset()`
 
-**Note:** This method does not reset HTML changes outside of `<body>`. If you make changes to `<head>` or `<html>`, or if you change any `<body>` attributes (including styles), you will need to reset them manually.
+Example:
+
+```javascript
+beforeEach(function() {
+  frame.reset();
+});
+```
+
+**Note:** This method resets the frame size, scroll position, and the `<body>` element's inner HTML. If you make changes to `<head>` or `<html>`, or if you change any `<body>` attributes (including styles), you will need to reset them manually.
 
 
 #### frame.remove()
@@ -29,6 +37,14 @@ Stability: 2 - Unstable
 Remove the test frame entirely.
 
 `frame.remove()`
+
+Example:
+
+```javascript
+after(function() {
+  frame.remove();
+});
+```
 
 
 #### frame.get()
