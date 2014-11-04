@@ -7,7 +7,7 @@
 * **✔ v0.3** Positioning relative to other elements
 * **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * **✔ v0.5** API hardening
-* Positioning relative to page and viewport
+* Responsive design
 * Dogfooding and real-world usage
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
@@ -18,13 +18,17 @@
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do: API documentation
+## To Do: 0.6 documentation
 
 * Move QElement, QPage, QViewport properties into descriptors.md
 * Create PositionDescriptor.md
 * Create SizeDescriptor.md
 * Remove QPage, QViewport
 * Modify QFrame to link to descriptors.md instead of QPage, QViewport
+* Update descriptor creation tutorial
+* Mention starter project in readme: https://github.com/bjornicus/tddcss
+* Mention changelog in readme
+* Mention descriptor creation tutorial in contributing.md
 
 
 ## Future Features

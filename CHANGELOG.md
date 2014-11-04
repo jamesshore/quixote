@@ -3,7 +3,7 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## In Progress: Page Positioning Comparisons
+## In Progress: Responsive Design
 
 ***Breaking changes:***
 
@@ -14,7 +14,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 *Other changes:*
 
 * Clarified documentation around Mobile Safari's handling of frame width and height.
-* Removed scrolling container around frame. I don't think it was doing anything useful.
+* Removed scrolling container around test frame. I don't think it was doing anything useful.
 
 *New methods:*
 
@@ -23,29 +23,24 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QFrame.body()
 * QFrame.resize()
 
-*New classes:*
-
-* QViewport
-* QPage
-
 *New descriptors:*
 
-* QViewport.width
-* QViewport.height
-* QViewport.top
-* QViewport.right
-* QViewport.bottom
-* QViewport.left
-* QViewport.center
-* QViewport.middle
-* QPage.width
-* QPage.height
-* QPage.top
-* QPage.right
-* QPage.bottom
-* QPage.left
-* QPage.center
-* QPage.middle
+* QFrame.viewport().width
+* QFrame.viewport().height
+* QFrame.viewport().top
+* QFrame.viewport().right
+* QFrame.viewport().bottom
+* QFrame.viewport().left
+* QFrame.viewport().center
+* QFrame.viewport().middle
+* QFrame.page().width
+* QFrame.page().height
+* QFrame.page().top
+* QFrame.page().right
+* QFrame.page().bottom
+* QFrame.page().left
+* QFrame.page().center
+* QFrame.page().middle
 
 
 ## 0.5: API Hardening
