@@ -20,6 +20,8 @@ A descriptor has the following key features, which should be implemented in this
 
 The following explanations use the (as yet fictional) example of a `BackgroundColor` descriptor. It represents the `background-color` CSS property.
 
+For a real descriptor example, see any of the descriptors in this directory. [`ElementSize`](element_size.js) and [its tests](_element_size_test.js) are a good choice.
+
 
 ## Create testbed
 
@@ -226,6 +228,6 @@ var Me = module.exports = function QElement(domElement, qframe, nickname) {
 
 Your descriptor is done.
 
-Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For example, we might want to add a `darken()` method to `BackgroundColor` that returns a `RelativeColor` descriptor.
+Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For example, we might want to add a `darken()` method to `BackgroundColor` that returns a `RelativeColor` descriptor. If you extended a pre-built descriptor base class (such as `SizeDescriptor`), this has probably already been done for you.
 
 For a complete descriptor example, see [`ElementSize`](element_size.js) and [its tests](_element_size_test.js).

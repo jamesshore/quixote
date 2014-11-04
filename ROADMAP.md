@@ -20,7 +20,6 @@
 
 ## To Do: 0.6 documentation
 
-* Update descriptor creation tutorial
 * Mention starter project in readme: https://github.com/bjornicus/tddcss
 * Mention changelog in readme
 * Mention descriptor creation tutorial in contributing.md
