@@ -30,6 +30,16 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
   * `err (Error or null)` Any errors that occurred while loading the frame (always `null`, for now).
   * `loadedFrame (`[`QFrame`](QFrame.md)`)` The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
 
+Example:
+
+```javascript
+var frame;
+before(function(done) {
+  var options = { src: "/base/src/index.html" };
+  frame = quixote.createFrame(options, done);
+});
+```
+
 **Stability Note:** The default width and height are chosen to be "sufficiently large" for most uses. It may increase or decrease in the future. If the size of your frame affects its rendering, be sure to specify the size you want, even if your needs match the current default.
 
 **Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, *whichever is larger*. You can detect this behavior by using `quixote.browser.enlargesFrameToPageSize()`.
@@ -41,7 +51,8 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
 Stability: 1 - Experimental
 ```
 
-Methods for checking browser compatibility. (There's just one so far.) Must be called after `quixote.createFrame()` has been called, or an exception will be thrown.
+Methods for checking browser compatibility. (There's just one so far.)
 
-* `quixote.browser.enlargesFrameToPageSize()`: Returns `true` if the browser uses the page width and/or height, instead of the requested frame width and/or height, when the page is larger the frame.
+Quixote detects browser features via a temporary frame that's created, and immediately destroyed, the first time you call `quixote.createFrame()`. If you call one of these methods before `quixote.createFrame()` has been called, an exception will be thrown.
 
+* `quixote.browser.enlargesFrameToPageSize()`: Mobile Safari ignores frame width and height attributes when the page is larger than the frame. It uses the page dimensions instead. This function returns true if the current browser exhibits that behavior.
