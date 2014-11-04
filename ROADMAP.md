@@ -15,11 +15,16 @@
 
 ## Current Feature: Positioning relative to page and viewport
 
-* QFrame: document difference between viewport and page
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do:
+## To Do: API documentation
+
+* Move QElement, QPage, QViewport properties into descriptors.md
+* Create PositionDescriptor.md
+* Create SizeDescriptor.md
+* Remove QPage, QViewport
+* Modify QFrame to link to descriptors.md instead of QPage, QViewport
 
 
 ## Future Features
