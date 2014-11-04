@@ -13,7 +13,7 @@
 Stability: 2 - Unstable
 ```
 
-Reset the frame back to the state it was in immediately after you called `quixote.createFrame()`.
+Reset the frame back to the state it was in immediately after you called `quixote.createFrame()`. Note: This function only resets the inner HTML of `<body>`. If you make manual changes to `<head>` or `<html>`, or if you change any body attributes (including styles), you will need to reset them manually.
 
 `frame.reset()`
 

@@ -233,8 +233,8 @@ describe("PageSize", function() {
 		it("INCLUDES margin extending below viewport", function() {
 			//reset.DEBUG = true;
 
-			htmlStyle.border = "0";
-			bodyStyle.border = "0";
+			htmlStyle.border = "";
+			bodyStyle.border = "";
 
 			var element = frame.add(
 				"<div style='height: " + FRAME_HEIGHT + "px; margin-bottom: 100px; width: 100px; " +
