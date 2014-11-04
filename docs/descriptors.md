@@ -1,6 +1,6 @@
 # Quixote API: Descriptors
 
-Descriptors represent some aspect of how an element is displayed, such as its width or the position of its top edge.
+Descriptors represent some aspect of how the page is rendered, such as an element's width or the position of its top edge.
 
 [Return to the API overview.](api.md)
 
