@@ -21,14 +21,14 @@ The position or size of an element. Includes padding and border, but not margin.
 
 Element positions and sizes are available on all [`QElement`](QElement.md) instances.
 
-* `element.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
-* `element.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
-* `element.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
-* `element.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
-* `element.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between the right and left edges.
-* `element.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom edges.
-* `element.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
-* `element.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
+* `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
+* `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
+* `bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
+* `left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
+* `center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between the right and left edges.
+* `middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom edges.
+* `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
+* `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
 
 Example: "The logo matches the height of the navbar and is aligned to its right edge."
 
