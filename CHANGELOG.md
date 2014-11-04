@@ -3,18 +3,21 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## In Progress: Responsive Design
+## 0.6: Responsive Design
+
+**4 Nov 2014.** This release makes it easier to test fluid and responsive layouts. We now have descriptors for the viewport and page, and the new `QFrame.resize()` method allows you to see how your elements render at different sizes.
 
 ***Breaking changes:***
 
 * Frames created without the `src` option are created with `<!DOCTYPE html>` to enable standards mode.
-* Replaced `quixote.browser.canScroll()` with `quixote.browser.enlargesFrameToPageSize()`, which has the opposite return value.
+* Replaced `quixote.browser.canScroll()` with `quixote.browser.enlargesFrameToPageSize()`. Note that this returns `true` where the previous function returned `false`.
 * QFrame.scroll() no longer throws an exception when called on Mobile Safari.
 
 *Other changes:*
 
 * Clarified documentation around Mobile Safari's handling of frame width and height.
 * Removed scrolling container around test frame. I don't think it was doing anything useful.
+* Improved and consolidated descriptor documentation.
 
 *New methods:*
 
