@@ -142,7 +142,7 @@ Information about [setting up the code and submitting pull requests is here](CON
 
 ## Credits
 
-Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com) screencast. Let's Code JavaScript is a screencast series on professional, rigorous web development.
+Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com) screencast. Let's Code JavaScript is a screencast series on rigorous, professional web development.
 
 Many thanks to our contributors!
 
