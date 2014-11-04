@@ -20,6 +20,8 @@ top edge of '.menu' was 13px lower than expected.
 
 **Performance:** Fast. Quixote's own test suite runs over 200 tests/sec.
 
+Changes in this version are described in [the change log](CHANGELOG.md).
+
 
 ## Installation and Usage
 
@@ -34,6 +36,8 @@ Quixote must be run in a browser. It's meant to be used with test frameworks suc
 Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
 
 *Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the browser is hidden causes very slow tests. If you have trouble with slow tests, make sure your browser windows are visible.
+
+For a skeleton project to copy and extend, see [@bjornicus' example](https://github.com/bjornicus/tddcss).
 
 
 ## Example
@@ -102,23 +106,21 @@ describe("Example", function() {
 
 [Detailed API documentation is here.](docs/api.md)
 
-These are the methods you'll use most often:
+The method you'll use most often is `element.assert({ descriptor: expectation, ... })`. It takes an object containing several [QElement descriptors](docs/descriptors.md) as keys, along with each one's expected value, which can be another descriptor or a hard-coded value. See the [descriptor documentation](docs/descriptors.md) for more information and several examples.
 
-* `quixote.createFrame(options, callback(err, frame))` creates the test frame. Call this once per test suite.
+For styles other than positions and sizes, you'll use `element.getRawStyle(style)`. This method determines how an element displays a specific CSS style. See the [QElement documentation](docs/QElement.md) for details.
 
-* `frame.remove()` removes the test frame. Call this once per test suite.
+You'll also use these methods to set up your tests:
 
-* `frame.reset()` resets the test frame. Call this before or after each test to reset to a known-good state. (This is faster than creating a new frame each time.)
+* `quixote.createFrame(options, callback(err, frame))` creates the test frame. Call this once per test suite. ([Details in `quixote` documentation.](docs/quixote.md))
 
-* `element = frame.get(selector)` gets an element out of the frame. Call this for each element you want to test. You can also use `frame.getAll(selector)` to get multiple elements.
- 
-* `element.assert({ property, property, ... });` checks the styling of an element. Call this in each test.
+* `frame.remove()` removes the test frame. Call this once per test suite. ([Details in `QFrame` documentation.](docs/QFrame.md))
 
-* `element.getRawStyle(style)` looks up a specific CSS style. You can use it for anything `assert()` doesn't support yet.
+* `frame.reset()` resets the test frame. Call this before or after each test to reset to a known-good state. This is faster than creating a new frame each time. ([Details in `QFrame` documentation.](docs/QFrame.md))
 
-The `assert()` function looks at the properties of your element and checks them against hardcoded values or other elements' properties. For example, `element.assert({ top: 10 })` or `element.assert({ top: otherElement.bottom })`.
+* `element = frame.get(selector)` gets an element out of the frame. Call this for each element you want to test. You can also use `frame.getAll(selector)` to get multiple elements or `frame.add(html)` to programmatically create an element. ([Details in `QElement` documentation.](docs/QElement.md))
 
-Element properties can be mixed and matched in a variety of ways. For details, see [the API documentation](docs/api.md).
+For more information, see [the API documentation](docs/api.md).
 
 
 ## Contributing
@@ -140,7 +142,7 @@ Information about [setting up the code and submitting pull requests is here](CON
 
 ## Credits
 
-Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com) screencast. Let's Code JavaScript is a screencast series on professional, rigorous web development.
+Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http://www.letscodejavascript.com) screencast. Let's Code JavaScript is a screencast series on rigorous, professional web development.
 
 Many thanks to our contributors!
 

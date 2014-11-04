@@ -15,10 +15,12 @@ A descriptor has the following key features, which should be implemented in this
 * It resolves itself to a Value object: `value()`
 * Optional: It converts primitives to Value objects that are comparable to itself: `convert(arg, type)`
 * It renders itself as a string: `toString()`
-* It is returned from QElement or another descriptor
+* It is returned from QElement or another object
 * Optional: It provides properties or methods that return other descriptors.
 
 The following explanations use the (as yet fictional) example of a `BackgroundColor` descriptor. It represents the `background-color` CSS property.
+
+For a real descriptor example, see any of the descriptors in this directory. [`ElementSize`](element_size.js) and [its tests](_element_size_test.js) are a good choice.
 
 
 ## Create testbed
@@ -109,11 +111,9 @@ var Me = module.exports = function BackgroundColor(element) {
   ⋮
 };
 Descriptor.extend(Me);
-```
 
-Temporary implementation so the tests pass:
-
-```javascript
+⋮
+// Temporary methods so the tests pass
 Me.prototype.value = function() {
   ensure.unreachable();
 };
@@ -126,9 +126,9 @@ Me.prototype.toString = function() {
 
 ## Calculate value: `value()`
 
-A descriptor is a *description* of a CSS property. They don't store the value of the property, but they know how to calculate it on demand.
+A descriptor is a *description* of a CSS property. Descriptors don't store the value of the property, but they know how to calculate it on demand.
 
-For our `BackgroundColor` example, we start by testing that our descriptor gives us the actual background color of our test element. We're assuming that we have an (also fictional) `Color` value object, and that we've required it at some point.
+For our `BackgroundColor` example, we start by testing that our descriptor gives us the actual background color of our test element. We're assuming that we have an (as yet fictional) `Color` value object, and that we've required it at some point.
 
 ```javascript
 it("resolves to value", function() {
@@ -199,7 +199,7 @@ Me.prototype.convert = function convert(arg, type) {
 
 ## Expose with a property
 
-For a descriptor to be accessible by users, it must be returned from a property on `QElement` or another descriptor.
+For a descriptor to be accessible by users, it must be exposed with a property on `QElement` or another object.
 
 For our `BackgroundColor` example, we'll add a `QElement.backgroundColor` property. The tests and code are simple because the heavy lifting is done in the descriptor.
 
@@ -226,6 +226,6 @@ var Me = module.exports = function QElement(domElement, qframe, nickname) {
 
 Your descriptor is done.
 
-Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For example, we might want to add a `darken()` method to `BackgroundColor` that returns a `RelativeColor` descriptor.
+Next, think about how you can add properties to this descriptor (just as with the last step above) that allow it to be more useful. You might provide a property that exposes an existing descriptor or create a new descriptor that modifies this one. For example, we might want to add a `darken()` method to `BackgroundColor` that returns a `RelativeColor` descriptor. If you extended a pre-built descriptor base class (such as `SizeDescriptor`), this has probably already been done for you.
 
 For a complete descriptor example, see [`ElementSize`](element_size.js) and [its tests](_element_size_test.js).

@@ -7,19 +7,20 @@
 * **✔ v0.3** Positioning relative to other elements
 * **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * **✔ v0.5** API hardening
-* Positioning relative to page and viewport
+* **✔ v0.6** Responsive design
 * Dogfooding and real-world usage
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
 
 
-## Current Feature: Positioning relative to page
+## Current Feature: Responsive design
 
-* QFrame: document difference between viewport and page
-* Revise descriptor docs: group by sizing, positioning, etc.?
+* Done!
 
 
 ## To Do:
+
+* Done!
 
 
 ## Future Features
@@ -34,6 +35,4 @@
 
 ## Future To Do
 
-* Need better solution for ensure.signature() in RelativePosition and RelativeSize constructors. (Common base class?)
-* Should toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)

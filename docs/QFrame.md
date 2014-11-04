@@ -17,7 +17,15 @@ Reset the frame back to the state it was in immediately after you called `quixot
 
 `frame.reset()`
 
-**Note:** This method does not reset HTML changes outside of `<body>`. If you make changes to `<head>` or `<html>`, or if you change any `<body>` attributes (including styles), you will need to reset them manually.
+Example:
+
+```javascript
+beforeEach(function() {
+  frame.reset();
+});
+```
+
+**Note:** This method resets the frame size, scroll position, and the `<body>` element's inner HTML. If you make changes to `<head>` or `<html>`, or if you change any `<body>` attributes (including styles), you will need to reset them manually.
 
 
 #### frame.remove()
@@ -29,6 +37,14 @@ Stability: 2 - Unstable
 Remove the test frame entirely.
 
 `frame.remove()`
+
+Example:
+
+```javascript
+after(function() {
+  frame.remove();
+});
+```
 
 
 #### frame.get()
@@ -60,7 +76,7 @@ Retrieve a list of elements matching a selector. If you want to ensure that exac
 
 `list = frame.getAll(selector, nickname)`
 
-* `list (`[`QElementList`](QElementList.md`)` The elements that match your selector.
+* `list (`[`QElementList`](QElementList.md)`)` The elements that match your selector.
 
 * `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
 
@@ -94,11 +110,11 @@ Example: `var foo = frame.add("<p>foo</p>", "foo");`
 Stability: 1 - Experimental
 ```
 
-Retrieve properties relating to the frame's viewport (the part of the frame that you can see, not including scrollbars).
+Provides access to descriptors for the frame's viewport (the part of the page that you can see in the frame, not including scrollbars).
 
 `viewport = frame.viewport()`
 
-* `viewport (`[`QViewport`](QViewport.md)`)` The viewport properties.
+* `viewport (`[`see descriptors`](descriptors.md)`)` Viewport descriptors.
 
 Example: Assert that a banner is displayed at the top of the window and all the way from side to side.
 
@@ -107,7 +123,7 @@ var viewport = frame.viewport();
 banner.assert({
   top: viewport.top(),
   left: viewport.left(),
-  width: viewport.width(),
+  width: viewport.width()
 });
 ```
 
@@ -118,11 +134,11 @@ banner.assert({
 Stability: 1 - Experimental
 ```
 
-Retrieve properties relating to the frame's page (everything you can see or scroll to, not including scrollbars).
+Provides access to descriptors for the frame's page (everything you can see or scroll to, not including scrollbars).
 
 `page = frame.page()`
 
-* `page (`[`QPage`](QPage.md)`)` The page properties.
+* `page (`[`see descriptors`](descriptors.md)`)` Page descriptors.
 
 Example: Assert that a sidebar extends the entire height of the page.
 
@@ -161,7 +177,7 @@ Changes the size of the frame.
 * `width (number)` The frame's new width
 * `height (number)` The frame's new height
 
-**Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, *whichever is larger*. You can detect this behavior by using `quixote.browser.enlargesFrameToPageSize()`.
+**Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md).
 
 
 #### frame.scroll()

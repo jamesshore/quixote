@@ -9,16 +9,17 @@ There are three primary classes and modules:
 
 * [`quixote`](quixote.md) is your entry point. It allows you to create an iframe for testing.
 * [`QFrame`](QFrame.md) is how you manipulate the DOM inside your test frame.
-* [`QElement`](QElement.md) allows you to make assertions and get information.
+* [`QElement`](QElement.md) allows you to make assertions and get styling information.
 
-Assertions (using `QElement.assert()` or `QElement.diff()`) operate on [`QElement`](QElement.md) properties. Those properties are Descriptor objects. They're documented here:
+Assertions (using [`QElement.assert()`](QElement.md)) operate on "Descriptors." They're documented here:
 
-* [Descriptors](descriptors.md)
+* [Descriptors](descriptors.md) lists all the descriptors available for you to use.
+* [`PositionDescriptor`](PositionDescriptor.md) descriptors have a common API related to positioning.
+* [`SizeDescriptor`](SizeDescriptor.md) descriptors have a common API related to sizes.
 
-There are also several supporting classes:
+There's also one supporting class:
 
 * [`QElementList`](QElementList.md) contains a list of QElements.
-* [`QViewport`](QViewport.md) contains properties for the test frame's viewport (the part you can see)
 
 
 ## Stability
