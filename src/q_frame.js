@@ -9,19 +9,16 @@ var QElementList = require("./q_element_list.js");
 var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
 
-var Me = module.exports = function QFrame(frameDom, scrollContainerDom) {
-	ensure.signature(arguments, [ Object, Object ]);
+var Me = module.exports = function QFrame(frameDom) {
+	ensure.signature(arguments, [ Object ]);
 	ensure.that(frameDom.tagName === "IFRAME", "QFrame DOM element must be an iframe");
-	ensure.that(scrollContainerDom.tagName === "DIV", "Scroll container DOM element must be a div");
 
 	this._domElement = frameDom;
-	this._scrollContainer = scrollContainerDom;
 	this._loaded = false;
 	this._removed = false;
 };
 
 function loaded(self) {
-	ensure.that(self._scrollContainer.childNodes[0] === self._domElement, "iframe must be embedded in the scroll container");
 	self._loaded = true;
 	self._document = self._domElement.contentDocument;
 	self._originalBody = self._document.body.innerHTML;
@@ -43,17 +40,6 @@ Me.create = function create(parentElement, options, callback) {
 		"Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue"
 	);
 
-	// WORKAROUND Mobile Safari 7.0.0: Does not respect iframe width and height attributes
-	// See also http://davidwalsh.name/scroll-iframes-ios
-	// TEMPORARILY DISABLED - RE-ENABLE OR DELETE FOR 0.6 RELEASE
-	var scrollContainer = document.createElement("div");
-	//scrollContainer.setAttribute("style",
-	//	"-webkit-overflow-scrolling: touch; " +
-	//	"overflow-y: scroll; " +
-	//	"width: " + width + "px; " +
-	//	"height: " + height + "px;"
-	//);
-
 	var iframe = document.createElement("iframe");
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
@@ -64,9 +50,8 @@ Me.create = function create(parentElement, options, callback) {
 		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
 	}
 
-	var frame = new Me(iframe, scrollContainer);
-	scrollContainer.appendChild(iframe);
-	parentElement.appendChild(scrollContainer);
+	var frame = new Me(iframe);
+	parentElement.appendChild(iframe);
 
 	// WORKAROUND IE 8: ensure that the frame is in standards mode, not quirks mode.
 	if (options.src === undefined) {
@@ -130,10 +115,8 @@ Me.prototype.remove = function() {
 	ensureLoaded(this);
 	if (this._removed) return;
 
+	this._domElement.parentNode.removeChild(this._domElement);
 	this._removed = true;
-
-	var scrollContainer = this._domElement.parentNode;
-	scrollContainer.parentNode.removeChild(scrollContainer);
 };
 
 Me.prototype.viewport = function() {

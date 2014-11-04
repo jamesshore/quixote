@@ -27,7 +27,7 @@ describe("QFrame", function() {
 
 				var iframe = frame.toDomElement();
 				assert.equal(iframe.tagName, "IFRAME", "should create an iframe tag");
-				assert.equal(iframe.parentNode.parentNode, window.document.body, "iframe should go inside element we provide");
+				assert.equal(iframe.parentNode, window.document.body, "iframe should go inside element we provide");
 				assert.equal(iframe.width, "600", "width should match provided value");
 				assert.equal(iframe.height, "400", "height should match provided value");
 
