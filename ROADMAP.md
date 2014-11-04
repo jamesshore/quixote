@@ -20,9 +20,7 @@
 
 ## To Do: 0.6 documentation
 
-* Mention starter project in readme: https://github.com/bjornicus/tddcss
-* Mention changelog in readme
-* Mention descriptor creation tutorial in contributing.md
+* Update roadmap and changelog for 0.6 release
 
 
 ## Future Features

@@ -20,6 +20,8 @@ top edge of '.menu' was 13px lower than expected.
 
 **Performance:** Fast. Quixote's own test suite runs over 200 tests/sec.
 
+Changes in this version are described in [the change log](CHANGELOG.md).
+
 
 ## Installation and Usage
 
@@ -34,6 +36,8 @@ Quixote must be run in a browser. It's meant to be used with test frameworks suc
 Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
 
 *Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the browser is hidden causes very slow tests. If you have trouble with slow tests, make sure your browser windows are visible.
+
+For a skeleton project to copy and extend, see [@bjornicus' example](https://github.com/bjornicus/tddcss).
 
 
 ## Example
