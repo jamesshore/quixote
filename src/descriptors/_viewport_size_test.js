@@ -90,7 +90,7 @@ describe("ViewportSize", function() {
 			"width: 100px; background-color: red;'>full height</div>"
 		);
 
-		if (!quixote.browser.canScroll()) {
+		if (quixote.browser.enlargesFrameToPageSize()) {
 			// WORKAROUND Mobile Safari 7.0.0: ignores frame width and height
 			assert.objEqual(width.value(), Size.create(WIDTH + 200), "Mobile Safari ignores frame width");
 			return;
@@ -109,7 +109,7 @@ describe("ViewportSize", function() {
 			"<div style='width: 100%; background-color: red;'>full width</div>"
 		);
 
-		if (!quixote.browser.canScroll()) {
+		if (quixote.browser.enlargesFrameToPageSize()) {
 			// WORKAROUND Mobile Safari 7.0.0: ignores frame width and height
 			assert.objEqual(height.value(), Size.create(HEIGHT + 200), "Mobile Safari ignores frame height");
 			return;

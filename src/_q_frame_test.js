@@ -289,28 +289,24 @@ describe("QFrame", function() {
 		});
 
 		it("scrolls", function() {
-			if (!quixote.browser.canScroll()) return;
-
 			frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
 			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0}, "should start at (0, 0)");
 
 			frame.scroll(150, 300);
-			assert.equal(frame.getRawScrollPosition().x, 150, "should have scrolled right");
-			assert.equal(frame.getRawScrollPosition().y, 300, "should have scrolled down");
+			var position = frame.getRawScrollPosition();
+			if (quixote.browser.enlargesFrameToPageSize()) {
+				assert.equal(position.x, 0, "should not have scrolled horizontally because whole page is displayed");
+				assert.equal(position.y, 0, "should not have scrolled vertically because whole page is displayed");
+			}
+			else {
+				assert.equal(position.x, 150, "should have scrolled right");
+				assert.equal(position.y, 300, "should have scrolled down");
+			}
 
 			frame.reset();
 			assert.equal(frame.getRawScrollPosition().x, 0, "should have reset X scroll position");
 			assert.equal(frame.getRawScrollPosition().y, 0, "should have reset Y scroll position");
-		});
-
-		it("fails fast if browser can't scroll", function() {
-			if (quixote.browser.canScroll()) return;
-
-			assert.exception(function() {
-				frame.scroll(10, 10);
-			}, "Quixote can't scroll this browser's test frame");
-
 		});
 
 	});

@@ -8,7 +8,13 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 ***Breaking changes:***
 
 * Frames created without the `src` option are created with `<!DOCTYPE html>` to enable standards mode.
-* (TEMP?) Frame no longer contained in scrolling container on Safari, which may cause some rendering problems
+* Replaced `quixote.browser.canScroll()` with `quixote.browser.enlargesFrameToPageSize()`, which has the opposite return value.
+* QFrame.scroll() no longer throws an exception when called on Mobile Safari.
+
+*Enhancements:*
+
+* Clarified documentation around Mobile Safari's handling of frame width and height.
+* Removed scrolling container around frame. I don't think it was doing anything.
 
 *New methods:*
 

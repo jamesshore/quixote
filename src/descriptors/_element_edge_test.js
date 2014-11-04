@@ -68,7 +68,7 @@ describe("ElementEdge", function() {
 	});
 
 	it("accounts for scrolling", function() {
-		if (!quixote.browser.canScroll()) return;
+		if (quixote.browser.enlargesFrameToPageSize()) return;
 
 		frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 

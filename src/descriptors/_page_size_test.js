@@ -105,7 +105,7 @@ describe("PageSize", function() {
 			);
 
 			var expected = FRAME_WIDTH + 2000 + HTML_BORDER_LEFT + BODY_BORDER_LEFT;
-			if (!quixote.browser.canScroll()) expected += HTML_BORDER_RIGHT + BODY_BORDER_RIGHT;
+			if (quixote.browser.enlargesFrameToPageSize()) expected += HTML_BORDER_RIGHT + BODY_BORDER_RIGHT;
 			assert.objEqual(width.value(), Size.create(expected));
 		});
 

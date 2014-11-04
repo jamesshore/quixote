@@ -30,6 +30,8 @@
 
 ## To Do:
 
+* Use feature detection for quixote.browser
+
 
 ## Future Features
 

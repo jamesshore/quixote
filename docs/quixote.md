@@ -32,7 +32,8 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
 
 **Stability Note:** The default width and height are chosen to be "sufficiently large" for most uses. It may increase or decrease in the future. If the size of your frame affects its rendering, be sure to specify the size you want, even if your needs match the current default.
 
-**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe. We work around the problem by using a scrolling container [as described by David Walsh](http://davidwalsh.name/scroll-iframes-ios). This workaround may result in subtle incompatibilities on Mobile Safari. We will document or work around them when we find them. If you see an issue on Mobile Safari that seems related, please [open an issue](https://github.com/jamesshore/quixote/issues).
+**Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, *whichever is larger*. You can detect this behavior by using `quixote.browser.enlargesFrameToPageSize()`.
+
 
 #### quixote.browser
 
@@ -40,7 +41,7 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
 Stability: 1 - Experimental
 ```
 
-Methods for checking browser compatibility. There's just one so far.
+Methods for checking browser compatibility. There's just one so far. Must be called after `quixote.createFrame()` has been called, or an exception will be thrown.
 
-* `quixote.browser.canScroll()`: Returns `true` if the browser can scroll the test iframe. See [`QFrame.scroll()`](QFrame.md) for details.
+* `quixote.browser.enlargesFrameToPageSize()`: Returns `true` if the browser uses the page width and/or height, instead of the requested frame width and/or height, when the page is larger the frame.
 
