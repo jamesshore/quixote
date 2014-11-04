@@ -94,11 +94,11 @@ Example: `var foo = frame.add("<p>foo</p>", "foo");`
 Stability: 1 - Experimental
 ```
 
-Retrieve properties relating to the frame's viewport (the part of the frame that you can see, not including scrollbars).
+Provides access to descriptors for the frame's viewport (the part of the frame that you can see, not including scrollbars).
 
 `viewport = frame.viewport()`
 
-* `viewport (`[`QViewport`](QViewport.md)`)` The viewport properties.
+* `viewport (`[`see descriptors`](descriptors.md)`)` Viewport descriptors.
 
 Example: Assert that a banner is displayed at the top of the window and all the way from side to side.
 
@@ -118,11 +118,11 @@ banner.assert({
 Stability: 1 - Experimental
 ```
 
-Retrieve properties relating to the frame's page (everything you can see or scroll to, not including scrollbars).
+Provides access to descriptors for the frame's page (everything you can see or scroll to, not including scrollbars).
 
 `page = frame.page()`
 
-* `page (`[`QPage`](QPage.md)`)` The page properties.
+* `page (`[`see descriptors`](descriptors.md)`)` Page descriptors.
 
 Example: Assert that a sidebar extends the entire height of the page.
 
