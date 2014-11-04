@@ -15,16 +15,11 @@
 
 ## Current Feature: Positioning relative to page
 
-* QFrame.resize()
 * QFrame: document difference between viewport and page
 * Revise descriptor docs: group by sizing, positioning, etc.?
 
 
-## To Do: QFrame.resize()
-
-* code it
-* changelog it
-* doc it
+## To Do:
 
 
 ## Future Features

@@ -122,7 +122,7 @@ Retrieve properties relating to the frame's page (everything you can see or scro
 
 `page = frame.page()`
 
-* `viewport (`[`QViewport`](QViewport.md)`)` The viewport properties.
+* `page (`[`QPage`](QPage.md)`)` The page properties.
 
 Example: Assert that a sidebar extends the entire height of the page.
 
@@ -145,7 +145,23 @@ Retrieves the frame's `body` element.
 
 `body = frame.body()`
 
-* body (`[`QElement`](QElement.md)`)` The body element.
+* `body (`[`QElement`](QElement.md)`)` The body element.
+
+
+#### frame.resize()
+
+```
+Stability: 1 - Experimental
+```
+
+Changes the size of the frame.
+
+`frame.resize(width, height)`
+
+* `width (number)` The frame's new width
+* `height (number)` The frame's new height
+
+**Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, *whichever is larger*. You can detect this behavior by using `quixote.browser.enlargesFrameToPageSize()`.
 
 
 #### frame.scroll()
