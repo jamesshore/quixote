@@ -7,7 +7,7 @@
 * **✔ v0.3** Positioning relative to other elements
 * **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * **✔ v0.5** API hardening
-* Positioning relative to page
+* Positioning relative to page and viewport
 * Dogfooding and real-world usage
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
@@ -15,12 +15,6 @@
 
 ## Current Feature: Positioning relative to page
 
-* Test and document proper solution to Mobile Safari and its "full size frame" issue.
-  * ref http://www.quirksmode.org/mobile/viewports2.html
-  * Test-drive need for scroll container (for example, does it affect element widths?)
-  * Perhaps just a better browser inspection
-  * If 'scrollContainer' fix is removed, update API docs
-  * Take out canScroll() workaround in _document_size_test.js
 * Frame.reset(): reset body style AND/OR document that toDomElement() can interfere with frame.reset()
   * setAttribute("style", previousValue) seems like it doesn't work on IE8 (throw exception?)
   * take out workaround in `_viewport_size_test.js, _viewport_edge_test.js, _document_size_test.js`
@@ -29,8 +23,6 @@
 
 
 ## To Do:
-
-* Use feature detection for quixote.browser
 
 
 ## Future Features

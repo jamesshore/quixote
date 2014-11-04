@@ -11,10 +11,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * Replaced `quixote.browser.canScroll()` with `quixote.browser.enlargesFrameToPageSize()`, which has the opposite return value.
 * QFrame.scroll() no longer throws an exception when called on Mobile Safari.
 
-*Enhancements:*
+*Other changes:*
 
 * Clarified documentation around Mobile Safari's handling of frame width and height.
-* Removed scrolling container around frame. I don't think it was doing anything.
+* Removed scrolling container around frame. I don't think it was doing anything useful.
 
 *New methods:*
 
