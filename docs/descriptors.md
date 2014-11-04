@@ -114,7 +114,7 @@ sidebar.assert({
 * In particular, the current solution for page dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. It does *not* work on pages without a doctype. If support for an alternate (or no) doctype is important to you, please let us know by opening an issue.
 
 
-### Descriptor API
+### Common API
 
 All descriptors implement the following method. In most cases, you won't need to call this method directly. Instead, use [`QElement.assert()`](QElement.md) or [`QElement.diff()`](QElement.md).
 
@@ -136,92 +136,3 @@ This is the same as calling [`QElement.diff()`](QElement.md), except that it ope
 * `expected (any)` The expected value.
 
 Example: `var diff = element.top.diff(otherElement.top);`
-
-
-### Descriptor: `ElementSize`
-
-```
-Stability: 2 - Unstable
-```
-
-Represents the width or height of an element.
-
-Example: The width of an element is the same as its height: `element.assert({ width: element.height });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativeSize)` Bigger.
-* `minus(amount) (RelativeSize)` Smaller.
-* `times(multiplier) (SizeMultiple)` A multiple or fraction.
-
-
-### Descriptor: `ViewportSize`
-
-```
-Stability: 1 - Experimental
-```
-
-Represents the width or height of the viewport (that is, the visible portion of the webpage), not including scrollbars.
-
-Example: An element is as wide as the viewport: `element.assert({ width: frame.viewport().width });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativeSize)` Bigger.
-* `minus(amount) (RelativeSize)` Smaller.
-* `times(multiplier) (SizeMultiple)` A multiple or fraction.
-
-**Compatibility Note:** Mobile Safari ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md). We work around the problem by putting the frame in a scrollable container, but the underlying frame is still full size, and the results from this descriptor reflect that fact.
-
-
-### Descriptor: `PageSize`
-
-```
-Stability: 1 - Experimental
-```
-
-Represents the width or height of everything the user can see or scroll to. Doesn't include scrollbars, but does include the entire viewport, even if the document is smaller than the viewport.
-
-Example: An element spans the entire width of the page, even if the page is wider than the body (it can happen): `element.assert({ width: frame.page().width });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativeSize)` Bigger.
-* `minus(amount) (RelativeSize)` Smaller.
-* `times(multiplier) (SizeMultiple)` A multiple or fraction.
-
-**Compatibility Note:** There is no standard way to get the size of the page (or document). We have implemented a solution that works on our tested browsers, but it may not work on all browsers. If you use this descriptor, perform a visual check to make sure it's working as expected, and please report compatibility problems.
-
-
-### Descriptor: `RelativeSize`
-
-```
-Stability: 2 - Unstable
-```
-
-Represents an adjusted size. `RelativeSize` is created with an `amount`, which may be a number or another descriptor.
- 
-Example: The element is 20px narrower than the menu: `element.assert({ width: menu.width.minus(20) });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativeSize)` Bigger.
-* `minus(amount) (RelativeSize)` Smaller.
-* `times(multiplier) (SizeMultiple)` A multiple or fraction.
-
-
-### Descriptor: `SizeMultiple`
-
-```
-Stability: 2 - Unstable
-```
-
-Represents an adjusted size. `SizeMultiple` is created with a `multiplier`, which must be a number.
-
-Example: The element is a golden rectangle: `element.assert({ width: element.height.times(1.618) });`
-
-Chainable descriptors:
-
-* `plus(amount) (RelativeSize)` Bigger.
-* `minus(amount) (RelativeSize)` Smaller.
-* `times(multiplier) (SizeMultiple)` A multiple or fraction.
