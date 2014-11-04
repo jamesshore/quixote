@@ -22,12 +22,18 @@ Compare the element's properties to a set of expected values and throw an except
 
 `element.assert(expected, message)`
 
-* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a hard-coded value or another property.
+* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or hard-coded value.
 
 * `message (optional string)` If an exception is thrown, this message will be included at the beginning.
 
-Example: `element.assert({ top: 13, bottom: otherElement.top.plus(10) });`
+Example:
 
+```javascript
+element.assert({
+  top: 13,
+  bottom: otherElement.top.plus(10)
+});
+```
 
 #### element.diff()
 
@@ -41,9 +47,7 @@ Compare the element's properties to a set of expected values. This is the same a
 
 * `diff (string)` A human-readable description of any differences found, or an empty string if none.
 
-* `expected (object)` An object containing one or more of the above-listed properties (`top`, `right`, etc.) as keys, along with the expected value as a hard-coded value or another property.
-
-Example: `assert.equal(element.diff({ top: 13, bottom: otherElement.top.plus(10) }), "");`
+* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or hard-coded value.
 
 
 #### element.getRawStyle()
