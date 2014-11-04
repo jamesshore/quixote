@@ -13,7 +13,7 @@
 * ...more TBD
 
 
-## Current Feature: Positioning relative to page
+## Current Feature: Positioning relative to page and viewport
 
 * QFrame: document difference between viewport and page
 * Revise descriptor docs: group by sizing, positioning, etc.?
@@ -34,6 +34,4 @@
 
 ## Future To Do
 
-* Need better solution for ensure.signature() in RelativePosition and RelativeSize constructors. (Common base class?)
-* Should toDomElement() cause frame.reset() to fail fast (because it can't guarantee a safe reset)?
 * Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)
