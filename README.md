@@ -110,7 +110,7 @@ The method you'll use most often is `element.assert({ descriptor: expectation, .
 
 For styles other than positions and sizes, you'll use `element.getRawStyle(style)`. This method determines how an element displays a specific CSS style. See the [QElement documentation](docs/QElement.md) for details.
 
-There are several other methods you'll use to set up your tests:
+You'll also use these methods to set up your tests:
 
 * `quixote.createFrame(options, callback(err, frame))` creates the test frame. Call this once per test suite. ([Details in `quixote` documentation.](docs/quixote.md))
 
@@ -118,7 +118,7 @@ There are several other methods you'll use to set up your tests:
 
 * `frame.reset()` resets the test frame. Call this before or after each test to reset to a known-good state. This is faster than creating a new frame each time. ([Details in `QFrame` documentation.](docs/QFrame.md))
 
-* `element = frame.get(selector)` gets an element out of the frame. Call this for each element you want to test. You can also use `frame.getAll(selector)` to get multiple elements. ([Details in `QElement` documentation.](docs/QElement.md))
+* `element = frame.get(selector)` gets an element out of the frame. Call this for each element you want to test. You can also use `frame.getAll(selector)` to get multiple elements or `frame.add(html)` to programmatically create an element. ([Details in `QElement` documentation.](docs/QElement.md))
 
 For more information, see [the API documentation](docs/api.md).
 
