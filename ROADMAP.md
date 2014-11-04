@@ -7,20 +7,20 @@
 * **✔ v0.3** Positioning relative to other elements
 * **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * **✔ v0.5** API hardening
-* Responsive design
+* **✔ v0.6** Responsive design
 * Dogfooding and real-world usage
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
 
 
-## Current Feature: Positioning relative to page and viewport
+## Current Feature: Responsive design
 
-* Revise descriptor docs: group by sizing, positioning, etc.?
+* Done!
 
 
-## To Do: 0.6 documentation
+## To Do:
 
-* Update roadmap and changelog for 0.6 release
+* Done!
 
 
 ## Future Features
