@@ -12,7 +12,7 @@ module.exports = [
 	"Firefox 35.0.0 (Mac OS X 10.10)",
 	"Firefox 33.0.0 (Windows 7)",
 	"Chrome 40.0.2214 (Mac OS X 10.10.2)",
-	"Chrome 38.0.2125 (Windows 7)",
+	"Chrome 40.0.2214 (Windows 7)",
 	"Safari 6.2.0 (Mac OS X 10.8.5)",
 	"Mobile Safari 7.0.0 (iOS 7.1)"
 ];
