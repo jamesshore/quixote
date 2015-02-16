@@ -7,6 +7,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 **4 Nov 2014.** This release makes it easier to test fluid and responsive layouts. We now have descriptors for the viewport and page, and the new `QFrame.resize()` method allows you to see how your elements render at different sizes.
 
+*Patches:*
+
+* *0.6.1, 16 Feb 2015:* Opera officially supported. PhantomJS 1.x officially *not* supported via compatibility note in README.
+
 ***Breaking changes:***
 
 * Frames created without the `src` option are created with `<!DOCTYPE html>` to enable standards mode.
