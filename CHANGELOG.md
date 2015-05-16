@@ -3,6 +3,20 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.7: Page and Viewport Assertions
+
+**16 May 2015.** This small release adds `assert()` and `diff()` methods to page and viewport objects provided by `frame.page()` and `frame.viewport()`. They behave just like QElement's `assert` and `diff`.
+
+**No breaking changes.**
+
+*New methods:*
+
+* QFrame.page().assert()
+* QFrame.page().diff()
+* QFrame.viewport().assert()
+* QFrame.viewport().diff
+
+
 ## 0.6: Responsive Design
 
 **4 Nov 2014.** This release makes it easier to test fluid and responsive layouts. We now have descriptors for the viewport and page, and the new `QFrame.resize()` method allows you to see how your elements render at different sizes.
