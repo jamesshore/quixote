@@ -13,15 +13,15 @@
 * ...more TBD
 
 
-## Current Feature: Page and viewport assertions and diff
+## Current Feature: Page and viewport assertions
 
 * QPage.assert()
 * QViewport.assert()
 
 
-## To Do:
+## To Do: QPage.assert()
 
-* Update QPage API docs
+* done
 
 
 ## Future Features

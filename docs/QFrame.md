@@ -138,7 +138,7 @@ Provides access to descriptors for the frame's page (everything you can see or s
 
 `page = frame.page()`
 
-* `page (`[`see descriptors`](descriptors.md)`)` Page descriptors.
+* `page (`[`see descriptors`](descriptors.md)`)` Page descriptors, plus `assert()` and `diff()` methods equivalent to the ones found on [`QElement`](QElement.md).
 
 Example: Assert that a sidebar extends the entire height of the page.
 
