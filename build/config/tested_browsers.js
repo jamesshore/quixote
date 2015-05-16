@@ -5,13 +5,13 @@
 // browser + operating system combinations.
 
 module.exports = [
-	"Chrome 42.0.2311 (Mac OS X 10.10.2)",
+	"Chrome 42.0.2311 (Mac OS X 10.10.3)",
 	"Firefox 37.0.0 (Mac OS X 10.10)",
 	"IE 8.0.0 (Windows 7)",
 	"IE 9.0.0 (Windows 7)",
 	"IE 10.0.0 (Windows 7)",
 	"IE 11.0.0 (Windows 7)",
-	"Safari 8.0.3 (Mac OS X 10.10.2)",
+	"Safari 8.0.3 (Mac OS X 10.10.3)",
 	"Mobile Safari 7.0.0 (iOS 7.1)",
-	"Opera 27.0.1689 (Mac OS X 10.10.2)"
+	"Opera 27.0.1689 (Mac OS X 10.10.3)"
 ];
