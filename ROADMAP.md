@@ -8,6 +8,7 @@
 * **✔ v0.4** Advanced positioning (middle, center, height, width, arithmetic, fractions)
 * **✔ v0.5** API hardening
 * **✔ v0.6** Responsive design
+* **✔ v0.7** Page and viewport assertions
 * Dogfooding and real-world usage
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
@@ -15,8 +16,7 @@
 
 ## Current Feature: Page and viewport assertions
 
-* QPage.assert()
-* QViewport.assert()
+* done
 
 
 ## To Do: QPage.assert()
@@ -26,8 +26,12 @@
 
 ## Future Features
 
+* Z-ordering
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
-* Distances? (e.g., height of menu is equal to distance between logo top and headline bottom)
+* Distances or Spans? (e.g., height of menu is equal to distance between logo top and headline bottom)
+  * Could width and height be reimplemented as a Span? Would a Span have a center, for example?
+    * Even if it could, would it be a good idea?
+    * E.g., Me.width = function() { this.left.to(this.right) };
 * Investigate re-enabling URL checking (issue #4)
 * Consider how to support less-than, greater-than, etc.
   * Use case: "the bottom edge of 'foo' is above the fold (600px)".
