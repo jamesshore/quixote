@@ -23,6 +23,11 @@
 * Done!
 
 
+## Dogfooding results:
+
+* frame.page(), frame.viewport(), and any similar objects need to have .assert() method just like QElement
+
+
 ## Future Features
 
 * Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
