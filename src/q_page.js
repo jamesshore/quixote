@@ -5,6 +5,7 @@ var ensure = require("./util/ensure.js");
 var PageSize = require("./descriptors/page_size.js");
 var PageEdge = require("./descriptors/page_edge.js");
 var Center = require("./descriptors/center.js");
+var Assertable = require("./assertable.js");
 
 var Me = module.exports = function QPage(frame) {
 	var QFrame = require("./q_frame.js");   // break circular dependency
@@ -22,3 +23,4 @@ var Me = module.exports = function QPage(frame) {
 	this.center = Center.x(this.left, this.right, "center of page");
 	this.middle = Center.y(this.top, this.bottom, "middle of page");
 };
+Assertable.extend(Me);

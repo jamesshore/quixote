@@ -21,8 +21,7 @@
 
 ## To Do:
 
-* Pull up assert() and diff() into Assertable class 
-* Update API docs
+* Update QPage API docs
 
 
 ## Future Features
