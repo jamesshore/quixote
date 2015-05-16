@@ -3,7 +3,6 @@
 
 var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
-var shim = require("./util/shim.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
 var ElementSize = require("./descriptors/element_size.js");
@@ -31,34 +30,6 @@ var Me = module.exports = function QElement(domElement, frame, nickname) {
 	this.height = ElementSize.y(this);
 };
 Assertable.extend(Me);
-
-Me.prototype.assert = function assert(expected, message) {
-	ensure.signature(arguments, [ Object, [undefined, String] ]);
-	if (message === undefined) message = "Differences found";
-
-	var diff = this.diff(expected);
-	if (diff !== "") throw new Error(message + ":\n" + diff + "\n");
-};
-
-Me.prototype.diff = function diff(expected) {
-	ensure.signature(arguments, [ Object ]);
-
-	var result = [];
-	var keys = shim.Object.keys(expected);
-	var key, oneDiff, descriptor;
-	for (var i = 0; i < keys.length; i++) {
-		key = keys[i];
-		descriptor = this[key];
-		ensure.that(
-				descriptor !== undefined,
-				this + " doesn't have a property named '" + key + "'. Did you misspell it?"
-		);
-		oneDiff = descriptor.diff(expected[key]);
-		if (oneDiff !== "") result.push(oneDiff);
-	}
-
-	return result.join("\n");
-};
 
 Me.prototype.getRawStyle = function getRawStyle(styleName) {
 	ensure.signature(arguments, [ String ]);
