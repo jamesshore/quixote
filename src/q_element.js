@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("./util/ensure.js");
@@ -7,6 +7,7 @@ var shim = require("./util/shim.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
 var ElementSize = require("./descriptors/element_size.js");
+var Assertable = require("./assertable.js");
 
 var Me = module.exports = function QElement(domElement, frame, nickname) {
 	var QFrame = require("./q_frame.js");    // break circular dependency
@@ -29,6 +30,7 @@ var Me = module.exports = function QElement(domElement, frame, nickname) {
 	this.width = ElementSize.x(this);
 	this.height = ElementSize.y(this);
 };
+Assertable.extend(Me);
 
 Me.prototype.assert = function assert(expected, message) {
 	ensure.signature(arguments, [ Object, [undefined, String] ]);

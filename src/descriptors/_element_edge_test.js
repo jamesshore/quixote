@@ -23,9 +23,6 @@ describe("ElementEdge", function() {
 	var BOTTOM = 70;
 	var LEFT = 20;
 
-	var WIDTH = 130;
-	var HEIGHT = 60;
-
 	beforeEach(function() {
 		frame = reset.frame;
 		element = frame.add(

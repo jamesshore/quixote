@@ -1,8 +1,9 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
+var Assertable = require("./assertable.js");
 var QElement = require("./q_element.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 
@@ -28,6 +29,10 @@ describe("QElement", function() {
 			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
 		);
 		element = frame.get("#element");
+	});
+
+	it("is Assertable", function() {
+		assert.implements(element, Assertable);
 	});
 
 	describe("object", function() {

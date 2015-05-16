@@ -21,8 +21,7 @@
 
 ## To Do:
 
-* Copy and test assert() code from QElement to QPage
-* Figure out how to eliminate duplication
+* Pull up assert() and diff() into Assertable class 
 * Update API docs
 
 
