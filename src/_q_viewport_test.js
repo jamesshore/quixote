@@ -4,6 +4,7 @@
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var QViewport = require("./q_viewport.js");
+var Assertable = require("./assertable.js");
 
 describe("QViewport", function() {
 
@@ -13,6 +14,10 @@ describe("QViewport", function() {
 	beforeEach(function() {
 		frame = reset.frame;
 		viewport = new QViewport(frame);
+	});
+
+	it("is Assertable", function() {
+		assert.implements(viewport, Assertable);
 	});
 
 	it("has size properties", function() {
