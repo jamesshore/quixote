@@ -1,9 +1,10 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var QPage = require("./q_page.js");
+var Assertable = require("./assertable.js");
 
 describe("QPage", function() {
 
@@ -21,6 +22,10 @@ describe("QPage", function() {
 			"<div style='position: absolute; left: " + (WIDTH - 100) + "px; top: " + (HEIGHT - 100) + "px; " +
 			"width: 100px; height: 100px;'>element</div>"
 		);
+	});
+
+	it("is Assertable", function() {
+		assert.implements(page, Assertable);
 	});
 
 	it("has size properties", function() {

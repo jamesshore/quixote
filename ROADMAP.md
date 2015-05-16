@@ -13,19 +13,15 @@
 * ...more TBD
 
 
-## Current Feature: Responsive design
+## Current Feature: Page and viewport assertions
 
-* Done!
-
-
-## To Do:
-
-* Done!
+* QPage.assert()
+* QViewport.assert()
 
 
-## Dogfooding results:
+## To Do: QPage.assert()
 
-* frame.page(), frame.viewport(), and any similar objects need to have .assert() method just like QElement
+* done
 
 
 ## Future Features
