@@ -114,7 +114,7 @@ Provides access to descriptors for the frame's viewport (the part of the page th
 
 `viewport = frame.viewport()`
 
-* `viewport (`[`see descriptors`](descriptors.md)`)` Viewport descriptors.
+* `viewport (`[`see descriptors`](descriptors.md)`)` Viewport descriptors, plus `assert()` and `diff()` methods equivalent to the ones found on [`QElement`](QElement.md).
 
 Example: Assert that a banner is displayed at the top of the window and all the way from side to side.
 
