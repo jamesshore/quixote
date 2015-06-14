@@ -134,6 +134,8 @@ Pull requests are welcome! Here are some specific contributions we're looking fo
 
 * **Create new descriptors.** Descriptors are small classes that describe how to calculate and describe CSS. Our [descriptor creation tutorial is here](src/descriptors/README.md).
 
+* **Support [typescript definitions](https://github.com/borisyankov/DefinitelyTyped/blob/master/quixote/quixote.d.ts)** for Quixote up-to-date.
+
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  
 * **Start the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation, but so far, everything's just in markdown files. The website source code is in [docs](docs). The [Object Playground site](http://www.objectplayground.com) and [stylesheet](https://github.com/jamesshore/object_playground/blob/master/src/site.css) are a good starting point.
