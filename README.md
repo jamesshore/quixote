@@ -2,6 +2,8 @@
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
 
+[![Quixote definitons on DefinitelyTyped](https://img.shields.io/badge/quixote-.d.ts-blue.svg)](https://github.com/borisyankov/DefinitelyTyped/blob/master/quixote/quixote.d.ts)
+
 Quixote is a library for unit testing CSS. It lets you make assertions about your pages' elements, their relationships, and how they are actually styled by the browser. It has a compact, powerful API and produces beautiful failure messages.
 
 ```javascript
