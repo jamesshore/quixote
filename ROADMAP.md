@@ -24,6 +24,12 @@
 * done
 
 
+## Dogfooding Notes
+
+* Provide better error message when cross-origin 'src' provided to quixote.createFrame
+* Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
+
+
 ## Future Features
 
 * Z-ordering
