@@ -3,7 +3,7 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## 0.7: Page and Viewport Assertions
+## 0.7.x: Page and Viewport Assertions
 
 **16 May 2015.** This small release adds `assert()` and `diff()` methods to page and viewport objects provided by `frame.page()` and `frame.viewport()`. They behave just like QElement's `assert` and `diff`.
 
@@ -17,7 +17,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QFrame.viewport().diff
 
 
-## 0.6: Responsive Design
+## 0.6.x: Responsive Design
 
 **4 Nov 2014.** This release makes it easier to test fluid and responsive layouts. We now have descriptors for the viewport and page, and the new `QFrame.resize()` method allows you to see how your elements render at different sizes.
 
@@ -64,7 +64,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * QFrame.page().middle
 
 
-## 0.5: API Hardening
+## 0.5.x: API Hardening
 
 **23 Oct 2014.** API stability was the goal of this release. The API has been thoroughly reviewed and tweaked with the goal of reducing future changes. Other small changes were made to make the API production-ready, and the documentation received a thorough review and update.
 
@@ -98,7 +98,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * Frame --> QFrame
 
 
-## 0.4: Advanced Positioning
+## 0.4.x: Advanced Positioning
 
 **22 Oct 2014.** This release adds a host of new positioning options. You can get the width and height of elements, look at the center (horizontal) or middle (vertical) of elements, and you can mix and match any descriptor with any other. For example, you could check if your element is in the center third below an 'other' element:
   
@@ -158,7 +158,7 @@ element.assert({
 * SizeMultiple.times()
 
 
-## 0.3: Element-to-Element Positioning Comparisons
+## 0.3.x: Element-to-Element Positioning Comparisons
 
 **15 Oct 2014.** QElement's `diff()` method now supports checking relative positions. As well as specifying an absolute position, you can also describe your element relative to other elements. You can also specify an offset if elements aren't exactly aligned:
 
@@ -196,7 +196,7 @@ Also, the new `assert()` method works just like `diff()`, except it automaticall
 * ElementEdge.minus()
 
 
-## 0.2: Absolute Positioning
+## 0.2.x: Absolute Positioning
 
 **14 Oct 2014.** QElement instances now have a `diff()` method that you can use to check multiple properties simultaneously. In this release, it supports the most basic positioning information: the absolute position of the top, right, bottom, and left edge of the element, like this:
 
@@ -232,7 +232,7 @@ element.diff({
 * QElement.left
 
 
-## 0.1: Raw Styles and Positions
+## 0.1.x: Raw Styles and Positions
 
 **13 Oct 2014.** Basic API for setting up a test frame and getting raw (non cross-browser-compatible) style and positioning information. Minimally viable... but viable.
  
@@ -253,7 +253,7 @@ element.diff({
   * getRawPosition()
   
 
-## 0.0: Infrastructure
+## 0.0.x: Infrastructure
 
 **30 Sept 2014.** Project infrastructure.
 
