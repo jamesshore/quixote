@@ -16,7 +16,7 @@ top edge of '.menu' was 13px lower than expected.
   But was:  63px
 ```
 
-**Browser Support:** IE 8+, Firefox, Chrome, Safari, Mobile Safari, Opera, and other modern browsers. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
+**Browser Support:** IE 8+, Firefox, Chrome, Safari, Opera, Mobile Safari, Chrome Mobile, and other modern browsers. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
 
 PhantomJS 1.x is *not* supported because its WebKit version is too old. We hope to officially support PhantomJS 2.x when it's ready. See [issue #10](https://github.com/jamesshore/quixote/issues/10) for details.
 

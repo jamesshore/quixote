@@ -9,6 +9,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Patches:*
 
+* *0.7.2, 11 Sept 2015:* Chrome Mobile on Android officially supported.
+
 * *0.7.1, 11 Sept 2015:* Fix: `QElement.getRawStyle()` returned wrong answer on Firefox when called twice in a row on some properties.
 
 **No breaking changes.**
