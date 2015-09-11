@@ -99,6 +99,16 @@ describe("QElement", function() {
 			assert.equal(element.getRawStyle("font-size"), "42px", "raw style");
 		});
 
+		it("reports consistent results when called multiple times in a row", function() {
+			// WORKAROUND Firefox 40.0.3 (ref https://bugzilla.mozilla.org/show_bug.cgi?id=1204062)
+			var element = frame.add("<div style='padding-left: 20px;'></div>");
+
+			element.getRawStyle("padding-left");
+			var call2 = element.getRawStyle("padding-left");
+
+			assert.equal(call2, "20px");
+		});
+
 		it("returns empty string when raw style doesn't exist", function() {
 			var element = frame.add("<div></div>");
 			assert.equal(element.getRawStyle("non-existant"), "", "non-existant style");
