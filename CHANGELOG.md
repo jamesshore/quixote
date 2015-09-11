@@ -7,6 +7,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 **16 May 2015.** This small release adds `assert()` and `diff()` methods to page and viewport objects provided by `frame.page()` and `frame.viewport()`. They behave just like QElement's `assert` and `diff`.
 
+*Patches:*
+
+* *0.7.1, 11 Sept 2015:* Fix: `QElement.getRawStyle()` returned wrong answer on Firefox when called twice in a row on some properties.
+
 **No breaking changes.**
 
 *New methods:*
