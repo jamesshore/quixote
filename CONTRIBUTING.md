@@ -91,3 +91,15 @@ There's a tutorial for creating new descriptors [in the descriptors directory](s
 * `dev` contains my work in progress.
 
 Previous commits on the integration branch have "INTEGRATE" in their commit comment.
+
+
+## Release Process
+
+For use by the project maintainer.
+
+1. Remove any temporary branches (list with `git branch`, delete with `git branch -d <name>`)
+2. Update readme and API documentation as needed.
+3. Update changelog and roadmap.
+4. Run `./integrate.sh` to integrate dev branch into master branch.
+5. Run `.release [major | minor | patch]` to release. The release script releases to npm and github.
+6. Publicize.
