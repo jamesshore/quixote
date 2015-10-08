@@ -28,6 +28,10 @@
 
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
+* Support multiple `stylesheet` options in `quixote.createFrame`
+* Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
+* Provide (optional, but default) error message when 404 or other error response occurs when using 'src' with quixote.createFrame
+* Document `spikes/ios_text_sizing` issue and how it affects tests. Add browser check? 
 
 
 ## Future Features

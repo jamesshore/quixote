@@ -1,6 +1,6 @@
 These files demonstrate how Mobile Safari sizes an iframe.
 
-To use, serve the files from a web browser (I like npm's `http-server` for simplicity and convenience), then
+To use, serve the files from a web server (I like npm's `http-server` for simplicity and convenience), then
 visit index.html in Mobile Safari or any other browser.
 
 On Mobile Safari, observe:
