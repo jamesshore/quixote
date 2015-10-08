@@ -29,6 +29,7 @@
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * Support multiple `stylesheet` options in `quixote.createFrame`
+* Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
 
 
 ## Future Features
