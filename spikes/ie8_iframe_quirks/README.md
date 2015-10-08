@@ -1,6 +1,6 @@
 These files demonstrate an issue with iframes when IE 8 is in "quirks" mode.
 
-To use, serve the files from a web browser (I like npm's `http-server` for simplicity and convenience), then
+To use, serve the files from a web server (I like npm's `http-server` for simplicity and convenience), then
 visit index.html in IE 8 or any other browser.
 
 Observe:
