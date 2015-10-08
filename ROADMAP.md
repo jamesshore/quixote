@@ -14,14 +14,15 @@
 * ...more TBD
 
 
-## Current Feature: Page and viewport assertions
+## Current Feature: Browser check for iOS text size resizing
 
-* done
+* Add browser check
+* Document
 
 
-## To Do: QPage.assert()
+## To Do: 
 
-* done
+* Implement
 
 
 ## Dogfooding Notes
@@ -31,7 +32,6 @@
 * Support multiple `stylesheet` options in `quixote.createFrame`
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
 * Provide (optional, but default) error message when 404 or other error response occurs when using 'src' with quixote.createFrame
-* Document `spikes/ios_text_sizing` issue and how it affects tests. Add browser check? 
 
 
 ## Future Features
@@ -47,7 +47,3 @@
   * Use case: "the bottom edge of 'foo' is above the fold (600px)".
   * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
 
-
-## Future To Do
-
-* Can't create frame with stylesheet AND src document without creating error on iOS Safari (23px???)

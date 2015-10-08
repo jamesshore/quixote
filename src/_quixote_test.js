@@ -22,14 +22,26 @@ describe("Quixote", function() {
 
 describe("Browser capability", function() {
 
-	it("detects whether browser expands frame to fit size of page", function() {
-		var mobileSafari = navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i) !== null;
+	var mobileSafari;
 
+	beforeEach(function() {
+		mobileSafari = navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i) !== null;
+	});
+
+	it("detects whether browser expands frame to fit size of page", function() {
 		assert.equal(
 			quixote.browser.enlargesFrameToPageSize(),
 			mobileSafari,
 			"everything but Mobile Safari should respect frame size"
 		);
+	});
+
+	it("detects whether browser expands size of font when frame is large", function() {
+		//assert.equal(
+		//	quixote.browser.enlargesFonts(),
+		//	mobileSafari,
+		//	"everything but Mobile Safari should respect frame size"
+		//);
 	});
 
 });

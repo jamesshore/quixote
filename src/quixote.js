@@ -22,16 +22,17 @@ exports.createFrame = function(options, callback) {
 
 exports.browser = {};
 
-exports.browser.enlargesFrameToPageSize = function enlargesFrameToPageSize() {
-	ensure.signature(arguments, []);
-	ensure.that(
-		features.enlargesFrame !== undefined,
-		"Must create a frame before using Quixote browser feature detection."
-	);
+exports.browser.enlargesFrameToPageSize = createDetectionMethod("enlargesFrame");
 
-	return features.enlargesFrame;
-};
+function createDetectionMethod(propertyName) {
+	return function() {
+		ensure.signature(arguments, []);
 
+		var feature = features[propertyName];
+		ensure.that(feature !== undefined, "Must create a frame before using Quixote browser feature detection.");
+		return feature;
+	};
+}
 
 function detectBrowserFeatures(callback) {
 	var FRAME_WIDTH = 300;
@@ -45,13 +46,21 @@ function detectBrowserFeatures(callback) {
 		}
 
 		try {
-			detector.add("<div style='width: " + (FRAME_WIDTH + 200) + "px'>force scrolling</div>");
-			features.enlargesFrame = !detector.viewport().width.value().equals(Size.create(FRAME_WIDTH));
-
+			features.enlargesFrame = resetThen(detectFrameEnlargement);
 			return callback();
 		}
 		finally {
 			detector.remove();
 		}
 	});
+
+	function resetThen(fn) {
+		detector.reset();
+		return fn(detector, FRAME_WIDTH);
+	}
+}
+
+function detectFrameEnlargement(detector, frameWidth) {
+	detector.add("<div style='width: " + (frameWidth + 200) + "px'>force scrolling</div>");
+	return !detector.viewport().width.value().equals(Size.create(frameWidth));
 }
