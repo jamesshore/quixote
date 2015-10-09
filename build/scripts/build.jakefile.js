@@ -8,7 +8,7 @@
 	var startTime = Date.now();
 
 	var jshint = require("simplebuild-jshint");
-	var karma = require("../util/karma_runner.js");
+	var karma = require("simplebuild-karma");
 	var browserify = require("../util/browserify_runner.js");
 
 	var KARMA_CONFIG = "./build/config/karma.conf.js";
@@ -57,7 +57,9 @@
 	desc("Start Karma server -- run this first");
 	task("karma", function() {
 		console.log("Starting Karma server:");
-		karma.serve(KARMA_CONFIG, complete, fail);
+		karma.start({
+			configFile: KARMA_CONFIG
+		}, complete, fail);
 	}, { async: true });
 
 	desc("Run tests");
@@ -65,9 +67,9 @@
 		console.log("Testing source code:");
 
 		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
-		karma.runTests({
+		karma.run({
 			configFile: KARMA_CONFIG,
-			browsers: TESTED_BROWSERS,
+			expectedBrowsers: TESTED_BROWSERS,
 			strict: !process.env.loose,
 			capture: browsersToCapture
 		}, complete, fail);

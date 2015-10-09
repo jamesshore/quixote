@@ -93,24 +93,11 @@ describe("QFrame", function() {
 				stylesheet: "/base/src/_q_frame_test.css"
 			};
 
-			assert.exception(function() {
-				frame = QFrame.create(window.document.body, options, function() {
-					done("Should never be called");
-				});
-			}, /Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue/);
-			done();
-
-				// WORKAROUND Mobile Safari 7.0.0: Weird font-size result (23px)
-//			QFrame.create(window.document.body, 600, 400, options, function(frame) {
-//				try {
-//					var styleMe = frame.get(".style-me");
-//					var makeLintHappy = styleMe.toDomElement().offsetHeight;  // force reflow
-//					assert.equal(styleMe.getRawStyle("font-size"), "42px");
-//					done();
-//				}
-//				catch(e) {
-//					done(e);
-//				}
+			QFrame.create(window.document.body, options, function(err, frame) {
+				var styleMe = frame.get(".style-me");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px");
+				done();
+			});
 		});
 
 		it("resets iframe loaded with source URL without destroying source document", function(done) {
