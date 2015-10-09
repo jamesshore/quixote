@@ -44,7 +44,7 @@ before(function(done) {
 
 **Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, *whichever is larger*. You can detect this behavior by using `quixote.browser.enlargesFrameToPageSize()`.
 
-**Compatibility Note:** Mobile Safari will increase the size of small fonts when the frame is larger than the browser window. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using `quixote.browser.enlargesFrameToPageSize()`.
+**Compatibility Note:** Mobile Safari will increase the size of small fonts depending on the width of the frame. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using `quixote.browser.enlargesFonts()`.
 
 
 #### quixote.browser
@@ -59,4 +59,4 @@ Quixote detects browser features via a temporary frame that's created, and immed
 
 * `quixote.browser.enlargesFrameToPageSize()`: Mobile Safari ignores frame width and height attributes when the page is larger than the frame. It uses the page dimensions instead. This function returns true if the current browser exhibits that behavior.
 
-* `quixote.browser.enlargesFonts()`: Mobile Safari will increase the size of small fonts when the frame is larger than the browser window. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) This function returns true if the current browser exhibits that behavior.
+* `quixote.browser.enlargesFonts()`: Mobile Safari will increase the size of small fonts depending on the width of the frame. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) This function returns true if the current browser exhibits that behavior.

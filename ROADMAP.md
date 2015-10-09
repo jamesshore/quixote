@@ -21,7 +21,7 @@
 
 ## To Do: 
 
-* Update changelog
+* Done
 
 
 ## Dogfooding Notes

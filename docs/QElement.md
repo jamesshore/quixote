@@ -71,6 +71,8 @@ Example: `var fontSize = element.getRawStyle("font-size");`
 * IE 8 uses `currentStyle` rather than `getComputedStyle()`, and snake-case property names are converted to camelCase to match currentStyle's expectation.
 * Different browsers return `null`, `undefined`, or `""` when a property can't be found. Quixote always returns `""`. 
 
+**Compatibility Note:** When using `getRawStyle("font-size")`, be aware that Mobile Safari may increase the size of small fonts. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](quixote.md).
+
 
 #### element.getRawPosition()
 
@@ -95,8 +97,6 @@ Example: `var top = element.getRawPosition().top;`
 **Compatibility Note:** `getRawPosition()` does *not* attempt to resolve cross-browser differences, with one exception:
 
 * IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` calculates them from the other properties.
-
-**Compatibility Note:** Mobile Safari will increase the size of small fonts when the frame is larger than the browser window. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md).
 
 #### element.toDomElement()
 

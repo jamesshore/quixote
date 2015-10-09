@@ -3,6 +3,17 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.8.x: Browser Font Enlargement Detection
+
+**8 Oct 2015.** This small release adds the ability to detect if the browser enlarges fonts, as Mobile Safari does.
+
+**No breaking changes.**
+
+*New methods:*
+
+* quixote.browser.enlargesFonts()
+
+
 ## 0.7.x: Page and Viewport Assertions
 
 **16 May 2015.** This small release adds `assert()` and `diff()` methods to page and viewport objects provided by `frame.page()` and `frame.viewport()`. They behave just like QElement's `assert` and `diff`.
