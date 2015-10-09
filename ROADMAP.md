@@ -9,15 +9,14 @@
 * **✔ v0.5** API hardening
 * **✔ v0.6** Responsive design
 * **✔ v0.7** Page and viewport assertions
-* **v0.8** Dogfooding and real-world usage (more dogfooding releases to come)
+* **v0.8, v0.9** Dogfooding and real-world usage (more dogfooding releases to come)
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
 
 
 ## Current Feature: Support multiple stylesheets
 
-* Implement multiple stylesheets
-* Test what happens when you try to use a frame that's err'd out
+* Done
 
 
 ## To Do: Multiple stylesheets 
