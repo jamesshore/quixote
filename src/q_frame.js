@@ -40,7 +40,7 @@
 		var stylesheets = options.stylesheet || [];
 		if (!shim.Array.isArray(stylesheets)) stylesheets = [ stylesheets ];
 
-		var err = checkUrls(src, stylesheets[0]);
+		var err = checkUrls(src, stylesheets);
 		if (err) return callback(err);
 
 		var iframe = insertIframe(parentElement, width, height);
@@ -62,9 +62,14 @@
 		}
 	};
 
-	function checkUrls(src, stylesheet) {
+	function checkUrls(src, stylesheets) {
 		if (!urlExists(src)) return error("src", src);
-		if (!urlExists(stylesheet)) return error("stylesheet", stylesheet);
+
+		for (var i = 0; i < stylesheets.length; i++) {
+			var url = stylesheets[i];
+			if (!urlExists(url)) return error("stylesheet", url);
+		}
+
 		return null;
 
 		function error(name, url) {

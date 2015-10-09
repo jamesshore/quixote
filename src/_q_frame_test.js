@@ -178,6 +178,18 @@ describe("QFrame", function() {
 		   });
 		});
 
+		it("checks for existence of all stylesheet URLs", function(done) {
+			var options = {
+				stylesheet: [ "/base/src/_q_frame_test.css", "non_existing.css" ]
+			};
+			QFrame.create(window.document.body, options, function(err, frame) {
+		    assert.undefined(frame, "frame should not exist");
+		    assert.type(err, Error, "err should be an Error object");
+		    assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
+		    done();
+		   });
+		});
+
 		it("fails fast if frame is used before it's loaded", function(done) {
 			frame = QFrame.create(window.document.body, function() { done(); });
 

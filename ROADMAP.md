@@ -22,7 +22,6 @@
 
 ## To Do: Multiple stylesheets 
 
-* Update fail-fast code to check multiple stylesheets
 * Document
 
 
