@@ -19,9 +19,11 @@
 * Implement multiple stylesheets
 
 
-## To Do: Enable URL fail-fast code 
+## To Do: Multiple stylesheets 
 
-* Done
+* Implement
+* Update fail-fast code to check multiple stylesheets
+* Document
 
 
 ## Dogfooding Notes

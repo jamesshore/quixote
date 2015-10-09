@@ -87,7 +87,7 @@ describe("QFrame", function() {
 			});
 		});
 
-		it("cannot create iframe using stylesheet and source URL simultaneously", function(done) {
+		it("creates iframe using stylesheet and source URL simultaneously", function(done) {
 			var options = {
 				src: "/base/src/_q_frame_test.html",
 				stylesheet: "/base/src/_q_frame_test.css"
