@@ -72,7 +72,10 @@ function detectFrameEnlargement(frame, frameWidth) {
 function detectFontEnlargement(frame, frameWidth, callback) {
 	ensure.that(frameWidth >= 1500, "Detector frame width must be larger than screen to detect font enlargement");
 
-	frame.add("<div><style>p { font-size: 15px; }</style></div>");    // WORKAROUND IE 8: can't add style tag on its own
+	// WORKAROUND IE 8: we use a <div> because the <style> tag can't be added by frame.add(). At the time of this
+	// writing, I'm not sure if the issue is with frame.add() or if IE just can't programmatically add <style> tags.
+	frame.add("<div><style>p { font-size: 15px; }</style></div>");
+
 	var text = frame.add("<p>arbitrary text</p>");
 	frame.add("<p>must have two p tags to work</p>");
 
@@ -80,6 +83,10 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 	setTimeout(function() {
 		var fontSize = text.getRawStyle("font-size");
 		ensure.that(fontSize !== "", "Expected font-size to be a value");
+
+		// WORKAROUND IE 8: ignores <style> tag we added above
+		if (fontSize === "12pt") return callback(false);
+
 		return callback(fontSize !== "15px");
 	}, 0);
 
