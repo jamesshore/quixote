@@ -24,7 +24,8 @@
 
 ## To Do: Investigate 'src' + 'stylesheet' 
 
-* Update documentation
+* Rename 'stylesheet' to 'css' and update documentation
+* Update changelog
 
 
 ## Dogfooding Notes
