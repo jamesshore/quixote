@@ -22,36 +22,72 @@ exports.createFrame = function(options, callback) {
 
 exports.browser = {};
 
-exports.browser.enlargesFrameToPageSize = function enlargesFrameToPageSize() {
-	ensure.signature(arguments, []);
-	ensure.that(
-		features.enlargesFrame !== undefined,
-		"Must create a frame before using Quixote browser feature detection."
-	);
+exports.browser.enlargesFrameToPageSize = createDetectionMethod("enlargesFrame");
+exports.browser.enlargesFonts = createDetectionMethod("enlargesFonts");
 
-	return features.enlargesFrame;
-};
+function createDetectionMethod(propertyName) {
+	return function() {
+		ensure.signature(arguments, []);
 
+		var feature = features[propertyName];
+		ensure.that(feature !== undefined, "Must create a frame before using Quixote browser feature detection.");
+		return feature;
+	};
+}
 
 function detectBrowserFeatures(callback) {
-	var FRAME_WIDTH = 300;
+	var FRAME_WIDTH = 1500;
 	var FRAME_HEIGHT = 200;
 
 	features = {};
-	var detector = QFrame.create(document.body, { width: FRAME_WIDTH, height: FRAME_HEIGHT }, function(err) {
+	var frame = QFrame.create(document.body, { width: FRAME_WIDTH, height: FRAME_HEIGHT }, function(err) {
 		if (err) {
-			console.log("Error during Quixote browser feature detection:", err);
+			console.log("Error while creating Quixote browser feature detection frame: " + err);
 			return callback();
 		}
 
 		try {
-			detector.add("<div style='width: " + (FRAME_WIDTH + 200) + "px'>force scrolling</div>");
-			features.enlargesFrame = !detector.viewport().width.value().equals(Size.create(FRAME_WIDTH));
+			features.enlargesFrame = detectFrameEnlargement(frame, FRAME_WIDTH);
 
-			return callback();
+			frame.reset();
+			detectFontEnlargement(frame, FRAME_WIDTH, function(result) {
+				features.enlargesFonts = result;
+				frame.remove();
+				return callback();
+			});
+
 		}
-		finally {
-			detector.remove();
+		catch(err2) {
+			console.log("Error during Quixote browser feature detection: " + err2);
 		}
 	});
+
+}
+
+function detectFrameEnlargement(frame, frameWidth) {
+	frame.add("<div style='width: " + (frameWidth + 200) + "px'>force scrolling</div>");
+	return !frame.viewport().width.value().equals(Size.create(frameWidth));
+}
+
+function detectFontEnlargement(frame, frameWidth, callback) {
+	ensure.that(frameWidth >= 1500, "Detector frame width must be larger than screen to detect font enlargement");
+
+	// WORKAROUND IE 8: we use a <div> because the <style> tag can't be added by frame.add(). At the time of this
+	// writing, I'm not sure if the issue is with frame.add() or if IE just can't programmatically add <style> tags.
+	frame.add("<div><style>p { font-size: 15px; }</style></div>");
+
+	var text = frame.add("<p>arbitrary text</p>");
+	frame.add("<p>must have two p tags to work</p>");
+
+	// WORKAROUND Safari 8.0.0: timeout required because font is enlarged asynchronously
+	setTimeout(function() {
+		var fontSize = text.getRawStyle("font-size");
+		ensure.that(fontSize !== "", "Expected font-size to be a value");
+
+		// WORKAROUND IE 8: ignores <style> tag we added above
+		if (fontSize === "12pt") return callback(false);
+
+		return callback(fontSize !== "15px");
+	}, 0);
+
 }

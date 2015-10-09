@@ -106,7 +106,7 @@ describe("Example", function() {
 
 ## API Overview
 
-[Detailed API documentation is here.](docs/api.md)
+**[Detailed API documentation is here.](docs/api.md)**
 
 The method you'll use most often is `element.assert({ descriptor: expectation, ... })`. It takes an object containing several [QElement descriptors](docs/descriptors.md) as keys, along with each one's expected value, which can be another descriptor or a hard-coded value. See the [descriptor documentation](docs/descriptors.md) for more information and several examples.
 
@@ -154,4 +154,4 @@ Many thanks to our contributors!
 
 ## License
 
-MIT License. See `LICENSE.TXT`.
+MIT License. See `LICENSE.txt`.
