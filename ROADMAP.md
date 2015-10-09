@@ -21,8 +21,6 @@
 
 ## To Do: 
 
-* Document
-* Review readme
 * Update roadmap
 * Update changelog
 
