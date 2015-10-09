@@ -33,12 +33,13 @@
 			callback = options;
 			options = {};
 		}
-		var src = options.src;
-		var stylesheet = options.stylesheet;
 		var width = options.width || 2000;
 		var height = options.height || 2000;
+		var src = options.src;
+		var stylesheets = options.stylesheet;
+		if (!shim.Array.isArray(stylesheets)) stylesheets = [ stylesheets ];
 
-		var err = checkUrls(src, stylesheet);
+		var err = checkUrls(src, stylesheets[0]);
 		if (err) return callback(err);
 
 		var iframe = insertIframe(parentElement, width, height);
@@ -53,7 +54,7 @@
 			// We force it to be asynchronous here
 			setTimeout(function() {
 				loaded(frame, width, height);
-				loadStylesheet(frame, options.stylesheet, function() {
+				loadStylesheet(frame, stylesheets[0], function() {
 					callback(null, frame);
 				});
 			}, 0);

@@ -17,6 +17,7 @@
 ## Current Feature: Support multiple stylesheets
 
 * Implement multiple stylesheets
+* Test what happens when you try to use a frame that's err'd out
 
 
 ## To Do: Multiple stylesheets 

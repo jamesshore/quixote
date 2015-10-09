@@ -82,7 +82,21 @@ describe("QFrame", function() {
 		it("creates iframe using stylesheet link", function(done) {
 			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
-				assert.equal(styleMe.getRawStyle("font-size"), "42px");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px", "should get style from stylesheet");
+				done();
+			});
+		});
+
+		it("creates iframe using multiple stylesheet links", function(done) {
+			var options = {
+				stylesheet: [ "/base/src/_q_frame_test.css", "/base/src/_q_frame_test2.css" ]
+			};
+			frame = QFrame.create(window.document.body, options, function(err) {
+				if (err) return done(err);
+
+				var styleMe = frame.add("<div class='style-me'>Foo</div>");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px", "should get style from first stylesheet");
+				//assert.equal(styleMe.getRawStyle("color"), "#123456", "should get style from second stylesheet");
 				done();
 			});
 		});
