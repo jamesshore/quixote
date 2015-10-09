@@ -11,6 +11,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 *Changes:*
 
 * quixote.createFrame() no longer errs out when you specify `options.src` and `options.stylesheet` at the same time.
+* quixote.createFrame() checks src and stylesheet URLs and fails fast if they're not found.
 
 
 

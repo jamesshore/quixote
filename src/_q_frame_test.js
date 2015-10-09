@@ -142,6 +142,24 @@ describe("QFrame", function() {
 			});
 		});
 
+		it("fails fast if source URL not found", function(done) {
+      QFrame.create(window.document.body, { src: "non_existing.html" }, function(err, frame) {
+	      assert.undefined(frame, "frame should not exist");
+	      assert.type(err, Error, "err should be an Error object");
+	      assert.equal(err.message, "404 error while loading src (non_existing.html)", "error message");
+	      done();
+      });
+		});
+
+		it("fails fast if stylesheet URL not found", function(done) {
+			QFrame.create(window.document.body, { stylesheet: "non_existing.css" }, function(err, frame) {
+		    assert.undefined(frame, "frame should not exist");
+		    assert.type(err, Error, "err should be an Error object");
+		    assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
+		    done();
+		   });
+		});
+
 		it("fails fast if frame is used before it's loaded", function(done) {
 			frame = QFrame.create(window.document.body, function() { done(); });
 

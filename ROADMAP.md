@@ -16,13 +16,10 @@
 
 ## Current Feature: Support multiple stylesheets
 
-* Investigate using 'src' + 'stylesheet' at same time
-* Try re-enabling '23px' test (may have been due to iOS text-size issue?)
-* Try re-enabling @bjornicus' fail fast code
 * Implement multiple stylesheets
 
 
-## To Do: Investigate 'src' + 'stylesheet' 
+## To Do: Enable URL fail-fast code 
 
 * Done
 
@@ -32,7 +29,6 @@
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
-* Provide (optional, but default) error message when 404 or other error response occurs when using 'src' with quixote.createFrame
 * Add workaround for IE 8 not working with `frame.add("<style>...</style>")` (addAll? browser feature detect? Need to check if there's no way to insert styles into the document, or if it just doesn't like the way `add()` works.)  
 * Add `QElement.add()` and `QElement.remove()`?
 
