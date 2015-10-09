@@ -9,6 +9,7 @@
 	var QElementList = require("./q_element_list.js");
 	var QViewport = require("./q_viewport.js");
 	var QPage = require("./q_page.js");
+	var async = require("../vendor/async-1.4.2.js");
 
 	var Me = module.exports = function QFrame(frameDom) {
 		ensure.signature(arguments, [Object]);
@@ -36,7 +37,7 @@
 		var width = options.width || 2000;
 		var height = options.height || 2000;
 		var src = options.src;
-		var stylesheets = options.stylesheet;
+		var stylesheets = options.stylesheet || [];
 		if (!shim.Array.isArray(stylesheets)) stylesheets = [ stylesheets ];
 
 		var err = checkUrls(src, stylesheets[0]);
@@ -103,19 +104,15 @@
 	}
 
 	function loadStylesheets(self, urls, callback) {
-		ensure.signature(arguments, [Me, Array, Function]);
-		if (urls[0] === undefined) return callback();
-		var url = urls[0];
+		async.each(urls, addLinkTag, callback);
 
-		var link = document.createElement("link");
-		shim.EventTarget.addEventListener(link, "load", onLinkLoad);
-		link.setAttribute("rel", "stylesheet");
-		link.setAttribute("type", "text/css");
-		link.setAttribute("href", url);
-
-		shim.Document.head(self._document).appendChild(link);
-		function onLinkLoad() {
-			callback();
+		function addLinkTag(url, onLinkLoad) {
+			var link = document.createElement("link");
+			shim.EventTarget.addEventListener(link, "load", function(event) { onLinkLoad(null); });
+			link.setAttribute("rel", "stylesheet");
+			link.setAttribute("type", "text/css");
+			link.setAttribute("href", url);
+			shim.Document.head(self._document).appendChild(link);
 		}
 	}
 
