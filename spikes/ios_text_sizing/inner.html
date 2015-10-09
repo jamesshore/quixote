@@ -4,12 +4,23 @@
     <meta charset="UTF-8">
     <title></title>
 
-    <link rel="stylesheet" href="screen.css">
+    <style>
+        p {
+            /* The following line prevents the text from being enlarged */
+            /*-webkit-text-size-adjust: 100%;*/
+        }
+    </style>
 </head>
 <body>
 
-<p>This is a line of text inside a frame.</p>
-<p>This is another line of text inside a frame.</p>
+<p id="line1" style="font-size: 15px;">This is a line of text inside a frame.</p>
+<p style="font-size: 15px;">This is another line of text inside a frame.</p>
+
+<script>
+    var element = document.getElementById("line1");
+    var styles = getComputedStyle(element);
+    alert(styles.getPropertyValue("font-size"));
+</script>
 
 </body>
 </html>
