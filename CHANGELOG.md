@@ -3,13 +3,15 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## 0.9.x (in progress): Multiple Stylesheets
+## 0.9.x: Multiple Stylesheets
+
 **9 Oct 2015.** A small release that improves the handling of stylesheets. You can now use an array to provide multiple stylesheets in quixote.createFrame's the `options.stylesheet` parameter. You can also provide stylesheets and src URLs at the same time.
 
 **No breaking changes.**
 
 *Changes:*
 
+* quixote.createFrame() accepts an array of stylesheets in `options.stylesheet`.
 * quixote.createFrame() no longer errs out when you specify `options.src` and `options.stylesheet` at the same time.
 * quixote.createFrame() checks src and stylesheet URLs and fails fast if they're not found.
 
