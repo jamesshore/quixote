@@ -37,11 +37,11 @@ describe("Browser capability", function() {
 	});
 
 	it("detects whether browser expands size of font when frame is large", function() {
-		//assert.equal(
-		//	quixote.browser.enlargesFonts(),
-		//	mobileSafari,
-		//	"everything but Mobile Safari should respect frame size"
-		//);
+		assert.equal(
+			quixote.browser.enlargesFonts(),
+			mobileSafari,
+			"everything but Mobile Safari should respect frame size"
+		);
 	});
 
 });
