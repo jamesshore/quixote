@@ -16,14 +16,12 @@
 
 ## Current Feature: Support multiple stylesheets
 
-* Try re-enabling @bjornicus' fail fast code
 * Implement multiple stylesheets
 
 
 ## To Do: Enable URL fail-fast code 
 
-* Update 'stylesheet URL not found' test
-* Document
+* Done
 
 
 ## Dogfooding Notes
