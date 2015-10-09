@@ -61,18 +61,18 @@
 	};
 
 	function checkUrls(src, stylesheet) {
-		if (src) {
-			if (!urlExists(src)) return new Error("404 error while loading src (" + src + ")");
-		}
-
-		if (stylesheet) {
-			if (!urlExists(stylesheet)) return new Error("404 error while loading stylesheet (" + stylesheet + ")");
-		}
-
+		if (!urlExists(src)) return error("src", src);
+		if (!urlExists(stylesheet)) return error("stylesheet", stylesheet);
 		return null;
+
+		function error(name, url) {
+			return new Error("404 error while loading " + name + " (" + url + ")");
+		}
 	}
 
 	function urlExists(url) {
+		if (url === undefined) return true;
+
 		var http = new XMLHttpRequest();
 		http.open('HEAD', url, false);
 		http.send();
