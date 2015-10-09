@@ -26,7 +26,7 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
   * `stylesheet (optional string)` URL of a CSS stylesheet to add to the frame's <head> element. Defaults to loading nothing. If `src` is used, note that the stylesheet will be added to the end of the existing <head> element. Any existing CSS <link> tags in the head will come first.
   
 * `callback(err, loadedFrame) (function)` Called when the frame has been created. 
-  * `err (Error or null)` Any errors that occurred while loading the frame (always `null`, for now).
+  * `err (Error or null)` Any errors that occurred while loading the frame, or null if frame loaded successfully.
   * `loadedFrame (`[`QFrame`](QFrame.md)`)` The newly-created frame, loaded and ready to use. This is exact same object reference as `frame` and either may be used.  
 
 Example:

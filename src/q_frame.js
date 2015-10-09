@@ -38,7 +38,8 @@
 		var width = options.width || 2000;
 		var height = options.height || 2000;
 
-		checkUrls(src, stylesheet);
+		var err = checkUrls(src, stylesheet);
+		if (err) return callback(err);
 
 		var iframe = insertIframe(parentElement, width, height);
 		if (src === undefined) writeStandardsModeHtml(iframe, onFrameLoad);
@@ -61,12 +62,14 @@
 
 	function checkUrls(src, stylesheet) {
 		if (src) {
-			ensure.that(urlExists(src), "The HTML document does not exist at the specified URL");
+			if (!urlExists(src)) return new Error("404 error while loading 'src' (" + src + ")");
 		}
 
 		if (stylesheet) {
 			ensure.that(urlExists(stylesheet), "The stylesheet does not exist at the specified URL");
 		}
+
+		return null;
 	}
 
 	function urlExists(url) {

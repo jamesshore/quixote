@@ -143,14 +143,12 @@ describe("QFrame", function() {
 		});
 
 		it("fails fast if source URL not found", function(done) {
-		    assert.exception(function() {
-		        QFrame.create(window.document.body, {
-		            src: "non_existing.html"
-		        }, function(frame) {
-		            done("Should never be called");
-		        });
-		    }, /The HTML document does not exist at the specified URL/);
-		    done();
+      QFrame.create(window.document.body, { src: "non_existing.html" }, function(err, frame) {
+	      assert.undefined(frame, "frame should not exist");
+	      assert.type(err, Error, "err should be an Error object");
+	      assert.equal(err.message, "404 error while loading 'src' (non_existing.html)", "error message");
+	      done();
+      });
 		});
 
 		it("fails fast if stylesheet URL not found", function(done) {

@@ -22,7 +22,6 @@
 
 ## To Do: Enable URL fail-fast code 
 
-* Update 'source URL not found' test
 * Update 'stylesheet URL not found' test
 * Document
 

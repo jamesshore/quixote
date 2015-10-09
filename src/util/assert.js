@@ -20,6 +20,10 @@ exports.defined = function(value, message) {
 	proclaim.isDefined(value, message + "expected any value, but was undefined");
 };
 
+exports.undefined = function(value, message) {
+	exports.equal(value, undefined, message);
+};
+
 exports.type = function(obj, expectedType, message) {
 	message = message ? message + ": " : "";
 	proclaim.isInstanceOf(
