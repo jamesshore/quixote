@@ -96,6 +96,7 @@ Example: `var top = element.getRawPosition().top;`
 
 * IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` calculates them from the other properties.
 
+**Compatibility Note:** Mobile Safari will increase the size of small fonts when the frame is larger than the browser window. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md).
 
 #### element.toDomElement()
 

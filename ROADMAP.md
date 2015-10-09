@@ -17,12 +17,14 @@
 ## Current Feature: Browser check for iOS text size resizing
 
 * Add browser check
-* Document
 
 
 ## To Do: 
 
-* Implement
+* Document
+* Review readme
+* Update roadmap
+* Update changelog
 
 
 ## Dogfooding Notes
