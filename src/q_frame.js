@@ -54,7 +54,7 @@
 			// We force it to be asynchronous here
 			setTimeout(function() {
 				loaded(frame, width, height);
-				loadStylesheet(frame, stylesheets[0], function() {
+				loadStylesheets(frame, stylesheets, function() {
 					callback(null, frame);
 				});
 			}, 0);
@@ -102,9 +102,10 @@
 		iframe.contentWindow.document.close();
 	}
 
-	function loadStylesheet(self, url, callback) {
-		ensure.signature(arguments, [Me, [undefined, String], Function]);
-		if (url === undefined) return callback();
+	function loadStylesheets(self, urls, callback) {
+		ensure.signature(arguments, [Me, Array, Function]);
+		if (urls[0] === undefined) return callback();
+		var url = urls[0];
 
 		var link = document.createElement("link");
 		shim.EventTarget.addEventListener(link, "load", onLinkLoad);

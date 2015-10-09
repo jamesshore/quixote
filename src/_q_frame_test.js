@@ -93,11 +93,15 @@ describe("QFrame", function() {
 			};
 			frame = QFrame.create(window.document.body, options, function(err) {
 				if (err) return done(err);
-
-				var styleMe = frame.add("<div class='style-me'>Foo</div>");
-				assert.equal(styleMe.getRawStyle("font-size"), "42px", "should get style from first stylesheet");
-				//assert.equal(styleMe.getRawStyle("color"), "#123456", "should get style from second stylesheet");
-				done();
+				try {
+					var styleMe = frame.add("<div class='style-me'>Foo</div>");
+					assert.equal(styleMe.getRawStyle("font-size"), "42px", "should get style from first stylesheet");
+					//assert.equal(styleMe.getRawStyle("color"), "rgb(12, 34, 56)", "should get style from second stylesheet");
+					done();
+				}
+				catch(e) {
+					done(e);
+				}
 			});
 		});
 
