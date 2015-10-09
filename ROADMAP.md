@@ -9,19 +9,18 @@
 * **✔ v0.5** API hardening
 * **✔ v0.6** Responsive design
 * **✔ v0.7** Page and viewport assertions
-* Dogfooding and real-world usage
+* **v0.8** Dogfooding and real-world usage (more dogfooding releases to come)
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
 
 
 ## Current Feature: Browser check for iOS text size resizing
 
-* Add browser check
+* Done
 
 
 ## To Do: 
 
-* Update roadmap
 * Update changelog
 
 
