@@ -14,7 +14,7 @@
 
 	var WATCH = [
 		"build/**/*.js",
-		"src/**/*.js",
+		"src/**/*.js", "src/**/*.html", "src/**/*.css",
 		"vendor/**/*.js"
 	];
 

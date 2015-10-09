@@ -24,7 +24,7 @@
 
 ## To Do: Investigate 'src' + 'stylesheet' 
 
-* Try it
+* Update documentation
 
 
 ## Dogfooding Notes

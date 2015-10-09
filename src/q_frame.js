@@ -36,12 +36,6 @@ Me.create = function create(parentElement, options, callback) {
 	var width = options.width || 2000;
 	var height = options.height || 2000;
 
-	// WORKAROUND Mobile Safari 7.0.0: weird style results occur when both src and stylesheet are loaded (see test)
-	ensure.that(
-		!(options.src && options.stylesheet),
-		"Cannot specify HTML URL and stylesheet URL simultaneously due to Mobile Safari issue"
-	);
-
 	var iframe = document.createElement("iframe");
 	iframe.setAttribute("width", width);
 	iframe.setAttribute("height", height);
