@@ -1,6 +1,7 @@
 # Quixote - CSS Unit Testing
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
+[![Quixote definitons on DefinitelyTyped](https://img.shields.io/badge/quixote-.d.ts-blue.svg)](https://github.com/borisyankov/DefinitelyTyped/blob/master/quixote/quixote.d.ts)
 
 Quixote is a library for unit testing CSS. It lets you make assertions about your pages' elements, their relationships, and how they are actually styled by the browser. It has a compact, powerful API and produces beautiful failure messages.
 
@@ -132,6 +133,8 @@ Pull requests are welcome! Here are some specific contributions we're looking fo
 * **Let us know how Quixote works for you.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you. [Create an issue](https://github.com/jamesshore/quixote/issues) if anything didn't work smoothly or if you had trouble understanding something.
 
 * **Create new descriptors.** Descriptors are small classes that describe how to calculate and describe CSS. Our [descriptor creation tutorial is here](src/descriptors/README.md).
+
+* **Support [typescript definitions](https://github.com/borisyankov/DefinitelyTyped/blob/master/quixote/quixote.d.ts)** for Quixote up-to-date.
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  
