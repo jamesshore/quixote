@@ -21,7 +21,8 @@ exports.defined = function(value, message) {
 };
 
 exports.undefined = function(value, message) {
-	exports.equal(value, undefined, message);
+	message = message ? message + ": " : "";
+	proclaim.isUndefined(value, message + "expected undefined, but was '" + value + "'");
 };
 
 exports.type = function(obj, expectedType, message) {

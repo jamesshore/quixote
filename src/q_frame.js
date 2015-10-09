@@ -9,6 +9,7 @@
 	var QElementList = require("./q_element_list.js");
 	var QViewport = require("./q_viewport.js");
 	var QPage = require("./q_page.js");
+	var async = require("../vendor/async-1.4.2.js");
 
 	var Me = module.exports = function QFrame(frameDom) {
 		ensure.signature(arguments, [Object]);
@@ -33,12 +34,13 @@
 			callback = options;
 			options = {};
 		}
-		var src = options.src;
-		var stylesheet = options.stylesheet;
 		var width = options.width || 2000;
 		var height = options.height || 2000;
+		var src = options.src;
+		var stylesheets = options.stylesheet || [];
+		if (!shim.Array.isArray(stylesheets)) stylesheets = [ stylesheets ];
 
-		var err = checkUrls(src, stylesheet);
+		var err = checkUrls(src, stylesheets);
 		if (err) return callback(err);
 
 		var iframe = insertIframe(parentElement, width, height);
@@ -53,16 +55,21 @@
 			// We force it to be asynchronous here
 			setTimeout(function() {
 				loaded(frame, width, height);
-				loadStylesheet(frame, options.stylesheet, function() {
+				loadStylesheets(frame, stylesheets, function() {
 					callback(null, frame);
 				});
 			}, 0);
 		}
 	};
 
-	function checkUrls(src, stylesheet) {
+	function checkUrls(src, stylesheets) {
 		if (!urlExists(src)) return error("src", src);
-		if (!urlExists(stylesheet)) return error("stylesheet", stylesheet);
+
+		for (var i = 0; i < stylesheets.length; i++) {
+			var url = stylesheets[i];
+			if (!urlExists(url)) return error("stylesheet", url);
+		}
+
 		return null;
 
 		function error(name, url) {
@@ -101,19 +108,16 @@
 		iframe.contentWindow.document.close();
 	}
 
-	function loadStylesheet(self, url, callback) {
-		ensure.signature(arguments, [Me, [undefined, String], Function]);
-		if (url === undefined) return callback();
+	function loadStylesheets(self, urls, callback) {
+		async.each(urls, addLinkTag, callback);
 
-		var link = document.createElement("link");
-		shim.EventTarget.addEventListener(link, "load", onLinkLoad);
-		link.setAttribute("rel", "stylesheet");
-		link.setAttribute("type", "text/css");
-		link.setAttribute("href", url);
-
-		shim.Document.head(self._document).appendChild(link);
-		function onLinkLoad() {
-			callback();
+		function addLinkTag(url, onLinkLoad) {
+			var link = document.createElement("link");
+			shim.EventTarget.addEventListener(link, "load", function(event) { onLinkLoad(null); });
+			link.setAttribute("rel", "stylesheet");
+			link.setAttribute("type", "text/css");
+			link.setAttribute("href", url);
+			shim.Document.head(self._document).appendChild(link);
 		}
 	}
 

@@ -23,7 +23,7 @@ Create a test iframe. This is a slow operation, so once you have a frame, it's b
   * `width (optional number)` Width of the iframe. Defaults to a large value (see stability note below).
   * `height (optional number)` Height of the iframe. Defaults to a large value (see stability note below).
   * `src (optional string)` URL of an HTML document to load into the frame. Must be served from same domain as the enclosing test document, or you could get same-origin policy errors. Defaults to an empty document using `<!DOCTYPE html>` (to enable standards-mode rendering).
-  * `stylesheet (optional string)` URL of a CSS stylesheet to add to the frame's <head> element. Defaults to loading nothing. If `src` is used, note that the stylesheet will be added to the end of the existing <head> element. Any existing CSS <link> tags in the head will come first.
+  * `stylesheet (optional; string or array of strings)` URL of a CSS stylesheet to add to the frame's <head> element. If you have multiple stylesheets to add, use an array of strings. Defaults to loading nothing.
   
 * `callback(err, loadedFrame) (function)` Called when the frame has been created. 
   * `err (Error or null)` Any errors that occurred while loading the frame, or null if frame loaded successfully.

@@ -82,12 +82,30 @@ describe("QFrame", function() {
 		it("creates iframe using stylesheet link", function(done) {
 			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
-				assert.equal(styleMe.getRawStyle("font-size"), "42px");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px", "should get style from stylesheet");
 				done();
 			});
 		});
 
-		it("cannot create iframe using stylesheet and source URL simultaneously", function(done) {
+		it("creates iframe using multiple stylesheet links", function(done) {
+			var options = {
+				stylesheet: [ "/base/src/_q_frame_test.css", "/base/src/_q_frame_test2.css" ]
+			};
+			frame = QFrame.create(window.document.body, options, function(err) {
+				if (err) return done(err);
+				try {
+					var styleMe = frame.add("<div class='style-me'>Foo</div>");
+					assert.equal(styleMe.getRawStyle("font-size"), "42px", "should get style from first stylesheet");
+					assert.equal(styleMe.getRawPosition().height, 123, "should get style from second stylesheet");
+					done();
+				}
+				catch(e) {
+					done(e);
+				}
+			});
+		});
+
+		it("creates iframe using stylesheet and source URL simultaneously", function(done) {
 			var options = {
 				src: "/base/src/_q_frame_test.html",
 				stylesheet: "/base/src/_q_frame_test.css"
@@ -153,6 +171,18 @@ describe("QFrame", function() {
 
 		it("fails fast if stylesheet URL not found", function(done) {
 			QFrame.create(window.document.body, { stylesheet: "non_existing.css" }, function(err, frame) {
+		    assert.undefined(frame, "frame should not exist");
+		    assert.type(err, Error, "err should be an Error object");
+		    assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
+		    done();
+		   });
+		});
+
+		it("checks for existence of all stylesheet URLs", function(done) {
+			var options = {
+				stylesheet: [ "/base/src/_q_frame_test.css", "non_existing.css" ]
+			};
+			QFrame.create(window.document.body, options, function(err, frame) {
 		    assert.undefined(frame, "frame should not exist");
 		    assert.type(err, Error, "err should be an Error object");
 		    assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
