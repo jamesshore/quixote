@@ -62,11 +62,11 @@
 
 	function checkUrls(src, stylesheet) {
 		if (src) {
-			if (!urlExists(src)) return new Error("404 error while loading 'src' (" + src + ")");
+			if (!urlExists(src)) return new Error("404 error while loading src (" + src + ")");
 		}
 
 		if (stylesheet) {
-			ensure.that(urlExists(stylesheet), "The stylesheet does not exist at the specified URL");
+			if (!urlExists(stylesheet)) return new Error("404 error while loading stylesheet (" + stylesheet + ")");
 		}
 
 		return null;
