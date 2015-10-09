@@ -142,6 +142,28 @@ describe("QFrame", function() {
 			});
 		});
 
+		it("fails fast if source URL not found", function(done) {
+		    assert.exception(function() {
+		        QFrame.create(window.document.body, {
+		            src: "non_existing.html"
+		        }, function(frame) {
+		            done("Should never be called");
+		        });
+		    }, /The HTML document does not exist at the specified URL/);
+		    done();
+		});
+
+		it("fails fast if stylesheet URL not found", function(done) {
+		    assert.exception(function() {
+		        QFrame.create(window.document.body, {
+		            stylesheet: "non_existing.css"
+		        }, function(frame) {
+		            done("Should never be called");
+		        });
+		    }, /The stylesheet does not exist at the specified URL/);
+		    done();
+		});
+
 		it("fails fast if frame is used before it's loaded", function(done) {
 			frame = QFrame.create(window.document.body, function() { done(); });
 

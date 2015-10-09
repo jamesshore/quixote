@@ -16,15 +16,14 @@
 
 ## Current Feature: Support multiple stylesheets
 
-* Investigate using 'src' + 'stylesheet' at same time
-* Try re-enabling '23px' test (may have been due to iOS text-size issue?)
 * Try re-enabling @bjornicus' fail fast code
 * Implement multiple stylesheets
 
 
-## To Do: Investigate 'src' + 'stylesheet' 
+## To Do: Enable URL fail-fast code 
 
-* Done
+* Try @bjornicus' code
+* Document
 
 
 ## Dogfooding Notes
