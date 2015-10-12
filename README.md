@@ -212,11 +212,194 @@ If you don't already have a preferred test framework:
 See the [example](example/) directory for a seed project that has Karma, Mocha, and Chai set up for you. Read [the readme](example/README.md) in that directory to learn how to use it.
 
 
-### 3. 
+### 3. Serve your test files
+
+Quixote gets your CSS and HTML files by loading URLs. You'll need to configure your test tool to make sure they're available. For integration tests, you'll need to proxy your server to localhost to avoid browser security errors.
+
+#### Unit Test Style
+
+In the unit test style, you load your CSS files directly. If you're using Karma, you can do it by modifying the `files` parameter in `karma.conf.js`. By default, they'll be available off of the `/base/` directory. 
+
+```javascript
+files: [
+  // ...
+  { pattern: 'src/client/screen.css', included: false }
+  // The 'included' parameter prevents Karma from automatically loading your CSS. 
+],
+```
+
+#### Integration Test Style
+
+In the integration test style, you load an HTML page that's styled by your CSS. Because of browsers' security rules, the file must be served from the same server as your test, which means your test server will have to proxy the real server.
+
+If you're using Karma, you can do it by setting the `proxies` parameter in `karma.conf.js`. In most cases, you'll want to proxy your server under test to the root directory, which means you'll also want to move the Karma runner from the root to a different directory. You can do that with the `urlRoot` parameter.
+
+```javascript
+urlRoot: '/karma/'
+proxies: {
+  '/': 'http://server_under_test/'
+},
+```
+
+Normally, to capture a browser for Karma, you visit `http://localhost:9876`. With this configuration, you would visit `http://localhost:9876/karma` instead. Visiting `http://localhost:9876` will show you the proxied server under test.
 
 
+### 4. Set up your tests
 
-## Comparison to Other Tools
+Now you can write your tests. Quixote uses a special test frame for its tests, so you'll need to create and destroy it using [quixote.createFrame()](https://github.com/jamesshore/quixote/blob/dev/docs/quixote.md#quixotecreateframe) and [frame.remove()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameremove). This is a relatively slow operation, so try to do it just once for each file you test.
+
+If you modify the contents of the test frame, you can reset it to a pristine state by calling [frame.reset()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#framereset). This is faster than recreating the test frame.
+
+#### Unit Test Style
+
+In the unit test style, you create a frame that loads your CSS file:
+ 
+```javascript
+var quixote = require("quixote");
+
+var frame;
+
+before(function(done) {
+  frame = quixote.createFrame({
+    stylesheet: "/base/src/client/screen.css"
+  }, done);
+});
+
+after(function() {
+  frame.remove();
+});
+
+beforeEach(function() {
+  frame.reset();
+});
+```
+
+#### Integration Test Style
+
+In the integration test style, you do the same thing, but your frame will load your proxied server under test:
+
+```javascript
+var quixote = require("quixote");
+
+var frame;
+
+before(function(done) {
+  frame = quixote.createFrame({
+    src: "/"
+  }, done);
+});
+
+after(function() {
+  frame.remove();
+});
+
+beforeEach(function() {
+  frame.reset();
+});
+```
+
+
+### 5. Test your code
+
+The Quixote test frame will give you access to everything you need to test your code. You can add elements to the frame using [frame.add()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameadd) or get elements from the frame using [frame.get()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameget). Once you have an element, you can use Quixote's custom assertions by calling [element.assert()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementassert). You can also pull style information out of an element, for use with another assertion library, by calling [element.getRawStyle()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementgetrawstyle). 
+
+#### Unit Test Style
+
+In the unit test style, you add elements to the frame so they'll be styled by your CSS file. By adding the elements in your test, you make it easier to understand how your test works and you document how your CSS is meant to be used.
+
+For example, if you were planning to test-drive this CSS:
+
+```css
+.button {
+  display: block;
+  width: 100%;
+  
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+```
+
+You would use this code:
+
+```javascript
+describe("Button") {
+  beforeEach(function() {
+    frame.reset();
+    container = frame.add(
+      "<div>" +
+      "  <a id='button' class='button' href='#anything'>foo</a>" +
+      "</div>"
+    );
+    button = frame.get("#button");
+  });
+  
+  it("fills its container", function() {
+    button.assert({
+      width: container.width
+    });
+  });
+  
+  it("has styled text", function() {
+    assert.equal(button.getRawStyle("text-align"), "center", "should be centered");
+    assert.equal(button.getRawStyle("text-decoration"), "underline", "should be underlined");
+    assert.equal(button.getRawStyle("text-transform"), "uppercase", "should be uppercase");
+  });
+
+});
+```
+
+#### Integration Test Style
+
+In the integration test style, you load a complete page, so rather than adding elements to the frame, you'll just pull out the ones you want to test.
+
+```javascript
+describe("Home page", function() {
+  
+  var BACKGROUND_BLUE = "rgb(65, 169, 204);
+  var WHITE = "rgb(255, 255, 255);
+  var MEDIUM_BLUE = "rgb(0, 121, 156)";
+  
+  var logo;
+  var navbar;
+  
+  beforeEach(function() {
+    frame.reset();
+    
+    logo = frame.get("#logo");
+    navbar = frame.get("#navbar");
+  });
+
+  it("has an overall layout", function() {
+    logo.assert({
+      top: 12,
+      center: frame.page().center
+    }, "logo should be centered at top of page");
+    assert.equal(logo.getRawStyle("text-align"), "center", "logo alt text should be centered");
+    
+    navbar.assert({
+      top: logo.bottom.plus(10),
+      left: frame.page().left,
+      width: frame.viewport().width
+    }, "navbar should stretch the width of the window");
+  });
+  
+  it("has a color scheme", function() {
+    assert.equal(frame.body().getRawStyle("background-color", BACKGROUND_BLUE, "page background");
+    assert.equal(logo.getRawStyle("color", WHITE, "logo text");
+    assert.equal(navbar.getRawStyle("background-color", MEDIUM_BLUE, "navbar background color");
+    assert.equal(navbar.getRawStyle("color", WHITE, "navbar text");
+  });
+  
+  it("has a typographic scheme", function() {
+    // etc
+  });
+  
+});
+```
+
+
+## Comparison to Other CSS Testing Tools
 
 The site [CSS Test](http://csste.st) has a great rundown of CSS testing tools and libraries. To summarize, there are two main approaches to CSS testing:
 
