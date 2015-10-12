@@ -1,7 +1,7 @@
 {
   "name": "quixote",
   "version": "0.9.0",
-  "description": "CSS unit testing",
+  "description": "CSS unit and integration testing",
   "main": "dist/quixote.js",
   "devDependencies": {
     "browserify": "^11.2.0",
