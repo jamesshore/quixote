@@ -2,7 +2,7 @@
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
 
-Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can use a unit-testing style (test your CSS files directly) or an integration-testing style (test against a real server). Either way, your tests check how page elements are actually rendered by the browser.
+Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can use it for unit testing (test your CSS files directly) or integration testing (test against a real server). Either way, your tests check how page elements are actually rendered by the browser.
 
 Quixote runs in the browser and works with any test framework. You can even test multiple browsers simultaneously by using a tool such as [Karma](http://karma-runner.github.io) or [Test'em](https://github.com/airportyh/testem). It works in modern desktop browsers, mobile browsers, and IE 8+.
 
@@ -38,7 +38,7 @@ top edge of '.menu' was 13px lower than expected.
 * **[License (MIT)](LICENSE.txt)**
 
 
-## Installation and Usage
+## Installation
 
 ```sh
 $ npm install quixote
@@ -46,12 +46,12 @@ $ npm install quixote
 
 Or download [dist/quixote.js](dist/quixote.js).
 
-Quixote must be run in a browser. It's meant to be used with test frameworks such as [Karma](http://karma-runner.github.io), [Mocha](http://visionmedia.github.io/mocha/), or [Jasmine](http://jasmine.github.io/).
-
-Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
+Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`.
 
 
-For a skeleton project to copy and extend, see [@bjornicus' example](https://github.com/bjornicus/tddcss).
+## Usage
+
+
 
 
 ## Example
@@ -166,4 +166,4 @@ Many thanks to our contributors!
 
 ## License
 
-MIT License. See `LICENSE.txt`.
+MIT License. See [LICENSE.txt](LICENSE.txt).
