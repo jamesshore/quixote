@@ -7,11 +7,12 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 In progress. A revamp of the Quixote documentation, including a working example that can be used as a seed project.
 
-** No breaking changes.**
+**No breaking changes.**
 
 *Changes:*
 
-* New 'Usage' section in the Readme. 
+* New 'Usage' section in the Readme.
+* (more tbd)
 
 
 ## 0.9.x: Multiple Stylesheets
