@@ -2,23 +2,25 @@
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
 
-Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can write unit tests that load your CSS file directly or you can write integration tests that get HTML and CSS from a real server. Quixote runs in the browser and works with any test framework. It supports modern desktop browsers, mobile browsers, and IE 8+.
+Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can use a unit-testing style (test your CSS files directly) or an integration-testing style (test against a real server). Either way, your tests check how page elements are actually rendered by the browser.
 
-Example test (see below for a complete example):
+Quixote runs in the browser and works with any test framework. You can even test multiple browsers simultaneously by using a tool such as [Karma](http://karma-runner.github.io) or [Test'em](https://github.com/airportyh/testem). It works in modern desktop browsers, mobile browsers, and IE 8+.
+
+**Example test:**
 
 ```javascript
-// 'frame' is defined in your tests' setup code.
+// 'frame' is the Quixote test frame. See the complete example linked below for details.
 var menu = frame.get(".menu");
 var navbar = frame.get("#navbar");
 
 menu.assert({
-  top: navbar.bottom.plus(10),    // menu is 10px below the navbar
-  left: frame.page().left,        // it's flush against the left side of the screen
+  top: navbar.bottom.plus(10),    // The menu is 10px below the navbar,
+  left: frame.page().left,        // it's flush against the left side of the screen,
   width: frame.viewport().width   // and it's exactly as wide as the viewport.
 });
 ```
 
-Example output:
+**Example output:**
 
 ```
 top edge of '.menu' was 13px lower than expected.
