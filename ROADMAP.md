@@ -14,14 +14,17 @@
 * ...more TBD
 
 
-## Current Feature: Support multiple stylesheets
+## Current Feature: Documentation Update
 
-* Done
+* Revise/simplify readme
+* Revise/simplify API docs
+* Create example project
 
 
-## To Do: Multiple stylesheets 
 
-* Done
+## To Do: Readme
+
+* TBD
 
 
 ## Dogfooding Notes
