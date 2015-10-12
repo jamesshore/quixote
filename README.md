@@ -28,13 +28,14 @@ top edge of '.menu' was 13px lower than expected.
   But was:  63px
 ```
 
-**Browser Support:** IE 8+, Firefox, Chrome, Safari, Opera, Mobile Safari, Chrome Mobile, and other modern browsers. See [tested_browsers.js](./build/config/tested_browsers.js) for the exact list of browsers tested for this release.
+## Quick Links
 
-PhantomJS 1.x is *not* supported because its WebKit version is too old. We hope to officially support PhantomJS 2.x when it's ready. See [issue #10](https://github.com/jamesshore/quixote/issues/10) for details.
-
-**Performance:** Fast. Quixote's own test suite runs over 200 tests/sec.
-
-Changes in this version are described in [the change log](CHANGELOG.md).
+* **[API Documentation](docs/api.md)**
+* **[Browsers Tested for This Release](build/config/tested_browsers.js)**
+* **[Change Log](CHANGELOG.md)**
+* **[Roadmap](ROADMAP.md)**
+* **[Contributing](CONTRIBUTING.md)**
+* **[License (MIT)](LICENSE.txt)**
 
 
 ## Installation and Usage
@@ -49,7 +50,6 @@ Quixote must be run in a browser. It's meant to be used with test frameworks suc
 
 Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`. You can also require it using a module loader such as Browserify or Require.js.
 
-*Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the browser is hidden causes very slow tests. If you have trouble with slow tests, make sure your browser windows are visible.
 
 For a skeleton project to copy and extend, see [@bjornicus' example](https://github.com/bjornicus/tddcss).
 
