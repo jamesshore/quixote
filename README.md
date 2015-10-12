@@ -44,7 +44,7 @@ top edge of '.navbar' was 13px lower than expected.
 $ npm install quixote
 ```
 
-Or download [dist/quixote.js](dist/quixote.js).
+Or download [dist/quixote.js](https://raw.githubusercontent.com/jamesshore/quixote/master/dist/quixote.js).
 
 Quixote is a UMD module, which means it will work with CommonJS and AMD module loaders. If you just load the file using a `<script>` tag, Quixote will be available via the global variable `quixote`.
 
@@ -53,9 +53,17 @@ Quixote is a UMD module, which means it will work with CommonJS and AMD module l
 
 Quixote runs in the browser and works with any test framework. The following examples use [Karma](http://karma-runner.github.io), [Mocha](https://mochajs.org/), and [Chai](http://chaijs.com/).
 
-Quixote works by rendering elements in an iframe, then checking them using [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect). These two APIs allow Quixote to check how elements *are actually rendered* in the browser.
+Quixote works by rendering elements in an iframe and checking how they were rendered. Under the covers, it uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
 
-See the [example](example/) directory for a seed project that has Karma, Mocha, and Chai set up with the following examples. Read [the readme](example/README.md) in that directory to learn how to use it.
+To use Quixote, follow these steps:
+
+1. Choose your test style
+2. Install a test framework
+3. Serve your test files
+4. Set up your tests
+5. Test your code
+
+See the [example](example/) directory for a seed project containing a complete example.
 
 
 ### 1. Choose your test style
@@ -156,7 +164,7 @@ describe("Home page", function() {
   
   before(function(done) {
     frame = quixote.createFrame({
-      src: "/",     // the URL must be proxied to localhost
+      src: "/",     // the server under test must be proxied to localhost
       width: 800
     }, done);
   });
@@ -324,6 +332,10 @@ You would use this code:
 
 ```javascript
 describe("Button") {
+	
+	var container;
+	var button;
+	
   beforeEach(function() {
     frame.reset();
     container = frame.add(
@@ -365,7 +377,6 @@ describe("Home page", function() {
   
   beforeEach(function() {
     frame.reset();
-    
     logo = frame.get("#logo");
     navbar = frame.get("#navbar");
   });
@@ -401,7 +412,7 @@ describe("Home page", function() {
 
 ## Comparison to Other CSS Testing Tools
 
-The site [CSS Test](http://csste.st) has a great rundown of CSS testing tools and libraries. To summarize, there are two main approaches to CSS testing:
+The site [csste.st](http://csste.st) has a great rundown of CSS testing tools and libraries. To summarize, there are two main approaches to CSS testing:
 
 ### Automatic Screenshot Comparison
 
