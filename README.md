@@ -1,18 +1,28 @@
-# Quixote - CSS Unit Testing
+# Quixote - CSS Unit and Integration Testing
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
 
-Quixote is a library for unit testing CSS. It lets you make assertions about your pages' elements, their relationships, and how they are actually styled by the browser. It has a compact, powerful API and produces beautiful failure messages.
+Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can write unit tests that load your CSS file directly or you can write integration tests that get HTML and CSS from a real server. Quixote runs in the browser and works with any test framework. It supports modern desktop browsers, mobile browsers, and IE 8+.
+
+Example test (see below for a complete example):
 
 ```javascript
+// 'frame' is defined in your tests' setup code.
+var menu = frame.get(".menu");
+var navbar = frame.get("#navbar");
+
 menu.assert({
-  top: logo.bottom.plus(10)   // menu is 10px below logo
+  top: navbar.bottom.plus(10),    // menu is 10px below the navbar
+  left: frame.page().left,        // it's flush against the left side of the screen
+  width: frame.viewport().width   // and it's exactly as wide as the viewport.
 });
 ```
 
+Example output:
+
 ```
 top edge of '.menu' was 13px lower than expected.
-  Expected: 50px (10px below bottom edge of '#logo')
+  Expected: 50px (10px below bottom edge of '#navbar')
   But was:  63px
 ```
 
