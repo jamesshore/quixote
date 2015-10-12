@@ -3,6 +3,17 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.10.x (in progress): Updated Documentation
+
+In progress. A revamp of the Quixote documentation, including a working example that can be used as a seed project.
+
+** No breaking changes.**
+
+*Changes:*
+
+* New 'Usage' section in the Readme. 
+
+
 ## 0.9.x: Multiple Stylesheets
 
 **9 Oct 2015.** A small release that improves the handling of stylesheets. You can now use an array to provide multiple stylesheets in quixote.createFrame's the `options.stylesheet` parameter. You can also provide stylesheets and src URLs at the same time.

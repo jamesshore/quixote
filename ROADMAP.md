@@ -14,9 +14,9 @@
 * ...more TBD
 
 
-## Current Feature: Documentation Update
+## Current Feature: Documentation Update (0.10 release)
 
-* Revise readme
+* ✔ Revise readme
 * Revise API docs
 * Revise contributor docs
 * Add overview docs
@@ -29,9 +29,7 @@
 
 ## To Do: Readme
 
-* Revise readme
-* Update roadmap
-* Update changelog
+* Done
 
 
 ## Dogfooding Notes
