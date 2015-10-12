@@ -10,11 +10,11 @@ Quixote runs in the browser and works with any test framework. You can even test
 
 ```javascript
 // 'frame' is the Quixote test frame. See the complete examples below for details.
-var menu = frame.get(".menu");
-var navbar = frame.get("#navbar");
+var header = frame.get("#header");
+var navbar = frame.get(".navbar");
 
-menu.assert({
-  top: navbar.bottom.plus(10),    // The menu is 10px below the navbar,
+navbar.assert({
+  top: header.bottom.plus(10),    // The navbar is 10px below the header,
   left: frame.page().left,        // it's flush against the left side of the screen,
   width: frame.viewport().width   // and it's exactly as wide as the viewport.
 });
@@ -23,8 +23,8 @@ menu.assert({
 **Example output:**
 
 ```
-top edge of '.menu' was 13px lower than expected.
-  Expected: 50px (10px below bottom edge of '#navbar')
+top edge of '.navbar' was 13px lower than expected.
+  Expected: 50px (10px below bottom edge of '#header')
   But was:  63px
 ```
 
@@ -128,9 +128,75 @@ describe("Button", function() {
 });
 ```
 
-
 #### Integration Test Style
 
+Use the integration test style when you want to test a complete web page. In the integration test style, you'll use Quixote to:
+
+1. Load your URL
+2. Get elements from the page 
+3. Confirm that the elements are displayed correctly.
+
+Imagine a site with a home page that contained a logo at the top and a nav bar below it. The logo is centered and the nav bar stretches the width of the window. The integration test for that page would look like this: 
+
+```javascript
+var assert = require("chai").assert;
+var quixote = require("quixote");
+
+describe("Home page", function() {
+  
+  var BACKGROUND_BLUE = "rgb(65, 169, 204);
+  var WHITE = "rgb(255, 255, 255);
+  var MEDIUM_BLUE = "rgb(0, 121, 156)";
+  
+  var frame;
+  var logo;
+  var navbar;
+  
+  before(function(done) {
+    frame = quixote.createFrame({
+      src: "/",     // the URL must be proxied to localhost
+      width: 800
+    }, done);
+  });
+  
+  after(function(done) {
+    frame.remove();
+  });
+
+  beforeEach(function() {
+    frame.reset();
+    
+    logo = frame.get("#logo");
+    navbar = frame.get("#navbar");
+  });
+
+  it("has an overall layout", function() {
+    logo.assert({
+      top: 12,
+      center: frame.page().center
+    }, "logo should be centered at top of page");
+    assert.equal(logo.getRawStyle("text-align"), "center", "logo alt text should be centered");
+    
+    navbar.assert({
+      top: logo.bottom.plus(10),
+      left: frame.page().left,
+      width: frame.viewport().width
+    }, "navbar should stretch the width of the window");
+  });
+  
+  it("has a color scheme", function() {
+    assert.equal(frame.body().getRawStyle("background-color", BACKGROUND_BLUE, "page background");
+    assert.equal(logo.getRawStyle("color", WHITE, "logo text");
+    assert.equal(navbar.getRawStyle("background-color", MEDIUM_BLUE, "navbar background color");
+    assert.equal(navbar.getRawStyle("color", WHITE, "navbar text");
+  });
+  
+  it("has a typographic scheme", function() {
+    // etc
+  });
+  
+});
+```
 
 
 ### 2. Install a test framework
