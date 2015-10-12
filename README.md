@@ -2,14 +2,14 @@
 
 [![Build Status (Travis-CI)](https://secure.travis-ci.org/jamesshore/quixote.png?branch=master )](http://travis-ci.org/jamesshore/quixote)
 
-Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can use it for unit testing (test your CSS files directly) or integration testing (test against a real server). Either way, your tests check how page elements are actually rendered by the browser.
+Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can use it for unit testing (test your CSS files directly) or integration testing (test against a real server). Either way, your tests check how HTML elements are actually rendered by the browser.
 
 Quixote runs in the browser and works with any test framework. You can even test multiple browsers simultaneously by using a tool such as [Karma](http://karma-runner.github.io) or [Test'em](https://github.com/airportyh/testem). It works in modern desktop browsers, mobile browsers, and IE 8+.
 
 **Example test:**
 
 ```javascript
-// 'frame' is the Quixote test frame. See the complete examples below for details.
+// 'frame' is the Quixote test frame. See below for complete examples.
 var header = frame.get("#header");
 var navbar = frame.get(".navbar");
 
@@ -53,7 +53,9 @@ Quixote is a UMD module, which means it will work with CommonJS and AMD module l
 
 Quixote runs in the browser and works with any test framework. The following examples use [Karma](http://karma-runner.github.io), [Mocha](https://mochajs.org/), and [Chai](http://chaijs.com/).
 
-Quixote works by rendering elements in an iframe, then checking them using [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)]. These two APIs allow Quixote to check how elements *are actually rendered* in the browser.
+Quixote works by rendering elements in an iframe, then checking them using [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect). These two APIs allow Quixote to check how elements *are actually rendered* in the browser.
+
+See the [example](example/) directory for a seed project that has Karma, Mocha, and Chai set up with the following examples. Read [the readme](example/README.md) in that directory to learn how to use it.
 
 
 ### 1. Choose your test style
@@ -144,8 +146,8 @@ var quixote = require("quixote");
 
 describe("Home page", function() {
   
-  var BACKGROUND_BLUE = "rgb(65, 169, 204);
-  var WHITE = "rgb(255, 255, 255);
+  var BACKGROUND_BLUE = "rgb(65, 169, 204)";
+  var WHITE = "rgb(255, 255, 255)";
   var MEDIUM_BLUE = "rgb(0, 121, 156)";
   
   var frame;
@@ -208,8 +210,6 @@ If you don't already have a preferred test framework:
 1. Install [Karma](http://karma-runner.github.io). Karma runs your test suite in multiple browsers simultaneously.
 2. Install [Mocha](https://mochajs.org/). Mocha is a test framework. It organizes and runs your tests.
 3. Install [Chai](http://chaijs.com/). Chai is an assertion library. It allows you to check results. 
-
-See the [example](example/) directory for a seed project that has Karma, Mocha, and Chai set up for you. Read [the readme](example/README.md) in that directory to learn how to use it.
 
 
 ### 3. Serve your test files
@@ -301,7 +301,7 @@ beforeEach(function() {
 
 ### 5. Test your code
 
-The Quixote test frame will give you access to everything you need to test your code. You can add elements to the frame using [frame.add()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameadd) or get elements from the frame using [frame.get()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameget). Once you have an element, you can use Quixote's custom assertions by calling [element.assert()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementassert). You can also pull style information out of an element, for use with another assertion library, by calling [element.getRawStyle()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementgetrawstyle). 
+The Quixote test frame will give you access to everything you need to test your code. You can add elements to the frame using [frame.add()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameadd) and get elements from the frame using [frame.get()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameget). Once you have an element, you can use Quixote's custom assertions by calling [element.assert()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementassert). You can also pull style information out of an element, for use with another assertion library, by calling [element.getRawStyle()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementgetrawstyle). 
 
 #### Unit Test Style
 
@@ -356,8 +356,8 @@ In the integration test style, you load a complete page, so rather than adding e
 ```javascript
 describe("Home page", function() {
   
-  var BACKGROUND_BLUE = "rgb(65, 169, 204);
-  var WHITE = "rgb(255, 255, 255);
+  var BACKGROUND_BLUE = "rgb(65, 169, 204)";
+  var WHITE = "rgb(255, 255, 255)";
   var MEDIUM_BLUE = "rgb(0, 121, 156)";
   
   var logo;
@@ -410,7 +410,7 @@ One of the most popular approaches, exemplified by [Wraith](https://github.com/B
 
 ### Computed Style Checking
 
-The other popular approach, and the one used by Quixote, is to ask the DOM how the browser has rendered it elements. This is orders of magnitude faster than the screenshot approach and it allows users to write smaller, simpler tests. However, the DOM calls are cumbersome and suffer from bugs and inconsistencies. Quixote is the only tool we are aware of that attempts to solve these problems.
+The other popular approach, and the one used by Quixote, is to ask the DOM how the browser has rendered it elements. This is 100x faster than the screenshot approach and it allows users to write more targeted tests. However, the DOM calls are cumbersome and suffer from bugs and inconsistencies. Quixote is the only tool we are aware of that attempts to solve these problems.
 
 
 ## Credits
