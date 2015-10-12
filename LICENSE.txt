@@ -25,5 +25,6 @@ THE SOFTWARE.
 Third Party Code:
 -----------------
 
-* 'proclaim' licensed under MIT license (https://github.com/rowanmanning/proclaim)f
+* 'proclaim' licensed under MIT license (https://github.com/rowanmanning/proclaim)
 * 'camelcase' © Sindre Sorhus, licensed under MIT license (https://github.com/sindresorhus/camelcase)
+* 'async' Copyright 2010-2014 Caolan McMahon, licensed under MIT license (https://github.com/caolan/async)
