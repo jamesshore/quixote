@@ -9,7 +9,7 @@ Quixote runs in the browser and works with any test framework. You can even test
 **Example test:**
 
 ```javascript
-// 'frame' is the Quixote test frame. See the complete example linked below for details.
+// 'frame' is the Quixote test frame. See the complete examples below for details.
 var menu = frame.get(".menu");
 var navbar = frame.get("#navbar");
 
@@ -46,19 +46,113 @@ $ npm install quixote
 
 Or download [dist/quixote.js](dist/quixote.js).
 
-Quixote is a UMD module. If you just load the file using a `<script>` tag, it will be available via the global variable `quixote`.
+Quixote is a UMD module, which means it will work with CommonJS and AMD module loaders. If you just load the file using a `<script>` tag, Quixote will be available via the global variable `quixote`.
 
 
 ## Usage
 
-Quixote runs in the browser and works with any test framework. The following examples use [Karma](http://karma-runner.github.io) and [Mocha](https://mochajs.org/) together.
+Quixote runs in the browser and works with any test framework. The following examples use [Karma](http://karma-runner.github.io), [Mocha](https://mochajs.org/), and [Chai](http://chaijs.com/).
 
-Quixote works by rendering elements in an iframe, then checking them using [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect(https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)]. These two APIs allow Quixote to check how elements *are actually rendered* in the browser.
+Quixote works by rendering elements in an iframe, then checking them using [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)]. These two APIs allow Quixote to check how elements *are actually rendered* in the browser.
+
+
+### 1. Choose your test style
+
+Quixote can be used in a unit-testing style or an integration-testing style (or both).
+
+#### Unit Test Style
+
+Use the unit test style when you want to test-drive individual CSS rules. In the unit test style, you'll use Quixote to:
+
+1. Load your CSS file
+2. Create elements that are styled by your CSS
+3. Confirm that the elements are displayed correctly.
+
+A Quixote unit test might be used to test-drive a "button" class:
+
+```css
+.button {
+  display: block;
+  width: 100%;
+  
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+```
+
+The test code would look like this:  
+
+```javascript
+var assert = require("chai").assert;
+var quixote = require("quixote");
+
+describe("Button", function() {
+
+  var frame;
+  var container;
+  var button;
+  
+  before(function(done) {
+    frame = quixote.createFrame({
+      stylesheet: "/base/src/client/screen.css"
+    }, done);
+  });
+  
+  after(function() {
+    frame.remove();
+  });
+  
+  beforeEach(function() {
+    frame.reset();
+    container = frame.add(
+      "<div>" +
+      "  <a id='button' class='button' href='#anything'>foo</a>" +
+      "</div>"
+    );
+    button = frame.get("#button");
+  });
+  
+  it("fills its container", function() {
+    button.assert({
+      width: container.width
+    });
+  });
+  
+  it("has styled text", function() {
+    assert.equal(button.getRawStyle("text-align"), "center", "should be centered");
+    assert.equal(button.getRawStyle("text-decoration"), "underline", "should be underlined");
+    assert.equal(button.getRawStyle("text-transform"), "uppercase", "should be uppercase");
+  });
+
+});
+```
+
+
+#### Integration Test Style
+
+
+
+### 2. Install a test framework
+
+To begin, you'll need a way of running tests in the browser. You can use any test framework you like.
+
+If you don't already have a preferred test framework:
+
+1. Install [Karma](http://karma-runner.github.io). Karma runs your test suite in multiple browsers simultaneously.
+2. Install [Mocha](https://mochajs.org/). Mocha is a test framework. It organizes and runs your tests.
+3. Install [Chai](http://chaijs.com/). Chai is an assertion library. It allows you to check results. 
+
+See the [example](example/) directory for a seed project that has Karma, Mocha, and Chai set up for you. Read [the readme](example/README.md) in that directory to learn how to use it.
+
+
+### 3. 
+
 
 
 ## Comparison to Other Tools
 
-The site [CSS Test](http://csste.st) has a great rundown of CSS testing tools and libraries. To summarize, there's two main approaches to CSS testing:
+The site [CSS Test](http://csste.st) has a great rundown of CSS testing tools and libraries. To summarize, there are two main approaches to CSS testing:
 
 ### Automatic Screenshot Comparison
 
@@ -67,7 +161,7 @@ One of the most popular approaches, exemplified by [Wraith](https://github.com/B
 
 ### Computed Style Checking
 
-The other popular approach, and the one used by Quixote, is to ask the DOM how the browser has rendered it elements. This is much faster than the screenshot approach, and it allows users to write smaller, simpler tests. However, the DOM calls are cumbersome and suffer from bugs and inconsistencies. Quixote is the only tool we are aware of that attempts to solve these problems.
+The other popular approach, and the one used by Quixote, is to ask the DOM how the browser has rendered it elements. This is orders of magnitude faster than the screenshot approach and it allows users to write smaller, simpler tests. However, the DOM calls are cumbersome and suffer from bugs and inconsistencies. Quixote is the only tool we are aware of that attempts to solve these problems.
 
 
 
