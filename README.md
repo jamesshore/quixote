@@ -28,7 +28,7 @@ top edge of '.menu' was 13px lower than expected.
   But was:  63px
 ```
 
-## Quick Links
+## Useful Links
 
 * **[API Documentation](docs/api.md)**
 * **[Browsers Tested for This Release](build/config/tested_browsers.js)**
@@ -50,6 +50,24 @@ Quixote is a UMD module. If you just load the file using a `<script>` tag, it wi
 
 
 ## Usage
+
+Quixote runs in the browser and works with any test framework. The following examples use [Karma](http://karma-runner.github.io) and [Mocha](https://mochajs.org/) together.
+
+Quixote works by rendering elements in an iframe, then checking them using [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect(https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)]. These two APIs allow Quixote to check how elements *are actually rendered* in the browser.
+
+
+## Comparison to Other Tools
+
+The site [CSS Test](http://csste.st) has a great rundown of CSS testing tools and libraries. To summarize, there's two main approaches to CSS testing:
+
+### Automatic Screenshot Comparison
+
+One of the most popular approaches, exemplified by [Wraith](https://github.com/BBC-News/wraith), is to programmatically take a screenshot of a page and compare it to a known-good screenshot. If there's a difference, the test fails and the user gets a composite view with the differences highlighted. This is great for checking if things have changed. However, it's slow and prone to false positives.
+
+
+### Computed Style Checking
+
+The other popular approach, and the one used by Quixote, is to ask the DOM how the browser has rendered it elements. This is much faster than the screenshot approach, and it allows users to write smaller, simpler tests. However, the DOM calls are cumbersome and suffer from bugs and inconsistencies. Quixote is the only tool we are aware of that attempts to solve these problems.
 
 
 
