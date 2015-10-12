@@ -1,11 +1,21 @@
 # Quixote Contribution Guidelines
 
-Contributions are welcome! Thank you for your help.
+Pull requests are welcome! Here are some specific contributions we're looking for:
+
+* **Let us know how Quixote works for you.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you. [Create an issue](https://github.com/jamesshore/quixote/issues) if anything didn't work smoothly or if you had trouble understanding something.
+
+* **Create new descriptors.** Descriptors are small classes that describe how to calculate and describe CSS. Our [descriptor creation tutorial is here](src/descriptors/README.md).
+
+* **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
+ 
+* **Start the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation, but so far, everything's just in markdown files. The website source code is in [docs](docs). The [Object Playground site](http://www.objectplayground.com) and [stylesheet](https://github.com/jamesshore/object_playground/blob/master/src/site.css) are a good starting point.
+
+* **Tell your friends and colleagues.** Even if you can't contribute anything, spreading the word is a big help. Let people know about Quixote and why you like it.
 
 
-## Contribution Checklist
+## Pull Requests
 
-If you're planning on making a contribution, the following checklist will help you get started:
+If you're planning on making a pull request, here's a helpful checklist:
 
 1. **[Create an issue](https://github.com/jamesshore/quixote/issues)** so we know what you're working on and other people who are interested can coordinate with you.
 
@@ -28,7 +38,7 @@ If you're planning on making a contribution, the following checklist will help y
 Thank you!
 
 
-## Setup
+## Working with the Code
 
 To work with the code on your own computer:
 
@@ -48,13 +58,13 @@ At this time, the build has only been tested on Mac OS X. It should also work on
 
 **Build parameters**
 
-You can pass the following options to `./jake.sh`:
+You can pass the following options to `./jake.sh` and `./watch.js`:
 
 * `-T` displays available build targets.
 
 * `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js).
 
-* `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you'll need to install the appropriate launcher first; e.g., `npm install karma-firefox-launcher`.
+* `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you may need to install the appropriate launchers; e.g., `npm install karma-safari-launcher`.
 
 **Other build scripts**
 
