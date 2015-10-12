@@ -1,10 +1,12 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
-// Quixote has been successfully tested against the following list of
+// This version of Quixote has been tested against the following
 // browser + operating system combinations.
 
-// The version numbers correspond to the versions reported by Karma.
+// Version numbers match those reported by Karma. In some cases, the bugfix
+// version number may be incorrectly reported as ".0", and Windows 7 is
+// incorrectly reported as "0.0.0".
 
 module.exports = [
 	"Chrome 45.0.2454 (Mac OS X 10.10.5)",
