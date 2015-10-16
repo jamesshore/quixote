@@ -261,13 +261,14 @@ describe("QFrame", function() {
 		describe('React Initialization', function() {
 
 			// React section (should move to separate test file?)
-			it.skip('reloads iframe and initializes React UI', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test_react.html"}, function() {
-					frame.reload();
-					assert.noException(function() {
-						frame.get("#added-by-react");
+			it('reloads iframe and initializes React UI', function(done) {
+				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_react_0x_init_test.html"}, function() {
+					frame.reload(function () {
+						assert.noException(function() {
+							frame.get("#added-by-react-init");
+						});
+						done();
 					});
-					done();
 				});
 			});
 
