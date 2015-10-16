@@ -20,12 +20,14 @@
 		this._removed = false;
 	};
 
-	function loaded(self, width, height) {
+	function loaded(self, width, height, src, stylesheets) {
 		self._loaded = true;
 		self._document = self._domElement.contentDocument;
 		self._originalBody = self._document.body.innerHTML;
 		self._originalWidth = width;
 		self._originalHeight = height;
+		self._originalSrc = src;
+		self._originalStylesheets = stylesheets;
 	}
 
 	Me.create = function create(parentElement, options, callback) {
@@ -44,23 +46,29 @@
 		if (err) return callback(err);
 
 		var iframe = insertIframe(parentElement, width, height);
-		if (src === undefined) writeStandardsModeHtml(iframe, onFrameLoad);
-		else setIframeSrc(iframe, src, onFrameLoad);
+		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+		setIframeContent(iframe, src);
 
 		var frame = new Me(iframe);
+		setFrameLoadCallback(frame, callback);
+
 		return frame;
 
 		function onFrameLoad() {
 			// WORKAROUND Mobile Safari 7.0.0, Safari 6.2.0, Chrome 38.0.2125: frame is loaded synchronously
 			// We force it to be asynchronous here
 			setTimeout(function() {
-				loaded(frame, width, height);
+				loaded(frame, width, height, src, stylesheets);
 				loadStylesheets(frame, stylesheets, function() {
-					callback(null, frame);
+					frame._frameLoadCallback(null, frame);
 				});
 			}, 0);
 		}
 	};
+
+	function setFrameLoadCallback(frame, callback) {
+		frame._frameLoadCallback = callback;
+	}
 
 	function checkUrls(src, stylesheets) {
 		if (!urlExists(src)) return error("src", src);
@@ -95,13 +103,19 @@
 		return iframe;
 	}
 
-	function setIframeSrc(iframe, src, onFrameLoad) {
-		iframe.setAttribute("src", src);
-		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+	function setIframeContent(iframe, src) {
+		if (src === undefined) {
+			writeStandardsModeHtml(iframe);
+		}	else {
+			setIframeSrc(iframe, src);
+		}
 	}
 
-	function writeStandardsModeHtml(iframe, onFrameLoad) {
-		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+	function setIframeSrc(iframe, src) {
+		iframe.setAttribute("src", src);
+	}
+
+	function writeStandardsModeHtml(iframe) {
 		var standardsMode = "<!DOCTYPE html>\n<html><head></head><body></body></html>";
 		iframe.contentWindow.document.open();
 		iframe.contentWindow.document.write(standardsMode);
@@ -128,6 +142,18 @@
 		this._document.body.innerHTML = this._originalBody;
 		this.scroll(0, 0);
 		this.resize(this._originalWidth, this._originalHeight);
+	};
+
+	Me.prototype.reload = function(callback) {
+		ensure.signature(arguments, [Function]);
+		ensureUsable(this);
+
+		var frame = this;
+		var iframe = this._domElement;
+		var src = this._originalSrc;
+
+		setFrameLoadCallback(frame, callback);
+		setIframeContent(iframe, src);
 	};
 
 	Me.prototype.toDomElement = function() {
