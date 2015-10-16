@@ -53,7 +53,7 @@ Quixote is a UMD module, which means it will work with CommonJS and AMD module l
 
 Quixote runs in the browser and works with any test framework. The following examples use [Karma](http://karma-runner.github.io), [Mocha](https://mochajs.org/), and [Chai](http://chaijs.com/).
 
-Quixote works by rendering elements in an iframe and checking how they were rendered. Under the covers, it uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect).
+Quixote works by rendering elements in an iframe and allowing you to check how they were rendered. Under the covers, it uses the [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle) and [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) DOM APIs.
 
 To use Quixote, follow these steps:
 
@@ -421,7 +421,7 @@ One of the most popular approaches, exemplified by [Wraith](https://github.com/B
 
 ### Computed Style Checking
 
-The other popular approach, and the one used by Quixote, is to ask the DOM how the browser has rendered it elements. This is 100x faster than the screenshot approach and it allows users to write more targeted tests. However, the DOM calls are cumbersome and suffer from bugs and inconsistencies. Quixote is the only tool we are aware of that attempts to solve these problems.
+The other popular approach, and the one used by Quixote, is to ask the DOM how the browser has rendered its elements. This is 100x faster than the screenshot approach and it allows users to write more targeted tests. However, the DOM calls are cumbersome and suffer from bugs and inconsistencies. Quixote is the only tool we are aware of that attempts to solve these problems.
 
 
 ## Credits
