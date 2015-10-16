@@ -53,6 +53,12 @@ exports.equal = function(actual, expected, message) {
 	proclaim.strictEqual(actual, expected, message + "expected '" + expected + "', but got '" + actual + "'");
 };
 
+exports.notEqual = function(actual, expected, message) {
+	message = message ? message + ": " : "";
+
+	proclaim.notEqual(actual, expected, message + "expected '" + expected + "' to be different from '" + actual + "'");
+};
+
 exports.lte = function(actual, expected, message) {
 	message = message ? message + ": " : "";
 

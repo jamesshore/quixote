@@ -137,6 +137,140 @@ describe("QFrame", function() {
 			});
 		});
 
+		it('reloads iframe with original source URL', function(done) {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
+				frame.reload(function () {
+					assert.noException(function() {
+						frame.get("#exists");
+					});
+					done();
+				});
+			});
+		});
+
+		it('reloads iframe with original stylesheet', function(done) {
+			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
+				frame.reload(function () {
+					var styleMe = frame.add("<div class='style-me'>Foo</div>");
+					assert.equal(styleMe.getRawStyle("font-size"), "42px");
+					done();
+				});
+			});
+		});
+
+		it('reloads iframe and re-rruns scripts inlined within script tag in head', function(done) {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+				var frameWindow, loadedTimestamp, reloadedTimestamp;
+				frameWindow = frame._domElement.contentWindow;
+				loadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT;
+				assert.defined(loadedTimestamp, 'global var not found in iframe window');
+
+				frame.reload(function () {
+					frameWindow = frame._domElement.contentWindow;
+					reloadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT;
+					assert.defined(reloadedTimestamp, 'global var not found in iframe window');
+					assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+
+					done();
+				});
+			});
+		});
+
+		it('reloads iframe and re-runs scripts loaded by script tag in head', function(done) {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+				var frameWindow, loadedTimestamp, reloadedTimestamp;
+				frameWindow = frame._domElement.contentWindow;
+				loadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT;
+				assert.defined(loadedTimestamp, 'global var not found in iframe window');
+
+				frame.reload(function () {
+					frameWindow = frame._domElement.contentWindow;
+					reloadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT;
+					assert.defined(reloadedTimestamp, 'global var not found in iframe window');
+					assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+
+					done();
+				});
+			});
+		});
+
+		it('reloads iframe and re-runs scripts inlined within script tag in body', function(done) {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+				var frameWindow, loadedTimestamp, reloadedTimestamp;
+				frameWindow = frame._domElement.contentWindow;
+				loadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT;
+				assert.defined(loadedTimestamp, 'global var not found in iframe window');
+
+				frame.reload(function () {
+					frameWindow = frame._domElement.contentWindow;
+					reloadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT;
+					assert.defined(reloadedTimestamp, 'global var not found in iframe window');
+					assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+
+					done();
+				});
+			});
+		});
+
+		it('reloads iframe and re-runs scripts loaded by script tag in body', function(done) {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+				var frameWindow, loadedTimestamp, reloadedTimestamp;
+				frameWindow = frame._domElement.contentWindow;
+				loadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT;
+				assert.defined(loadedTimestamp, 'global var not found in iframe window');
+
+				frame.reload(function () {
+					frameWindow = frame._domElement.contentWindow;
+					reloadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT;
+					assert.defined(reloadedTimestamp, 'global var not found in iframe window');
+					assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+
+					done();
+				});
+			});
+		});
+
+
+		describe('Angular 1.x Initialization', function() {
+
+			// Angular 1.x section (should move to separate test file?)
+			it.skip('reloads iframe and initializes Angular (1.x) app via automatic (ngApp) initialization', function(done) {
+				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test_angular_1x.html"}, function() {
+					frame.reload();
+					assert.noException(function() {
+						frame.get("#added-by-angular-ng-app");
+					});
+					done();
+				});
+			});
+
+			it.skip('reloads iframe and initializes Angular (1.x) app via manual (angular.bootstrap) initialization', function(done) {
+				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test_angular_1x.html"}, function() {
+					frame.reload();
+					assert.noException(function() {
+						frame.get("#added-by-angular-bootstrap");
+					});
+					done();
+				});
+			});
+
+		});
+
+		describe('React Initialization', function() {
+
+			// React section (should move to separate test file?)
+			it.skip('reloads iframe and initializes React UI', function(done) {
+				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test_react.html"}, function() {
+					frame.reload();
+					assert.noException(function() {
+						frame.get("#added-by-react");
+					});
+					done();
+				});
+			});
+
+		});
+
 		it("destroys itself", function(done) {
 			frame = QFrame.create(window.document.body, function() {
 				var numChildren = document.body.childNodes.length;
