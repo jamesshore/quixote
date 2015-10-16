@@ -16,11 +16,14 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'src/**/*_script_test.js', included: false, served: true, nocache: true},
-      {pattern: 'src/**/*_test_inline_scripts.html', included: false, served: true, nocache: true},
-      'src/**/!(*_script_test).js',
-	    'src/**/!(*_test_inline_scripts).html',
-	    'src/**/*.css',
+      {pattern: 'src/**/*body_script*_test.js', included: false, served: true, nocache: true},
+      {pattern: 'src/**/*head_script*_test.js', included: false, served: true, nocache: true},
+      {pattern: 'src/**/*angular*_test.html', included: false, served: true, nocache: true},
+      {pattern: 'src/**/*inline_script*_test.html', included: false, served: true, nocache: true},
+      {pattern: 'node_modules/**/*', included: false, served: true, nocache: true},
+      'src/**/!(*body_script_test|*head_script_test)*.js',
+      'src/**/!(*angular|*inline_script)*.html',
+      'src/**/*.css',
 	    'vendor/**/*.js'
     ],
 

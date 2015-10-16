@@ -159,7 +159,7 @@ describe("QFrame", function() {
 		});
 
 		it('reloads iframe and re-rruns scripts inlined within script tag in head', function(done) {
-			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_inline_script_test.html" }, function() {
 				var frameWindow, loadedTimestamp, reloadedTimestamp;
 				frameWindow = frame._domElement.contentWindow;
 				loadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT;
@@ -177,7 +177,7 @@ describe("QFrame", function() {
 		});
 
 		it('reloads iframe and re-runs scripts loaded by script tag in head', function(done) {
-			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_inline_script_test.html" }, function() {
 				var frameWindow, loadedTimestamp, reloadedTimestamp;
 				frameWindow = frame._domElement.contentWindow;
 				loadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT;
@@ -195,7 +195,7 @@ describe("QFrame", function() {
 		});
 
 		it('reloads iframe and re-runs scripts inlined within script tag in body', function(done) {
-			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_inline_script_test.html" }, function() {
 				var frameWindow, loadedTimestamp, reloadedTimestamp;
 				frameWindow = frame._domElement.contentWindow;
 				loadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT;
@@ -213,7 +213,7 @@ describe("QFrame", function() {
 		});
 
 		it('reloads iframe and re-runs scripts loaded by script tag in body', function(done) {
-			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test_inline_scripts.html" }, function() {
+			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_inline_script_test.html" }, function() {
 				var frameWindow, loadedTimestamp, reloadedTimestamp;
 				frameWindow = frame._domElement.contentWindow;
 				loadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT;
@@ -234,23 +234,25 @@ describe("QFrame", function() {
 		describe('Angular 1.x Initialization', function() {
 
 			// Angular 1.x section (should move to separate test file?)
-			it.skip('reloads iframe and initializes Angular (1.x) app via automatic (ngApp) initialization', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test_angular_1x.html"}, function() {
-					frame.reload();
-					assert.noException(function() {
-						frame.get("#added-by-angular-ng-app");
+			it('reloads iframe and initializes Angular (1.x) app via automatic (ngApp) initialization', function(done) {
+				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_angular_1x_auto_init_test.html"}, function() {
+					frame.reload(function () {
+						assert.noException(function() {
+							frame.get("#added-by-angular-auto-init");
+						});
+						done();
 					});
-					done();
 				});
 			});
 
-			it.skip('reloads iframe and initializes Angular (1.x) app via manual (angular.bootstrap) initialization', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test_angular_1x.html"}, function() {
-					frame.reload();
-					assert.noException(function() {
-						frame.get("#added-by-angular-bootstrap");
+			it('reloads iframe and initializes Angular (1.x) app via manual (angular.bootstrap) initialization', function(done) {
+				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_angular_1x_manual_init_test.html"}, function() {
+					frame.reload(function () {
+						assert.noException(function() {
+							frame.get("#added-by-angular-manual-init");
+						});
+						done();
 					});
-					done();
 				});
 			});
 

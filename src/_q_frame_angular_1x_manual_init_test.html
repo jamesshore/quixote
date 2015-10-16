@@ -1,0 +1,26 @@
+<html>
+<head>
+    <script src="/base/node_modules/angular/angular.js"></script>
+    <script>
+            angular.module('quix-test-app', [])
+
+                    .directive('quixTestComponent', function() {
+                                   return {
+                                       scope: {},
+                                       restriction: 'E',
+                                       template: '\<div id="added-by-angular-manual-init"\>\</div\>',
+                                       link: function(scope, element, attrs) {
+                                           angular.noop();
+                                       }
+                                   };
+                               });
+
+            angular.element(document.querySelector('body')).ready(function() {
+                angular.bootstrap(document.querySelector('body'), ['quix-test-app']);
+            });
+    </script>
+</head>
+<body>
+<quix-test-component />
+</body>
+</html>
