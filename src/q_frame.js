@@ -152,6 +152,7 @@
 		var iframe = this._domElement;
 		var src = this._originalSrc;
 
+		this.resize(this._originalWidth, this._originalHeight);
 		setFrameLoadCallback(frame, callback);
 		setIframeContent(iframe, src);
 	};
