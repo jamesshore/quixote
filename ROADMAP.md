@@ -30,7 +30,7 @@
 ## To Do: Revise API docs
 
 * ✔ api.md
-* descriptors.md
+* ✔ descriptors.md
 * PositionDescriptor.md
 * SizeDescriptor.md
 * quixote.md
