@@ -10,6 +10,7 @@ var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
 
 describe("QFrame", function() {
+	this.timeout(10000);
 
 	describe("creation and removal", function() {
 
