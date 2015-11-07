@@ -1,12 +1,10 @@
 # Quixote API: `SizeDescriptor`
 
-Size descriptors represent width or height.
+* [Back to overview README.](../README.md)
+* [Back to API overview.](api.md)
+* [Back to descriptor overview.](descriptors.md)
 
-[Return to the descriptor list.](descriptors.md)
-
-[Return to the API overview.](api.md)
-
-[Return to the overview README.](../README.md)
+Size descriptors represent a width or height.
 
 
 ### Comparisons
@@ -17,10 +15,10 @@ Stability: 2 - Unstable
 
 Size descriptors may be compared to another size descriptor or to a number.
 
-At present, comparisons are artificially limited. It's possible to allow more flexibility, such as comparing sizes to positions. The current approach is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
+At present, comparisons are artificially limited. It's possible to compare size descriptors to position descriptors, but the code is currently written to throw an exception if you do that. This is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
 
 
-### Common API
+### API
 
 Size descriptors implement the following methods. They're useful when you want to compare sizes that aren't exactly the same.
 
