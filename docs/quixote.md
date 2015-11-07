@@ -1,10 +1,9 @@
 # Quixote API: `quixote`
 
+* [Back to overview README](../README.md)
+* [Back to API overview](api.md)
+
 Use the `quixote` module to create your test frame and check browser compatibility.
-
-[Return to the API overview.](api.md)
-
-[Return to the overview README.](../README.md)
 
 
 #### quixote.createFrame()

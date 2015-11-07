@@ -33,7 +33,7 @@
 * ✔ descriptors.md
 * ✔ PositionDescriptor.md
 * ✔ SizeDescriptor.md
-* quixote.md
+* ✔ quixote.md
 * QFrame.md
 * QElement.md
 * QElementList.md

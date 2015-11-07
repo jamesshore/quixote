@@ -7,7 +7,7 @@ For an overview, installation notes, and an example, see [the readme](../README.
 
 There are three primary classes and modules:
 
-* [`quixote`](quixote.md) is your entry point. It allows you to create the Quixote test frame.
+* [`quixote`](quixote.md) is your entry point. It allows you to create the Quixote test frame and check browser compatibility.
 * [`QFrame`](QFrame.md) is how you manipulate the DOM inside your test frame.
 * [`QElement`](QElement.md) wraps individual DOM elements. It allows you to make assertions and get styling information.
 
