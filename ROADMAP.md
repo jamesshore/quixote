@@ -31,7 +31,7 @@
 
 * ✔ api.md
 * ✔ descriptors.md
-* PositionDescriptor.md
+* ✔ PositionDescriptor.md
 * SizeDescriptor.md
 * quixote.md
 * QFrame.md

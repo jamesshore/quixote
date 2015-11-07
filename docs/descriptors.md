@@ -1,7 +1,7 @@
 # Quixote API: Descriptors
 
-* [Return to the API overview.](api.md)
-* [Return to the overview README.](../README.md)
+* [Back to overview README](../README.md)
+* [Back to API overview](api.md)
 
 Descriptors are the most important concept in Quixote. They're used with [`QElement.assert()`](QElement.md#elementassert). Each descriptor some piece of styling information, such as an element's width or the height of the page.
 
