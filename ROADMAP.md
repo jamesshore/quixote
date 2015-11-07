@@ -24,6 +24,7 @@
 * Create example project
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
+* Add Øredev video to readme if possible
 * Release 0.10
 
 
