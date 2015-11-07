@@ -17,7 +17,6 @@
 ## Current Feature: Documentation Update (0.10 release)
 
 * ✔ Revise readme
-	* *Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the browser is hidden causes very slow tests. If you have trouble with slow tests, make sure your browser windows are visible.
 * Revise API docs
 * Revise contributor docs
 	* Make a note about the browser tab needing to be visible (or __reset.js will fail with cryptic error; see GitHub issue #17)

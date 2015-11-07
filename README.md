@@ -65,6 +65,8 @@ To use Quixote, follow these steps:
 
 See the [example](example/) directory for a seed project containing a complete example.
 
+**Note:** When testing Safari and Chrome on Mac OS X, make sure the browser windows are visible. When the windows aren't visible, Mac OS lowers their priority and the tests will run very slowly or time out.
+
 
 ### 1. Choose your test style
 
