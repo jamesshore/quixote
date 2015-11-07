@@ -27,9 +27,16 @@
 * Release 0.10
 
 
-## To Do: Readme
+## To Do: Revise API docs
 
-* Done
+* ✔ api.md
+* descriptors.md
+* PositionDescriptor.md
+* SizeDescriptor.md
+* quixote.md
+* QFrame.md
+* QElement.md
+* QElementList.md
 
 
 ## Dogfooding Notes
