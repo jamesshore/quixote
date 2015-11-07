@@ -19,11 +19,11 @@
 * ✔ Revise readme
 * Revise API docs
 * Revise contributor docs
-* Add overview docs
-	* *Performance note:* In some cases (specifically, Safari on Mac OS X), running Quixote while the browser is hidden causes very slow tests. If you have trouble with slow tests, make sure your browser windows are visible.
+	* Make a note about the browser tab needing to be visible (or __reset.js will fail with cryptic error; see GitHub issue #17)
 * Create example project
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
+* Add Øredev video to readme if possible
 * Release 0.10
 
 
