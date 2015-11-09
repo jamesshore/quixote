@@ -17,7 +17,7 @@
 ## Current Feature: Documentation Update (0.10 release)
 
 * ✔ Revise readme
-* Revise API docs
+* ✔ Revise API docs
 * Revise contributor docs
 	* Make a note about the browser tab needing to be visible (or __reset.js will fail with cryptic error; see GitHub issue #17)
 * Create example project
@@ -29,14 +29,7 @@
 
 ## To Do: Revise API docs
 
-* ✔ api.md
-* ✔ descriptors.md
-* ✔ PositionDescriptor.md
-* ✔ SizeDescriptor.md
-* ✔ quixote.md
-* ✔ QFrame.md
-* ✔ QElement.md
-* QElementList.md
+* ✔ Done
 
 
 ## Dogfooding Notes
