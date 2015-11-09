@@ -3,7 +3,7 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QElement` instances represent individual HTML elements. You'll use them to make assertions about your elements. The methods you'll use most often are [`element.assert()`](#elementassert), for making style assertions, and [`element.getRawStyle()`](#elementgetrawstyle), for getting styles that `element.assert()` doesn't support yet.
+`QElement` instances represent individual HTML elements. You'll use them to make assertions about your elements. The methods you'll use most often are [`element.assert()`](#elementassert), for making style assertions, and [`element.getRawStyle()`](#elementgetrawstyle), for getting styles that [`element.assert()`](#elementassert) doesn't support yet.
 
 
 #### Descriptors
@@ -17,7 +17,7 @@ QElement instances have several descriptor properties. They are documented in th
 Stability: 2 - Unstable
 ```
 
-Check whether the element's descriptors match a set of expected values. If they match, nothing happens; if they don't match, this method throws an exception with a useful explanation.
+Check whether the element's descriptors match a set of expected values. If they match, nothing happens; if they don't match, this method throws an exception explaining the difference.
 
 `element.assert(expected, message)`
 
