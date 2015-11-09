@@ -1,10 +1,9 @@
 # Quixote API: `QElementList`
 
-`QElementList` instances contain a list of [`QElement`](QElement.md) instances. It's provided by [`QFrame.getAll()`.](QFrame.md)
+* [Back to overview README](../README.md)
+* [Back to API overview](api.md)
 
-[Return to the API overview.](api.md)
-
-[Return to the overview README.](../README.md)
+`QElementList` instances contain a list of [`QElement`](QElement.md) objects. It's provided by [`QFrame.getAll()`.](QFrame.md#framegetall)
 
 
 #### list.length()
@@ -26,7 +25,7 @@ Determine the number of elements in the list.
 Stability: 1 - Experimental
 ```
 
-Retrieve an element from the list. Positive and negative indices are allowed. Throws an exception if the index is out of bounds.
+Retrieve an element from the list. Positive and negative indices are allowed (see below). Throws an exception if the index is out of bounds.
 
 `element = list.at(index, nickname)`
 

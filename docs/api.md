@@ -7,13 +7,18 @@ For an overview, installation notes, and an example, see [the readme](../README.
 
 There are three primary classes and modules:
 
-* [`quixote`](quixote.md) is your entry point. It allows you to create an iframe for testing.
+* [`quixote`](quixote.md) is your entry point. It allows you to create the Quixote test frame and check browser compatibility.
 * [`QFrame`](QFrame.md) is how you manipulate the DOM inside your test frame.
-* [`QElement`](QElement.md) allows you to make assertions and get styling information.
+* [`QElement`](QElement.md) wraps individual DOM elements. It allows you to make assertions and get styling information.
 
-Assertions (using [`QElement.assert()`](QElement.md)) operate on "Descriptors." They're documented here:
+In your tests, you will make assertions on elements using two methods:
 
-* [Descriptors](descriptors.md) lists all the descriptors available for you to use.
+* [`QElement.assert()`](QElement.md#elementassert) is a powerful tool for comparing elements. This is the preferred assertion technique, but it doesn't yet support all style properties.
+* [`QElement.getRawStyle()`](QElement.md#elementgetrawstyle) allows you to retrieve style information and use it with another assertion library. This is meant to be used when `QElement.assert()` doesn't support the styles you want to test.
+
+`QElement.assert()` takes an object containing "descriptors," which are documented here:
+
+* [Descriptors](descriptors.md) describes how descriptors work and lists all the descriptors available for you to use.
 * [`PositionDescriptor`](PositionDescriptor.md) descriptors have a common API related to positioning.
 * [`SizeDescriptor`](SizeDescriptor.md) descriptors have a common API related to sizes.
 

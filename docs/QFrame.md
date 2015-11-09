@@ -1,10 +1,9 @@
 # Quixote API: `QFrame`
 
-`QFrame` instances allow you to control your test frame. You'll use this to create and retrieve elements. Of particular use is `frame.reset()`, which you should call before each test. You'll also need to call `frame.remove()` after all your CSS tests are complete.
+* [Back to overview README](../README.md)
+* [Back to API overview](api.md)
 
-[Return to the API overview.](api.md)
-
-[Return to the overview README.](../README.md)
+`QFrame` controls the test frame. You'll use this to create and retrieve elements. Of particular use is [`frame.reset()`](#framereset), which you should call before each test. You'll also call [`frame.remove()`](#frameremove) after all your CSS tests are complete.
 
 
 #### frame.reset()
@@ -13,7 +12,7 @@
 Stability: 2 - Unstable
 ```
 
-Reset the frame back to the state it was in immediately after you called `quixote.createFrame()`.
+Reset the frame back to the state it was in immediately after you called [`quixote.createFrame()`](quixote.md#quixotecreateframe). You will typically call this before every test.
 
 `frame.reset()`
 
@@ -34,7 +33,7 @@ beforeEach(function() {
 Stability: 2 - Unstable
 ```
 
-Remove the test frame entirely.
+Remove the test frame entirely. You'll typically call this after all your tests are complete.
 
 `frame.remove()`
 
@@ -53,13 +52,13 @@ after(function() {
 Stability: 2 - Unstable
 ```
 
-Retrieve an element matching a selector. Throws an exception unless exactly one matching element is found. If you don't want the possibility of an exception, use `frame.getAll()` instead.
+Retrieve an element matching a selector. Throws an exception unless exactly one matching element is found. If you don't want the possibility of an exception, use [`frame.getAll()`](#framegetall) instead.
 
 `element = frame.get(selector, nickname)`
 
 * `element (`[`QElement`](QElement.md)`)` The element that matches your selector.
 
-* `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
+* `selector (string)` A CSS selector. Any selector that works with [document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
 
 * `nickname (optional string)` The name to use when describing your element in error messages. Uses the selector by default.
 
@@ -72,13 +71,13 @@ Example: `var foo = frame.get("#foo");`
 Stability: 1 - Experimental
 ```
 
-Retrieve a list of elements matching a selector. If you want to ensure that exactly one element is retrieved, use `frame.get()` instead.
+Retrieve a list of elements matching a selector. If you want to ensure that exactly one element is retrieved, use [`frame.get()`](#frameget) instead.
 
 `list = frame.getAll(selector, nickname)`
 
 * `list (`[`QElementList`](QElementList.md)`)` The elements that match your selector.
 
-* `selector (string)` A CSS selector. Any selector that works with [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
+* `selector (string)` A CSS selector. Any selector that works with [document.querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/Document.querySelectorAll) will work. In particular, note that IE 8 is limited to CSS2 selectors only.
 
 * `nickname (optional string)` The name to use when describing your list in error messages. Uses the selector by default.
 
@@ -177,7 +176,7 @@ Changes the size of the frame.
 * `width (number)` The frame's new width
 * `height (number)` The frame's new height
 
-**Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md).
+**Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md#quixotebrowser).
 
 
 #### frame.scroll()

@@ -1,12 +1,10 @@
 # Quixote API: `PositionDescriptor`
 
+* [Back to overview README.](../README.md)
+* [Back to API overview.](api.md)
+* [Back to descriptor overview.](descriptors.md)
+
 Position descriptors represent an X or Y coordinate. The top-left corner of the page is (0, 0) and the values increase downward and to the right.
-
-[Return to the descriptor list.](descriptors.md)
-
-[Return to the API overview.](api.md)
-
-[Return to the overview README.](../README.md)
 
 
 ### Comparisons
@@ -15,12 +13,12 @@ Position descriptors represent an X or Y coordinate. The top-left corner of the 
 Stability: 2 - Unstable
 ```
 
-Position descriptors may be compared to another position descriptor or to a number. Comparing an X-coordinate to a Y-coordinate will result in an exception.
+Position descriptors may be compared to another position descriptor or to a number. 
 
-At present, comparisons are artificially limited. It's possible to allow more flexibility, such as comparing X-coordinates to Y-coordinates. The current approach is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
+At present, comparisons are artificially limited. Comparing an X-coordinate to a Y-coordinate will result in an exception. This is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
 
 
-### Common API
+### API
 
 Position descriptors implement the following methods. They're useful when you want to compare positions that aren't exactly aligned.
 

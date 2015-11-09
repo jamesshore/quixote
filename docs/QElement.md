@@ -1,10 +1,9 @@
 # Quixote API: `QElement`
 
-`QElement` instances represent individual HTML tags. You'll use them to get information about how the elements on your page are styled.
+* [Back to overview README](../README.md)
+* [Back to API overview](api.md)
 
-[Return to the API overview.](api.md)
-
-[Return to the overview README.](../README.md)
+`QElement` instances represent individual HTML elements. You'll use them to make assertions about your elements. The methods you'll use most often are [`element.assert()`](#elementassert), for making style assertions, and [`element.getRawStyle()`](#elementgetrawstyle), for getting styles that [`element.assert()`](#elementassert) doesn't support yet.
 
 
 #### Descriptors
@@ -18,20 +17,20 @@ QElement instances have several descriptor properties. They are documented in th
 Stability: 2 - Unstable
 ```
 
-Compare the element's descriptors to a set of expected values and throw an exception if they don't match. This is the same as `diff()` (below), except that it throws an exception rather than returning a value.
+Check whether the element's descriptors match a set of expected values. If they match, nothing happens; if they don't match, this method throws an exception explaining the difference.
 
 `element.assert(expected, message)`
 
-* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or hard-coded value.
+* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or a hard-coded value.
 
-* `message (optional string)` If an exception is thrown, this message will be included at the beginning.
+* `message (optional string)` A message to include when the assertion fails and an exception is thrown.
 
 Example:
 
 ```javascript
 element.assert({
-  top: 13,
-  bottom: otherElement.top.plus(10)
+  top: 13,                   // compare to a hard-coded value
+  bottom: otherElement.top   // compare to another descriptor
 });
 ```
 
@@ -41,7 +40,7 @@ element.assert({
 Stability: 2 - Unstable
 ```
 
-Compare the element's descriptors to a set of expected values. This is the same as `assert()` (above), except that it returns a value rather than throwing an exception.
+Compare the element's descriptors to a set of expected values. This is the same as [`QElement.assert()`](#elementassert), except that it returns a string rather than throwing an exception.
 
 `diff = element.diff(expected)`
 
@@ -62,16 +61,16 @@ Determine how the browser is actually rendering an element's style. This uses [g
 
 * `style (string)` The browser's computed style, or an empty string if the style wasn't recognized.
  
-* `property (string)` The name of the property to retrieve. Should always be written in snake-case, even on IE 8.
+* `property (string)` The name of the property to retrieve. Should always be written in kebab-case, even on IE 8.
 
 Example: `var fontSize = element.getRawStyle("font-size");`
 
 **Compatibility Note:** `getRawStyle` does *not* attempt to resolve cross-browser differences, with two exceptions:
 
-* IE 8 uses `currentStyle` rather than `getComputedStyle()`, and snake-case property names are converted to camelCase to match currentStyle's expectation.
+* IE 8 uses `currentStyle` rather than `getComputedStyle()`, and kebab-case property names are converted to camelCase to match currentStyle's expectation.
 * Different browsers return `null`, `undefined`, or `""` when a property can't be found. Quixote always returns `""`. 
 
-**Compatibility Note:** When using `getRawStyle("font-size")`, be aware that Mobile Safari may increase the size of small fonts. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](quixote.md).
+**Compatibility Note:** When using `getRawStyle("font-size")`, be aware that Mobile Safari may increase the size of small fonts. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](quixote.md#browser).
 
 
 #### element.getRawPosition()
