@@ -3,7 +3,7 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-Descriptors are the most important concept in Quixote. They're used with [`QElement.assert()`](QElement.md#elementassert). Each descriptor some piece of styling information, such as an element's width or the height of the page.
+Descriptors are the most important concept in Quixote. They're used with [`QElement.assert()`](QElement.md#elementassert). Each descriptor represents some piece of styling information, such as an element's width or the height of the page.
 
 Using `QElement.assert()`, descriptors can be compared to hard-coded values, like this:
 
@@ -31,7 +31,7 @@ header.assert({
 
 With descriptors, you can make relative comparisons and avoid hardcoding values. This is one of Quixote's unique benefits—be sure to try it!
 
-**Compatibility Note:** We make every attempt to ensure that descriptors work identically across browsers. If you discover a cross-browser incompatibility that doesn't correspond to an actual, visible difference, please file an issue.
+**Compatibility Note:** We make every effort to ensure that descriptors work identically across browsers. If you discover a cross-browser incompatibility that doesn't correspond to an actual, visible difference, please file an issue.
 
 **Pixel Rounding Note:** Browsers handle pixel rounding in different ways. We consider pixel values to be the same if they're within 0.5px of each other. If you have rounding errors that are *greater* than 0.5px, make sure your test browsers are set to a zoom level of 100%. Zooming can exaggerate rounding errors.
 
@@ -47,7 +47,7 @@ The following descriptors are available:
 Stability: 2 - Unstable
 ```
 
-Descriptors for the position and size of an element are available on [`QElement`](QElement.md) instances. These descriptors include padding and borders (if any), but not margins.  
+Descriptors for the position and size of an element are available on [`QElement`](QElement.md) instances. The values of these descriptors include padding and borders (if any), but not margins.  
 
 * `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
 * `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
@@ -74,7 +74,7 @@ logo.assert({
 Stability: 1 - Experimental
 ```
 
-Descriptors for the position and size of the viewport are available on [`QFrame.viewport()`](QFrame.md#frameviewport). The viewport is the part of the webpage that's visible in the test frame, not including scrollbars. It can be useful to compare element positions and sizes to viewport descriptors.
+Descriptors for the position and size of the viewport are available on [`QFrame.viewport()`](QFrame.md#frameviewport). The viewport is the part of the webpage that's visible in the test frame, not including scrollbars. By comparing element positions and sizes to viewport descriptors, you can make assertions about what's visible to the user.
 
 * `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The highest visible part of the page.
 * `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The rightmost visible part of the page.
@@ -101,7 +101,7 @@ disclaimer.assert({
 
 * In particular, the current solution for viewport dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. They do *not* work on pages without a doctype. If support for another doctype is important to you, please let us know by opening an issue.
 
-* Mobile Safari sometimes ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md#quixotecreateframe). This can result in the viewport being larger than expected.
+* Mobile Safari sometimes ignores the `width` and `height` attributes on an iframe, as described in the compatibility note for [`quixote.createFrame()`](quixote.md#quixotecreateframe). This can result in viewport descriptors returning larger-than-expected values.
 
 
 ### Page Positions and Sizes
@@ -110,7 +110,7 @@ disclaimer.assert({
 Stability: 1 - Experimental
 ```
 
-Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, the "page" includes the entire page displayed in the frame, whether or not it's scrolled out of view or not. However, it's always at least as big as the viewport. Like the viewport, it can be useful to compare element positions and sizes to page descriptors. 
+Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to viewport descriptors, you can make assertions about where elements are positioned on the page.
 
 * `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top of the page.
 * `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right side of the page.
@@ -121,12 +121,12 @@ Descriptors for the position and size of the page are available on [`QFrame.page
 * `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the page.
 * `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the page.
 
-Example: "The sidebar extends down the left side of the page."
+Example: "The sidebar extends down the right side of the page."
 
 ```javascript
 var page = frame.page();
 sidebar.assert({
-  left: page.left,      // The left edge of the sidebar is the same as the left edge of the page 
+  right: page.right,    // The right edge of the sidebar is the same as the right edge of the page 
   height: page.height   // The height of the sidebar is the same as the height of the page
 });
 ```
