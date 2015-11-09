@@ -3,7 +3,7 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QFrame` controls test frame. You'll use this to create and retrieve elements. Of particular use is [`frame.reset()`](#framereset), which you should call before each test. You'll also need to call [`frame.remove()`](#frameremove) after all your CSS tests are complete.
+`QFrame` controls the test frame. You'll use this to create and retrieve elements. Of particular use is [`frame.reset()`](#framereset), which you should call before each test. You'll also call [`frame.remove()`](#frameremove) after all your CSS tests are complete.
 
 
 #### frame.reset()
