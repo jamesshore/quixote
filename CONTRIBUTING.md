@@ -21,7 +21,7 @@ If you're planning on making a pull request, here's a helpful checklist:
 
 2. **[Fork the Quixote repository](https://help.github.com/articles/fork-a-repo/)** on GitHub.
 
-3. **Set up your computer** by following the "Setup" instructions below.
+3. **Set up your computer** by following the "Working with the Code" instructions below.
 
 4. **Create a branch** for your changes. Start from the `master` branch. It has the latest known-good code.
    ```sh
@@ -54,9 +54,11 @@ To work with the code on your own computer:
 2. Start the browsers you want to test and point each one at `http://localhost:9876`.
 3. Run `./jake.sh loose=true` to build and test, or `./watch.js loose=true` to automatically rebuild when you make a change.
 
+**If you get a timeout error** in `__reset.js`, particularly on Safari or Chrome, it's probably due to the window being hidden or a different tab being shown. Safari and Chrome deprioritizes tabs that aren't visible, which causes the tests to timeout. To fix the issue, make sure some portion of the Karma page is visible. 
+
 At this time, the build has only been tested on Mac OS X. It should also work on Unix without any trouble. It's theoretically capable of working on Windows, but needs some script work before that's easy and convenient.
 
-**Build parameters**
+### Build parameters
 
 You can pass the following options to `./jake.sh` and `./watch.js`:
 
@@ -66,7 +68,7 @@ You can pass the following options to `./jake.sh` and `./watch.js`:
 
 * `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you may need to install the appropriate launchers; e.g., `npm install karma-safari-launcher`.
 
-**Other build scripts**
+### Other build scripts
 
 You won't need to run these scripts, but in case you're curious: 
 
