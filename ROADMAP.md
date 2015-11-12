@@ -29,8 +29,9 @@
 ## To Do: Create example project
 
 * ✔ Use Øredev code for example project
-* Use npm instead of vendor directory
+* ✔ Modify build to support launching browsers
 * Update build or integration script to check example code
+* Update example's readme (and document `capture=Firefox` build option)
 * Comment code thoroughly
 
 

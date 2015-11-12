@@ -1,5 +1,5 @@
 {
-  "name": "unneeded",
+  "name": "quixote-example",
   "version": "0.0.0",
   "private": true,
   "engines": {
@@ -14,6 +14,7 @@
     "jshint": "^2.7.0",
     "karma": "^0.13.9",
     "karma-commonjs": "0.0.13",
+    "karma-firefox-launcher": "^0.1.6",
     "karma-mocha": "^0.1.10",
     "mocha": "^2.2.5",
     "nodemon": "^1.3.7",
