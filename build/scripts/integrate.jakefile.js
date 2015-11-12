@@ -6,8 +6,6 @@
 var git = require("../util/git_runner.js");
 var branches = require("../config/branches.js");
 
-var BUILD_COMMAND = require("../config/build_command.js");
-
 
 //*** COMMANDS
 
@@ -87,7 +85,18 @@ task("upToDate", function() {
 	git.checkFastForwardable(branches.integration, branches.dev, complete, fail);
 }, { async: true });
 
-task("buildsClean", function() {
-	console.log("Verifying build:");
-	jake.exec(BUILD_COMMAND, { printStdout: true, printStderr: true }, complete);
+task("buildsClean", [ "quixoteBuildsClean", "exampleBuildsClean" ]);
+
+task("quixoteBuildsClean", function() {
+	console.log("Verifying Quixote build:");
+
+	var command = require("../config/build_command.js");
+	jake.exec(command, { printStdout: true, printStderr: true }, complete);
+}, { async: true });
+
+task("exampleBuildsClean", function() {
+	console.log("Verifying example build:");
+
+	var command = "cd example && ./jake.sh capture=Firefox";
+	jake.exec(command, { printStdout: true, printStderr: true }, complete);
 }, { async: true });
