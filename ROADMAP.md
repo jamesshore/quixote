@@ -28,7 +28,7 @@
 
 ## To Do: Create example project
 
-* Use Øredev code for example project
+* ✔ Use Øredev code for example project
 * Update build or integration script to check example code
 * Comment code thoroughly
 

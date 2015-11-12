@@ -69,7 +69,7 @@
 
 	desc("Start Karma server -- run this first");
 	task("karma", function() {
-		karma.serve({
+		karma.start({
 			configFile: KARMA_CONFIG
 		}, complete, fail);
 	}, { async: true });
