@@ -26,9 +26,11 @@
 * Release 0.10
 
 
-## To Do: Revise contributor docs
+## To Do: Create example project
 
-* ✔ Update CONTRIBUTING.md
+* Use Øredev code for example project
+* Update build or integration script to check example code
+* Comment code thoroughly
 
 
 ## Dogfooding Notes

@@ -1,0 +1,20 @@
+.invisible {
+	visibility: hidden;
+}
+
+/* media object */
+
+.media:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.media__figure {
+	float: left;
+	margin-right: 10px;
+}
+
+.media__body {
+	overflow: hidden;
+}

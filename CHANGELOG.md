@@ -12,7 +12,8 @@ In progress. A revamp of the Quixote documentation, including a working example 
 *Changes:*
 
 * New 'Usage' section in the Readme.
-* (more tbd)
+* Tweaks and refinements to API and contributor documentation
+* Example project
 
 
 ## 0.9.x: Multiple Stylesheets
