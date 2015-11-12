@@ -29,6 +29,7 @@
 ## To Do: Create example project
 
 * ✔ Use Øredev code for example project
+* Use npm instead of vendor directory
 * Update build or integration script to check example code
 * Comment code thoroughly
 
