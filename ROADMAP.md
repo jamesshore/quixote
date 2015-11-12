@@ -18,8 +18,7 @@
 
 * ✔ Revise readme
 * ✔ Revise API docs
-* Revise contributor docs
-	* Make a note about the browser tab needing to be visible (or __reset.js will fail with cryptic error; see GitHub issue #17)
+* ✔ Revise contributor docs
 * Create example project
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
@@ -27,9 +26,9 @@
 * Release 0.10
 
 
-## To Do: Revise API docs
+## To Do: Revise contributor docs
 
-* ✔ Done
+* ✔ Update CONTRIBUTING.md
 
 
 ## Dogfooding Notes
