@@ -4,6 +4,8 @@
 
 Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can use it for unit testing (test your CSS files directly) or integration testing (test against a real server). Either way, your tests check how HTML elements are actually rendered by the browser.
 
+[![Example video](example/video_poster.jpg)](https://vimeo.com/144642399#t=21m50s)
+
 Quixote runs in the browser and works with any test framework. You can even test multiple browsers simultaneously by using a tool such as [Karma](http://karma-runner.github.io) or [Test'em](https://github.com/airportyh/testem). It works in modern desktop browsers, mobile browsers, and IE 8+.
 
 **Example test:**
@@ -31,6 +33,7 @@ top edge of '.navbar' was 13px lower than expected.
 ## Useful Links
 
 * **[API Documentation](docs/api.md)**
+* **[Complete Example](example)**
 * **[Browsers Tested for This Release](build/config/tested_browsers.js)**
 * **[Change Log](CHANGELOG.md)**
 * **[Roadmap](ROADMAP.md)**

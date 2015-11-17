@@ -31,8 +31,8 @@
 * ✔ Use Øredev code for example project
 * ✔ Modify build to support launching browsers
 * ✔ Update build or integration script to check example code
-* Ensure example build checks against current version of Quixote (not node_modules version)
-* Update example's readme (and document `capture=Firefox` build option)
+* ✔ Ensure example build checks against current version of Quixote (not example/vendor version)
+* ✔ Update example's readme (and document `capture=Firefox` build option)
 * Comment code thoroughly
 
 
