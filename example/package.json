@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "engines": {
-    "node": "0.12.4"
+    "node": "5.0.0"
   },
   "dependencies": {
     "http-server": "^0.8.0"

@@ -30,7 +30,8 @@
 
 * ✔ Use Øredev code for example project
 * ✔ Modify build to support launching browsers
-* Update build or integration script to check example code
+* ✔ Update build or integration script to check example code
+* Ensure example build checks against current version of Quixote (not node_modules version)
 * Update example's readme (and document `capture=Firefox` build option)
 * Comment code thoroughly
 
@@ -51,7 +52,6 @@
   * Could width and height be reimplemented as a Span? Would a Span have a center, for example?
     * Even if it could, would it be a good idea?
     * E.g., Me.width = function() { this.left.to(this.right) };
-* Investigate re-enabling URL checking (issue #4)
 * Consider how to support less-than, greater-than, etc.
   * Use case: "the bottom edge of 'foo' is above the fold (600px)".
   * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
