@@ -28,6 +28,8 @@ Add the `loose=true` parameter to relax Node and browser version checking.
 To run the app for manual testing:
 
 1. Run `./jake.sh run` (Unix/Mac) or `jake run` (Windows).
+2. Open `http://localhost:8080` in a browser.
+3. Click the coffee cup icon to see the code in action.
 
 
 Finding Your Way Around
