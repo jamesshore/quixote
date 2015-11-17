@@ -10,13 +10,7 @@
 	var jshint = require("simplebuild-jshint");
 	var karma = require("simplebuild-karma");
 	var browserify = require("../util/browserify_runner.js");
-
-	var KARMA_CONFIG = "./build/config/karma.conf.js";
-	var TESTED_BROWSERS = require("../config/tested_browsers.js");
-	var ENTRY_POINT = "./src/quixote.js";
-	var DIST_DIR = "dist";
-	var DIST_FILE = DIST_DIR + "/quixote.js";
-
+	var paths = require("../config/paths.js");
 
 //*** GENERAL
 
@@ -58,7 +52,7 @@
 	task("karma", function() {
 		console.log("Starting Karma server:");
 		karma.start({
-			configFile: KARMA_CONFIG
+			configFile: paths.karmaConfig
 		}, complete, fail);
 	}, { async: true });
 
@@ -68,8 +62,8 @@
 
 		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
 		karma.run({
-			configFile: KARMA_CONFIG,
-			expectedBrowsers: TESTED_BROWSERS,
+			configFile: paths.karmaConfig,
+			expectedBrowsers: require("../config/tested_browsers.js"),
 			strict: !process.env.loose,
 			capture: browsersToCapture
 		}, complete, fail);
@@ -79,11 +73,11 @@
 //*** BUILD
 
 	desc("Build distribution package");
-	task("build", [ DIST_DIR ], function() {
+	task("build", [ paths.distDir ], function() {
 		console.log("Bundling distribution package with Browserify: .");
 		browserify.bundle({
-			entry: ENTRY_POINT,
-			outfile: DIST_FILE,
+			entry: paths.mainModule,
+			outfile: paths.distFile,
 			options: {
 				standalone: "quixote",
 				debug: true
@@ -91,7 +85,7 @@
 		}, complete, fail);
 	}, { async: true });
 
-	directory(DIST_DIR);
+	directory(paths.distDir);
 
 
 //*** Helper functions

@@ -97,6 +97,13 @@ task("quixoteBuildsClean", function() {
 task("exampleBuildsClean", function() {
 	console.log("Verifying example build:");
 
+	overwriteExamplesQuixoteModuleWithLocalBuild();
 	var command = "cd example && ./jake.sh capture=Firefox";
 	jake.exec(command, { printStdout: true, printStderr: true }, complete);
 }, { async: true });
+
+function overwriteExamplesQuixoteModuleWithLocalBuild() {
+	console.log("Updating example with current Quixote distribution: TBD");
+
+
+}
