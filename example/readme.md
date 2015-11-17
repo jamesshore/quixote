@@ -1,9 +1,11 @@
-Talk: Agile Engineering for the Web
+Quixote Example
 ===========
 
-This is the source code for my "Agile Engineering for the Web" talk, first presented at Øredev in Malmö Sweden on 4 Nov 2015.
+This example code is based on my "Agile Engineering for the Web" talk, first presented at Øredev in Malmö Sweden on 4 Nov 2015. The talk demonstrates test-driven development of front-end JavaScript and CSS. You can see it online here:
 
-It demonstrates test-driven development of front-end JavaScript and CSS.
+https://vimeo.com/144642399
+
+The Quixote portion starts at 20:50.
 
 
 Building and Testing
@@ -33,13 +35,13 @@ Finding Your Way Around
 
 This repository consists of the following directories:
 
-* `.idea`: WebStorm IDE settings. (Optional.)
 * `build`: Build, CI, and deployment automation.
 * `build/config`: Build configuration.
 * `build/scripts`: Build scripts. Don't run them directly; they're used by the scripts in the root directory.
 * `build/util`: Modules used by the build scripts.
-* `node_modules`: npm dependencies.
+* `node_modules`: npm dependencies (used by the build).
 * `src`: Front-end code.
+* `vendor`: Client code's dependencies.
 
 In the repository root, you'll find the following scripts. For each script, there's a `.sh` version for Unix and Mac and a `.bat` version for Windows:
 
@@ -48,9 +50,11 @@ In the repository root, you'll find the following scripts. For each script, ther
 
 For all these scripts, use `-T` to see the available build targets and their documentation. If no target is provided, the script will run `default`. Use `--help` for additional options.
 
-The `jake` script has this additional option:
+The scripts have these additional options:
 
 * `loose=true`: Disable strict browser and version checks.
+* `capture=Firefox,Safari,etc`: Automatically launch, use, and quit the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. Note that the browser name is case-sensitive. The Firefox launcher is included; if you need additional launchers, you'll need to install them; e.g., `npm install karma-safari-launcher`.
+
 
 
 License
