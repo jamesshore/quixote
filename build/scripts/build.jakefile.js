@@ -11,6 +11,8 @@
 	var karma = require("simplebuild-karma");
 	var browserify = require("../util/browserify_runner.js");
 	var paths = require("../config/paths.js");
+	var shelljs = require("shelljs");
+	shelljs.config.fatal = true;
 
 //*** GENERAL
 
@@ -73,7 +75,9 @@
 //*** BUILD
 
 	desc("Build distribution package");
-	task("build", [ paths.distDir ], function() {
+	task("build", [ paths.distDir, "bundle", "updateExample" ]);
+
+	task("bundle", function() {
 		console.log("Bundling distribution package with Browserify: .");
 		browserify.bundle({
 			entry: paths.mainModule,
@@ -85,7 +89,14 @@
 		}, complete, fail);
 	}, { async: true });
 
+	task("updateExample", function() {
+		console.log("Updating example with current Quixote distribution: .");
+		shelljs.cp("-f", paths.distFile, "example/vendor/quixote.js");
+	});
+
 	directory(paths.distDir);
+
+
 
 
 //*** Helper functions
@@ -104,8 +115,7 @@
 			nonew: true,
 			regexp: true,
 			undef: true,
-			strict: true,
-			globalstrict: true,     // "global" stricts are okay when using CommonJS modules
+			strict: "global",
 			trailing: true
 		};
 	}

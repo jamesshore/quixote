@@ -6,8 +6,6 @@
 var git = require("../util/git_runner.js");
 var branches = require("../config/branches.js");
 var paths = require("../config/paths.js");
-var shelljs = require("shelljs");
-shelljs.config.fatal = true;
 
 
 //*** COMMANDS
@@ -71,11 +69,18 @@ function checkout(branch, succeed, fail) {
 
 //*** ENSURE INTEGRATION READINESS
 
-task("readyToIntegrate", [ "onDevBranch", "allCommitted", "upToDate", "buildsClean" ]);
+task("readyToIntegrate", [ "onDevBranch", "distBuilt", "allCommitted", "upToDate", "buildsClean" ]);
 
 task("onDevBranch", function() {
 	console.log("Checking current branch: .");
 	git.checkCurrentBranch(branches.dev, complete, fail);
+}, { async: true });
+
+task("distBuilt", function() {
+	console.log("Ensuring distribution package is checked in:");
+
+	var command = require("../config/build_command.js");
+	jake.exec(command + " build", { printStdout: true, printStderr: true }, complete);
 }, { async: true });
 
 task("allCommitted", function() {
@@ -100,12 +105,6 @@ task("quixoteBuildsClean", function() {
 task("exampleBuildsClean", function() {
 	console.log("Verifying example build:");
 
-	overwriteExamplesQuixoteModuleWithLocalBuild();
 	var command = "cd example && ./jake.sh capture=Firefox";
 	jake.exec(command, { printStdout: true, printStderr: true }, complete);
 }, { async: true });
-
-function overwriteExamplesQuixoteModuleWithLocalBuild() {
-	console.log("Updating example with current Quixote distribution: .");
-	shelljs.cp("-f", paths.distFile, "example/vendor/quixote.js");
-}
