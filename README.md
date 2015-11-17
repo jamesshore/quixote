@@ -33,7 +33,7 @@ top edge of '.navbar' was 13px lower than expected.
 ## Useful Links
 
 * **[API Documentation](docs/api.md)**
-* **[Full Example](example/readme.md)**
+* **[Complete Example](example)**
 * **[Browsers Tested for This Release](build/config/tested_browsers.js)**
 * **[Change Log](CHANGELOG.md)**
 * **[Roadmap](ROADMAP.md)**
