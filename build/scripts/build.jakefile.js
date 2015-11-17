@@ -104,8 +104,7 @@
 			nonew: true,
 			regexp: true,
 			undef: true,
-			strict: true,
-			globalstrict: true,     // "global" stricts are okay when using CommonJS modules
+			strict: "global",
 			trailing: true
 		};
 	}
