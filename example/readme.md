@@ -3,9 +3,9 @@ Quixote Example
 
 This example code is based on my "Agile Engineering for the Web" talk, first presented at Øredev in Malmö Sweden on 4 Nov 2015. The talk demonstrates test-driven development of front-end JavaScript and CSS. You can see it online here:
 
-https://vimeo.com/144642399
+[![Video link](video_poster.jpg)](https://vimeo.com/144642399)
 
-The Quixote portion starts at 20:50.
+The Quixote portion starts at 21:50.
 
 
 Building and Testing
