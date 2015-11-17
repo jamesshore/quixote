@@ -3,7 +3,7 @@
 	"use strict";
 
 	var assert = require("./assert.js");
-	var quixote = require("../vendor/quixote-0.9.0.js");
+	var quixote = require("../vendor/quixote.js");
 
 	describe("Media Object CSS", function() {
 

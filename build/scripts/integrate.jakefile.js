@@ -5,6 +5,7 @@
 
 var git = require("../util/git_runner.js");
 var branches = require("../config/branches.js");
+var paths = require("../config/paths.js");
 
 
 //*** COMMANDS
@@ -104,6 +105,9 @@ task("exampleBuildsClean", function() {
 
 function overwriteExamplesQuixoteModuleWithLocalBuild() {
 	console.log("Updating example with current Quixote distribution: TBD");
+
+	console.log("src", paths.distFile);
+	console.log("dest", "example/node_modules/quixote/" + paths.distFile);
 
 
 }
