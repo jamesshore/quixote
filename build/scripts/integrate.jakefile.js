@@ -6,6 +6,8 @@
 var git = require("../util/git_runner.js");
 var branches = require("../config/branches.js");
 var paths = require("../config/paths.js");
+var shelljs = require("shelljs");
+shelljs.config.fatal = true;
 
 
 //*** COMMANDS
@@ -104,10 +106,6 @@ task("exampleBuildsClean", function() {
 }, { async: true });
 
 function overwriteExamplesQuixoteModuleWithLocalBuild() {
-	console.log("Updating example with current Quixote distribution: TBD");
-
-	console.log("src", paths.distFile);
-	console.log("dest", "example/node_modules/quixote/" + paths.distFile);
-
-
+	console.log("Updating example with current Quixote distribution: .");
+	shelljs.cp("-f", paths.distFile, "example/vendor/quixote.js");
 }
