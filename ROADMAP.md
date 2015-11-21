@@ -24,6 +24,7 @@
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
 * Add architecture documentation?
 * Add value object tutorial (to complement descriptor tutorial)?
+* Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
 * Release 0.10
 
 
