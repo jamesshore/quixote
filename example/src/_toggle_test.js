@@ -1,4 +1,8 @@
 // Copyright (c) 2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+
+// Example JavaScript tests. We're using Mocha as our test framework and Chai for assertions.
+// There's nothing related to Quixote in this file. It's just an example of testing JavaScript.
+
 (function() {
 	"use strict";
 

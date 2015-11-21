@@ -1,8 +1,7 @@
-.invisible {
-	visibility: hidden;
-}
+/* Our CSS file.
 
-/* media object */
+
+/* The media object. We use Quixote to test it in `_media_css_test.js`. */
 
 .media:after {
 	content: "";
@@ -17,4 +16,12 @@
 
 .media__body {
 	overflow: hidden;
+}
+
+
+/* Our example code also includes a simple JavaScript library for toggling the visibility of an element. */
+/* The .invisible class is used in that example. It's not related to the Quixote tests. */
+
+.invisible {
+	visibility: hidden;
 }
