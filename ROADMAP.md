@@ -19,7 +19,7 @@
 * ✔ Revise readme
 * ✔ Revise API docs
 * ✔ Revise contributor docs
-* Create example project
+* ✔ Create example project
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
 * Add architecture documentation?
@@ -35,7 +35,7 @@
 * ✔ Update build or integration script to check example code
 * ✔ Ensure example build checks against current version of Quixote (not example/vendor version)
 * ✔ Update example's readme (and document `capture=Firefox` build option)
-* Comment code thoroughly
+* ✔ Comment code thoroughly
 
 
 ## Dogfooding Notes
