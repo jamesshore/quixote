@@ -22,14 +22,14 @@
 * ✔ Create example project
 * ✔ Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * ✔ Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
-* Add architecture documentation?
+* Architecture documentation
 * Add value object tutorial (to complement descriptor tutorial)?
 * Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
 * Release 0.10
 
 
-## To Do: Document gotchas
-* ✔ Done 
+## To Do: Architecture documentation
+* Update contributing.md
 
 
 ## Dogfooding Notes
@@ -52,4 +52,4 @@
 * Consider how to support less-than, greater-than, etc.
   * Use case: "the bottom edge of 'foo' is above the fold (600px)".
   * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
-
+* Plugin API

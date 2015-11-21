@@ -4,7 +4,7 @@ Pull requests are welcome! Here are some specific contributions we're looking fo
 
 * **Let us know how Quixote works for you.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you. [Create an issue](https://github.com/jamesshore/quixote/issues) if anything didn't work smoothly or if you had trouble understanding something.
 
-* **Create new descriptors.** Descriptors are small classes that describe how to calculate and describe CSS. Our [descriptor creation tutorial is here](src/descriptors/README.md).
+* **Add descriptors to support for more CSS properties.** Quixote can test any CSS element using the [`QElement.getRawStyle()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawstyle) method, but the [`QElement.assert()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementassert) method is more sophisticated. (It works consistently across browsers, allows relative comparisons, and provides better failure messages.) `QElement.assert()` uses [descriptors](https://github.com/jamesshore/quixote/blob/master/docs/descriptors.md) and we'd eventually like to have descriptors for every CSS property. To contribute new descriptors, see the [Architecture](#Architecture) section below.
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  
