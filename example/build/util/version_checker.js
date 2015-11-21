@@ -1,4 +1,9 @@
 // Copyright (c) 2013 Titanium I.T. LLC. All rights reserved. See LICENSE.TXT for details.
+
+// Helper function for checking version numbers.
+// There's no Quixote-specific configuration in this file.
+
+
 (function() {
 	"use strict";
 
