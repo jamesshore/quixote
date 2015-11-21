@@ -7,6 +7,7 @@ This example code is based on my "Agile Engineering for the Web" talk, first pre
 
 The Quixote portion starts at 21:50.
 
+This example uses Karma, Mocha, and Chai for its tests. And Quixote, of course.
 
 Building and Testing
 --------------------

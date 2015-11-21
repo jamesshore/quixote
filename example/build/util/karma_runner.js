@@ -1,6 +1,7 @@
 // Copyright (c) 2012-2015 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 
 // Helper functions for running Karma
+// There's no Quixote-specific configuration in this file.
 
 (function() {
 	"use strict";

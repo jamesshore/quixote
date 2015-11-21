@@ -3,6 +3,7 @@
 	"use strict";
 
 	// Uncomment and modify the following list to cause the build to fail unless these browsers are tested.
+	// There's no Quixote-specific configuration in this file.
 
 	module.exports = [
 		//"IE 10.0.0 (Windows 7 0.0.0)",

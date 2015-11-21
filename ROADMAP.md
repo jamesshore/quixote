@@ -19,10 +19,12 @@
 * ✔ Revise readme
 * ✔ Revise API docs
 * ✔ Revise contributor docs
-* Create example project
+* ✔ Create example project
 * Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
 * Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
-* Add Øredev video to readme if possible
+* Add architecture documentation?
+* Add value object tutorial (to complement descriptor tutorial)?
+* Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
 * Release 0.10
 
 
@@ -33,12 +35,13 @@
 * ✔ Update build or integration script to check example code
 * ✔ Ensure example build checks against current version of Quixote (not example/vendor version)
 * ✔ Update example's readme (and document `capture=Firefox` build option)
-* Comment code thoroughly
+* ✔ Comment code thoroughly
 
 
 ## Dogfooding Notes
 
-* Provide a better way of integrating with standard assertion libraries?
+* Provide a better way of integrating with standard assertion libraries? Use `valueOf()`?
+* Alternative assert mechanism? `element.assert.equal()` `.assert.lessThan()` etc? with `should` as alias to `assert`?
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 * Add workaround for IE 8 not working with `frame.add("<style>...</style>")` (addAll? browser feature detect? Need to check if there's no way to insert styles into the document, or if it just doesn't like the way `add()` works.)  
 * Add `QElement.add()` and `QElement.remove()`?

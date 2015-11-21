@@ -1,6 +1,7 @@
 // Copyright (c) 2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 
 // Configuration options for JSHint. Change this to match your preferences.
+// There's no Quixote-specific configuration in this file.
 
 (function() {
 	"use strict";
