@@ -11,7 +11,7 @@ In progress. A revamp of the Quixote documentation, including a working example 
 
 *Changes:*
 
-* New 'Usage' section in the Readme.
+* New 'Usage' and 'Gotchas' sections in the Readme.
 * Tweaks and refinements to API and contributor documentation
 * Example project
 
