@@ -107,37 +107,37 @@ Previous commits on the integration branch have "INTEGRATE" in their commit comm
 
 ## Architecture
 
-This discussion assumes you're familiar with the public Quixote API and how to use it for CSS testing.
+This discussion assumes you're familiar with the [Quixote API](https://github.com/jamesshore/quixote/blob/master/docs/api.md).
 
-Internally, Quixote's architecture revolves around two core concepts: "Descriptors" and "Values." Descriptor objects represent some visible aspect of the page, such as "the top edge of element '#foo'" and values objects represent tangible values, such as "60px".
+Internally, Quixote's architecture revolves around two core concepts: "Descriptors" and "Values." Descriptor objects represent some aspect of the page, such as "the top edge of element '#foo'", and value objects represent tangible values, such as "60px".
 
 Descriptors and values are implemented with a classical inheritance hierarchy. Descriptor classes ultimately inherit from the [`Descriptor`](src/descriptors/descriptor.js) superclass and value classes inherit from the [`Value`](src/values/value.js) superclass. Descriptor classes are located in the [`src/descriptors`](src/descriptors) folder and value classes are located in [`src/values`](src/values). 
 
-Descriptors are turned into values with the `value()` method implemented by every descriptor class. (This method is for internal use only.) When you make an assertion in Quixote, `value()` is called on both descriptors, then `equals()` is called on the two values to check if they're the same. The core assertion algorithm is implemented by `diff()` in the [`descriptor`](src/descriptors/descriptor.js) superclass.
+Descriptors are turned into values with the `value()` method implemented by every descriptor class. (This method is for internal use only.) When you make an assertion in Quixote, `value()` is called on both descriptors, then `equals()` is called on the two values to check if they're the same. (This algorithm is implemented by `diff()` in [`descriptor.js`](src/descriptors/descriptor.js).)
 
-Descriptor and Value objects are always instantiated via factory methods and never via constructors.
+Descriptor and Value objects are always instantiated via factory methods, never via constructors.
 
 
 ### Descriptors
 
-Descriptor classes correspond to some *as yet uncalculated* aspect of the page. Each descriptor class is focused on one concept, such as [`ElementEdge`](src/descriptors/element_edge.js), which is used to represent the edges of HTML elements.
+Descriptor classes correspond to some *as yet uncalculated* aspect of the page. Each descriptor class is focused on one concept, such as [`ElementEdge`](src/descriptors/element_edge.js), which represents the edges of HTML elements.
 
-Descriptor classes often inherit from a superclass that provides a useful public API. For example, `ElementEdge`, `PageEdge`, and `ViewportEdge` all inherit from [`PositionDescriptor`](src/descriptors/position_descriptor.js), which provides a [public API](https://github.com/jamesshore/quixote/blob/master/docs/PositionDescriptor.md). 
+Descriptor classes often inherit from a superclass that provides a useful public API. For example, `ElementEdge` inherits from [`PositionDescriptor`](src/descriptors/position_descriptor.js), which provides the [`plus()` and `minus()` methods](https://github.com/jamesshore/quixote/blob/master/docs/PositionDescriptor.md). 
  
 Descriptor classes have three main features:
 
-1. **They have factory methods** that [`QElement`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md) (or other descriptors) uses to create the descriptor and make it visible via the public API. For example, the `QElement.top` descriptor is instantiated in [`QElement.js`](src/q_element.js) using this line of code: `this.top = ElementEdge.top(this);`. (You can see the implementation of `ElementEdge.top` in [`element_edge.js`](src/descriptors/element_edge.js).)
+1. **They have factory methods** that are used to expose the descriptor in the public API. For example, the public `QElement.top` descriptor is instantiated in [`QElement.js`](src/q_element.js) using this line of code: `this.top = ElementEdge.top(this);`. (You can see the implementation of `ElementEdge.top` in [`element_edge.js`](src/descriptors/element_edge.js).)
 
-2. **They calculate values** via a `value()` method. All the CSS logic happens in this method. For example, `ElementEdge.value()` calculates the position of an edge by adding [`QElement.getRawPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawposition) and [`QFrame.getRawScrollPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framegetrawscrollposition).
+2. **They calculate values** via a `value()` method. All CSS logic happens in this method. For example, `ElementEdge.value()` calculates the position of an edge by adding [`QElement.getRawPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawposition) and [`QFrame.getRawScrollPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framegetrawscrollposition).
 
 3. **They provide human-readable descriptions** via the `toString()` method. For example, `ElementEdge.toString()` returns strings such as "top edge of 'element'".
 
-Descriptor classes are usually less than 100 lines long. That's because there's one for each kind of CSS calculation. See the [`src/descriptors`](src/descriptors) folder to see them.
+Descriptor classes are usually less than 100 lines long. That's because there's one for each kind of CSS calculation. Find them in the [`src/descriptors`](src/descriptors) folder.
 
 
 ### Values
 
-Value classes correspond to concrete units. Each value class represents one CSS unit, such as [`Position`](src/values/position.js), which represents an X or Y coordinate on the web page, or [`Size`](src/values/size.js), which represents width or height.
+Value classes correspond to concrete units. Each value class represents one unit, such as [`Position`](src/values/position.js), which represents an X or Y coordinate on the web page, or [`Size`](src/values/size.js), which represents width or height.
 
 Value classes are sometimes composed from a more fundamental value. For example, both `Position` and `Size` use a [`Pixels`](src/values/pixels.js) object under the covers.
 
@@ -145,7 +145,7 @@ Value classes have five main features:
 
 1. **They have factory methods** that descriptor classes use in their `value()` method.
 
-2. **They perform calculations** as needed by descriptors. For example, `Position` provides `plus`, `minus`, and `midpoint` calculation methods.  
+2. **They perform calculations** if needed by descriptors. For example, `Position` provides `plus()`, `minus()`, and `midpoint()` calculation methods.
 
 3. **They check for compatibility** via a `compatibility()` method. If two value objects that are incompatible are used together, Quixote will fail fast and throw a useful exception. For example, if you try to add a Position object to a Size, Quixote will throw an error with the message, "Size isn't compatible with Position."
 
@@ -153,7 +153,7 @@ Value classes have five main features:
 
 5. **They provide a human-readable description** via the `toString()` method. For example, `Position.toString()` returns strings such as "60px".
 
-Value classes are usually less than 100 lines long. The logic required isn't very complex. See the [`src/values`](src/values) folder to see them.
+Value classes are usually less than 100 lines long. The logic required isn't very complex. Find them in the [`src/values`](src/values) folder.
 
 
 ## Release Process
@@ -164,5 +164,5 @@ For use by the project maintainer.
 2. Update readme and API documentation as needed.
 3. Update changelog and roadmap.
 4. Run `./integrate.sh` to integrate dev branch into master branch.
-5. Run `.release [major | minor | patch]` to release. The release script releases to npm and github.
+5. Run `./release [major | minor | patch]` to release. The release script releases to npm and github.
 6. Publicize.
