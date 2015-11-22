@@ -425,7 +425,7 @@ Browsers can be a bit unpredictable when it comes to testing CSS.
 
 * Internet Explorer seems to have a weird caching issue related to font sizes. If you change the size of a font in your CSS and your IE tests don't pick up the change, try reloading the test page or restarting the browser. We don't yet fully understand this issue, so if you figure out what's going on, let us know by [opening an issue](https://github.com/jamesshore/quixote/issues) on Github.
  
-* Browser pixel-rounding issues are exaggerated when the page is not at 100% zoom. If you have trouble with positioning or size-related assertions, check your that your test pages' zoom level. (To reset to 100% zoom, use Ctrl-0 or Command-0 in most browsers.) 
+* Browser pixel-rounding issues are exaggerated when the page is not at 100% zoom. If you have trouble with positioning or size-related assertions, check your test pages' zoom level. (To reset to 100% zoom, use Ctrl-0 or Command-0 in most browsers.) 
 
 * If you have issues with tests working on some browsers but not others, check the documentation. We've documented several cross-browser compatibility issues and their workarounds. You can use also the [`quixote.browser`](https://github.com/jamesshore/quixote/blob/master/docs/quixote.md#quixotebrowser) object to detect some cross-browser differences in your tests.
 
