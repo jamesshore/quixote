@@ -259,9 +259,9 @@ Normally, to capture a browser for Karma, you visit `http://localhost:9876`. Wit
 
 ### 4. Set up your tests
 
-Now you can write your tests. Quixote uses a special test frame for its tests, so you'll need to create and destroy it using [quixote.createFrame()](https://github.com/jamesshore/quixote/blob/dev/docs/quixote.md#quixotecreateframe) and [frame.remove()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameremove). This is a relatively slow operation, so try to do it just once for each file you test.
+Now you can write your tests. Quixote uses a special test frame for its tests, so you'll need to create and destroy it using [quixote.createFrame()](https://github.com/jamesshore/quixote/blob/master/docs/quixote.md#quixotecreateframe) and [frame.remove()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#frameremove). This is a relatively slow operation, so try to do it just once for each file you test.
 
-If you modify the contents of the test frame, you can reset it to a pristine state by calling [frame.reset()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#framereset). This is faster than recreating the test frame.
+If you modify the contents of the test frame, you can reset it to a pristine state by calling [frame.reset()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framereset). This is faster than recreating the test frame.
 
 #### Unit Test Style
 
@@ -314,7 +314,7 @@ beforeEach(function() {
 
 ### 5. Test your code
 
-The Quixote test frame will give you access to everything you need to test your code. You can add elements to the frame using [frame.add()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameadd) and get elements from the frame using [frame.get()](https://github.com/jamesshore/quixote/blob/dev/docs/QFrame.md#frameget). Once you have an element, you can use Quixote's custom assertions by calling [element.assert()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementassert). You can also pull style information out of an element, for use with another assertion library, by calling [element.getRawStyle()](https://github.com/jamesshore/quixote/blob/dev/docs/QElement.md#elementgetrawstyle). 
+The Quixote test frame will give you access to everything you need to test your code. You can add elements to the frame using [frame.add()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#frameadd) and get elements from the frame using [frame.get()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#frameget). Once you have an element, you can use Quixote's custom assertions by calling [element.assert()](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementassert). You can also pull style information out of an element, for use with another assertion library, by calling [element.getRawStyle()](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawstyle). 
 
 #### Unit Test Style
 
