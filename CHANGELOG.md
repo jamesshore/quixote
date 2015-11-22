@@ -12,6 +12,7 @@ In progress. A revamp of the Quixote documentation, including a working example 
 *Changes:*
 
 * New 'Usage' and 'Gotchas' sections in the Readme.
+* New 'Architecture' section in contributor guide
 * Tweaks and refinements to API and contributor documentation
 * Example project
 
@@ -27,7 +28,6 @@ In progress. A revamp of the Quixote documentation, including a working example 
 * quixote.createFrame() accepts an array of stylesheets in `options.stylesheet`.
 * quixote.createFrame() no longer errs out when you specify `options.src` and `options.stylesheet` at the same time.
 * quixote.createFrame() checks src and stylesheet URLs and fails fast if they're not found.
-
 
 
 ## 0.8.x: Browser Font Enlargement Detection
