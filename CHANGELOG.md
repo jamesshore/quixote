@@ -3,9 +3,9 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## 0.10.x (in progress): Updated Documentation
+## 0.10.x: Updated Documentation
 
-In progress. A revamp of the Quixote documentation, including a working example that can be used as a seed project.
+**21 Nov 2015.** A revamp of the Quixote documentation, including a working example that can be used as a seed project.
 
 **No breaking changes.**
 
