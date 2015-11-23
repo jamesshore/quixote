@@ -80,14 +80,16 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 	frame.add("<p>must have two p tags to work</p>");
 
 	// WORKAROUND Safari 8.0.0: timeout required because font is enlarged asynchronously
-	setTimeout(function() {
+	var checkInterval = setInterval(function() {
 		var fontSize = text.getRawStyle("font-size");
-		ensure.that(fontSize !== "", "Expected font-size to be a value");
+		if(fontSize !== "") {
+			clearInterval(checkInterval);
 
-		// WORKAROUND IE 8: ignores <style> tag we added above
-		if (fontSize === "12pt") return callback(false);
+			// WORKAROUND IE 8: ignores <style> tag we added above
+			if (fontSize === "12pt") return callback(false);
 
-		return callback(fontSize !== "15px");
-	}, 0);
+			return callback(fontSize !== "15px");
+		}
+	}, 1);
 
 }
