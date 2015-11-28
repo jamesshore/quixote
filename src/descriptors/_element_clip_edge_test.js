@@ -53,11 +53,14 @@ describe("ElementClipEdge", function() {
 			assert.implements(clipTop, PositionDescriptor);
 		});
 
-		it("resolves to value", function() {
-			var CLIP_TOP = 10;
-			var CLIP_BOTTOM = 90;
-			var CLIP_LEFT = 10;
-			var CLIP_RIGHT = 90;
+		it("resolves to clip rect that includes bounding client rect top/left", function() {
+			var TOP = 10;  // the margins are outside the bounding client rect
+			var LEFT = 10;
+
+			var CLIP_TOP = 10 + TOP;
+			var CLIP_BOTTOM = 90 + TOP;
+			var CLIP_LEFT = 10 + LEFT;
+			var CLIP_RIGHT = 90 + LEFT;
 
 			assert.objEqual(clipTop.value(), Position.y(CLIP_TOP), "top");
 			assert.objEqual(clipRight.value(), Position.x(CLIP_RIGHT), "right");

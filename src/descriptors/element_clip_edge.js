@@ -95,20 +95,26 @@ ElementClipEdge.prototype.getRawClipPosition = function getRawClipPosition() {
 	}
 
 	// values in a clip's rect may be a css length or "auto" which means "clip over the edge's border"
-	var topPx = this.computeClipTopPxHeight(matches[1]);
-	var rightPx = this.computeClipRightPxWidth(matches[2]);
-	var bottomPx = this.computeClipBottomPxHeight(matches[3]);
-	var leftPx = this.computeClipLeftPxWidth(matches[4]);
+	var clipTop = this.computeClipTopPxHeight(matches[1]);
+	var clipRight = this.computeClipRightPxWidth(matches[2]);
+	var clipBottom = this.computeClipBottomPxHeight(matches[3]);
+	var clipLeft = this.computeClipLeftPxWidth(matches[4]);
 
-	return {
-		left: leftPx,
-		right: rightPx,
-		width: rightPx - leftPx,
+	var domElement = this._element.toDomElement();
+	var boundingRect = domElement.getBoundingClientRect();
 
-		top: topPx,
-		bottom: bottomPx,
-		height: bottomPx - topPx
+	var clipRect = {
+		left: boundingRect.left + clipLeft,
+		right: boundingRect.left + clipRight,
+
+		top: boundingRect.top + clipTop,
+		bottom: boundingRect.top + clipBottom
 	};
+
+	clipRect.width = clipRect.right - clipRect.left;
+	clipRect.height = clipRect.bottom - clipRect.top;
+
+	return clipRect;
 };
 
 var LENGTH_EXPR_PATTERN = /([\-\+]?[0-9\.]+)([a-zA-Z]+)/;
