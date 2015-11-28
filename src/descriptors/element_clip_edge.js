@@ -61,7 +61,7 @@ function factoryFn(position) {
 }
 
 var UNSET_CLIP_STYLES = [ "", "auto", "unset", "initial" ];
-var CLIP_RECT_PATTERN = /[\s]*rect[\s]*\([\s]*([^\s,]+)[\s,]+([^\s,]+)[\s,]+([^\s,]+)[\s,]+([^\s,]+)[\s]*\)[\s]*/;
+var CLIP_RECT_PATTERN = /rect[\s]*\([\s]*([^\s,]+)[\s,]+([^\s,]+)[\s,]+([^\s,]+)[\s,]+([^\s,]+)[\s]*\)/;
 
 ElementClipEdge.prototype.getRawClipPosition = function getRawClipPosition() {
 	ensure.signature(arguments, []);
@@ -111,7 +111,7 @@ ElementClipEdge.prototype.getRawClipPosition = function getRawClipPosition() {
 	};
 };
 
-var LENGTH_EXPR_PATTERN = /([0-9\.]+)([a-zA-Z]+)/;
+var LENGTH_EXPR_PATTERN = /([\-\+]?[0-9\.]+)([a-zA-Z]+)/;
 
 ElementClipEdge.prototype.computeCssPxForLengthInElement = function computeCssPxForLengthInElement(lengthExpr) {
 	var matches = lengthExpr.match(LENGTH_EXPR_PATTERN);
