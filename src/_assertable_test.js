@@ -76,4 +76,33 @@ describe("Assertable abstract base class", function() {
 		}, "a message:\n" + diff + "\n", "different, with a message");
 	});
 
+	it("supports assertions in nested expected with clip object", function() {
+		var domElement = element.toDomElement();
+
+		domElement.setAttribute("style", [
+			"position: absolute",
+			"left: 20px",
+			"top: 10px",
+			"margin-top: 35px",
+			"margin-left: 14px",
+			"margin-bottom: 102px",
+			"margin-right: 900px",
+			"width: 130px",
+			"height: 60px",
+			"clip: rect(5px 120px 45px 20px)",
+			"clip: rect(5px, 120px, 45px, 20px)"
+		].join(";"));
+
+		element.assert({
+			clip: {
+				top: 5 + 10 + 35,       // clip top + top + margin-top
+				bottom: 45 + 10 + 35,   // clip bottom + top + margin-top
+				left: 20 + 20 + 14,     // clip left + left + margin-left
+				right: 120 + 20 + 14,   // clip right + left + margin-left
+				width: 100,
+				height: 40
+			}
+		}, "nested expected clip object works");
+	});
+
 });

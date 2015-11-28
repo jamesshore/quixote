@@ -33,7 +33,7 @@ var Me = module.exports = function QElement(domElement, frame, nickname) {
 
 	this.clip = {};  // ElementClipDisabled descriptor rather than plain old object here?
 
-	this.clip.top=  ElementClipEdge.top(this);
+	this.clip.top = ElementClipEdge.top(this);
 	this.clip.right = ElementClipEdge.right(this);
 	this.clip.bottom = ElementClipEdge.bottom(this);
 	this.clip.left = ElementClipEdge.left(this);
