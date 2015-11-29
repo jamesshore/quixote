@@ -153,6 +153,31 @@ describe("Assertable abstract base class", function() {
 				ClipNotAppliedException,
 				"element.assert will fail with a ClipNotAppliedException because a clip style could not be computed");
 		});
+
+		it("will throw a ClipNotAppliedException when asserting clip on an element that has clip: auto", function() {
+			var domElement = element.toDomElement();
+
+			domElement.setAttribute("style", [
+				"position: absolute",
+				"left: 20px",
+				"top: 10px",
+				"width: 130px",
+				"height: 60px",
+				"clip: auto"
+			].join(";"));
+
+			var ClipNotAppliedException = require("./descriptors/element_clip_edge").ClipNotAppliedException;
+			assert.exception(
+				function() {
+					element.assert({
+						clip: {
+							top: 25       // clip top + top
+						}
+					});
+				},
+				ClipNotAppliedException,
+				"element.assert will fail with a ClipNotAppliedException because a clip style was not applied to element");
+		});
 	});
 
 });
