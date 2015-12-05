@@ -21,7 +21,8 @@
 			cmd: "cmd.exe /c"
 		}
 	}).on("restart", function(files) {
-		console.log("*** Restarting due to", files);
+		if (files) console.log("*** Restarting due to", files);
+		else console.log("*** Restarting");
 	});
 
 }());

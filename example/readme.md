@@ -42,7 +42,7 @@ To run the tests:
 
 1. Start the Karma server: `./jake.sh karma` (Unix/Mac) or `jake karma` (Windows)
 2. Open `http://localhost:9876` in one or more browsers.
-3. Run `./jake.sh loose=true` (Unix/Mac) or `jake loose=true` (Windows) every time you want to build and test. Alternatively, use `./watch.sh` (Unix/Mac) or `watch` (Windows) to automatically run `jake` whenever files change.
+3. Run `./jake.sh loose=true` (Unix/Mac) or `jake loose=true` (Windows) every time you want to build and test. Alternatively, use `./watch.sh loose=true` (Unix/Mac) or `watch loose=true` (Windows) to automatically run `jake` whenever files change.
 
 Remove the `loose=true` parameter for strict Node and browser version checking.
 
