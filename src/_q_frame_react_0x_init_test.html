@@ -1,0 +1,23 @@
+<html>
+<head>
+    <script src="/base/node_modules/react/dist/react.js"></script>
+    <script src="/base/node_modules/react-dom/dist/react-dom.js"></script>
+    <script>
+        var InitTest = React.createClass({
+            render: function () {
+                return React.createElement(
+                        'div',
+                        { 'id': this.props.id }
+                );
+            }
+        });
+
+        setTimeout(function () {
+            ReactDOM.render(React.createElement(InitTest, { id: 'added-by-react-init' }), document.getElementById('test-container'));
+        }, 0);
+    </script>
+</head>
+<body>
+<div id="test-container"></div>
+</body>
+</html>

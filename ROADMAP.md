@@ -20,6 +20,9 @@
 * Review and update code style
 * Look for opportunities to simplify or remove tests
 * Update documentation
+	* QFrame.reset()
+	* QFrame.reload()
+	* readme
 * Release 0.11
 
 
@@ -29,7 +32,7 @@
 * Update changelog and contributor credits
 
 
-
+Q
 ## Dogfooding Notes
 
 * Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
