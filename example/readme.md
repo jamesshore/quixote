@@ -7,44 +7,64 @@ This example code is based on my "Agile Engineering for the Web" talk, first pre
 
 The Quixote portion starts at 21:50.
 
-This example uses Karma, Mocha, and Chai for its tests. And Quixote, of course.
 
-Building and Testing
---------------------
+About the Example
+-----------------
 
-Before building for the first time:
+This code demonstrates CSS and JavaScript tests. It uses:
+ 
+* [Karma](http://karma-runner.github.io) for cross-browser testing.
+* [Mocha](https://mochajs.org/) for running tests.
+* [Chai](http://chaijs.com/) for assertions.
+* [Quixote](https://github.com/jamesshore/quixote) for testing CSS.
+
+The sample application uses Nicole Sullivan's [media object](http://www.stubbornella.org/content/2010/06/25/the-media-object-saves-hundreds-of-lines-of-code/) to display an icon with some text. Clicking the icon causes the text to appear and disappear.
+
+Important files:
+
+* [`src/_media_css_test.js`](src/_media_css_test.js): CSS tests
+
+* [`src/screen.css`](src/screen.css): CSS code
+
+* [`build/config/karma.conf.js`](build/config/karma.conf.js): Karma configuration. Look for the `// QUIXOTE` comment to see how to make Karma serve CSS files.
+  
+
+Running the Tests
+-----------------
+
+Before running the tests:
 
 1. Install [Node.js](http://nodejs.org/download/).
-2. Download the project as described above.
-3. All commands must run from the root of the source tree.
+2. Install Quixote: `npm install quixote`
+3. Change to the example directory: `cd node_modules/quixote/example`
 
-To build (and test):
+To run the tests:
 
-1. Run `./jake.sh karma` (Unix/Mac) or `jake karma` (Windows) to start the Karma server.
-2. Start the browsers you want to test and point each one at `http://localhost:9876`.
-3. Run `./jake.sh` (Unix/Mac) or `jake` (Windows) every time you want to build and test. Alternatively, use `./watch.sh` (Unix/Mac) or `watch` (Windows) to automatically run `jake` whenever files change.
+1. Start the Karma server: `./jake.sh karma` (Unix/Mac) or `jake karma` (Windows)
+2. Open `http://localhost:9876` in one or more browsers.
+3. Run `./jake.sh loose=true` (Unix/Mac) or `jake loose=true` (Windows) every time you want to build and test. Alternatively, use `./watch.sh loose=true` (Unix/Mac) or `watch loose=true` (Windows) to automatically run `jake` whenever files change.
 
-Add the `loose=true` parameter to relax Node and browser version checking.
+Remove the `loose=true` parameter for strict Node and browser version checking.
 
-To run the app for manual testing:
+To run the app:
 
 1. Run `./jake.sh run` (Unix/Mac) or `jake run` (Windows).
 2. Open `http://localhost:8080` in a browser.
-3. Click the coffee cup icon to see the code in action.
+3. Click the coffee cup icon to see the text appear and disappear.
 
 
-Finding Your Way Around
------------------------
+Contents
+--------
 
 This repository consists of the following directories:
 
-* `build`: Build, CI, and deployment automation.
-* `build/config`: Build configuration.
-* `build/scripts`: Build scripts. Don't run them directly; they're used by the scripts in the root directory.
-* `build/util`: Modules used by the build scripts.
+* `build`: Build automation.
+	* `build/config`: Build configuration.
+	* `build/scripts`: Build scripts. Don't run them directly.
+	* `build/util`: Modules used by the build scripts.
 * `node_modules`: npm dependencies (used by the build).
 * `src`: Front-end code.
-* `vendor`: Client code's dependencies.
+* `vendor`: Client code dependencies.
 
 In the repository root, you'll find the following scripts. For each script, there's a `.sh` version for Unix and Mac and a `.bat` version for Windows:
 

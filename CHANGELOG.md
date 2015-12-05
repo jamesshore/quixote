@@ -47,9 +47,9 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Patches:*
 
-* *0.7.2, 11 Sept 2015:* Chrome Mobile on Android officially supported.
-
 * *0.7.1, 11 Sept 2015:* Fix: `QElement.getRawStyle()` returned wrong answer on Firefox when called twice in a row on some properties.
+
+* *0.7.2, 11 Sept 2015:* Chrome Mobile on Android officially supported.
 
 **No breaking changes.**
 
@@ -69,7 +69,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * *0.6.1, 16 Feb 2015:* Opera officially supported. PhantomJS 1.x officially *not* supported via compatibility note in README.
 
-***Breaking changes:***
+**Breaking changes:**
 
 * Frames created without the `src` option are created with `<!DOCTYPE html>` to enable standards mode.
 * Replaced `quixote.browser.canScroll()` with `quixote.browser.enlargesFrameToPageSize()`. Note that this returns `true` where the previous function returned `false`.
@@ -112,15 +112,15 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 **23 Oct 2014.** API stability was the goal of this release. The API has been thoroughly reviewed and tweaked with the goal of reducing future changes. Other small changes were made to make the API production-ready, and the documentation received a thorough review and update.
 
-***Breaking changes:***
+*Patches:*
+
+* *0.5.1, 24 Oct 2014:* Minor documentation fixes. The most serious fix (and the motivation for this patch release) was a correction to the `quixote.createFrame` parameters in the README example.
+
+**Breaking changes:**
 
 * Renamed QFrame.getElement() --> QFrame.get()
 * Renamed QFrame.addElement() --> QFrame.add()
 * Moved quixote.createFrame() width and height parameters into options object
-
-*Patches:*
-
-* *0.5.1, 24 Oct 2014:* Minor documentation fixes. The most serious fix (and the motivation for this patch release) was a correction to the `quixote.createFrame` parameters in the README example.
 
 *Enhanced:*
 
@@ -154,11 +154,11 @@ element.assert({
 });
 ```
 
-**No breaking changes.**
-
 *Patches:*
 
 * *0.4.1, 22 Oct 2014:* Documented `SizeMultiple`'s additional descriptors.   
+
+**No breaking changes.**
 
 
 *Fixed:*
@@ -214,12 +214,12 @@ element.diff({
 ```
 
 Also, the new `assert()` method works just like `diff()`, except it automatically throws an exception when a difference is found. This is more convenient than writing `assert.equal(element.diff(...), "")` all the time. Now you can just write `element.assert(...)` instead. 
- 
-**No breaking changes.**
   
 *Patches:*
 
 * *0.3.1, 16 Oct 2014:* Documented `message` parameter on `QElement.assert()`   
+ 
+**No breaking changes.**
 
 *Fixed:*
 
@@ -252,7 +252,7 @@ element.diff({
 });
 ```
 
-***Breaking changes:***
+**Breaking changes:**
 
 * quixote.createFrame() and Frame.create() callback signature changed from `callback(frame)` to `callback(err, frame)`.
 
