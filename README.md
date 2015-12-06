@@ -180,7 +180,7 @@ describe("Home page", function() {
 
   beforeEach(function(done) {
     frame.reload(done);
-	});
+  });
     
   beforeEach(function() {
     logo = frame.get("#logo");
@@ -344,8 +344,8 @@ var quixote = require("quixote");
 describe("Button") {
   
   var frame;
-	var container;
-	var button;
+  var container;
+  var button;
 
   before(function(done) {
     frame = quixote.createFrame({

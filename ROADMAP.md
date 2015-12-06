@@ -19,10 +19,7 @@
 * ✔ Integrate @cognivator's pull request `https://github.com/jamesshore/quixote/pull/19`
 * ✔ Review and update code style
 * ✔ Look for opportunities to simplify or remove tests
-* Update documentation
-	* QFrame.reset()
-	* QFrame.reload()
-	* readme
+* ✔ Update documentation
 * Release 0.11
 	* changelog
 	* roadmap
@@ -30,7 +27,7 @@
 
 ## To Do: Update documentation
 	* ✔ QFrame.reset() and QFrame.reload()
-	* readme
+	* ✔ readme
 	
 
 
