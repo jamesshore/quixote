@@ -167,7 +167,7 @@ describe("QFrame", function() {
 				});
 			});
 
-      it("re-runs scripts inlined within script tag in head", function(done) {
+      it("re-runs scripts", function(done) {
 	      var options = { src: "/base/src/_q_frame_inline_script_test.html" };
 	      frame = QFrame.create(window.document.body, options, function() {
 					var frameWindow = frame._domElement.contentWindow;
@@ -177,60 +177,6 @@ describe("QFrame", function() {
 					frame.reload(function() {
 						var frameWindow = frame._domElement.contentWindow;
 						var reloadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT.getTime();
-						assert.defined(reloadedTimestamp, "global var not found in iframe window");
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
-
-						done();
-					});
-				});
-			});
-
-			it("reloads iframe and re-runs scripts loaded by script tag in head", function(done) {
-				var options = { src: "/base/src/_q_frame_inline_script_test.html" };
-				frame = QFrame.create(window.document.body, options, function() {
-					var frameWindow = frame._domElement.contentWindow;
-					var loadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT.getTime();
-					assert.defined(loadedTimestamp, "global var not found in iframe window");
-
-					frame.reload(function() {
-						var frameWindow = frame._domElement.contentWindow;
-						var reloadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT.getTime();
-						assert.defined(reloadedTimestamp, "global var not found in iframe window");
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
-
-						done();
-					});
-				});
-			});
-
-			it("reloads iframe and re-runs scripts inlined within script tag in body", function(done) {
-				var options = { src: "/base/src/_q_frame_inline_script_test.html" };
-				frame = QFrame.create(window.document.body, options, function() {
-					var frameWindow = frame._domElement.contentWindow;
-					var loadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT.getTime();
-					assert.defined(loadedTimestamp, "global var not found in iframe window");
-
-					frame.reload(function() {
-						var frameWindow = frame._domElement.contentWindow;
-						var reloadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT.getTime();
-						assert.defined(reloadedTimestamp, "global var not found in iframe window");
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
-
-						done();
-					});
-				});
-			});
-
-			it("reloads iframe and re-runs scripts loaded by script tag in body", function(done) {
-				var options = { src: "/base/src/_q_frame_inline_script_test.html" };
-				frame = QFrame.create(window.document.body, options, function() {
-					var frameWindow = frame._domElement.contentWindow;
-					var loadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT.getTime();
-					assert.defined(loadedTimestamp, "global var not found in iframe window");
-
-					frame.reload(function() {
-						var frameWindow = frame._domElement.contentWindow;
-						var reloadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT.getTime();
 						assert.defined(reloadedTimestamp, "global var not found in iframe window");
 						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
 
