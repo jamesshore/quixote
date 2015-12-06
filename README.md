@@ -451,7 +451,8 @@ Created by James Shore as part of the [Let's Code: Test-Driven JavaScript](http:
 Many thanks to our contributors!
 
 * Jay Bazuzi (@JayBazuzi): Travis CI integration (v0.1)
-* @bjornicus: Fail fast if HTML or stylesheet URL is invalid (v0.3) 
+* @bjornicus: Fail fast if HTML or stylesheet URL is invalid (v0.3)
+* @cognivator: QFrame.reload() for single-page apps and other scripts (v0.11)
 
 
 ## License

@@ -16,9 +16,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/**/*.js',
-	    'src/**/*.html',
-	    'src/**/*.css',
+      {pattern: 'src/**/*body_script*_test.js', included: false, served: true, nocache: true},
+      {pattern: 'src/**/*head_script*_test.js', included: false, served: true, nocache: true},
+      {pattern: 'src/**/*inline_script*_test.html', included: false, served: true, nocache: true},
+      {pattern: 'src/**/*angular*_test.html', included: false, served: true, nocache: true},
+      {pattern: 'src/**/*react*_test.html', included: false, served: true, nocache: true},
+      {pattern: 'node_modules/**/*', included: false, served: true, nocache: true},
+      'src/**/!(*body_script_test|*head_script_test)*.js',
+      'src/**/!(*inline_script|*angular|*react)*.html',
+      'src/**/*.css',
 	    'vendor/**/*.js'
     ],
 
@@ -31,16 +37,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-	    'src/**/*.js': ['commonjs'],
-	    'vendor/**/*.js': ['commonjs']
+      // this glob avoids processing the *_script_test.js files, which will be loaded as <script> tags
+      'src/**/{*.,!(*_script_test)}.js': ['commonjs'],
+      'vendor/**/*.js': ['commonjs']
     },
-
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['dots'],
-
 
     // web server port
     port: 9876,

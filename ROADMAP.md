@@ -9,27 +9,31 @@
 * **✔ v0.5** API hardening
 * **✔ v0.6** Responsive design
 * **✔ v0.7** Page and viewport assertions
-* **v0.8 - v0.10** Dogfooding and real-world usage (more dogfooding releases to come)
+* **v0.8 - v0.11** Dogfooding and real-world usage (more dogfooding releases to come)
 * Initial "cooked" styling (colors? contrast (fg color vs. bg color?))
 * ...more TBD
 
 
-## Current Feature: Documentation Update (0.10 release)
+## Current Feature: App Framework Support (0.11 release)
 
-* ✔ Revise readme
-* ✔ Revise API docs
-* ✔ Revise contributor docs
-* ✔ Create example project
-* ✔ Document work-around for cross-origin restrictions (using a proxy, such as in Karma)
-* ✔ Document IE font caching issue: if you only change a font size in a CSS file, then IE 9 and 11 (and more?) may not pick it up on the next test run.
-* ✔ Architecture documentation
-* ✔ Release 0.10
-
-
-## To Do: Done
-* Done
+* Integrate @cognivator's pull request `https://github.com/jamesshore/quixote/pull/19`
+* Review and update code style
+* Look for opportunities to simplify or remove tests
+* Update documentation
+	* QFrame.reset()
+	* QFrame.reload()
+	* readme
+* Release 0.11
+	* changelog
+	* roadmap
 
 
+## To Do: Integrate @cognivator's pull request 
+* ✔ Integrate PR
+* ✔ Update contributor credits
+
+
+Q
 ## Dogfooding Notes
 
 * Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
