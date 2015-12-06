@@ -178,9 +178,11 @@ describe("Home page", function() {
     frame.remove();
   });
 
-  beforeEach(function() {
-    frame.reset();
+  beforeEach(function(done) {
+    frame.reload(done);
+	});
     
+  beforeEach(function() {
     logo = frame.get("#logo");
     navbar = frame.get("#navbar");
   });
@@ -261,11 +263,12 @@ Normally, to capture a browser for Karma, you visit `http://localhost:9876`. Wit
 
 Now you can write your tests. Quixote uses a special test frame for its tests, so you'll need to create and destroy it using [quixote.createFrame()](https://github.com/jamesshore/quixote/blob/master/docs/quixote.md#quixotecreateframe) and [frame.remove()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#frameremove). This is a relatively slow operation, so try to do it just once for each file you test.
 
-If you modify the contents of the test frame, you can reset it to a pristine state by calling [frame.reset()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framereset). This is faster than recreating the test frame.
+If you modify the contents of the test frame, you can reset it to a pristine state by calling [frame.reset()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framereset) or [frame.reload()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framereload). This is faster than recreating the test frame.
+
 
 #### Unit Test Style
 
-In the unit test style, you create a frame that loads your CSS file:
+In the unit test style, you create a frame that loads your CSS file and use `frame.reset()` to reset any changes:
  
 ```javascript
 var quixote = require("quixote");
@@ -289,7 +292,7 @@ beforeEach(function() {
 
 #### Integration Test Style
 
-In the integration test style, you do the same thing, but your frame will load your proxied server under test:
+In the integration test style, you do the same thing, but your frame will load your proxied server under test. Also, because `frame.reset()` doesn't re-run scripts, you'll use the slower but more thorough `frame.reload()` to reset the page.
 
 ```javascript
 var quixote = require("quixote");
@@ -306,8 +309,8 @@ after(function() {
   frame.remove();
 });
 
-beforeEach(function() {
-  frame.reset();
+beforeEach(function(done) {
+  frame.reload(done);
 });
 ```
 
@@ -336,11 +339,24 @@ For example, if you were planning to test-drive this CSS:
 You would use this code:
 
 ```javascript
+var quixote = require("quixote");
+
 describe("Button") {
-	
+  
+  var frame;
 	var container;
 	var button;
-	
+
+  before(function(done) {
+    frame = quixote.createFrame({
+      stylesheet: "/base/src/client/screen.css"
+    }, done);
+  });
+  
+  after(function() {
+    frame.remove();
+  });
+  
   beforeEach(function() {
     frame.reset();
     container = frame.add(
@@ -371,17 +387,33 @@ describe("Button") {
 In the integration test style, you load a complete page, so rather than adding elements to the frame, you'll just pull out the ones you want to test.
 
 ```javascript
+var quixote = require("quixote");
+
 describe("Home page", function() {
-  
+
   var BACKGROUND_BLUE = "rgb(65, 169, 204)";
   var WHITE = "rgb(255, 255, 255)";
   var MEDIUM_BLUE = "rgb(0, 121, 156)";
   
+  var frame;
   var logo;
   var navbar;
   
+  before(function(done) {
+    frame = quixote.createFrame({
+      src: "/"
+    }, done);
+  });
+  
+  after(function() {
+    frame.remove();
+  });
+  
+  beforeEach(function(done) {
+    frame.reload(done);
+  });
+
   beforeEach(function() {
-    frame.reset();
     logo = frame.get("#logo");
     navbar = frame.get("#navbar");
   });
@@ -423,11 +455,11 @@ Browsers can be a bit unpredictable when it comes to testing CSS.
 
 * Some browsers run very slowly if the browser window isn't visible. (For example, Safari on Mac OS X.) This can cause your tests to time out. If you have trouble with browser timeouts, make sure the test tab is visible.
 
-* Internet Explorer seems to have a weird caching issue related to font sizes. If you change the size of a font in your CSS and your IE tests don't pick up the change, try reloading the test page or restarting the browser. We don't yet fully understand this issue, so if you figure out what's going on, let us know by [opening an issue](https://github.com/jamesshore/quixote/issues) on Github.
+* Internet Explorer seems to have a weird caching issue related to font sizes. If you change the size of a font in your CSS and your IE tests don't pick up the change, try reloading the test tab or restarting the browser. We don't yet fully understand this issue, so if you figure out what's going on, let us know by [opening an issue](https://github.com/jamesshore/quixote/issues) on Github.
  
 * Browser pixel-rounding issues are exaggerated when the page is not at 100% zoom. If you have trouble with positioning or size-related assertions, check your test pages' zoom level. (To reset to 100% zoom, use Ctrl-0 or Command-0 in most browsers.) 
 
-* If you have issues with tests working on some browsers but not others, check the documentation. We've documented several cross-browser compatibility issues and their workarounds. You can use also the [`quixote.browser`](https://github.com/jamesshore/quixote/blob/master/docs/quixote.md#quixotebrowser) object to detect some cross-browser differences in your tests.
+* If you have issues with tests working on some browsers but not others, check the Quixote documentation. We've documented several cross-browser compatibility issues and their workarounds. You can use also the [`quixote.browser`](https://github.com/jamesshore/quixote/blob/master/docs/quixote.md#quixotebrowser) object to detect some cross-browser differences in your tests.
 
 
 ## Comparison to Other CSS Testing Tools
