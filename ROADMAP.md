@@ -16,24 +16,21 @@
 
 ## Current Feature: App Framework Support (0.11 release)
 
-* Integrate @cognivator's pull request `https://github.com/jamesshore/quixote/pull/19`
-* Review and update code style
-* Look for opportunities to simplify or remove tests
-* Update documentation
-	* QFrame.reset()
-	* QFrame.reload()
-	* readme
+* ✔ Integrate @cognivator's pull request `https://github.com/jamesshore/quixote/pull/19`
+* ✔ Review and update code style
+* ✔ Look for opportunities to simplify or remove tests
+* ✔ Update documentation
 * Release 0.11
 	* changelog
 	* roadmap
 
 
-## To Do: Integrate @cognivator's pull request 
-* ✔ Integrate PR
-* ✔ Update contributor credits
+## To Do: Update documentation
+	* ✔ QFrame.reset() and QFrame.reload()
+	* ✔ readme
+	
 
 
-Q
 ## Dogfooding Notes
 
 * Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
