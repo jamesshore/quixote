@@ -49,7 +49,12 @@ exports.equal = function(actual, expected, message) {
 	var expectedType = typeof expected;
 	var actualType = typeof actual;
 
-	proclaim.strictEqual(actualType, expectedType, message + "expected " + expectedType + " '" + expected + "', but got " + actualType + " '" + actual + "'");
+	if (actual !== undefined && expected !== undefined) {
+		proclaim.strictEqual(
+			actualType, expectedType,
+			message + "expected " + expectedType + " '" + expected + "', but got " + actualType + " '" + actual + "'"
+		);
+	}
 	proclaim.strictEqual(actual, expected, message + "expected '" + expected + "', but got '" + actual + "'");
 };
 
