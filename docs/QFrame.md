@@ -12,7 +12,9 @@
 Stability: 2 - Unstable
 ```
 
-Reset the frame back to the state it was in immediately after you called [`quixote.createFrame()`](quixote.md#quixotecreateframe). You will typically call this before every test.
+Reset the frame's DOM back to the state it was in immediately after you called [`quixote.createFrame()`](quixote.md#quixotecreateframe). You will typically call this before every test.
+
+This method does *not* re-run scripts. If you need to re-run scripts, use [`QFrame.reload()`](#framereload) instead.
 
 `frame.reset()`
 
@@ -33,33 +35,22 @@ beforeEach(function() {
 Stability: 2 - Unstable
 ```
 
-Reload the frame page source and stylesheets completely, as if `quixote.createFrame()` were called again - but without the overhead of recreating the frame itself.
+Reload the frame page source and stylesheets completely, as if `quixote.createFrame()` were called again, but without the overhead of creating the frame.
 
-**Use case:** The page under test uses a UI framework such as ReactJS, an MV* / SPA application framework like AngularJS, or any other library that requires robust initialization or bootstrapping during page load.
+This method is most useful when integration testing pages that run scripts after load. Because reloading the page is relatively slow, use [`QFrame.reset()`](#framereset) if you don't need re-run the page's scripts.
 
-`frame.reload(callback)`
+`frame.reload(callback(err))`
 
-Example 1: simple reload
+* `callback(err) (function)` Called when the frame has been reloaded. 
+  * `err (Error or null)` Any errors that occurred while loading the frame, or null if frame loaded successfully.
+
+Example:
 
 ```javascript
 beforeEach(function(done) {
   frame.reload(done);
 });
 ```
-
-Example 2: additional post-reload processing
-
-```javascript
-beforeEach(function(done) {
-  frame.reload(function () {
-    // optional post-reload processing
-    done();
-  });
-});
-```
-
-**Note:** This method also resets the frame size.
-
 
 
 #### frame.remove()

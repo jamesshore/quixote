@@ -28,9 +28,10 @@
 	* roadmap
 
 
-## To Do: Integrate @cognivator's pull request 
-* ✔ Integrate PR
-* ✔ Update contributor credits
+## To Do: Update documentation
+	* ✔ QFrame.reset() and QFrame.reload()
+	* readme
+	
 
 
 ## Dogfooding Notes
