@@ -3,6 +3,17 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.11.x: Single-Page App Support
+
+**5 Dec 2015.** The new `QFrame.reload()` method will re-run scripts, unlike `QFrame.reset()`, allowing you to test single-page apps more easily.
+ 
+**No breaking changes.**
+
+*New methods:*
+
+* QFrame.reload()
+
+
 ## 0.10.x: Updated Documentation
 
 **21 Nov 2015.** A revamp of the Quixote documentation, including a working example that can be used as a seed project.

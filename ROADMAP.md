@@ -20,14 +20,12 @@
 * ✔ Review and update code style
 * ✔ Look for opportunities to simplify or remove tests
 * ✔ Update documentation
-* Release 0.11
-	* changelog
-	* roadmap
+* ✔ Release 0.11
 
 
-## To Do: Update documentation
-	* ✔ QFrame.reset() and QFrame.reload()
-	* ✔ readme
+## To Do: Release 0.11
+	* ✔ changelog
+	* ✔ roadmap
 	
 
 
