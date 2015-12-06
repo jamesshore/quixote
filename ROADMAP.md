@@ -24,12 +24,13 @@
 	* QFrame.reload()
 	* readme
 * Release 0.11
+	* changelog
+	* roadmap
 
 
 ## To Do: Integrate @cognivator's pull request 
-* Create PR integration checklist in contributor docs
-* Integrate PR
-* Update changelog and contributor credits
+* ✔ Integrate PR
+* ✔ Update contributor credits
 
 
 Q
