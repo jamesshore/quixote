@@ -180,10 +180,10 @@ describe("QFrame", function() {
 				});
 			});
 
-      it("re-runs scripts", function(done) {
-	      var options = { src: "/base/src/_q_frame_test.html" };
-	      frame = QFrame.create(window.document.body, options, function() {
-		      frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
+			it("re-runs scripts", function(done) {
+				var options = { src: "/base/src/_q_frame_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
 
 					frame.reload(function() {
 						var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
@@ -192,53 +192,6 @@ describe("QFrame", function() {
 						done();
 					});
 				});
-			});
-
-
-			describe('Angular 1.x Initialization', function() {
-
-				// Angular 1.x section (should move to separate test file?)
-				it('reloads iframe and initializes Angular (1.x) app via automatic (ngApp) initialization', function(done) {
-					var options = { src: "/base/src/_q_frame_angular_1x_auto_init_test.html" };
-					frame = QFrame.create(window.document.body, options, function() {
-						frame.reload(function() {
-							assert.noException(function() {
-								frame.get("#added-by-angular-auto-init");
-							});
-							done();
-						});
-					});
-				});
-
-				it('reloads iframe and initializes Angular (1.x) app via manual (angular.bootstrap) initialization', function(done) {
-					var options = { src: "/base/src/_q_frame_angular_1x_manual_init_test.html" };
-					frame = QFrame.create(window.document.body, options, function() {
-						frame.reload(function() {
-							assert.noException(function() {
-								frame.get("#added-by-angular-manual-init");
-							});
-							done();
-						});
-					});
-				});
-
-			});
-
-			describe('React Initialization', function() {
-
-				// React section (should move to separate test file?)
-				it('reloads iframe and initializes React UI', function(done) {
-					var options = { src: "/base/src/_q_frame_react_0x_init_test.html" };
-					frame = QFrame.create(window.document.body, options, function() {
-						frame.reload(function() {
-							assert.noException(function() {
-								frame.get("#added-by-react-init");
-							});
-							done();
-						});
-					});
-				});
-
 			});
 
 		});
