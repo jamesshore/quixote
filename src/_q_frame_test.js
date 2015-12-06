@@ -142,6 +142,8 @@ describe("QFrame", function() {
 				});
 			});
 
+			it("doesn't re-run scripts");
+
 		});
 
 		describe('frame reload', function() {
@@ -168,22 +170,19 @@ describe("QFrame", function() {
 			});
 
       it("re-runs scripts", function(done) {
-	      var options = { src: "/base/src/_q_frame_inline_script_test.html" };
+	      var options = { src: "/base/src/_q_frame_test.html" };
 	      frame = QFrame.create(window.document.body, options, function() {
-					var frameWindow = frame._domElement.contentWindow;
-					var loadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT.getTime();
-					assert.defined(loadedTimestamp, "global var not found in iframe window");
+		      frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
 
 					frame.reload(function() {
-						var frameWindow = frame._domElement.contentWindow;
-						var reloadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT.getTime();
-						assert.defined(reloadedTimestamp, "global var not found in iframe window");
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
+						var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
+						assert.equal(frameGlobal, "initial value", "script should re-run");
 
 						done();
 					});
 				});
 			});
+
 
 			describe('Angular 1.x Initialization', function() {
 
