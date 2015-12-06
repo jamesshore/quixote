@@ -124,7 +124,7 @@ describe("QFrame", function() {
 		describe('frame reset', function() {
 
 			it("resets iframe loaded with source URL without destroying source document", function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test.html"}, function() {
+				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
 					frame.reset();
 					assert.noException(function() {
 						frame.get("#exists");
@@ -134,7 +134,7 @@ describe("QFrame", function() {
 			});
 
 			it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
-				frame = QFrame.create(window.document.body, {stylesheet: "/base/src/_q_frame_test.css"}, function() {
+				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 					frame.reset();
 					var styleMe = frame.add("<div class='style-me'>Foo</div>");
 					assert.equal(styleMe.getRawStyle("font-size"), "42px");
@@ -147,7 +147,7 @@ describe("QFrame", function() {
 		describe('frame reload', function() {
 
 			it('reloads iframe with original source URL', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_test.html"}, function() {
+				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
 					frame.reload(function() {
 						assert.noException(function() {
 							frame.get("#exists");
@@ -158,7 +158,7 @@ describe("QFrame", function() {
 			});
 
 			it('reloads iframe with original stylesheet', function(done) {
-				frame = QFrame.create(window.document.body, {stylesheet: "/base/src/_q_frame_test.css"}, function() {
+				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
 					frame.reload(function() {
 						var styleMe = frame.add("<div class='style-me'>Foo</div>");
 						assert.equal(styleMe.getRawStyle("font-size"), "42px");
@@ -167,72 +167,72 @@ describe("QFrame", function() {
 				});
 			});
 
-      it('reloads iframe and re-runs scripts inlined within script tag in head', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_inline_script_test.html"}, function() {
-					var frameWindow, loadedTimestamp, reloadedTimestamp;
-					frameWindow     = frame._domElement.contentWindow;
-					loadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT;
-					assert.defined(loadedTimestamp, 'global var not found in iframe window');
+      it("re-runs scripts inlined within script tag in head", function(done) {
+	      var options = { src: "/base/src/_q_frame_inline_script_test.html" };
+	      frame = QFrame.create(window.document.body, options, function() {
+					var frameWindow = frame._domElement.contentWindow;
+					var loadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT;
+					assert.defined(loadedTimestamp, "global var not found in iframe window");
 
 					frame.reload(function() {
-						frameWindow       = frame._domElement.contentWindow;
-						reloadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT;
-						assert.defined(reloadedTimestamp, 'global var not found in iframe window');
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+						var frameWindow = frame._domElement.contentWindow;
+						var reloadedTimestamp = frameWindow._Q_FRAME_INLINE_HEAD_SCRIPT;
+						assert.defined(reloadedTimestamp, "global var not found in iframe window");
+						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
 
 						done();
 					});
 				});
 			});
 
-			it('reloads iframe and re-runs scripts loaded by script tag in head', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_inline_script_test.html"}, function() {
-					var frameWindow, loadedTimestamp, reloadedTimestamp;
-					frameWindow     = frame._domElement.contentWindow;
-					loadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT;
-					assert.defined(loadedTimestamp, 'global var not found in iframe window');
+			it("reloads iframe and re-runs scripts loaded by script tag in head", function(done) {
+				var options = { src: "/base/src/_q_frame_inline_script_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					var frameWindow = frame._domElement.contentWindow;
+					var loadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT;
+					assert.defined(loadedTimestamp, "global var not found in iframe window");
 
 					frame.reload(function() {
-						frameWindow       = frame._domElement.contentWindow;
-						reloadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT;
-						assert.defined(reloadedTimestamp, 'global var not found in iframe window');
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+						var frameWindow = frame._domElement.contentWindow;
+						var reloadedTimestamp = frameWindow._Q_FRAME_HEAD_SCRIPT;
+						assert.defined(reloadedTimestamp, "global var not found in iframe window");
+						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
 
 						done();
 					});
 				});
 			});
 
-			it('reloads iframe and re-runs scripts inlined within script tag in body', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_inline_script_test.html"}, function() {
-					var frameWindow, loadedTimestamp, reloadedTimestamp;
-					frameWindow     = frame._domElement.contentWindow;
-					loadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT;
-					assert.defined(loadedTimestamp, 'global var not found in iframe window');
+			it("reloads iframe and re-runs scripts inlined within script tag in body", function(done) {
+				var options = { src: "/base/src/_q_frame_inline_script_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					var frameWindow = frame._domElement.contentWindow;
+					var loadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT;
+					assert.defined(loadedTimestamp, "global var not found in iframe window");
 
 					frame.reload(function() {
-						frameWindow       = frame._domElement.contentWindow;
-						reloadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT;
-						assert.defined(reloadedTimestamp, 'global var not found in iframe window');
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+						var frameWindow = frame._domElement.contentWindow;
+						var reloadedTimestamp = frameWindow._Q_FRAME_INLINE_BODY_SCRIPT;
+						assert.defined(reloadedTimestamp, "global var not found in iframe window");
+						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
 
 						done();
 					});
 				});
 			});
 
-			it('reloads iframe and re-runs scripts loaded by script tag in body', function(done) {
-				frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_inline_script_test.html"}, function() {
-					var frameWindow, loadedTimestamp, reloadedTimestamp;
-					frameWindow     = frame._domElement.contentWindow;
-					loadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT;
-					assert.defined(loadedTimestamp, 'global var not found in iframe window');
+			it("reloads iframe and re-runs scripts loaded by script tag in body", function(done) {
+				var options = { src: "/base/src/_q_frame_inline_script_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					var frameWindow = frame._domElement.contentWindow;
+					var loadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT;
+					assert.defined(loadedTimestamp, "global var not found in iframe window");
 
 					frame.reload(function() {
-						frameWindow       = frame._domElement.contentWindow;
-						reloadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT;
-						assert.defined(reloadedTimestamp, 'global var not found in iframe window');
-						assert.notEqual(loadedTimestamp, reloadedTimestamp, 'global var not refreshed during reload of iframe');
+						var frameWindow = frame._domElement.contentWindow;
+						var reloadedTimestamp = frameWindow._Q_FRAME_BODY_SCRIPT;
+						assert.defined(reloadedTimestamp, "global var not found in iframe window");
+						assert.notEqual(loadedTimestamp, reloadedTimestamp, "global var not refreshed during reload of iframe");
 
 						done();
 					});
@@ -243,7 +243,8 @@ describe("QFrame", function() {
 
 				// Angular 1.x section (should move to separate test file?)
 				it('reloads iframe and initializes Angular (1.x) app via automatic (ngApp) initialization', function(done) {
-					frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_angular_1x_auto_init_test.html"}, function() {
+					var options = { src: "/base/src/_q_frame_angular_1x_auto_init_test.html" };
+					frame = QFrame.create(window.document.body, options, function() {
 						frame.reload(function() {
 							assert.noException(function() {
 								frame.get("#added-by-angular-auto-init");
@@ -254,7 +255,8 @@ describe("QFrame", function() {
 				});
 
 				it('reloads iframe and initializes Angular (1.x) app via manual (angular.bootstrap) initialization', function(done) {
-					frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_angular_1x_manual_init_test.html"}, function() {
+					var options = { src: "/base/src/_q_frame_angular_1x_manual_init_test.html" };
+					frame = QFrame.create(window.document.body, options, function() {
 						frame.reload(function() {
 							assert.noException(function() {
 								frame.get("#added-by-angular-manual-init");
@@ -270,7 +272,8 @@ describe("QFrame", function() {
 
 				// React section (should move to separate test file?)
 				it('reloads iframe and initializes React UI', function(done) {
-					frame = QFrame.create(window.document.body, {src: "/base/src/_q_frame_react_0x_init_test.html"}, function() {
+					var options = { src: "/base/src/_q_frame_react_0x_init_test.html" };
+					frame = QFrame.create(window.document.body, options, function() {
 						frame.reload(function() {
 							assert.noException(function() {
 								frame.get("#added-by-react-init");
