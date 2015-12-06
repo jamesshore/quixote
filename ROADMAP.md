@@ -20,12 +20,12 @@
 * ✔ Review and update code style
 * ✔ Look for opportunities to simplify or remove tests
 * ✔ Update documentation
-* Release 0.11
+* ✔ Release 0.11
 
 
 ## To Do: Release 0.11
-	* changelog
-	* roadmap
+	* ✔ changelog
+	* ✔ roadmap
 	
 
 
