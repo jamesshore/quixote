@@ -142,7 +142,18 @@ describe("QFrame", function() {
 				});
 			});
 
-			it("doesn't re-run scripts");
+			it("doesn't re-run scripts", function(done) {
+				var options = { src: "/base/src/_q_frame_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
+
+					frame.reset();
+					var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
+					assert.equal(frameGlobal, "new value", "script should not re-run");
+
+					done();
+				});
+			});
 
 		});
 
