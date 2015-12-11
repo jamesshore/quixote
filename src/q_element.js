@@ -4,6 +4,7 @@
 var ensure = require("./util/ensure.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
 var ElementEdge = require("./descriptors/element_edge.js");
+var ElementClipEdge = require("./descriptors/element_clip_edge.js");
 var Center = require("./descriptors/center.js");
 var ElementSize = require("./descriptors/element_size.js");
 var Assertable = require("./assertable.js");
@@ -22,6 +23,13 @@ var Me = module.exports = function QElement(domElement, frame, nickname) {
 	this.right = ElementEdge.right(this);
 	this.bottom = ElementEdge.bottom(this);
 	this.left = ElementEdge.left(this);
+
+	this.clip = {
+		top: ElementClipEdge.top(this),
+		right: ElementClipEdge.right(this),
+		bottom: ElementClipEdge.bottom(this),
+		left: ElementClipEdge.left(this)
+	};
 
 	this.center = Center.x(this.left, this.right, "center of '" + nickname + "'");
 	this.middle = Center.y(this.top, this.bottom, "middle of '" + nickname + "'");
