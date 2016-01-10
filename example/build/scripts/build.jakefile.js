@@ -1,6 +1,7 @@
 // Copyright (c) 2012-2014 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 
 // Main build file. Contains all tasks needed for normal development.
+// There's no Quixote-specific configuration in this file.
 
 (function() {
 	"use strict";

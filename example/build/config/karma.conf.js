@@ -1,5 +1,6 @@
 // Karma configuration
-// Generated on Tue Sep 24 2013 14:33:42 GMT-0700 (PDT)
+// Quixote-specific configuration starts with "QUIXOTE:"
+
 (function() {
 	"use strict";
 
@@ -18,6 +19,9 @@
 			files: [
 				'src/**/*.js',
 				'vendor/**/*.js',
+
+				// QUIXOTE: Serve the CSS file so we can load it in our tests
+				// Mark it `included: false` so Karma doesn't load it automatically
 				{ pattern: 'src/screen.css', included: false }
 			],
 

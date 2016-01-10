@@ -3,15 +3,27 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## 0.10.x (in progress): Updated Documentation
+## 0.11.x: Single-Page App Support
 
-In progress. A revamp of the Quixote documentation, including a working example that can be used as a seed project.
+**5 Dec 2015.** The new `QFrame.reload()` method will re-run scripts, unlike `QFrame.reset()`, allowing you to test single-page apps more easily.
+ 
+**No breaking changes.**
+
+*New methods:*
+
+* QFrame.reload()
+
+
+## 0.10.x: Updated Documentation
+
+**21 Nov 2015.** A revamp of the Quixote documentation, including a working example that can be used as a seed project.
 
 **No breaking changes.**
 
 *Changes:*
 
-* New 'Usage' section in the Readme.
+* New 'Usage' and 'Gotchas' sections in the Readme.
+* New 'Architecture' section in contributor guide
 * Tweaks and refinements to API and contributor documentation
 * Example project
 
@@ -27,7 +39,6 @@ In progress. A revamp of the Quixote documentation, including a working example 
 * quixote.createFrame() accepts an array of stylesheets in `options.stylesheet`.
 * quixote.createFrame() no longer errs out when you specify `options.src` and `options.stylesheet` at the same time.
 * quixote.createFrame() checks src and stylesheet URLs and fails fast if they're not found.
-
 
 
 ## 0.8.x: Browser Font Enlargement Detection
@@ -47,9 +58,9 @@ In progress. A revamp of the Quixote documentation, including a working example 
 
 *Patches:*
 
-* *0.7.2, 11 Sept 2015:* Chrome Mobile on Android officially supported.
-
 * *0.7.1, 11 Sept 2015:* Fix: `QElement.getRawStyle()` returned wrong answer on Firefox when called twice in a row on some properties.
+
+* *0.7.2, 11 Sept 2015:* Chrome Mobile on Android officially supported.
 
 **No breaking changes.**
 
@@ -69,7 +80,7 @@ In progress. A revamp of the Quixote documentation, including a working example 
 
 * *0.6.1, 16 Feb 2015:* Opera officially supported. PhantomJS 1.x officially *not* supported via compatibility note in README.
 
-***Breaking changes:***
+**Breaking changes:**
 
 * Frames created without the `src` option are created with `<!DOCTYPE html>` to enable standards mode.
 * Replaced `quixote.browser.canScroll()` with `quixote.browser.enlargesFrameToPageSize()`. Note that this returns `true` where the previous function returned `false`.
@@ -112,15 +123,15 @@ In progress. A revamp of the Quixote documentation, including a working example 
 
 **23 Oct 2014.** API stability was the goal of this release. The API has been thoroughly reviewed and tweaked with the goal of reducing future changes. Other small changes were made to make the API production-ready, and the documentation received a thorough review and update.
 
-***Breaking changes:***
+*Patches:*
+
+* *0.5.1, 24 Oct 2014:* Minor documentation fixes. The most serious fix (and the motivation for this patch release) was a correction to the `quixote.createFrame` parameters in the README example.
+
+**Breaking changes:**
 
 * Renamed QFrame.getElement() --> QFrame.get()
 * Renamed QFrame.addElement() --> QFrame.add()
 * Moved quixote.createFrame() width and height parameters into options object
-
-*Patches:*
-
-* *0.5.1, 24 Oct 2014:* Minor documentation fixes. The most serious fix (and the motivation for this patch release) was a correction to the `quixote.createFrame` parameters in the README example.
 
 *Enhanced:*
 
@@ -154,11 +165,11 @@ element.assert({
 });
 ```
 
-**No breaking changes.**
-
 *Patches:*
 
 * *0.4.1, 22 Oct 2014:* Documented `SizeMultiple`'s additional descriptors.   
+
+**No breaking changes.**
 
 
 *Fixed:*
@@ -214,12 +225,12 @@ element.diff({
 ```
 
 Also, the new `assert()` method works just like `diff()`, except it automatically throws an exception when a difference is found. This is more convenient than writing `assert.equal(element.diff(...), "")` all the time. Now you can just write `element.assert(...)` instead. 
- 
-**No breaking changes.**
   
 *Patches:*
 
 * *0.3.1, 16 Oct 2014:* Documented `message` parameter on `QElement.assert()`   
+ 
+**No breaking changes.**
 
 *Fixed:*
 
@@ -252,7 +263,7 @@ element.diff({
 });
 ```
 
-***Breaking changes:***
+**Breaking changes:**
 
 * quixote.createFrame() and Frame.create() callback signature changed from `callback(frame)` to `callback(err, frame)`.
 

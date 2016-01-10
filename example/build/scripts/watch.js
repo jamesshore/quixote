@@ -1,6 +1,7 @@
 // Copyright (c) 2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 
 // Automatically runs build when files change.
+// There's no Quixote-specific configuration in this file.
 
 (function() {
 	"use strict";
@@ -20,7 +21,8 @@
 			cmd: "cmd.exe /c"
 		}
 	}).on("restart", function(files) {
-		console.log("*** Restarting due to", files);
+		if (files) console.log("*** Restarting due to", files);
+		else console.log("*** Restarting");
 	});
 
 }());

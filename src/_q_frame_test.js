@@ -12,6 +12,8 @@ var QPage = require("./q_page.js");
 describe("QFrame", function() {
 	this.timeout(10000);
 
+  this.timeout(5000);
+
 	describe("creation and removal", function() {
 
 		var frame;
@@ -119,23 +121,79 @@ describe("QFrame", function() {
 			});
 		});
 
-		it("resets iframe loaded with source URL without destroying source document", function(done) {
-			frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
-				frame.reset();
-				assert.noException(function() {
-					frame.get("#exists");
+		describe('frame reset', function() {
+
+			it("resets iframe loaded with source URL without destroying source document", function(done) {
+				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
+					frame.reset();
+					assert.noException(function() {
+						frame.get("#exists");
+					});
+					done();
 				});
-				done();
 			});
+
+			it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
+				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
+					frame.reset();
+					var styleMe = frame.add("<div class='style-me'>Foo</div>");
+					assert.equal(styleMe.getRawStyle("font-size"), "42px");
+					done();
+				});
+			});
+
+			it("doesn't re-run scripts", function(done) {
+				var options = { src: "/base/src/_q_frame_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
+
+					frame.reset();
+					var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
+					assert.equal(frameGlobal, "new value", "script should not re-run");
+
+					done();
+				});
+			});
+
 		});
 
-		it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
-			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
-				frame.reset();
-				var styleMe = frame.add("<div class='style-me'>Foo</div>");
-				assert.equal(styleMe.getRawStyle("font-size"), "42px");
-				done();
+		describe('frame reload', function() {
+
+			it('reloads iframe with original source URL', function(done) {
+				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
+					frame.reload(function() {
+						assert.noException(function() {
+							frame.get("#exists");
+						});
+						done();
+					});
+				});
 			});
+
+			it('reloads iframe with original stylesheet', function(done) {
+				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
+					frame.reload(function() {
+						var styleMe = frame.add("<div class='style-me'>Foo</div>");
+						assert.equal(styleMe.getRawStyle("font-size"), "42px");
+						done();
+					});
+				});
+			});
+
+			it("re-runs scripts", function(done) {
+				var options = { src: "/base/src/_q_frame_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
+
+					frame.reload(function() {
+						var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
+						assert.equal(frameGlobal, "initial value", "script should re-run");
+
+						done();
+					});
+				});
+			});
+
 		});
 
 		it("destroys itself", function(done) {
@@ -351,13 +409,22 @@ describe("QFrame", function() {
 			assert.equal(frame.viewport().height.diff(reset.HEIGHT - 100), "", "height");
 		});
 
-		it("resets frame to original size", function() {
-			frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
-			frame.reset();
-			assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
-			assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
-		});
+    it("resets frame to original size", function() {
+      frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
+      frame.reset();
+      assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
+      assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
+    });
 
-	});
+    it("reloads frame to original size", function(done) {
+      frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
+      frame.reload(function () {
+        assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
+        assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
+        done();
+      });
+    });
+
+  });
 
 });

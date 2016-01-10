@@ -12,7 +12,9 @@
 Stability: 2 - Unstable
 ```
 
-Reset the frame back to the state it was in immediately after you called [`quixote.createFrame()`](quixote.md#quixotecreateframe). You will typically call this before every test.
+Reset the frame's DOM back to the state it was in immediately after you called [`quixote.createFrame()`](quixote.md#quixotecreateframe). You will typically call this before every test.
+
+This method does *not* re-run scripts. If you need to re-run scripts, use [`QFrame.reload()`](#framereload) instead.
 
 `frame.reset()`
 
@@ -24,7 +26,31 @@ beforeEach(function() {
 });
 ```
 
-**Note:** This method resets the frame size, scroll position, and the `<body>` element's inner HTML. If you make changes to `<head>` or `<html>`, or if you change any `<body>` attributes (including styles), you will need to reset them manually.
+**Note:** This method resets the frame size, scroll position, and the `<body>` element's inner HTML. If you make changes to `<head>` or `<html>`, or if you change any `<body>` attributes (including styles), you will need to reset them manually, or use `frame.reload()` instead.
+
+
+#### frame.reload()
+
+```
+Stability: 2 - Unstable
+```
+
+Reload the frame page source and stylesheets completely, as if `quixote.createFrame()` were called again, but without the overhead of creating the frame.
+
+This method is most useful when integration testing pages that run scripts after load. Because reloading the page is relatively slow, use [`QFrame.reset()`](#framereset) if you don't need re-run the page's scripts.
+
+`frame.reload(callback(err))`
+
+* `callback(err) (function)` Called when the frame has been reloaded. 
+  * `err (Error or null)` Any errors that occurred while loading the frame, or null if frame loaded successfully.
+
+Example:
+
+```javascript
+beforeEach(function(done) {
+  frame.reload(done);
+});
+```
 
 
 #### frame.remove()
@@ -222,7 +248,7 @@ Stability: 1 - Experimental
 ```
 
 Retrieve the underlying [`HTMLIFrameElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement) DOM element for the frame.
- 
+
 `dom = frame.toDomElement()`
 
 * `dom (`[`HTMLIFrameElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement)`)` The DOM element.

@@ -1,6 +1,7 @@
 // Copyright (c) 2014-2015 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 
 // Helper function for running Mocha
+// There's no Quixote-specific configuration in this file.
 
 (function() {
 	"use strict";

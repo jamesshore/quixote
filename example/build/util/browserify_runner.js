@@ -1,4 +1,8 @@
 /* Copyright (c) 2014 Titanium I.T. LLC - See LICENSE.txt for license */
+
+// Helper function for running Browserify
+// There's no Quixote-specific configuration in this file.
+
 "use strict";
 
 var fs = require("fs");
