@@ -79,6 +79,9 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 	var text = frame.add("<p>arbitrary text</p>");
 	frame.add("<p>must have two p tags to work</p>");
 
+	// WORKAROUND IE 8: need to force reflow or getting font-size may fail below
+	var forceReflow = text.offsetHeight;
+
 	// WORKAROUND Safari 8.0.0: timeout required because font is enlarged asynchronously
 	setTimeout(function() {
 		var fontSize = text.getRawStyle("font-size");

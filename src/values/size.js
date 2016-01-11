@@ -3,10 +3,11 @@
 
 var ensure = require("../util/ensure.js");
 var Value = require("./value.js");
+var CssLength = require("./css_length.js");
 var Pixels = require("./pixels.js");
 
 var Me = module.exports = function Size(value) {
-	ensure.signature(arguments, [ [Number, Pixels] ]);
+	ensure.signature(arguments, [ [Number, CssLength] ]);
 
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
 };
