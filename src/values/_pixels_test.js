@@ -4,6 +4,7 @@
 var assert = require("../util/assert.js");
 var Pixels = require("./pixels.js");
 var Value = require("./value.js");
+var CssLength = require("./css_length.js");
 
 describe("Pixels", function() {
 
@@ -11,8 +12,9 @@ describe("Pixels", function() {
 	var a2 = Pixels.create(10);
 	var b = Pixels.create(20);
 
-	it("is a value object", function() {
+	it("is a value and css length object", function() {
 		assert.implements(a1, Value);
+		assert.implements(a1, CssLength);
 	});
 
 	it("performs arithmetic", function() {

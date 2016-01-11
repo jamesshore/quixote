@@ -4,13 +4,14 @@
 var ensure = require("../util/ensure.js");
 var Value = require("./value.js");
 var Pixels = require("./pixels.js");
+var CssLength = require("./css_length.js");
 var Size = require("./size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function Position(dimension, value) {
-	ensure.signature(arguments, [ String, [Number, Pixels] ]);
+	ensure.signature(arguments, [ String, [Number, CssLength] ]);
 
 	this._dimension = dimension;
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
