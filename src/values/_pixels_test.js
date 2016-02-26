@@ -65,3 +65,50 @@ describe("Pixels", function() {
 	});
 
 });
+
+
+describe("No Pixels", function() {
+
+	var noPixels = Pixels.createNone();
+	var noPixels2 = Pixels.createNone();
+	var pixels = Pixels.create(42);
+
+	it("no pixels arithmetic is always no pixels", function() {
+		assert.objEqual(noPixels.plus(noPixels2), Pixels.createNone(), "addition");
+		assert.objEqual(noPixels.minus(noPixels2), Pixels.createNone(), "subtraction");
+		assert.objEqual(noPixels.times(2), Pixels.createNone(), "multiplication");
+		assert.objEqual(noPixels.average(noPixels2), Pixels.createNone(), "average");
+	});
+
+	it("always results in no pixels when performing arithmetic with pixels", function() {
+		assert.objEqual(noPixels.plus(pixels), Pixels.createNone(), "addition");
+		assert.objEqual(pixels.plus(noPixels), Pixels.createNone(), "addition other way");
+		assert.objEqual(noPixels.minus(pixels), Pixels.createNone(), "subtraction");
+		assert.objEqual(pixels.minus(noPixels), Pixels.createNone(), "subtraction other way");
+		assert.objEqual(noPixels.average(pixels), Pixels.createNone(), "average");
+		assert.objEqual(pixels.average(noPixels), Pixels.createNone(), "average other way");
+	});
+
+	it("is comparable to itself (and always equal)", function() {
+		assert.equal(noPixels.compare(noPixels), 0);
+	});
+
+	it("is not comparable to pixel values", function() {
+		var message = "Cannot compare Pixels to an off-screen value";
+
+		assert.exception(function() {
+			noPixels.compare(pixels);
+		}, message, "one way");
+
+		assert.exception(function() {
+			pixels.compare(noPixels);
+		}, message, "other way");
+	});
+
+	it("describes differences to pixels", function() {
+
+	});
+
+	it("converts to string");
+
+});

@@ -5,7 +5,8 @@ var ensure = require("../util/ensure.js");
 var Value = require("./value.js");
 
 var Me = module.exports = function Pixels(amount) {
-	ensure.signature(arguments, [ Number ]);
+	ensure.signature(arguments, [ [ Number, null ] ]);
+	this._none = (amount === null);
 	this._amount = amount;
 };
 Value.extend(Me);
@@ -14,33 +15,63 @@ Me.create = function create(amount) {
 	return new Me(amount);
 };
 
+Me.createNone = function createNone() {
+	return new Me(null);
+};
+
+Me.ZERO = Me.create(0);
+
 Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };
 
 Me.prototype.plus = Value.safe(function plus(operand) {
+	if (this._none || operand._none) return Me.createNone();
 	return new Me(this._amount + operand._amount);
 });
 
 Me.prototype.minus = Value.safe(function minus(operand) {
+	if (this._none || operand._none) return Me.createNone();
 	return new Me(this._amount - operand._amount);
 });
 
 Me.prototype.times = function times(operand) {
 	ensure.signature(arguments, [ Number ]);
 
+	if (this._none) return Me.createNone();
 	return new Me(this._amount * operand);
 };
 
 Me.prototype.average = Value.safe(function average(operand) {
+	if (this._none || operand._none) return Me.createNone();
 	return new Me((this._amount + operand._amount) / 2);
 });
 
 Me.prototype.compare = Value.safe(function compare(operand) {
-	var difference = this._amount - operand._amount;
-	if (Math.abs(difference) <= 0.5) return 0;
-	else return difference;
+	if (!this._none && !operand._none) {
+		var difference = this._amount - operand._amount;
+		if (Math.abs(difference) <= 0.5) return 0;
+		else return difference;
+	}
+	else if (this._none && operand._none) {
+		return 0;
+	}
+	else {
+		throw new Error("Cannot compare Pixels to an off-screen value");
+	}
 });
+
+Me.max = function(l, r) {
+	ensure.signature(arguments, [ Me, Me ]);
+
+	return l.compare(r) >= 0 ? l : r;
+};
+
+Me.min = function(l, r) {
+	ensure.signature(arguments, [ Me, Me ]);
+
+	return l.compare(r) <= 0 ? l : r;
+};
 
 Me.prototype.diff = Value.safe(function diff(expected) {
 	if (this.compare(expected) === 0) return "";
