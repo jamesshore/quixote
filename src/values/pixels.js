@@ -57,7 +57,7 @@ Me.prototype.compare = Value.safe(function compare(operand) {
 		return 0;
 	}
 	else {
-		throw new Error("Cannot compare Pixels to an off-screen value");
+		ensure.unreachable("NoPixels should never be compared or diff'd to Pixel values");
 	}
 });
 
@@ -85,5 +85,5 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._amount + "px";
+	return this._none ? "NoPixels" : this._amount + "px";
 };

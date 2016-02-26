@@ -4,6 +4,7 @@
 var assert = require("../util/assert.js");
 var Pixels = require("./pixels.js");
 var Value = require("./value.js");
+var ensure = require("../util/ensure.js");
 
 describe("Pixels", function() {
 
@@ -94,21 +95,31 @@ describe("No Pixels", function() {
 	});
 
 	it("is not comparable to pixel values", function() {
-		var message = "Cannot compare Pixels to an off-screen value";
-
 		assert.exception(function() {
 			noPixels.compare(pixels);
-		}, message, "one way");
+		}, ensure.EnsureException, "one way");
 
 		assert.exception(function() {
 			pixels.compare(noPixels);
-		}, message, "other way");
+		}, ensure.EnsureException, "other way");
 	});
 
-	it("describes differences to pixels", function() {
-
+	it("diffs against itself", function() {
+		assert.equal(noPixels.diff(noPixels2), "");
 	});
 
-	it("converts to string");
+	it("is not diff'able with pixel values", function() {
+		assert.exception(function() {
+			noPixels.diff(pixels);
+		}, ensure.EnsureException, "one way");
+
+		assert.exception(function() {
+			pixels.diff(noPixels);
+		}, ensure.EnsureException, "other way");
+	});
+
+	it("can be converted to string", function() {
+		assert.equal(noPixels.toString(), "NoPixels");
+	});
 
 });
