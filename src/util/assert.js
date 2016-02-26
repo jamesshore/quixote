@@ -121,6 +121,11 @@ exports.exception = function(fn, expected, message) {
 			expected,
 			message + "expected exception message to match " + expected + ", but was '" + e.message + "'"
 		);
+		else if (typeof expected === "function") proclaim.isInstanceOf(
+			e,
+			expected,
+			message + "expected exception to be of type " + shim.Function.name(expected) + ", but was " + describeObject(e)
+		);
 		else if (expected !== undefined) throw new Error("Unrecognized 'expected' parameter in assertion: " + expected);
 	}
 	if (noException) exports.fail(message + "expected exception");

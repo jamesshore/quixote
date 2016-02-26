@@ -112,7 +112,7 @@ function getType(variable) {
 
 /*****/
 
-var EnsureException = exports.EnsureException = function(fnToRemoveFromStackTrace, message) {
+var EnsureException = exports.EnsureException = function EnsureException(fnToRemoveFromStackTrace, message) {
 	if (Error.captureStackTrace) Error.captureStackTrace(this, fnToRemoveFromStackTrace);
 	else this.stack = (new Error()).stack;
 	this.message = message;

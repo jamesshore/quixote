@@ -4,6 +4,7 @@
 var assert = require("../util/assert.js");
 var Pixels = require("./pixels.js");
 var Value = require("./value.js");
+var ensure = require("../util/ensure.js");
 
 describe("Pixels", function() {
 
@@ -62,6 +63,63 @@ describe("Pixels", function() {
 	it("converts to string", function() {
 		assert.equal(a1.toString(), "10px", "normal");
 		assert.equal(Pixels.create(12.3456789).toString(), "12.3456789px", "should not round off");
+	});
+
+});
+
+
+describe("No Pixels", function() {
+
+	var noPixels = Pixels.createNone();
+	var noPixels2 = Pixels.createNone();
+	var pixels = Pixels.create(42);
+
+	it("no pixels arithmetic is always no pixels", function() {
+		assert.objEqual(noPixels.plus(noPixels2), Pixels.createNone(), "addition");
+		assert.objEqual(noPixels.minus(noPixels2), Pixels.createNone(), "subtraction");
+		assert.objEqual(noPixels.times(2), Pixels.createNone(), "multiplication");
+		assert.objEqual(noPixels.average(noPixels2), Pixels.createNone(), "average");
+	});
+
+	it("always results in no pixels when performing arithmetic with pixels", function() {
+		assert.objEqual(noPixels.plus(pixels), Pixels.createNone(), "addition");
+		assert.objEqual(pixels.plus(noPixels), Pixels.createNone(), "addition other way");
+		assert.objEqual(noPixels.minus(pixels), Pixels.createNone(), "subtraction");
+		assert.objEqual(pixels.minus(noPixels), Pixels.createNone(), "subtraction other way");
+		assert.objEqual(noPixels.average(pixels), Pixels.createNone(), "average");
+		assert.objEqual(pixels.average(noPixels), Pixels.createNone(), "average other way");
+	});
+
+	it("is comparable to itself (and always equal)", function() {
+		assert.equal(noPixels.compare(noPixels), 0);
+	});
+
+	it("is not comparable to pixel values", function() {
+		assert.exception(function() {
+			noPixels.compare(pixels);
+		}, ensure.EnsureException, "one way");
+
+		assert.exception(function() {
+			pixels.compare(noPixels);
+		}, ensure.EnsureException, "other way");
+	});
+
+	it("diffs against itself", function() {
+		assert.equal(noPixels.diff(noPixels2), "");
+	});
+
+	it("is not diff'able with pixel values", function() {
+		assert.exception(function() {
+			noPixels.diff(pixels);
+		}, ensure.EnsureException, "one way");
+
+		assert.exception(function() {
+			pixels.diff(noPixels);
+		}, ensure.EnsureException, "other way");
+	});
+
+	it("can be converted to string", function() {
+		assert.equal(noPixels.toString(), "NoPixels");
 	});
 
 });
