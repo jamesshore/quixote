@@ -5,7 +5,7 @@ var assert = require("./util/assert.js");
 var Assertable = require("./assertable.js");
 var reset = require("./__reset.js");
 
-describe("Assertable abstract base class", function() {
+describe("FOUNDATION: Assertable abstract base class", function() {
 
 	var TOP = 10;
 	var RIGHT = 150;

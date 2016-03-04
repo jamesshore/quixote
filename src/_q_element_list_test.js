@@ -5,7 +5,7 @@ var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var QElementList = require("./q_element_list.js");
 
-describe("QElementList", function() {
+describe("FOUNDATION: QElementList", function() {
 
 	var none;
 	var one;

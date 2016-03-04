@@ -11,12 +11,20 @@
 	exports.generatedDir = "generated";
 	exports.incrementalDir = "generated/incremental";
 
-	exports.descriptorsTestDependencies = function() {
-		return deglob("src/descriptors/*.js");
+	exports.foundationTestDependencies = function() {
+		return deglob("src/*.js");
+	};
+
+	exports.descriptorTestDependencies = function() {
+		return deglob("src/descriptors/**/*.js");
 	};
 
 	exports.utilTestDependencies = function() {
-		return deglob("src/util/*.js");
+		return deglob("src/util/**/*.js");
+	};
+
+	exports.valueTestDependencies = function() {
+		return deglob("src/values/**/*.js");
 	};
 
 

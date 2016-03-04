@@ -9,7 +9,7 @@ var QElement = require("./q_element.js");
 var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
 
-describe("QFrame", function() {
+describe("FOUNDATION: QFrame", function() {
 	this.timeout(10000);
 
   this.timeout(5000);

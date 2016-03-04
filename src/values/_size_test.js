@@ -6,7 +6,7 @@ var Size = require("./size.js");
 var Value = require("./value.js");
 var Pixels = require("./pixels.js");
 
-describe("Size", function() {
+describe("VALUE: Size", function() {
 
 	var a1 = Size.create(52);
 	var a2 = Size.create(52);

@@ -6,7 +6,7 @@ var Pixels = require("./pixels.js");
 var Value = require("./value.js");
 var ensure = require("../util/ensure.js");
 
-describe("Pixels", function() {
+describe("VALUE: Pixels", function() {
 
 	var a1 = Pixels.create(10);
 	var a2 = Pixels.create(10);
@@ -68,7 +68,7 @@ describe("Pixels", function() {
 });
 
 
-describe("No Pixels", function() {
+describe("VALUE: No Pixels", function() {
 
 	var noPixels = Pixels.createNone();
 	var noPixels2 = Pixels.createNone();

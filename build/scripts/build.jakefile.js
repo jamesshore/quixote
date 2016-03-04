@@ -66,26 +66,16 @@
 	}, { async: true });
 
 	desc("Run tests");
-	task("test", function() {
-		console.log("Testing source code:");
+	task("test", [ "testFoundation", "testDescriptors", "testUtil", "testValues" ]);
 
-		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
-		karma().run({
-			configFile: paths.karmaConfig,
-			expectedBrowsers: require("../config/tested_browsers.js"),
-			strict: !process.env.loose,
-			capture: browsersToCapture
-		}, complete, fail);
-	}, { async: true });
-
-	task("deleteme", [ "testUtil", "testDescriptors" ]);
-
-	karmaTask("testDescriptors", "DESCRIPTOR", "descriptor", paths.utilTestDependencies());
-	karmaTask("testUtil", "UTIL", "utility", paths.utilTestDependencies());
+	karmaTask("testFoundation", "FOUNDATION", "foundation", paths.foundationTestDependencies());
+	karmaTask("testDescriptors", "DESCRIPTOR", "descriptors", paths.descriptorTestDependencies());
+	karmaTask("testUtil", "UTIL", "utility modules", paths.utilTestDependencies());
+	karmaTask("testValues", "VALUE", "value classes", paths.valueTestDependencies());
 
 	function karmaTask(taskName, tag, testDescription, fileDependencies) {
 		incrementalTask(taskName, [], fileDependencies, function(complete, fail) {
-			console.log("Testing " + testDescription + " code: ");
+			console.log("Testing " + testDescription + ": ");
 			runKarmaOnTaggedSubsetOfTests(tag, complete, fail);
 		}, { async: true });
 	}
