@@ -13,7 +13,9 @@ Size descriptors represent a width or height.
 Stability: 2 - Unstable
 ```
 
-Size descriptors may be compared to another size descriptor or to a number.
+Size descriptors may be compared to another size descriptor or to a number. 
+
+* A number refers to the pixel width or height of the element.
 
 At present, comparisons are artificially limited. It's possible to compare size descriptors to position descriptors, but the code is currently written to throw an exception if you do that. This is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
 
