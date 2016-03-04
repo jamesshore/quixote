@@ -80,11 +80,14 @@
 
 	task("deleteme", [ "testUtil" ]);
 
-	incrementalTask("testUtil", [], paths.utilTestDependencies(), function(complete, fail) {
-		console.log("Testing utility code: ");
-		runKarmaOnTaggedSubsetOfTests("UTIL", complete, fail);
-	}, { async: true });
+	incrementalKarma("testUtil", "UTIL", "utility", paths.utilTestDependencies());
 
+	function incrementalKarma(taskName, tag, testDescription, fileDependencies) {
+		incrementalTask(taskName, [], fileDependencies, function(complete, fail) {
+			console.log("Testing " + testDescription + " code: ");
+			runKarmaOnTaggedSubsetOfTests(tag, complete, fail);
+		}, { async: true });
+	}
 
 	function runKarmaOnTaggedSubsetOfTests(tag, complete, fail) {
 		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
