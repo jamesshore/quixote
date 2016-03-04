@@ -59,8 +59,18 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
-	it("handles display:none case", function() {
+	it("knows elements with display:none are not displayed", function() {
 		element.toDomElement().style.display = "none";
+
+		assert.objEqual(top.value(), Position.noY(), "top");
+		assert.objEqual(right.value(), Position.noX(), "right");
+		assert.objEqual(bottom.value(), Position.noY(), "bottom");
+		assert.objEqual(left.value(), Position.noX(), "left");
+	});
+
+	it("knows elements not in the DOM are not displayed", function() {
+		var domElement = element.toDomElement();
+		domElement.parentNode.removeChild(domElement);
 
 		assert.objEqual(top.value(), Position.noY(), "top");
 		assert.objEqual(right.value(), Position.noX(), "right");

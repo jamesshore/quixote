@@ -39,11 +39,11 @@ Me.prototype.value = function value() {
 	var scroll = this._element.frame.getRawScrollPosition();
 
 	if (this._position === RIGHT || this._position === LEFT) {
-		if (elementNotDisplayed(this)) return Position.noX();
+		if (!elementDisplayed(this)) return Position.noX();
 		return Position.x(edge + scroll.x);
 	}
 	else {
-		if (elementNotDisplayed(this)) return Position.noY();
+		if (!elementDisplayed(this)) return Position.noY();
 		return Position.y(edge + scroll.y);
 	}
 };
@@ -59,9 +59,9 @@ function factoryFn(position) {
 	};
 }
 
-function elementNotDisplayed(self) {
-	//var rawPosition = self._element.getRawPosition();
-	//return (rawPosition.top === 0 && rawPosition.right === 0 && rawPosition.bottom === 0 && rawPosition.left === 0);
+function elementDisplayed(self) {
+	var displayNone = self._element.getRawStyle("display") === "none";
+	var inDom = self._element.frame.body().toDomElement().contains(self._element.toDomElement());
 
-	return self._element.getRawStyle("display") === "none";
+	return !displayNone && inDom;
 }
