@@ -6,5 +6,6 @@
 	exports.mainModule = "./src/quixote.js";
 	exports.distDir = "dist";
 	exports.distFile = exports.distDir + "/quixote.js";
+	exports.generatedDir = "generated";
 
 }());

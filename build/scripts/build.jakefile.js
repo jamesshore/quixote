@@ -16,8 +16,16 @@
 
 //*** GENERAL
 
-	desc("Lint, test, and build");
-	task("default", [ "lint", "test", "build" ], function() {
+	desc("Erase generated files");
+	task("clean", function() {
+		shelljs.rm("-rf", paths.generatedDir);
+	});
+
+	desc("Lint, test, and build everything");
+	task("default", [ "clean", "quick" ]);
+
+	desc("Lint, test, and build changed files only");
+	task("quick", [ "lint", "test", "build" ], function() {
 		var elapsedSeconds = (Date.now() - startTime) / 1000;
 
 		console.log("\n\nBUILD OK  (" + elapsedSeconds.toFixed(2) +  "s)");
