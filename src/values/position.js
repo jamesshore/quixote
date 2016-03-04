@@ -30,13 +30,13 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
-Me.offscreenX = function offscreenX() {
+Me.noX = function offscreenX() {
 	ensure.signature(arguments, []);
 
 	return new Me(X_DIMENSION);
 };
 
-Me.offscreenY = function offscreenY() {
+Me.noY = function offscreenY() {
 	ensure.signature(arguments, []);
 
 	return new Me(Y_DIMENSION);

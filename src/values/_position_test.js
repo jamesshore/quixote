@@ -16,8 +16,8 @@ describe("VALUE: Position", function() {
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
 
-	var noX = Position.offscreenX();
-	var offscreenY = Position.offscreenY();
+	var noX = Position.noX();
+	var noY = Position.noY();
 
 	it("is a value object", function() {
 		assert.implements(x1, Value);
