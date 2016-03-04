@@ -34,26 +34,14 @@
 //*** LINT
 
 	desc("Lint everything");
-	task("lint", [ "lintBuild", "lintSrc" ]);
-
-	task("lintBuild", function() {
-		process.stdout.write("Linting build files: ");
+	task("lint", function() {
+		process.stdout.write("Linting code: ");
 		jshint().checkFiles({
-			files: [ "build/**/*.js" ],
-			options: nodeLintOptions(),
-			globals: nodeLintGlobals()
+			files: [ "build/**/*.js", "src/**/*.js" ],
+			options: lintOptions(),
+			globals: lintGlobals()
 		}, complete, fail);
 	}, { async: true });
-
-	task("lintSrc", function() {
-		process.stdout.write("Linting source code: ");
-		jshint().checkFiles({
-			files: [ "src/**/*.js" ],
-			options: clientLintOptions(),
-			globals: clientLintGlobals()
-		}, complete, fail);
-	}, { async: true });
-
 
 //*** TEST
 
@@ -125,7 +113,7 @@
 
 //*** Helper functions
 
-	function universalLintOptions() {
+	function lintOptions() {
 		return {
 			bitwise: true,
 			curly: false,
@@ -140,23 +128,13 @@
 			regexp: true,
 			undef: true,
 			strict: "global",
-			trailing: true
+			trailing: true,
+			node: true,
+			browser: true
 		};
 	}
 
-	function nodeLintOptions() {
-		var options = universalLintOptions();
-		options.node = true;
-		return options;
-	}
-
-	function clientLintOptions() {
-		var options = universalLintOptions();
-		options.browser = true;
-		return options;
-	}
-
-	function nodeLintGlobals() {
+	function lintGlobals() {
 		return {
 			// Jake
 			jake: false,
@@ -165,12 +143,8 @@
 			file: false,
 			directory: false,
 			complete: false,
-			fail: false
-		};
-	}
+			fail: false,
 
-	function clientLintGlobals() {
-		return {
 			// Karma
 			console: false,
 			dump: false,
@@ -189,6 +163,7 @@
 			it: false
 		};
 	}
+
 
 	function incrementalTask(taskName, taskDependencies, fileDependencies, action) {
 		var incrementalFile = paths.incrementalDir + "/" + taskName + ".task";
