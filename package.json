@@ -4,7 +4,7 @@
   "description": "CSS unit and integration testing",
   "main": "dist/quixote.js",
   "devDependencies": {
-    "browserify": "^12.0.1",
+    "browserify": "^13.0.0",
     "gaze": "^0.5.2",
     "jake": "^8.0.9",
     "jshint": "^2.9.1-rc1",
