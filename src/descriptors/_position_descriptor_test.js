@@ -15,17 +15,22 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 	var y;
 
 	beforeEach(function() {
-		x = new Example("x", X);
-		y = new Example("y", Y);
+		x = new DummyDescriptor("x", X);
+		y = new DummyDescriptor("y", Y);
 	});
 
 	it("is a descriptor", function() {
 		assert.type(x, Descriptor);
 	});
 
-	it("converts comparison arguments", function() {
-		assert.objEqual(x.convert(13, "number"), Position.x(13), "converts numbers to x positions");
-		assert.objEqual(y.convert(42, "number"), Position.y(42), "converts numbers to y positions");
+	it("converts numbers to positions", function() {
+		assert.objEqual(x.convert(13, "number"), Position.x(13), "x");
+		assert.objEqual(y.convert(42, "number"), Position.y(42), "y");
+	});
+
+	it("converts 'none' to non-displayed position", function() {
+		assert.objEqual(x.convert("none", "string"), Position.noX());
+		assert.objEqual(y.convert("none", "string"), Position.noY());
 	});
 
 	it("can be shifted up, down, left, and right", function() {
@@ -39,7 +44,7 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 });
 
 
-function Example(dimension, value) {
+function DummyDescriptor(dimension, value) {
 	if (dimension === "x") {
 		PositionDescriptor.x(this);
 		this._position = Position.x(value);
@@ -49,8 +54,8 @@ function Example(dimension, value) {
 		this._position = Position.y(value);
 	}
 }
-PositionDescriptor.extend(Example);
+PositionDescriptor.extend(DummyDescriptor);
 
-Example.prototype.value = function() {
+DummyDescriptor.prototype.value = function() {
 	return this._position;
 };

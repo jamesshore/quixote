@@ -78,13 +78,6 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.objEqual(left.value(), Position.noX(), "left");
 	});
 
-	it("converts arguments to comparable values", function() {
-		assert.objEqual(top.convert(13, "number"), Position.y(13), "top");
-		assert.objEqual(right.convert(13, "number"), Position.x(13), "right");
-		assert.objEqual(bottom.convert(13, "number"), Position.y(13), "bottom");
-		assert.objEqual(left.convert(13, "number"), Position.x(13), "left");
-	});
-
 	it("converts to string", function() {
 		assertDesc(element, top, "top edge of ", "top");
 		assertDesc(element, right, "right edge of ", "right");
