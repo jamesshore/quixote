@@ -6,7 +6,7 @@ var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 var Value = require("../values/value.js");
 
-describe("Descriptor abstract base class", function() {
+describe("DESCRIPTOR: Abstract base class", function() {
 
 	it("can be extended", function() {
 		function Subclass() {}

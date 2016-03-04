@@ -78,11 +78,12 @@
 		}, complete, fail);
 	}, { async: true });
 
-	task("deleteme", [ "testUtil" ]);
+	task("deleteme", [ "testUtil", "testDescriptors" ]);
 
-	incrementalKarma("testUtil", "UTIL", "utility", paths.utilTestDependencies());
+	karmaTask("testDescriptors", "DESCRIPTOR", "descriptor", paths.utilTestDependencies());
+	karmaTask("testUtil", "UTIL", "utility", paths.utilTestDependencies());
 
-	function incrementalKarma(taskName, tag, testDescription, fileDependencies) {
+	function karmaTask(taskName, tag, testDescription, fileDependencies) {
 		incrementalTask(taskName, [], fileDependencies, function(complete, fail) {
 			console.log("Testing " + testDescription + " code: ");
 			runKarmaOnTaggedSubsetOfTests(tag, complete, fail);

@@ -9,7 +9,7 @@ var Position = require("../values/position.js");
 var RelativePosition = require("./relative_position.js");
 var PositionDescriptor = require("./position_descriptor.js");
 
-describe("ElementEdge", function() {
+describe("DESCRIPTOR: ElementEdge", function() {
 
 	var frame;
 	var element;

@@ -8,7 +8,7 @@ var SizeDescriptor = require("./size_descriptor.js");
 var ViewportSize = require("./viewport_size.js");
 var Size = require("../values/size.js");
 
-describe("ViewportSize", function() {
+describe("DESCRIPTOR: ViewportSize", function() {
 
 	var WIDTH = reset.WIDTH;
 	var HEIGHT = reset.HEIGHT;

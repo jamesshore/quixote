@@ -8,7 +8,7 @@ var PageSize = require("./page_size.js");
 var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
 
-describe("PageSize", function() {
+describe("DESCRIPTOR: PageSize", function() {
 
 	var FRAME_WIDTH = reset.WIDTH;
 	var FRAME_HEIGHT = reset.HEIGHT;

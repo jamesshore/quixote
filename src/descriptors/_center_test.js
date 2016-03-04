@@ -7,7 +7,7 @@ var PositionDescriptor = require("./position_descriptor.js");
 var Center = require("./center.js");
 var Position = require("../values/position.js");
 
-describe("Center", function() {
+describe("DESCRIPTOR: Center", function() {
 
 	var element;
 	var center;

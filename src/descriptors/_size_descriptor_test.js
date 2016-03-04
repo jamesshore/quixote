@@ -6,7 +6,7 @@ var SizeDescriptor = require("./size_descriptor.js");
 var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
 
-describe("SizeDescriptor", function() {
+describe("DESCRIPTOR: SizeDescriptor", function() {
 
 	var SIZE = 30;
 
