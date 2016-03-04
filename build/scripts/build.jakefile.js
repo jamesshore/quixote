@@ -7,12 +7,10 @@
 
 	var startTime = Date.now();
 
-	var jshint = require("simplebuild-jshint");
-	var karma = require("simplebuild-karma");
-	var browserify = require("../util/browserify_runner.js");
+	// We've put most of our require statements in functions (or tasks) so we don't have the overhead of
+	// loading modules we don't need. The require statements here are just the ones that are used to set up the tasks.
 	var paths = require("../config/paths.js");
-	var shelljs = require("shelljs");
-	shelljs.config.fatal = true;
+
 
 //*** GENERAL
 
@@ -29,7 +27,7 @@
 
 	desc("Erase generated files");
 	task("clean", function() {
-		shelljs.rm("-rf", paths.generatedDir);
+		shell().rm("-rf", paths.generatedDir);
 	});
 
 
@@ -40,7 +38,7 @@
 
 	task("lintBuild", function() {
 		process.stdout.write("Linting build files: ");
-		jshint.checkFiles({
+		jshint().checkFiles({
 			files: [ "build/**/*.js" ],
 			options: nodeLintOptions(),
 			globals: nodeLintGlobals()
@@ -49,7 +47,7 @@
 
 	task("lintSrc", function() {
 		process.stdout.write("Linting source code: ");
-		jshint.checkFiles({
+		jshint().checkFiles({
 			files: [ "src/**/*.js" ],
 			options: clientLintOptions(),
 			globals: clientLintGlobals()
@@ -62,7 +60,7 @@
 	desc("Start Karma server -- run this first");
 	task("karma", function() {
 		console.log("Starting Karma server:");
-		karma.start({
+		karma().start({
 			configFile: paths.karmaConfig
 		}, complete, fail);
 	}, { async: true });
@@ -72,7 +70,7 @@
 		console.log("Testing source code:");
 
 		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
-		karma.run({
+		karma().run({
 			configFile: paths.karmaConfig,
 			expectedBrowsers: require("../config/tested_browsers.js"),
 			strict: !process.env.loose,
@@ -80,6 +78,18 @@
 		}, complete, fail);
 	}, { async: true });
 
+	function runKarmaOnTaggedSubsetOfTests(tag, complete, fail) {
+		karma().run({
+			configFile: paths.karmaConfig,
+			expectedBrowsers: testedBrowsers(),
+			strict: !process.env.loose,
+			// We use Mocha's "grep" feature as a poor-man's substitute for proper test tagging and subsetting
+			// (which Mocha doesn't have at the time of this writing). However, Mocha's grep option disables
+			// Mocha's "it.only()" feature. So we don't use grep if the "itonly" option is set on the command
+			// line.
+			clientArgs: process.env.itonly ? [] : [ "--grep=" + tag + ":" ]
+		}, complete, fail);
+	}
 
 //*** BUILD
 
@@ -88,7 +98,7 @@
 
 	task("bundle", function() {
 		console.log("Bundling distribution package with Browserify: .");
-		browserify.bundle({
+		browserify().bundle({
 			entry: paths.mainModule,
 			outfile: paths.distFile,
 			options: {
@@ -100,7 +110,7 @@
 
 	task("updateExample", function() {
 		console.log("Updating example with current Quixote distribution: .");
-		shelljs.cp("-f", paths.distFile, "example/vendor/quixote.js");
+		shell().cp("-f", paths.distFile, "example/vendor/quixote.js");
 	});
 
 	directory(paths.distDir);
@@ -147,6 +157,7 @@
 			jake: false,
 			desc: false,
 			task: false,
+			file: false,
 			directory: false,
 			complete: false,
 			fail: false
@@ -173,6 +184,50 @@
 			it: false
 		};
 	}
+
+	function incrementalTask(taskName, taskDependencies, fileDependencies, action) {
+		var incrementalFile = paths.incrementalDir + "/" + taskName + ".task";
+
+		task(taskName, taskDependencies.concat(paths.incrementalDir, incrementalFile));
+		file(incrementalFile, fileDependencies, function() {
+			action(succeed, fail);
+		}, {async: true});
+
+		function succeed() {
+			fs().writeFileSync(incrementalFile, "ok");
+			complete();
+		}
+	}
+
+
+	//*** LAZY-LOADED MODULES
+
+	function fs() {
+		return require("fs");
+	}
+
+	function karma() {
+		return require("simplebuild-karma");
+	}
+
+	function shell() {
+		var shelljs = require("shelljs");
+		shelljs.config.fatal = true;
+		return shelljs;
+	}
+
+	function jshint() {
+		return require("simplebuild-jshint");
+	}
+
+	function testedBrowsers() {
+		return require("../config/tested_browsers.js");
+	}
+
+	function browserify() {
+		return require("../util/browserify_runner.js");
+	}
+
 
 })();
 
