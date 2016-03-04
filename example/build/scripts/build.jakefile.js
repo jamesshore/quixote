@@ -12,7 +12,6 @@
 	var jshint = require("simplebuild-jshint");
 	var karma = require("simplebuild-karma");
 	var browserify = require("../util/browserify_runner.js");
-	var version = require("../util/version_checker.js");
 
 	var browsers = require("../config/tested_browsers.js");
 	var jshintConfig = require("../config/jshint.conf.js");
@@ -26,7 +25,7 @@
 	//*** GENERAL
 
 	desc("Lint and test");
-	task("default", ["version", "lint", "test"], function() {
+	task("default", [ "lint", "test" ], function() {
 		var elapsedSeconds = (Date.now() - startTime) / 1000;
 		console.log("\n\nBUILD OK  (" + elapsedSeconds.toFixed(2) + "s)");
 	});
@@ -117,20 +116,6 @@
 				standalone: "toggle",
 				debug: true
 			}
-		}, complete, fail);
-	}, { async: true });
-
-
-	//*** CHECK VERSIONS
-
-	desc("Check Node version");
-	task("version", function() {
-		console.log("Checking Node.js version: .");
-		version.check({
-			name: "Node",
-			expected: require("../../package.json").engines.node,
-			actual: process.version,
-			strict: strict
 		}, complete, fail);
 	}, { async: true });
 
