@@ -33,15 +33,72 @@
 
 //*** LINT
 
+
 	desc("Lint everything");
-	task("lint", function() {
-		process.stdout.write("Linting code: ");
-		jshint().checkFiles({
-			files: [ "build/**/*.js", "src/**/*.js" ],
+	task("lint", [ "lintLog", "incrementalLint" ], function() {
+		console.log();
+	});
+
+	task("lintLog", function() { process.stdout.write("Linting JavaScript: "); });
+
+	task("incrementalLint", lintDirectories());
+	task("incrementalLint", lintOutput());
+	createDirectoryDependencies(lintDirectories());
+
+	rule(".lint", determineLintDependency, function() {
+		var jshint = require("simplebuild-jshint");
+		var self = this;
+
+		process.stdout.write(".");
+		jshint.checkOneFile({
+			file: this.source,
 			options: lintOptions(),
 			globals: lintGlobals()
-		}, complete, fail);
+		}, success, fail);
+
+		function success() {
+			fs().writeFileSync(self.name, "lint ok");
+			complete();
+		}
 	}, { async: true });
+
+	function lintDirectories() {
+		var path = require("path");
+		return lintOutput().map(function(lintDependency) {
+			return path.dirname(lintDependency);
+		});
+	}
+
+	function lintOutput() {
+		return paths.lintFiles().map(function(pathname) {
+			return "generated/incremental/lint/" + pathname + ".lint";
+		});
+	}
+
+	function determineLintDependency(name) {
+		var result = name.replace(/^generated\/incremental\/lint\//, "");
+		return result.replace(/\.lint$/, "");
+	}
+
+	function createDirectoryDependencies(directories) {
+		directories.forEach(function(lintDirectory) {
+			directory(lintDirectory);
+		});
+	}
+
+
+
+
+
+	//desc("Lint everything");
+	//task("lint", function() {
+	//	process.stdout.write("Linting code: ");
+	//	jshint().checkFiles({
+	//		files: [ "build/**/*.js", "src/**/*.js" ],
+	//		options: lintOptions(),
+	//		globals: lintGlobals()
+	//	}, complete, fail);
+	//}, { async: true });
 
 //*** TEST
 
@@ -140,6 +197,7 @@
 			jake: false,
 			desc: false,
 			task: false,
+			rule: false,
 			file: false,
 			directory: false,
 			complete: false,

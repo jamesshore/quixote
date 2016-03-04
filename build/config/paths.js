@@ -11,6 +11,10 @@
 	exports.generatedDir = "generated";
 	exports.incrementalDir = "generated/incremental";
 
+	exports.lintFiles = function() {
+		return deglob([ "build/**/*.js", "src/**/*.js" ]);
+	};
+
 	exports.foundationTestDependencies = function() {
 		return deglob("src/*.js");
 	};
