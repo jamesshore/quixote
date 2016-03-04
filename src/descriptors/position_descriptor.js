@@ -35,9 +35,14 @@ Me.prototype.minus = function minus(amount) {
 };
 
 Me.prototype.convert = function convert(arg, type) {
-	if (type !== "number") return;
-
-	return this._pdbc.dimension === X_DIMENSION ? Position.x(arg) : Position.y(arg);
+	switch (type) {
+		case "number": return this._pdbc.dimension === X_DIMENSION ? Position.x(arg) : Position.y(arg);
+		case "string":
+			if (arg === "none") return this._pdbc.dimension === X_DIMENSION ? Position.noX() : Position.noY();
+			else return undefined;
+			break;
+		default: return undefined;
+	}
 };
 
 function factoryFn(dimension) {

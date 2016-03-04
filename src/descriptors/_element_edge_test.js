@@ -39,29 +39,11 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.implements(top, PositionDescriptor);
 	});
 
-	it("resolves to value", function() {
+	it("resolves to value by looking at bounding box", function() {
 		assert.objEqual(top.value(), Position.y(TOP), "top");
 		assert.objEqual(right.value(), Position.x(RIGHT), "right");
 		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
-	});
-
-	it("converts arguments to comparable values", function() {
-		assert.objEqual(top.convert(13, "number"), Position.y(13), "top");
-		assert.objEqual(right.convert(13, "number"), Position.x(13), "right");
-		assert.objEqual(bottom.convert(13, "number"), Position.y(13), "bottom");
-		assert.objEqual(left.convert(13, "number"), Position.x(13), "left");
-	});
-
-	it("converts to string", function() {
-		assertDesc(element, top, "top edge of ", "top");
-		assertDesc(element, right, "right edge of ", "right");
-		assertDesc(element, bottom, "bottom edge of ", "bottom");
-		assertDesc(element, left, "left edge of ", "left");
-
-		function assertDesc(element, edge, expected, message) {
-			assert.equal(edge.toString(), expected + element, message);
-		}
 	});
 
 	it("accounts for scrolling", function() {
@@ -75,6 +57,36 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.objEqual(right.value(), Position.x(RIGHT), "right");
 		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
+	});
+
+	it("knows elements with display:none are not displayed", function() {
+		element.toDomElement().style.display = "none";
+
+		assert.objEqual(top.value(), Position.noY(), "top");
+		assert.objEqual(right.value(), Position.noX(), "right");
+		assert.objEqual(bottom.value(), Position.noY(), "bottom");
+		assert.objEqual(left.value(), Position.noX(), "left");
+	});
+
+	it("knows elements not in the DOM are not displayed", function() {
+		var domElement = element.toDomElement();
+		domElement.parentNode.removeChild(domElement);
+
+		assert.objEqual(top.value(), Position.noY(), "top");
+		assert.objEqual(right.value(), Position.noX(), "right");
+		assert.objEqual(bottom.value(), Position.noY(), "bottom");
+		assert.objEqual(left.value(), Position.noX(), "left");
+	});
+
+	it("converts to string", function() {
+		assertDesc(element, top, "top edge of ", "top");
+		assertDesc(element, right, "right edge of ", "right");
+		assertDesc(element, bottom, "bottom edge of ", "bottom");
+		assertDesc(element, left, "left edge of ", "left");
+
+		function assertDesc(element, edge, expected, message) {
+			assert.equal(edge.toString(), expected + element, message);
+		}
 	});
 
 });

@@ -18,6 +18,39 @@ Size descriptors may be compared to another size descriptor or to a number.
 At present, comparisons are artificially limited. It's possible to compare size descriptors to position descriptors, but the code is currently written to throw an exception if you do that. This is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
 
 
+### Examples
+
+#### Comparing to another descriptor
+
+"The height of the logo matches the height of the top nav."
+
+```javascript
+logo.assert({
+	height: topNav.height
+});
+```
+
+#### Comparing to a specific size
+
+"The sidebar is 200 pixels wide."
+
+```javascript
+sidebar.assert({
+	width: 200
+});
+```
+
+#### Comparing to an element-relative size (see API below)
+ 
+"The left column is one-third the width of the article."
+
+```javascript
+leftColumn.assert({
+  width: article.width.times(1/3)
+});
+```
+
+
 ### API
 
 Size descriptors implement the following methods. They're useful when you want to compare sizes that aren't exactly the same.
@@ -75,7 +108,7 @@ Create a new descriptor that's a multiple or fraction of the size of this one.
 
 `descriptor.times(multiple)`
 
-* `multiple (number)` The number to multiply the size by.
+* `multiple (number)` The number to multiply the size by. (Pro tip: If you use a fraction as shown in the example below, Quixote will report errors as english fractions.)
 
 Example: "The lightbox is half the size of the viewport."
 

@@ -33,7 +33,6 @@
 
 //*** LINT
 
-
 	desc("Lint everything");
 	task("lint", [ "lintLog", "incrementalLint" ], function() {
 		console.log();
@@ -86,19 +85,6 @@
 		});
 	}
 
-
-
-
-
-	//desc("Lint everything");
-	//task("lint", function() {
-	//	process.stdout.write("Linting code: ");
-	//	jshint().checkFiles({
-	//		files: [ "build/**/*.js", "src/**/*.js" ],
-	//		options: lintOptions(),
-	//		globals: lintGlobals()
-	//	}, complete, fail);
-	//}, { async: true });
 
 //*** TEST
 

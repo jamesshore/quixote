@@ -33,11 +33,19 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var edge = this._element.getRawPosition()[this._position];
+	var rawPosition = this._element.getRawPosition();
+
+	var edge = rawPosition[this._position];
 	var scroll = this._element.frame.getRawScrollPosition();
 
-	if (this._position === RIGHT || this._position === LEFT) return Position.x(edge + scroll.x);
-	else return Position.y(edge + scroll.y);
+	if (this._position === RIGHT || this._position === LEFT) {
+		if (!elementDisplayed(this)) return Position.noX();
+		return Position.x(edge + scroll.x);
+	}
+	else {
+		if (!elementDisplayed(this)) return Position.noY();
+		return Position.y(edge + scroll.y);
+	}
 };
 
 Me.prototype.toString = function toString() {
@@ -49,4 +57,11 @@ function factoryFn(position) {
 	return function factory(element) {
 		return new Me(element, position);
 	};
+}
+
+function elementDisplayed(self) {
+	var displayNone = self._element.getRawStyle("display") === "none";
+	var inDom = self._element.frame.body().toDomElement().contains(self._element.toDomElement());
+
+	return !displayNone && inDom;
 }
