@@ -93,7 +93,7 @@ task("upToDate", function() {
 	git.checkFastForwardable(branches.integration, branches.dev, complete, fail);
 }, { async: true });
 
-task("buildsClean", [ "quixoteBuildsClean", "exampleBuildsClean" ]);
+task("buildsClean", [ "exampleBuildsClean", "quixoteBuildsClean" ]);
 
 task("quixoteBuildsClean", function() {
 	console.log("Verifying Quixote build:");
