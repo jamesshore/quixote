@@ -78,7 +78,16 @@
 		}, complete, fail);
 	}, { async: true });
 
+	task("deleteme", [ "testUtil" ]);
+
+	task("testUtil", [], function() {
+		console.log("Testing utility code: ");
+		runKarmaOnTaggedSubsetOfTests("UTIL", complete, fail);
+	}, { async: true });
+
+
 	function runKarmaOnTaggedSubsetOfTests(tag, complete, fail) {
+		var browsersToCapture = process.env.capture ? process.env.capture.split(",") : [];
 		karma().run({
 			configFile: paths.karmaConfig,
 			expectedBrowsers: testedBrowsers(),
@@ -87,7 +96,8 @@
 			// (which Mocha doesn't have at the time of this writing). However, Mocha's grep option disables
 			// Mocha's "it.only()" feature. So we don't use grep if the "itonly" option is set on the command
 			// line.
-			clientArgs: process.env.itonly ? [] : [ "--grep=" + tag + ":" ]
+			clientArgs: process.env.itonly ? [] : [ "--grep=^" + tag + ":" ],
+			capture: browsersToCapture
 		}, complete, fail);
 	}
 
