@@ -52,7 +52,7 @@ To work with the code on your own computer:
 
 1. Run `./jake.sh karma` to start the Karma server.
 2. Start the browsers you want to test and point each one at `http://localhost:9876`.
-3. Run `./jake.sh loose=true` to build and test, or `./watch.js loose=true` to automatically rebuild when you make a change.
+3. Run `./jake.sh loose=true` to build and test, or `./watch.js loose=true` to automatically rebuild when you make a change. You can use `./jake.sh quick loose=true` (or `./watch.js quick loose=true`) to only build files that have changed.
 
 **If you get a timeout error** in `__reset.js`, particularly on Safari or Chrome, it's probably due to the window being hidden or a different tab being shown. Safari and Chrome deprioritizes tabs that aren't visible, which causes the tests to timeout. To fix the issue, make sure some portion of the Karma page is visible. 
 
@@ -65,6 +65,8 @@ You can pass the following options to `./jake.sh` and `./watch.js`:
 * `-T` displays available build targets.
 
 * `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js).
+
+* `itonly=true` disables Mocha's "grep" option, allowing the `.only` option to work in the tests.
 
 * `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you may need to install the appropriate launchers; e.g., `npm install karma-safari-launcher`.
 
