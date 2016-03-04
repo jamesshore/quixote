@@ -16,14 +16,15 @@
 
 ## Current Feature: Undisplayed Elements (0.12 release)
 
-* Modify Position to support No Position
 * Update PositionDescriptor
 * Modify Size to support No Size
 * Update SizeDescriptor
 
 
-## To Do: Modify Position to support No Position
-* Done
+## To Do: Update PositionDescriptor
+* Test display: none (but in the DOM)
+* Test "not in the DOM"
+* Test width / height 0
 	
 
 
