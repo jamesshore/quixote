@@ -7,7 +7,7 @@ var Assertable = require("./assertable.js");
 var QElement = require("./q_element.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 
-describe("QElement", function() {
+describe("FOUNDATION: QElement", function() {
 
 	var TOP = 10;
 	var RIGHT = 150;

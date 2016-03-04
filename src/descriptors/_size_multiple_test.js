@@ -7,7 +7,7 @@ var SizeMultiple = require("./size_multiple.js");
 var Size = require("../values/size.js");
 var SizeDescriptor = require("./size_descriptor.js");
 
-describe("SizeMultiple", function() {
+describe("DESCRIPTOR: SizeMultiple", function() {
 
 	var WIDTH = 130;
 

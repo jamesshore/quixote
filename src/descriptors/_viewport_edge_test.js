@@ -8,7 +8,7 @@ var ViewportEdge = require("./viewport_edge.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
 
-describe("ViewportEdge", function() {
+describe("DESCRIPTOR: ViewportEdge", function() {
 
 	var WIDTH = reset.WIDTH;
 	var HEIGHT = reset.HEIGHT;

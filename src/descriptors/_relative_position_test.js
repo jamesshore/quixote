@@ -7,9 +7,8 @@ var quixote = require("../quixote.js");
 var RelativePosition = require("./relative_position.js");
 var Position = require("../values/position.js");
 var PositionDescriptor = require("./position_descriptor.js");
-var Size = require("../values/size.js");
 
-describe("RelativePosition", function() {
+describe("DESCRIPTOR: RelativePosition", function() {
 
 	var element;
 	var right;

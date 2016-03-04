@@ -6,7 +6,7 @@ var Position = require("../values/position.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Descriptor = require("./descriptor.js");
 
-describe("PositionDescriptor", function() {
+describe("DESCRIPTOR: PositionDescriptor", function() {
 
 	var X = 30;
 	var Y = 60;

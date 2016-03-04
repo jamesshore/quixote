@@ -5,7 +5,7 @@ var assert = require("./assert.js");
 var oop = require("./oop.js");
 var shim = require("./shim.js");
 
-describe("OOP module", function() {
+describe("UTIL: OOP module", function() {
 
 	it("determines name of class", function() {
 		function Me() {}

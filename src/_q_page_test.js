@@ -6,7 +6,7 @@ var reset = require("./__reset.js");
 var QPage = require("./q_page.js");
 var Assertable = require("./assertable.js");
 
-describe("QPage", function() {
+describe("FOUNDATION: QPage", function() {
 
 	var WIDTH = reset.WIDTH + 200;
 	var HEIGHT = reset.HEIGHT + 200;

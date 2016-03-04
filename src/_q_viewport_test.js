@@ -6,7 +6,7 @@ var reset = require("./__reset.js");
 var QViewport = require("./q_viewport.js");
 var Assertable = require("./assertable.js");
 
-describe("QViewport", function() {
+describe("FOUNDATION: QViewport", function() {
 
 	var frame;
 	var viewport;

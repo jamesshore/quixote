@@ -7,7 +7,7 @@ var RelativeSize = require("./relative_size.js");
 var Size = require("../values/size.js");
 var SizeDescriptor = require("./size_descriptor.js");
 
-describe("RelativeSize", function() {
+describe("DESCRIPTOR: RelativeSize", function() {
 
 	var element;
 	var smaller;

@@ -7,7 +7,7 @@ var Value = require("./value.js");
 var Pixels = require("./pixels.js");
 var Size = require("./size.js");
 
-describe("Position", function() {
+describe("VALUE: Position", function() {
 
 	var x1 = Position.x(10);
 	var x2 = Position.x(20);

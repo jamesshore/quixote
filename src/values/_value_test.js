@@ -4,7 +4,7 @@
 var assert = require("../util/assert.js");
 var Value = require("./value.js");
 
-describe("Value abstract base class", function() {
+describe("VALUE: abstract base class", function() {
 
 	var a1;
 	var a2;

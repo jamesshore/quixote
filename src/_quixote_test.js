@@ -5,7 +5,7 @@ var assert = require("./util/assert.js");
 var quixote = require("./quixote.js");
 var QFrame = require("./q_frame.js");
 
-describe("Quixote", function() {
+describe("FOUNDATION: Quixote", function() {
 
 	it("creates frame", function(done) {
 		var frame = quixote.createFrame({ src: "/base/src/_q_frame_test.html" }, function(err, callbackFrame) {
@@ -20,7 +20,7 @@ describe("Quixote", function() {
 
 });
 
-describe("Browser capability", function() {
+describe("FOUNDATION: Browser capability", function() {
 
 	var mobileSafari;
 

@@ -8,7 +8,7 @@ var SizeDescriptor = require("./size_descriptor.js");
 var ElementSize = require("./element_size.js");
 var Size = require("../values/size.js");
 
-describe("ElementSize", function() {
+describe("DESCRIPTOR: ElementSize", function() {
 
 	var WIDTH = 130;
 	var HEIGHT = 60;

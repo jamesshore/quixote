@@ -7,7 +7,7 @@ var PageEdge = require("./page_edge.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
 
-describe("PageEdge", function() {
+describe("DESCRIPTOR: PageEdge", function() {
 
 	var top;
 	var right;
