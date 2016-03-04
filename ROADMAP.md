@@ -22,9 +22,12 @@
 
 
 ## To Do: Update PositionDescriptor
-* Test display: none (but in the DOM)
 * Test "not in the DOM"
 * Test width / height 0
+* Test item is visible but at coordinate (0, 0)
+* Test item is visible and at coordinate (0, 0) with 0 size
+* Update documentation
+* Document edge case of zero-sized element at (0, 0) (or work around)
 	
 
 

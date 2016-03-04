@@ -39,11 +39,33 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.implements(top, PositionDescriptor);
 	});
 
-	it("resolves to value", function() {
+	it("resolves to value by looking at bounding box", function() {
 		assert.objEqual(top.value(), Position.y(TOP), "top");
 		assert.objEqual(right.value(), Position.x(RIGHT), "right");
 		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
+	});
+
+	it("accounts for scrolling", function() {
+		if (quixote.browser.enlargesFrameToPageSize()) return;
+
+		frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
+
+		frame.scroll(50, 60);
+
+		assert.objEqual(top.value(), Position.y(TOP), "top");
+		assert.objEqual(right.value(), Position.x(RIGHT), "right");
+		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
+		assert.objEqual(left.value(), Position.x(LEFT), "left");
+	});
+
+	it("handles display:none case", function() {
+		element.toDomElement().style.display = "none";
+
+		assert.objEqual(top.value(), Position.noY(), "top");
+		assert.objEqual(right.value(), Position.noX(), "right");
+		assert.objEqual(bottom.value(), Position.noY(), "bottom");
+		assert.objEqual(left.value(), Position.noX(), "left");
 	});
 
 	it("converts arguments to comparable values", function() {
@@ -62,19 +84,6 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		function assertDesc(element, edge, expected, message) {
 			assert.equal(edge.toString(), expected + element, message);
 		}
-	});
-
-	it("accounts for scrolling", function() {
-		if (quixote.browser.enlargesFrameToPageSize()) return;
-
-		frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
-
-		frame.scroll(50, 60);
-
-		assert.objEqual(top.value(), Position.y(TOP), "top");
-		assert.objEqual(right.value(), Position.x(RIGHT), "right");
-		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
-		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
 });
