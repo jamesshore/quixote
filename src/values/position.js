@@ -10,19 +10,36 @@ var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function Position(dimension, value) {
-	ensure.signature(arguments, [ String, [Number, Pixels] ]);
+	ensure.signature(arguments, [ String, [ Number, Pixels, undefined ] ]);
 
 	this._dimension = dimension;
+	this._displayed = (value !== undefined);
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
 };
 Value.extend(Me);
 
 Me.x = function x(value) {
+	ensure.signature(arguments, [ [ Number, Pixels ] ]);
+
 	return new Me(X_DIMENSION, value);
 };
 
 Me.y = function y(value) {
+	ensure.signature(arguments, [ [ Number, Pixels ] ]);
+
 	return new Me(Y_DIMENSION, value);
+};
+
+Me.noX = function offscreenX() {
+	ensure.signature(arguments, []);
+
+	return new Me(X_DIMENSION);
+};
+
+Me.noY = function offscreenY() {
+	ensure.signature(arguments, []);
+
+	return new Me(Y_DIMENSION);
 };
 
 Me.prototype.compatibility = function compatibility() {
@@ -47,21 +64,27 @@ Me.prototype.midpoint = Value.safe(function midpoint(operand) {
 Me.prototype.diff = Value.safe(function diff(expected) {
 	checkAxis(this, expected);
 
+	if (!this._displayed && !expected._displayed) return "";
+	else if (this._displayed && !expected._displayed) return "displayed when not expected";
+	else if (!this._displayed && expected._displayed) return "not displayed";
+
 	var actualValue = this._value;
 	var expectedValue = expected._value;
 	if (actualValue.equals(expectedValue)) return "";
 
 	var direction;
 	var comparison = actualValue.compare(expectedValue);
-	if (this._dimension === X_DIMENSION) direction = comparison < 0 ? "further left" : "further right";
-	else direction = comparison < 0 ? "higher" : "lower";
+	if (this._dimension === X_DIMENSION) direction = comparison < 0 ? "further left than expected" : "further right than expected";
+	else direction = comparison < 0 ? "higher than expected" : "lower than expected";
 
 	return actualValue.diff(expectedValue) + " " + direction;
 });
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._value.toString();
+
+	if (!this._displayed) return "not displayed";
+	else return this._value.toString();
 };
 
 Me.prototype.toPixels = function toPixels() {

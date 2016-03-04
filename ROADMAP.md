@@ -14,18 +14,16 @@
 * ...more TBD
 
 
-## Current Feature: App Framework Support (0.11 release)
+## Current Feature: Undisplayed Elements (0.12 release)
 
-* ✔ Integrate @cognivator's pull request `https://github.com/jamesshore/quixote/pull/19`
-* ✔ Review and update code style
-* ✔ Look for opportunities to simplify or remove tests
-* ✔ Update documentation
-* ✔ Release 0.11
+* Modify Position to support No Position
+* Update PositionDescriptor
+* Modify Size to support No Size
+* Update SizeDescriptor
 
 
-## To Do: Release 0.11
-	* ✔ changelog
-	* ✔ roadmap
+## To Do: Modify Position to support No Position
+* Done
 	
 
 

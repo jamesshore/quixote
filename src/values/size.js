@@ -42,7 +42,7 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 
 	if (actualValue.equals(expectedValue)) return "";
 
-	var desc = actualValue.compare(expectedValue) > 0 ? " larger" : " smaller";
+	var desc = actualValue.compare(expectedValue) > 0 ? " larger than expected" : " smaller than expected";
 	return actualValue.diff(expectedValue) + desc;
 });
 
