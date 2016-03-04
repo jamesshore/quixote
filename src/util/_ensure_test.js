@@ -5,7 +5,7 @@ var assert = require("./assert.js");
 var ensure = require("./ensure.js");
 var EnsureException = ensure.EnsureException;
 
-describe("UTIL: Ensure", function() {
+describe("UTIL:  Ensure", function() {
 
 	it("uses custom exception", function() {
 		try {

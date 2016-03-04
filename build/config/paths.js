@@ -9,6 +9,11 @@
 	exports.distDir = "dist";
 	exports.distFile = exports.distDir + "/quixote.js";
 	exports.generatedDir = "generated";
+	exports.incrementalDir = "generated/incremental";
+
+	exports.descriptorsTestDependencies = function() {
+		return deglob("src/descriptors/*.js");
+	};
 
 	exports.utilTestDependencies = function() {
 		return deglob("src/util/*.js");

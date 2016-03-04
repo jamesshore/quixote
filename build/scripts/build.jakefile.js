@@ -80,7 +80,7 @@
 
 	task("deleteme", [ "testUtil" ]);
 
-	task("testUtil", [], function() {
+	incrementalTask("testUtil", [], paths.utilTestDependencies(), function(complete, fail) {
 		console.log("Testing utility code: ");
 		runKarmaOnTaggedSubsetOfTests("UTIL", complete, fail);
 	}, { async: true });
@@ -124,6 +124,7 @@
 	});
 
 	directory(paths.distDir);
+	directory(paths.incrementalDir);
 
 
 
