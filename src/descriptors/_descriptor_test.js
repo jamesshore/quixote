@@ -144,7 +144,7 @@ describe("DESCRIPTOR: Abstract base class", function() {
 
 	ExampleValue.prototype.diff = Value.safe(function diff(expected) {
 		if (this._name === expected._name) return "";
-		else return "different";
+		else return "different than expected";
 	});
 
 	ExampleValue.prototype.toString = function toString() {

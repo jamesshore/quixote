@@ -37,8 +37,8 @@ describe("VALUE: Size", function() {
 	});
 
 	it("describes difference", function() {
-		assert.equal(a1.diff(b), "45px larger");
-		assert.equal(b.diff(a1), "45px smaller");
+		assert.equal(a1.diff(b), "45px larger than expected");
+		assert.equal(b.diff(a1), "45px smaller than expected");
 		assert.equal(a1.diff(a2), "");
 	});
 

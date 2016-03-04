@@ -53,11 +53,11 @@ describe("VALUE: Position", function() {
 	it("determines difference", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
-		assert.equal(x1.diff(x2), "10px further left", "less than expected - horizontal");
-		assert.equal(x2.diff(x1), "10px further right", "more than expected - horizontal");
+		assert.equal(x1.diff(x2), "10px further left than expected", "less than expected - horizontal");
+		assert.equal(x2.diff(x1), "10px further right than expected", "more than expected - horizontal");
 
-		assert.equal(y1.diff(y2), "30px higher", "less than expected - vertical");
-		assert.equal(y2.diff(y1), "30px lower", "more than expected - vertical");
+		assert.equal(y1.diff(y2), "30px higher than expected", "less than expected - vertical");
+		assert.equal(y2.diff(y1), "30px lower than expected", "more than expected - vertical");
 	});
 
 	it("fails fast when doing stuff with incompatible dimensions", function() {
