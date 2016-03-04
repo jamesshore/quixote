@@ -22,7 +22,8 @@
 
 
 ## To Do: Update PositionDescriptor
-* Update documentation
+* Add PositionDescriptor examples: position, number, "none"
+* Add SizeDescriptor examples
 
 
 ## Dogfooding Notes

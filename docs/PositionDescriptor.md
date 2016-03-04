@@ -13,7 +13,10 @@ Position descriptors represent an X or Y coordinate. The top-left corner of the 
 Stability: 2 - Unstable
 ```
 
-Position descriptors may be compared to another position descriptor or to a number. 
+Position descriptors may be compared to another position descriptor, a number, or "none".
+
+* The number refers to the X or Y coordinate relative to the top-left corner of the page.
+* "none" means that the element is not displayed due to `display:none` or having been removed from the DOM.
 
 At present, comparisons are artificially limited. Comparing an X-coordinate to a Y-coordinate will result in an exception. This is an experiment to see if it's more useful to fail fast than to provide flexibility. Please share your opinion about this tradeoff by contributing to [issue #6](https://github.com/jamesshore/quixote/issues/6).
 
