@@ -13,7 +13,7 @@ var Me = module.exports = function Position(dimension, value) {
 	ensure.signature(arguments, [ String, [ Number, Pixels, undefined ] ]);
 
 	this._dimension = dimension;
-	this._offscreen = (value === undefined);
+	this._displayed = (value !== undefined);
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
 };
 Value.extend(Me);
@@ -64,6 +64,10 @@ Me.prototype.midpoint = Value.safe(function midpoint(operand) {
 Me.prototype.diff = Value.safe(function diff(expected) {
 	checkAxis(this, expected);
 
+	if (!this._displayed && !expected._displayed) return "";
+	else if (this._displayed && !expected._displayed) return "displayed when not expected";
+	else if (!this._displayed && expected._displayed) return "not displayed";
+
 	var actualValue = this._value;
 	var expectedValue = expected._value;
 	if (actualValue.equals(expectedValue)) return "";
@@ -78,7 +82,9 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._value.toString();
+
+	if (!this._displayed) return "not displayed";
+	else return this._value.toString();
 };
 
 Me.prototype.toPixels = function toPixels() {

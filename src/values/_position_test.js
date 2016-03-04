@@ -16,7 +16,7 @@ describe("VALUE: Position", function() {
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
 
-	var offscreenX = Position.offscreenX();
+	var noX = Position.offscreenX();
 	var offscreenY = Position.offscreenY();
 
 	it("is a value object", function() {
@@ -50,7 +50,7 @@ describe("VALUE: Position", function() {
 		assert.objEqual(y2.midpoint(y1), Position.y(65), "bottom to top");
 	});
 
-	it("determines difference", function() {
+	it("determines difference between displayed positions", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
 		assert.equal(x1.diff(x2), "10px further left than expected", "less than expected - horizontal");
@@ -58,6 +58,12 @@ describe("VALUE: Position", function() {
 
 		assert.equal(y1.diff(y2), "30px higher than expected", "less than expected - vertical");
 		assert.equal(y2.diff(y1), "30px lower than expected", "more than expected - vertical");
+	});
+
+	it("determines difference between undisplayed positions", function() {
+		assert.equal(noX.diff(noX), "", "same");
+		assert.equal(x1.diff(noX), "displayed when not expected", "displayed");
+		assert.equal(noX.diff(x1), "not displayed", "not displayed");
 	});
 
 	it("fails fast when doing stuff with incompatible dimensions", function() {
@@ -75,6 +81,7 @@ describe("VALUE: Position", function() {
 
 	it("converts to string", function() {
 		assert.equal(x1.toString(), "10px");
+		assert.equal(noX.toString(), "not displayed");
 	});
 
 });
