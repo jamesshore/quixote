@@ -16,6 +16,9 @@ describe("VALUE: Position", function() {
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
 
+	var offscreenX = Position.offscreenX();
+	var offscreenY = Position.offscreenY();
+
 	it("is a value object", function() {
 		assert.implements(x1, Value);
 	});
@@ -75,3 +78,4 @@ describe("VALUE: Position", function() {
 	});
 
 });
+

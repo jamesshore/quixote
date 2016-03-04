@@ -10,19 +10,36 @@ var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function Position(dimension, value) {
-	ensure.signature(arguments, [ String, [Number, Pixels] ]);
+	ensure.signature(arguments, [ String, [ Number, Pixels, undefined ] ]);
 
 	this._dimension = dimension;
+	this._offscreen = (value === undefined);
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
 };
 Value.extend(Me);
 
 Me.x = function x(value) {
+	ensure.signature(arguments, [ [ Number, Pixels ] ]);
+
 	return new Me(X_DIMENSION, value);
 };
 
 Me.y = function y(value) {
+	ensure.signature(arguments, [ [ Number, Pixels ] ]);
+
 	return new Me(Y_DIMENSION, value);
+};
+
+Me.offscreenX = function offscreenX() {
+	ensure.signature(arguments, []);
+
+	return new Me(X_DIMENSION);
+};
+
+Me.offscreenY = function offscreenY() {
+	ensure.signature(arguments, []);
+
+	return new Me(Y_DIMENSION);
 };
 
 Me.prototype.compatibility = function compatibility() {
