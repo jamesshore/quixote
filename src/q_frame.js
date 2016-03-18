@@ -199,7 +199,7 @@
 		ensureUsable(this);
 
 		var tempElement = document.createElement("div");
-		tempElement.innerHTML = html;
+		tempElement.innerHTML = html.replace(/^\s*|\s*$/gm, '');
 		ensure.that(
 			tempElement.childNodes.length === 1,
 			"Expected one element, but got " + tempElement.childNodes.length + " (" + html + ")"
