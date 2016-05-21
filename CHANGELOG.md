@@ -39,6 +39,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 *New descriptors:*
 
 * QElement.displayed [TBD]
+
+*Other changes:*
+
+* Added Value object tutorial
   
 
 ## 0.11.x: Single-Page App Support
