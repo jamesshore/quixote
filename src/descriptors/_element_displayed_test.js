@@ -48,6 +48,13 @@
 			assert.equal(displayed.toString(), "display status of " + displayedElement.toString());
 		});
 
+		it("converts comparison arguments", function() {
+		  assert.objEqual(displayed.convert(true, "boolean"), Display.displayed());
+		  assert.objEqual(displayed.convert(false, "boolean"), Display.notDisplayed());
+		  assert.objEqual(displayed.convert("none", "string"), Display.displayNone());
+		  assert.objEqual(displayed.convert("detached", "string"), Display.detached());
+		});
+
 	});
 
 }());

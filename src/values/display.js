@@ -43,8 +43,8 @@
 
 		if (thisState === expectedState) return "";
 
-		if (thisState === DISPLAYED) return "expected to be non-displayed";
-		else if (expectedState === DISPLAYED) return "expected to be displayed";
+		if (thisState === DISPLAYED) return "different than expected";
+		else if (expectedState === DISPLAYED) return "different than expected";
 		else if (thisState === NOT_DISPLAYED || expectedState === NOT_DISPLAYED) return "";
 		else return "achieved differently than expected";
 	});

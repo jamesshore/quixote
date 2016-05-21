@@ -26,8 +26,8 @@
 
 		it("describes difference", function() {
 			var EQUAL = "";
-			var EXPECT_NON_DISPLAY = "expected to be non-displayed";
-			var EXPECT_DISPLAY = "expected to be displayed";
+			var EXPECT_NON_DISPLAY = "different than expected";
+			var EXPECT_DISPLAY = "different than expected";
 			var EXPECT_DIFFERENT_NON_DISPLAY = "achieved differently than expected";
 
 			assert.equal(displayed.diff(displayed), EQUAL);

@@ -28,4 +28,14 @@
 		return "display status of " + this._element.toString();
 	};
 
+	Me.prototype.convert = function convert(arg, type) {
+	  if (type === "boolean") {
+		  return arg ? Display.displayed() : Display.notDisplayed();
+	  }
+		if (type === "string") {
+			if (arg === "none") return Display.displayNone();
+			if (arg === "detached") return Display.detached();
+		}
+	};
+
 }());

@@ -4,6 +4,7 @@
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
+var ElementDisplayed = require("./descriptors/element_displayed.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
 var ElementSize = require("./descriptors/element_size.js");
@@ -19,6 +20,8 @@ var Me = module.exports = function QElement(domElement, frame, nickname) {
 	this.frame = frame;
 
 	// properties
+	this.displayed = ElementDisplayed.create(this);
+
 	this.top = ElementEdge.top(this);
 	this.right = ElementEdge.right(this);
 	this.bottom = ElementEdge.bottom(this);

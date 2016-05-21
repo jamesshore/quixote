@@ -81,6 +81,10 @@ describe("FOUNDATION: QElement", function() {
 			assert.equal(element.frame, frame);
 		});
 
+		it("visibility", function() {
+			assert.equal(element.displayed.diff(true), "", "displayed");
+		});
+
 		it("edges", function() {
 			assert.equal(element.top.diff(TOP), "", "top");
 			assert.equal(element.right.diff(RIGHT), "", "right");
