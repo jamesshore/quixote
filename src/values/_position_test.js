@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("../util/assert.js");
@@ -25,6 +25,11 @@ describe("VALUE: Position", function() {
 
 	it("can be constructed from pixels", function() {
 		assert.objEqual(Position.x(Pixels.create(10)), x1);
+	});
+
+	it("can be be off-screen", function() {
+		assert.objEqual(Position.noX(), noX, "x");
+		assert.objEqual(Position.noY(), noY, "y");
 	});
 
 	it("responds to value()", function() {

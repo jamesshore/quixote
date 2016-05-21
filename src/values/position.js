@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("../util/ensure.js");
@@ -30,13 +30,13 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
-Me.noX = function offscreenX() {
+Me.noX = function noX() {
 	ensure.signature(arguments, []);
 
 	return new Me(X_DIMENSION);
 };
 
-Me.noY = function offscreenY() {
+Me.noY = function noY() {
 	ensure.signature(arguments, []);
 
 	return new Me(Y_DIMENSION);
