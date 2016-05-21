@@ -27,8 +27,7 @@
 
 
 ## To Do: Update SizeDescriptor
-* Update ElementSize to handle undisplayed elements (ref ElementEdge changes)
-* Update SizeDescriptor to support 'none' (ref SizeDescriptor changes)
+* done
 
 
 ## Dogfooding Notes
