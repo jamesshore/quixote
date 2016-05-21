@@ -3,25 +3,25 @@
 	"use strict";
 
 	var assert = require("../util/assert.js");
-	var Display = require("./display.js");
+	var RenderState = require("./render_state.js");
 	var Value = require("./value.js");
 
-	describe("VALUE: Display", function() {
+	describe("VALUE: RenderState", function() {
 
-		var displayed = Display.displayed();
-		var notDisplayed = Display.notDisplayed();
-		var displayNone = Display.displayNone();
-		var detached = Display.detached();
+		var displayed = RenderState.displayed();
+		var notDisplayed = RenderState.notDisplayed();
+		var displayNone = RenderState.displayNone();
+		var detached = RenderState.detached();
 
 		it("is a value object", function() {
 			assert.implements(displayed, Value);
 		});
 
 		it("has multiple states reflecting ways elements can be displayed or not", function() {
-			assert.objEqual(Display.displayed(), displayed, "displayed");
-			assert.objEqual(Display.notDisplayed(), notDisplayed, "not displayed, details unspecified");
-			assert.objEqual(Display.displayNone(), displayNone, "not displayed, display:none property");
-			assert.objEqual(Display.detached(), detached, "not displayed, detached from DOM");
+			assert.objEqual(RenderState.displayed(), displayed, "displayed");
+			assert.objEqual(RenderState.notDisplayed(), notDisplayed, "not displayed, details unspecified");
+			assert.objEqual(RenderState.displayNone(), displayNone, "not displayed, display:none property");
+			assert.objEqual(RenderState.detached(), detached, "not displayed, detached from DOM");
 		});
 
 		it("describes difference", function() {

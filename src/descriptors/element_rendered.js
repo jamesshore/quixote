@@ -3,7 +3,7 @@
 	"use strict";
 
 	var ensure = require("../util/ensure.js");
-	var Display = require("../values/display.js");
+	var RenderState = require("../values/render_state.js");
 	var Descriptor = require("./descriptor.js");
 
 	var Me = module.exports = function ElementDisplayed(element) {
@@ -19,9 +19,9 @@
 	};
 
 	Me.prototype.value = function value() {
-		if (!this._element.frame.body().toDomElement().contains(this._element.toDomElement())) return Display.detached();
-		else if (this._element.getRawStyle("display") === "none") return Display.displayNone();
-		else return Display.displayed();
+		if (!this._element.frame.body().toDomElement().contains(this._element.toDomElement())) return RenderState.detached();
+		else if (this._element.getRawStyle("display") === "none") return RenderState.displayNone();
+		else return RenderState.displayed();
 	};
 
 	Me.prototype.toString = function toString() {
@@ -30,11 +30,11 @@
 
 	Me.prototype.convert = function convert(arg, type) {
 	  if (type === "boolean") {
-		  return arg ? Display.displayed() : Display.notDisplayed();
+		  return arg ? RenderState.displayed() : RenderState.notDisplayed();
 	  }
 		if (type === "string") {
-			if (arg === "none") return Display.displayNone();
-			if (arg === "detached") return Display.detached();
+			if (arg === "none") return RenderState.displayNone();
+			if (arg === "detached") return RenderState.detached();
 		}
 	};
 

@@ -6,9 +6,9 @@
 	var reset = require("../__reset.js");
 	var ElementRendered = require("./element_rendered.js");
 	var Descriptor = require("./descriptor.js");
-	var Display = require("../values/display.js");
+	var RenderState = require("../values/render_state.js");
 
-	describe("DESCRIPTOR: ElementDisplayed", function() {
+	describe("DESCRIPTOR: ElementRendered", function() {
 
 		var frame;
 		var displayedElement;
@@ -36,12 +36,12 @@
 		});
 
 		it("resolves to value", function() {
-			assert.objEqual(displayed.value(), Display.displayed(), "displayed");
-			assert.objEqual(displayNone.value(), Display.displayNone(), "display:none");
-			assert.objEqual(detached.value(), Display.detached(), "detached");
+			assert.objEqual(displayed.value(), RenderState.displayed(), "displayed");
+			assert.objEqual(displayNone.value(), RenderState.displayNone(), "display:none");
+			assert.objEqual(detached.value(), RenderState.detached(), "detached");
 
 			displayNoneElement.remove();
-			assert.objEqual(displayNone.value(), Display.detached(), "detached and display:none");
+			assert.objEqual(displayNone.value(), RenderState.detached(), "detached and display:none");
 		});
 
 		it("converts to string", function() {
@@ -49,10 +49,10 @@
 		});
 
 		it("converts comparison arguments", function() {
-		  assert.objEqual(displayed.convert(true, "boolean"), Display.displayed());
-		  assert.objEqual(displayed.convert(false, "boolean"), Display.notDisplayed());
-		  assert.objEqual(displayed.convert("none", "string"), Display.displayNone());
-		  assert.objEqual(displayed.convert("detached", "string"), Display.detached());
+		  assert.objEqual(displayed.convert(true, "boolean"), RenderState.displayed());
+		  assert.objEqual(displayed.convert(false, "boolean"), RenderState.notDisplayed());
+		  assert.objEqual(displayed.convert("none", "string"), RenderState.displayNone());
+		  assert.objEqual(displayed.convert("detached", "string"), RenderState.detached());
 		});
 
 	});

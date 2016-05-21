@@ -5,7 +5,7 @@
 	var ensure = require("../util/ensure.js");
 	var Position = require("../values/position.js");
 	var PositionDescriptor = require("./position_descriptor.js");
-	var Display = require("../values/display.js");
+	var RenderState = require("../values/render_state.js");
 
 	var TOP = "top";
 	var RIGHT = "right";
@@ -60,7 +60,7 @@
 	}
 
 	function elementRendered(self) {
-		return self._element.rendered.value().equals(Display.displayed());
+		return self._element.rendered.value().equals(RenderState.displayed());
 	}
 
 }());
