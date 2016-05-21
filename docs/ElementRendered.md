@@ -12,7 +12,7 @@ Note that this descriptor doesn't provide information about whether an element i
 ### Comparisons
 
 ```
-Stability: 2 - Unstable
+Stability: 1 - Experimental
 ```
 
 ElementRendered descriptor assertions may use another ElementRendered descriptor, a boolean, or a string. Use the boolean when you want to check whether an element is rendered in general, and the string when you want to check for a specific reason that an element is not rendered.
