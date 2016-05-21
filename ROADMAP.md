@@ -17,7 +17,6 @@
 
 ## Current Feature: Undisplayed Elements (0.12 release)
 
-* Update SizeDescriptor
 * Update SizeDescriptor docs for 'none'
 * Implement "displayed" descriptor
 	* Factor out common elementDisplayed() function in ElementEdge and ElementSize
@@ -26,8 +25,8 @@
 * Document breaking changes - Position and Size now have 'none', not '0px' when not displayed
 
 
-## To Do: Update SizeDescriptor
-* done
+## To Do: Update SizeDescriptor docs for 'none'
+* in progress
 
 
 ## Dogfooding Notes
