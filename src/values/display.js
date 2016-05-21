@@ -49,8 +49,8 @@
 		else return "not displayed differently than expected";
 	});
 
-	Me.prototype.toString = Value.safe(function toString() {
+	Me.prototype.toString = function toString() {
 		return this._state;
-	});
+	};
 
 }());

@@ -28,6 +28,7 @@
 * Factor out common elementDisplayed() function in ElementEdge and ElementSize
 * Reduce 'not displayed' testing in ElementEdge and ElementSize?
 * Use Display object instead of null object pattern in Size, Pixels, and/or Position?
+* Allow Size and Position to compare to Display?
 
 
 

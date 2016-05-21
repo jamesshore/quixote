@@ -105,7 +105,7 @@ it("is a descriptor", function() {
 });
 ```
 
-Our code:
+Our production code:
 
 ```javascript
 var Me = module.exports = function BackgroundColor(element) {
@@ -115,11 +115,11 @@ Descriptor.extend(Me);
 
 ⋮
 // Temporary methods so the tests pass
-Me.prototype.value = function() {
+Me.prototype.value = function value() {
   ensure.unreachable();
 };
 
-Me.prototype.toString = function() {
+Me.prototype.toString = function toString() {
   ensure.unreachable();
 };
 ```
