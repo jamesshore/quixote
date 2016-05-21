@@ -23,13 +23,7 @@
 
 
 ## To Do: "Displayed" descriptor
-* ElementDisplayed descriptor
-* Change toString() of Display when not displayed differently than expected
-* Factor out common elementDisplayed() function in ElementEdge and ElementSize
-* Reduce 'not displayed' testing in ElementEdge and ElementSize?
-* Use Display object instead of null object pattern in Size, Pixels, and/or Position?
-* Allow Size and Position to compare to Display?
-
+* done
 
 
 ## Dogfooding Notes

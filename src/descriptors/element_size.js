@@ -4,7 +4,7 @@
 var ensure = require("../util/ensure.js");
 var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
-var Position = require("../values/position.js");
+var Display = require("../values/display.js");
 
 var X_DIMENSION = "width";
 var Y_DIMENSION = "height";
@@ -44,5 +44,5 @@ function factoryFn(dimension) {
 }
 
 function elementDisplayed(self) {
-	return !self._element.top.value().equals(Position.noY());
+	return self._element.displayed.value().equals(Display.displayed());
 }

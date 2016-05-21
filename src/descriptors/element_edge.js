@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var PositionDescriptor = require("./position_descriptor.js");
+var Display = require("../values/display.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -58,8 +59,5 @@ function factoryFn(position) {
 }
 
 function elementDisplayed(self) {
-	var displayNone = self._element.getRawStyle("display") === "none";
-	var inDom = self._element.frame.body().toDomElement().contains(self._element.toDomElement());
-
-	return !displayNone && inDom;
+	return self._element.displayed.value().equals(Display.displayed());
 }
