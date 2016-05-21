@@ -23,8 +23,9 @@
 * Implement "displayed" descriptor
 
 
-## To Do: Update PositionDescriptor
-* done
+## To Do: Modify Size to support No Size
+* Allow Pixels to be compared with NoPixels, at least with equals()?
+* Review and improve Position
 
 
 ## Dogfooding Notes
