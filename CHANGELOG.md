@@ -3,13 +3,17 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## 0.12.x: Non-Displayed Elements
+## 0.12.x: Non-Rendered Elements
 
-**21 May 2016.** Quixote is now smarter about elements that aren't displayed. Elements that have the `display:none` property or that are detached from the DOM are considered to be non-displayed. To detect non-displayed elements, you can use the new `element.displayed` descriptor. You can also compare position and sizes to "none".
+**21 May 2016.** Quixote is now smarter about elements that aren't rendered into the DOM. Elements that have the `display:none` property or that are detached from the DOM are not rendered. To detect non-rendered elements, you can use the new `element.rendered` descriptor. Element positions now also distinguish between "0px" (which means the upper-left corner) and "none" (which means the element isn't rendered). The same idea applies to element sizes.
+
+*Patches:*
+
+* *0.12.1, 21 May 2016:* Fixed incorrect property names and descriptions in change log.
 
 **Breaking changes:**
 
-* Non-displayed elements used to report their sizes and positions as "0px." Now they report them as "none." If you have any assertions on non-displayed elements, you'll need to update your assertion from `0` to `"none"`.
+* Non-rendered elements used to report their sizes and positions as "0px." Now they report them as "none." If you have any assertions on non-rendered elements, you'll need to update your assertion from `0` to `"none"`.
 
 	Old code:
 	
@@ -38,7 +42,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
   
 *New descriptors:*
 
-* QElement.displayed
+* QElement.rendered
 
 *New methods:*
 
