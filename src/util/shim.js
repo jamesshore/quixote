@@ -79,7 +79,7 @@ exports.Array = {
 
 exports.Element = {
 
-	// WORKAROUND IE8, IE9, IE10, IE11: no Element.remove()
+	// WORKAROUND IE 8, IE 9, IE 10, IE 11: no Element.remove()
 	remove: function remove(element) {
 		element.parentNode.removeChild(element);
 	}
@@ -89,7 +89,7 @@ exports.Element = {
 
 exports.EventTarget = {
 
-	// WORKAROUND IE8: no EventTarget.addEventListener()
+	// WORKAROUND IE 8: no EventTarget.addEventListener()
 	addEventListener: function addEventListener(element, event, callback) {
 		if (element.addEventListener) return element.addEventListener(event, callback);
 
@@ -101,7 +101,7 @@ exports.EventTarget = {
 
 exports.Document = {
 
-	// WORKAROUND IE8: no document.head
+	// WORKAROUND IE 8: no document.head
 	head: function head(doc) {
 		if (doc.head) return doc.head;
 
@@ -184,6 +184,19 @@ exports.Object = {
 	    }
 	  }
 	  return result;
+	}
+
+};
+
+
+exports.String = {
+
+	// WORKAROUND IE 8: No String.trim()
+	trim: function(str) {
+		if (str.trim !== undefined) return str.trim();
+
+		// Based on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+		return str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
 	}
 
 };
