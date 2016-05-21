@@ -29,7 +29,7 @@
 		return new Me(DISPLAY_NONE);
 	};
 
-	Me.detached = function displayNone() {
+	Me.detached = function detached() {
 		return new Me(DETACHED);
 	};
 

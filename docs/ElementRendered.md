@@ -31,7 +31,7 @@ ElementRendered descriptor assertions may use another ElementRendered descriptor
 
 ```javascript
 lightbox.assert({
-	rendered: image
+	rendered: image.rendered
 });
 ```
 

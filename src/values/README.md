@@ -20,14 +20,14 @@ Value objects are the mechanism Quixote uses to provide its assertion messages. 
 
 The following explanations use the (as yet fictional) example of a `Color` value. It represents the value of CSS properties like `background-color`.
 
-For a real descriptor example, see any of the descriptors in this directory. [`Display`](display.js) and [its tests](_display_test.js) are a good choice.
+For a real value example, see any of the value classes in this directory. [`RenderState`](render_state.js) and [its tests](_render_state_test.js) are a good choice.
 
 
 ## Create testbed
 
 Start out by creating your test values.
 
-For our `Color` example, we create a the color red.
+For our `Color` example, we create the color red.
 
 ```javascript
 "use strict";
@@ -50,7 +50,7 @@ describe("VALUE: Color", function() {
 
 We have a convention of using factory methods, not constructors, to instantiate all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
 
-Value objects' factory methods should provide sophisticated type conversions. For example, our Color object should be able to understand that "#000000", "rgb(0, 0, 0)", "rgba(0, 0, 0, 0)", and "black" all represent the same color. For the sake of example, though, we'll keep it simple.
+Value objects' factory methods should provide sophisticated type conversions. For example, our Color object should be able to understand that "#000000", "rgb(0, 0, 0)", "rgba(0, 0, 0, 0)", and "black" all represent the same color. For the sake of this example, though, we'll keep it simple.
  
 ```javascript
 "use strict";
@@ -99,8 +99,7 @@ Value.extend(Me);
 Me.prototype.compatibility = function compatibility() {
 };
 
-Me.prototype.diff = Value.safe(function diff() { 		// Value.safe() is explained below
-  ensure.unreachable();
+Me.prototype.diff = Value.safe(function diff(expected) { 		// Value.safe() is explained below
 });
 
 Me.prototype.toString = function toString() {
@@ -110,17 +109,23 @@ Me.prototype.toString = function toString() {
 
 ## Check for compatibility with other values: `compatibility()`
 
-Value objects can be compared against any other value object. Some comparisons, such as comparing colors with sizes, don't make sense. Quixote provides a nice error message when this happens.
+The user can cause value objects to be compared against any other value object. Some comparisons, such as comparing colors with sizes, don't make sense. Quixote provides a nice error message when this happens.
 
-The `Value.safe()` method is Quixote's mechanism for checking for valid comparisons. Every function that takes another value type should be wrapped in a `Value.safe()` call, as the `diff()` method above is.
+The `Value.safe()` method is Quixote's mechanism for checking for valid comparisons. Every function that takes another value type should be wrapped in a `Value.safe()` call, like this:
 
-Implement the `compatibility()` method allows you to specify which value objects are valid for comparison by returning an array of constructors. In many cases, you'll just return your own constructor and nothing else.
+```javascript
+Me.prototype.diff = Value.safe(function diff(expected) { 		// Value.safe() is explained below
+  ⋮
+});
+```
 
-For our `Color` example, we won't support comparing against any other values.
+In order for `Value.safe()` to work properly, you need to implement the `compatibility()` method. It should return an array containing constructors for all the value objects you support. Anything not in the list will automatically fail. You're responsible for doing the appropriate checking on anything that is in the list.
+
+In many cases, you'll just return your own constructor and nothing else. That's what we'll do for our `Color` example. 
 
 ```javascript
 Me.prototype.compatibility = function compatibility() {
-		return [ Me ];
+  return [ Me ];
 };
 ```
 
@@ -139,20 +144,20 @@ In this example, the text "13px lower than expected" was provided by a `diff()` 
    
 For our `Color` example, we could implement a fancy visual explanation, such as "darker than expected" or "more red than expected." But we'll just say "different than expected" for simplicity.
 
-The `diff()` method is also used to determine when two values are equal. If they're equal, the result of `diff()` should be an empty string (""). Returning an empty string causes the `equals()` method, which is inherited from `Value`, to return true.
+The `diff()` method is also used to determine when two values are equal. If they're equal, the result of `diff()` should be an empty string. Returning an empty string causes the `equals()` method, which is inherited from `Value`, to return true.
 
 ```javascript
 it("describes difference", function() {
-		assert.equal(color.diff(Color.create(RED), "", "same");
-		assert.equal(color.diff(Color.create("#000000"), "different than expected", "different");
+  assert.equal(color.diff(Color.create(RED), "", "same");
+  assert.equal(color.diff(Color.create("#000000"), "different than expected", "different");
 });
 ```
 
 ```javascript
 // Don't forget Value.safe()!
 Me.prototype.diff = Value.safe(function diff(expected) {
-	if (this._value.equals(expected._value)) return "";
-	else return "different than expected";
+  if (this._value === expected._value) return "";
+  else return "different than expected";
 });
 ```
 
@@ -165,13 +170,13 @@ For our `Color` example, we could convert common colors to their natural-languag
 
 ```javascript
 it("converts to string", function() {
-	assert.equal(color.toString(), "#ff0000");
+  assert.equal(color.toString(), "#ff0000");
 });
 ```
 
 ```javascript
 Me.prototype.toString = function toString() {
-	return this._value;
+  return this._value;
 };
 ```
 
@@ -180,4 +185,4 @@ Me.prototype.toString = function toString() {
 
 Your value object is done.
 
-For a complete descriptor example, see [`Display`](display.js) and [its tests](_display_test.js).
+For a complete descriptor example, see [`RenderState`](render_state.js) and [its tests](_render_state_test.js).
