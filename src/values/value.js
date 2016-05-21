@@ -8,9 +8,9 @@ var shim = require("../util/shim.js");
 var Me = module.exports = function Value() {};
 Me.extend = oop.extendFn(Me);
 oop.makeAbstract(Me, [
+	"compatibility",
 	"diff",
-	"toString",
-	"compatibility"
+	"toString"
 ]);
 
 Me.safe = function safe(fn) {

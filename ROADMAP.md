@@ -18,14 +18,17 @@
 ## Current Feature: Undisplayed Elements (0.12 release)
 
 * Implement "displayed" descriptor
-	* Factor out common elementDisplayed() function in ElementEdge and ElementSize
-	* Reduce 'not displayed' testing in ElementEdge and ElementSize?
+* QElement.displayed documentation
 * Review descriptor docs and update to match PositionDescriptor format
-* Document breaking changes - Position and Size now have 'none', not '0px' when not displayed
 
 
-## To Do: Document breaking changes
-* Done
+## To Do: "Displayed" descriptor
+* 'Display' value object
+* ElementDisplayed descriptor
+* Factor out common elementDisplayed() function in ElementEdge and ElementSize
+* Reduce 'not displayed' testing in ElementEdge and ElementSize?
+* Use Display object instead of null object pattern in Size, Pixels, and/or Position?
+
 
 
 ## Dogfooding Notes

@@ -37,7 +37,8 @@ var reset = require("../__reset.js");
 var BackgroundColor = require("./background_color.js");
 var Descriptor = require("./descriptor.js");
 
-describe("BackgroundColor", function() {
+// It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
+describe("DESCRIPTOR: BackgroundColor", function() {
   
   var COLOR = "#abcde0"       // our test element's background color
   
