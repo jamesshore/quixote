@@ -37,6 +37,7 @@ exports.type = function(obj, expectedType, message) {
 };
 
 exports.implements = function(obj, expectedType, message) {
+	exports.defined(obj, message);
 	exports.type(obj, expectedType, message);
 
 	message = message ? message + ": " : "";
