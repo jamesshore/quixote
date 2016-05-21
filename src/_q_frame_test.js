@@ -321,6 +321,15 @@ describe("FOUNDATION: QFrame", function() {
 			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
 		});
 
+		it("strips leading/trailing whitespace from html passed to .add()", function() {
+			var html = "<p>foo</p>";
+			var htmlWithWhitespace = "  \n  " + html + "  \n  ";
+			var element = frame.add(htmlWithWhitespace);
+			var body = frameDom.contentDocument.body;
+
+			assert.equal(body.innerHTML.toLowerCase(), html, "frame should add the element without whitespace");
+		});
+
 		it("uses optional nickname to describe added elements", function() {
 			var element = frame.add("<p>foo</p>", "my element");
 			assert.equal(element.toString(), "'my element'");
