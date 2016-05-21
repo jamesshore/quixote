@@ -23,6 +23,8 @@
 
 
 ## To Do: "Displayed" descriptor
+* QElement.remove()
+	* Document
 * 'Display' value object
 * ElementDisplayed descriptor
 * Factor out common elementDisplayed() function in ElementEdge and ElementSize
@@ -40,7 +42,7 @@
 	* Alternative assert mechanism? `element.assert.equal()` `.assert.lessThan()` etc? with `should` as alias to `assert`?
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 * Add workaround for IE 8 not working with `frame.add("<style>...</style>")` (addAll? browser feature detect? Need to check if there's no way to insert styles into the document, or if it just doesn't like the way `add()` works.)  
-* Add `QElement.add()` and `QElement.remove()`?
+* Add `QElement.add()`?
 
 
 ## Future Features
