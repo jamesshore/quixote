@@ -10,6 +10,7 @@
 var proclaim = require("../../vendor/proclaim-2.0.0.js");
 
 var shim = require("./shim.js");
+var oop = require("./oop.js");
 
 exports.fail = function(message) {
 	proclaim.fail(null, null, message);
@@ -72,8 +73,15 @@ exports.lte = function(actual, expected, message) {
 
 exports.objEqual = function(actual, expected, message) {
 	message = message ? message + ": " : "";
+
 	proclaim.isDefined(actual, message + "expected object, but was undefined");
-	proclaim.isTrue(actual.equals(expected), message + "object equality expected '" + expected + "', but got '" + actual + "'");
+
+	var expectedClass = oop.instanceName(expected);
+	var actualClass = oop.instanceName(actual);
+	var equalityMessage = message + " object equality expected " +
+		expectedClass + " instance '" + expected + "', but got " + actualClass + " instance '" + actual + "'";
+
+	proclaim.isTrue(actual.equals(expected), equalityMessage);
 };
 
 exports.objNotEqual = function(actual, expected, message) {

@@ -23,8 +23,8 @@
 * Implement "displayed" descriptor
 
 
-## To Do: Update PositionDescriptor
-* done
+## To Do: Modify Size to support No Size
+* Review and improve Position
 
 
 ## Dogfooding Notes
