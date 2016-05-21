@@ -52,10 +52,10 @@
 		});
 
 		it("converts to string", function() {
-			assert.equal(displayed.toString(), "displayed");
-			assert.equal(notDisplayed.toString(), "not displayed");
-			assert.equal(displayNone.toString(), "not displayed due to display:none property");
-			assert.equal(detached.toString(), "not displayed due to being detached from DOM");
+			assert.equal(displayed.toString(), "rendered");
+			assert.equal(notDisplayed.toString(), "not rendered");
+			assert.equal(displayNone.toString(), "not rendered due to display:none property");
+			assert.equal(detached.toString(), "not rendered due to being detached from DOM");
 		});
 
 	});
