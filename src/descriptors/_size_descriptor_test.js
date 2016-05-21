@@ -20,8 +20,13 @@ describe("DESCRIPTOR: SizeDescriptor", function() {
 		assert.type(example, Descriptor);
 	});
 
-	it("converts comparison arguments", function() {
-		assert.objEqual(example.convert(13, "number"), Size.create(13), "converts numbers to sizes");
+	it("converts numbers to sizes", function() {
+		assert.objEqual(example.convert(13, "number"), Size.create(13));
+	});
+
+	it("converts 'none' to non-displayed position", function() {
+		assert.objEqual(example.convert("none", "string"), Size.createNone(), "should convert 'none'");
+		assert.undefined(example.convert("any other string", "string"), "should ignore other strings");
 	});
 
 	it("can be arithmaticated (yes, that's a word now)", function() {

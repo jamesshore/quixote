@@ -485,6 +485,7 @@ Many thanks to our contributors!
 * Jay Bazuzi (@JayBazuzi): Travis CI integration (v0.1)
 * Bjorn Hansen (@bjornicus): Fail fast if HTML or stylesheet URL is invalid (v0.3)
 * Steve Henty (@cognivator): QFrame.reload() for single-page apps and other scripts (v0.11)
+* Dave Woldrich (@woldie): 'none' option in position and size descriptors, documentation improvements (v0.12)
 
 
 ## License

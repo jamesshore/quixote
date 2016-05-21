@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("../util/assert.js");
@@ -6,7 +6,6 @@ var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
 var ElementEdge = require("./element_edge.js");
 var Position = require("../values/position.js");
-var RelativePosition = require("./relative_position.js");
 var PositionDescriptor = require("./position_descriptor.js");
 
 describe("DESCRIPTOR: ElementEdge", function() {

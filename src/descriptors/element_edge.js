@@ -1,11 +1,9 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
-var RelativePosition = require("./relative_position.js");
 var PositionDescriptor = require("./position_descriptor.js");
-var ElementSize = require("./element_size.js");
 
 var TOP = "top";
 var RIGHT = "right";

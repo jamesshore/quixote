@@ -34,5 +34,9 @@ Me.prototype.times = function times(amount) {
 };
 
 Me.prototype.convert = function convert(arg, type) {
-	if (type === "number") return Size.create(arg);
+	switch(type) {
+		case "number": return Size.create(arg);
+		case "string": return arg === "none" ? Size.createNone() : undefined;
+		default: return undefined;
+	}
 };

@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("../util/assert.js");
@@ -31,7 +31,7 @@ describe("DESCRIPTOR: ElementSize", function() {
 		assert.implements(width, SizeDescriptor);
 	});
 
-	it("resolves to value", function() {
+	it("resolves to value by looking at bounding box", function() {
 		assert.objEqual(width.value(), Size.create(WIDTH), "width");
 		assert.objEqual(height.value(), Size.create(HEIGHT), "height");
 	});
@@ -44,6 +44,21 @@ describe("DESCRIPTOR: ElementSize", function() {
 		style.margin = "16px";
 		style.boxSizing = "content-box";
 		assert.objEqual(width.value(), Size.create(WIDTH + (4*2) + (8*2)), "width");
+	});
+
+	it("knows elements with display:none are not displayed", function() {
+		element.toDomElement().style.display = "none";
+
+		assert.objEqual(width.value(), Size.createNone(), "width");
+		assert.objEqual(height.value(), Size.createNone(), "height");
+	});
+
+	it("knows elements not in the DOM are not displayed", function() {
+		var domElement = element.toDomElement();
+		domElement.parentNode.removeChild(domElement);
+
+		assert.objEqual(width.value(), Size.createNone(), "width");
+		assert.objEqual(height.value(), Size.createNone(), "height");
 	});
 
 	it("converts to string", function() {
