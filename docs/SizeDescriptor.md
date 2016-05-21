@@ -16,7 +16,7 @@ Stability: 2 - Unstable
 Size descriptors may be compared to another size descriptor, a number, or "none". 
 
 * A number refers to the pixel width or height of the element.
-* The string "none" means that the element is not displayed due to `display:none` or having been removed from the DOM.
+* The string "none" means that the element is not rendered due to `display:none` or having been removed from the DOM.
 
 
 ### Examples
@@ -51,12 +51,12 @@ leftColumn.assert({
 });
 ```
 
-#### Checking whether an element is displayed
+#### Checking whether an element is rendered
 
-"The light box is no longer displayed after I change the DOM."
-
+"The light box is no longer rendered after I change the DOM."
+ 
 ```javascript
-// First, I expect the light box to be displayed
+// First, I expect the light box to be rendered
 lightbox.assert({
 	width: 200
 });
@@ -64,8 +64,9 @@ lightbox.assert({
 // Then I vanish it
 callProductionCodeThatSetsDisplayNoneOnLightbox();
 
-// And I expect the light box will no longer be displayed
+// And I expect the light box will no longer be rendered
 lightbox.assert({
+	rendered: false,
 	width: "none"
 });
 ```

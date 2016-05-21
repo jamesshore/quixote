@@ -67,8 +67,8 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 	var expectedValue = expected._value;
 
 	if (actualValue.equals(expectedValue)) return "";
-	else if (isNone(expected) && !isNone(this)) return "displayed when not expected";
-	else if (!isNone(expected) && isNone(this)) return "not displayed";
+	else if (isNone(expected) && !isNone(this)) return "rendered when not expected";
+	else if (!isNone(expected) && isNone(this)) return "not rendered";
 
 	var direction;
 	var comparison = actualValue.compare(expectedValue);
@@ -81,7 +81,7 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	if (isNone(this)) return "not displayed";
+	if (isNone(this)) return "not rendered";
 	else return this._value.toString();
 };
 

@@ -53,13 +53,13 @@ describe("VALUE: Size", function() {
 		assert.equal(b.diff(a1), "45px smaller than expected", "smaller");
 
 		assert.equal(none.diff(none), "", "both off-screen");
-		assert.equal(a1.diff(none), "displayed when not expected", "expected off-screen, but was on");
-		assert.equal(none.diff(a1), "not displayed", "expected on-screen, but was off");
+		assert.equal(a1.diff(none), "rendered when not expected", "expected off-screen, but was on");
+		assert.equal(none.diff(a1), "not rendered", "expected on-screen, but was off");
 	});
 
 	it("converts to string", function() {
 		assert.equal(a1.toString(), "52px");
-		assert.equal(none.toString(), "not displayed");
+		assert.equal(none.toString(), "not rendered");
 	});
 
 });

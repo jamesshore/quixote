@@ -5,24 +5,24 @@
 	var ensure = require("../util/ensure.js");
 	var Value = require("./value.js");
 
-	var DISPLAYED = "displayed";
-	var NOT_DISPLAYED = "not displayed";
-	var DISPLAY_NONE = "not displayed (display:none property set)";
-	var DETACHED = "not displayed (detached from DOM)";
+	var RENDERED = "rendered";
+	var NOT_RENDERED = "not rendered";
+	var DISPLAY_NONE = "not rendered due to display:none property";
+	var DETACHED = "not rendered due to being detached from DOM";
 
-	var Me = module.exports = function Display(state) {
+	var Me = module.exports = function RenderState(state) {
 		ensure.signature(arguments, [ String ]);
 
 		this._state = state;
 	};
 	Value.extend(Me);
 
-	Me.displayed = function displayed() {
-		return new Me(DISPLAYED);
+	Me.rendered = function rendered() {
+		return new Me(RENDERED);
 	};
 
-	Me.notDisplayed = function notDisplayed() {
-		return new Me(NOT_DISPLAYED);
+	Me.notRendered = function notRendered() {
+		return new Me(NOT_RENDERED);
 	};
 
 	Me.displayNone = function displayNone() {
@@ -43,10 +43,10 @@
 
 		if (thisState === expectedState) return "";
 
-		if (thisState === DISPLAYED) return "displayed when not expected";
-		else if (expectedState === DISPLAYED) return "not displayed when expected";
-		else if (thisState === NOT_DISPLAYED || expectedState === NOT_DISPLAYED) return "";
-		else return "not displayed differently than expected";
+		if (thisState === RENDERED) return "different than expected";
+		else if (expectedState === RENDERED) return "different than expected";
+		else if (thisState === NOT_RENDERED || expectedState === NOT_RENDERED) return "";
+		else return "achieved differently than expected";
 	});
 
 	Me.prototype.toString = function toString() {

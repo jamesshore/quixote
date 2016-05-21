@@ -73,14 +73,14 @@ describe("DESCRIPTOR: Abstract base class", function() {
 			}, "Can't compare example 1 to undefined. Did you misspell a property name?");
 		});
 
-		it("fails nicely when diffing unsupported types", function() {
-			assertPrimitiveError(true, "boolean");
-			assertPrimitiveError("foo", "string");
-			assertPrimitiveError(function() {}, "function");
-			assertPrimitiveError(null, "null");
-			assertPrimitiveError({}, "Object instances");
+		it("fails nicely when diffing against unrecognized primitives (and similar hardcoded values)", function() {
+			assertError(true, "true");
+			assertError("foo", "'foo'");
+			assertError(null, "null");
+			assertError(function() {}, "a function");
+			assertError({}, "Object instances");
 
-			function assertPrimitiveError(arg, expected) {
+			function assertError(arg, expected) {
 				assert.exception(function() {
 					example.diff(arg);
 				}, "Can't compare example 1 to " + expected + ".");

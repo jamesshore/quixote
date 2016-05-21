@@ -16,7 +16,7 @@ Stability: 2 - Unstable
 Position descriptor assertions may use another position descriptor, a number, or "none".
 
 * A number refers to the X or Y pixel coordinate relative to the top-left corner of the page.
-* The string "none" means that the element is not displayed due to `display:none` or having been removed from the DOM.
+* The string "none" means that the element is not rendered due to `display:none` or having been removed from the DOM.
 
 
 ### Examples
@@ -51,12 +51,12 @@ sidebar.assert({
 });
 ```
 
-#### Checking whether an element is displayed
+#### Checking whether an element is rendered
 
-"The light box is no longer displayed after I change the DOM."
+"The light box is no longer rendered after I change the DOM."
 
 ```javascript
-// First, I expect the light box to be displayed
+// First, I expect the light box to be rendered
 lightbox.assert({
 	top: 15
 });
@@ -64,8 +64,9 @@ lightbox.assert({
 // Then I vanish it
 callProductionCodeThatSetsDisplayNoneOnLightbox();
 
-// And I expect the light box will no longer be displayed
+// And I expect the light box will no longer be rendered
 lightbox.assert({
+	rendered: false,
 	top: "none"
 });
 ```

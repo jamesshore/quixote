@@ -75,8 +75,8 @@ describe("VALUE: Position", function() {
 
 	it("determines difference between undisplayed positions", function() {
 		assert.equal(noX.diff(noX), "", "same");
-		assert.equal(x1.diff(noX), "displayed when not expected", "displayed");
-		assert.equal(noX.diff(x1), "not displayed", "not displayed");
+		assert.equal(x1.diff(noX), "rendered when not expected", "displayed");
+		assert.equal(noX.diff(x1), "not rendered", "not displayed");
 	});
 
 	it("fails fast when doing stuff with incompatible dimensions", function() {
@@ -94,7 +94,7 @@ describe("VALUE: Position", function() {
 
 	it("converts to string", function() {
 		assert.equal(x1.toString(), "10px");
-		assert.equal(noX.toString(), "not displayed");
+		assert.equal(noX.toString(), "not rendered");
 	});
 
 });

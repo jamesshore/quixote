@@ -41,6 +41,17 @@ With descriptors, you can make relative comparisons and avoid hardcoding values.
 The following descriptors are available:
 
 
+### Element Rendering
+
+```
+Stability: 1 - Experimental
+```
+
+A descriptor for checking whether an element is rendered is available on [`QElement`](QElement.md) instances. This descriptor checks that the element is attached to the DOM and that the display:none property is not set. Note that there are many situations in which a rendered element could still be invisible to the user.
+
+* `element.rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether the element is rendered.
+
+
 ### Element Positions and Sizes
 
 ```
@@ -49,14 +60,14 @@ Stability: 2 - Unstable
 
 Descriptors for the position and size of an element are available on [`QElement`](QElement.md) instances. The values of these descriptors include padding and borders (if any), but not margins.  
 
-* `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
-* `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
-* `bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
-* `left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
-* `center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between the right and left edges.
-* `middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom edges.
-* `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
-* `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
+* `element.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
+* `element.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
+* `element.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
+* `element.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
+* `element.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between the right and left edges.
+* `element.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom edges.
+* `element.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
+* `element.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
 
 Example: "The logo matches the height of the navbar and is aligned to its right edge."
 
@@ -76,14 +87,14 @@ Stability: 1 - Experimental
 
 Descriptors for the position and size of the viewport are available on [`QFrame.viewport()`](QFrame.md#frameviewport). The viewport is the part of the webpage that's visible in the test frame, not including scrollbars. By comparing element positions and sizes to viewport descriptors, you can make assertions about what's visible to the user.
 
-* `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The highest visible part of the page.
-* `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The rightmost visible part of the page.
-* `bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The lowest visible part of the page.
-* `left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The leftmost visible part of the page.
-* `center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
-* `middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between top and bottom.
-* `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the viewport.
-* `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the viewport.
+* `viewport.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The highest visible part of the page.
+* `viewport.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The rightmost visible part of the page.
+* `viewport.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The lowest visible part of the page.
+* `viewport.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The leftmost visible part of the page.
+* `viewport.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `viewport.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between top and bottom.
+* `viewport.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the viewport.
+* `viewport.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the viewport.
 
 Example: "The cookie disclaimer stretches across the bottom of the viewport."
 
@@ -112,14 +123,14 @@ Stability: 1 - Experimental
 
 Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to viewport descriptors, you can make assertions about where elements are positioned on the page.
 
-* `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top of the page.
-* `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right side of the page.
-* `bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom of the page.
-* `left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left side of the page.
-* `center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
-* `middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between top and bottom.
-* `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the page.
-* `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the page.
+* `page.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top of the page.
+* `page.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right side of the page.
+* `page.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom of the page.
+* `page.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left side of the page.
+* `page.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `page.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between top and bottom.
+* `page.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the page.
+* `page.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the page.
 
 Example: "The sidebar extends down the right side of the page."
 
