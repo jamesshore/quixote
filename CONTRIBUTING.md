@@ -158,6 +158,18 @@ Value classes have five main features:
 Value classes are usually less than 100 lines long. The logic required isn't very complex. Find them in the [`src/values`](src/values) folder.
 
 
+## Merging GitHub Pull Requests
+
+For use by the project maintainer.
+
+1. Start from clean (integrated) dev branch.
+2. Merge pull request into dev branch using `git pull` line listed under the "command line instructions" link at the bottom of the pull request conversation thread. 
+3. Revise and make additional commits as needed.
+4. Credit contributor at bottom of README.md
+5. Run `./integrate.sh` to integrate dev branch into master branch.
+6. Close pull request. Include a comment saying which version will include the result.
+
+
 ## Release Process
 
 For use by the project maintainer.
