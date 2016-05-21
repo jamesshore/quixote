@@ -56,7 +56,9 @@ describe("VALUE: Position", function() {
 	});
 
 	it("allows computation with off-screen values (but result is always off-screen)", function() {
-		//assert.objEqual(noX.plus(x1), noX, "plus");
+		assert.objEqual(noX.plus(noX), noX, "off-screen + off-screen");
+		assert.objEqual(noX.plus(x1), noX, "off-screen + on-screen");
+		assert.objEqual(x1.plus(noX), noX, "on-screen + off-screen");
 	});
 
 	it("determines difference between displayed positions", function() {
