@@ -10,6 +10,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 *Patches:*
 
 * *0.12.1, 21 May 2016:* Fixed incorrect property names and descriptions in change log.
+* *0.12.2, 22 May 2016:* Fixed another incorrect property name in change log example.
 
 **Breaking changes:**
 
@@ -36,7 +37,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
   
   ```javascript
   lightbox.assert({
-  	displayed: false
+  	rendered: false
   });
   ```
   
