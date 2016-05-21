@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
+var Position = require("../values/position.js");
 
 var X_DIMENSION = "width";
 var Y_DIMENSION = "height";
@@ -24,6 +25,8 @@ Me.y = factoryFn(Y_DIMENSION);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
+	if (!elementDisplayed(this)) return Size.createNone();
+
 	var position = this._element.getRawPosition();
 	return Size.create(position[this._dimension]);
 };
@@ -38,4 +41,8 @@ function factoryFn(dimension) {
 	return function factory(element) {
 		return new Me(dimension, element);
 	};
+}
+
+function elementDisplayed(self) {
+	return !self._element.top.value().equals(Position.noY());
 }

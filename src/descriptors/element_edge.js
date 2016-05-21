@@ -3,9 +3,7 @@
 
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
-var RelativePosition = require("./relative_position.js");
 var PositionDescriptor = require("./position_descriptor.js");
-var ElementSize = require("./element_size.js");
 
 var TOP = "top";
 var RIGHT = "right";
