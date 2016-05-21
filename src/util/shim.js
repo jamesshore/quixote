@@ -77,6 +77,16 @@ exports.Array = {
 };
 
 
+exports.Element = {
+
+	// WORKAROUND IE8, IE9, IE10, IE11: no Element.remove()
+	remove: function remove(element) {
+		element.parentNode.removeChild(element);
+	}
+
+};
+
+
 exports.EventTarget = {
 
 	// WORKAROUND IE8: no EventTarget.addEventListener()

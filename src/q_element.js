@@ -1,7 +1,8 @@
-// Copyright (c) 2014-2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var shim = require("./util/shim.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
@@ -65,6 +66,10 @@ Me.prototype.getRawPosition = function getRawPosition() {
 		bottom: rect.bottom,
 		height: rect.height !== undefined ? rect.height : rect.bottom - rect.top
 	};
+};
+
+Me.prototype.remove = function remove() {
+	shim.Element.remove(this._domElement);
 };
 
 Me.prototype.toDomElement = function toDomElement() {

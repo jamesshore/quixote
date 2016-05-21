@@ -1,11 +1,10 @@
-// Copyright (c) 2014-2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var Assertable = require("./assertable.js");
 var QElement = require("./q_element.js");
-var ElementEdge = require("./descriptors/element_edge.js");
 
 describe("FOUNDATION: QElement", function() {
 
@@ -36,12 +35,6 @@ describe("FOUNDATION: QElement", function() {
 	});
 
 	describe("object", function() {
-		it("converts to DOM element", function() {
-			var q = new QElement(document.body, frame, "body");
-			var dom = q.toDomElement();
-
-			assert.equal(dom, document.body);
-		});
 
 		it("compares to another QElement", function() {
 			var head = new QElement(document.querySelector("head"), frame, "head");    // WORKAROUND IE8: no document.head
@@ -63,6 +56,23 @@ describe("FOUNDATION: QElement", function() {
 			var element = new QElement(document.body, frame, "nickname");
 			assert.equal(element.toString(), "'nickname'");
 		});
+
+	});
+
+	describe("DOM manipulation", function() {
+
+		it("converts to DOM element", function() {
+			var q = new QElement(document.body, frame, "body");
+			var dom = q.toDomElement();
+
+			assert.equal(dom, document.body);
+		});
+
+		it("detaches from DOM", function() {
+			element.remove();
+			assert.equal(frame.getAll("#element").length(), 0, "element should have been removed");
+		});
+
 	});
 
 	describe("properties", function() {

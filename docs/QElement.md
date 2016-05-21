@@ -97,6 +97,18 @@ Example: `var top = element.getRawPosition().top;`
 
 * IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` calculates them from the other properties.
 
+
+#### element.remove()
+
+```
+Stability: 2 - Unstable
+```
+
+Remove the element from the DOM.
+
+`element.remove()`
+
+
 #### element.toDomElement()
 
 ```
