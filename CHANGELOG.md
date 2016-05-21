@@ -5,11 +5,11 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## 0.12.x: Non-Displayed Elements
 
-**In progress.** Quixote is now smarter about elements that aren't in the DOM or have `display:none` set. You can compare position and sizes to "none" [TBD: or use the new `element.displayed` descriptor].  
+**In progress.** Quixote is now smarter about elements that aren't displayed. Elements that have the `display:none` property or that are detached from the DOM are considered to be non-displayed. To detect non-displayed elements, you can use the new `element.displayed` descriptor [TBD]. You can also compare position and sizes to "none".
 
 **Breaking changes:**
 
-* Non-displayed elements used to report their size and position as "0px." Now they report them as "none." If you have any assertions on non-displayed elements, you'll need to update your assertion from `0` to `"none"`.
+* Non-displayed elements used to report their sizes and positions as "0px." Now they report them as "none." If you have any assertions on non-displayed elements, you'll need to update your assertion from `0` to `"none"`.
 
 	Old code:
 	
@@ -28,7 +28,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
   });
   ```
   
-  Or: [TBD]
+  Or, better yet: [TBD]
   
   ```javascript
   lightbox.assert({
