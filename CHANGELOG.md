@@ -3,6 +3,48 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.12.x: Non-Displayed Elements
+
+**In progress.** Quixote is now smarter about elements that aren't displayed. Elements that have the `display:none` property or that are detached from the DOM are considered to be non-displayed. To detect non-displayed elements, you can use the new `element.displayed` descriptor [TBD]. You can also compare position and sizes to "none".
+
+**Breaking changes:**
+
+* Non-displayed elements used to report their sizes and positions as "0px." Now they report them as "none." If you have any assertions on non-displayed elements, you'll need to update your assertion from `0` to `"none"`.
+
+	Old code:
+	
+	```javascript
+	// I expect the light box will not be displayed
+  lightbox.assert({
+  	width: 0
+  });
+  ```
+  
+  New code:
+  
+  ```javascript
+  lightbox.assert({
+  	width: "none"
+  });
+  ```
+  
+  Or, better yet: [TBD]
+  
+  ```javascript
+  lightbox.assert({
+  	displayed: false
+  });
+  ```
+  
+*New descriptors:*
+
+* QElement.displayed [TBD]
+
+*Other changes:*
+
+* Added Value object tutorial
+  
+
 ## 0.11.x: Single-Page App Support
 
 **5 Dec 2015.** The new `QFrame.reload()` method will re-run scripts, unlike `QFrame.reset()`, allowing you to test single-page apps more easily.
@@ -30,7 +72,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## 0.9.x: Multiple Stylesheets
 
-**9 Oct 2015.** A small release that improves the handling of stylesheets. You can now use an array to provide multiple stylesheets in quixote.createFrame's the `options.stylesheet` parameter. You can also provide stylesheets and src URLs at the same time.
+**9 Oct 2015.** A small release that improves the handling of stylesheets. You can now use an array to provide multiple stylesheets in quixote.createFrame's `options.stylesheet` parameter. You can also provide stylesheets and src URLs at the same time.
 
 **No breaking changes.**
 

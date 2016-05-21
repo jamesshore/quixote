@@ -96,7 +96,7 @@ Other top-level directories contain infrastructure and support.
 * `node_modules` contains third-party libraries needed for the build scripts.
 * `vendor` contains third-party libraries needed for Quixote itself.
 
-There's a tutorial for creating new descriptors [in the descriptors directory](src/descriptors/README.md).
+There's a tutorial for creating new descriptors [in the descriptors directory](src/descriptors/README.md) and another tutorial for creating value objects [in the values directory](src/values/README.md).
 
 
 ## Branches
