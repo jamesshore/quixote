@@ -4,7 +4,7 @@
 
 	var assert = require("../util/assert.js");
 	var reset = require("../__reset.js");
-	var ElementDisplayed = require("./element_displayed.js");
+	var ElementRendered = require("./element_rendered.js");
 	var Descriptor = require("./descriptor.js");
 	var Display = require("../values/display.js");
 
@@ -26,9 +26,9 @@
 			detachedElement = frame.add("<p>detached</p>", "detached");
 			detachedElement.remove();
 
-			displayed = ElementDisplayed.create(displayedElement);
-			displayNone = ElementDisplayed.create(displayNoneElement);
-			detached = ElementDisplayed.create(detachedElement);
+			displayed = ElementRendered.create(displayedElement);
+			displayNone = ElementRendered.create(displayNoneElement);
+			detached = ElementRendered.create(detachedElement);
 		});
 
 		it("is a descriptor", function() {
