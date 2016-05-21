@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("../util/ensure.js");
@@ -10,11 +10,11 @@ var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function Position(dimension, value) {
-	ensure.signature(arguments, [ String, [ Number, Pixels, undefined ] ]);
+	ensure.signature(arguments, [ String, [ Number, Pixels ] ]);
 
 	this._dimension = dimension;
-	this._displayed = (value !== undefined);
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
+	this._displayed = !this._value.equals(Pixels.NONE);
 };
 Value.extend(Me);
 
@@ -30,16 +30,16 @@ Me.y = function y(value) {
 	return new Me(Y_DIMENSION, value);
 };
 
-Me.noX = function offscreenX() {
+Me.noX = function noX() {
 	ensure.signature(arguments, []);
 
-	return new Me(X_DIMENSION);
+	return new Me(X_DIMENSION, Pixels.NONE);
 };
 
-Me.noY = function offscreenY() {
+Me.noY = function noY() {
 	ensure.signature(arguments, []);
 
-	return new Me(Y_DIMENSION);
+	return new Me(Y_DIMENSION, Pixels.NONE);
 };
 
 Me.prototype.compatibility = function compatibility() {

@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("../util/assert.js");
@@ -27,6 +27,11 @@ describe("VALUE: Position", function() {
 		assert.objEqual(Position.x(Pixels.create(10)), x1);
 	});
 
+	it("can be be off-screen", function() {
+		assert.objEqual(Position.noX(), noX, "x");
+		assert.objEqual(Position.noY(), noY, "y");
+	});
+
 	it("responds to value()", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
@@ -48,6 +53,12 @@ describe("VALUE: Position", function() {
 		assert.objEqual(x2.midpoint(x1), Position.x(15), "right to left");
 		assert.objEqual(y1.midpoint(y2), Position.y(65), "top to bottom");
 		assert.objEqual(y2.midpoint(y1), Position.y(65), "bottom to top");
+	});
+
+	it("allows computation with off-screen values (but result is always off-screen)", function() {
+		assert.objEqual(noX.plus(noX), noX, "off-screen + off-screen");
+		assert.objEqual(noX.plus(x1), noX, "off-screen + on-screen");
+		assert.objEqual(x1.plus(noX), noX, "on-screen + off-screen");
 	});
 
 	it("determines difference between displayed positions", function() {
