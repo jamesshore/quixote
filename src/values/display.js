@@ -7,8 +7,8 @@
 
 	var DISPLAYED = "displayed";
 	var NOT_DISPLAYED = "not displayed";
-	var DISPLAY_NONE = "not displayed (display:none property set)";
-	var DETACHED = "not displayed (detached from DOM)";
+	var DISPLAY_NONE = "not displayed due to display:none property";
+	var DETACHED = "not displayed due to being detached from DOM";
 
 	var Me = module.exports = function Display(state) {
 		ensure.signature(arguments, [ String ]);
@@ -43,10 +43,10 @@
 
 		if (thisState === expectedState) return "";
 
-		if (thisState === DISPLAYED) return "displayed when not expected";
-		else if (expectedState === DISPLAYED) return "not displayed when expected";
+		if (thisState === DISPLAYED) return "expected to be non-displayed";
+		else if (expectedState === DISPLAYED) return "expected to be displayed";
 		else if (thisState === NOT_DISPLAYED || expectedState === NOT_DISPLAYED) return "";
-		else return "not displayed differently than expected";
+		else return "achieved differently than expected";
 	});
 
 	Me.prototype.toString = function toString() {

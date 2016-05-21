@@ -45,7 +45,7 @@
 		});
 
 		it("converts to string", function() {
-			assert.equal(displayed.toString(), displayedElement.toString());
+			assert.equal(displayed.toString(), "display status of " + displayedElement.toString());
 		});
 
 	});

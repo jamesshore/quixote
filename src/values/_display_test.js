@@ -26,36 +26,36 @@
 
 		it("describes difference", function() {
 			var EQUAL = "";
-			var DISPLAYED = "displayed when not expected";
-			var NOT_DISPLAYED = "not displayed when expected";
-			var DIFFERENT_NON_DISPLAY = "not displayed differently than expected";
+			var EXPECT_NON_DISPLAY = "expected to be non-displayed";
+			var EXPECT_DISPLAY = "expected to be displayed";
+			var EXPECT_DIFFERENT_NON_DISPLAY = "achieved differently than expected";
 
 			assert.equal(displayed.diff(displayed), EQUAL);
-			assert.equal(displayed.diff(notDisplayed), DISPLAYED);
-			assert.equal(displayed.diff(displayNone), DISPLAYED);
-			assert.equal(displayed.diff(detached), DISPLAYED);
+			assert.equal(displayed.diff(notDisplayed), EXPECT_NON_DISPLAY);
+			assert.equal(displayed.diff(displayNone), EXPECT_NON_DISPLAY);
+			assert.equal(displayed.diff(detached), EXPECT_NON_DISPLAY);
 
-			assert.equal(notDisplayed.diff(displayed), NOT_DISPLAYED);
+			assert.equal(notDisplayed.diff(displayed), EXPECT_DISPLAY);
 			assert.equal(notDisplayed.diff(notDisplayed), EQUAL);
 			assert.equal(notDisplayed.diff(displayNone), EQUAL);
 			assert.equal(notDisplayed.diff(detached), EQUAL);
 
-			assert.equal(displayNone.diff(displayed), NOT_DISPLAYED);
+			assert.equal(displayNone.diff(displayed), EXPECT_DISPLAY);
 			assert.equal(displayNone.diff(notDisplayed), EQUAL);
 			assert.equal(displayNone.diff(displayNone), EQUAL);
-			assert.equal(displayNone.diff(detached), DIFFERENT_NON_DISPLAY);
+			assert.equal(displayNone.diff(detached), EXPECT_DIFFERENT_NON_DISPLAY);
 
-			assert.equal(detached.diff(displayed), NOT_DISPLAYED);
+			assert.equal(detached.diff(displayed), EXPECT_DISPLAY);
 			assert.equal(detached.diff(notDisplayed), EQUAL);
 			assert.equal(detached.diff(detached), EQUAL);
-			assert.equal(detached.diff(displayNone), DIFFERENT_NON_DISPLAY);
+			assert.equal(detached.diff(displayNone), EXPECT_DIFFERENT_NON_DISPLAY);
 		});
 
 		it("converts to string", function() {
 			assert.equal(displayed.toString(), "displayed");
 			assert.equal(notDisplayed.toString(), "not displayed");
-			assert.equal(displayNone.toString(), "not displayed (display:none property set)");
-			assert.equal(detached.toString(), "not displayed (detached from DOM)");
+			assert.equal(displayNone.toString(), "not displayed due to display:none property");
+			assert.equal(detached.toString(), "not displayed due to being detached from DOM");
 		});
 
 	});

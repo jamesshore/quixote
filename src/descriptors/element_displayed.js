@@ -25,7 +25,7 @@
 	};
 
 	Me.prototype.toString = function toString() {
-		return this._element.toString();
+		return "display status of " + this._element.toString();
 	};
 
 }());
