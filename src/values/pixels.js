@@ -20,6 +20,7 @@ Me.createNone = function createNone() {
 };
 
 Me.ZERO = Me.create(0);
+Me.NONE = Me.createNone();
 
 Me.prototype.compatibility = function compatibility() {
 	return [ Me ];

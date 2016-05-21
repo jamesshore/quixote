@@ -14,7 +14,7 @@ var Me = module.exports = function Position(dimension, value) {
 
 	this._dimension = dimension;
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
-	this._displayed = !this._value.equals(Pixels.createNone());
+	this._displayed = !this._value.equals(Pixels.NONE);
 };
 Value.extend(Me);
 
@@ -33,13 +33,13 @@ Me.y = function y(value) {
 Me.noX = function noX() {
 	ensure.signature(arguments, []);
 
-	return new Me(X_DIMENSION, Pixels.createNone());
+	return new Me(X_DIMENSION, Pixels.NONE);
 };
 
 Me.noY = function noY() {
 	ensure.signature(arguments, []);
 
-	return new Me(Y_DIMENSION, Pixels.createNone());
+	return new Me(Y_DIMENSION, Pixels.NONE);
 };
 
 Me.prototype.compatibility = function compatibility() {
