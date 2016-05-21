@@ -5,7 +5,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## 0.12.x: Non-Displayed Elements
 
-**In progress.** Quixote is now smarter about elements that aren't displayed. Elements that have the `display:none` property or that are detached from the DOM are considered to be non-displayed. To detect non-displayed elements, you can use the new `element.displayed` descriptor [TBD]. You can also compare position and sizes to "none".
+**21 May 2016.** Quixote is now smarter about elements that aren't displayed. Elements that have the `display:none` property or that are detached from the DOM are considered to be non-displayed. To detect non-displayed elements, you can use the new `element.displayed` descriptor. You can also compare position and sizes to "none".
 
 **Breaking changes:**
 
@@ -28,7 +28,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
   });
   ```
   
-  Or, better yet: [TBD]
+  Or, better yet:
   
   ```javascript
   lightbox.assert({
@@ -38,7 +38,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
   
 *New descriptors:*
 
-* QElement.displayed [TBD]
+* QElement.displayed
 
 *New methods:*
 
@@ -46,8 +46,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Other changes:*
 
-* QFrame.add() no longer fails when adding HTML with leading or trailing whitespace
-* Added Value object tutorial to contributor documentation
+* QFrame.add() no longer fails when adding HTML with leading or trailing whitespace.
+* Added Value object tutorial to contributor documentation.
   
 
 ## 0.11.x: Single-Page App Support
@@ -70,9 +70,9 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 *Changes:*
 
 * New 'Usage' and 'Gotchas' sections in the Readme.
-* New 'Architecture' section in contributor guide
-* Tweaks and refinements to API and contributor documentation
-* Example project
+* New 'Architecture' section in contributor guide.
+* Tweaks and refinements to API and contributor documentation.
+* Example project.
 
 
 ## 0.9.x: Multiple Stylesheets
