@@ -10,11 +10,11 @@ var X_DIMENSION = "x";
 var Y_DIMENSION = "y";
 
 var Me = module.exports = function Position(dimension, value) {
-	ensure.signature(arguments, [ String, [ Number, Pixels, undefined ] ]);
+	ensure.signature(arguments, [ String, [ Number, Pixels ] ]);
 
 	this._dimension = dimension;
-	this._displayed = (value !== undefined);
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
+	this._displayed = !this._value.equals(Pixels.createNone());
 };
 Value.extend(Me);
 
@@ -33,13 +33,13 @@ Me.y = function y(value) {
 Me.noX = function noX() {
 	ensure.signature(arguments, []);
 
-	return new Me(X_DIMENSION);
+	return new Me(X_DIMENSION, Pixels.createNone());
 };
 
 Me.noY = function noY() {
 	ensure.signature(arguments, []);
 
-	return new Me(Y_DIMENSION);
+	return new Me(Y_DIMENSION, Pixels.createNone());
 };
 
 Me.prototype.compatibility = function compatibility() {

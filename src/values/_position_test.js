@@ -55,6 +55,10 @@ describe("VALUE: Position", function() {
 		assert.objEqual(y2.midpoint(y1), Position.y(65), "bottom to top");
 	});
 
+	it("allows computation with off-screen values (but result is always off-screen)", function() {
+		//assert.objEqual(noX.plus(x1), noX, "plus");
+	});
+
 	it("determines difference between displayed positions", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
