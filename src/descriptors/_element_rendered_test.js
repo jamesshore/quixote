@@ -11,32 +11,32 @@
 	describe("DESCRIPTOR: ElementRendered", function() {
 
 		var frame;
-		var displayedElement;
+		var renderedElement;
 		var displayNoneElement;
 		var detachedElement;
-		var displayed;
+		var rendered;
 		var displayNone;
 		var detached;
 
 		beforeEach(function() {
 			frame = reset.frame;
 
-			displayedElement = frame.add("<p>element</p>", "displayed");
+			renderedElement = frame.add("<p>element</p>", "displayed");
 			displayNoneElement = frame.add("<p style='display:none'>display:none</p>", "display:none");
 			detachedElement = frame.add("<p>detached</p>", "detached");
 			detachedElement.remove();
 
-			displayed = ElementRendered.create(displayedElement);
+			rendered = ElementRendered.create(renderedElement);
 			displayNone = ElementRendered.create(displayNoneElement);
 			detached = ElementRendered.create(detachedElement);
 		});
 
 		it("is a descriptor", function() {
-			assert.implements(displayed, Descriptor);
+			assert.implements(rendered, Descriptor);
 		});
 
 		it("resolves to value", function() {
-			assert.objEqual(displayed.value(), RenderState.displayed(), "displayed");
+			assert.objEqual(rendered.value(), RenderState.rendered(), "displayed");
 			assert.objEqual(displayNone.value(), RenderState.displayNone(), "display:none");
 			assert.objEqual(detached.value(), RenderState.detached(), "detached");
 
@@ -45,14 +45,14 @@
 		});
 
 		it("converts to string", function() {
-			assert.equal(displayed.toString(), "display status of " + displayedElement.toString());
+			assert.equal(rendered.toString(), "display status of " + renderedElement.toString());
 		});
 
 		it("converts comparison arguments", function() {
-		  assert.objEqual(displayed.convert(true, "boolean"), RenderState.displayed());
-		  assert.objEqual(displayed.convert(false, "boolean"), RenderState.notDisplayed());
-		  assert.objEqual(displayed.convert("none", "string"), RenderState.displayNone());
-		  assert.objEqual(displayed.convert("detached", "string"), RenderState.detached());
+		  assert.objEqual(rendered.convert(true, "boolean"), RenderState.rendered());
+		  assert.objEqual(rendered.convert(false, "boolean"), RenderState.notRendered());
+		  assert.objEqual(rendered.convert("none", "string"), RenderState.displayNone());
+		  assert.objEqual(rendered.convert("detached", "string"), RenderState.detached());
 		});
 
 	});

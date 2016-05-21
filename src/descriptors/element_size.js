@@ -45,7 +45,7 @@
 	}
 
 	function elementRendered(self) {
-		return self._element.rendered.value().equals(RenderState.displayed());
+		return self._element.rendered.value().equals(RenderState.rendered());
 	}
 
 }());

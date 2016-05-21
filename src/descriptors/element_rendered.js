@@ -6,7 +6,7 @@
 	var RenderState = require("../values/render_state.js");
 	var Descriptor = require("./descriptor.js");
 
-	var Me = module.exports = function ElementDisplayed(element) {
+	var Me = module.exports = function ElementRendered(element) {
 		var QElement = require("../q_element.js");      // break circular dependency
 		ensure.signature(arguments, [ QElement ]);
 
@@ -21,7 +21,7 @@
 	Me.prototype.value = function value() {
 		if (!this._element.frame.body().toDomElement().contains(this._element.toDomElement())) return RenderState.detached();
 		else if (this._element.getRawStyle("display") === "none") return RenderState.displayNone();
-		else return RenderState.displayed();
+		else return RenderState.rendered();
 	};
 
 	Me.prototype.toString = function toString() {
@@ -30,7 +30,7 @@
 
 	Me.prototype.convert = function convert(arg, type) {
 	  if (type === "boolean") {
-		  return arg ? RenderState.displayed() : RenderState.notDisplayed();
+		  return arg ? RenderState.rendered() : RenderState.notRendered();
 	  }
 		if (type === "string") {
 			if (arg === "none") return RenderState.displayNone();

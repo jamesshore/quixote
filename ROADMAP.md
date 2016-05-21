@@ -22,8 +22,6 @@
 
 
 ## To Do: "Displayed" descriptor
-* Update descriptor and value object rendering to say 'rendered' not 'displayed'
-* Update ElementEdge and ElementSize to say 'rendered' not 'displayed'
 * ElementRendered.md
 
 

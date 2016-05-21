@@ -17,11 +17,11 @@
 	};
 	Value.extend(Me);
 
-	Me.displayed = function displayed() {
+	Me.rendered = function rendered() {
 		return new Me(RENDERED);
 	};
 
-	Me.notDisplayed = function notDisplayed() {
+	Me.notRendered = function notRendered() {
 		return new Me(NOT_RENDERED);
 	};
 
