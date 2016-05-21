@@ -10,7 +10,7 @@
 * **✔ v0.6** Responsive design
 * **✔ v0.7** Page and viewport assertions
 * **✔ v0.8 - v0.11** Dogfooding and real-world usage (more dogfooding releases to come)
-* **v0.12** Element display status descriptors
+* **✔ v0.12** Element display status descriptors
 * **v0.13** Element visibility descriptors, including @woldie's clip
 * ...more TBD
 
