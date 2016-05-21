@@ -36,7 +36,7 @@
 		});
 
 		it("resolves to value", function() {
-			assert.objEqual(rendered.value(), RenderState.rendered(), "displayed");
+			assert.objEqual(rendered.value(), RenderState.rendered(), "rendered");
 			assert.objEqual(displayNone.value(), RenderState.displayNone(), "display:none");
 			assert.objEqual(detached.value(), RenderState.detached(), "detached");
 
@@ -45,13 +45,13 @@
 		});
 
 		it("converts to string", function() {
-			assert.equal(rendered.toString(), "display status of " + renderedElement.toString());
+			assert.equal(rendered.toString(), "render status of " + renderedElement.toString());
 		});
 
 		it("converts comparison arguments", function() {
 		  assert.objEqual(rendered.convert(true, "boolean"), RenderState.rendered());
 		  assert.objEqual(rendered.convert(false, "boolean"), RenderState.notRendered());
-		  assert.objEqual(rendered.convert("none", "string"), RenderState.displayNone());
+		  assert.objEqual(rendered.convert("display:none", "string"), RenderState.displayNone());
 		  assert.objEqual(rendered.convert("detached", "string"), RenderState.detached());
 		});
 

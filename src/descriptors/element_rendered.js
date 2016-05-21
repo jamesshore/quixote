@@ -33,7 +33,7 @@
 		  return arg ? RenderState.rendered() : RenderState.notRendered();
 	  }
 		if (type === "string") {
-			if (arg === "none") return RenderState.displayNone();
+			if (arg === "display:none") return RenderState.displayNone();
 			if (arg === "detached") return RenderState.detached();
 		}
 	};
