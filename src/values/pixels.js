@@ -85,5 +85,5 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._none ? "NoPixels" : this._amount + "px";
+	return this._none ? "no pixels" : this._amount + "px";
 };

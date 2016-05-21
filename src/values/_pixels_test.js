@@ -118,7 +118,7 @@ describe("VALUE: Pixels", function() {
 		});
 
 		it("converts to string", function() {
-			assert.equal(noPixels.toString(), "NoPixels");
+			assert.equal(noPixels.toString(), "no pixels");
 		});
 
 	});
