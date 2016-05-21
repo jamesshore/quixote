@@ -224,7 +224,9 @@ If you don't already have a preferred test framework:
 
 1. Install [Karma](http://karma-runner.github.io). Karma runs your test suite in multiple browsers simultaneously.
 2. Install [Mocha](https://mochajs.org/). Mocha is a test framework. It organizes and runs your tests.
-3. Install [Chai](http://chaijs.com/). Chai is an assertion library. It allows you to check results. 
+3. Install [Chai](http://chaijs.com/). Chai is an assertion library. It allows you to check results.
+ 
+If you're using Karma, you may also want to use the [karma-quixote](https://github.com/woldie/karma-quixote) plugin. This plugin will automatically load Quixote into the global `quixote` variable for you. 
 
 
 ### 3. Serve your test files
