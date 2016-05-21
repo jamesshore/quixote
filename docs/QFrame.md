@@ -146,9 +146,9 @@ Example: Assert that a banner is displayed at the top of the window and all the 
 ```javascript
 var viewport = frame.viewport();
 banner.assert({
-  top: viewport.top(),
-  left: viewport.left(),
-  width: viewport.width()
+  top: viewport.top,
+  left: viewport.left,
+  width: viewport.width
 });
 ```
 
