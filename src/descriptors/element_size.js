@@ -1,11 +1,9 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("../util/ensure.js");
 var SizeDescriptor = require("./size_descriptor.js");
 var Size = require("../values/size.js");
-var RelativeSize = require("./relative_size.js");
-var SizeMultiple = require("./size_multiple.js");
 
 var X_DIMENSION = "width";
 var Y_DIMENSION = "height";

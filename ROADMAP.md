@@ -17,14 +17,15 @@
 
 ## Current Feature: Undisplayed Elements (0.12 release)
 
-* Modify Size to support No Size
 * Update SizeDescriptor
 * Update SizeDescriptor docs for 'none'
 * Implement "displayed" descriptor
+* Review descriptor docs and update to match PositionDescriptor format
 
 
-## To Do: Modify Size to support No Size
-* Done
+## To Do: Update SizeDescriptor
+* Update ElementSize to handle undisplayed elements (ref ElementEdge changes)
+* Update SizeDescriptor to support 'none' (ref SizeDescriptor changes)
 
 
 ## Dogfooding Notes
