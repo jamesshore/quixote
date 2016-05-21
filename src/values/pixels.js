@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("../util/ensure.js");
@@ -48,16 +48,23 @@ Me.prototype.average = Value.safe(function average(operand) {
 });
 
 Me.prototype.compare = Value.safe(function compare(operand) {
-	if (!this._none && !operand._none) {
+	var bothHavePixels = !this._none && !operand._none;
+	var neitherHavePixels = this._none && operand._none;
+	var onlyLeftHasPixels = !this._none && operand._none;
+
+	if (bothHavePixels) {
 		var difference = this._amount - operand._amount;
 		if (Math.abs(difference) <= 0.5) return 0;
 		else return difference;
 	}
-	else if (this._none && operand._none) {
-		return 0;
+	else if (neitherHavePixels) {
+				return 0;
+	}
+	else if (onlyLeftHasPixels) {
+		return 1;
 	}
 	else {
-		ensure.unreachable("NoPixels should never be compared or diff'd to Pixel values");
+		return -1;
 	}
 });
 
@@ -75,6 +82,7 @@ Me.min = function(l, r) {
 
 Me.prototype.diff = Value.safe(function diff(expected) {
 	if (this.compare(expected) === 0) return "";
+	if (this._none || expected._none) return "non-measurable";
 
 	var difference = Math.abs(this._amount - expected._amount);
 

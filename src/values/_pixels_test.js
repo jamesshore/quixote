@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("../util/assert.js");
@@ -86,35 +86,22 @@ describe("VALUE: Pixels", function() {
 		});
 
 		it("is comparable to itself (and always equal)", function() {
-			assert.equal(noPixels.compare(noPixels), 0);
+			assert.equal(noPixels.compare(noPixels) === 0, true);
 		});
 
-		it("fails fast when compared to pixel values", function() {
+		it("is always 'less' than pixel values", function() {
+			var zero = Pixels.create(0);
+
+			assert.equal(noPixels.compare(zero) < 0, true, "noPixels < pixels");
+			assert.equal(zero.compare(noPixels) > 0, true, "pixels > noPixels");
+		});
+
+		it("diffs", function() {
 			var pixels = Pixels.create(42);
 
-			assert.exception(function() {
-				noPixels.compare(pixels);
-			}, ensure.EnsureException, "one way");
-
-			assert.exception(function() {
-				pixels.compare(noPixels);
-			}, ensure.EnsureException, "other way");
-		});
-
-		it("diffs against itself", function() {
-			assert.equal(noPixels.diff(noPixels2), "");
-		});
-
-		it("fails fast when diff'd with pixel values", function() {
-			var pixels = Pixels.create(42);
-
-			assert.exception(function() {
-				noPixels.diff(pixels);
-			}, ensure.EnsureException, "one way");
-
-			assert.exception(function() {
-				pixels.diff(noPixels);
-			}, ensure.EnsureException, "other way");
+			assert.equal(noPixels.diff(noPixels2), "", "diffing noPixels and noPixels");
+			assert.equal(noPixels.diff(pixels), "non-measurable", "diffing noPixels and pixels");
+			assert.equal(pixels.diff(noPixels), "non-measurable", "diffing pixels and noPixels");
 		});
 
 		it("converts to string", function() {
