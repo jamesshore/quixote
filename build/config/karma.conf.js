@@ -16,14 +16,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'src/**/*body_script*_test.js', included: false, served: true, nocache: true},
-      {pattern: 'src/**/*head_script*_test.js', included: false, served: true, nocache: true},
-      {pattern: 'src/**/*inline_script*_test.html', included: false, served: true, nocache: true},
-      {pattern: 'src/**/*angular*_test.html', included: false, served: true, nocache: true},
-      {pattern: 'src/**/*react*_test.html', included: false, served: true, nocache: true},
-      {pattern: 'node_modules/**/*', included: false, served: true, nocache: true},
-      'src/**/!(*body_script_test|*head_script_test)*.js',
-      'src/**/!(*inline_script|*angular|*react)*.html',
+      'src/**/*.js',
+      'src/**/*.html',
       'src/**/*.css',
 	    'vendor/**/*.js'
     ],
