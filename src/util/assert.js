@@ -79,7 +79,7 @@ exports.objEqual = function(actual, expected, message) {
 	var expectedClass = oop.instanceName(expected);
 	var actualClass = oop.instanceName(actual);
 	var equalityMessage = message + " object equality expected " +
-		expectedClass + " instance '" + expected + "', but got " + actualClass + " instance '" + actual + "'";
+		expectedClass + " '" + expected + "', but got " + actualClass + " '" + actual + "'";
 
 	proclaim.isTrue(actual.equals(expected), equalityMessage);
 };
