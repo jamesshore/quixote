@@ -18,12 +18,11 @@
 ## Current Feature: Undisplayed Elements (0.12 release)
 
 * Implement "displayed" descriptor
-* QElement.displayed documentation
 * Review descriptor docs and update to match PositionDescriptor format
 
 
 ## To Do: "Displayed" descriptor
-* done
+* QElement.displayed documentation
 
 
 ## Dogfooding Notes
