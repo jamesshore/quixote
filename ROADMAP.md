@@ -23,8 +23,6 @@
 
 
 ## To Do: "Displayed" descriptor
-* QElement.remove()
-	* Document
 * 'Display' value object
 * ElementDisplayed descriptor
 * Factor out common elementDisplayed() function in ElementEdge and ElementSize

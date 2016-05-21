@@ -40,9 +40,14 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * QElement.displayed [TBD]
 
+*New methods:*
+
+* QElement.remove()
+
 *Other changes:*
 
 * Added Value object tutorial
+
   
 
 ## 0.11.x: Single-Page App Support
