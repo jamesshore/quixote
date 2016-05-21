@@ -487,6 +487,7 @@ Many thanks to our contributors!
 * Steve Henty (@cognivator): QFrame.reload() for single-page apps and other scripts (v0.11)
 * Dave Woldrich (@woldie): 'none' option in position and size descriptors, documentation improvements (v0.12)
 * Tim Neil (@moefinley): Documentation bug-fix (v0.12)
+* Noah Burney (@nwah): Prevent failure when QFrame.add() uses HTML with leading or trailing whitespace (v0.12)
 
 
 ## License

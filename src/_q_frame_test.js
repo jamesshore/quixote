@@ -321,6 +321,12 @@ describe("FOUNDATION: QFrame", function() {
 			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
 		});
 
+		it("doesn't choke on leading/trailing whitespace in html passed to .add()", function() {
+			var htmlWithWhitespace = "  \n  <p>foo</p>  \n  ";
+			frame.add(htmlWithWhitespace);
+			// should not throw exception
+		});
+
 		it("uses optional nickname to describe added elements", function() {
 			var element = frame.add("<p>foo</p>", "my element");
 			assert.equal(element.toString(), "'my element'");

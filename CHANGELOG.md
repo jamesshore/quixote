@@ -46,8 +46,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Other changes:*
 
-* Added Value object tutorial
-
+* QFrame.add() no longer fails when adding HTML with leading or trailing whitespace
+* Added Value object tutorial to contributor documentation
   
 
 ## 0.11.x: Single-Page App Support

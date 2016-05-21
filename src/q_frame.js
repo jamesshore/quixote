@@ -199,7 +199,7 @@
 		ensureUsable(this);
 
 		var tempElement = document.createElement("div");
-		tempElement.innerHTML = html;
+		tempElement.innerHTML = shim.String.trim(html);
 		ensure.that(
 			tempElement.childNodes.length === 1,
 			"Expected one element, but got " + tempElement.childNodes.length + " (" + html + ")"
