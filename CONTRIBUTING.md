@@ -84,7 +84,7 @@ All the Quixote source and test code is in `src`. Test code starts with an under
 
 * `src` contains our top-level API.
 * `src/descriptors` contains descriptors: objects that describe how a CSS value can be calculated and displayed. (See the [Architecture](#architecture) section below for more details.)
-* `src/values` contain values: objects that represent a calculated result.
+* `src/values` contains values: objects that represent a calculated result.
 
 Other top-level directories contain infrastructure and support.
 
