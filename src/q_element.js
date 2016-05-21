@@ -20,7 +20,7 @@ var Me = module.exports = function QElement(domElement, frame, nickname) {
 	this.frame = frame;
 
 	// properties
-	this.displayed = ElementDisplayed.create(this);
+	this.rendered = ElementDisplayed.create(this);
 
 	this.top = ElementEdge.top(this);
 	this.right = ElementEdge.right(this);

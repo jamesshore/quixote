@@ -82,7 +82,7 @@ describe("FOUNDATION: QElement", function() {
 		});
 
 		it("visibility", function() {
-			assert.equal(element.displayed.diff(true), "", "displayed");
+			assert.equal(element.rendered.diff(true), "", "rendered");
 		});
 
 		it("edges", function() {
