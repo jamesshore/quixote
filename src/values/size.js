@@ -16,6 +16,12 @@ Me.create = function create(value) {
 	return new Me(value);
 };
 
+Me.createNone = function createNone() {
+	ensure.signature(arguments, []);
+
+	return new Me(Pixels.NONE);
+};
+
 Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };
@@ -41,6 +47,8 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 	var expectedValue = expected._value;
 
 	if (actualValue.equals(expectedValue)) return "";
+	if (isNone(expected) && !isNone(this)) return "displayed when not expected";
+	if (!isNone(expected) && isNone(this)) return "not displayed";
 
 	var desc = actualValue.compare(expectedValue) > 0 ? " larger than expected" : " smaller than expected";
 	return actualValue.diff(expectedValue) + desc;
@@ -48,10 +56,16 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
-	return this._value.toString();
+
+	if (isNone(this)) return "not displayed";
+	else return this._value.toString();
 };
 
 Me.prototype.toPixels = function toPixels() {
 	ensure.signature(arguments, []);
 	return this._value;
 };
+
+function isNone(size) {
+	return size._value.equals(Pixels.NONE);
+}

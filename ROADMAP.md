@@ -24,8 +24,7 @@
 
 
 ## To Do: Modify Size to support No Size
-* Review and improve Position
-* Implement No Size
+* Done
 
 
 ## Dogfooding Notes

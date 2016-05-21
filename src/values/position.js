@@ -14,7 +14,6 @@ var Me = module.exports = function Position(dimension, value) {
 
 	this._dimension = dimension;
 	this._value = (typeof value === "number") ? Pixels.create(value) : value;
-	this._displayed = !this._value.equals(Pixels.NONE);
 };
 Value.extend(Me);
 
@@ -64,13 +63,12 @@ Me.prototype.midpoint = Value.safe(function midpoint(operand) {
 Me.prototype.diff = Value.safe(function diff(expected) {
 	checkAxis(this, expected);
 
-	if (!this._displayed && !expected._displayed) return "";
-	else if (this._displayed && !expected._displayed) return "displayed when not expected";
-	else if (!this._displayed && expected._displayed) return "not displayed";
-
 	var actualValue = this._value;
 	var expectedValue = expected._value;
+
 	if (actualValue.equals(expectedValue)) return "";
+	else if (isNone(expected) && !isNone(this)) return "displayed when not expected";
+	else if (!isNone(expected) && isNone(this)) return "not displayed";
 
 	var direction;
 	var comparison = actualValue.compare(expectedValue);
@@ -83,7 +81,7 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 Me.prototype.toString = function toString() {
 	ensure.signature(arguments, []);
 
-	if (!this._displayed) return "not displayed";
+	if (isNone(this)) return "not displayed";
 	else return this._value.toString();
 };
 
@@ -96,4 +94,8 @@ function checkAxis(self, other) {
 	if (other instanceof Me) {
 		ensure.that(self._dimension === other._dimension, "Can't compare X coordinate to Y coordinate");
 	}
+}
+
+function isNone(position) {
+	return position._value.equals(Pixels.NONE);
 }
