@@ -10,7 +10,7 @@
 	var DISPLAY_NONE = "not rendered due to display:none property";
 	var DETACHED = "not rendered due to being detached from DOM";
 
-	var Me = module.exports = function Display(state) {
+	var Me = module.exports = function RenderState(state) {
 		ensure.signature(arguments, [ String ]);
 
 		this._state = state;
