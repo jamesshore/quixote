@@ -18,9 +18,9 @@ Stability: 1 - Experimental
 ElementRendered descriptor assertions may use another ElementRendered descriptor, a boolean, or a string. Use the boolean when you want to check whether an element is rendered in general, and the string when you want to check for a specific reason that an element is not rendered.
 
 * The boolean `true` means the element should be rendered.
-* The boolean `false` means that element should not be rendered.
-* The string `"display:none"` means that the element should have the `display:none` property set. 
-* The string `"detached"` means that the element should be detached from the DOM.
+* The boolean `false` means that element should not be rendered, regardless of the reason.
+* The string `"display:none"` means that the element should not be rendered as a result of having the `display:none` property set.
+* The string `"detached"` means that the element should not be rendered as a result of being detached from the DOM.
 
 
 ### Examples

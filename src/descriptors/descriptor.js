@@ -61,9 +61,14 @@ function normalizeType(self, expected) {
 		throw new Error("Can't compare " + self + " to " + oop.instanceName(expected) + " instances.");
 	}
 	else {
-		expected = self.convert(expected, expectedType);
-		if (expected === undefined) throw new Error("Can't compare " + self + " to " + expectedType + ".");
+		var converted = self.convert(expected, expectedType);
+		if (converted !== undefined) return converted;
+
+		var explanation = expected;
+		if (expectedType === "string") explanation = "'" + explanation + "'";
+		if (expectedType === "function") explanation = "a function";
+
+		throw new Error("Can't compare " + self + " to " + explanation + ".");
 	}
 
-	return expected;
 }

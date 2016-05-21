@@ -17,10 +17,10 @@
 
 ## Current Feature: Undisplayed Elements (0.12 release)
 
-* Implement "displayed" descriptor
+* done
 
 
-## To Do: "Displayed" descriptor
+## To Do: "Rendered" descriptor
 * done
 
 
