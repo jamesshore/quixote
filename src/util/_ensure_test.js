@@ -108,25 +108,29 @@ describe("UTIL: Ensure", function() {
 
 		it("supports custom types", function() {
 			function MyClass() {}
-			var NoName = function() {};
+			var Anon = function() {};
 
 			assert.noException(signature([ new MyClass() ], [ MyClass ]), "valid MyClass");
-			assert.noException(signature([ new NoName() ], [ NoName ]), "valid anon class");
+			assert.noException(signature([ new Anon() ], [ Anon ]), "valid anon class");
 			assert.exception(
 				signature([ {} ], [ MyClass ]),
 				/Argument 0 expected MyClass instance, but was Object instance/,
 				"invalid MyClass"
 			);
-			assert.exception(
-				signature([ {} ], [ NoName ]),
-				/Argument 0 expected <anon> instance, but was Object instance/,
-				"invalid anon class"
-			);
-			assert.exception(
-				signature([ new NoName() ], [ MyClass ]),
-				/Argument 0 expected MyClass instance, but was <anon> instance/,
-				"invalid anon instance"
-			);
+			// WORKAROUND Chrome 51: Chrome automatically names the function after the variable ("Anon" in this case),
+			// so it doesn't have unnamed classes. We use the 'if' clause to skip these assertions on Chrome.
+			if (Anon.name !== "Anon") {
+				assert.exception(
+					signature([{}], [Anon]),
+					/Argument 0 expected <anon> instance, but was Object instance/,
+					"invalid anon class"
+				);
+				assert.exception(
+					signature([new Anon()], [MyClass]),
+					/Argument 0 expected MyClass instance, but was <anon> instance/,
+					"invalid anon instance"
+				);
+			}
 		});
 
 		it("can compare DOM types as generic objects", function() {

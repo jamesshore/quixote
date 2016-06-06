@@ -12,7 +12,9 @@ describe("UTIL: OOP module", function() {
 		var Anon = function() {};
 
 		assert.equal(oop.className(Me), "Me", "named class");
-		assert.equal(oop.className(Anon), "<anon>", "unnamed class");
+		// WORKAROUND Chrome 51: Chrome automatically names the function after the variable ("Anon" in this case),
+		// so it doesn't have unnamed classes. We use the 'if' clause to skip this assertion on Chrome.
+		if (Anon.name !== "Anon") assert.equal(oop.className(Anon), "<anon>", "unnamed class");
 
 		assert.exception(function() {
 			console.log(oop.className({}));
@@ -27,7 +29,9 @@ describe("UTIL: OOP module", function() {
 		assert.equal(oop.instanceName(new Me()), "Me", "named class");
 
 		var Anon = function() {};
-		assert.equal(oop.instanceName(new Anon()), "<anon>", "unnamed class");
+		// WORKAROUND Chrome 51: Chrome automatically names the function after the variable ("Anon" in this case),
+		// so it doesn't have unnamed classes. We use the 'if' clause to skip this assertion on Chrome.
+		if (Anon.name !== "Anon") assert.equal(oop.instanceName(new Anon()), "<anon>", "unnamed class");
 
 		function BadConstructor() {}
 		BadConstructor.prototype.constructor = undefined;
