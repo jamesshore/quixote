@@ -9,8 +9,9 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Patches:*
 
-* *0.12.1, 21 May 2016:* Fixed incorrect property names and descriptions in change log.
-* *0.12.2, 22 May 2016:* Additional minor documentation fixes.
+* *0.12.1, 21 May 2016:* Documentation: Fixed incorrect property names and descriptions in change log.
+* *0.12.2, 22 May 2016:* Documentation: Additional minor fixes.
+* *0.12.3, 14 July 2016:* Documentation: Fixed missing parentheses in readme's example source code
 
 **Breaking changes:**
 

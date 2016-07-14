@@ -202,10 +202,10 @@ describe("Home page", function() {
   });
   
   it("has a color scheme", function() {
-    assert.equal(frame.body().getRawStyle("background-color", BACKGROUND_BLUE, "page background");
-    assert.equal(logo.getRawStyle("color", WHITE, "logo text");
-    assert.equal(navbar.getRawStyle("background-color", MEDIUM_BLUE, "navbar background color");
-    assert.equal(navbar.getRawStyle("color", WHITE, "navbar text");
+    assert.equal(frame.body().getRawStyle("background-color"), BACKGROUND_BLUE, "page background");
+    assert.equal(logo.getRawStyle("color"), WHITE, "logo text");
+    assert.equal(navbar.getRawStyle("background-color"), MEDIUM_BLUE, "navbar background color");
+    assert.equal(navbar.getRawStyle("color"), WHITE, "navbar text");
   });
   
   it("has a typographic scheme", function() {
@@ -490,6 +490,7 @@ Many thanks to our contributors!
 * Dave Woldrich (@woldie): 'none' option in position and size descriptors, documentation improvements (v0.12)
 * Tim Neil (@moefinley): Documentation bug-fix (v0.12)
 * Noah Burney (@nwah): Prevent failure when QFrame.add() uses HTML with leading or trailing whitespace (v0.12)
+* Thomas Hallock (@antialias): Documentation bug-fix (v0.12.
 
 
 ## License
