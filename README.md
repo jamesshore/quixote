@@ -202,10 +202,10 @@ describe("Home page", function() {
   });
   
   it("has a color scheme", function() {
-    assert.equal(frame.body().getRawStyle("background-color", BACKGROUND_BLUE, "page background");
-    assert.equal(logo.getRawStyle("color", WHITE, "logo text");
-    assert.equal(navbar.getRawStyle("background-color", MEDIUM_BLUE, "navbar background color");
-    assert.equal(navbar.getRawStyle("color", WHITE, "navbar text");
+    assert.equal(frame.body().getRawStyle("background-color"), BACKGROUND_BLUE, "page background");
+    assert.equal(logo.getRawStyle("color"), WHITE, "logo text");
+    assert.equal(navbar.getRawStyle("background-color"), MEDIUM_BLUE, "navbar background color");
+    assert.equal(navbar.getRawStyle("color"), WHITE, "navbar text");
   });
   
   it("has a typographic scheme", function() {
