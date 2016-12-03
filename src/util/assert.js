@@ -9,6 +9,7 @@
 // But Proclaim is not stellar, so we build our own in places.
 var proclaim = require("../../vendor/proclaim-2.0.0.js");
 
+var objectDiff = require("./big_object_diff.js");
 var shim = require("./shim.js");
 var oop = require("./oop.js");
 
@@ -90,9 +91,25 @@ exports.objNotEqual = function(actual, expected, message) {
 	proclaim.isFalse(actual.equals(expected), message + "expected '" + expected + "' and '" + actual + "' to be not be equal(), but they were");
 };
 
+
 exports.deepEqual = function(actual, expected, message) {
 	message = message ? message + ": " : "";
-	proclaim.deepEqual(actual, expected, message + "expected deep equality.");
+
+	// We use objectDiff.match() instead of proclaim.deepEqual() because Proclaim doesn't do strict
+	// equality checking in its deepEqual() assertion and objectDiff does.
+	if (!objectDiff.match(actual, expected)) {
+		var expectedString = JSON.stringify(expected);
+		var actualString = JSON.stringify(actual);
+
+		if (expectedString !== actualString) message += "expected " + expectedString + ", but got " + actualString;
+		else message += "object prototype expected " + describeObject(expected) + ", but got " + describeObject(actual);
+
+		proclaim.fail(
+			actual,
+			expected,
+			message
+		);
+	}
 };
 
 exports.match = function(actual, expectedRegex, message) {
