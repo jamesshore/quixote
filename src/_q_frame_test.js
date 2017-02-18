@@ -12,8 +12,6 @@ var QPage = require("./q_page.js");
 describe("FOUNDATION: QFrame", function() {
 	this.timeout(10000);
 
-  this.timeout(5000);
-
 	describe("creation and removal", function() {
 
 		var frame;
