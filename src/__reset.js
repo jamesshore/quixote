@@ -14,7 +14,7 @@ exports.HEIGHT = 400;
 exports.DEBUG = false;
 
 before(function(done) {
-	this.timeout(10000);
+	this.timeout(20000);
 	var options = {
 		width: exports.WIDTH,
 		height: exports.HEIGHT,
