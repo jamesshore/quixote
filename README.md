@@ -491,6 +491,7 @@ Many thanks to our contributors!
 * Tim Neil (@moefinley): Documentation bug-fix (v0.12)
 * Noah Burney (@nwah): Prevent failure when QFrame.add() uses HTML with leading or trailing whitespace (v0.12)
 * Thomas Hallock (@antialias): Documentation bug-fix (v0.12)
+* Juan Caicedo (@JuanCaicedo): Browserify bug-fix (v0.12)
 
 
 ## License
