@@ -80,7 +80,7 @@ task("distBuilt", function() {
 	console.log("Ensuring distribution package is checked in:");
 
 	var command = require("../config/build_command.js");
-	jake.exec(command + " build", { printStdout: true, printStderr: true }, complete);
+	run(command + " build", complete);
 }, { async: true });
 
 task("allCommitted", function() {
@@ -93,18 +93,26 @@ task("upToDate", function() {
 	git.checkFastForwardable(branches.integration, branches.dev, complete, fail);
 }, { async: true });
 
-task("buildsClean", [ "exampleBuildsClean", "quixoteBuildsClean" ]);
+task("buildsClean", [ "exampleBuildsClean", "quixoteBuildsClean", "browserifyBuildsClean" ]);
 
 task("quixoteBuildsClean", function() {
 	console.log("Verifying Quixote build:");
 
 	var command = require("../config/build_command.js");
-	jake.exec(command, { printStdout: true, printStderr: true }, complete);
+	run(command, complete);
 }, { async: true });
 
 task("exampleBuildsClean", function() {
 	console.log("Verifying example build:");
-
-	var command = "cd example && ./jake.sh capture=Firefox";
-	jake.exec(command, { printStdout: true, printStderr: true }, complete);
+	run("cd example && ./jake.sh capture=Firefox", complete);
 }, { async: true });
+
+task("browserifyBuildsClean", function() {
+	console.log("Verifying browserify:");
+	var command = "echo \"require('.');\" | node_modules/.bin/browserify -";
+	jake.exec(command, { printStdout: false, printStderr: true }, complete);
+}, { async: true });
+
+function run(command, done) {
+	jake.exec(command, { printStdout: true, printStderr: true }, complete);
+}

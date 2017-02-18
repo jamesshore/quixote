@@ -2,7 +2,7 @@
   "name": "quixote",
   "version": "0.12.3",
   "description": "CSS unit and integration testing",
-  "main": "dist/quixote.js",
+  "main": "src/quixote.js",
   "devDependencies": {
     "browserify": "^14.1.0",
     "gaze": "^1.1.2",
