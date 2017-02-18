@@ -5,7 +5,7 @@
 // browser + operating system combinations.
 
 // Version numbers match those reported by Karma. In some cases, the bugfix
-// version number may be incorrectly reported as ".0", and Windows 7 is
+// version number may be incorrectly reported as ".0", and Windows is
 // incorrectly reported as "0.0.0".
 
 module.exports = [
