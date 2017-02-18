@@ -11,8 +11,9 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 * *0.12.1, 21 May 2016:* Documentation: Fixed incorrect property names and descriptions in change log.
 * *0.12.2, 22 May 2016:* Documentation: Additional minor fixes.
-* *0.12.3, 14 July 2016:* Documentation: Fixed missing parentheses in readme's example source code
-* *0.12.4, 18 Feb 2017:* Bugfix: Browserify can now be used with Quixote npm module
+* *0.12.3, 14 July 2016:* Documentation: Fixed missing parentheses in readme's example source code.
+* *0.12.4, 18 Feb 2017:* Bugfix: Browserify can now be used with Quixote npm module.
+* *0.12.5, 18 Feb 2017:* Documentation: Fixed incorrect assertion in README example.
 
 **Breaking changes:**
 
