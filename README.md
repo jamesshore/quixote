@@ -136,7 +136,7 @@ describe("Button", function() {
   
   it("has styled text", function() {
     assert.equal(button.getRawStyle("text-align"), "center", "should be centered");
-    assert.equal(button.getRawStyle("text-decoration"), "underline", "should be underlined");
+    assert.equal(button.getRawStyle("text-decoration"), "none", "should not be underlined");
     assert.equal(button.getRawStyle("text-transform"), "uppercase", "should be uppercase");
   });
 
@@ -488,10 +488,11 @@ Many thanks to our contributors!
 * Bjorn Hansen (@bjornicus): Fail fast if HTML or stylesheet URL is invalid (v0.3)
 * Steve Henty (@cognivator): QFrame.reload() for single-page apps and other scripts (v0.11)
 * Dave Woldrich (@woldie): 'none' option in position and size descriptors, documentation improvements (v0.12)
-* Tim Neil (@moefinley): Documentation bug-fix (v0.12)
-* Noah Burney (@nwah): Prevent failure when QFrame.add() uses HTML with leading or trailing whitespace (v0.12)
-* Thomas Hallock (@antialias): Documentation bug-fix (v0.12)
-* Juan Caicedo (@JuanCaicedo): Browserify bug-fix (v0.12)
+* Tim Neil (@moefinley): Documentation bug-fix (v0.12.1)
+* Noah Burney (@nwah): Prevent failure when QFrame.add() uses HTML with leading or trailing whitespace (v0.12.2)
+* Thomas Hallock (@antialias): Documentation bug-fix (v0.12.3)
+* Juan Caicedo (@JuanCaicedo): Prevent Browserify from failing when used against Quixote npm module (v0.12.4)
+* Juan Caicedo (@JuanCaicedo): Documentation bug-fix (v0.12.5)
 
 
 ## License
