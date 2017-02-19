@@ -466,7 +466,7 @@ Browsers can be a bit unpredictable when it comes to testing CSS.
 
 ## Comparison to Other CSS Testing Tools
 
-The site [csste.st](http://csste.st) has a great rundown of CSS testing tools and libraries. To summarize, there are two main approaches to CSS testing:
+There are two main approaches to CSS testing:
 
 ### Automatic Screenshot Comparison
 
