@@ -36,7 +36,7 @@
 	};
 	Assertable.extend(Me);
 
-	Me.prototype.getRawStyle = function getRawStyle(styleName) {
+	Me.prototype.getRawStyle = function(styleName) {
 		ensure.signature(arguments, [String]);
 
 		var styles;
@@ -56,7 +56,7 @@
 		return result;
 	};
 
-	Me.prototype.getRawPosition = function getRawPosition() {
+	Me.prototype.getRawPosition = function() {
 		ensure.signature(arguments, []);
 
 		// WORKAROUND IE 8: No TextRectangle.height or .width
@@ -72,21 +72,45 @@
 		};
 	};
 
-	Me.prototype.remove = function remove() {
+	Me.prototype.parent = function(nickname) {
+		ensure.signature(arguments, [[ undefined, String ]]);
+		if (nickname === undefined) nickname = "parent of " + this._nickname;
+
+		return new Me(this._domElement.parentElement, this.frame, nickname);
+	};
+
+	Me.prototype.add = function(html, nickname) {
+		ensure.signature(arguments, [String, [undefined, String]]);
+		if (nickname === undefined) nickname = html + " in " + this._nickname;
+
+		var tempElement = document.createElement("div");
+		tempElement.innerHTML = shim.String.trim(html);
+		ensure.that(
+			tempElement.childNodes.length === 1,
+			"Expected one element, but got " + tempElement.childNodes.length + " (" + html + ")"
+		);
+
+		var insertedElement = tempElement.childNodes[0];
+		this._domElement.appendChild(insertedElement);
+		return new Me(insertedElement, this.frame, nickname);
+	};
+
+	Me.prototype.remove = function() {
+		ensure.signature(arguments, []);
 		shim.Element.remove(this._domElement);
 	};
 
-	Me.prototype.toDomElement = function toDomElement() {
+	Me.prototype.toDomElement = function() {
 		ensure.signature(arguments, []);
 		return this._domElement;
 	};
 
-	Me.prototype.toString = function toString() {
+	Me.prototype.toString = function() {
 		ensure.signature(arguments, []);
 		return "'" + this._nickname + "'";
 	};
 
-	Me.prototype.equals = function equals(that) {
+	Me.prototype.equals = function(that) {
 		ensure.signature(arguments, [Me]);
 		return this._domElement === that._domElement;
 	};

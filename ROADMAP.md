@@ -21,8 +21,9 @@
 * ElementVisibleSize descriptor
 * Visibility descriptor
 * QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
-* API docs
-* changelog
+* API docs and changelog
+	* QElement.parent()
+	* QElement.add()
 
 
 ## To Do: ElementVisibleEdge descriptor
