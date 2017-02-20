@@ -312,28 +312,15 @@ describe("FOUNDATION: QFrame", function() {
 
 		it("adds an element", function() {
 			var element = frame.add("<p>foo</p>");
-			var body = frameDom.contentDocument.body;
+			var body = frame.body();
 
-			assert.equal(body.innerHTML.toLowerCase(), "<p>foo</p>", "frame body should include new element");
-			assert.objEqual(element, new QElement(body.childNodes[0], frame, "desc"), "element should be present in frame body");
+			assert.objEqual(element.parent(), body, "element should be present in frame body");
 			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
-		});
-
-		it("doesn't choke on leading/trailing whitespace in html passed to .add()", function() {
-			var htmlWithWhitespace = "  \n  <p>foo</p>  \n  ";
-			frame.add(htmlWithWhitespace);
-			// should not throw exception
 		});
 
 		it("uses optional nickname to describe added elements", function() {
 			var element = frame.add("<p>foo</p>", "my element");
 			assert.equal(element.toString(), "'my element'");
-		});
-
-		it("fails fast if adding more than one element at a time", function() {
-			assert.exception(function() {
-				frame.add("<p>foo</p><div>bar</div>");
-			}, /Expected one element, but got 2 \(<p>foo<\/p><div>bar<\/div>\)/);
 		});
 
 		it("retrieves an element by selector", function() {

@@ -196,18 +196,8 @@
 	Me.prototype.add = function(html, nickname) {
 		ensure.signature(arguments, [String, [undefined, String]]);
 		if (nickname === undefined) nickname = html;
-		ensureUsable(this);
 
-		var tempElement = document.createElement("div");
-		tempElement.innerHTML = shim.String.trim(html);
-		ensure.that(
-			tempElement.childNodes.length === 1,
-			"Expected one element, but got " + tempElement.childNodes.length + " (" + html + ")"
-		);
-
-		var insertedElement = tempElement.childNodes[0];
-		this._document.body.appendChild(insertedElement);
-		return new QElement(insertedElement, this, nickname);
+		return this.body().add(html, nickname);
 	};
 
 	Me.prototype.get = function(selector, nickname) {
