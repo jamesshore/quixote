@@ -29,18 +29,11 @@
 
 (Note: do not include children's visibility)
 
-* positioned off-screen
-	* left
-	* top
-	* right?
-	* bottom?
-	* partially off-screen
 * overflow
 * clip
 * opacity
 * filter
 * visibility
-* display
 * clip-path should throw exception
 * 'QElement.bounds' descriptor (equivalent to QElement.top, .left, etc.)
 
