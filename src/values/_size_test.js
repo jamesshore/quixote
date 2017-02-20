@@ -21,7 +21,7 @@ describe("VALUE: Size", function() {
 		assert.objEqual(Size.create(Pixels.create(52)), a1);
 	});
 
-	it("can be be off-screen", function() {
+	it("can be be non-rendered", function() {
 		assert.objEqual(Size.createNone(), none);
 	});
 
@@ -31,10 +31,10 @@ describe("VALUE: Size", function() {
 		assert.objEqual(b.times(3), Size.create(21), "multiply");
 	});
 
-	it("performs arithmetic on off-screen values (but result is always off-screen)", function() {
-		assert.objEqual(none.plus(none), none, "off-screen + off-screen");
-		assert.objEqual(a1.plus(none), none, "on-screen + off-screen");
-		assert.objEqual(none.plus(a1), none, "off-screen + on-screen");
+	it("performs arithmetic on non-rendered values (but result is always non-rendered)", function() {
+		assert.objEqual(none.plus(none), none, "non-rendered + non-rendered");
+		assert.objEqual(a1.plus(none), none, "on-screen + non-rendered");
+		assert.objEqual(none.plus(a1), none, "non-rendered + on-screen");
 	});
 
 	it("converts to pixels", function() {
@@ -52,9 +52,9 @@ describe("VALUE: Size", function() {
 		assert.equal(a1.diff(b), "45px larger than expected", "larger");
 		assert.equal(b.diff(a1), "45px smaller than expected", "smaller");
 
-		assert.equal(none.diff(none), "", "both off-screen");
-		assert.equal(a1.diff(none), "rendered when not expected", "expected off-screen, but was on");
-		assert.equal(none.diff(a1), "not rendered", "expected on-screen, but was off");
+		assert.equal(none.diff(none), "", "both non-rendered");
+		assert.equal(a1.diff(none), "rendered when not expected", "expected non-rendered, but was rendered");
+		assert.equal(none.diff(a1), "not rendered", "expected rendered, but was non-rendered");
 	});
 
 	it("converts to string", function() {

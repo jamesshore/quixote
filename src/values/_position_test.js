@@ -27,7 +27,7 @@ describe("VALUE: Position", function() {
 		assert.objEqual(Position.x(Pixels.create(10)), x1);
 	});
 
-	it("can be be off-screen", function() {
+	it("can be be non-rendered", function() {
 		assert.objEqual(Position.noX(), noX, "x");
 		assert.objEqual(Position.noY(), noY, "y");
 	});
@@ -55,12 +55,12 @@ describe("VALUE: Position", function() {
 		assert.objEqual(y2.midpoint(y1), Position.y(65), "bottom to top");
 	});
 
-	it("allows computation with off-screen values (but result is always off-screen)", function() {
-		assert.objEqual(noX.plus(noX), noX, "off-screen + off-screen");
-		assert.objEqual(noX.plus(x1), noX, "off-screen + on-screen");
-		assert.objEqual(x1.plus(noX), noX, "on-screen + off-screen");
+	it("allows computation with non-rendered values (but result is always non-rendered)", function() {
+		assert.objEqual(noX.plus(noX), noX, "non-rendered + non-rendered");
+		assert.objEqual(noX.plus(x1), noX, "non-rendered + on-screen");
+		assert.objEqual(x1.plus(noX), noX, "on-screen + non-rendered");
 
-		assert.objEqual(noX.plus(Size.create(42)), noX, "off-screen + size");
+		assert.objEqual(noX.plus(Size.create(42)), noX, "non-rendered + size");
 	});
 
 	it("determines difference between displayed positions", function() {
@@ -75,8 +75,8 @@ describe("VALUE: Position", function() {
 
 	it("determines difference between undisplayed positions", function() {
 		assert.equal(noX.diff(noX), "", "same");
-		assert.equal(x1.diff(noX), "rendered when not expected", "displayed");
-		assert.equal(noX.diff(x1), "not rendered", "not displayed");
+		assert.equal(x1.diff(noX), "rendered when not expected", "rendered");
+		assert.equal(noX.diff(x1), "not rendered", "non-rendered");
 	});
 
 	it("fails fast when doing stuff with incompatible dimensions", function() {
