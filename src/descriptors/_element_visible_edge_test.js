@@ -27,7 +27,7 @@
 		});
 
 		it("defaults to bounding box", function() {
-			element("position: absolute; top: 10px; height: 20px; left: 40px; width: 80px");
+			element("position: absolute; top: 10px; height: 20px; left: 40px; width: 80px;");
 
 			assert.objEqual(top.value(), Position.y(10), "top");
 			assert.objEqual(right.value(), Position.x(120), "right");
@@ -36,7 +36,7 @@
 		});
 
 		it("accounts for elements positioned completely off-screen to top", function() {
-			element("position: absolute; top: -100px; height: 20px; left: 40px; width: 80px");
+			element("position: absolute; top: -100px; height: 20px; left: 40px; width: 80px;");
 
 			assert.objEqual(top.value(), Position.noY(), "top");
 			assert.objEqual(right.value(), Position.noX(), "right");
@@ -45,7 +45,7 @@
 		});
 
 		it("accounts for elements positioned completely off-screen to left", function() {
-			element("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px");
+			element("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px;");
 
 			assert.objEqual(top.value(), Position.noY(), "top");
 			assert.objEqual(right.value(), Position.noX(), "right");
@@ -54,12 +54,21 @@
 		});
 
 		it("accounts for elements positioned partly off-screen", function() {
-			element("position: absolute; top: -100px; height: 200px; left: -400px; width: 800px");
+			element("position: absolute; top: -100px; height: 200px; left: -400px; width: 800px;");
 
 			assert.objEqual(top.value(), Position.y(0), "top");
 			assert.objEqual(right.value(), Position.x(400), "right");
 			assert.objEqual(bottom.value(), Position.y(100), "bottom");
 			assert.objEqual(left.value(), Position.x(0), "left");
+		});
+
+		it("accounts for elements using display:none", function() {
+			element("display: none;");
+
+			assert.objEqual(top.value(), Position.noY(), "top");
+			assert.objEqual(right.value(), Position.noX(), "right");
+			assert.objEqual(bottom.value(), Position.noY(), "bottom");
+			assert.objEqual(left.value(), Position.noX(), "left");
 		});
 
 		function element(style) {
