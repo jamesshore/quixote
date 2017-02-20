@@ -76,7 +76,8 @@
 		ensure.signature(arguments, [[ undefined, String ]]);
 		if (nickname === undefined) nickname = "parent of " + this._nickname;
 
-		return new Me(this._domElement.parentElement, this.frame, nickname);
+		if (this.equals(this.frame.body())) return null;
+		else return new Me(this._domElement.parentElement, this.frame, nickname);
 	};
 
 	Me.prototype.add = function(html, nickname) {

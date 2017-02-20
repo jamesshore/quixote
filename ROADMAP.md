@@ -22,7 +22,7 @@
 * Visibility descriptor
 * QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
 * API docs and changelog
-	* QElement.parent()
+	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
 
 
