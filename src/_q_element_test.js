@@ -73,6 +73,15 @@ describe("FOUNDATION: QElement", function() {
 			assert.equal(frame.getAll("#element").length(), 0, "element should have been removed");
 		});
 
+		it("provides parent element", function() {
+			frame.add("<div id='parent'>parent<div id='child'>child</div></div>");
+			var parent = frame.get("#parent");
+			var child = frame.get("#child");
+
+			assert.objEqual(child.parent(), parent, "should provide parent");
+			assert.equal(child.parent().toString(), "'parent of #child'", "should provide default nickname");
+			assert.equal(child.parent("nickname").toString(), "'nickname'", "should use provided nickname");
+		});
 	});
 
 	describe("properties", function() {

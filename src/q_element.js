@@ -72,6 +72,13 @@
 		};
 	};
 
+	Me.prototype.parent = function(nickname) {
+		ensure.signature(arguments, [[ undefined, String ]]);
+		if (nickname === undefined) nickname = "parent of " + this._nickname;
+
+		return new Me(this._domElement.parentElement, this.frame, nickname);
+	};
+
 	Me.prototype.remove = function remove() {
 		shim.Element.remove(this._domElement);
 	};

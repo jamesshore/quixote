@@ -22,6 +22,7 @@
 * Visibility descriptor
 * QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
 * API docs
+	* QElement.parent()
 * changelog
 
 
@@ -29,6 +30,7 @@
 
 (Note: do not include children's visibility)
 
+* QElement.parent()
 * overflow
 * clip
 * opacity
