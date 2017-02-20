@@ -36,7 +36,7 @@
 	};
 	Assertable.extend(Me);
 
-	Me.prototype.getRawStyle = function getRawStyle(styleName) {
+	Me.prototype.getRawStyle = function(styleName) {
 		ensure.signature(arguments, [String]);
 
 		var styles;
@@ -56,7 +56,7 @@
 		return result;
 	};
 
-	Me.prototype.getRawPosition = function getRawPosition() {
+	Me.prototype.getRawPosition = function() {
 		ensure.signature(arguments, []);
 
 		// WORKAROUND IE 8: No TextRectangle.height or .width
@@ -95,22 +95,22 @@
 		return new Me(insertedElement, this.frame, nickname);
 	};
 
-	Me.prototype.remove = function remove() {
+	Me.prototype.remove = function() {
 		ensure.signature(arguments, []);
 		shim.Element.remove(this._domElement);
 	};
 
-	Me.prototype.toDomElement = function toDomElement() {
+	Me.prototype.toDomElement = function() {
 		ensure.signature(arguments, []);
 		return this._domElement;
 	};
 
-	Me.prototype.toString = function toString() {
+	Me.prototype.toString = function() {
 		ensure.signature(arguments, []);
 		return "'" + this._nickname + "'";
 	};
 
-	Me.prototype.equals = function equals(that) {
+	Me.prototype.equals = function(that) {
 		ensure.signature(arguments, [Me]);
 		return this._domElement === that._domElement;
 	};

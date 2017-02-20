@@ -30,8 +30,6 @@
 
 (Note: do not include children's visibility)
 
-* QFrame.add() should use QElement.add()
-* Remove redundant function names in QElement
 * overflow
 * clip
 * opacity
