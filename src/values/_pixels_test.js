@@ -32,6 +32,11 @@ describe("VALUE: Pixels", function() {
 		assert.equal(a1.compare(a2) === 0, true, "equal");
 	});
 
+	it("minimizes and maximizes", function() {
+		assert.objEqual(Pixels.min(a1, b), a1, "minimum");
+		assert.objEqual(Pixels.max(a1, b), b, "maximum");
+	});
+
 	it("rounds off differences of 0.5px or less", function() {
 		var almostA = Pixels.create(10.5);
 		var almostAminus = Pixels.create(9.5);
@@ -76,6 +81,8 @@ describe("VALUE: Pixels", function() {
 			assert.objEqual(noPixels.minus(noPixels2), Pixels.createNone(), "subtracting noPixels");
 			assert.objEqual(noPixels.times(2), Pixels.createNone(), "multiplying noPixels");
 			assert.objEqual(noPixels.average(noPixels2), Pixels.createNone(), "averaging noPixels");
+			assert.objEqual(Pixels.min(noPixels, noPixels2), Pixels.createNone(), "minimizing noPixels");
+			assert.objEqual(Pixels.max(noPixels, noPixels2), Pixels.createNone(), "maximizing noPixels");
 
 			assert.objEqual(noPixels.plus(pixels), Pixels.createNone(), "adding noPixels and pixels");
 			assert.objEqual(pixels.plus(noPixels), Pixels.createNone(), "adding pixels and noPixels");
@@ -83,6 +90,10 @@ describe("VALUE: Pixels", function() {
 			assert.objEqual(pixels.minus(noPixels), Pixels.createNone(), "subtracting pixels and noPixels");
 			assert.objEqual(noPixels.average(pixels), Pixels.createNone(), "averaging noPixels and pixels");
 			assert.objEqual(pixels.average(noPixels), Pixels.createNone(), "averaging pixels and noPixels");
+			assert.objEqual(Pixels.min(noPixels, pixels), Pixels.createNone(), "minimizing noPixels and pixels");
+			assert.objEqual(Pixels.min(pixels, noPixels), Pixels.createNone(), "minimizing pixels and noPixels");
+			assert.objEqual(Pixels.max(noPixels, pixels), Pixels.createNone(), "maximizing noPixels and pixels");
+			assert.objEqual(Pixels.max(pixels, noPixels), Pixels.createNone(), "maximizing pixels and noPixels");
 		});
 
 		it("is comparable to itself (and always equal)", function() {

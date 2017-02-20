@@ -69,16 +69,18 @@ Me.prototype.compare = Value.safe(function compare(operand) {
 	}
 });
 
-Me.max = function(l, r) {
-	ensure.signature(arguments, [ Me, Me ]);
-
-	return l.compare(r) >= 0 ? l : r;
-};
-
 Me.min = function(l, r) {
 	ensure.signature(arguments, [ Me, Me ]);
 
+	if (l._none || r._none) return Me.createNone();
 	return l.compare(r) <= 0 ? l : r;
+};
+
+Me.max = function(l, r) {
+	ensure.signature(arguments, [ Me, Me ]);
+
+	if (l._none || r._none) return Me.createNone();
+	return l.compare(r) >= 0 ? l : r;
 };
 
 Me.prototype.diff = Value.safe(function diff(expected) {
