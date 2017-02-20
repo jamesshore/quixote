@@ -79,7 +79,24 @@
 		return new Me(this._domElement.parentElement, this.frame, nickname);
 	};
 
+	Me.prototype.add = function(html, nickname) {
+		ensure.signature(arguments, [String, [undefined, String]]);
+		if (nickname === undefined) nickname = html + " in " + this._nickname;
+
+		var tempElement = document.createElement("div");
+		tempElement.innerHTML = shim.String.trim(html);
+		ensure.that(
+			tempElement.childNodes.length === 1,
+			"Expected one element, but got " + tempElement.childNodes.length + " (" + html + ")"
+		);
+
+		var insertedElement = tempElement.childNodes[0];
+		this._domElement.appendChild(insertedElement);
+		return new Me(insertedElement, this.frame, nickname);
+	};
+
 	Me.prototype.remove = function remove() {
+		ensure.signature(arguments, []);
 		shim.Element.remove(this._domElement);
 	};
 

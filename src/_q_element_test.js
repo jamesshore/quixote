@@ -3,6 +3,7 @@
 
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
+var shim = require("./util/shim.js");
 var Assertable = require("./assertable.js");
 var QElement = require("./q_element.js");
 
@@ -82,6 +83,36 @@ describe("FOUNDATION: QElement", function() {
 			assert.equal(child.parent().toString(), "'parent of #child'", "should provide default nickname");
 			assert.equal(child.parent("nickname").toString(), "'nickname'", "should use provided nickname");
 		});
+
+		it("adds child element", function() {
+			var child = element.add("<div>child</div>");
+			assert.objEqual(child.parent(), element, "child should have been added");
+			assert.equal(
+				// WORKAROUND IE 8 - IE 8 provides uppercase tagnames and adds whitespace
+				shim.String.trim(child.toDomElement().outerHTML.toLowerCase()),
+				"<div>child</div>",
+				"child HTML should have been set"
+			);
+			assert.equal(child.toString(), "'<div>child</div> in #element'", "default nickname");
+		});
+
+		it("doesn't choke on leading/trailing whitespace in html passed to .add()", function() {
+			var htmlWithWhitespace = "  \n  <p>foo</p>  \n  ";
+			element.add(htmlWithWhitespace);
+			// should not throw exception
+		});
+
+		it("uses optional nickname to describe added elements", function() {
+			var child = element.add("<p>child</p>", "my element");
+			assert.equal(child.toString(), "'my element'");
+		});
+
+		it("fails fast if adding more than one element at a time", function() {
+			assert.exception(function() {
+				element.add("<p>foo</p><div>bar</div>");
+			}, /Expected one element, but got 2 \(<p>foo<\/p><div>bar<\/div>\)/);
+		});
+
 	});
 
 	describe("properties", function() {

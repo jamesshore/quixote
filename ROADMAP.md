@@ -21,16 +21,18 @@
 * ElementVisibleSize descriptor
 * Visibility descriptor
 * QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
-* API docs
+* API docs and changelog
 	* QElement.parent()
-* changelog
+	* QElement.add()
 
 
 ## To Do: ElementVisibleEdge descriptor
 
 (Note: do not include children's visibility)
 
-* QElement.parent()
+* QElement.add()
+* QFrame.add() should use QElement.add()
+* Remove redundant function names in QElement
 * overflow
 * clip
 * opacity
