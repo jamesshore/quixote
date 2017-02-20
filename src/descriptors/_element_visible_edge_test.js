@@ -80,12 +80,31 @@
 			assert.objEqual(left.value(), Position.noX(), "left");
 		});
 
-		it("accounts for elements positioned completely outside clipped parent", function() {
+		it("accounts for elements positioned completely outside overflow-clipped parent", function() {
 			container("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
 			assertNotVisible("position: absolute; top: -20px; height: 10px; left: 30px; width: 10px;", "outside top");
 			assertNotVisible("position: absolute; top: 20px; height: 10px; left: 130px; width: 10px;", "outside right");
 			assertNotVisible("position: absolute; top: 120px; height: 10px; left: 30px; width: 10px;", "outside bottom");
 			assertNotVisible("position: absolute; top: 20px; height: 10px; left: -30px; width: 10px;", "outside left");
+		});
+
+		it("accounts for elements partially clipped by overflow parent", function() {
+			container("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 60px; width: 100px;");
+			assertVisible(
+				"position: absolute; top: -10px; height: 100px; left: -30px; width: 100px;",
+				50, 130, 140, 60,
+				"clipped on top left"
+			);
+			assertVisible(
+				"position: absolute; top: 10px; height: 100px; left: 30px; width: 100px;",
+				60, 160, 150, 90,
+				"clipped on bottom right"
+			);
+			assertVisible(
+				"position: absolute; top: -10px; height: 200px; left: -30px; width: 200px;",
+				50, 160, 150, 60,
+				"clipped on all sides"
+			);
 		});
 
 		// it("accounts for parent using clipped overflow", function() {
@@ -124,6 +143,16 @@
 			assert.objEqual(right.value(), Position.noX(), message + "right");
 			assert.objEqual(bottom.value(), Position.noY(), message + "bottom");
 			assert.objEqual(left.value(), Position.noX(), message + "left");
+		}
+
+		function assertVisible(elementStyle, expectedTop, expectedRight, expectedBottom, expectedLeft, message) {
+			message += " - ";
+			element(elementStyle);
+
+			assert.objEqual(top.value(), Position.y(expectedTop), message + "top");
+			assert.objEqual(right.value(), Position.x(expectedRight), message + "right");
+			assert.objEqual(bottom.value(), Position.y(expectedBottom), message + "bottom");
+			assert.objEqual(left.value(), Position.x(expectedLeft), message + "left");
 		}
 
 	});

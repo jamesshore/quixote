@@ -59,10 +59,10 @@
 		function overflowClip() {
 			if (elementIsEntirelyOverflowClipped()) return offscreen(self);
 			switch(position) {
-				case TOP: return containerTop;
-				case RIGHT: return containerRight;
-				case BOTTOM: return containerBottom;
-				case LEFT: return containerLeft;
+				case TOP: return containerTop.max(elementTop);
+				case RIGHT: return containerRight.min(elementRight);
+				case BOTTOM: return containerBottom.min(elementBottom);
+				case LEFT: return containerLeft.max(elementLeft);
 				default: unknownPosition(position);
 			}
 		}
@@ -71,7 +71,7 @@
 			if (elementBottom.compare(containerTop) < 0) return true;
 			if (elementLeft.compare(containerRight) > 0) return true;
 			if (elementTop.compare(containerBottom) > 0) return true;
-			if (elementLeft.compare(containerLeft) < 0) return true;
+			if (elementRight.compare(containerLeft) < 0) return true;
 			return false;
 		}
 
