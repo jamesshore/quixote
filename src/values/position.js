@@ -60,6 +60,11 @@ Me.prototype.midpoint = Value.safe(function midpoint(operand) {
 	return new Me(this._dimension, this._value.average(operand.toPixels()));
 });
 
+Me.prototype.compare = Value.safe(function compare(operand) {
+	checkAxis(this, operand);
+	return this._value.compare(operand.toPixels());
+});
+
 Me.prototype.diff = Value.safe(function diff(expected) {
 	checkAxis(this, expected);
 

@@ -29,7 +29,6 @@
 
 (Note: do not include children's visibility)
 
-* Position.isOffscreen()
 * positioned off-screen
 	* left
 	* top
