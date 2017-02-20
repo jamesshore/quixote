@@ -33,6 +33,7 @@
 * overflow
 	* use assertNotVisible() throughout ElementVisibleEdge tests
 	* recursively handle multiple overflow parents in hierarchy
+	* QElement.parent() -- handle case when there is no parent
 * clip
 	* do we need to worry about parents' 'clip'? What if they have overflow set?
 * opacity

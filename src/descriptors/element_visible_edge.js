@@ -30,78 +30,69 @@
 	Me.left = factoryFn(LEFT);
 
 	Me.prototype.value = function() {
-		var self = this;
 		var position = this._position;
 		var element = this._element;
 		var page = element.frame.page();
 
-		var pageTop = page.top.value();
-		var pageLeft = page.left.value();
+		var bounds = {
+			top: page.top.value(),
+			right: null,
+			bottom: null,
+			left: page.left.value()
+		};
 
 		var container = element.parent();
-		var containerTop = container.top.value();
-		var containerRight = container.right.value();
-		var containerBottom = container.bottom.value();
-		var containerLeft = container.left.value();
-
-		var elementTop = element.top.value();
-		var elementRight = element.right.value();
-		var elementBottom = element.bottom.value();
-		var elementLeft = element.left.value();
-
-		if (elementIsClippedByOverflow()) return overflowClip();
-		return pageClip();
-
-		function elementIsClippedByOverflow() {
-			var overflow = container.getRawStyle("overflow");
-			switch (overflow) {
-				case "visible":
-					return false;
-				case "hidden":
-				case "scroll":
-				case "auto":
-					return true;
-				default:
-					ensure.unreachable("Unknown overflow property: " + overflow);
-			}
+		if (hasClippingOverflow(container)) {
+			bounds = union(
+				bounds,
+				container.top.value(),
+				container.right.value(),
+				container.bottom.value(),
+				container.left.value()
+			);
 		}
 
-		function overflowClip() {
-			if (elementIsEntirelyOverflowClipped()) return offscreen(self);
-			switch(position) {
-				case TOP: return containerTop.max(elementTop);
-				case RIGHT: return containerRight.min(elementRight);
-				case BOTTOM: return containerBottom.min(elementBottom);
-				case LEFT: return containerLeft.max(elementLeft);
-				default: unknownPosition(position);
-			}
-		}
+		var edges = union(
+			bounds,
+			element.top.value(),
+			element.right.value(),
+			element.bottom.value(),
+			element.left.value()
+		);
 
-		function elementIsEntirelyOverflowClipped() {
-			if (elementBottom.compare(containerTop) < 0) return true;
-			if (elementLeft.compare(containerRight) > 0) return true;
-			if (elementTop.compare(containerBottom) > 0) return true;
-			if (elementRight.compare(containerLeft) < 0) return true;
-			return false;
-		}
-
-		function pageClip() {
-			if (elementIsEntirelyOffscreen()) return offscreen(self);
-			switch(position) {
-				case TOP: return (elementTop.compare(pageTop) < 0) ? pageTop : elementTop;
-				case RIGHT: return elementRight;
-				case BOTTOM: return elementBottom;
-				case LEFT: return (elementLeft.compare(pageLeft) < 0) ? pageLeft : elementLeft;
-				default: unknownPosition(position);
-			}
-		}
-
-		function elementIsEntirelyOffscreen() {
-			if (elementBottom.compare(pageTop) < 0) return true;
-			if (elementRight.compare(pageLeft) < 0) return true;
-			return false;
-		}
+		if (entirelyClipped(bounds, edges)) return offscreen(position);
+		else return edge(edges, position);
 	};
+
+	function hasClippingOverflow(element) {
+		var overflow = element.getRawStyle("overflow");
+		switch (overflow) {
+			case "visible":
+				return false;
+			case "hidden":
+			case "scroll":
+			case "auto":
+				return true;
+			default:
+				ensure.unreachable("Unknown overflow property: " + overflow);
+		}
+	}
+
+	function union(bounds, top, right, bottom, left) {
+		bounds.top = bounds.top.max(top);
+		bounds.right = (bounds.right === null) ? right : bounds.right.min(right);
+		bounds.bottom = (bounds.bottom === null) ? bottom : bounds.bottom.min(bottom);
+		bounds.left = bounds.left.max(left);
+
+		return bounds;
+	}
+
+	function entirelyClipped(bounds, edges) {
+		return (bounds.top.compare(edges.bottom) > 0) ||
+			(bounds.right !== null && bounds.right.compare(edges.left) < 0) ||
+			(bounds.bottom !== null && bounds.bottom.compare(edges.top) < 0) ||
+			(bounds.left.compare(edges.right) > 0);
+	}
 
 	Me.prototype.toString = function() {
 		ensure.unreachable();
@@ -113,8 +104,8 @@
 		};
 	}
 
-	function offscreen(self) {
-		switch(self._position) {
+	function offscreen(position) {
+		switch(position) {
 			case TOP:
 			case BOTTOM:
 				return Position.noY();
@@ -122,7 +113,17 @@
 			case RIGHT:
 				return Position.noX();
 
-			default: unknownPosition(self._position);
+			default: unknownPosition(position);
+		}
+	}
+
+	function edge(edges, position) {
+		switch(position) {
+			case TOP: return edges.top;
+			case RIGHT: return edges.right;
+			case BOTTOM: return edges.bottom;
+			case LEFT: return edges.left;
+			default: unknownPosition(position);
 		}
 	}
 
