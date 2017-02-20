@@ -53,7 +53,17 @@
 		return pageClip();
 
 		function elementIsClippedByOverflow() {
-			return container.getRawStyle("overflow") === "hidden";
+			var overflow = container.getRawStyle("overflow");
+			switch (overflow) {
+				case "visible":
+					return false;
+				case "hidden":
+				case "scroll":
+				case "auto":
+					return true;
+				default:
+					ensure.unreachable("Unknown overflow property: " + overflow);
+			}
 		}
 
 		function overflowClip() {

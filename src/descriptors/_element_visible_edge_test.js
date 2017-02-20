@@ -86,11 +86,20 @@
 			);
 		});
 
-		it("recognizes all forms of clipped overflow");
+		it("recognizes all forms of clipped overflow", function() {
+			test("overflow: hidden;");
+			test("overflow: scroll;");
+			test("overflow: auto;");
 
-		it("accounts for multiple uses of clipped overflow anywhere in parent hierarchy", function() {
-
+			function test(overflowStyle) {
+				container(overflowStyle + " position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
+				assertNotVisible("position:absolute; top: -20px; height: 10px");
+			}
 		});
+
+		it("accounts for clipped overflow anywhere in parent hierarchy");
+
+		it("accounts for multiple uses of clipped overflow");
 
 		it("ignores overflow when position is fixed");  //???
 
