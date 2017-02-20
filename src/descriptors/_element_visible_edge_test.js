@@ -27,13 +27,26 @@
 		});
 
 		it("defaults to bounding box", function() {
-			element("position: absolute; left: 20px; width: 130px; top: 10px; height: 60px");
+			element("position: absolute; top: 10px; height: 20px; left: 40px; width: 80px");
 
 			assert.objEqual(top.value(), Position.y(10), "top");
-			assert.objEqual(right.value(), Position.x(150), "right");
-			assert.objEqual(bottom.value(), Position.y(70), "bottom");
-			assert.objEqual(left.value(), Position.x(20), "left");
+			assert.objEqual(right.value(), Position.x(120), "right");
+			assert.objEqual(bottom.value(), Position.y(30), "bottom");
+			assert.objEqual(left.value(), Position.x(40), "left");
 		});
+
+		it("accounts for elements positioned completely off-screen to top", function() {
+			element("position: absolute; top: -100px; height: 20px; left: 40px; width: 80px");
+
+			assert.objEqual(top.value(), Position.noY(), "top");
+			assert.objEqual(right.value(), Position.noX(), "right");
+			assert.objEqual(bottom.value(), Position.noY(), "bottom");
+			assert.objEqual(left.value(), Position.noX(), "left");
+		});
+
+		// it("accounts for elements positioned completely off-screen to left", function() {
+		// 	element("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px");
+		// });
 
 		function element(style) {
 			if (style === undefined) style = "";
