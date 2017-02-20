@@ -36,48 +36,27 @@
 		});
 
 		it("defaults to bounding box", function() {
-			element("position: absolute; top: 10px; height: 20px; left: 40px; width: 80px;");
-
-			assert.objEqual(top.value(), Position.y(10), "top");
-			assert.objEqual(right.value(), Position.x(120), "right");
-			assert.objEqual(bottom.value(), Position.y(30), "bottom");
-			assert.objEqual(left.value(), Position.x(40), "left");
+			assertVisible(
+				"position: absolute; top: 10px; height: 20px; left: 40px; width: 80px;",
+				10, 120, 30, 40
+			);
 		});
 
-		it("accounts for elements positioned completely off-screen to top", function() {
-			element("position: absolute; top: -100px; height: 20px; left: 40px; width: 80px;");
-
-			assert.objEqual(top.value(), Position.noY(), "top");
-			assert.objEqual(right.value(), Position.noX(), "right");
-			assert.objEqual(bottom.value(), Position.noY(), "bottom");
-			assert.objEqual(left.value(), Position.noX(), "left");
-		});
-
-		it("accounts for elements positioned completely off-screen to left", function() {
-			element("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px;");
-
-			assert.objEqual(top.value(), Position.noY(), "top");
-			assert.objEqual(right.value(), Position.noX(), "right");
-			assert.objEqual(bottom.value(), Position.noY(), "bottom");
-			assert.objEqual(left.value(), Position.noX(), "left");
+		it("accounts for elements positioned completely off-screen", function() {
+			assertNotVisible("position: absolute; top: -100px; height: 20px; left: 40px; width: 80px;", "outside top");
+			assertNotVisible("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px;", "outside left");
+			// it's not possible to position off-screen to right or bottom--the page always expands to fit
 		});
 
 		it("accounts for elements positioned partly off-screen", function() {
-			element("position: absolute; top: -100px; height: 200px; left: -400px; width: 800px;");
-
-			assert.objEqual(top.value(), Position.y(0), "top");
-			assert.objEqual(right.value(), Position.x(400), "right");
-			assert.objEqual(bottom.value(), Position.y(100), "bottom");
-			assert.objEqual(left.value(), Position.x(0), "left");
+			assertVisible(
+				"position: absolute; top: -100px; height: 200px; left: -400px; width: 800px;",
+				0, 400, 100, 0
+			);
 		});
 
 		it("accounts for elements using display:none", function() {
-			element("display: none;");
-
-			assert.objEqual(top.value(), Position.noY(), "top");
-			assert.objEqual(right.value(), Position.noX(), "right");
-			assert.objEqual(bottom.value(), Position.noY(), "bottom");
-			assert.objEqual(left.value(), Position.noX(), "left");
+			assertNotVisible("display: none;");
 		});
 
 		it("accounts for elements positioned completely outside overflow-clipped parent", function() {
@@ -107,16 +86,6 @@
 			);
 		});
 
-		// it("accounts for parent using clipped overflow", function() {
-		// 	container("overflow: hidden; position:absolute; top: 10px; height: 100px; left: 20px; width: 200px");
-		// 	element("position: absolute; top: -2px; height: 400px; left: -10px; width: 800px");
-		//
-		// 	assert.objEqual(top.value(), Position.y(10), "top");
-		// 	assert.objEqual(right.value(), Position.x(220), "right");
-		// 	assert.objEqual(bottom.value(), Position.y(110), "bottom");
-		// 	assert.objEqual(left.value(), Position.x(20), "left");
-		// });
-
 		it("recognizes all forms of clipped overflow");
 
 		it("accounts for multiple uses of clipped overflow anywhere in parent hierarchy", function() {
@@ -136,7 +105,7 @@
 		}
 
 		function assertNotVisible(elementStyle, message) {
-			message += " - ";
+			message = message ? message + " - " : "";
 			element(elementStyle);
 
 			assert.objEqual(top.value(), Position.noY(), message + "top");
@@ -146,7 +115,7 @@
 		}
 
 		function assertVisible(elementStyle, expectedTop, expectedRight, expectedBottom, expectedLeft, message) {
-			message += " - ";
+			message = message ? message + " - " : "";
 			element(elementStyle);
 
 			assert.objEqual(top.value(), Position.y(expectedTop), message + "top");
