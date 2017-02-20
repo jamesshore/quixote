@@ -15,6 +15,7 @@ describe("VALUE: Position", function() {
 
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
+	var y1b = Position.y(50);
 
 	var noX = Position.noX();
 	var noY = Position.noY();
@@ -27,7 +28,7 @@ describe("VALUE: Position", function() {
 		assert.objEqual(Position.x(Pixels.create(10)), x1);
 	});
 
-	it("can be be off-screen", function() {
+	it("can be be non-rendered", function() {
 		assert.objEqual(Position.noX(), noX, "x");
 		assert.objEqual(Position.noY(), noY, "y");
 	});
@@ -55,15 +56,25 @@ describe("VALUE: Position", function() {
 		assert.objEqual(y2.midpoint(y1), Position.y(65), "bottom to top");
 	});
 
-	it("allows computation with off-screen values (but result is always off-screen)", function() {
-		assert.objEqual(noX.plus(noX), noX, "off-screen + off-screen");
-		assert.objEqual(noX.plus(x1), noX, "off-screen + on-screen");
-		assert.objEqual(x1.plus(noX), noX, "on-screen + off-screen");
+	it("performs comparisons", function() {
+		assert.equal(x1.compare(x2) < 0, true, "left of");
+		assert.equal(x2.compare(x1) > 0, true, "right of");
+		assert.equal(x1.compare(x1b) === 0, true, "same");
 
-		assert.objEqual(noX.plus(Size.create(42)), noX, "off-screen + size");
+		assert.equal(y1.compare(y2) < 0, true, "higher");
+		assert.equal(y2.compare(y1) > 0, true, "lower");
+		assert.equal(y1.compare(y1b) === 0, true, "same");
 	});
 
-	it("determines difference between displayed positions", function() {
+	it("allows computation with non-rendered values (but result is always non-rendered)", function() {
+		assert.objEqual(noX.plus(noX), noX, "non-rendered + non-rendered");
+		assert.objEqual(noX.plus(x1), noX, "non-rendered + on-screen");
+		assert.objEqual(x1.plus(noX), noX, "on-screen + non-rendered");
+
+		assert.objEqual(noX.plus(Size.create(42)), noX, "non-rendered + size");
+	});
+
+	it("describes difference between displayed positions", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
 		assert.equal(x1.diff(x2), "10px further left than expected", "less than expected - horizontal");
@@ -73,10 +84,10 @@ describe("VALUE: Position", function() {
 		assert.equal(y2.diff(y1), "30px lower than expected", "more than expected - vertical");
 	});
 
-	it("determines difference between undisplayed positions", function() {
+	it("describes difference between undisplayed positions", function() {
 		assert.equal(noX.diff(noX), "", "same");
-		assert.equal(x1.diff(noX), "rendered when not expected", "displayed");
-		assert.equal(noX.diff(x1), "not rendered", "not displayed");
+		assert.equal(x1.diff(noX), "rendered when not expected", "rendered");
+		assert.equal(noX.diff(x1), "not rendered", "non-rendered");
 	});
 
 	it("fails fast when doing stuff with incompatible dimensions", function() {
@@ -84,6 +95,7 @@ describe("VALUE: Position", function() {
 		assert.exception(function() { x1.plus(y1); }, expected, "plus");
 		assert.exception(function() { x1.minus(y1); }, expected, "minus");
 		assert.exception(function() { x1.midpoint(y1); }, expected, "midpoint");
+		assert.exception(function() { x1.compare(y1); }, expected, "compare");
 		assert.exception(function() { x1.equals(y1); }, expected, "equals");
 		assert.exception(function() { x1.diff(y1); }, expected, "diff");
 	});

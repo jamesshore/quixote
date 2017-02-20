@@ -15,14 +15,35 @@
 * ...more TBD
 
 
-## Current Feature: Undisplayed Elements (0.12 release)
+## Current Feature: Element Visibility (0.13 release)
 
-* done
+* ElementVisibleEdge descriptor
+* ElementVisibleSize descriptor
+* Visibility descriptor
+* QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
+* API docs
+* changelog
 
 
-## To Do: "Rendered" descriptor
+## To Do: ElementVisibleEdge descriptor
 
-* done
+(Note: do not include children's visibility)
+
+* positioned off-screen
+	* left
+	* top
+	* right?
+	* bottom?
+	* partially off-screen
+* overflow
+* clip
+* opacity
+* filter
+* visibility
+* display
+* clip-path should throw exception
+* 'QElement.bounds' descriptor (equivalent to QElement.top, .left, etc.)
+
 
 
 ## Dogfooding Notes
@@ -46,5 +67,5 @@
     * E.g., Me.width = function() { this.left.to(this.right) };
   * Use case: "the bottom edge of 'foo' is above the fold (600px)".
   * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
-* Colors? Contrast (fg color vs. bg color?))*
+* Colors? Contrast (fg color vs. bg color?))
 * Plugin API

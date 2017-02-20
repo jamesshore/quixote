@@ -85,7 +85,7 @@ var Me = module.exports = function BackgroundColor(element) {
   this._element = element;
 };
 
-Me.create = function create(element) {
+Me.create = function(element) {
   // Our factory method. It just calls the constructor. More complicated descriptors might do more.
   // We don't call 'ensure.signature()' here because the constructor already does that.
   return new BackgroundColor(element);
@@ -115,11 +115,11 @@ Descriptor.extend(Me);
 
 ⋮
 // Temporary methods so the tests pass
-Me.prototype.value = function value() {
+Me.prototype.value = function() {
   ensure.unreachable();
 };
 
-Me.prototype.toString = function toString() {
+Me.prototype.toString = function() {
   ensure.unreachable();
 };
 ```
@@ -166,7 +166,7 @@ it("renders to string", function() {
 ```
 
 ```javascript
-Me.prototype.toString = function toString() {
+Me.prototype.toString = function() {
   // check parameters
   ensure.signature(arguments, []);
 
@@ -192,7 +192,7 @@ it("converts comparison arguments", function() {
 ```
 
 ```javascript
-Me.prototype.convert = function convert(arg, type) {
+Me.prototype.convert = function(arg, type) {
   if (type === "string") return Color.create(arg);
 };
 ```
