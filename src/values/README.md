@@ -66,7 +66,7 @@ var Me = module.exports = function Color(value) {
   this._value = value;
 };
 
-Me.create = function create(value) {
+Me.create = function(value) {
   // Our factory method. It just calls the constructor. More complicated value objects might do more.
   // We don't call 'ensure.signature()' here because the constructor already does that.
   return new Color(value);
@@ -96,13 +96,13 @@ Value.extend(Me);
 
 ⋮
 // Temporary methods so the tests pass
-Me.prototype.compatibility = function compatibility() {
+Me.prototype.compatibility = function() {
 };
 
 Me.prototype.diff = Value.safe(function diff(expected) { 		// Value.safe() is explained below
 });
 
-Me.prototype.toString = function toString() {
+Me.prototype.toString = function() {
 };
 ```
 
@@ -124,7 +124,7 @@ In order for `Value.safe()` to work properly, you need to implement the `compati
 In many cases, you'll just return your own constructor and nothing else. That's what we'll do for our `Color` example. 
 
 ```javascript
-Me.prototype.compatibility = function compatibility() {
+Me.prototype.compatibility = function() {
   return [ Me ];
 };
 ```
@@ -175,7 +175,7 @@ it("converts to string", function() {
 ```
 
 ```javascript
-Me.prototype.toString = function toString() {
+Me.prototype.toString = function() {
   return this._value;
 };
 ```
