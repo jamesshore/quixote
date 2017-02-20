@@ -63,7 +63,7 @@ describe("VALUE: Position", function() {
 		assert.objEqual(noX.plus(Size.create(42)), noX, "non-rendered + size");
 	});
 
-	it("determines difference between displayed positions", function() {
+	it("describes difference between displayed positions", function() {
 		assert.equal(x1.diff(x1b), "", "same");
 
 		assert.equal(x1.diff(x2), "10px further left than expected", "less than expected - horizontal");
@@ -73,7 +73,7 @@ describe("VALUE: Position", function() {
 		assert.equal(y2.diff(y1), "30px lower than expected", "more than expected - vertical");
 	});
 
-	it("determines difference between undisplayed positions", function() {
+	it("describes difference between undisplayed positions", function() {
 		assert.equal(noX.diff(noX), "", "same");
 		assert.equal(x1.diff(noX), "rendered when not expected", "rendered");
 		assert.equal(noX.diff(x1), "not rendered", "non-rendered");
