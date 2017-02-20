@@ -65,6 +65,16 @@ Me.prototype.compare = Value.safe(function compare(operand) {
 	return this._value.compare(operand.toPixels());
 });
 
+Me.prototype.min = Value.safe(function min(operand) {
+	checkAxis(this, operand);
+	return new Me(this._dimension, Pixels.min(this._value, operand.toPixels()));
+});
+
+Me.prototype.max = Value.safe(function max(operand) {
+	checkAxis(this, operand);
+	return new Me(this._dimension, Pixels.max(this._value, operand.toPixels()));
+});
+
 Me.prototype.diff = Value.safe(function diff(expected) {
 	checkAxis(this, expected);
 

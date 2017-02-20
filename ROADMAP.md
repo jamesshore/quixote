@@ -30,8 +30,6 @@
 
 (Note: do not include children's visibility)
 
-* Position.min()
-* Position.max()
 * overflow
 	* use assertNotVisible() throughout ElementVisibleEdge tests
 	* recursively handle multiple overflow parents in hierarchy

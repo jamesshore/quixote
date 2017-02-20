@@ -12,6 +12,7 @@ describe("VALUE: Position", function() {
 	var x1 = Position.x(10);
 	var x2 = Position.x(20);
 	var x1b = Position.x(10);
+	var x2b = Position.x(20);
 
 	var y1 = Position.y(50);
 	var y2 = Position.y(80);
@@ -64,6 +65,11 @@ describe("VALUE: Position", function() {
 		assert.equal(y1.compare(y2) < 0, true, "higher");
 		assert.equal(y2.compare(y1) > 0, true, "lower");
 		assert.equal(y1.compare(y1b) === 0, true, "same");
+	});
+
+	it("minimizes and maximizes", function() {
+		assert.objEqual(x1.min(x2), x1b, "min");
+		assert.objEqual(x1.max(x2), x2b, "max");
 	});
 
 	it("allows computation with non-rendered values (but result is always non-rendered)", function() {
