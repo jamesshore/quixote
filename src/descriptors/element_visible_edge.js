@@ -30,24 +30,60 @@
 	Me.left = factoryFn(LEFT);
 
 	Me.prototype.value = function() {
-		var page = this._element.frame.page();
+		var self = this;
+		var position = this._position;
+		var element = this._element;
+		var page = element.frame.page();
+
 		var pageTop = page.top.value();
 		var pageLeft = page.left.value();
 
-		var elementTop = this._element.top.value();
-		var elementRight = this._element.right.value();
-		var elementBottom = this._element.bottom.value();
-		var elementLeft = this._element.left.value();
+		var container = element.parent();
+		var containerTop = container.top.value();
+		var containerRight = container.right.value();
+		var containerBottom = container.bottom.value();
+		var containerLeft = container.left.value();
 
-		if (elementIsEntirelyOffscreen()) return offscreen(this);
+		var elementTop = element.top.value();
+		var elementRight = element.right.value();
+		var elementBottom = element.bottom.value();
+		var elementLeft = element.left.value();
 
-		switch(this._position) {
-			case TOP: return (elementTop.compare(pageTop) < 0) ? pageTop : elementTop;
-			case RIGHT: return elementRight;
-			case BOTTOM: return elementBottom;
-			case LEFT: return (elementLeft.compare(pageLeft) < 0) ? pageLeft : elementLeft;
+		if (elementIsClippedByOverflow()) return overflowClip();
+		return pageClip();
 
-			default: unknownPosition(this._position);
+		function elementIsClippedByOverflow() {
+			return container.getRawStyle("overflow") === "hidden";
+		}
+
+		function overflowClip() {
+			if (elementIsEntirelyOverflowClipped()) return offscreen(self);
+			switch(position) {
+				case TOP: return containerTop;
+				case RIGHT: return containerRight;
+				case BOTTOM: return containerBottom;
+				case LEFT: return containerLeft;
+				default: unknownPosition(position);
+			}
+		}
+
+		function elementIsEntirelyOverflowClipped() {
+			if (elementBottom.compare(containerTop) < 0) return true;
+			if (elementLeft.compare(containerRight) > 0) return true;
+			if (elementTop.compare(containerBottom) > 0) return true;
+			if (elementLeft.compare(containerLeft) < 0) return true;
+			return false;
+		}
+
+		function pageClip() {
+			if (elementIsEntirelyOffscreen()) return offscreen(self);
+			switch(position) {
+				case TOP: return (elementTop.compare(pageTop) < 0) ? pageTop : elementTop;
+				case RIGHT: return elementRight;
+				case BOTTOM: return elementBottom;
+				case LEFT: return (elementLeft.compare(pageLeft) < 0) ? pageLeft : elementLeft;
+				default: unknownPosition(position);
+			}
 		}
 
 		function elementIsEntirelyOffscreen() {

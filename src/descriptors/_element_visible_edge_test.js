@@ -11,6 +11,8 @@
 	describe("DESCRIPTOR: ElementVisibleEdge", function() {
 
 		var frame;
+		var qContainer;
+		var qElement;
 
 		var top;
 		var right;
@@ -19,10 +21,17 @@
 
 		beforeEach(function() {
 			frame = reset.frame;
+
+			qContainer = frame.add("<div>container<div id='element'>element</div></div>", "container");
+			qElement = frame.get("#element");
+
+			top = ElementVisibleEdge.top(qElement);
+			right = ElementVisibleEdge.right(qElement);
+			bottom = ElementVisibleEdge.bottom(qElement);
+			left = ElementVisibleEdge.left(qElement);
 		});
 
 		it("is a position descriptor", function() {
-			element();
 			assert.implements(top, PositionDescriptor);
 		});
 
@@ -71,16 +80,50 @@
 			assert.objEqual(left.value(), Position.noX(), "left");
 		});
 
+		it("accounts for elements positioned completely outside clipped parent", function() {
+			container("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
+			assertNotVisible("position: absolute; top: -20px; height: 10px; left: 30px; width: 10px;", "outside top");
+			assertNotVisible("position: absolute; top: 20px; height: 10px; left: 130px; width: 10px;", "outside right");
+			assertNotVisible("position: absolute; top: 120px; height: 10px; left: 30px; width: 10px;", "outside bottom");
+			assertNotVisible("position: absolute; top: 20px; height: 10px; left: -30px; width: 10px;", "outside left");
+		});
+
+		// it("accounts for parent using clipped overflow", function() {
+		// 	container("overflow: hidden; position:absolute; top: 10px; height: 100px; left: 20px; width: 200px");
+		// 	element("position: absolute; top: -2px; height: 400px; left: -10px; width: 800px");
+		//
+		// 	assert.objEqual(top.value(), Position.y(10), "top");
+		// 	assert.objEqual(right.value(), Position.x(220), "right");
+		// 	assert.objEqual(bottom.value(), Position.y(110), "bottom");
+		// 	assert.objEqual(left.value(), Position.x(20), "left");
+		// });
+
+		it("recognizes all forms of clipped overflow");
+
+		it("accounts for multiple uses of clipped overflow anywhere in parent hierarchy", function() {
+
+		});
+
+		it("ignores overflow when position is fixed");  //???
+
+		function container(style) {
+			if (style === undefined) style = "";
+			qContainer.toDomElement().style.cssText = style;
+		}
+
 		function element(style) {
 			if (style === undefined) style = "";
+			qElement.toDomElement().style.cssText = style;
+		}
 
-			var element = frame.add("<div style='" + style + "'>element</div>", "element");
-			top = ElementVisibleEdge.top(element);
-			right = ElementVisibleEdge.right(element);
-			bottom = ElementVisibleEdge.bottom(element);
-			left = ElementVisibleEdge.left(element);
+		function assertNotVisible(elementStyle, message) {
+			message += " - ";
+			element(elementStyle);
 
-			return element;
+			assert.objEqual(top.value(), Position.noY(), message + "top");
+			assert.objEqual(right.value(), Position.noX(), message + "right");
+			assert.objEqual(bottom.value(), Position.noY(), message + "bottom");
+			assert.objEqual(left.value(), Position.noX(), message + "left");
 		}
 
 	});
