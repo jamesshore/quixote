@@ -35,6 +35,7 @@
 		var page = element.frame.page();
 
 		if (element.bottom.value().compare(page.top.value()) < 0) return offscreen(this);
+		if (element.right.value().compare(page.left.value()) < 0) return offscreen(this);
 
 		return edge;
 	};

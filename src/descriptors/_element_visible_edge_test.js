@@ -44,9 +44,14 @@
 			assert.objEqual(left.value(), Position.noX(), "left");
 		});
 
-		// it("accounts for elements positioned completely off-screen to left", function() {
-		// 	element("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px");
-		// });
+		it("accounts for elements positioned completely off-screen to left", function() {
+			element("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px");
+
+			assert.objEqual(top.value(), Position.noY(), "top");
+			assert.objEqual(right.value(), Position.noX(), "right");
+			assert.objEqual(bottom.value(), Position.noY(), "bottom");
+			assert.objEqual(left.value(), Position.noX(), "left");
+		});
 
 		function element(style) {
 			if (style === undefined) style = "";
