@@ -17,7 +17,7 @@
 
 		if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
 		else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
-		else ensure.unreachable("Unknown position: " + position);
+		else unknownPosition(position);
 
 		this._element = element;
 		this._position = position;
@@ -30,14 +30,31 @@
 	Me.left = factoryFn(LEFT);
 
 	Me.prototype.value = function() {
-		var element = this._element;
-		var edge = elementEdge(this);
-		var page = element.frame.page();
+		var page = this._element.frame.page();
+		var pageTop = page.top.value();
+		var pageLeft = page.left.value();
 
-		if (element.bottom.value().compare(page.top.value()) < 0) return offscreen(this);
-		if (element.right.value().compare(page.left.value()) < 0) return offscreen(this);
+		var elementTop = this._element.top.value();
+		var elementRight = this._element.right.value();
+		var elementBottom = this._element.bottom.value();
+		var elementLeft = this._element.left.value();
 
-		return edge;
+		if (elementIsEntirelyOffscreen()) return offscreen(this);
+
+		switch(this._position) {
+			case TOP: return (elementTop.compare(pageTop) < 0) ? pageTop : elementTop;
+			case RIGHT: return elementRight;
+			case BOTTOM: return elementBottom;
+			case LEFT: return (elementLeft.compare(pageLeft) < 0) ? pageLeft : elementLeft;
+
+			default: unknownPosition(this._position);
+		}
+
+		function elementIsEntirelyOffscreen() {
+			if (elementBottom.compare(pageTop) < 0) return true;
+			if (elementRight.compare(pageLeft) < 0) return true;
+			return false;
+		}
 	};
 
 	Me.prototype.toString = function() {
@@ -50,33 +67,6 @@
 		};
 	}
 
-	function elementEdge(self) {
-		switch(self._position) {
-			case TOP: return self._element.top.value();
-			case RIGHT: return self._element.right.value();
-			case BOTTOM: return self._element.bottom.value();
-			case LEFT: return self._element.left.value();
-
-			default:
-				ensure.unreachable("Unknown position: " + self._position);
-		}
-	}
-
-	function pageTopLeft(self) {
-		var page = self._element.frame.page();
-		switch(self._position) {
-			case TOP:
-			case BOTTOM:
-				return page.top.value();
-			case LEFT:
-			case RIGHT:
-				return page.left.value();
-
-			default:
-				ensure.unreachable("Unknown position: " + self._position);
-		}
-	}
-
 	function offscreen(self) {
 		switch(self._position) {
 			case TOP:
@@ -86,9 +76,12 @@
 			case RIGHT:
 				return Position.noX();
 
-			default:
-				ensure.unreachable("Unknown position: " + self._position);
+			default: unknownPosition(self._position);
 		}
+	}
+
+	function unknownPosition(position) {
+		ensure.unreachable("Unknown position: " + position);
 	}
 
 }());

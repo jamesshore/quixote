@@ -53,6 +53,15 @@
 			assert.objEqual(left.value(), Position.noX(), "left");
 		});
 
+		it("accounts for elements positioned partly off-screen", function() {
+			element("position: absolute; top: -100px; height: 200px; left: -400px; width: 800px");
+
+			assert.objEqual(top.value(), Position.y(0), "top");
+			assert.objEqual(right.value(), Position.x(400), "right");
+			assert.objEqual(bottom.value(), Position.y(100), "bottom");
+			assert.objEqual(left.value(), Position.x(0), "left");
+		});
+
 		function element(style) {
 			if (style === undefined) style = "";
 
