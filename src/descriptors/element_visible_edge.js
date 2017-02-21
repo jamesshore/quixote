@@ -41,16 +41,7 @@
 			left: page.left.value()
 		};
 
-		var container = element.parent();
-		if (hasClippingOverflow(container)) {
-			bounds = union(
-				bounds,
-				container.top.value(),
-				container.right.value(),
-				container.bottom.value(),
-				container.left.value()
-			);
-		}
+		bounds = findBounds(element, bounds);
 
 		var edges = union(
 			bounds,
@@ -63,6 +54,23 @@
 		if (entirelyClipped(bounds, edges)) return offscreen(position);
 		else return edge(edges, position);
 	};
+
+	function findBounds(element, bounds) {
+		for (var container = element.parent(); container !== null; container = container.parent()) {
+
+			if (hasClippingOverflow(container)) {
+				return union(
+					bounds,
+					container.top.value(),
+					container.right.value(),
+					container.bottom.value(),
+					container.left.value()
+				);
+			}
+		}
+
+		return bounds;
+	}
 
 	function hasClippingOverflow(element) {
 		var overflow = element.getRawStyle("overflow");

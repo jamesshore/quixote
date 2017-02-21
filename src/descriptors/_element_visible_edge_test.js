@@ -100,7 +100,7 @@
 			}
 		});
 
-		it.skip("accounts for clipped overflow anywhere in parent hierarchy", function() {
+		it("accounts for clipped overflow anywhere in parent hierarchy", function() {
 			grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
 			assertNotVisible("position:absolute; top: -20px; height: 10px");
 		});
