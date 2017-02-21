@@ -22,7 +22,7 @@
 * Visibility descriptor
 * QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
 * API docs and changelog
-	* QElement.parent()
+	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
 
 
@@ -30,8 +30,8 @@
 
 (Note: do not include children's visibility)
 
-* overflow
 * clip
+	* do we need to worry about parents' 'clip'? What if they have overflow set?
 * opacity
 * filter
 * visibility
@@ -42,13 +42,13 @@
 
 ## Dogfooding Notes
 
+* Add `QElement.add()`
 * Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
 * Provide a better way of integrating with standard assertion libraries? Use `valueOf()`?
 * Consider how to support less-than, greater-than, etc.
 	* Alternative assert mechanism? `element.assert.equal()` `.assert.lessThan()` etc? with `should` as alias to `assert`?
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
-* Add workaround for IE 8 not working with `frame.add("<style>...</style>")` (addAll? browser feature detect? Need to check if there's no way to insert styles into the document, or if it just doesn't like the way `add()` works.)  
-* Add `QElement.add()`?
+* Add workaround for IE 8 not working with `frame.add("<style>...</style>")` (addAll? browser feature detect? Need to check if there's no way to insert styles into the document, or if it just doesn't like the way `add()` works.)
 
 
 ## Future Features

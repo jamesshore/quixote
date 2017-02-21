@@ -84,6 +84,10 @@ describe("FOUNDATION: QElement", function() {
 			assert.equal(child.parent("nickname").toString(), "'nickname'", "should use provided nickname");
 		});
 
+		it("parent element of body is 'null", function() {
+			assert.equal(frame.body().parent(), null);
+		});
+
 		it("adds child element", function() {
 			var child = element.add("<div>child</div>");
 			assert.objEqual(child.parent(), element, "child should have been added");
