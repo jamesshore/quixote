@@ -65,7 +65,7 @@
 
 	function findClippingBounds(element, bounds) {
 		for (var container = element.parent(); container !== null; container = container.parent()) {
-			if (clipsChildren(container)) {
+			if (clippedByAncestor(element, container)) {
 				bounds = union(
 					bounds,
 					container.top.value(),
@@ -79,15 +79,34 @@
 		return bounds;
 	}
 
-	function clipsChildren(element) {
+	function clippedByAncestor(element, container) {
+		return hasClippablePosition(element) && hasClippingOverflow(container);
+	}
+
+	function hasClippablePosition(element) {
+		var position = element.getRawStyle("position");
+		switch (position) {
+			case "static":
+			case "relative":
+			case "absolute":
+			case "sticky":
+				return true;
+			case "fixed":
+				return false;
+			default:
+				ensure.unreachable("Unknown position property: " + position);
+		}
+	}
+
+	function hasClippingOverflow(element) {
 		var overflow = element.getRawStyle("overflow");
 		switch (overflow) {
-			case "visible":
-				return false;
 			case "hidden":
 			case "scroll":
 			case "auto":
 				return true;
+			case "visible":
+				return false;
 			default:
 				ensure.unreachable("Unknown overflow property: " + overflow);
 		}

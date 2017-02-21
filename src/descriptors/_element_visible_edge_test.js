@@ -114,7 +114,13 @@
 			);
 		});
 
-		it("ignores overflow when position is fixed");  //???
+		it("ignores overflow when position is fixed", function() {
+			parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 40px; width: 100px;");
+			assertVisible(
+				"position:fixed; top: 10px; height: 10px; left: 15px; width: 10px;",
+				10, 25, 20, 15
+			);
+		});
 
 		function grandparent(style) {
 			if (style === undefined) style = "";

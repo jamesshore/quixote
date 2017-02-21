@@ -30,9 +30,6 @@
 
 (Note: do not include children's visibility)
 
-* overflow
-	* use assertNotVisible() throughout ElementVisibleEdge tests
-	* recursively handle multiple overflow parents in hierarchy
 * clip
 	* do we need to worry about parents' 'clip'? What if they have overflow set?
 * opacity
