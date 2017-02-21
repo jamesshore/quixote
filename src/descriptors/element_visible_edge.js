@@ -29,19 +29,23 @@
 	Me.bottom = factoryFn(BOTTOM);
 	Me.left = factoryFn(LEFT);
 
+	function factoryFn(position) {
+		return function factory(element) {
+			return new Me(element, position);
+		};
+	}
+
 	Me.prototype.value = function() {
 		var position = this._position;
 		var element = this._element;
 		var page = element.frame.page();
 
-		var bounds = {
+		var bounds = findClippingBounds(element, {
 			top: page.top.value(),
 			right: null,
 			bottom: null,
 			left: page.left.value()
-		};
-
-		bounds = findBounds(element, bounds);
+		});
 
 		var edges = union(
 			bounds,
@@ -51,15 +55,18 @@
 			element.left.value()
 		);
 
-		if (entirelyClipped(bounds, edges)) return offscreen(position);
+		if (clippedOutOfExistence(bounds, edges)) return offscreen(position);
 		else return edge(edges, position);
 	};
 
-	function findBounds(element, bounds) {
-		for (var container = element.parent(); container !== null; container = container.parent()) {
+	Me.prototype.toString = function() {
+		ensure.unreachable();
+	};
 
-			if (hasClippingOverflow(container)) {
-				return union(
+	function findClippingBounds(element, bounds) {
+		for (var container = element.parent(); container !== null; container = container.parent()) {
+			if (clipsChildren(container)) {
+				bounds = union(
 					bounds,
 					container.top.value(),
 					container.right.value(),
@@ -72,7 +79,7 @@
 		return bounds;
 	}
 
-	function hasClippingOverflow(element) {
+	function clipsChildren(element) {
 		var overflow = element.getRawStyle("overflow");
 		switch (overflow) {
 			case "visible":
@@ -95,21 +102,11 @@
 		return bounds;
 	}
 
-	function entirelyClipped(bounds, edges) {
+	function clippedOutOfExistence(bounds, edges) {
 		return (bounds.top.compare(edges.bottom) > 0) ||
 			(bounds.right !== null && bounds.right.compare(edges.left) < 0) ||
 			(bounds.bottom !== null && bounds.bottom.compare(edges.top) < 0) ||
 			(bounds.left.compare(edges.right) > 0);
-	}
-
-	Me.prototype.toString = function() {
-		ensure.unreachable();
-	};
-
-	function factoryFn(position) {
-		return function factory(element) {
-			return new Me(element, position);
-		};
 	}
 
 	function offscreen(position) {

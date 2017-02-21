@@ -105,7 +105,14 @@
 			assertNotVisible("position:absolute; top: -20px; height: 10px");
 		});
 
-		it("accounts for multiple uses of clipped overflow");
+		it("accounts for multiple uses of clipped overflow", function() {
+			grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
+			parent("overflow: hidden; position: absolute; top: 20px; height: 100px; left: 40px; width: 100px;");
+			assertVisible(
+				"position:absolute; top: -10px; height: 200px; left: -20px; width: 200px;",
+				70, 150, 150, 90
+			);
+		});
 
 		it("ignores overflow when position is fixed");  //???
 
