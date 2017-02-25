@@ -20,10 +20,10 @@
 	});
 
 	desc("Lint, test, and build everything");
-	task("default", [ "clean", "quick" ]);
+	task("default", [ "clean", "quick", "build" ]);
 
-	desc("Lint, test, and build changed files only");
-	task("quick", [ "lint", "test", "build" ]);
+	desc("Lint and test changed files only");
+	task("quick", [ "lint", "test" ]);
 
 	desc("Erase generated files");
 	task("clean", function() {
