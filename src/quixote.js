@@ -24,7 +24,7 @@ exports.browser = {};
 
 exports.browser.enlargesFrameToPageSize = createDetectionMethod("enlargesFrame");
 exports.browser.enlargesFonts = createDetectionMethod("enlargesFonts");
-exports.browser.miscalculatesAutoValuesInClipProperty = createDetectionMethod("miscalculatesClip");
+exports.browser.misreportsAutoValuesInClipProperty = createDetectionMethod("misreportsClip");
 
 function createDetectionMethod(propertyName) {
 	return function() {
@@ -49,7 +49,7 @@ function detectBrowserFeatures(callback) {
 
 		try {
 			features.enlargesFrame = detectFrameEnlargement(frame, FRAME_WIDTH);
-			features.miscalculatesClip = detectMiscalculatedClipProperty(frame);
+			features.misreportsClip = detectReportedClipProperty(frame);
 
 			frame.reset();
 			detectFontEnlargement(frame, FRAME_WIDTH, function(result) {
@@ -97,7 +97,7 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 	}, 0);
 }
 
-function detectMiscalculatedClipProperty(frame) {
+function detectReportedClipProperty(frame) {
 	var element =  frame.add("<div style='clip: rect(auto, auto, auto, auto);'></div>");
 	var clip = element.getRawStyle("clip");
 

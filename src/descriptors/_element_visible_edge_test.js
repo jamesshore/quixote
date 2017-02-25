@@ -4,6 +4,7 @@
 
 	var assert = require("../util/assert.js");
 	var reset = require("../__reset.js");
+	var quixote = require("../quixote.js");
 	var ElementVisibleEdge = require("./element_visible_edge.js");
 	var PositionDescriptor = require("./position_descriptor.js");
 	var Position = require("../values/position.js");
@@ -138,21 +139,29 @@
 			});
 
 			it("accounts for pixel values in clip property", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(10px, 30px, 25px, 15px);",
 					60, 70, 75, 55
 				);
 			});
 
-			// TODO
-			it.skip("accounts for individual 'auto' values in clip property when there is no border", function() {
+			it("accounts for individual 'auto' values in clip property when there is no border", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
 					50, 140, 150, 40
 				);
 			});
 
-			it("fails fast when browser can't compute individual 'auto' properties");
+			it("fails fast when browser can't compute individual 'auto' properties", function() {
+				if (!quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+				element("position: absolute; clip: rect(auto, auto, auto, auto);");
+				assert.exception(function() {
+					top.value();
+				}, /Can't determine element clipping values on this browser because it misreports the value of the `clip` property\. You can use `quixote\.browser\.misreportsAutoValuesInClipProperty\(\)` to skip this browser\./);
+			});
 
 		});
 

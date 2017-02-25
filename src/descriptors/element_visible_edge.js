@@ -3,6 +3,7 @@
 	"use strict";
 
 	var ensure = require("../util/ensure.js");
+	var quixote = require("../quixote.js");
 	var PositionDescriptor = require("./position_descriptor.js");
 	var Position = require("../values/position.js");
 
@@ -96,6 +97,12 @@
 		};
 
 		function parseStandardClip(element, clip) {
+			// WORKAROUND IE 11, Chrome Mobile 44: Reports 0px instead of 'auto' when computing rect() in clip property.
+			ensure.that(!quixote.browser.misreportsAutoValuesInClipProperty(),
+				"Can't determine element clipping values on this browser because it misreports the value of the `clip`" +
+				" property. You can use `quixote.browser.misreportsAutoValuesInClipProperty()` to skip this browser."
+			);
+
 			var clipRegex = /rect\((\d+px|auto),? (\d+px|auto),? (\d+px|auto),? (\d+px|auto)\)/;
 			var matches = clipRegex.exec(clip);
 			ensure.that(matches !== null, "Unable to parse clip property: " + clip);
