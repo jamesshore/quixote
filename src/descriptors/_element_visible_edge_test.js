@@ -130,15 +130,25 @@
 
 		describe("clip CSS property", function() {
 
-			it("accounts for elements with clip property", function() {
+			it("accounts for `clip:auto` (which means 'no clipping')", function() {
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: auto;",
+					50, 140, 150, 40
+				);
+			});
+
+			it("accounts for pixel values in clip property", function() {
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(10px, 30px, 25px, 15px);",
 					60, 70, 75, 55
 				);
 			});
 
-			it("accounts for `clip:auto` (which means 'no clipping')", function() {
-
+			it("accounts for individual 'auto' values in clip property when there is no border", function() {
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
+					50, 140, 150, 40
+				);
 			});
 
 		});

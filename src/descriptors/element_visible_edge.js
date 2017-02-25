@@ -70,36 +70,42 @@
 		if (clip === "auto") return bounds;
 
 		// TEMPORARY WORKAROUND: IE 8 'auto'
-		if (clip === "" && element.getRawStyle("clip-top") === "auto") return bounds;
+		if (clip === "" && element.getRawStyle("clip-top") === "auto") {
+			return bounds;
+		}
 
 		var clipEdges = normalizeClipProperty(element, clip);
 		return intersection(
 			bounds,
-			element.top.value().plus(clipEdges.top),
-			element.left.value().plus(clipEdges.right),
-			element.top.value().plus(clipEdges.bottom),
-			element.left.value().plus(clipEdges.left)
+			clipEdges.top === "auto" ? element.top.value() : element.top.value().plus(Position.y(Number(clipEdges.top))),
+			clipEdges.right === "auto" ? element.right.value() : element.left.value().plus(Position.x(Number(clipEdges.right))),
+			clipEdges.bottom === "auto" ? element.bottom.value() : element.top.value().plus(Position.y(Number(clipEdges.bottom))),
+			clipEdges.left === "auto" ? element.left.value() : element.left.value().plus(Position.x(Number(clipEdges.left)))
 		);
 	}
 
 	function normalizeClipProperty(element, clip) {
 		// WORKAROUND IE 8: No 'clip' property (instead, uses clipTop, clipRight, etc.)
-		var clipValues = clip === "" ? extractIe8Clip(element) : parseStandardClip(clip);
-		// console.log(clipValues);
+		var clipValues = clip === "" ? extractIe8Clip(element) : parseStandardClip(element, clip);
 
 		return {
-			top: Position.y(Number(clipValues[0])),
-			right: Position.x(Number(clipValues[1])),
-			bottom: Position.y(Number(clipValues[2])),
-			left: Position.x(Number(clipValues[3]))
+			top: clipValues[0],
+			right: clipValues[1],
+			bottom: clipValues[2],
+			left: clipValues[3]
 		};
 
-		function parseStandardClip(clip) {
-			var clipRegex = /rect\((\d+)px,? (\d+)px,? (\d+)px,? (\d+)px\)/;
+		function parseStandardClip(element, clip) {
+			var clipRegex = /rect\((\d+px|auto),? (\d+px|auto),? (\d+px|auto),? (\d+px|auto)\)/;
 			var matches = clipRegex.exec(clip);
 			ensure.that(matches !== null, "Unable to parse clip property: " + clip);
 
-			return [ matches[1], matches[2], matches[3], matches[4] ];
+			return [
+				parsePx(matches[1]),
+				parsePx(matches[2]),
+				parsePx(matches[3]),
+				parsePx(matches[4])
+			];
 		}
 
 		function extractIe8Clip(element) {
@@ -112,6 +118,8 @@
 		}
 
 		function parsePx(pxString) {
+			if (pxString === "auto") return pxString;
+
 			var pxRegex = /(\d+)px/;
 			var matches = pxRegex.exec(pxString);
 			ensure.that(matches !== null, "Unable to parse pixel string in clip property: " + pxString);
