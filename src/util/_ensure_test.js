@@ -103,12 +103,12 @@ describe("UTIL: Ensure", function() {
 			assert.exception(signature([ null ], [ NaN ]), /Argument #1 expected NaN, but was null/);
 
 			assert.noException(signature([ NaN ], [ NaN ]));
-			assert.noException(signature([ NaN ], [ undefined ]), /Argument #1 expected undefined, but was NaN/);
+			assert.exception(signature([ NaN ], [ undefined ]), /Argument #1 expected undefined, but was NaN/);
 		});
 
-		it.skip("doesn't consider NaN to be a number (or vice-versa)", function() {
+		it("doesn't consider NaN to be a number (or vice-versa)", function() {
 			assert.exception(signature([ NaN ], [ Number ]), /Argument #1 expected number, but was NaN/);
-			assert.exception(signature([ 1 ], [ NaN ]), /Argument #1 expected NaN, but was 1/);
+			assert.exception(signature([ 1 ], [ NaN ]), /Argument #1 expected NaN, but was number/);
 		});
 
 		it("supports custom types", function() {

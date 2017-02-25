@@ -39,8 +39,8 @@ exports.signature = function(args, signature) {
 
 		if (!shim.Array.isArray(types)) types = [ types ];
 		if (!argMatchesAnyPossibleType(arg, types)) {
-			var message = name + " expected " + explainPossibleTypes(types) + ", but was ";
-			throw new EnsureException(exports.signature, message + explainArg(arg));
+			var message = name + " expected " + explainPossibleTypes(types) + ", but was " + explainArg(arg);
+			throw new EnsureException(exports.signature, message);
 		}
 	}
 };
@@ -61,7 +61,7 @@ function argMatchesAnyPossibleType(arg, type) {
 			case "object": return type === Object || arg instanceof type;
 			case "undefined": return type === undefined;
 			case "null": return type === null;
-			case "NaN": return isNaN(type);
+			case "NaN": return typeof(type) === "number" && isNaN(type);
 
 			default: exports.unreachable();
 		}
@@ -85,6 +85,7 @@ function explainPossibleTypes(type) {
 			case Array: return "array";
 			case Function: return "function";
 			case null: return "null";
+			case undefined: return "undefined";
 			default:
 				if (typeof type === "number" && isNaN(type)) return "NaN";
 				else {
