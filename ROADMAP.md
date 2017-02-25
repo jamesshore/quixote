@@ -25,7 +25,8 @@
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
-	* Compatibility note: IE 8 can't getComputedStyle() on `clip`. So it can't test elements that use `clip` property.
+	* quixote.browser.miscalculatesAutoValuesInClipProperty()
+	* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 
 
 ## To Do: ElementVisibleEdge descriptor

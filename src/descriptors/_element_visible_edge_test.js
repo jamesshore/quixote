@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 (function() {
 	"use strict";
 
@@ -144,12 +144,15 @@
 				);
 			});
 
-			it("accounts for individual 'auto' values in clip property when there is no border", function() {
+			// TODO
+			it.skip("accounts for individual 'auto' values in clip property when there is no border", function() {
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
 					50, 140, 150, 40
 				);
 			});
+
+			it("fails fast when browser can't compute individual 'auto' properties");
 
 		});
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("./util/ensure.js");
@@ -24,6 +24,7 @@ exports.browser = {};
 
 exports.browser.enlargesFrameToPageSize = createDetectionMethod("enlargesFrame");
 exports.browser.enlargesFonts = createDetectionMethod("enlargesFonts");
+exports.browser.miscalculatesAutoValuesInClipProperty = createDetectionMethod("miscalculatesClip");
 
 function createDetectionMethod(propertyName) {
 	return function() {
@@ -48,6 +49,7 @@ function detectBrowserFeatures(callback) {
 
 		try {
 			features.enlargesFrame = detectFrameEnlargement(frame, FRAME_WIDTH);
+			features.miscalculatesClip = detectMiscalculatedClipProperty(frame);
 
 			frame.reset();
 			detectFontEnlargement(frame, FRAME_WIDTH, function(result) {
@@ -93,5 +95,14 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 
 		return callback(fontSize !== "15px");
 	}, 0);
+}
 
+function detectMiscalculatedClipProperty(frame) {
+	var element =  frame.add("<div style='clip: rect(auto, auto, auto, auto);'></div>");
+	var clip = element.getRawStyle("clip");
+
+	// WORKAROUND IE 8: Provides 'clipTop' etc. instead of 'clip' property
+	if (clip === "" && element.getRawStyle("clip-top") === "auto") return false;
+
+	return clip !== "rect(auto, auto, auto, auto)" && clip !== "rect(auto auto auto auto)";
 }
