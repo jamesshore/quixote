@@ -146,6 +146,14 @@
 				);
 			});
 
+			it("handles non-pixel values in clip property", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(1em, 2em, 2em, 1em);",
+					66, 72, 82, 56
+				);
+			});
+
 			it("accounts for individual 'auto' values in clip property when there is no border", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(

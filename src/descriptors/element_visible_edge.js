@@ -116,12 +116,14 @@
 		}
 
 		function extractIe8Clip(element) {
-			return [
-				parsePx(element.getRawStyle("clip-top")),
-				parsePx(element.getRawStyle("clip-right")),
-				parsePx(element.getRawStyle("clip-bottom")),
-				parsePx(element.getRawStyle("clip-left"))
+			var result = [
+				calculatePixelValue(element, element.getRawStyle("clip-top")),
+				calculatePixelValue(element, element.getRawStyle("clip-right")),
+				calculatePixelValue(element, element.getRawStyle("clip-bottom")),
+				calculatePixelValue(element, element.getRawStyle("clip-left"))
 			];
+			console.log(result);
+			return result;
 		}
 
 		function parsePx(pxString) {
@@ -133,6 +135,22 @@
 
 			return matches[1];
 		}
+	}
+
+	function calculatePixelValue(element, clipStr) {
+		var elementDom = element.toDomElement();
+
+		// Based on code by Dean Edwards: http://disq.us/p/myl99x
+		var runtimeStyle = elementDom.runtimeStyle.left;
+		var style = elementDom.style.left;
+
+		elementDom.runtimeStyle.left = elementDom.currentStyle.left;
+		elementDom.style.left = clipStr;
+		var result = elementDom.style.pixelLeft;
+
+		elementDom.runtimeStyle.left = runtimeStyle;
+		elementDom.style.left = style;
+		return result;
 	}
 
 	function findOverflowBounds(element, bounds) {

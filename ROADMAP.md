@@ -33,6 +33,7 @@
 
 (Note: do not include children's visibility)
 
+* element.calculatePixels()?
 * clip
 	* do we need to worry about parents' 'clip'? What if they have overflow set?
 * opacity
