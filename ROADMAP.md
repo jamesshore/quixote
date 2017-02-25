@@ -25,6 +25,7 @@
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
+	* Compatibility note: IE 8 can't getComputedStyle() on `clip`. So it can't test elements that use `clip` property.
 
 
 ## To Do: ElementVisibleEdge descriptor

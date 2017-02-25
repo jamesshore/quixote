@@ -133,9 +133,12 @@
 			it("accounts for elements with clip property", function() {
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(10px, 30px, 25px, 15px);",
-					// 60, 70, 75, 55   // correct answer
-					50, 140, 150, 40    // temporary test
+					60, 70, 75, 55
 				);
+			});
+
+			it("accounts for `clip:auto` (which means 'no clipping')", function() {
+
 			});
 
 		});

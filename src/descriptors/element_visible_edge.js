@@ -67,23 +67,57 @@
 
 	function findClipBounds(element, bounds) {
 		var clip = element.getRawStyle("clip");
-		if (clip === "auto" || clip === "") return bounds;
+		if (clip === "auto") return bounds;
 
-		var clipEdges = normalizeClipProperty(clip);
-		return bounds;
+		// TEMPORARY WORKAROUND: IE 8 'auto'
+		if (clip === "" && element.getRawStyle("clip-top") === "auto") return bounds;
+
+		var clipEdges = normalizeClipProperty(element, clip);
+		return intersection(
+			bounds,
+			element.top.value().plus(clipEdges.top),
+			element.left.value().plus(clipEdges.right),
+			element.top.value().plus(clipEdges.bottom),
+			element.left.value().plus(clipEdges.left)
+		);
 	}
 
-	function normalizeClipProperty(clip) {
-		var clipRegex = /rect\((\d+)px,? (\d+)px,? (\d+)px,? (\d+)px\)/;
-		var matches = clipRegex.exec(clip);
-		ensure.that(matches !== null, "Unable to parse clip property: " + clip);
+	function normalizeClipProperty(element, clip) {
+		// WORKAROUND IE 8: No 'clip' property (instead, uses clipTop, clipRight, etc.)
+		var clipValues = clip === "" ? extractIe8Clip(element) : parseStandardClip(clip);
+		// console.log(clipValues);
 
 		return {
-			top: Number(matches[1]),
-			right: Number(matches[2]),
-			bottom: Number(matches[3]),
-			left: Number(matches[4])
+			top: Position.y(Number(clipValues[0])),
+			right: Position.x(Number(clipValues[1])),
+			bottom: Position.y(Number(clipValues[2])),
+			left: Position.x(Number(clipValues[3]))
 		};
+
+		function parseStandardClip(clip) {
+			var clipRegex = /rect\((\d+)px,? (\d+)px,? (\d+)px,? (\d+)px\)/;
+			var matches = clipRegex.exec(clip);
+			ensure.that(matches !== null, "Unable to parse clip property: " + clip);
+
+			return [ matches[1], matches[2], matches[3], matches[4] ];
+		}
+
+		function extractIe8Clip(element) {
+			return [
+				parsePx(element.getRawStyle("clip-top")),
+				parsePx(element.getRawStyle("clip-right")),
+				parsePx(element.getRawStyle("clip-bottom")),
+				parsePx(element.getRawStyle("clip-left"))
+			];
+		}
+
+		function parsePx(pxString) {
+			var pxRegex = /(\d+)px/;
+			var matches = pxRegex.exec(pxString);
+			ensure.that(matches !== null, "Unable to parse pixel string in clip property: " + pxString);
+
+			return matches[1];
+		}
 	}
 
 	function findOverflowBounds(element, bounds) {
