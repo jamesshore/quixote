@@ -47,6 +47,8 @@
 			left: page.left.value()
 		});
 
+		bounds = findClipBounds(element, bounds);
+
 		var edges = intersection(
 			bounds,
 			element.top.value(),
@@ -62,6 +64,27 @@
 	Me.prototype.toString = function() {
 		ensure.unreachable();
 	};
+
+	function findClipBounds(element, bounds) {
+		var clip = element.getRawStyle("clip");
+		if (clip === "auto" || clip === "") return bounds;
+
+		var clipEdges = normalizeClipProperty(clip);
+		return bounds;
+	}
+
+	function normalizeClipProperty(clip) {
+		var clipRegex = /rect\((\d+)px,? (\d+)px,? (\d+)px,? (\d+)px\)/;
+		var matches = clipRegex.exec(clip);
+		ensure.that(matches !== null, "Unable to parse clip property: " + clip);
+
+		return {
+			top: Number(matches[1]),
+			right: Number(matches[2]),
+			bottom: Number(matches[3]),
+			left: Number(matches[4])
+		};
+	}
 
 	function findOverflowBounds(element, bounds) {
 		for (var container = element.parent(); container !== null; container = container.parent()) {
