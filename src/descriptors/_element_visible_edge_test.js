@@ -62,64 +62,81 @@
 			assertNotVisible("display: none;");
 		});
 
-		it("accounts for elements positioned completely outside overflow-clipped parent", function() {
-			parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
-			assertNotVisible("position: absolute; top: -20px; height: 10px; left: 30px; width: 10px;", "outside top");
-			assertNotVisible("position: absolute; top: 20px; height: 10px; left: 130px; width: 10px;", "outside right");
-			assertNotVisible("position: absolute; top: 120px; height: 10px; left: 30px; width: 10px;", "outside bottom");
-			assertNotVisible("position: absolute; top: 20px; height: 10px; left: -30px; width: 10px;", "outside left");
-		});
 
-		it("accounts for elements partially clipped by overflow parent", function() {
-			parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 60px; width: 100px;");
-			assertVisible(
-				"position: absolute; top: -10px; height: 100px; left: -30px; width: 100px;",
-				50, 130, 140, 60,
-				"clipped on top left"
-			);
-			assertVisible(
-				"position: absolute; top: 10px; height: 100px; left: 30px; width: 100px;",
-				60, 160, 150, 90,
-				"clipped on bottom right"
-			);
-			assertVisible(
-				"position: absolute; top: -10px; height: 200px; left: -30px; width: 200px;",
-				50, 160, 150, 60,
-				"clipped on all sides"
-			);
-		});
+		describe("overflow CSS property", function() {
 
-		it("recognizes all forms of clipped overflow", function() {
-			test("overflow: hidden;");
-			test("overflow: scroll;");
-			test("overflow: auto;");
+			it("accounts for elements positioned completely outside overflow-clipped parent", function() {
+				parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
+				assertNotVisible("position: absolute; top: -20px; height: 10px; left: 30px; width: 10px;", "outside top");
+				assertNotVisible("position: absolute; top: 20px; height: 10px; left: 130px; width: 10px;", "outside right");
+				assertNotVisible("position: absolute; top: 120px; height: 10px; left: 30px; width: 10px;", "outside bottom");
+				assertNotVisible("position: absolute; top: 20px; height: 10px; left: -30px; width: 10px;", "outside left");
+			});
 
-			function test(overflowStyle) {
-				parent(overflowStyle + " position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
+			it("accounts for elements partially clipped by overflow parent", function() {
+				parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 60px; width: 100px;");
+				assertVisible(
+					"position: absolute; top: -10px; height: 100px; left: -30px; width: 100px;",
+					50, 130, 140, 60,
+					"clipped on top left"
+				);
+				assertVisible(
+					"position: absolute; top: 10px; height: 100px; left: 30px; width: 100px;",
+					60, 160, 150, 90,
+					"clipped on bottom right"
+				);
+				assertVisible(
+					"position: absolute; top: -10px; height: 200px; left: -30px; width: 200px;",
+					50, 160, 150, 60,
+					"clipped on all sides"
+				);
+			});
+
+			it("recognizes all forms of clipped overflow", function() {
+				test("overflow: hidden;");
+				test("overflow: scroll;");
+				test("overflow: auto;");
+
+				function test(overflowStyle) {
+					parent(overflowStyle + " position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
+					assertNotVisible("position:absolute; top: -20px; height: 10px");
+				}
+			});
+
+			it("accounts for clipped overflow anywhere in parent hierarchy", function() {
+				grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
 				assertNotVisible("position:absolute; top: -20px; height: 10px");
-			}
+			});
+
+			it("accounts for multiple uses of clipped overflow", function() {
+				grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
+				parent("overflow: hidden; position: absolute; top: 20px; height: 100px; left: 40px; width: 100px;");
+				assertVisible(
+					"position:absolute; top: -10px; height: 200px; left: -20px; width: 200px;",
+					70, 150, 150, 90
+				);
+			});
+
+			it("ignores overflow when position is fixed", function() {
+				parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 40px; width: 100px;");
+				assertVisible(
+					"position:fixed; top: 10px; height: 10px; left: 15px; width: 10px;",
+					10, 25, 20, 15
+				);
+			});
+
 		});
 
-		it("accounts for clipped overflow anywhere in parent hierarchy", function() {
-			grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
-			assertNotVisible("position:absolute; top: -20px; height: 10px");
-		});
 
-		it("accounts for multiple uses of clipped overflow", function() {
-			grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
-			parent("overflow: hidden; position: absolute; top: 20px; height: 100px; left: 40px; width: 100px;");
-			assertVisible(
-				"position:absolute; top: -10px; height: 200px; left: -20px; width: 200px;",
-				70, 150, 150, 90
-			);
-		});
+		describe("clip CSS property", function() {
 
-		it("ignores overflow when position is fixed", function() {
-			parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 40px; width: 100px;");
-			assertVisible(
-				"position:fixed; top: 10px; height: 10px; left: 15px; width: 10px;",
-				10, 25, 20, 15
-			);
+			it.skip("accounts for elements with clip property", function() {
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(10px, 30px, 25px, 15px);",
+					60, 70, 75, 55
+				);
+			});
+
 		});
 
 		function grandparent(style) {

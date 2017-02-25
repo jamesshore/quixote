@@ -20,6 +20,7 @@
 * ElementVisibleEdge descriptor
 * ElementVisibleSize descriptor
 * Visibility descriptor
+* Use `visible`, `clipped`, and `clipped.top` etc instead of `visible.top` etc?
 * QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null

@@ -40,14 +40,14 @@
 		var element = this._element;
 		var page = element.frame.page();
 
-		var bounds = findClippingBounds(element, {
+		var bounds = findOverflowBounds(element, {
 			top: page.top.value(),
 			right: null,
 			bottom: null,
 			left: page.left.value()
 		});
 
-		var edges = union(
+		var edges = intersection(
 			bounds,
 			element.top.value(),
 			element.right.value(),
@@ -63,10 +63,10 @@
 		ensure.unreachable();
 	};
 
-	function findClippingBounds(element, bounds) {
+	function findOverflowBounds(element, bounds) {
 		for (var container = element.parent(); container !== null; container = container.parent()) {
-			if (clippedByAncestor(element, container)) {
-				bounds = union(
+			if (clippedByAncestorOverflow(element, container)) {
+				bounds = intersection(
 					bounds,
 					container.top.value(),
 					container.right.value(),
@@ -79,8 +79,8 @@
 		return bounds;
 	}
 
-	function clippedByAncestor(element, container) {
-		return hasClippablePosition(element) && hasClippingOverflow(container);
+	function clippedByAncestorOverflow(element, ancestor) {
+		return hasClippablePosition(element) && hasClippingOverflow(ancestor);
 	}
 
 	function hasClippablePosition(element) {
@@ -112,7 +112,7 @@
 		}
 	}
 
-	function union(bounds, top, right, bottom, left) {
+	function intersection(bounds, top, right, bottom, left) {
 		bounds.top = bounds.top.max(top);
 		bounds.right = (bounds.right === null) ? right : bounds.right.min(right);
 		bounds.bottom = (bounds.bottom === null) ? bottom : bounds.bottom.min(bottom);
@@ -136,7 +136,6 @@
 			case LEFT:
 			case RIGHT:
 				return Position.noX();
-
 			default: unknownPosition(position);
 		}
 	}
