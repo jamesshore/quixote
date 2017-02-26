@@ -33,13 +33,13 @@
 
 (Note: do not include children's visibility)
 
-* element.calculatePixels()?
+* element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * clip
 	* do we need to worry about parents' 'clip'? What if they have overflow set?
 * opacity
 * filter
 * visibility
-* clip-path should throw exception
+* clip-path should throw exception?
 * 'QElement.bounds' descriptor (equivalent to QElement.top, .left, etc.)
 
 

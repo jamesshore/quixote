@@ -162,7 +162,7 @@
 				);
 			});
 
-			it("isn't affected by padding", function() {
+			it("doesn't clip padding", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
@@ -171,7 +171,7 @@
 				);
 			});
 
-			it("isn't affected by border", function() {
+			it("doesn't clip border", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
@@ -180,9 +180,24 @@
 				);
 			});
 
+			it("doesn't clip margin", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+					"clip: rect(auto, auto, auto, auto); margin: 10px 10px 10px 10px;",
+					60, 150, 160, 50
+				);
+			});
+
 			// it("only applies when position is 'absolute' or 'fixed'", function() {
 			// 	assert.todo();
 			// });
+
+			it("handles difference between 'clip: auto' and 'clip: rect(auto, auto, auto, auto)'");
+			// clip: auto means no clipping at all
+			// clip: rect(auto, auto, auto, auto) means clip to the bounds of the element
+			// IE 8 doesn't look like it has a way to programmatically tell the difference between the two
+
 
 			it("fails fast when browser can't compute individual 'auto' properties", function() {
 				if (!quixote.browser.misreportsAutoValuesInClipProperty()) return;
