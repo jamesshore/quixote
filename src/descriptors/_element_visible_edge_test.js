@@ -181,7 +181,7 @@
 				);
 			});
 
-			it("clips element out of existence when clip values are the same", function() {
+			it("clips element out of existence when clip values are the same or nonsensical", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
 
@@ -245,14 +245,21 @@
 			});
 
 			it("only applies when position is 'absolute' or 'fixed'", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 				assertClip("position: absolute;");
-				// assertClip("position: fixed;");
-				// assertNoClip("position: static;");
-				// assertNoClip("position: relative;");
-				// assertNoClip("position: sticky;");
+				assertClip("position: fixed;");
+				assertNoClip("position: static;");
+				assertNoClip("position: relative;");
+				assertNoClip("position: sticky;");
 
 				function assertClip(positionStyle) {
-					// assertNotVisible(positionStyle + " clip: rect(0px, 0px, 0px, 0px);");
+					assertNotVisible(positionStyle + " clip: rect(0px, 0px, 0px, 0px);", positionStyle);
+				}
+
+				function assertNoClip(positionStyle) {
+					element(positionStyle + " clip: rect(0px, 0px, 0px, 0px);");
+					assert.equal(top.value().equals(Position.noY()), false, "clipping when '" + positionStyle + "'");
 				}
 			});
 

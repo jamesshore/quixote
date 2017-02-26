@@ -76,7 +76,7 @@
 
 	function findClipBounds(element, bounds) {
 		var clip = element.getRawStyle("clip");
-		if (clip === "auto") return bounds;
+		if (clip === "auto" || !canBeClippedByClipProperty(element)) return bounds;
 
 		var clipEdges = normalizeClipProperty(element, clip);
 		return intersection(
@@ -156,7 +156,7 @@
 
 	function findOverflowBounds(element, bounds) {
 		for (var container = element.parent(); container !== null; container = container.parent()) {
-			if (clippedByAncestorOverflow(element, container)) {
+			if (isClippedByAncestorOverflow(element, container)) {
 				bounds = intersection(
 					bounds,
 					container.top.value(),
@@ -170,11 +170,11 @@
 		return bounds;
 	}
 
-	function clippedByAncestorOverflow(element, ancestor) {
-		return hasClippablePosition(element) && hasClippingOverflow(ancestor);
+	function isClippedByAncestorOverflow(element, ancestor) {
+		return canBeClippedByOverflowProperty(element) && hasClippingOverflow(ancestor);
 	}
 
-	function hasClippablePosition(element) {
+	function canBeClippedByOverflowProperty(element) {
 		var position = element.getRawStyle("position");
 		switch (position) {
 			case "static":
@@ -200,6 +200,21 @@
 				return false;
 			default:
 				ensure.unreachable("Unknown overflow property: " + overflow);
+		}
+	}
+
+	function canBeClippedByClipProperty(element) {
+		var position = element.getRawStyle("position");
+		switch (position) {
+			case "absolute":
+			case "fixed":
+				return true;
+			case "static":
+			case "relative":
+			case "sticky":
+				return false;
+			default:
+				ensure.unreachable("Unknown position property: " + position);
 		}
 	}
 
