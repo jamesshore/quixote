@@ -191,12 +191,23 @@
 				assertNotVisible(style + " clip: rect(auto, 5px, auto, 10px);", "right less than left");
 			});
 
-			// it("handles negative clip values", function() {
-			// 	if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-			// 	var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
-			//
-			// 	assertVisible(style + " clip: rect(-10px, auto, auto, auto)", "negative top");
-			// });
+			it("handles negative clip values", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
+
+				assertVisible(style + " clip: rect(-10px, auto, auto, auto)", 50, 140, 150, 40, "negative top");
+				assertNotVisible(style + " clip: rect(auto, -10px, auto, auto)", "negative right");
+				assertNotVisible(style + " clip: rect(auto, auto, -10px, auto)", "negative bottom");
+				assertVisible(style + " clip: rect(auto, auto, auto, -10px)", 50, 140, 150, 40, "negative left");
+			});
+
+			it("handles fractional clip values", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				assertVisible("position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+					"clip: rect(10.9px, 9.1px, 30.3px, 4.6px);",
+					60.9, 49.1, 80.3, 44.6
+				);
+			});
 
 			it("handles non-pixel values in clip property", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;

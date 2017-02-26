@@ -106,15 +106,15 @@
 				" property. You can use `quixote.browser.misreportsAutoValuesInClipProperty()` to skip this browser."
 			);
 
-			var clipRegex = /rect\((\d+px|auto),? (\d+px|auto),? (\d+px|auto),? (\d+px|auto)\)/;
+			var clipRegex = /rect\((.*?),? (.*?),? (.*?),? (.*?)\)/;
 			var matches = clipRegex.exec(clip);
 			ensure.that(matches !== null, "Unable to parse clip property: " + clip);
 
 			return [
-				parsePx(matches[1]),
-				parsePx(matches[2]),
-				parsePx(matches[3]),
-				parsePx(matches[4])
+				parseLength(matches[1], clip),
+				parseLength(matches[2], clip),
+				parseLength(matches[3], clip),
+				parseLength(matches[4], clip)
 			];
 		}
 
@@ -127,12 +127,12 @@
 			];
 		}
 
-		function parsePx(pxString) {
+		function parseLength(pxString, clip) {
 			if (pxString === "auto") return pxString;
 
-			var pxRegex = /(\d+)px/;
+			var pxRegex = /^(.*?)px$/;
 			var matches = pxRegex.exec(pxString);
-			ensure.that(matches !== null, "Unable to parse pixel string in clip property: " + pxString);
+			ensure.that(matches !== null, "Unable to parse '" + pxString + "' in clip property: " + clip);
 
 			return matches[1];
 		}
