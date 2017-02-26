@@ -59,9 +59,19 @@
 			);
 		});
 
+		it("accounts for elements with zero width or height", function() {
+			assertNotVisible("position: absolute; top: 10px; height: 0px; left: 10px; width: 10px;", "zero height");
+			assertNotVisible("position: absolute; top: 10px; height: 10px; left: 10px; width: 0px;", "zero width");
+		});
+
 		it("accounts for elements using display:none", function() {
 			assertNotVisible("display: none;");
 		});
+
+		// it("accounts for detached elements", function() {
+		// 	qElement.remove();
+		// 	assertNotVisible("position: absolute; top: 10px; height: 10px; left: 10px; width: 10px;");
+		// });
 
 
 		describe("overflow CSS property", function() {
@@ -138,6 +148,15 @@
 				);
 			});
 
+			it("fails fast when browser can't compute individual clip properties", function() {
+				if (!quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+				element("position: absolute; clip: rect(auto, auto, auto, auto);");
+				assert.exception(function() {
+					top.value();
+				}, /Can't determine element clipping values on this browser because it misreports the value of the `clip` property\. You can use `quixote\.browser\.misreportsAutoValuesInClipProperty\(\)` to skip this browser\./);
+			});
+
 			it("accounts for pixel values in clip property", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(
@@ -145,6 +164,12 @@
 					60, 70, 75, 55
 				);
 			});
+
+			// it("clips element out of existence when clip values are the same", function() {
+			// 	var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
+			//
+			// 	assertNotVisible(style + " clip: rect(10px, 0px, 10px, 100px");
+			// });
 
 			it("handles non-pixel values in clip property", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
@@ -154,7 +179,7 @@
 				);
 			});
 
-			it("accounts for individual 'auto' values when", function() {
+			it("treats 'auto' values as equivalent to element edge", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
@@ -189,9 +214,17 @@
 				);
 			});
 
-			// it("only applies when position is 'absolute' or 'fixed'", function() {
-			// 	assert.todo();
-			// });
+			it("only applies when position is 'absolute' or 'fixed'", function() {
+				assertClip("position: absolute;");
+				// assertClip("position: fixed;");
+				// assertNoClip("position: static;");
+				// assertNoClip("position: relative;");
+				// assertNoClip("position: sticky;");
+
+				function assertClip(positionStyle) {
+					// assertNotVisible(positionStyle + " clip: rect(0px, 0px, 0px, 0px);");
+				}
+			});
 
 			it("handles difference between 'clip: auto' and 'clip: rect(auto, auto, auto, auto)'");
 			// clip: auto means no clipping at all
@@ -199,14 +232,6 @@
 			// IE 8 doesn't look like it has a way to programmatically tell the difference between the two
 
 
-			it("fails fast when browser can't compute individual 'auto' properties", function() {
-				if (!quixote.browser.misreportsAutoValuesInClipProperty()) return;
-
-				element("position: absolute; clip: rect(auto, auto, auto, auto);");
-				assert.exception(function() {
-					top.value();
-				}, /Can't determine element clipping values on this browser because it misreports the value of the `clip` property\. You can use `quixote\.browser\.misreportsAutoValuesInClipProperty\(\)` to skip this browser\./);
-			});
 
 		});
 

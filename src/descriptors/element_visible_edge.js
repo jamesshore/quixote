@@ -6,6 +6,7 @@
 	var quixote = require("../quixote.js");
 	var PositionDescriptor = require("./position_descriptor.js");
 	var Position = require("../values/position.js");
+	var Size = require("../values/size.js");
 
 	var TOP = "top";
 	var RIGHT = "right";
@@ -40,6 +41,9 @@
 		var position = this._position;
 		var element = this._element;
 		var page = element.frame.page();
+
+		if (element.height.value().equals(Size.create(0))) return offscreen(position);
+		if (element.width.value().equals(Size.create(0))) return offscreen(position);
 
 		var bounds = findOverflowBounds(element, {
 			top: page.top.value(),

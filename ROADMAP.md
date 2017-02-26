@@ -33,6 +33,7 @@
 
 (Note: do not include children's visibility)
 
+* element.rendered -- handle case when element width/height is zero?
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * clip
 	* do we need to worry about parents' 'clip'? What if they have overflow set?
