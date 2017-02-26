@@ -29,9 +29,9 @@ exports.browser.misreportsAutoValuesInClipProperty = createDetectionMethod("misr
 function createDetectionMethod(propertyName) {
 	return function() {
 		ensure.signature(arguments, []);
+		ensure.that(features !== null, "Must create a frame before using Quixote browser feature detection.");
 
 		var feature = features[propertyName];
-		ensure.that(feature !== undefined, "Must create a frame before using Quixote browser feature detection.");
 		return feature;
 	};
 }
