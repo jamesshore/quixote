@@ -57,6 +57,7 @@
 		});
 
 		bounds = findClipBounds(element, bounds);
+		if (element.parent() !== null) bounds = findClipBounds(element.parent(), bounds);
 
 		var edges = intersection(
 			bounds,

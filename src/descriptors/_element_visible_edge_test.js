@@ -149,125 +149,144 @@
 
 		describe("clip CSS property", function() {
 
-			it("accounts for `clip:auto` (which means 'no clipping')", function() {
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: auto;",
-					50, 140, 150, 40
-				);
+			describe("on an element", function() {
+
+				it("accounts for `clip:auto` (which means 'no clipping')", function() {
+					assertVisible(
+						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: auto;",
+						50, 140, 150, 40
+					);
+				});
+
+				it("fails fast when browser can't compute individual clip properties", function() {
+					if (!quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					element("position: absolute; clip: rect(auto, auto, auto, auto);");
+					assert.exception(function() {
+						top.value();
+					}, /Can't determine element clipping values on this browser because it misreports the value of the `clip` property\. You can use `quixote\.browser\.misreportsAutoValuesInClipProperty\(\)` to skip this browser\./);
+				});
+
+				it("accounts for pixel values in clip property", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					assertVisible(
+						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(10px, 30px, 25px, 15px);",
+						60, 70, 75, 55
+					);
+				});
+
+				it("treats 'auto' values as equivalent to element edge", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					assertVisible(
+						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
+						50, 140, 150, 40
+					);
+				});
+
+				it("clips element out of existence when clip values are the same or nonsensical", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
+
+					assertNotVisible(style + " clip: rect(10px, auto, 10px, auto);", "same top and bottom");
+					assertNotVisible(style + " clip: rect(auto, 10px, auto, 10px);", "same left and right");
+					assertNotVisible(style + " clip: rect(10px, auto, 5px, auto);", "bottom higher than top");
+					assertNotVisible(style + " clip: rect(auto, 5px, auto, 10px);", "right less than left");
+				});
+
+				it("handles negative clip values", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
+
+					assertVisible(style + " clip: rect(-10px, auto, auto, auto)", 50, 140, 150, 40, "negative top");
+					assertNotVisible(style + " clip: rect(auto, -10px, auto, auto)", "negative right");
+					assertNotVisible(style + " clip: rect(auto, auto, -10px, auto)", "negative bottom");
+					assertVisible(style + " clip: rect(auto, auto, auto, -10px)", 50, 140, 150, 40, "negative left");
+				});
+
+				it("handles fractional clip values", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					assertVisible("position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+						"clip: rect(10.9px, 9.1px, 30.3px, 4.6px);",
+						60.9, 49.1, 80.3, 44.6
+					);
+				});
+
+				it("handles non-pixel values in clip property", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					assertVisible(
+						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(1em, 2em, 2em, 1em);",
+						66, 72, 82, 56
+					);
+				});
+
+				it("doesn't clip padding", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					assertVisible(
+						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+						"clip: rect(auto, auto, auto, auto); padding: 10px 10px 10px 10px;",
+						50, 160, 170, 40
+					);
+				});
+
+				it("doesn't clip border", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					assertVisible(
+						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+						"clip: rect(auto, auto, auto, auto); border: 10px solid black;",
+						50, 160, 170, 40
+					);
+				});
+
+				it("doesn't clip margin", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+					assertVisible(
+						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+						"clip: rect(auto, auto, auto, auto); margin: 10px 10px 10px 10px;",
+						60, 150, 160, 50
+					);
+				});
+
+				it("only applies when position is 'absolute' or 'fixed'", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					assertClip("position: absolute;");
+					assertClip("position: fixed;");
+					assertNoClip("position: static;");
+					assertNoClip("position: relative;");
+					assertNoClip("position: sticky;");
+
+					function assertClip(positionStyle) {
+						assertNotVisible(positionStyle + " clip: rect(0px, 0px, 0px, 0px);", positionStyle);
+					}
+
+					function assertNoClip(positionStyle) {
+						element(positionStyle + " clip: rect(0px, 0px, 0px, 0px);");
+						assert.equal(top.value().equals(Position.noY()), false, "clipping when '" + positionStyle + "'");
+					}
+				});
+
 			});
 
-			it("fails fast when browser can't compute individual clip properties", function() {
-				if (!quixote.browser.misreportsAutoValuesInClipProperty()) return;
+			describe("on ancestor elements", function() {
 
-				element("position: absolute; clip: rect(auto, auto, auto, auto);");
-				assert.exception(function() {
-					top.value();
-				}, /Can't determine element clipping values on this browser because it misreports the value of the `clip` property\. You can use `quixote\.browser\.misreportsAutoValuesInClipProperty\(\)` to skip this browser\./);
+				var tenPxParent = "position: absolute; top: 100px; height: 10px; left: 100px; width: 10px; ";
+				var hundredPxChild = "position: absolute; top: -50px; height: 100px; left: -50px; width: 100px; ";
+
+				it("doesn't clip children when ancestor uses 'clip: auto'", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					parent(tenPxParent + "clip: auto;");
+					assertVisible(hundredPxChild, 50, 150, 150, 50);
+				});
+
+				it("clips children to edges of ancestor when ancestor uses 'clip: rect(auto, auto, auto, auto)'", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					parent(tenPxParent + "clip: rect(auto, auto, auto, auto)");
+					assertVisible(hundredPxChild, 100, 110, 110, 100);
+				});
+
 			});
-
-			it("accounts for pixel values in clip property", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(10px, 30px, 25px, 15px);",
-					60, 70, 75, 55
-				);
-			});
-
-			it("treats 'auto' values as equivalent to element edge", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
-					50, 140, 150, 40
-				);
-			});
-
-			it("clips element out of existence when clip values are the same or nonsensical", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
-
-				assertNotVisible(style + " clip: rect(10px, auto, 10px, auto);", "same top and bottom");
-				assertNotVisible(style + " clip: rect(auto, 10px, auto, 10px);", "same left and right");
-				assertNotVisible(style + " clip: rect(10px, auto, 5px, auto);", "bottom higher than top");
-				assertNotVisible(style + " clip: rect(auto, 5px, auto, 10px);", "right less than left");
-			});
-
-			it("handles negative clip values", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
-
-				assertVisible(style + " clip: rect(-10px, auto, auto, auto)", 50, 140, 150, 40, "negative top");
-				assertNotVisible(style + " clip: rect(auto, -10px, auto, auto)", "negative right");
-				assertNotVisible(style + " clip: rect(auto, auto, -10px, auto)", "negative bottom");
-				assertVisible(style + " clip: rect(auto, auto, auto, -10px)", 50, 140, 150, 40, "negative left");
-			});
-
-			it("handles fractional clip values", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible("position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
-					"clip: rect(10.9px, 9.1px, 30.3px, 4.6px);",
-					60.9, 49.1, 80.3, 44.6
-				);
-			});
-
-			it("handles non-pixel values in clip property", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(1em, 2em, 2em, 1em);",
-					66, 72, 82, 56
-				);
-			});
-
-			it("doesn't clip padding", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
-					"clip: rect(auto, auto, auto, auto); padding: 10px 10px 10px 10px;",
-					50, 160, 170, 40
-				);
-			});
-
-			it("doesn't clip border", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
-					"clip: rect(auto, auto, auto, auto); border: 10px solid black;",
-					50, 160, 170, 40
-				);
-			});
-
-			it("doesn't clip margin", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
-					"clip: rect(auto, auto, auto, auto); margin: 10px 10px 10px 10px;",
-					60, 150, 160, 50
-				);
-			});
-
-			it("only applies when position is 'absolute' or 'fixed'", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-
-				assertClip("position: absolute;");
-				assertClip("position: fixed;");
-				assertNoClip("position: static;");
-				assertNoClip("position: relative;");
-				assertNoClip("position: sticky;");
-
-				function assertClip(positionStyle) {
-					assertNotVisible(positionStyle + " clip: rect(0px, 0px, 0px, 0px);", positionStyle);
-				}
-
-				function assertNoClip(positionStyle) {
-					element(positionStyle + " clip: rect(0px, 0px, 0px, 0px);");
-					assert.equal(top.value().equals(Position.noY()), false, "clipping when '" + positionStyle + "'");
-				}
-			});
-
-			it("handles difference between 'clip: auto' and 'clip: rect(auto, auto, auto, auto)'");
-			// clip: auto means no clipping at all
-			// clip: rect(auto, auto, auto, auto) means clip to the bounds of the element
-			// IE 8 doesn't look like it has a way to programmatically tell the difference between the two
-
 
 
 		});
