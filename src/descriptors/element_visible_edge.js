@@ -7,6 +7,7 @@
 	var PositionDescriptor = require("./position_descriptor.js");
 	var Position = require("../values/position.js");
 	var Size = require("../values/size.js");
+	var RenderState = require("../values/render_state.js");
 
 	var TOP = "top";
 	var RIGHT = "right";
@@ -42,8 +43,11 @@
 		var element = this._element;
 		var page = element.frame.page();
 
+		// REMOVE ME once element.rendered accounts for zero-width and zero-height elements
 		if (element.height.value().equals(Size.create(0))) return offscreen(position);
 		if (element.width.value().equals(Size.create(0))) return offscreen(position);
+		// END REMOVE ME
+		if (element.rendered.value().equals(RenderState.notRendered())) return offscreen(position);
 
 		var bounds = findOverflowBounds(element, {
 			top: page.top.value(),

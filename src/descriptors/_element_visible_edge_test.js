@@ -68,10 +68,10 @@
 			assertNotVisible("display: none;");
 		});
 
-		// it("accounts for detached elements", function() {
-		// 	qElement.remove();
-		// 	assertNotVisible("position: absolute; top: 10px; height: 10px; left: 10px; width: 10px;");
-		// });
+		it("accounts for detached elements", function() {
+			qElement.remove();
+			assertNotVisible("position: absolute; top: 10px; height: 10px; left: 10px; width: 10px;");
+		});
 
 
 		describe("overflow CSS property", function() {

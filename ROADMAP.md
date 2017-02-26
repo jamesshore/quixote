@@ -33,10 +33,12 @@
 
 (Note: do not include children's visibility)
 
-* element.rendered -- handle case when element width/height is zero?
-* element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * clip
 	* do we need to worry about parents' 'clip'? What if they have overflow set?
+* element.rendered -- handle case when element width/height is zero?
+	* remove special-case handling in element_visible_edge
+	* need to document breaking change
+* element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * opacity
 * filter
 * visibility
