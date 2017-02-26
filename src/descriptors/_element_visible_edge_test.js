@@ -103,6 +103,14 @@
 				);
 			});
 
+			it("accounts for parents that have zero width or height", function() {
+				parent("overflow: hidden; position: absolute; top: 10px; height: 0px; left: 10px; width: 100px;");
+				assertNotVisible("", "zero height");
+
+				parent("overflow: hidden; position: absolute; top: 10px; height: 100px; left: 10px; width: 0px;");
+				assertNotVisible("", "zero width");
+			});
+
 			it("recognizes all forms of clipped overflow", function() {
 				test("overflow: hidden;");
 				test("overflow: scroll;");
@@ -165,10 +173,29 @@
 				);
 			});
 
-			// it("clips element out of existence when clip values are the same", function() {
+			it("treats 'auto' values as equivalent to element edge", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
+					50, 140, 150, 40
+				);
+			});
+
+			it("clips element out of existence when clip values are the same", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
+
+				assertNotVisible(style + " clip: rect(10px, auto, 10px, auto);", "same top and bottom");
+				assertNotVisible(style + " clip: rect(auto, 10px, auto, 10px);", "same left and right");
+				assertNotVisible(style + " clip: rect(10px, auto, 5px, auto);", "bottom higher than top");
+				assertNotVisible(style + " clip: rect(auto, 5px, auto, 10px);", "right less than left");
+			});
+
+			// it("handles negative clip values", function() {
+			// 	if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 			// 	var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
 			//
-			// 	assertNotVisible(style + " clip: rect(10px, 0px, 10px, 100px");
+			// 	assertVisible(style + " clip: rect(-10px, auto, auto, auto)", "negative top");
 			// });
 
 			it("handles non-pixel values in clip property", function() {
@@ -176,14 +203,6 @@
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(1em, 2em, 2em, 1em);",
 					66, 72, 82, 56
-				);
-			});
-
-			it("treats 'auto' values as equivalent to element edge", function() {
-				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-				assertVisible(
-					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
-					50, 140, 150, 40
 				);
 			});
 

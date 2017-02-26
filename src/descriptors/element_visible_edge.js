@@ -218,10 +218,10 @@
 	}
 
 	function clippedOutOfExistence(bounds, edges) {
-		return (bounds.top.compare(edges.bottom) > 0) ||
-			(bounds.right !== null && bounds.right.compare(edges.left) < 0) ||
-			(bounds.bottom !== null && bounds.bottom.compare(edges.top) < 0) ||
-			(bounds.left.compare(edges.right) > 0);
+		return (bounds.top.compare(edges.bottom) >= 0) ||
+			(bounds.right !== null && bounds.right.compare(edges.left) <= 0) ||
+			(bounds.bottom !== null && bounds.bottom.compare(edges.top) <= 0) ||
+			(bounds.left.compare(edges.right) >= 0);
 	}
 
 	function offscreen(position) {
