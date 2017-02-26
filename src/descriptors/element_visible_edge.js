@@ -116,14 +116,12 @@
 		}
 
 		function extractIe8Clip(element) {
-			var result = [
+			return [
 				calculatePixelValue(element, element.getRawStyle("clip-top")),
 				calculatePixelValue(element, element.getRawStyle("clip-right")),
 				calculatePixelValue(element, element.getRawStyle("clip-bottom")),
 				calculatePixelValue(element, element.getRawStyle("clip-left"))
 			];
-			console.log(result);
-			return result;
 		}
 
 		function parsePx(pxString) {

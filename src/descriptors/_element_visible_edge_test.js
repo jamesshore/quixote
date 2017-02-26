@@ -154,13 +154,35 @@
 				);
 			});
 
-			it("accounts for individual 'auto' values in clip property when there is no border", function() {
+			it("accounts for individual 'auto' values when", function() {
 				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 				assertVisible(
 					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
 					50, 140, 150, 40
 				);
 			});
+
+			it("isn't affected by padding", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+					"clip: rect(auto, auto, auto, auto); padding: 10px 10px 10px 10px;",
+					50, 160, 170, 40
+				);
+			});
+
+			it("isn't affected by border", function() {
+				if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+				assertVisible(
+					"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
+					"clip: rect(auto, auto, auto, auto); border: 10px solid black;",
+					50, 160, 170, 40
+				);
+			});
+
+			// it("only applies when position is 'absolute' or 'fixed'", function() {
+			// 	assert.todo();
+			// });
 
 			it("fails fast when browser can't compute individual 'auto' properties", function() {
 				if (!quixote.browser.misreportsAutoValuesInClipProperty()) return;
