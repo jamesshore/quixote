@@ -10,7 +10,7 @@ exports.Array = {
 		return Object.prototype.toString.call(thing) === '[object Array]';
 	},
 
-	// WORKAROUND IE 8: no Array.forEach
+	// WORKAROUND IE 8: no Array.every
 	every: function every(obj, callbackfn, thisArg) {
 		/*jshint bitwise:false, eqeqeq:false, -W041:false */
 		if (Array.prototype.every) return obj.every(callbackfn, thisArg);

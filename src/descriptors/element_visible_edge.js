@@ -78,11 +78,6 @@
 		var clip = element.getRawStyle("clip");
 		if (clip === "auto") return bounds;
 
-		// TEMPORARY WORKAROUND: IE 8 'auto'
-		if (clip === "" && element.getRawStyle("clip-top") === "auto") {
-			return bounds;
-		}
-
 		var clipEdges = normalizeClipProperty(element, clip);
 		return intersection(
 			bounds,

@@ -33,6 +33,7 @@
 
 (Note: do not include children's visibility)
 
+* browser detect for IE 8 inability to detect 'clip:auto'
 * clip
 	* do we need to worry about parents' 'clip'? What if they have overflow set?
 * element.rendered -- handle case when element width/height is zero?
