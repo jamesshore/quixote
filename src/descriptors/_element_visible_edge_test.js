@@ -272,6 +272,27 @@
 				var tenPxParent = "position: absolute; top: 100px; height: 10px; left: 100px; width: 10px; ";
 				var hundredPxChild = "position: absolute; top: -50px; height: 100px; left: -50px; width: 100px; ";
 
+				it("clips children when ancestor is clipped", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					parent(tenPxParent + "clip: rect(1px, 4px, 3px, 2px);");
+					assertVisible(hundredPxChild, 101, 104, 103, 102);
+				});
+
+				it("clips children when multiple ancestors are clipped", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					grandparent(tenPxParent + "clip: rect(1px, auto, 3px, auto);");
+					parent("position: absolute; top: 0px; height: 100px; left: 0px; width: 100px; " +
+						"clip: rect(auto, 4px, auto, 2px);");
+					assertVisible(hundredPxChild, 101, 104, 103, 102);
+				});
+
+				it("applies both element's 'clip' and ancestor's 'clip'", function() {
+					parent(tenPxParent + "clip: rect(1px, auto, 3px, auto);");
+					assertVisible(hundredPxChild + "clip: rect(auto, 54px, auto, 52px);", 101, 104, 103, 102);
+				});
+
 				it("doesn't clip children when ancestor uses 'clip: auto'", function() {
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 

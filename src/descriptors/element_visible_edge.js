@@ -43,21 +43,21 @@
 		var element = this._element;
 		var page = element.frame.page();
 
-		// REMOVE ME once element.rendered accounts for zero-width and zero-height elements
+		// REMOVE ME if element.rendered accounts for zero-width and zero-height elements
 		if (element.height.value().equals(Size.create(0))) return offscreen(position);
 		if (element.width.value().equals(Size.create(0))) return offscreen(position);
 		// END REMOVE ME
 		if (element.rendered.value().equals(RenderState.notRendered())) return offscreen(position);
 
-		var bounds = findOverflowBounds(element, {
+		var bounds = {
 			top: page.top.value(),
 			right: null,
 			bottom: null,
 			left: page.left.value()
-		});
+		};
 
+		bounds = findOverflowBounds(element, bounds);
 		bounds = findClipBounds(element, bounds);
-		if (element.parent() !== null) bounds = findClipBounds(element.parent(), bounds);
 
 		var edges = intersection(
 			bounds,
@@ -67,7 +67,7 @@
 			element.left.value()
 		);
 
-		if (clippedOutOfExistence(bounds, edges)) return offscreen(position);
+		if (isClippedOutOfExistence(bounds, edges)) return offscreen(position);
 		else return edge(edges, position);
 	};
 
@@ -75,18 +75,38 @@
 		ensure.unreachable();
 	};
 
-	function findClipBounds(element, bounds) {
-		var clip = element.getRawStyle("clip");
-		if (clip === "auto" || !canBeClippedByClipProperty(element)) return bounds;
+	function findOverflowBounds(element, bounds) {
+		for (var container = element.parent(); container !== null; container = container.parent()) {
+			if (isClippedByAncestorOverflow(element, container)) {
+				bounds = intersection(
+					bounds,
+					container.top.value(),
+					container.right.value(),
+					container.bottom.value(),
+					container.left.value()
+				);
+			}
+		}
 
-		var clipEdges = normalizeClipProperty(element, clip);
-		return intersection(
-			bounds,
-			clipEdges.top === "auto" ? element.top.value() : element.top.value().plus(Position.y(Number(clipEdges.top))),
-			clipEdges.right === "auto" ? element.right.value() : element.left.value().plus(Position.x(Number(clipEdges.right))),
-			clipEdges.bottom === "auto" ? element.bottom.value() : element.top.value().plus(Position.y(Number(clipEdges.bottom))),
-			clipEdges.left === "auto" ? element.left.value() : element.left.value().plus(Position.x(Number(clipEdges.left)))
-		);
+		return bounds;
+	}
+
+	function findClipBounds(element, bounds) {
+		for ( ; element !== null; element = element.parent()) {
+			var clip = element.getRawStyle("clip");
+			if (clip === "auto" || !canBeClippedByClipProperty(element)) continue;
+
+			var clipEdges = normalizeClipProperty(element, clip);
+			bounds = intersection(
+				bounds,
+				clipEdges.top,
+				clipEdges.right,
+				clipEdges.bottom,
+				clipEdges.left
+			);
+		}
+
+		return bounds;
 	}
 
 	function normalizeClipProperty(element, clip) {
@@ -94,10 +114,18 @@
 		var clipValues = clip === "" ? extractIe8Clip(element) : parseStandardClip(element, clip);
 
 		return {
-			top: clipValues[0],
-			right: clipValues[1],
-			bottom: clipValues[2],
-			left: clipValues[3]
+			top: clipValues[0] === "auto" ?
+				element.top.value() :
+				element.top.value().plus(Position.y(Number(clipValues[0]))),
+			right: clipValues[1] === "auto" ?
+				element.right.value() :
+				element.left.value().plus(Position.x(Number(clipValues[1]))),
+			bottom: clipValues[2] === "auto" ?
+				element.bottom.value() :
+				element.top.value().plus(Position.y(Number(clipValues[2]))),
+			left: clipValues[3] === "auto" ?
+				element.left.value() :
+				element.left.value().plus(Position.x(Number(clipValues[3])))
 		};
 
 		function parseStandardClip(element, clip) {
@@ -153,22 +181,6 @@
 		elementDom.runtimeStyle.left = runtimeStyle;
 		elementDom.style.left = style;
 		return result;
-	}
-
-	function findOverflowBounds(element, bounds) {
-		for (var container = element.parent(); container !== null; container = container.parent()) {
-			if (isClippedByAncestorOverflow(element, container)) {
-				bounds = intersection(
-					bounds,
-					container.top.value(),
-					container.right.value(),
-					container.bottom.value(),
-					container.left.value()
-				);
-			}
-		}
-
-		return bounds;
 	}
 
 	function isClippedByAncestorOverflow(element, ancestor) {
@@ -228,7 +240,7 @@
 		return bounds;
 	}
 
-	function clippedOutOfExistence(bounds, edges) {
+	function isClippedOutOfExistence(bounds, edges) {
 		return (bounds.top.compare(edges.bottom) >= 0) ||
 			(bounds.right !== null && bounds.right.compare(edges.left) <= 0) ||
 			(bounds.bottom !== null && bounds.bottom.compare(edges.top) <= 0) ||
