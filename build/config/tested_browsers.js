@@ -10,7 +10,7 @@
 
 module.exports = [
 	"Chrome 57.0.2987 (Mac OS X 10.11.6)",
-	"Firefox 51.0.0 (Mac OS X 10.11.0)",
+	"Firefox 52.0.0 (Mac OS X 10.11.0)",
 	"IE 8.0.0 (Windows 7 0.0.0)",
 	"IE 11.0.0 (Windows 7 0.0.0)",
 	"Edge 14.14393.0 (Windows 10 0.0.0)",
