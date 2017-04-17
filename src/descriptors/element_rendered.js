@@ -4,13 +4,21 @@
 
 	var ensure = require("../util/ensure.js");
 	var RenderState = require("../values/render_state.js");
+	var Position = require("../values/position.js");
 	var Descriptor = require("./descriptor.js");
+	var ElementRenderedEdge = require("./element_rendered_edge.js");
 
 	var Me = module.exports = function ElementRendered(element) {
 		var QElement = require("../q_element.js");      // break circular dependency
 		ensure.signature(arguments, [ QElement ]);
 
 		this._element = element;
+
+		// properties
+		this.top = ElementRenderedEdge.top(element);
+		this.right = ElementRenderedEdge.right(element);
+		this.bottom = ElementRenderedEdge.bottom(element);
+		this.left = ElementRenderedEdge.left(element);
 	};
 	Descriptor.extend(Me);
 
@@ -19,8 +27,7 @@
 	};
 
 	Me.prototype.value = function value() {
-		if (!this._element.frame.body().toDomElement().contains(this._element.toDomElement())) return RenderState.detached();
-		else if (this._element.getRawStyle("display") === "none") return RenderState.displayNone();
+		if (this.top.value().equals(Position.noY())) return RenderState.notRendered();
 		else return RenderState.rendered();
 	};
 
@@ -32,10 +39,6 @@
 	  if (type === "boolean") {
 		  return arg ? RenderState.rendered() : RenderState.notRendered();
 	  }
-		if (type === "string") {
-			if (arg === "display:none") return RenderState.displayNone();
-			if (arg === "detached") return RenderState.detached();
-		}
 	};
 
 }());

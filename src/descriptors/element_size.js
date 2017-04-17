@@ -5,7 +5,7 @@
 	var ensure = require("../util/ensure.js");
 	var SizeDescriptor = require("./size_descriptor.js");
 	var Size = require("../values/size.js");
-	var RenderState = require("../values/render_state.js");
+	var Position = require("../values/position.js");
 
 	var X_DIMENSION = "width";
 	var Y_DIMENSION = "height";
@@ -45,7 +45,7 @@
 	}
 
 	function elementRendered(self) {
-		return self._element.rendered.value().equals(RenderState.rendered());
+		return (!self._element.top.value().equals(Position.noY()));
 	}
 
 }());

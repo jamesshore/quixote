@@ -5,7 +5,6 @@
 	var ensure = require("../util/ensure.js");
 	var Position = require("../values/position.js");
 	var PositionDescriptor = require("./position_descriptor.js");
-	var RenderState = require("../values/render_state.js");
 
 	var TOP = "top";
 	var RIGHT = "right";
@@ -60,7 +59,12 @@
 	}
 
 	function elementRendered(self) {
-		return self._element.rendered.value().equals(RenderState.rendered());
+		var element = self._element;
+
+		var inDom = element.frame.body().toDomElement().contains(element.toDomElement());
+		var displayNone = element.getRawStyle("display") === "none";
+
+		return inDom && !displayNone;
 	}
 
 }());
