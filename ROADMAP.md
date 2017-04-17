@@ -21,7 +21,6 @@
 * ElementVisibleSize descriptor
 * Visibility descriptor
 * Use `visible`, `clipped`, and `clipped.top` etc instead of `visible.top` etc?
-* QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
@@ -39,22 +38,18 @@
 	* remove special-case handling in element_visible_edge
 	* this would be a breaking change, would need to be documented as such
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
-* opacity
-* filter
-* visibility
-* clip-path should throw exception?
-* 'QElement.bounds' descriptor (equivalent to QElement.top, .left, etc.)
-
+* toString()
 
 
 ## Dogfooding Notes
 
-* Add `QElement.add()`
 * Add ability to easily get font metrics (see issue #44)
-* Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
+* Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px higher."?
 * Provide a better way of integrating with standard assertion libraries? Use `valueOf()`?
 * Consider how to support less-than, greater-than, etc.
+  * Use case: "the bottom edge of 'foo' is above the fold (600px)".
 	* Alternative assert mechanism? `element.assert.equal()` `.assert.lessThan()` etc? with `should` as alias to `assert`?
+  * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 * Add workaround for IE 8 not working with `frame.add("<style>...</style>")` (addAll? browser feature detect? Need to check if there's no way to insert styles into the document, or if it just doesn't like the way `add()` works.)
 
@@ -67,8 +62,6 @@
   * Could width and height be reimplemented as a Span? Would a Span have a center, for example?
     * Even if it could, would it be a good idea?
     * E.g., Me.width = function() { this.left.to(this.right) };
-  * Use case: "the bottom edge of 'foo' is above the fold (600px)".
-  * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
 * Add 'union' types? So you could say `element.width` equals `otherElement.size`?
 * Colors? Contrast (fg color vs. bg color?))
 * Plugin API

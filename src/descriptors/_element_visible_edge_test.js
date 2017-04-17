@@ -48,6 +48,20 @@
 			);
 		});
 
+		it("fails fast if `clip-path` property is used", function() {
+			element("clip-path: url('#something');");
+			if (!browserSupportsClipPath()) return;
+
+			assert.exception(function() {
+				top.value();
+			}, "Can't detect element clipping boundaries when 'clip-path' property is used.");
+
+			function browserSupportsClipPath() {
+				var clipPath = qElement.getRawStyle("clip-path");
+				return (clipPath !== "" && clipPath !== "none");
+			}
+		});
+
 		it("accounts for elements positioned completely off-screen", function() {
 			if (quixote.browser.misreportsClipAutoProperty()) return;
 

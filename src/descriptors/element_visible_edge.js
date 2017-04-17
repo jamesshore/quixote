@@ -43,11 +43,16 @@
 		var element = this._element;
 		var page = element.frame.page();
 
-		// REMOVE ME if element.rendered accounts for zero-width and zero-height elements
+		// REMOVE ME if element.rendered is changed to account for zero-width and zero-height elements
 		if (element.height.value().equals(Size.create(0))) return offscreen(position);
 		if (element.width.value().equals(Size.create(0))) return offscreen(position);
 		// END REMOVE ME
 		if (element.rendered.value().equals(RenderState.notRendered())) return offscreen(position);
+
+		ensure.that(
+			!hasClipPathProperty(element),
+			"Can't detect element clipping boundaries when 'clip-path' property is used."
+		);
 
 		var bounds = {
 			top: page.top.value(),
@@ -74,6 +79,11 @@
 	Me.prototype.toString = function() {
 		ensure.unreachable();
 	};
+
+	function hasClipPathProperty(element) {
+		var clipPath = element.getRawStyle("clip-path");
+		return clipPath !== "none" && clipPath !== "";
+	}
 
 	function intersectionWithOverflow(element, bounds) {
 		for (var container = element.parent(); container !== null; container = container.parent()) {
