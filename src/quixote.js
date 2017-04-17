@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var ensure = require("./util/ensure.js");
@@ -24,13 +24,15 @@ exports.browser = {};
 
 exports.browser.enlargesFrameToPageSize = createDetectionMethod("enlargesFrame");
 exports.browser.enlargesFonts = createDetectionMethod("enlargesFonts");
+exports.browser.misreportsClipAutoProperty = createDetectionMethod("misreportsClipAuto");
+exports.browser.misreportsAutoValuesInClipProperty = createDetectionMethod("misreportsClipValues");
 
 function createDetectionMethod(propertyName) {
 	return function() {
 		ensure.signature(arguments, []);
+		ensure.that(features !== null, "Must create a frame before using Quixote browser feature detection.");
 
 		var feature = features[propertyName];
-		ensure.that(feature !== undefined, "Must create a frame before using Quixote browser feature detection.");
 		return feature;
 	};
 }
@@ -48,6 +50,8 @@ function detectBrowserFeatures(callback) {
 
 		try {
 			features.enlargesFrame = detectFrameEnlargement(frame, FRAME_WIDTH);
+			features.misreportsClipAuto = detectReportedClipAuto(frame);
+			features.misreportsClipValues = detectReportedClipPropertyValues(frame);
 
 			frame.reset();
 			detectFontEnlargement(frame, FRAME_WIDTH, function(result) {
@@ -93,5 +97,21 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 
 		return callback(fontSize !== "15px");
 	}, 0);
+}
 
+function detectReportedClipAuto(frame) {
+	var element = frame.add("<div style='clip: auto;'></div>");
+	var clip = element.getRawStyle("clip");
+
+	return clip !== "auto";
+}
+
+function detectReportedClipPropertyValues(frame) {
+	var element = frame.add("<div style='clip: rect(auto, auto, auto, auto);'></div>");
+	var clip = element.getRawStyle("clip");
+
+	// WORKAROUND IE 8: Provides 'clipTop' etc. instead of 'clip' property
+	if (clip === "" && element.getRawStyle("clip-top") === "auto") return false;
+
+	return clip !== "rect(auto, auto, auto, auto)" && clip !== "rect(auto auto auto auto)";
 }

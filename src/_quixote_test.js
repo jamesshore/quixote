@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 var assert = require("./util/assert.js");
@@ -23,10 +23,22 @@ describe("FOUNDATION: Quixote", function() {
 
 describe("FOUNDATION: Browser capability", function() {
 
+	var frame;
+
 	var mobileSafari;
+	var chromeMobile;
+	var ie8;
+	var ie11;
 
 	beforeEach(function() {
-		mobileSafari = navigator.userAgent.match(/(iPad|iPhone|iPod touch);/i) !== null;
+		var userAgent = navigator.userAgent;
+
+		// These user agent strings may be brittle. It's okay because we only use them in the tests. Modify them
+		// as needed to make sure tests match real-world behavior.
+		mobileSafari = userAgent.match(/(iPad|iPhone|iPod touch);/i) !== null;
+		chromeMobile = userAgent.match(/Android/) !== null;
+		ie8 = userAgent.match(/MSIE 8\.0/) !== null;
+		ie11 = userAgent.match(/rv:11\.0/) !== null;
 	});
 
 	it("detects whether browser expands frame to fit size of page", function() {
@@ -42,6 +54,22 @@ describe("FOUNDATION: Browser capability", function() {
 			quixote.browser.enlargesFonts(),
 			mobileSafari,
 			"everything but Mobile Safari should respect frame size"
+		);
+	});
+
+	it("detects whether browser can detect `clip: auto` value", function() {
+		assert.equal(
+			quixote.browser.misreportsClipAutoProperty(),
+			ie8,
+			"everything but IE 8 should calculate 'clip: auto' properly"
+		);
+	});
+
+	it("detects whether browser computes `clip: rect(auto, ...)` value correctly", function() {
+		assert.equal(
+			quixote.browser.misreportsAutoValuesInClipProperty(),
+			chromeMobile || ie11,
+			"everything but Android Mobile and IE 11 should calculate clip values properly"
 		);
 	});
 

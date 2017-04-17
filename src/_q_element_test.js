@@ -84,8 +84,13 @@ describe("FOUNDATION: QElement", function() {
 			assert.equal(child.parent("nickname").toString(), "'nickname'", "should use provided nickname");
 		});
 
-		it("parent element of body is 'null", function() {
+		it("parent element of body is 'null'", function() {
 			assert.equal(frame.body().parent(), null);
+		});
+
+		it("parent element of detached element is 'null'", function() {
+			element.remove();
+			assert.equal(element.parent(), null);
 		});
 
 		it("adds child element", function() {

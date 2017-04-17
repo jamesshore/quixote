@@ -31,28 +31,28 @@ exports.signature = function(args, signature) {
 		);
 	}
 
-	var type, arg, name;
+	var arg, types, name;
 	for (var i = 0; i < signature.length; i++) {
-		type = signature[i];
 		arg = args[i];
-		name = "Argument " + i;
+		types = signature[i];
+		name = "Argument #" + (i + 1);
 
-		if (!shim.Array.isArray(type)) type = [ type ];
-		if (!typeMatches(type, arg, name)) {
-			var message = name + " expected " + explainType(type) + ", but was ";
-			throw new EnsureException(exports.signature, message + explainArg(arg));
+		if (!shim.Array.isArray(types)) types = [ types ];
+		if (!argMatchesAnyPossibleType(arg, types)) {
+			var message = name + " expected " + explainPossibleTypes(types) + ", but was " + explainArg(arg);
+			throw new EnsureException(exports.signature, message);
 		}
 	}
 };
 
-function typeMatches(type, arg) {
+function argMatchesAnyPossibleType(arg, type) {
 	for (var i = 0; i < type.length; i++) {
-		if (oneTypeMatches(type[i], arg)) return true;
+		if (argMatchesType(arg, type[i])) return true;
 	}
 	return false;
 
-	function oneTypeMatches(type, arg) {
-		switch (getType(arg)) {
+	function argMatchesType(arg, type) {
+		switch (getArgType(arg)) {
 			case "boolean": return type === Boolean;
 			case "string": return type === String;
 			case "number": return type === Number;
@@ -61,14 +61,14 @@ function typeMatches(type, arg) {
 			case "object": return type === Object || arg instanceof type;
 			case "undefined": return type === undefined;
 			case "null": return type === null;
-			case "NaN": return isNaN(type);
+			case "NaN": return typeof(type) === "number" && isNaN(type);
 
 			default: exports.unreachable();
 		}
 	}
 }
 
-function explainType(type) {
+function explainPossibleTypes(type) {
 	var joiner = "";
 	var result = "";
 	for (var i = 0; i < type.length; i++) {
@@ -85,6 +85,7 @@ function explainType(type) {
 			case Array: return "array";
 			case Function: return "function";
 			case null: return "null";
+			case undefined: return "undefined";
 			default:
 				if (typeof type === "number" && isNaN(type)) return "NaN";
 				else {
@@ -95,13 +96,13 @@ function explainType(type) {
 }
 
 function explainArg(arg) {
-	var type = getType(arg);
+	var type = getArgType(arg);
 	if (type !== "object") return type;
 
 	return oop.instanceName(arg) + " instance";
 }
 
-function getType(variable) {
+function getArgType(variable) {
 	var type = typeof variable;
 	if (variable === null) type = "null";
 	if (shim.Array.isArray(variable)) type = "array";

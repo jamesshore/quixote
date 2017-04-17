@@ -55,7 +55,7 @@ describe("UTIL: Ensure", function() {
 				/Function called with too many arguments: expected 1 but got 2/,
 				"# of arguments"
 			);
-			assert.exception(signature([ 42 ], [ String ]), /Argument 0 expected string, but was number/, "invalid");
+			assert.exception(signature([ 42 ], [ String ]), /Argument #1 expected string, but was number/, "invalid");
 		});
 
 		it("checks multiple arguments", function() {
@@ -67,7 +67,7 @@ describe("UTIL: Ensure", function() {
 			);
 			assert.exception(
 				signature( [ "foo", 42, 36 ], [ String, String, String ]),
-				/Argument 1 expected string, but was number/,
+				/Argument #2 expected string, but was number/,
 				"fails on first wrong parameter"
 			);
 		});
@@ -97,13 +97,18 @@ describe("UTIL: Ensure", function() {
 
 		it("supports weird types (primarily for allowing nullable objects, etc.)", function() {
 			assert.noException(signature([ undefined ], [ undefined ]));
-			assert.exception(signature([ undefined ], [ null ]), /Argument 0 expected null, but was undefined/);
+			assert.exception(signature([ undefined ], [ null ]), /Argument #1 expected null, but was undefined/);
 
 			assert.noException(signature([ null ], [ null ]));
-			assert.exception(signature([ null ], [ NaN ]), /Argument 0 expected NaN, but was null/);
+			assert.exception(signature([ null ], [ NaN ]), /Argument #1 expected NaN, but was null/);
 
 			assert.noException(signature([ NaN ], [ NaN ]));
-			assert.noException(signature([ NaN ], [ undefined ]), /Argument 0 expected undefined, but was NaN/);
+			assert.exception(signature([ NaN ], [ undefined ]), /Argument #1 expected undefined, but was NaN/);
+		});
+
+		it("doesn't consider NaN to be a number (or vice-versa)", function() {
+			assert.exception(signature([ NaN ], [ Number ]), /Argument #1 expected number, but was NaN/);
+			assert.exception(signature([ 1 ], [ NaN ]), /Argument #1 expected NaN, but was number/);
 		});
 
 		it("supports custom types", function() {
@@ -114,7 +119,7 @@ describe("UTIL: Ensure", function() {
 			assert.noException(signature([ new Anon() ], [ Anon ]), "valid anon class");
 			assert.exception(
 				signature([ {} ], [ MyClass ]),
-				/Argument 0 expected MyClass instance, but was Object instance/,
+				/Argument #1 expected MyClass instance, but was Object instance/,
 				"invalid MyClass"
 			);
 			// WORKAROUND Chrome 51: Chrome automatically names the function after the variable ("Anon" in this case),
@@ -122,12 +127,12 @@ describe("UTIL: Ensure", function() {
 			if (Anon.name !== "Anon") {
 				assert.exception(
 					signature([{}], [Anon]),
-					/Argument 0 expected <anon> instance, but was Object instance/,
+					/Argument #1 expected <anon> instance, but was Object instance/,
 					"invalid anon class"
 				);
 				assert.exception(
 					signature([new Anon()], [MyClass]),
-					/Argument 0 expected MyClass instance, but was <anon> instance/,
+					/Argument #1 expected MyClass instance, but was <anon> instance/,
 					"invalid anon instance"
 				);
 			}
@@ -145,7 +150,7 @@ describe("UTIL: Ensure", function() {
 			assert.noException(signature([ 1 ], [[ String, Number ]]), "valid");
 			assert.exception(
 				signature([ 1 ], [ [ String, Boolean, function MyClass() {} ] ]),
-				/Argument 0 expected string, boolean, or MyClass instance, but was number/,
+				/Argument #1 expected string, boolean, or MyClass instance, but was number/,
 				"invalid"
 			);
 		});
@@ -154,7 +159,7 @@ describe("UTIL: Ensure", function() {
 			assert.noException(signature([ 1 ], [ Number, [ undefined, String ] ]), "optional parameter");
 			assert.exception(
 				signature([], [ Number ]),
-				/Argument 0 expected number, but was undefined/,
+				/Argument #1 expected number, but was undefined/,
 				"required parameter"
 			);
 		});

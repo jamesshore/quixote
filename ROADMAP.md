@@ -20,22 +20,29 @@
 * ElementVisibleEdge descriptor
 * ElementVisibleSize descriptor
 * Visibility descriptor
+* Use `visible`, `clipped`, and `clipped.top` etc instead of `visible.top` etc?
 * QElement.bounds.* (synonym for QElement.top, .height, .center. etc.)
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
+	* quixote.browser.misreportsClipAutoProperty()
+		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
+	* quixote.browser.misreportsAutoValuesInClipProperty()
+		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 
 
 ## To Do: ElementVisibleEdge descriptor
 
 (Note: do not include children's visibility)
 
-* clip
-	* do we need to worry about parents' 'clip'? What if they have overflow set?
+* element.rendered -- handle case when element width/height is zero?
+	* remove special-case handling in element_visible_edge
+	* this would be a breaking change, would need to be documented as such
+* element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * opacity
 * filter
 * visibility
-* clip-path should throw exception
+* clip-path should throw exception?
 * 'QElement.bounds' descriptor (equivalent to QElement.top, .left, etc.)
 
 
@@ -43,6 +50,7 @@
 ## Dogfooding Notes
 
 * Add `QElement.add()`
+* Add ability to easily get font metrics (see issue #44)
 * Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
 * Provide a better way of integrating with standard assertion libraries? Use `valueOf()`?
 * Consider how to support less-than, greater-than, etc.
@@ -61,5 +69,6 @@
     * E.g., Me.width = function() { this.left.to(this.right) };
   * Use case: "the bottom edge of 'foo' is above the fold (600px)".
   * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
+* Add 'union' types? So you could say `element.width` equals `otherElement.size`?
 * Colors? Contrast (fg color vs. bg color?))
 * Plugin API
