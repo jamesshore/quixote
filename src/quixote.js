@@ -24,7 +24,8 @@ exports.browser = {};
 
 exports.browser.enlargesFrameToPageSize = createDetectionMethod("enlargesFrame");
 exports.browser.enlargesFonts = createDetectionMethod("enlargesFonts");
-exports.browser.misreportsAutoValuesInClipProperty = createDetectionMethod("misreportsClip");
+exports.browser.misreportsClipAutoProperty = createDetectionMethod("misreportsClipAuto");
+exports.browser.misreportsAutoValuesInClipProperty = createDetectionMethod("misreportsClipValues");
 
 function createDetectionMethod(propertyName) {
 	return function() {
@@ -49,7 +50,8 @@ function detectBrowserFeatures(callback) {
 
 		try {
 			features.enlargesFrame = detectFrameEnlargement(frame, FRAME_WIDTH);
-			features.misreportsClip = detectReportedClipProperty(frame);
+			features.misreportsClipAuto = detectReportedClipAuto(frame);
+			features.misreportsClipValues = detectReportedClipPropertyValues(frame);
 
 			frame.reset();
 			detectFontEnlargement(frame, FRAME_WIDTH, function(result) {
@@ -97,8 +99,15 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 	}, 0);
 }
 
-function detectReportedClipProperty(frame) {
-	var element =  frame.add("<div style='clip: rect(auto, auto, auto, auto);'></div>");
+function detectReportedClipAuto(frame) {
+	var element = frame.add("<div style='clip: auto;'></div>");
+	var clip = element.getRawStyle("clip");
+
+	return clip !== "auto";
+}
+
+function detectReportedClipPropertyValues(frame) {
+	var element = frame.add("<div style='clip: rect(auto, auto, auto, auto);'></div>");
 	var clip = element.getRawStyle("clip");
 
 	// WORKAROUND IE 8: Provides 'clipTop' etc. instead of 'clip' property

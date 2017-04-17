@@ -27,6 +27,7 @@ describe("FOUNDATION: Browser capability", function() {
 
 	var mobileSafari;
 	var chromeMobile;
+	var ie8;
 	var ie11;
 
 	beforeEach(function() {
@@ -36,6 +37,7 @@ describe("FOUNDATION: Browser capability", function() {
 		// as needed to make sure tests match real-world behavior.
 		mobileSafari = userAgent.match(/(iPad|iPhone|iPod touch);/i) !== null;
 		chromeMobile = userAgent.match(/Android/) !== null;
+		ie8 = userAgent.match(/MSIE 8\.0/) !== null;
 		ie11 = userAgent.match(/rv:11\.0/) !== null;
 	});
 
@@ -52,6 +54,14 @@ describe("FOUNDATION: Browser capability", function() {
 			quixote.browser.enlargesFonts(),
 			mobileSafari,
 			"everything but Mobile Safari should respect frame size"
+		);
+	});
+
+	it("detects whether browser can detect `clip: auto` value", function() {
+		assert.equal(
+			quixote.browser.misreportsClipAutoProperty(),
+			ie8,
+			"everything but IE 8 should calculate 'clip: auto' properly"
 		);
 	});
 
