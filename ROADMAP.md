@@ -29,6 +29,7 @@
 	* Breaking changes: ElementRendered
 		* No longer provides explanation of why an element isn't rendered (not in DOM, etc)
 		* No longer takes string-based expectations for non-rendering
+		* Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
 
 
 ## To Do: ElementRenderedEdge descriptor

@@ -4,6 +4,7 @@
 
 	var ensure = require("../util/ensure.js");
 	var RenderState = require("../values/render_state.js");
+	var Position = require("../values/position.js");
 	var Descriptor = require("./descriptor.js");
 
 	var Me = module.exports = function ElementRendered(element) {
@@ -19,8 +20,7 @@
 	};
 
 	Me.prototype.value = function value() {
-		if (!this._element.frame.body().toDomElement().contains(this._element.toDomElement())) return RenderState.notRendered();
-		else if (this._element.getRawStyle("display") === "none") return RenderState.notRendered();
+		if (this._element.top.value().equals(Position.noY())) return RenderState.notRendered();
 		else return RenderState.rendered();
 	};
 
