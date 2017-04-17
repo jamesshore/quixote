@@ -139,13 +139,13 @@ exports.exception = function(fn, expected, message) {
 			proclaim.strictEqual(
 				e.message,
 				expected,
-				message + "expected exception message to be '" + expected + "', but was '" + e.stack + "'"
+				message + "expected exception message to be '" + expected + "', but was '" + e.message + "'"
 			);
 		}
 		else if (expected instanceof RegExp) proclaim.match(
 			e.message,
 			expected,
-			message + "expected exception message to match " + expected + ", but was '" + e.stack + "'"
+			message + "expected exception message to match " + expected + ", but was '" + e.message + "'"
 		);
 		else if (typeof expected === "function") proclaim.isInstanceOf(
 			e,
