@@ -44,10 +44,6 @@
 
 (Note: do not include children's visibility)
 
-* element.rendered -- handle case when element width/height is zero?
-	* move 'in DOM' detection code from ElementRendered to ElementEdge
-	* remove special-case handling in element_visible_edge
-	* this would be a breaking change, would need to be documented as such
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 
 

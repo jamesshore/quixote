@@ -16,6 +16,9 @@
 
 		// properties
 		this.top = ElementRenderedEdge.top(element);
+		this.right = ElementRenderedEdge.right(element);
+		this.bottom = ElementRenderedEdge.bottom(element);
+		this.left = ElementRenderedEdge.left(element);
 	};
 	Descriptor.extend(Me);
 
