@@ -17,10 +17,8 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* ElementVisibleEdge descriptor
-* ElementVisibleSize descriptor
-* Visibility descriptor
-* Use `visible`, `clipped`, and `clipped.top` etc instead of `visible.top` etc?
+* ElementRenderedEdge descriptor
+* ElementRenderedSize descriptor
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
@@ -30,7 +28,7 @@
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 
 
-## To Do: ElementVisibleEdge descriptor
+## To Do: ElementRenderedEdge descriptor
 
 (Note: do not include children's visibility)
 
@@ -38,7 +36,6 @@
 	* remove special-case handling in element_visible_edge
 	* this would be a breaking change, would need to be documented as such
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
-* toString()
 
 
 ## Dogfooding Notes

@@ -49,10 +49,10 @@
 		var page = element.frame.page();
 
 		// REMOVE ME if element.rendered is changed to account for zero-width and zero-height elements
-		if (element.height.value().equals(Size.create(0))) return offscreen(position);
-		if (element.width.value().equals(Size.create(0))) return offscreen(position);
+		if (element.height.value().equals(Size.create(0))) return notRendered(position);
+		if (element.width.value().equals(Size.create(0))) return notRendered(position);
 		// END REMOVE ME
-		if (element.rendered.value().equals(RenderState.notRendered())) return offscreen(position);
+		if (element.rendered.value().equals(RenderState.notRendered())) return notRendered(position);
 
 		ensure.that(
 			!hasClipPathProperty(element),
@@ -77,7 +77,7 @@
 			element.left.value()
 		);
 
-		if (isClippedOutOfExistence(bounds, edges)) return offscreen(position);
+		if (isClippedOutOfExistence(bounds, edges)) return notRendered(position);
 		else return edge(edges, position);
 	};
 
@@ -255,7 +255,7 @@
 			(bounds.left.compare(edges.right) >= 0);
 	}
 
-	function offscreen(position) {
+	function notRendered(position) {
 		switch(position) {
 			case TOP:
 			case BOTTOM:
