@@ -35,12 +35,9 @@
 
 (Note: do not include children's visibility)
 
-* browser detect for IE 8 inability to detect 'clip:auto'
-* clip
-	* do we need to worry about parents' 'clip'? What if they have overflow set?
 * element.rendered -- handle case when element width/height is zero?
 	* remove special-case handling in element_visible_edge
-	* need to document breaking change
+	* this would be a breaking change, would need to be documented as such
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * opacity
 * filter

@@ -383,9 +383,25 @@
 				});
 
 			});
-
-
 		});
+
+
+		it("applies overflow and clip together", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+			if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+			parent(
+				"overflow: hidden; " +
+				"clip: rect(auto, 5px, auto, auto); " +
+				"position: absolute; " +
+				"top: 50px; height: 100px; left: 60px; width: 100px;"
+			);
+			assertVisible(
+				"position: absolute; top: -10px; height: 100px; left: -30px; width: 100px;",
+				50, 65, 140, 60
+			);
+		});
+
 
 		function grandparent(style) {
 			if (style === undefined) style = "";
