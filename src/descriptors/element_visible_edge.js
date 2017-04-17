@@ -92,6 +92,12 @@
 	}
 
 	function findClipBounds(element, bounds) {
+		// WORKAROUND IE 8: Doesn't have any way to detect 'clip: auto' value.
+		ensure.that(!quixote.browser.misreportsClipAutoProperty(),
+			"Can't determine element clipping values on this browser because it misreports the value of the" +
+			" `clip: auto` property. You can use `quixote.browser.misreportsClipAutoProperty()` to skip this browser."
+		);
+
 		for ( ; element !== null; element = element.parent()) {
 			var clip = element.getRawStyle("clip");
 			if (clip === "auto" || !canBeClippedByClipProperty(element)) continue;

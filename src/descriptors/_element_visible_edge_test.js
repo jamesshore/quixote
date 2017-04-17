@@ -40,6 +40,8 @@
 		});
 
 		it("defaults to bounding box", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+
 			assertVisible(
 				"position: absolute; top: 10px; height: 20px; left: 40px; width: 80px;",
 				10, 120, 30, 40
@@ -47,12 +49,16 @@
 		});
 
 		it("accounts for elements positioned completely off-screen", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+
 			assertNotVisible("position: absolute; top: -100px; height: 20px; left: 40px; width: 80px;", "outside top");
 			assertNotVisible("position: absolute; top: 10px; height: 20px; left: -400px; width: 80px;", "outside left");
 			// it's not possible to position off-screen to right or bottom--the page always expands to fit
 		});
 
 		it("accounts for elements positioned partly off-screen", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+
 			assertVisible(
 				"position: absolute; top: -100px; height: 200px; left: -400px; width: 800px;",
 				0, 400, 100, 0
@@ -77,6 +83,8 @@
 		describe("overflow CSS property", function() {
 
 			it("accounts for elements positioned completely outside overflow-clipped parent", function() {
+				if (quixote.browser.misreportsClipAutoProperty()) return;
+
 				parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
 				assertNotVisible("position: absolute; top: -20px; height: 10px; left: 30px; width: 10px;", "outside top");
 				assertNotVisible("position: absolute; top: 20px; height: 10px; left: 130px; width: 10px;", "outside right");
@@ -85,6 +93,8 @@
 			});
 
 			it("accounts for elements partially clipped by overflow parent", function() {
+				if (quixote.browser.misreportsClipAutoProperty()) return;
+
 				parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 60px; width: 100px;");
 				assertVisible(
 					"position: absolute; top: -10px; height: 100px; left: -30px; width: 100px;",
@@ -104,6 +114,8 @@
 			});
 
 			it("accounts for parents that have zero width or height", function() {
+				if (quixote.browser.misreportsClipAutoProperty()) return;
+
 				parent("overflow: hidden; position: absolute; top: 10px; height: 0px; left: 10px; width: 100px;");
 				assertNotVisible("", "zero height");
 
@@ -112,6 +124,8 @@
 			});
 
 			it("recognizes all forms of clipped overflow", function() {
+				if (quixote.browser.misreportsClipAutoProperty()) return;
+
 				test("overflow: hidden;");
 				test("overflow: scroll;");
 				test("overflow: auto;");
@@ -123,11 +137,15 @@
 			});
 
 			it("accounts for clipped overflow anywhere in parent hierarchy", function() {
+				if (quixote.browser.misreportsClipAutoProperty()) return;
+
 				grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
 				assertNotVisible("position:absolute; top: -20px; height: 10px");
 			});
 
 			it("accounts for multiple uses of clipped overflow", function() {
+				if (quixote.browser.misreportsClipAutoProperty()) return;
+
 				grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
 				parent("overflow: hidden; position: absolute; top: 20px; height: 100px; left: 40px; width: 100px;");
 				assertVisible(
@@ -137,6 +155,8 @@
 			});
 
 			it("ignores overflow when position is fixed", function() {
+				if (quixote.browser.misreportsClipAutoProperty()) return;
+
 				parent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 40px; width: 100px;");
 				assertVisible(
 					"position:fixed; top: 10px; height: 10px; left: 15px; width: 10px;",
@@ -152,10 +172,21 @@
 			describe("on an element", function() {
 
 				it("accounts for `clip:auto` (which means 'no clipping')", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
+
 					assertVisible(
 						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: auto;",
 						50, 140, 150, 40
 					);
+				});
+
+				it("fails fast when browser can't detect 'clip: auto' property", function() {
+					if (!quixote.browser.misreportsClipAutoProperty()) return;
+
+					element("position: absolute; clip: auto");
+					assert.exception(function() {
+						top.value();
+					}, /Can't determine element clipping values on this browser because it misreports the value of the `clip: auto` property\. You can use `quixote\.browser\.misreportsClipAutoProperty\(\)` to skip this browser\./);
 				});
 
 				it("fails fast when browser can't compute individual clip properties", function() {
@@ -168,7 +199,9 @@
 				});
 
 				it("accounts for pixel values in clip property", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					assertVisible(
 						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(10px, 30px, 25px, 15px);",
 						60, 70, 75, 55
@@ -176,7 +209,9 @@
 				});
 
 				it("treats 'auto' values as equivalent to element edge", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					assertVisible(
 						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(auto, auto, auto, auto);",
 						50, 140, 150, 40
@@ -184,7 +219,9 @@
 				});
 
 				it("clips element out of existence when clip values are the same or nonsensical", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
 
 					assertNotVisible(style + " clip: rect(10px, auto, 10px, auto);", "same top and bottom");
@@ -194,7 +231,9 @@
 				});
 
 				it("handles negative clip values", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
 
 					assertVisible(style + " clip: rect(-10px, auto, auto, auto)", 50, 140, 150, 40, "negative top");
@@ -204,7 +243,9 @@
 				});
 
 				it("handles fractional clip values", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					assertVisible("position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
 						"clip: rect(10.9px, 9.1px, 30.3px, 4.6px);",
 						60.9, 49.1, 80.3, 44.6
@@ -212,7 +253,9 @@
 				});
 
 				it("handles non-pixel values in clip property", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					assertVisible(
 						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; clip: rect(1em, 2em, 2em, 1em);",
 						66, 72, 82, 56
@@ -220,7 +263,9 @@
 				});
 
 				it("doesn't clip padding", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					assertVisible(
 						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
 						"clip: rect(auto, auto, auto, auto); padding: 10px 10px 10px 10px;",
@@ -229,7 +274,9 @@
 				});
 
 				it("doesn't clip border", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					assertVisible(
 						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
 						"clip: rect(auto, auto, auto, auto); border: 10px solid black;",
@@ -238,7 +285,9 @@
 				});
 
 				it("doesn't clip margin", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					assertVisible(
 						"position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; " +
 						"clip: rect(auto, auto, auto, auto); margin: 10px 10px 10px 10px;",
@@ -247,6 +296,7 @@
 				});
 
 				it("only applies when position is 'absolute' or 'fixed'", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 
 					assertClip("position: absolute;");
@@ -273,6 +323,7 @@
 				var hundredPxChild = "position: absolute; top: -50px; height: 100px; left: -50px; width: 100px; ";
 
 				it("clips children when ancestor is clipped", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 
 					parent(tenPxParent + "clip: rect(1px, 4px, 3px, 2px);");
@@ -280,6 +331,7 @@
 				});
 
 				it("clips children when multiple ancestors are clipped", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 
 					grandparent(tenPxParent + "clip: rect(1px, auto, 3px, auto);");
@@ -289,6 +341,7 @@
 				});
 
 				it("applies both element's 'clip' and ancestor's 'clip'", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 
 					parent(tenPxParent + "clip: rect(1px, auto, 3px, auto);");
@@ -296,11 +349,14 @@
 				});
 
 				it("doesn't clip children when ancestor uses 'clip: auto'", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
+
 					parent(tenPxParent + "clip: auto;");
 					assertVisible(hundredPxChild, 50, 150, 150, 50);
 				});
 
 				it("clips children to edges of ancestor when ancestor uses 'clip: rect(auto, auto, auto, auto)'", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 
 					parent(tenPxParent + "clip: rect(auto, auto, auto, auto)");
@@ -308,6 +364,7 @@
 				});
 
 				it("clips children above and to left of ancestor when ancestor uses negative clip values", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 
 					parent(tenPxParent + "clip: rect(-10px, -8px, -5px, -18px);");
@@ -315,6 +372,7 @@
 				});
 
 				it("clips children even when they have 'position: fixed' property", function() {
+					if (quixote.browser.misreportsClipAutoProperty()) return;
 					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
 
 					parent(tenPxParent + "clip: rect(auto, auto, auto, auto);");
