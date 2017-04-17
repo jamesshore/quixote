@@ -7,8 +7,6 @@
 
 	var RENDERED = "rendered";
 	var NOT_RENDERED = "not rendered";
-	var DISPLAY_NONE = "not rendered due to display:none property";
-	var DETACHED = "not rendered due to being detached from DOM";
 
 	var Me = module.exports = function RenderState(state) {
 		ensure.signature(arguments, [ String ]);
@@ -25,14 +23,6 @@
 		return new Me(NOT_RENDERED);
 	};
 
-	Me.displayNone = function displayNone() {
-		return new Me(DISPLAY_NONE);
-	};
-
-	Me.detached = function detached() {
-		return new Me(DETACHED);
-	};
-
 	Me.prototype.compatibility = function compatibility() {
 		return [ Me ];
 	};
@@ -43,10 +33,8 @@
 
 		if (thisState === expectedState) return "";
 
-		if (thisState === RENDERED) return "different than expected";
-		else if (expectedState === RENDERED) return "different than expected";
-		else if (thisState === NOT_RENDERED || expectedState === NOT_RENDERED) return "";
-		else return "achieved differently than expected";
+		if (expectedState === RENDERED) return "not rendered when expected to be";
+		else return "rendered when not expected to be";
 	});
 
 	Me.prototype.toString = function toString() {
