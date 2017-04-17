@@ -56,8 +56,8 @@
 			left: page.left.value()
 		};
 
-		bounds = findOverflowBounds(element, bounds);
-		bounds = findClipBounds(element, bounds);
+		bounds = intersectionWithOverflow(element, bounds);
+		bounds = intersectionWithClip(element, bounds);
 
 		var edges = intersection(
 			bounds,
@@ -75,7 +75,7 @@
 		ensure.unreachable();
 	};
 
-	function findOverflowBounds(element, bounds) {
+	function intersectionWithOverflow(element, bounds) {
 		for (var container = element.parent(); container !== null; container = container.parent()) {
 			if (isClippedByAncestorOverflow(element, container)) {
 				bounds = intersection(
@@ -91,7 +91,7 @@
 		return bounds;
 	}
 
-	function findClipBounds(element, bounds) {
+	function intersectionWithClip(element, bounds) {
 		// WORKAROUND IE 8: Doesn't have any way to detect 'clip: auto' value.
 		ensure.that(!quixote.browser.misreportsClipAutoProperty(),
 			"Can't determine element clipping values on this browser because it misreports the value of the" +
@@ -116,8 +116,7 @@
 	}
 
 	function normalizeClipProperty(element, clip) {
-		// WORKAROUND IE 8: No 'clip' property (instead, uses clipTop, clipRight, etc.)
-		var clipValues = clip === "" ? extractIe8Clip(element) : parseStandardClip(element, clip);
+		var clipValues = parseClipProperty(element, clip);
 
 		return {
 			top: clipValues[0] === "auto" ?
@@ -134,7 +133,7 @@
 				element.left.value().plus(Position.x(Number(clipValues[3])))
 		};
 
-		function parseStandardClip(element, clip) {
+		function parseClipProperty(element, clip) {
 			// WORKAROUND IE 11, Chrome Mobile 44: Reports 0px instead of 'auto' when computing rect() in clip property.
 			ensure.that(!quixote.browser.misreportsAutoValuesInClipProperty(),
 				"Can't determine element clipping values on this browser because it misreports the value of the `clip`" +
@@ -150,15 +149,6 @@
 				parseLength(matches[2], clip),
 				parseLength(matches[3], clip),
 				parseLength(matches[4], clip)
-			];
-		}
-
-		function extractIe8Clip(element) {
-			return [
-				calculatePixelValue(element, element.getRawStyle("clip-top")),
-				calculatePixelValue(element, element.getRawStyle("clip-right")),
-				calculatePixelValue(element, element.getRawStyle("clip-bottom")),
-				calculatePixelValue(element, element.getRawStyle("clip-left"))
 			];
 		}
 
