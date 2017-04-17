@@ -314,6 +314,16 @@
 					assertVisible(hundredPxChild, 100 - 10, 100 - 8, 100 - 5, 100 - 18);
 				});
 
+				it("clips children even when they have 'position: fixed' property", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					parent(tenPxParent + "clip: rect(auto, auto, auto, auto);");
+					assertVisible(
+						"position: fixed; top: 0px; height: 105px; left: 107px; width: 100px;",
+						100, 110, 105, 107
+					);
+				});
+
 			});
 
 
