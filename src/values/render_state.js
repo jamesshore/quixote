@@ -32,9 +32,7 @@
 		var expectedState = expected._state;
 
 		if (thisState === expectedState) return "";
-
-		if (expectedState === RENDERED) return "not rendered when expected to be";
-		else return "rendered when not expected to be";
+		else return "different than expected";
 	});
 
 	Me.prototype.toString = function toString() {

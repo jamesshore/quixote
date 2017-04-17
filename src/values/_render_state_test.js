@@ -22,10 +22,12 @@
 
 		it("describes difference", function() {
 			var EQUAL = "";
-			assert.equal(rendered.diff(rendered), EQUAL);
-			assert.equal(rendered.diff(notRendered), "rendered when not expected to be");
+			var NOT_EQUAL = "different than expected";
 
-			assert.equal(notRendered.diff(rendered), "not rendered when expected to be");
+			assert.equal(rendered.diff(rendered), EQUAL);
+			assert.equal(rendered.diff(notRendered), NOT_EQUAL);
+
+			assert.equal(notRendered.diff(rendered), NOT_EQUAL);
 			assert.equal(notRendered.diff(notRendered), EQUAL);
 		});
 
