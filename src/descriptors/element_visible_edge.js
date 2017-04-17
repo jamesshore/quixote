@@ -167,6 +167,7 @@
 		}
 	}
 
+	// WORKAROUND IE 8: Doesn't normalize values to px
 	function calculatePixelValue(element, clipStr) {
 		var elementDom = element.toDomElement();
 

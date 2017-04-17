@@ -289,13 +289,13 @@
 				});
 
 				it("applies both element's 'clip' and ancestor's 'clip'", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
 					parent(tenPxParent + "clip: rect(1px, auto, 3px, auto);");
 					assertVisible(hundredPxChild + "clip: rect(auto, 54px, auto, 52px);", 101, 104, 103, 102);
 				});
 
 				it("doesn't clip children when ancestor uses 'clip: auto'", function() {
-					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
-
 					parent(tenPxParent + "clip: auto;");
 					assertVisible(hundredPxChild, 50, 150, 150, 50);
 				});
@@ -305,6 +305,13 @@
 
 					parent(tenPxParent + "clip: rect(auto, auto, auto, auto)");
 					assertVisible(hundredPxChild, 100, 110, 110, 100);
+				});
+
+				it("clips children above and to left of ancestor when ancestor uses negative clip values", function() {
+					if (quixote.browser.misreportsAutoValuesInClipProperty()) return;
+
+					parent(tenPxParent + "clip: rect(-10px, -8px, -5px, -18px);");
+					assertVisible(hundredPxChild, 100 - 10, 100 - 8, 100 - 5, 100 - 18);
 				});
 
 			});

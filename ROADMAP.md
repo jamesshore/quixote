@@ -51,6 +51,7 @@
 ## Dogfooding Notes
 
 * Add `QElement.add()`
+* Add ability to easily get font metrics (see issue #44)
 * Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px lower."?
 * Provide a better way of integrating with standard assertion libraries? Use `valueOf()`?
 * Consider how to support less-than, greater-than, etc.
@@ -69,5 +70,6 @@
     * E.g., Me.width = function() { this.left.to(this.right) };
   * Use case: "the bottom edge of 'foo' is above the fold (600px)".
   * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
+* Add 'union' types? So you could say `element.width` equals `otherElement.size`?
 * Colors? Contrast (fg color vs. bg color?))
 * Plugin API
