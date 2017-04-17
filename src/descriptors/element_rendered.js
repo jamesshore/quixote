@@ -19,8 +19,8 @@
 	};
 
 	Me.prototype.value = function value() {
-		if (!this._element.frame.body().toDomElement().contains(this._element.toDomElement())) return RenderState.detached();
-		else if (this._element.getRawStyle("display") === "none") return RenderState.displayNone();
+		if (!this._element.frame.body().toDomElement().contains(this._element.toDomElement())) return RenderState.notRendered();
+		else if (this._element.getRawStyle("display") === "none") return RenderState.notRendered();
 		else return RenderState.rendered();
 	};
 
@@ -32,10 +32,6 @@
 	  if (type === "boolean") {
 		  return arg ? RenderState.rendered() : RenderState.notRendered();
 	  }
-		if (type === "string") {
-			if (arg === "display:none") return RenderState.displayNone();
-			if (arg === "detached") return RenderState.detached();
-		}
 	};
 
 }());

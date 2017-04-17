@@ -26,6 +26,9 @@
 		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
 	* quixote.browser.misreportsAutoValuesInClipProperty()
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
+	* Breaking changes: ElementRendered
+		* No longer provides explanation of why an element isn't rendered (not in DOM, etc)
+		* No longer takes string-based expectations for non-rendering
 
 
 ## To Do: ElementRenderedEdge descriptor
@@ -33,6 +36,7 @@
 (Note: do not include children's visibility)
 
 * element.rendered -- handle case when element width/height is zero?
+	* move 'in DOM' detection code from ElementRendered to ElementRenderedEdge?
 	* remove special-case handling in element_visible_edge
 	* this would be a breaking change, would need to be documented as such
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
