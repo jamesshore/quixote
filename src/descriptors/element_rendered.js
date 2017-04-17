@@ -6,12 +6,16 @@
 	var RenderState = require("../values/render_state.js");
 	var Position = require("../values/position.js");
 	var Descriptor = require("./descriptor.js");
+	var ElementRenderedEdge = require("./element_rendered_edge.js");
 
 	var Me = module.exports = function ElementRendered(element) {
 		var QElement = require("../q_element.js");      // break circular dependency
 		ensure.signature(arguments, [ QElement ]);
 
 		this._element = element;
+
+		// properties
+		this.top = ElementRenderedEdge.top(element);
 	};
 	Descriptor.extend(Me);
 
@@ -20,7 +24,7 @@
 	};
 
 	Me.prototype.value = function value() {
-		if (this._element.top.value().equals(Position.noY())) return RenderState.notRendered();
+		if (this.top.value().equals(Position.noY())) return RenderState.notRendered();
 		else return RenderState.rendered();
 	};
 

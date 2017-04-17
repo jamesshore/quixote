@@ -27,9 +27,17 @@
 	* quixote.browser.misreportsAutoValuesInClipProperty()
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 	* Breaking changes: ElementRendered
-		* No longer provides explanation of why an element isn't rendered (not in DOM, etc)
+		* No longer provides specific explanation of why an element isn't rendered (not in DOM, etc)
 		* No longer takes string-based expectations for non-rendering
 		* Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
+		* Is 'false' if element isn't rendered for many reasons
+			* not in DOM, display:none (same as before)
+			* off-screen
+			* zero width or height
+			* clipped out of existence by `overflow:hidden`
+			* clipped out of existence by `clip`
+		* Could fail on some browsers due to `clip` property not being supported correctly
+		* Will fail fast if `clip-path` property is used
 
 
 ## To Do: ElementRenderedEdge descriptor

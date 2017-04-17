@@ -3,6 +3,7 @@
 	"use strict";
 
 	var assert = require("../util/assert.js");
+	var quixote = require("../quixote.js");
 	var reset = require("../__reset.js");
 	var ElementRendered = require("./element_rendered.js");
 	var Descriptor = require("./descriptor.js");
@@ -43,11 +44,13 @@
 		});
 
 		it("resolves to value", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+
 			assert.objEqual(rendered.value(), RenderState.rendered(), "rendered");
 			assert.objEqual(displayNone.value(), RenderState.notRendered(), "display:none");
 			assert.objEqual(detached.value(), RenderState.notRendered(), "detached");
-			// assert.objEqual(offscreen.value(), RenderState.offscreen(), "offscreen");
-			// assert.objEqual(noSize.value(), RenderState.noSize(), "no size");
+			assert.objEqual(offscreen.value(), RenderState.notRendered(), "offscreen");
+			assert.objEqual(noSize.value(), RenderState.notRendered(), "no size");
 
 			displayNoneElement.remove();
 			assert.objEqual(displayNone.value(), RenderState.notRendered(), "detached and display:none");
