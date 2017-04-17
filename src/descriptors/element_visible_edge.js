@@ -38,6 +38,11 @@
 		};
 	}
 
+	Me.prototype.toString = function toString() {
+		ensure.signature(arguments, []);
+		return this._position + " rendered edge of " + this._element;
+	};
+
 	Me.prototype.value = function() {
 		var position = this._position;
 		var element = this._element;
@@ -74,10 +79,6 @@
 
 		if (isClippedOutOfExistence(bounds, edges)) return offscreen(position);
 		else return edge(edges, position);
-	};
-
-	Me.prototype.toString = function() {
-		ensure.unreachable();
 	};
 
 	function hasClipPathProperty(element) {

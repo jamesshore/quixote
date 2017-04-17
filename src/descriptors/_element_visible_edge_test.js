@@ -9,7 +9,7 @@
 	var PositionDescriptor = require("./position_descriptor.js");
 	var Position = require("../values/position.js");
 
-	describe("DESCRIPTOR: ElementVisibleEdge", function() {
+	describe("DESCRIPTOR: ElementRenderedEdge", function() {
 		this.timeout(5000);
 
 		var frame;
@@ -37,6 +37,17 @@
 
 		it("is a position descriptor", function() {
 			assert.implements(top, PositionDescriptor);
+		});
+
+		it("converts to string", function() {
+			assertDesc(qElement, top, "top rendered edge of ", "top");
+			assertDesc(qElement, right, "right rendered edge of ", "right");
+			assertDesc(qElement, bottom, "bottom rendered edge of ", "bottom");
+			assertDesc(qElement, left, "left rendered edge of ", "left");
+
+			function assertDesc(element, edge, expected, message) {
+				assert.equal(edge.toString(), expected + element, message);
+			}
 		});
 
 		it("defaults to bounding box", function() {
