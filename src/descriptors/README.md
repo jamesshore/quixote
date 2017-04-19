@@ -137,13 +137,6 @@ Me.create = function(element) {
 ```
 
 
-
-
-
-
-
-
-
 ## Extend `Descriptor` base class
 
 All descriptors have to extend `Descriptor` or another base class (such as `SizeDescriptor`) in order to work properly.
@@ -151,9 +144,14 @@ All descriptors have to extend `Descriptor` or another base class (such as `Size
 Our tests:
 
 ```javascript
+⋮
+var IRRELEVANT_COLOR = "#abcdef";
+
 it("is a descriptor", function() {
-  assert.implements(color, Descriptor);
+	// replace the 'runs tests' test with this one
+  assert.implements(color(IRRELEVANT_COLOR), Descriptor);
 });
+⋮
 ```
 
 Our production code:
@@ -162,10 +160,12 @@ Our production code:
 var Me = module.exports = function BackgroundColor(element) {
   ⋮
 };
+// extend the base class. If you're extending another base class (such as `SizeDescriptor`), use that instead.
 Descriptor.extend(Me);
 
 ⋮
-// Temporary methods so the tests pass
+// Temporary methods so the tests pass. We use `ensure.unreachable()` so we get a nice error message
+// in case we forget to implement them later.
 Me.prototype.value = function() {
   ensure.unreachable();
 };
@@ -178,13 +178,19 @@ Me.prototype.toString = function() {
 
 ## Compute value: `value()`
 
-A descriptor is a *description* of a CSS property. Descriptors don't store the value of the property, but they know how to calculate it on demand.
+This is where the magic happens. Descriptors represent some part of a page. They can compute the value of that part of the page on demand. Those values are returned as Value object instances, not primitives.
 
-For our `BackgroundColor` example, we start by testing that our descriptor gives us the actual background color of our test element. We're assuming that we have an (as yet fictional) `Color` value object, and that we've required it at some point.
+In the case of our `BackgroundColor` descriptor, it represents the background color of an element. In the `value()` method, it will compute the color. We're assuming that the `Color` value object has already been implemented. (See the [Value class tutorial](../values/README.md) for that example.)
 
 ```javascript
+var Color = require("../values/color.js");
+⋮
+var RED = "#ff0000";
+⋮
 it("resolves to value", function() {
-  assert.objEqual(color.value(), Color.create(COLOR));
+  // The `objEqual` assertion calls `.equals`, like this: `color.value().equals(Color.create(COLOR))`
+  // We're checking that the descriptor returns the correct Color value object.
+  assert.objEqual(color(RED).value(), Color.create(RED));
 });
 ```
 

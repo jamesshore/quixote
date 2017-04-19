@@ -12,9 +12,19 @@
 	  this._from = from;
 	  this._to = to;
 	};
+	SizeDescriptor.extend(Me);
 
 	Me.create = function(from, to) {
 	  return new Me(from, to);
+	};
+
+	Me.prototype.value = function() {
+	  ensure.signature(arguments, []);
+	  return this._from.value().distanceTo(this._to.value());
+	};
+
+	Me.prototype.toString = function() {
+	  ensure.unreachable();
 	};
 
 }());
