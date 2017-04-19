@@ -15,9 +15,9 @@ Implement a descriptor class by following these steps.
 1. Create testbed.
 2. Provide factory methods.
 3. Extend `Descriptor` base class.
-4. Compute values: implement `value()`.
-5. Render to a string: implement `toString()`.
-6. (Optional) Convert primitives: implement `convert()`.
+4. Compute values: `value()`.
+5. Render to a string: `toString()`.
+6. (Optional) Convert primitives: `convert()`.
 7. Expose properties.
 8. (Optional) Add API.
 
@@ -62,7 +62,7 @@ Start out by creating a test file for your descriptor. As you follow the example
 }());
 ```
 
-Stub in the production code as well. (As you follow the example, leave out the comments.)
+Stub in the production code as well.
 
 ```javascript
 (function() {			// wrap all files in an IIFE
@@ -78,6 +78,7 @@ Stub in the production code as well. (As you follow the example, leave out the c
   // We'll implement the rest of the class later.
 
 }());
+```
 
 
 ## Implement factory methods
@@ -86,7 +87,8 @@ We have a convention of using factory methods, not constructors, to instantiate 
 
 Design the signature for your factory method, then implement a utility function in your test that calls the factory method. Your test's utility function will typically need to create an element for the descriptor to use.
 
-In the case of our BackgroundColor example, so the design of our factory method is simple: `create(element)`.
+In the case of our BackgroundColor example, the design of our factory method is simple: `create(element)`.
+
 ```javascript
 ⋮
 var ELEMENT_NAME = "element";
