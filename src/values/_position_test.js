@@ -38,6 +38,15 @@ describe("VALUE: Position", function() {
 		assert.equal(x1.value(), x1);    // note identity comparison, not objEqual()
 	});
 
+	it("computes distance between positions (and always returns positive result)", function() {
+		assert.objEqual(y1.distanceTo(y2), Size.create(30), "smaller to larger");
+		assert.objEqual(y2.distanceTo(y1), Size.create(30), "larger to smaller");
+		assert.objEqual(x1.distanceTo(x2), Size.create(10), "axis is irrelevant");
+		assert.objEqual(y1.distanceTo(noY), Size.createNone(), "rendered to non-rendered");
+		assert.objEqual(noY.distanceTo(y1), Size.createNone(), "non-rendered to rendered");
+		assert.objEqual(noY.distanceTo(noY), Size.createNone(), "non-rendered to non-rendered");
+	});
+
 	it("performs arithmetic on itself", function() {
 		assert.objEqual(x1.plus(x2), Position.x(30), "plus x");
 		assert.objEqual(y1.plus(y2), Position.y(130), "plus y");
@@ -96,8 +105,15 @@ describe("VALUE: Position", function() {
 		assert.equal(noX.diff(x1), "not rendered", "non-rendered");
 	});
 
+	it("can't compare positions and sizes", function() {
+		assert.exception(function() {
+			x1.equals(Size.create(10));
+		}, "Argument #1 expected Position instance, but was Size instance");
+	});
+
 	it("fails fast when doing stuff with incompatible dimensions", function() {
 		var expected = "Can't compare X coordinate to Y coordinate";
+		assert.exception(function() { x1.distanceTo(y1); }, expected, "distanceTo");
 		assert.exception(function() { x1.plus(y1); }, expected, "plus");
 		assert.exception(function() { x1.minus(y1); }, expected, "minus");
 		assert.exception(function() { x1.midpoint(y1); }, expected, "midpoint");

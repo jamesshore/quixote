@@ -2,93 +2,142 @@
 
 Descriptors and Values are the two core architectural concepts in Quixote.
  
-* **Descriptors** represent some *as yet uncalculated* aspect of CSS
+* **Descriptors** represent some aspect of your page, such as the width of an element. They have the ability to *compute* the value of that thing (the `value()` method) and the ability to *describe* that thing (the `toString()` method).
 * **Values** contain calculated values.
 
-This directory is for descriptors.
+This file describes how to create a descriptor class.
 
-A descriptor has the following key features, which should be implemented in this order.
 
-* It has tests.
-* It extends a `Descriptor` base class.
-* It provides factory methods for construction.
-* It resolves itself to a Value object: `value()`
-* Optional: It converts primitives to Value objects that are comparable to itself: `convert(arg, type)`
-* It renders itself as a string: `toString()`
-* It is returned from QElement or another object
-* Optional: It provides properties or methods that return other descriptors.
+## Implementation Checklist
 
-The following explanations use the (as yet fictional) example of a `BackgroundColor` descriptor. It represents the `background-color` CSS property.
+Implement a descriptor class by following these steps.
 
-For a real descriptor example, see any of the descriptors in this directory. [`ElementSize`](element_size.js) and [its tests](_element_size_test.js) are a good choice.
+1. Create testbed.
+2. Provide factory methods.
+3. Extend `Descriptor` base class.
+4. Compute values: `value()`.
+5. Render to a string: `toString()`.
+6. (Optional) Convert primitives: `convert()`.
+7. Expose properties.
+8. (Optional) Add API.
+
+The following example implements the (as yet fictional) `BackgroundColor` descriptor. It represents the background color of an element and corresponds to the `background-color` CSS property.
+
+For a real descriptor example, see any of the descriptors in this directory. [`ElementEdge`](element_edge.js) and [its tests](_element_edge_test.js) are a good choice.
 
 
 ## Create testbed
 
-Start out by creating a test element for the style you're going to test.
-
-For our `BackgroundColor` example, we create an element that has a background color.
+Start out by creating a test file for your descriptor. As you follow the example, leave out the comments.
 
 ```javascript
-"use strict";
+(function() {			// we wrap our classes in an IIFE so WebStorm's refactoring tools work better
+	"use strict";		// always use strict mode
 
-var assert = require("../util/assert.js");
-var reset = require("../__reset.js");
-var BackgroundColor = require("./background_color.js");
-var Descriptor = require("./descriptor.js");
+	// Our custom test assertion library
+	var assert = require("../util/assert.js");		// our custom assertion library
 
-// It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
-describe("DESCRIPTOR: BackgroundColor", function() {
-  
-  var COLOR = "#abcde0"       // our test element's background color
-  
-  var element;                // the test element
-  var color;                  // the descriptor under test
-  
-  beforeEach(function() {
-    // get the test frame (for speed, we reuse the same frame, containing a reset 
-    // stylesheet, for all Quixote tests)
-    var frame = reset.frame;
-    
-    // add our test element
-    element = frame.add(
-      "<p id='element' style='background-color: " + COLOR + "'>element</p>",
-      "element"
-    );
-    
-    // create the test descriptor
-    color = BackgroundColor.create(element);
-  });
-  
-});
+	// For speed, we reuse the same test frame, containing a reset stylesheet, across all our Quixote tests.
+	var reset = require("../__reset.js");
+
+	// The base class we'll be extending. In some cases, you'll extend a subclass of Descriptor, such as
+	// SizeDescriptor or PositionDescriptor. In that case, you'd require that class here instead.
+	var Descriptor = require("./descriptor.js");
+
+	// The class we're implementing
+	var BackgroundColor = require("./background_color.js");
+
+	// It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
+	describe("DESCRIPTOR: BackgroundColor", function() {
+
+		// Normally, you'd need a beforeEach() function to reset the test frame. But our
+		// __reset.js file implements that for us.
+
+		it("runs tests", function() {
+			// make sure the tests run (and fail)
+			assert.fail("hi");
+		});
+
+	});
+}());
+```
+
+Stub in the production code as well.
+
+```javascript
+(function() {			// wrap all files in an IIFE
+	"use strict";		// always use strict mode
+
+	// Our runtime assertion library. We mostly use it for runtime signature type checking.
+	var ensure = require("../util/ensure.js");
+
+	// The base class we'll be extending. If you're extending a subclass of Descriptor, such as
+	// SizeDescriptor or PositionDescriptor, require that instead.
+  var Descriptor = require("./descriptor.js");
+
+  // We'll implement the rest of the class later.
+
+}());
 ```
 
 
 ## Implement factory methods
 
 We have a convention of using factory methods, not constructors, to instantiate all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
- 
+
+Design the signature for your factory method, then implement a utility function in your test that calls the factory method. Your test's utility function will typically need to create an element for the descriptor to use.
+
+In the case of our BackgroundColor example, the design of our factory method is simple: `create(element)`.
+
 ```javascript
-"use strict";
+⋮
+var ELEMENT_NAME = "element";
+var IRRELEVANT = "#abcdef";
+⋮
+it("runs tests", function() {
+	// Call the utility method. We're not making any assertions yet because this test is still temporary.
+	color(IRRELEVANT);
+});
 
-var ensure = require("../util/ensure.js");
-var Descriptor = require("./descriptor.js");
+// We have a convention of putting our tests' utility functions at the bottom of the file.
 
+function color(backgroundColor) {
+	// Create a test element for our descriptor to use
+	element = reset.frame.add(
+		"<p id='element' style='background-color: " + backgroundColor + "'>element</p>",
+		ELEMENT_NAME
+	);
+
+	// Create the descriptor and return it
+	return BackgroundColor.create(element);
+}
+```
+
+The test will fail because the factory method doesn't exist. Implement it and its constructor.
+
+```javascript
+⋮
+
+// The constructor always comes first (after require statements). This is our convention for
+// constructors. Be sure to include the function name. Even though it isn't technically required,
+// we include it because it makes stack traces more readable.
 var Me = module.exports = function BackgroundColor(element) {
-  // Normally we would do this require at the top of the file, but we need to break a circular
-  // dependency with QElement. 
+	// We need to type-check our signature. To do that, we need the QElement constructor. Normally,
+	// we'd require it at the top of the file, but in the case of QElement, that creates a circular
+	// dependency. So we need to require QElement here.
   var QElement = require("./q_element.js");
-  // Check that the constructor is called with the correct parameter types.
+
+  // Check that the constructor was called correctly.
   ensure.signature(arguments, [ QElement ]);
-  
-  // store the element for later
+
+  // Store the element for later
   this._element = element;
 };
 
 Me.create = function(element) {
   // Our factory method. It just calls the constructor. More complicated descriptors might do more.
   // We don't call 'ensure.signature()' here because the constructor already does that.
-  return new BackgroundColor(element);
+  return new Me(element);
 };
 ```
 
@@ -100,9 +149,12 @@ All descriptors have to extend `Descriptor` or another base class (such as `Size
 Our tests:
 
 ```javascript
+⋮
 it("is a descriptor", function() {
-  assert.implements(color, Descriptor);
+	// replace the 'runs tests' test with this one
+  assert.implements(color(IRRELEVANT), Descriptor);
 });
+⋮
 ```
 
 Our production code:
@@ -111,10 +163,12 @@ Our production code:
 var Me = module.exports = function BackgroundColor(element) {
   ⋮
 };
+// extend the base class. If you're extending another base class (such as `SizeDescriptor`), use that instead.
 Descriptor.extend(Me);
 
 ⋮
-// Temporary methods so the tests pass
+// Temporary methods so the tests pass. We use `ensure.unreachable()` so we get a nice error message
+// in case we forget to implement them later.
 Me.prototype.value = function() {
   ensure.unreachable();
 };
@@ -125,15 +179,21 @@ Me.prototype.toString = function() {
 ```
 
 
-## Calculate value: `value()`
+## Compute value: `value()`
 
-A descriptor is a *description* of a CSS property. Descriptors don't store the value of the property, but they know how to calculate it on demand.
+This is where the magic happens. Descriptors represent some part of a page. They can compute the value of that part of the page on demand. Those values are returned as Value object instances, not primitives.
 
-For our `BackgroundColor` example, we start by testing that our descriptor gives us the actual background color of our test element. We're assuming that we have an (as yet fictional) `Color` value object, and that we've required it at some point.
+In the case of our `BackgroundColor` descriptor, it represents the background color of an element. In the `value()` method, it will compute the color. We're assuming that the `Color` value object has already been implemented. (See the [Value class tutorial](../values/README.md) for that example.)
 
 ```javascript
+var Color = require("../values/color.js");
+⋮
+var RED = "#ff0000";
+⋮
 it("resolves to value", function() {
-  assert.objEqual(color.value(), Color.create(COLOR));
+  // The `objEqual` assertion calls `.equals`, like this: `color.value().equals(Color.create(COLOR))`
+  // We're checking that the descriptor returns the correct Color value object.
+  assert.objEqual(color(RED).value(), Color.create(RED));
 });
 ```
 
@@ -155,13 +215,13 @@ Me.prototype.value = function() {
 
 ## Render to a string: `toString()`
 
-Remember, a descriptor is a *description* of a CSS property, not the value of the property. When we render it to a string, we want to *describe* the property. This human-readable description will be used when describing differences.
+Descriptors have the ability to describe, in human-readable terms, which part of the page they represent. This human-readable description will be used in assertions.
 
 In the case of our `BackgroundColor` example, a good value for `toString()` might be something like "background color of 'element'".
 
 ```javascript
 it("renders to string", function() {
-  assert.equal(color.toString(), "background color of " + element);
+  assert.equal(color(IRRELEVANT).toString(), "background color of " + ELEMENT_NAME);
 });
 ```
 
@@ -193,6 +253,8 @@ it("converts comparison arguments", function() {
 
 ```javascript
 Me.prototype.convert = function(arg, type) {
+  // We don't check the signature on this method because it's strictly for internal use.
+
   if (type === "string") return Color.create(arg);
 };
 ```

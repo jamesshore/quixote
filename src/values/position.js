@@ -45,6 +45,12 @@ Me.prototype.compatibility = function compatibility() {
 	return [ Me, Size ];
 };
 
+Me.prototype.distanceTo = function(operand) {
+	ensure.signature(arguments, [ Me ]);
+	checkAxis(this, operand);
+	return Size.create(this._value.difference(operand.toPixels()));
+};
+
 Me.prototype.plus = Value.safe(function plus(operand) {
 	checkAxis(this, operand);
 	return new Me(this._dimension, this._value.plus(operand.toPixels()));
@@ -76,6 +82,7 @@ Me.prototype.max = Value.safe(function max(operand) {
 });
 
 Me.prototype.diff = Value.safe(function diff(expected) {
+	ensure.signature(arguments, [ Me ]);
 	checkAxis(this, expected);
 
 	var actualValue = this._value;

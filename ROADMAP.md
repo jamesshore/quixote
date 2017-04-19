@@ -17,8 +17,12 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* ElementRenderedEdge descriptor
-* ElementRenderedSize descriptor
+* Span descriptor class as a generic replacement for SizeDescriptor and its subclasses
+* PositionDescriptor.to()
+* Descriptor.alias()?
+* Rename Size value class to Span?
+* ElementRenderedSize descriptor properties
+* element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
@@ -40,11 +44,12 @@
 		* Will fail fast if `clip-path` property is used
 
 
-## To Do: ElementRenderedEdge descriptor
+## To Do: Span descriptor class
 
-(Note: do not include children's visibility)
-
-* element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
+* Create Span class (takes two Position descriptors and a description)
+* Replace ElementSize with Span
+* Replace ViewportSize and PageSize? Or create GenericPosition descriptor to match Span (and rename Span --> GenericSize)?
+* Replace PageSize?
 
 
 ## Dogfooding Notes

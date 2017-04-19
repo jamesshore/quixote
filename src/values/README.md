@@ -1,24 +1,25 @@
 # How to Create a Value
 
 Descriptors and Values are the two core architectural concepts in Quixote.
- 
-* **Descriptors** represent some *as yet uncalculated* aspect of CSS
+
+* **Descriptors** represent some aspect of your page, such as the width of an element. They have the ability to *compute* the value of that thing (the `value()` method) and the ability to *describe* that thing (the `toString()` method).
 * **Values** contain calculated values.
 
-This directory is for values.
+This file describes how to create a value class.
 
-A value has the following key features, which should be implemented in this order.
 
-* It has tests.
-* It extends the `Value` base class.
-* It provides factory methods for construction.
-* It checks for compatibility with other values: `compatibility()`
-* It compares itself to other value objects and renders the results as a human-readable string: `diff(expected)`
-* It renders itself as a string: `toString()`
+## Implementation Checklist
 
-Value objects are the mechanism Quixote uses to provide its assertion messages. The better the results provided by `diff()` and `toString()`, the more useful Quixote becomes.
+Implement a value class by following these steps.
 
-The following explanations use the (as yet fictional) example of a `Color` value. It represents the value of CSS properties like `background-color`.
+1. Create testbed.
+2. Implement factory methods.
+3. Extend `Value` base class.
+4. Check for compatibility with other values: implement `compatibility()`.
+5. Render differences: implement `diff()`.
+6. Render to a string: implement `toString()`.
+
+The following example implements the (as yet fictional) `Color` value. It represents the value of CSS color properties like `background-color`.
 
 For a real value example, see any of the value classes in this directory. [`RenderState`](render_state.js) and [its tests](_render_state_test.js) are a good choice.
 

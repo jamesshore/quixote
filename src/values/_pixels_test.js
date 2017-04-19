@@ -21,6 +21,8 @@ describe("VALUE: Pixels", function() {
 	it("performs arithmetic", function() {
 		assert.objEqual(a1.plus(b), Pixels.create(30), "addition");
 		assert.objEqual(b.minus(a1), Pixels.create(10), "subtraction");
+		assert.objEqual(b.difference(a1), Pixels.create(10), "subtraction with absolute value");
+		assert.objEqual(a1.difference(b), Pixels.create(10), "difference shouldn't care about ordering");
 		assert.objEqual(a1.times(3), Pixels.create(30), "multiplication");
 		assert.objEqual(a1.average(b), Pixels.create(15), "average");
 		assert.objEqual(b.average(a1), Pixels.create(15), "average should not care about ordering");
@@ -79,6 +81,7 @@ describe("VALUE: Pixels", function() {
 
 			assert.objEqual(noPixels.plus(noPixels2), Pixels.createNone(), "adding noPixels");
 			assert.objEqual(noPixels.minus(noPixels2), Pixels.createNone(), "subtracting noPixels");
+			assert.objEqual(noPixels.difference(noPixels2), Pixels.createNone(), "differencing noPixels");
 			assert.objEqual(noPixels.times(2), Pixels.createNone(), "multiplying noPixels");
 			assert.objEqual(noPixels.average(noPixels2), Pixels.createNone(), "averaging noPixels");
 			assert.objEqual(Pixels.min(noPixels, noPixels2), Pixels.createNone(), "minimizing noPixels");
@@ -88,6 +91,8 @@ describe("VALUE: Pixels", function() {
 			assert.objEqual(pixels.plus(noPixels), Pixels.createNone(), "adding pixels and noPixels");
 			assert.objEqual(noPixels.minus(pixels), Pixels.createNone(), "subtracting noPixels and pixels");
 			assert.objEqual(pixels.minus(noPixels), Pixels.createNone(), "subtracting pixels and noPixels");
+			assert.objEqual(noPixels.difference(pixels), Pixels.createNone(), "differencing noPixels and pixels");
+			assert.objEqual(pixels.difference(noPixels), Pixels.createNone(), "differencing pixels and noPixels");
 			assert.objEqual(noPixels.average(pixels), Pixels.createNone(), "averaging noPixels and pixels");
 			assert.objEqual(pixels.average(noPixels), Pixels.createNone(), "averaging pixels and noPixels");
 			assert.objEqual(Pixels.min(noPixels, pixels), Pixels.createNone(), "minimizing noPixels and pixels");
