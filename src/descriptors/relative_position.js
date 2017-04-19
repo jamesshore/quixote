@@ -2,13 +2,10 @@
 "use strict";
 
 var ensure = require("../util/ensure.js");
-var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Value = require("../values/value.js");
 var Size = require("../values/size.js");
-var Pixels = require("../values/pixels.js");
-var ElementSize = require("./element_size.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";

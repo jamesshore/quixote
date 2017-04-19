@@ -30,6 +30,8 @@
 		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
 	* quixote.browser.misreportsAutoValuesInClipProperty()
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
+	* Span as a generic descriptor?
+		* span.center, if implemented
 	* Breaking changes: ElementRendered
 		* No longer provides specific explanation of why an element isn't rendered (not in DOM, etc)
 		* No longer takes string-based expectations for non-rendering
@@ -46,8 +48,8 @@
 
 ## To Do: Span descriptor class
 
-* Create Span class (takes two Position descriptors and a description)
-* Replace ElementSize with Span
+* Add Span.center
+* Update QElement to use Span.center for `center` and `middle` properties
 * Replace ViewportSize and PageSize? Or create GenericPosition descriptor to match Span (and rename Span --> GenericSize)?
 * Replace PageSize?
 

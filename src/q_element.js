@@ -8,7 +8,7 @@
 	var ElementRendered = require("./descriptors/element_rendered.js");
 	var ElementEdge = require("./descriptors/element_edge.js");
 	var Center = require("./descriptors/center.js");
-	var ElementSize = require("./descriptors/element_size.js");
+	var Span = require("./descriptors/span.js");
 	var Assertable = require("./assertable.js");
 
 	var Me = module.exports = function QElement(domElement, frame, nickname) {
@@ -28,11 +28,11 @@
 		this.bottom = ElementEdge.bottom(this);
 		this.left = ElementEdge.left(this);
 
-		this.center = Center.x(this.left, this.right, "center of '" + nickname + "'");
-		this.middle = Center.y(this.top, this.bottom, "middle of '" + nickname + "'");
+		this.center = Center.x(this.left, this.right, "center of " + this);
+		this.middle = Center.y(this.top, this.bottom, "middle of " + this);
 
-		this.width = ElementSize.x(this);
-		this.height = ElementSize.y(this);
+		this.width = Span.create(this.left, this.right, "width of " + this);
+		this.height = Span.create(this.top, this.bottom, "height of " + this);
 	};
 	Assertable.extend(Me);
 
