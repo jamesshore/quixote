@@ -28,72 +28,120 @@ For a real descriptor example, see any of the descriptors in this directory. [`E
 
 ## Create testbed
 
-Start out by creating a test element for the style you're going to test.
-
-For our `BackgroundColor` example, we create an element that has a background color.
+Start out by creating a test file for your descriptor. As you follow the example, leave out the comments.
 
 ```javascript
-"use strict";
+(function() {			// we wrap our classes in an IIFE so WebStorm's refactoring tools work better
+	"use strict";		// always use strict mode
 
-var assert = require("../util/assert.js");
-var reset = require("../__reset.js");
-var BackgroundColor = require("./background_color.js");
-var Descriptor = require("./descriptor.js");
+	// Our custom test assertion library
+	var assert = require("../util/assert.js");		// our custom assertion library
 
-// It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
-describe("DESCRIPTOR: BackgroundColor", function() {
-  
-  var COLOR = "#abcde0"       // our test element's background color
-  
-  var element;                // the test element
-  var color;                  // the descriptor under test
-  
-  beforeEach(function() {
-    // get the test frame (for speed, we reuse the same frame, containing a reset 
-    // stylesheet, for all Quixote tests)
-    var frame = reset.frame;
-    
-    // add our test element
-    element = frame.add(
-      "<p id='element' style='background-color: " + COLOR + "'>element</p>",
-      "element"
-    );
-    
-    // create the test descriptor
-    color = BackgroundColor.create(element);
-  });
-  
-});
+	// For speed, we reuse the same test frame, containing a reset stylesheet, across all our Quixote tests.
+	var reset = require("../__reset.js");
+
+	// The base class we'll be extending. In some cases, you'll extend a subclass of Descriptor, such as
+	// SizeDescriptor or PositionDescriptor. In that case, you'd require that class here instead.
+	var Descriptor = require("./descriptor.js");
+
+	// The class we're implementing
+	var BackgroundColor = require("./background_color.js");
+
+	// It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
+	describe("DESCRIPTOR: BackgroundColor", function() {
+
+		// Normally, you'd need a beforeEach() function to reset the test frame. But our
+		// __reset.js file implements that for us.
+
+		it("runs tests", function() {
+			// make sure the tests run (and fail)
+			assert.fail("hi");
+		});
+
+	});
+}());
 ```
+
+Stub in the production code as well. (As you follow the example, leave out the comments.)
+
+```javascript
+(function() {			// wrap all files in an IIFE
+	"use strict";		// always use strict mode
+
+	// Our runtime assertion library. We mostly use it for runtime signature type checking.
+	var ensure = require("../util/ensure.js");
+
+	// The base class we'll be extending. If you're extending a subclass of Descriptor, such as
+	// SizeDescriptor or PositionDescriptor, require that instead.
+  var Descriptor = require("./descriptor.js");
+
+  // We'll implement the rest of the class later.
+
+}());
 
 
 ## Implement factory methods
 
 We have a convention of using factory methods, not constructors, to instantiate all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
- 
+
+Design the signature for your factory method, then implement a utility function in your test that calls the factory method. Your test's utility function will typically need to create an element for the descriptor to use.
+
+In the case of our BackgroundColor example, so the design of our factory method is simple: `create(element)`.
 ```javascript
-"use strict";
+⋮
+it("runs tests", function() {
+	// Call the utility method. We're not making any assertions yet because this test is still temporary.
+	color("#abcde0");
+});
 
-var ensure = require("../util/ensure.js");
-var Descriptor = require("./descriptor.js");
+// We have a convention of putting our tests' utility functions at the bottom of the file.
 
+function color(backgroundColor) {
+	// Create a test element for our descriptor to use
+	element = reset.frame.add(
+		"<p id='element' style='background-color: " + backgroundColor + "'>element</p>",
+		"element"
+	);
+
+	// Create the descriptor and return it
+	return BackgroundColor.create(element);
+}
+```
+
+The test will fail because the factory method doesn't exist. Implement it and its constructor.
+
+```javascript
+⋮
+
+// The constructor always comes first (after require statements). This is our convention for
+// constructors. Be sure to include the function name. Even though it isn't technically required,
+// we include it because it makes stack traces more readable.
 var Me = module.exports = function BackgroundColor(element) {
-  // Normally we would do this require at the top of the file, but we need to break a circular
-  // dependency with QElement. 
+	// We need to type-check our signature. To do that, we need the QElement constructor. Normally,
+	// we'd require it at the top of the file, but in the case of QElement, that creates a circular
+	// dependency. So we need to require QElement here.
   var QElement = require("./q_element.js");
-  // Check that the constructor is called with the correct parameter types.
+
+  // Check that the constructor was called correctly.
   ensure.signature(arguments, [ QElement ]);
-  
-  // store the element for later
+
+  // Store the element for later
   this._element = element;
 };
 
 Me.create = function(element) {
   // Our factory method. It just calls the constructor. More complicated descriptors might do more.
   // We don't call 'ensure.signature()' here because the constructor already does that.
-  return new BackgroundColor(element);
+  return new Me(element);
 };
 ```
+
+
+
+
+
+
+
 
 
 ## Extend `Descriptor` base class

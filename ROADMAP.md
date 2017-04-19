@@ -48,10 +48,8 @@
 
 * Create Span class (takes two Position descriptors and a description)
 * Replace ElementSize with Span
-* Move viewport calculations from ViewportSize --> ViewportEdge
-* Replace ViewportSize
-* Move page calculations from PageSize --> PageEdge
-* Replace PageSize
+* Replace ViewportSize and PageSize? Or create GenericPosition descriptor to match Span (and rename Span --> GenericSize)?
+* Replace PageSize?
 
 
 ## Dogfooding Notes
