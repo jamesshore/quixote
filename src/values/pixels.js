@@ -36,6 +36,11 @@ Me.prototype.minus = Value.safe(function minus(operand) {
 	return new Me(this._amount - operand._amount);
 });
 
+Me.prototype.difference = Value.safe(function difference(operand) {
+	if (this._none || operand._none) return Me.createNone();
+	return new Me(Math.abs(this._amount - operand._amount));
+});
+
 Me.prototype.times = function times(operand) {
 	ensure.signature(arguments, [ Number ]);
 
