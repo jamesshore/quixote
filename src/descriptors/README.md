@@ -2,25 +2,28 @@
 
 Descriptors and Values are the two core architectural concepts in Quixote.
  
-* **Descriptors** represent some *as yet uncalculated* aspect of CSS
+* **Descriptors** represent some aspect of your page, such as the width of an element. They have the ability to *compute* the value of that thing (the `value()` method) and the ability to *describe* that thing (the `toString()` method).
 * **Values** contain calculated values.
 
-This directory is for descriptors.
+This file describes how to create a descriptor class.
 
-A descriptor has the following key features, which should be implemented in this order.
 
-* It has tests.
-* It extends a `Descriptor` base class.
-* It provides factory methods for construction.
-* It resolves itself to a Value object: `value()`
-* Optional: It converts primitives to Value objects that are comparable to itself: `convert(arg, type)`
-* It renders itself as a string: `toString()`
-* It is returned from QElement or another object
-* Optional: It provides properties or methods that return other descriptors.
+## Implementation Checklist
 
-The following explanations use the (as yet fictional) example of a `BackgroundColor` descriptor. It represents the `background-color` CSS property.
+Implement a descriptor class by following these steps.
 
-For a real descriptor example, see any of the descriptors in this directory. [`ElementSize`](element_size.js) and [its tests](_element_size_test.js) are a good choice.
+1. Create testbed.
+2. Provide factory methods.
+3. Extend `Descriptor` base class.
+4. Compute values: implement `value()`.
+5. Render to a string: implement `toString()`.
+6. (Optional) Convert primitives: implement `convert()`.
+7. Expose properties.
+8. (Optional) Add API.
+
+The following example implements the (as yet fictional) `BackgroundColor` descriptor. It represents the background color of an element and corresponds to the `background-color` CSS property.
+
+For a real descriptor example, see any of the descriptors in this directory. [`ElementEdge`](element_edge.js) and [its tests](_element_edge_test.js) are a good choice.
 
 
 ## Create testbed
@@ -125,7 +128,7 @@ Me.prototype.toString = function() {
 ```
 
 
-## Calculate value: `value()`
+## Compute value: `value()`
 
 A descriptor is a *description* of a CSS property. Descriptors don't store the value of the property, but they know how to calculate it on demand.
 
