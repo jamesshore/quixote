@@ -6,16 +6,17 @@
 	var PositionDescriptor = require("./position_descriptor.js");
   var SizeDescriptor = require("./size_descriptor.js");
 
-	var Me = module.exports = function Span(from, to) {
-	  ensure.signature(arguments, [ PositionDescriptor, PositionDescriptor ]);
+	var Me = module.exports = function Span(from, to, description) {
+	  ensure.signature(arguments, [ PositionDescriptor, PositionDescriptor, String ]);
 
 	  this._from = from;
 	  this._to = to;
+	  this._description = description;
 	};
 	SizeDescriptor.extend(Me);
 
-	Me.create = function(from, to) {
-	  return new Me(from, to);
+	Me.create = function(from, to, description) {
+	  return new Me(from, to, description);
 	};
 
 	Me.prototype.value = function() {
@@ -24,7 +25,7 @@
 	};
 
 	Me.prototype.toString = function() {
-	  ensure.unreachable();
+	  return this._description;
 	};
 
 }());

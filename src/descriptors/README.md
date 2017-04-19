@@ -89,9 +89,12 @@ Design the signature for your factory method, then implement a utility function 
 In the case of our BackgroundColor example, so the design of our factory method is simple: `create(element)`.
 ```javascript
 ⋮
+var ELEMENT_NAME = "element";
+var IRRELEVANT = "#abcdef";
+⋮
 it("runs tests", function() {
 	// Call the utility method. We're not making any assertions yet because this test is still temporary.
-	color("#abcde0");
+	color(IRRELEVANT);
 });
 
 // We have a convention of putting our tests' utility functions at the bottom of the file.
@@ -100,7 +103,7 @@ function color(backgroundColor) {
 	// Create a test element for our descriptor to use
 	element = reset.frame.add(
 		"<p id='element' style='background-color: " + backgroundColor + "'>element</p>",
-		"element"
+		ELEMENT_NAME
 	);
 
 	// Create the descriptor and return it
@@ -145,11 +148,9 @@ Our tests:
 
 ```javascript
 ⋮
-var IRRELEVANT_COLOR = "#abcdef";
-
 it("is a descriptor", function() {
 	// replace the 'runs tests' test with this one
-  assert.implements(color(IRRELEVANT_COLOR), Descriptor);
+  assert.implements(color(IRRELEVANT), Descriptor);
 });
 ⋮
 ```
@@ -212,13 +213,13 @@ Me.prototype.value = function() {
 
 ## Render to a string: `toString()`
 
-Remember, a descriptor is a *description* of a CSS property, not the value of the property. When we render it to a string, we want to *describe* the property. This human-readable description will be used when describing differences.
+Descriptors have the ability to describe, in human-readable terms, which part of the page they represent. This human-readable description will be used in assertions.
 
 In the case of our `BackgroundColor` example, a good value for `toString()` might be something like "background color of 'element'".
 
 ```javascript
 it("renders to string", function() {
-  assert.equal(color.toString(), "background color of " + element);
+  assert.equal(color(IRRELEVANT).toString(), "background color of " + ELEMENT_NAME);
 });
 ```
 
@@ -250,6 +251,8 @@ it("converts comparison arguments", function() {
 
 ```javascript
 Me.prototype.convert = function(arg, type) {
+  // We don't check the signature on this method because it's strictly for internal use.
+
   if (type === "string") return Color.create(arg);
 };
 ```

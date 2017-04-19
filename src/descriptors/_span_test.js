@@ -12,25 +12,27 @@
 
 	describe("DESCRIPTOR: Span", function() {
 
-		var IRRELEVANT = 42;
+		var IRRELEVANT_POS = 42;
+		var IRRELEVANT_DESC = "irrelevant";
 
 		it("is a descriptor", function() {
-		  assert.implements(span(IRRELEVANT, IRRELEVANT), SizeDescriptor);
+		  assert.implements(span(IRRELEVANT_POS, IRRELEVANT_POS, IRRELEVANT_DESC), SizeDescriptor);
 		});
 
 		it("resolves to value", function() {
-			assert.objEqual(span(10, 30).value(), Size.create(20));
+			assert.objEqual(span(10, 30, IRRELEVANT_DESC).value(), Size.create(20), "forward");
+			assert.objEqual(span(30, 10, IRRELEVANT_DESC).value(), Size.create(20), "backward");
 		});
 
-		it("ignores parameter order", function() {
-			assert.objEqual(span(10, 30).value(), span(30, 10).value());
+		it("renders to a string", function() {
+			assert.equal(span(IRRELEVANT_POS, IRRELEVANT_POS, "my description").toString(), "my description");
 		});
 
-		function span(from, to) {
-			return Span.create(new TestPosition(from), new TestPosition(to));
-		}
 	});
 
+	function span(from, to, description) {
+		return Span.create(new TestPosition(from), new TestPosition(to), description);
+	}
 
 	function TestPosition(position) {
 		this._position = Position.x(position);
