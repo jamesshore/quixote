@@ -31,11 +31,11 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var document = this._frame.toDomElement().contentDocument;
+	var size = pageSize(this._frame.toDomElement().contentDocument);
 	switch(this._edge) {
 		case TOP: return Position.y(0);
-		case RIGHT: return Position.x(pageSize(document).width);
-		case BOTTOM: return Position.y(pageSize(document).height);
+		case RIGHT: return Position.x(size.width);
+		case BOTTOM: return Position.y(size.height);
 		case LEFT: return Position.x(0);
 
 		default: ensure.unreachable();

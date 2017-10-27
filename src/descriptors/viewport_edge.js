@@ -35,10 +35,12 @@ Me.prototype.value = function() {
 	var x = Position.x(scroll.x);
 	var y = Position.y(scroll.y);
 
+	var size = viewportSize(this._frame.get("html").toDomElement());
+
 	switch(this._position) {
 		case TOP: return y;
-		case RIGHT: return x.plus(this._frame.viewport().width.value());
-		case BOTTOM: return y.plus(this._frame.viewport().height.value());
+		case RIGHT: return x.plus(Position.x(size.width));
+		case BOTTOM: return y.plus(Position.y(size.height));
 		case LEFT: return x;
 
 		default: ensure.unreachable();
@@ -53,5 +55,55 @@ Me.prototype.toString = function() {
 function factoryFn(position) {
 	return function factory(frame) {
 		return new Me(position, frame);
+	};
+}
+
+
+
+// USEFUL READING: http://www.quirksmode.org/mobile/viewports.html
+// and http://www.quirksmode.org/mobile/viewports2.html
+
+// BROWSERS TESTED: Safari 6.2.0 (Mac OS X 10.8.5); Mobile Safari 7.0.0 (iOS 7.1); Firefox 32.0.0 (Mac OS X 10.8);
+//    Firefox 33.0.0 (Windows 7); Chrome 38.0.2125 (Mac OS X 10.8.5); Chrome 38.0.2125 (Windows 7); IE 8, 9, 10, 11
+
+// Width techniques I've tried: (Note: results are different in quirks mode)
+// body.clientWidth
+// body.offsetWidth
+// body.getBoundingClientRect().width
+//    fails on all browsers: doesn't include margin
+// body.scrollWidth
+//    works on Safari, Mobile Safari, Chrome
+//    fails on Firefox, IE 8, 9, 10, 11: doesn't include margin
+// html.getBoundingClientRect().width
+// html.offsetWidth
+//    works on Safari, Mobile Safari, Chrome, Firefox
+//    fails on IE 8, 9, 10: includes scrollbar
+// html.scrollWidth
+// html.clientWidth
+//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
+
+// Height techniques I've tried: (Note that results are different in quirks mode)
+// body.clientHeight
+// body.offsetHeight
+// body.getBoundingClientRect().height
+//    fails on all browsers: only includes height of content
+// body getComputedStyle("height")
+//    fails on all browsers: IE8 returns "auto"; others only include height of content
+// body.scrollHeight
+//    works on Safari, Mobile Safari, Chrome;
+//    fails on Firefox, IE 8, 9, 10, 11: only includes height of content
+// html.getBoundingClientRect().height
+// html.offsetHeight
+//    works on IE 8, 9, 10
+//    fails on IE 11, Safari, Mobile Safari, Chrome: only includes height of content
+// html.scrollHeight
+//    works on Firefox, IE 8, 9, 10, 11
+//    fails on Safari, Mobile Safari, Chrome: only includes height of content
+// html.clientHeight
+//    WORKS! Safari, Mobile Safari, Chrome, Firefox, IE 8, 9, 10, 11
+function viewportSize(htmlElement) {
+	return {
+		width: htmlElement.clientWidth,
+		height: htmlElement.clientHeight
 	};
 }
