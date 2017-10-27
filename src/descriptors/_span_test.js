@@ -6,32 +6,32 @@
 	var reset = require("../__reset.js");
 	var SizeDescriptor = require("./size_descriptor.js");
 	var PositionDescriptor = require("./position_descriptor.js");
-	var Span = require("./span.js");
+	var GenericSize = require("./generic_size.js");
 	var Position = require("../values/position.js");
 	var Size = require("../values/size.js");
 
-	describe("DESCRIPTOR: Span", function() {
+	describe("DESCRIPTOR: GenericSize", function() {
 
-		var IRRELEVANT_POS = 42;
-		var IRRELEVANT_DESC = "irrelevant";
+		var IRRELEVANT_POSITION = 42;
+		var IRRELEVANT_DESCRIPTION = "irrelevant";
 
 		it("is a descriptor", function() {
-		  assert.implements(span(IRRELEVANT_POS, IRRELEVANT_POS, IRRELEVANT_DESC), SizeDescriptor);
+		  assert.implements(genericSize(IRRELEVANT_POSITION, IRRELEVANT_POSITION, IRRELEVANT_DESCRIPTION), SizeDescriptor);
 		});
 
 		it("resolves to value", function() {
-			assert.objEqual(span(10, 30, IRRELEVANT_DESC).value(), Size.create(20), "forward");
-			assert.objEqual(span(30, 10, IRRELEVANT_DESC).value(), Size.create(20), "backward");
+			assert.objEqual(genericSize(10, 30, IRRELEVANT_DESCRIPTION).value(), Size.create(20), "forward");
+			assert.objEqual(genericSize(30, 10, IRRELEVANT_DESCRIPTION).value(), Size.create(20), "backward");
 		});
 
 		it("renders to a string", function() {
-			assert.equal(span(IRRELEVANT_POS, IRRELEVANT_POS, "my description").toString(), "my description");
+			assert.equal(genericSize(IRRELEVANT_POSITION, IRRELEVANT_POSITION, "my description").toString(), "my description");
 		});
 
 	});
 
-	function span(from, to, description) {
-		return Span.create(new TestPosition(from), new TestPosition(to), description);
+	function genericSize(from, to, description) {
+		return GenericSize.create(new TestPosition(from), new TestPosition(to), description);
 	}
 
 	function TestPosition(position) {
