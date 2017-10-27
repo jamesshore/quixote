@@ -45,7 +45,6 @@
 
 ## To Do: GenericSize descriptor class
 
-* Move logic from PageSize and ViewportSize into PageEdge and ViewportEdge
 * Replace PageEdge and ViewportEdge with GenericSize calculated from PageEdge and ViewportEdge
 
 
