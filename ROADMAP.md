@@ -18,7 +18,8 @@
 ## Current Feature: Element Visibility (0.13 release)
 
 * Replace ElementSize, PageSize, and ViewportSize with GenericSize descriptor
-* ElementRenderedSize descriptor properties (implement on QElement; use Span)
+* ElementRenderedSize descriptor properties (implement on ElementRendered)
+	* Use GenericSize based on ElementRenderedEdge
 * PositionDescriptor.to()
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * Review GitHub issues for 'ready to implement' issues and pull requests
@@ -29,6 +30,7 @@
 		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
 	* quixote.browser.misreportsAutoValuesInClipProperty()
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
+	* ElementRendered's new descriptor properties (edge and size properties)
 	* Breaking changes: ElementRendered
 		* No longer provides specific explanation of why an element isn't rendered (not in DOM, etc)
 		* No longer takes string-based expectations for non-rendering
@@ -45,7 +47,7 @@
 
 ## To Do: GenericSize descriptor class
 
-* Replace PageEdge and ViewportEdge with GenericSize calculated from PageEdge and ViewportEdge
+* DONE
 
 
 ## Dogfooding Notes

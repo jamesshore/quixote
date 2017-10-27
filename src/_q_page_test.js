@@ -31,6 +31,8 @@ describe("FOUNDATION: QPage", function() {
 	it("has size properties", function() {
 		assert.equal(page.width.diff(WIDTH), "", "width");
 		assert.equal(page.height.diff(HEIGHT), "", "height");
+		assert.equal(page.width.toString(), "width of page", "width description");
+		assert.equal(page.height.toString(), "height of page", "height description");
 	});
 
 	it("has edge properties", function() {
