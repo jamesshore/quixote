@@ -17,8 +17,7 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* GenericSize descriptor class as a replacement for ElementSize, PageSize, and ViewportSize
-*
+* Replace ElementSize, PageSize, and ViewportSize with GenericSize descriptor
 * ElementRenderedSize descriptor properties (implement on QElement; use Span)
 * PositionDescriptor.to()
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())

@@ -135,7 +135,12 @@ Me.prototype.value = function() {
 	// BEST HEIGHT ANSWER SO FAR (ASSUMING VIEWPORT IS MINIMUM ANSWER):
 	var height = Math.max(body.scrollHeight, html.scrollHeight);
 
-	return Size.create(this._dimension === X_DIMENSION ? width : height);
+	switch(this._dimension) {
+		case X_DIMENSION: return Size.create(this._frame.page().right.value().toPixels());
+		case Y_DIMENSION: return Size.create(this._frame.page().bottom.value().toPixels());
+
+		default: ensure.unreachable();
+	}
 };
 
 Me.prototype.toString = function() {
