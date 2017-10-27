@@ -11,6 +11,7 @@
 	// loading modules we don't need. The require statements here are just the ones that are used to set up the tasks.
 	var paths = require("../config/paths.js");
 
+	var BUILD_NODE_VERSION = "6.11.5";   // The version of Node we use to build Quixote
 
 //*** GENERAL
 
@@ -20,15 +21,30 @@
 	});
 
 	desc("Lint, test, and build everything");
-	task("default", [ "clean", "quick", "build" ]);
+	task("default", [ "versions", "clean", "quick", "build" ]);
 
 	desc("Lint and test changed files only");
-	task("quick", [ "lint", "test" ]);
+	task("quick", [ "versions", "lint", "test" ]);
 
 	desc("Erase generated files");
 	task("clean", function() {
 		shell().rm("-rf", paths.generatedDir);
 	});
+
+
+//*** CHECK NODE VERSION
+
+	task("versions", [], function() {
+		console.log("Checking Node.js version: .");
+		var version = require("../util/version_checker.js");
+
+		version.check({
+			name: "Node",
+			expected: BUILD_NODE_VERSION,
+			actual: process.version,
+			strict: false
+		}, complete, fail);
+	}, { async: true });
 
 
 //*** LINT

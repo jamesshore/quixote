@@ -17,12 +17,12 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* Span descriptor class as a generic replacement for SizeDescriptor and its subclasses
+* Replace ElementSize, PageSize, and ViewportSize with GenericSize descriptor
+* ElementRenderedSize descriptor properties (implement on ElementRendered)
+	* Use GenericSize based on ElementRenderedEdge
 * PositionDescriptor.to()
-* Descriptor.alias()?
-* Rename Size value class to Span?
-* ElementRenderedSize descriptor properties
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
+* Review GitHub issues for 'ready to implement' issues and pull requests
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
@@ -30,6 +30,7 @@
 		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
 	* quixote.browser.misreportsAutoValuesInClipProperty()
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
+	* ElementRendered's new descriptor properties (edge and size properties)
 	* Breaking changes: ElementRendered
 		* No longer provides specific explanation of why an element isn't rendered (not in DOM, etc)
 		* No longer takes string-based expectations for non-rendering
@@ -44,12 +45,9 @@
 		* Will fail fast if `clip-path` property is used
 
 
-## To Do: Span descriptor class
+## To Do: GenericSize descriptor class
 
-* Create Span class (takes two Position descriptors and a description)
-* Replace ElementSize with Span
-* Replace ViewportSize and PageSize? Or create GenericPosition descriptor to match Span (and rename Span --> GenericSize)?
-* Replace PageSize?
+* DONE
 
 
 ## Dogfooding Notes

@@ -154,6 +154,8 @@ describe("FOUNDATION: QElement", function() {
 		it("sizes", function() {
 			assert.equal(element.width.diff(WIDTH), "", "width");
 			assert.equal(element.height.diff(HEIGHT), "", "height");
+			assert.equal(element.width.toString(), "width of " + element, "width description");
+			assert.equal(element.height.toString(), "height of " + element, "height description");
 		});
 
 	});

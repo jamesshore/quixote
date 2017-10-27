@@ -23,6 +23,8 @@ describe("FOUNDATION: QViewport", function() {
 	it("has size properties", function() {
 		assert.equal(viewport.width.diff(reset.WIDTH), "", "width");
 		assert.equal(viewport.height.diff(reset.HEIGHT), "", "height");
+		assert.equal(viewport.width.toString(), "width of viewport", "width description");
+		assert.equal(viewport.height.toString(), "height of viewport", "height description");
 	});
 
 	it("has edge properties", function() {
