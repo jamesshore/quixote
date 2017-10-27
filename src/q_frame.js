@@ -40,6 +40,7 @@
 		var height = options.height || 2000;
 		var src = options.src;
 		var stylesheets = options.stylesheet || [];
+		var css = options.css;
 		if (!shim.Array.isArray(stylesheets)) stylesheets = [ stylesheets ];
 
 		var err = checkUrls(src, stylesheets);
@@ -59,6 +60,12 @@
 			// We force it to be asynchronous here
 			setTimeout(function() {
 				loaded(frame, width, height, src, stylesheets);
+				if (css) {
+					loadRawCSS(frame, options.css);
+					if (!stylesheets.length) {
+						frame._frameLoadCallback(null, frame);
+					}
+				}
 				loadStylesheets(frame, stylesheets, function() {
 					frame._frameLoadCallback(null, frame);
 				});
@@ -133,6 +140,13 @@
 			link.setAttribute("href", url);
 			shim.Document.head(self._document).appendChild(link);
 		}
+	}
+
+	function loadRawCSS(self, css) {
+		var style = document.createElement("style");
+		style.setAttribute("type", "text/css");
+		style.innerHTML = css;
+		shim.Document.head(self._document).appendChild(style);
 	}
 
 	Me.prototype.reset = function() {

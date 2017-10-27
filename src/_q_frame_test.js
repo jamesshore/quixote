@@ -105,11 +105,51 @@ describe("FOUNDATION: QFrame", function() {
 				}
 			});
 		});
+		
+		it("creates iframe using raw CSS only", function(done) {
+			QFrame.create(window.document.body, { css: ".style-me { font-size: 42px; }"	}, function(err, frame) {
+				var styleMe = frame.add("<div class='style-me'>Foo</div>");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px");
+				done();
+			});
+		});
+
+		it("creates iframe using raw CSS and a stylesheet link", function(done) {
+			var options = {
+				css: ".style-me { font-size: 42px; }",
+				stylesheet: "/base/src/_q_frame_test2.css"
+			};
+			frame = QFrame.create(window.document.body, options, function(err) {
+				if (err) return done(err);
+				try {
+					var styleMe = frame.add("<div class='style-me'>Foo</div>");
+					assert.equal(styleMe.getRawStyle("font-size"), "42px", "should get style from raw css");
+					assert.equal(styleMe.getRawPosition().height, 123, "should get style from stylesheet");
+					done();
+				}
+				catch(e) {
+					done(e);
+				}
+			});
+		});
 
 		it("creates iframe using stylesheet and source URL simultaneously", function(done) {
 			var options = {
 				src: "/base/src/_q_frame_test.html",
 				stylesheet: "/base/src/_q_frame_test.css"
+			};
+
+			QFrame.create(window.document.body, options, function(err, frame) {
+				var styleMe = frame.get(".style-me");
+				assert.equal(styleMe.getRawStyle("font-size"), "42px");
+				done();
+			});
+		});
+	  
+		it("creates iframe using raw CSS and source URL simultaneously", function(done) {
+			var options = {
+				src: "/base/src/_q_frame_test.html",
+				css: ".style-me { font-size: 42px; }"
 			};
 
 			QFrame.create(window.document.body, options, function(err, frame) {
@@ -414,7 +454,7 @@ describe("FOUNDATION: QFrame", function() {
         assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
         done();
       });
-    });
+	});
 
   });
 
