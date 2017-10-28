@@ -38,11 +38,11 @@
 		var scroll = this._element.frame.getRawScrollPosition();
 
 		if (this._position === RIGHT || this._position === LEFT) {
-			if (!elementRendered(this)) return Position.noX();
+			if (!elementRendered(this, rawPosition)) return Position.noX();
 			return Position.x(edge + scroll.x);
 		}
 		else {
-			if (!elementRendered(this)) return Position.noY();
+			if (!elementRendered(this, rawPosition)) return Position.noY();
 			return Position.y(edge + scroll.y);
 		}
 	};
@@ -58,13 +58,15 @@
 		};
 	}
 
-	function elementRendered(self) {
+	function elementRendered(self, rawPosition) {
 		var element = self._element;
 
 		var inDom = element.frame.body().toDomElement().contains(element.toDomElement());
 		var displayNone = element.getRawStyle("display") === "none";
+		var zeroWidth = rawPosition.left === rawPosition.right;
+		var zeroHeight = rawPosition.top === rawPosition.bottom;
 
-		return inDom && !displayNone;
+		return inDom && !displayNone && !zeroWidth && !zeroHeight;
 	}
 
 }());

@@ -17,9 +17,8 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* drop support for Opera
 * ElementRenderedSize descriptor properties (implement on ElementRendered)
-	* Use GenericSize based on ElementRenderedEdge
+* drop support for Opera
 * PositionDescriptor.to()
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * Review GitHub issues for 'ready to implement' issues and pull requests
@@ -43,18 +42,16 @@
 			* clipped out of existence by `clip`
 		* Could fail on some browsers due to `clip` property not being supported correctly
 		* Will fail fast if `clip-path` property is used
+	* Breaking changes: ElementEdge
+		* now considers zero-width and zero-height elements to be non-rendered
+			* previously, they had a position but zero width/height
 	* Opera no longer officially supported
 * 'release' branch (and corresponding automation)
 
 
 ## To Do: ElementRenderedSize descriptor properties
 
-* center, middle
-* unify behavior of element.width and element.rendered.width when element is zero pixels wide
- 	* (ditto for height, middle, center)
-	* currently, element.width is 0px and element.rendered.width is "not rendered"
-	* need to decide which behavior is correct
-	* if 0px is correct, this could have implications for behavior of element.rendered.value()
+* DONE
 
 
 ## Dogfooding Notes
