@@ -5,6 +5,7 @@ var assert = require("../util/assert.js");
 var Position = require("../values/position.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Descriptor = require("./descriptor.js");
+var Size = require("../values/size.js");
 
 describe("DESCRIPTOR: PositionDescriptor", function() {
 
@@ -15,8 +16,8 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 	var y;
 
 	beforeEach(function() {
-		x = new DummyDescriptor("x", X);
-		y = new DummyDescriptor("y", Y);
+		x = createDescriptor("x", X);
+		y = createDescriptor("y", Y);
 	});
 
 	it("is a descriptor", function() {
@@ -41,10 +42,28 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 		assert.objEqual(y.minus(10).value(), Position.y(Y - 10), "up");
 	});
 
+	it("calculates distance to another position", function() {
+		assert.objEqual(x.to(createDescriptor("x", X + 20)).value(), Size.create(20), "left to right");
+		assert.objEqual(x.to(createDescriptor("x", X - 20)).value(), Size.create(20), "right to left");
+		assert.objEqual(y.to(createDescriptor("y", Y + 30)).value(), Size.create(30), "top to bottom");
+		assert.objEqual(y.to(createDescriptor("y", Y - 30)).value(), Size.create(30), "bottom to top");
+		assert.exception(function() {
+			x.to(createDescriptor("y", 42));
+		}, "Can only calculate distance between two X coordinates or two Y coordinates");
+
+		var xPlus = createDescriptor("x", X + 20);
+		assert.equal(x.to(xPlus).toString(), "distance from " + x + " to " + xPlus, "toString()");
+	});
+
+	function createDescriptor(dimension, value) {
+		return new TestPositionDescriptor(dimension, value);
+	}
+
 });
 
 
-function DummyDescriptor(dimension, value) {
+function TestPositionDescriptor(dimension, value) {
+	this._dimension = dimension;
 	if (dimension === "x") {
 		PositionDescriptor.x(this);
 		this._position = Position.x(value);
@@ -54,8 +73,12 @@ function DummyDescriptor(dimension, value) {
 		this._position = Position.y(value);
 	}
 }
-PositionDescriptor.extend(DummyDescriptor);
+PositionDescriptor.extend(TestPositionDescriptor);
 
-DummyDescriptor.prototype.value = function() {
+TestPositionDescriptor.prototype.value = function() {
 	return this._position;
+};
+
+TestPositionDescriptor.prototype.toString = function() {
+	return this._dimension + "." + this._position.toString();
 };

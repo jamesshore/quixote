@@ -7,8 +7,12 @@ var oop = require("../util/oop.js");
 var Descriptor = require("./descriptor.js");
 var Position = require("../values/position.js");
 
+// break circular dependencies
 function RelativePosition() {
-	return require("./relative_position.js");   	// break circular dependency
+	return require("./relative_position.js");
+}
+function GenericSize() {
+	return require("./generic_size.js");
 }
 
 var X_DIMENSION = "x";
@@ -32,6 +36,14 @@ Me.prototype.plus = function plus(amount) {
 Me.prototype.minus = function minus(amount) {
 	if (this._pdbc.dimension === X_DIMENSION) return RelativePosition().left(this, amount);
 	else return RelativePosition().up(this, amount);
+};
+
+Me.prototype.to = function to(positionDescriptor) {
+	if (this._pdbc.dimension !== positionDescriptor._pdbc.dimension) {
+		throw new Error("Can only calculate distance between two X coordinates or two Y coordinates");
+	}
+
+	return GenericSize().create(this, positionDescriptor, "distance from " + this + " to " + positionDescriptor);
 };
 
 Me.prototype.convert = function convert(arg, type) {

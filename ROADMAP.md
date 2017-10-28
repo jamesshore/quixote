@@ -17,8 +17,6 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* ElementRenderedSize descriptor properties (implement on ElementRendered)
-* drop support for Opera
 * PositionDescriptor.to()
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * Review GitHub issues for 'ready to implement' issues and pull requests
@@ -29,7 +27,12 @@
 		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
 	* quixote.browser.misreportsAutoValuesInClipProperty()
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
-	* ElementRendered's new descriptor properties (edge and size properties)
+	* ElementRendered's new descriptor properties (edge and size properties) - considers following scenarios
+		* whether element is off-screen (or partially off-screen)
+		* `overflow`
+		* `clip`
+		* `display`
+		* `clip-path` (not supported; fails fast)
 	* Breaking changes: ElementRendered
 		* No longer provides specific explanation of why an element isn't rendered (not in DOM, etc)
 		* No longer takes string-based expectations for non-rendering
@@ -46,10 +49,11 @@
 		* now considers zero-width and zero-height elements to be non-rendered
 			* previously, they had a position but zero width/height
 	* Opera no longer officially supported
+	* PositionDescriptor.to()
 * 'release' branch (and corresponding automation)
 
 
-## To Do: ElementRenderedSize descriptor properties
+## To Do: PositionDescriptor.to()
 
 * DONE
 
