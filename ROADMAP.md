@@ -17,6 +17,7 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
+* drop support for Opera
 * ElementRenderedSize descriptor properties (implement on ElementRendered)
 	* Use GenericSize based on ElementRenderedEdge
 * PositionDescriptor.to()
@@ -48,9 +49,9 @@
 
 ## To Do: ElementRenderedSize descriptor properties
 
-* drop support for Opera
 * center, middle
-* unify behavior of element.width and element.rendered.width when element is zero pixels wide (ditto for height)
+* unify behavior of element.width and element.rendered.width when element is zero pixels wide
+ 	* (ditto for height, middle, center)
 	* currently, element.width is 0px and element.rendered.width is "not rendered"
 	* need to decide which behavior is correct
 	* if 0px is correct, this could have implications for behavior of element.rendered.value()
