@@ -59,20 +59,6 @@
 			);
 		});
 
-		it("fails fast if `clip-path` property is used", function() {
-			element("clip-path: url('#something');");
-			if (!browserSupportsClipPath()) return;
-
-			assert.exception(function() {
-				top.value();
-			}, "Can't detect element clipping boundaries when 'clip-path' property is used.");
-
-			function browserSupportsClipPath() {
-				var clipPath = qElement.getRawStyle("clip-path");
-				return (clipPath !== "" && clipPath !== "none");
-			}
-		});
-
 		it("accounts for elements positioned completely off-screen", function() {
 			if (quixote.browser.misreportsClipAutoProperty()) return;
 
@@ -102,6 +88,32 @@
 		it("accounts for detached elements", function() {
 			qElement.remove();
 			assertNotRendered("position: absolute; top: 10px; height: 10px; left: 10px; width: 10px;");
+		});
+
+
+		describe("clip-path CSS property", function() {
+
+			var EXPECTED_FAIL_FAST_MESSAGE = "Can't detect element clipping boundaries when 'clip-path' property is used.";
+
+			it("fails fast when used in element", function() {
+				element("clip-path: url('#something');");
+				if (!browserSupportsClipPath()) return;
+
+				assert.exception(function() { top.value(); }, EXPECTED_FAIL_FAST_MESSAGE);
+			});
+
+			it("fails fast when used anywhere in parent hierarchy", function() {
+				grandparent("clip-path: url('#something');");
+				if (!browserSupportsClipPath()) return;
+
+				assert.exception(function() { top.value(); }, EXPECTED_FAIL_FAST_MESSAGE);
+			});
+
+			function browserSupportsClipPath() {
+				var clipPath = qElement.getRawStyle("clip-path");
+				return (clipPath !== "" && clipPath !== "none");
+			}
+
 		});
 
 

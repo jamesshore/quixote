@@ -7,6 +7,8 @@
 	var Position = require("../values/position.js");
 	var Descriptor = require("./descriptor.js");
 	var ElementRenderedEdge = require("./element_rendered_edge.js");
+	var GenericSize = require("./generic_size.js");
+	var Center = require("./center.js");
 
 	var Me = module.exports = function ElementRendered(element) {
 		var QElement = require("../q_element.js");      // break circular dependency
@@ -19,6 +21,12 @@
 		this.right = ElementRenderedEdge.right(element);
 		this.bottom = ElementRenderedEdge.bottom(element);
 		this.left = ElementRenderedEdge.left(element);
+
+		this.width = GenericSize.create(this.left, this.right, "rendered width of " + element);
+		this.height = GenericSize.create(this.top, this.bottom, "rendered height of " + element);
+
+		this.center = Center.x(this.left, this.right, "rendered center of " + element);
+		this.middle = Center.y(this.top, this.bottom, "rendered middle of " + element);
 	};
 	Descriptor.extend(Me);
 

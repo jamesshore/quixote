@@ -17,9 +17,8 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* Replace ElementSize, PageSize, and ViewportSize with GenericSize descriptor
 * ElementRenderedSize descriptor properties (implement on ElementRendered)
-	* Use GenericSize based on ElementRenderedEdge
+* drop support for Opera
 * PositionDescriptor.to()
 * element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
 * Review GitHub issues for 'ready to implement' issues and pull requests
@@ -43,9 +42,14 @@
 			* clipped out of existence by `clip`
 		* Could fail on some browsers due to `clip` property not being supported correctly
 		* Will fail fast if `clip-path` property is used
+	* Breaking changes: ElementEdge
+		* now considers zero-width and zero-height elements to be non-rendered
+			* previously, they had a position but zero width/height
+	* Opera no longer officially supported
+* 'release' branch (and corresponding automation)
 
 
-## To Do: GenericSize descriptor class
+## To Do: ElementRenderedSize descriptor properties
 
 * DONE
 
