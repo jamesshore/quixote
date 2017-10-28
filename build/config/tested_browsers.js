@@ -16,6 +16,5 @@ module.exports = [
 	"Edge 14.14393.0 (Windows 10 0.0.0)",
 	"Safari 11.0.0 (Mac OS X 10.11.6)",
 	"Mobile Safari 10.0.0 (iOS 10.2.0)",
-	"Opera 43.0.2442 (Mac OS X 10.11.6)",
 	"Chrome Mobile WebView 44.0.2403 (Android 6.0.0)"
 ];
