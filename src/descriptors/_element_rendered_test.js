@@ -8,6 +8,7 @@
 	var ElementRendered = require("./element_rendered.js");
 	var Descriptor = require("./descriptor.js");
 	var RenderState = require("../values/render_state.js");
+	var Size = require("../values/size.js");
 
 	describe("DESCRIPTOR: ElementRendered", function() {
 
@@ -63,6 +64,21 @@
 		it("converts comparison arguments", function() {
 		  assert.objEqual(rendered.convert(true, "boolean"), RenderState.rendered());
 		  assert.objEqual(rendered.convert(false, "boolean"), RenderState.notRendered());
+		});
+
+		it("has size descriptors", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+
+			assert.objEqual(rendered.width.value(), renderedElement.width.value(), "rendered width");
+			assert.objEqual(displayNone.width.value(), Size.createNone(), "non-rendered width");
+			assert.objEqual(noSize.width.value(), Size.createNone(), "zero width");
+
+			assert.objEqual(rendered.height.value(), renderedElement.height.value(), "rendered height");
+			assert.objEqual(displayNone.height.value(), Size.createNone(), "non-rendered height");
+			assert.objEqual(noSize.height.value(), Size.createNone(), "zero height");
+
+			assert.equal(rendered.width.toString(), "rendered width of " + renderedElement, "width description");
+			assert.equal(rendered.height.toString(), "rendered height of " + renderedElement, "height description");
 		});
 
 	});

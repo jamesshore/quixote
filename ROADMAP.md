@@ -17,7 +17,6 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* Replace ElementSize, PageSize, and ViewportSize with GenericSize descriptor
 * ElementRenderedSize descriptor properties (implement on ElementRendered)
 	* Use GenericSize based on ElementRenderedEdge
 * PositionDescriptor.to()
@@ -43,12 +42,16 @@
 			* clipped out of existence by `clip`
 		* Could fail on some browsers due to `clip` property not being supported correctly
 		* Will fail fast if `clip-path` property is used
+* 'release' branch (and corresponding automation)
 
 
 ## To Do: GenericSize descriptor class
 
-* DONE
-
+* width and height
+* unify behavior of element.width and element.rendered.width when element is zero pixels wide (ditto for height)
+	* currently, element.width is 0px and element.rendered.width is "not rendered"
+	* need to decide which behavior is correct
+	* if 0px is correct, this could have implications for behavior of element.rendered.value()
 
 ## Dogfooding Notes
 
