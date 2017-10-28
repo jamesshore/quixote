@@ -49,12 +49,13 @@
 		* now considers zero-width and zero-height elements to be non-rendered
 			* previously, they had a position but zero width/height
 	* Opera no longer officially supported
+	* PositionDescriptor.to()
 * 'release' branch (and corresponding automation)
 
 
 ## To Do: PositionDescriptor.to()
 
-* should return a GenericSize descriptor
+* DONE
 
 
 ## Dogfooding Notes

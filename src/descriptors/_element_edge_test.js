@@ -95,8 +95,6 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.objEqual(left.value(), Position.noX(), "left");
 	});
 
-	it("knows elements with zero height are no displayed");
-
 	it("converts to string", function() {
 		assertDesc(element, top, "top edge of ", "top");
 		assertDesc(element, right, "right edge of ", "right");
