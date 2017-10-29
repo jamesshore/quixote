@@ -1,25 +1,21 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 "use strict";
 
-var child_process = require("child_process");
+const child_process = require("child_process");
 
-exports.checkCurrentBranch = function(expectedBranch, succeed, fail) {
-	git("symbolic-ref HEAD -q", function(err, errorCode, stdout) {
-		if (err) return fail(err);
-		if (errorCode === 1 && stdout === "") return failBranch("detached HEAD");
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+exports.checkCurrentBranch = async function(expectedBranch) {
+	const { errorCode, stdout } = await git("symbolic-ref HEAD -q");
+	if (errorCode === 1 && stdout === "") throwBranch("detached HEAD");
+	throwIfErrorCode(errorCode);
 
-		var groups = stdout.match(/^refs\/heads\/(.*)\n$/);
-		if (groups === null) return fail("Did not recognize git output: " + stdout);
+	const groups = stdout.match(/^refs\/heads\/(.*)\n$/);
+	if (groups === null) throw new Error("Did not recognize git output: " + stdout);
 
-		var branch = groups[1];
-		if (branch !== expectedBranch) return failBranch(branch);
+	const branch = groups[1];
+	if (branch !== expectedBranch) throwBranch(branch);
 
-		return succeed();
-	});
-
-	function failBranch(actualBranch) {
-		return fail("Not on correct branch. Expected '" + expectedBranch + "' but was '"+ actualBranch + "'");
+	function throwBranch(actualBranch) {
+		throw new Error("Not on correct branch. Expected '" + expectedBranch + "' but was '"+ actualBranch + "'.");
 	}
 };
 

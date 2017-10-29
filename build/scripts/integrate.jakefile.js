@@ -75,10 +75,10 @@ async function checkout(branch) {
 
 task("readyToIntegrate", [ "onDevBranch", "distBuilt", "allCommitted", "upToDate", "buildsClean" ]);
 
-task("onDevBranch", function() {
+task("onDevBranch", async () => {
 	console.log("Checking current branch: .");
-	git.checkCurrentBranch(branches.dev, complete, fail);
-}, { async: true });
+	await git.checkCurrentBranch(branches.dev);
+});
 
 task("distBuilt", function() {
 	console.log("Ensuring distribution package is checked in:");
