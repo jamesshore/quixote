@@ -90,7 +90,7 @@ function git(args, callback) {
 	//
 	// This code is complicated because of potential race conditions in events:
 	//   'exit' and 'error' can fire in any order, and either or both may fire
-	//   'end' and 'exit can fire in any order, and we need data from both event
+	//   'end' and 'exit' can fire in any order, and we need data from both events
 
 	var child = child_process.spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
 

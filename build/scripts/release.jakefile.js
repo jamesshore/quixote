@@ -39,24 +39,27 @@ function createReleaseTask(level) {
 
 desc("Push source code to GitHub");
 task("github", function() {
-	console.log("Publishing to GitHub: ");
-	sh.run("git push --all && git push --tags", complete, fail);
+	console.log("Publishing to GitHub: STUBBED, FIX ME");
+	// sh.run("git push --all && git push --tags", complete, fail);
+	complete(); // DELETEME
 }, { async: true });
 
 desc("Publish documentation to website");
 task("docs", function() {
-	console.log("Publishing documentation site: ");
-	sh.run(
-		"rsync --recursive --keep-dirlinks --perms --times --delete --delete-excluded " +
-			"--human-readable --progress --exclude=.DS_Store --include=.* " +
-			"docs/* jdlshore_quixote-css@ssh.phx.nearlyfreespeech.net:/home/public/",
-		complete, fail
-	);
+	console.log("Publishing documentation site: STUBBED, FIX ME");
+	// sh.run(
+	// 	"rsync --recursive --keep-dirlinks --perms --times --delete --delete-excluded " +
+	// 		"--human-readable --progress --exclude=.DS_Store --include=.* " +
+	// 		"docs/* jdlshore_quixote-css@ssh.phx.nearlyfreespeech.net:/home/public/",
+	// 	complete, fail
+	// );
+	complete(); // DELETEME
 }, { async: true });
 
 task("npm", function() {
-	console.log("Publishing to npm: ");
-	sh.run("npm publish", complete, fail);
+	console.log("Publishing to npm: STUBBED, FIX ME");
+	// sh.run("npm publish", complete, fail);
+	complete(); // DELETEME
 }, { async: true });
 
 
