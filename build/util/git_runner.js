@@ -37,17 +37,13 @@ exports.checkNothingToCommit = function(succeed, fail) {
 	});
 };
 
-exports.checkFastForwardable = function(baseBranch, branchToMerge, succeed, fail) {
-	git("branch --contains " + baseBranch, function(err, errorCode, stdout) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+exports.checkFastForwardable = async function(baseBranch, branchToMerge) {
+	const { errorCode, stdout } = await git("branch --contains " + baseBranch);
+	throwIfErrorCode(errorCode);
 
-		if (stdout.indexOf(" " + branchToMerge + "\n") === -1) {
-			return fail(branchToMerge + " branch doesn't include latest changes from " + baseBranch + " branch");
-		}
-
-		return succeed();
-	});
+	if (stdout.indexOf(" " + branchToMerge + "\n") === -1) {
+		throw new Error(branchToMerge + " branch doesn't include latest changes from " + baseBranch + " branch");
+	}
 };
 
 exports.checkoutBranch = async function(branch) {

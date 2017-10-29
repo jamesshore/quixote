@@ -96,7 +96,7 @@ task("allCommitted", function() {
 	git.checkNothingToCommit(complete, fail);
 }, { async: true });
 
-task("integrated", function() {
+task("integrated", async () => {
 	console.log("Checking if " + branches.dev + " branch is integrated: .");
-	git.checkFastForwardable(branches.dev, branches.integration, complete, fail);
-}, { async: true });
+	await git.checkFastForwardable(branches.dev, branches.integration);
+});

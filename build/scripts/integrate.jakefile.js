@@ -16,16 +16,20 @@ task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], fu
 });
 
 desc("Check for un-integrated code");
-task("check", [ "allCommitted", "upToDate" ], function() {
-	git.checkFastForwardable(branches.dev, branches.integration, report(true), report(false));
+task("check", [ "allCommitted", "upToDate" ], async () => {
+	try {
+		await git.checkFastForwardable(branches.dev, branches.integration);
+		report(true);
+	}
+	catch(err) {
+		report(false);
+	}
 
 	function report(isIntegrated) {
-		return function() {
-			var is = isIntegrated ? "has been" : "has NOT been";
-			console.log("\n" + branches.dev + " branch " + is + " integrated with " + branches.integration + " branch");
-		};
+		var is = isIntegrated ? "has been" : "has NOT been";
+		console.log("\n" + branches.dev + " branch " + is + " integrated with " + branches.integration + " branch");
 	}
-}, { async: true });
+});
 
 
 //*** DO THE INTEGRATION
@@ -88,10 +92,10 @@ task("allCommitted", function() {
 	git.checkNothingToCommit(complete, fail);
 }, { async: true });
 
-task("upToDate", function() {
+task("upToDate", async () => {
 	console.log("Checking if " + branches.dev + " branch is up to date: .");
-	git.checkFastForwardable(branches.integration, branches.dev, complete, fail);
-}, { async: true });
+	await git.checkFastForwardable(branches.integration, branches.dev);
+});
 
 task("buildsClean", [ "exampleBuildsClean", "quixoteBuildsClean", "browserifyBuildsClean" ]);
 
