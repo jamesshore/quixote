@@ -24,7 +24,7 @@ describe("DESCRIPTOR: SizeMultiple", function() {
 	});
 
 	it("is a size descriptor", function() {
-	  assert.implements(twice, SizeDescriptor);
+		assert.implements(twice, SizeDescriptor);
 	});
 
 	it("resolves to value", function() {

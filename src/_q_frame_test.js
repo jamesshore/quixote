@@ -90,7 +90,7 @@ describe("FOUNDATION: QFrame", function() {
 
 		it("creates iframe using multiple stylesheet links", function(done) {
 			var options = {
-				stylesheet: [ "/base/src/_q_frame_test.css", "/base/src/_q_frame_test2.css" ]
+				stylesheet: ["/base/src/_q_frame_test.css", "/base/src/_q_frame_test2.css"]
 			};
 			frame = QFrame.create(window.document.body, options, function(err) {
 				if (err) return done(err);
@@ -218,33 +218,33 @@ describe("FOUNDATION: QFrame", function() {
 		});
 
 		it("fails fast if source URL not found", function(done) {
-      QFrame.create(window.document.body, { src: "non_existing.html" }, function(err, frame) {
-	      assert.undefined(frame, "frame should not exist");
-	      assert.type(err, Error, "err should be an Error object");
-	      assert.equal(err.message, "404 error while loading src (non_existing.html)", "error message");
-	      done();
-      });
+			QFrame.create(window.document.body, { src: "non_existing.html" }, function(err, frame) {
+				assert.undefined(frame, "frame should not exist");
+				assert.type(err, Error, "err should be an Error object");
+				assert.equal(err.message, "404 error while loading src (non_existing.html)", "error message");
+				done();
+			});
 		});
 
 		it("fails fast if stylesheet URL not found", function(done) {
 			QFrame.create(window.document.body, { stylesheet: "non_existing.css" }, function(err, frame) {
-		    assert.undefined(frame, "frame should not exist");
-		    assert.type(err, Error, "err should be an Error object");
-		    assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
-		    done();
-		   });
+				assert.undefined(frame, "frame should not exist");
+				assert.type(err, Error, "err should be an Error object");
+				assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
+				done();
+			});
 		});
 
 		it("checks for existence of all stylesheet URLs", function(done) {
 			var options = {
-				stylesheet: [ "/base/src/_q_frame_test.css", "non_existing.css" ]
+				stylesheet: ["/base/src/_q_frame_test.css", "non_existing.css"]
 			};
 			QFrame.create(window.document.body, options, function(err, frame) {
-		    assert.undefined(frame, "frame should not exist");
-		    assert.type(err, Error, "err should be an Error object");
-		    assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
-		    done();
-		   });
+				assert.undefined(frame, "frame should not exist");
+				assert.type(err, Error, "err should be an Error object");
+				assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
+				done();
+			});
 		});
 
 		it("fails fast if frame is used before it's loaded", function(done) {
@@ -376,7 +376,7 @@ describe("FOUNDATION: QFrame", function() {
 		it("scrolls", function() {
 			frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
-			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0}, "should start at (0, 0)");
+			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0 }, "should start at (0, 0)");
 
 			frame.scroll(150, 300);
 			var position = frame.getRawScrollPosition();
@@ -400,22 +400,22 @@ describe("FOUNDATION: QFrame", function() {
 			assert.equal(frame.viewport().height.diff(reset.HEIGHT - 100), "", "height");
 		});
 
-    it("resets frame to original size", function() {
-      frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
-      frame.reset();
-      assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
-      assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
-    });
+		it("resets frame to original size", function() {
+			frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
+			frame.reset();
+			assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
+			assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
+		});
 
-    it("reloads frame to original size", function(done) {
-      frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
-      frame.reload(function () {
-        assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
-        assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
-        done();
-      });
-    });
+		it("reloads frame to original size", function(done) {
+			frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
+			frame.reload(function() {
+				assert.equal(frame.viewport().width.diff(reset.WIDTH), "", "width");
+				assert.equal(frame.viewport().height.diff(reset.HEIGHT), "", "height");
+				done();
+			});
+		});
 
-  });
+	});
 
 });
