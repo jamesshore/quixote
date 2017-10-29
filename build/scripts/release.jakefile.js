@@ -8,6 +8,12 @@ var branches = require("../config/branches.js");
 var sh = require("../util/sh.js");
 
 
+desc("DELETEME - for testing changes to git_runner");
+task("deleteme", () => {
+	git.checkoutBranch("dev", complete, fail);
+}, { async: true });
+
+
 //*** RELEASE TASKS
 
 task("default", function() {
@@ -39,13 +45,13 @@ function createReleaseTask(level) {
 
 desc("Push source code to GitHub");
 task("github", function() {
-	console.log("Publishing to GitHub: ");
+	console.log("Publishing to GitHub: .");
 	sh.run("git push --all && git push --tags", complete, fail);
 }, { async: true });
 
 desc("Publish documentation to website");
 task("docs", function() {
-	console.log("Publishing documentation site: ");
+	console.log("Publishing documentation site: .");
 	sh.run(
 		"rsync --recursive --keep-dirlinks --perms --times --delete --delete-excluded " +
 			"--human-readable --progress --exclude=.DS_Store --include=.* " +
@@ -55,39 +61,39 @@ task("docs", function() {
 }, { async: true });
 
 task("npm", function() {
-	console.log("Publishing to npm: ");
+	console.log("Publishing to npm: .");
 	sh.run("npm publish", complete, fail);
 }, { async: true });
 
 
 //*** MANIPULATE REPO
 
-task("integrationBranch", function() {
+task("integrationBranch", async () => {
 	console.log("Switching to " + branches.integration + " branch: .");
-	git.checkoutBranch(branches.integration, complete, fail);
+	await git.checkoutBranch(branches.integration);
 }, { async: true });
 
-task("devBranch", function() {
+task("devBranch", async () => {
 	console.log("Switching to " + branches.dev + " branch: .");
-	git.checkoutBranch(branches.dev, complete, fail);
-}, { async: true });
+	await git.checkoutBranch(branches.dev);
+});
 
-task("updateDevBranch", [ "devBranch" ], function() {
+task("updateDevBranch", [ "devBranch" ], async () => {
 	console.log("Updating " + branches.dev + " with release changes: .");
-	git.fastForwardBranch(branches.integration, complete, fail);
-}, { async: true });
+	await git.fastForwardBranch(branches.integration);
+});
 
 
 //*** ENSURE RELEASE READINESS
 
 task("readyToRelease", [ "allCommitted", "integrated" ]);
 
-task("allCommitted", function() {
+task("allCommitted", async () => {
 	console.log("Checking for uncommitted files: .");
-	git.checkNothingToCommit(complete, fail);
-}, { async: true });
+	await git.checkNothingToCommit();
+});
 
-task("integrated", function() {
+task("integrated", async () => {
 	console.log("Checking if " + branches.dev + " branch is integrated: .");
-	git.checkFastForwardable(branches.dev, branches.integration, complete, fail);
-}, { async: true });
+	await git.checkFastForwardable(branches.dev, branches.integration);
+});

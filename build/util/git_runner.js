@@ -1,88 +1,68 @@
 // Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 "use strict";
 
-var child_process = require("child_process");
+const child_process = require("child_process");
 
-exports.checkCurrentBranch = function(expectedBranch, succeed, fail) {
-	git("symbolic-ref HEAD -q", function(err, errorCode, stdout) {
-		if (err) return fail(err);
-		if (errorCode === 1 && stdout === "") return failBranch("detached HEAD");
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+exports.checkCurrentBranch = async function(expectedBranch) {
+	const { errorCode, stdout } = await git("symbolic-ref HEAD -q");
+	if (errorCode === 1 && stdout === "") throwBranch("detached HEAD");
+	throwIfErrorCode(errorCode);
 
-		var groups = stdout.match(/^refs\/heads\/(.*)\n$/);
-		if (groups === null) return fail("Did not recognize git output: " + stdout);
+	const groups = stdout.match(/^refs\/heads\/(.*)\n$/);
+	if (groups === null) throw new Error("Did not recognize git output: " + stdout);
 
-		var branch = groups[1];
-		if (branch !== expectedBranch) return failBranch(branch);
+	const branch = groups[1];
+	if (branch !== expectedBranch) throwBranch(branch);
 
-		return succeed();
-	});
-
-	function failBranch(actualBranch) {
-		return fail("Not on correct branch. Expected '" + expectedBranch + "' but was '"+ actualBranch + "'");
+	function throwBranch(actualBranch) {
+		throw new Error("Not on correct branch. Expected '" + expectedBranch + "' but was '"+ actualBranch + "'.");
 	}
 };
 
-exports.checkNothingToCommit = function(succeed, fail) {
-	git("status --porcelain", function(err, errorCode, stdout) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+exports.checkNothingToCommit = async function() {
+	const { errorCode, stdout } = await git("status --porcelain");
+	throwIfErrorCode(errorCode);
 
-		if (stdout.trim() !== "") {
-			process.stdout.write(stdout);
-			return fail("Working directory contains files to commit or ignore");
-		}
-
-		return succeed();
-	});
+	if (stdout.trim() !== "") {
+		process.stdout.write(stdout);
+		throw new Error("Working directory contains files to commit or ignore");
+	}
 };
 
-exports.checkFastForwardable = function(baseBranch, branchToMerge, succeed, fail) {
-	git("branch --contains " + baseBranch, function(err, errorCode, stdout) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+exports.checkFastForwardable = async function(baseBranch, branchToMerge) {
+	const { errorCode, stdout } = await git("branch --contains " + baseBranch);
+	throwIfErrorCode(errorCode);
 
-		if (stdout.indexOf(" " + branchToMerge + "\n") === -1) {
-			return fail(branchToMerge + " branch doesn't include latest changes from " + baseBranch + " branch");
-		}
-
-		return succeed();
-	});
+	if (stdout.indexOf(" " + branchToMerge + "\n") === -1) {
+		throw new Error(branchToMerge + " branch doesn't include latest changes from " + baseBranch + " branch");
+	}
 };
 
-exports.checkoutBranch = function(branch, succeed, fail) {
-	git("checkout -q " + branch, function(err, errorCode, stdout) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
-
-		return succeed();
-	});
+exports.checkoutBranch = async function(branch) {
+	const { errorCode } = await git("checkout -q " + branch);
+	throwIfErrorCode(errorCode);
 };
 
-exports.mergeBranch = function(branch, succeed, fail) {
+exports.mergeBranch = async function(branch) {
 	// The merge must be interactive because it launches an editor for the commit comment.
-	interactiveGit("merge --no-ff --log=500 -m INTEGRATE: --edit " + branch, function(err, errorCode) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
-
-		return succeed();
-	});
+	const errorCode = await interactiveGit("merge --no-ff --log=500 -m INTEGRATE: --edit " + branch);
+	throwIfErrorCode(errorCode);
 };
 
-exports.fastForwardBranch = function(branch, succeed, fail) {
-	git("merge --ff-only " + branch, function(err, errorCode) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
-
-		return succeed();
-	});
+exports.fastForwardBranch = async function(branch) {
+	const { errorCode } = await git("merge --ff-only " + branch);
+	throwIfErrorCode(errorCode);
 };
+
+function throwIfErrorCode(errorCode) {
+	if (errorCode !== 0) throw new Error("git exited with error code " + errorCode);
+}
 
 function failErrorCode(fail, errorCode) {
 	return fail("git exited with error code " + errorCode);
 }
 
-function git(args, callback) {
+function git(args) {
 	// Why do we use this monster instead of child_process.execFile()? Because we need fine-grained
 	// control over our errors. child_process.execFile() uses a single 'error' object for actual
 	// errors and for processes that exit with an error code. We need to distinguish the two, and
@@ -90,62 +70,66 @@ function git(args, callback) {
 	//
 	// This code is complicated because of potential race conditions in events:
 	//   'exit' and 'error' can fire in any order, and either or both may fire
-	//   'end' and 'exit can fire in any order, and we need data from both event
+	//   'end' and 'exit' can fire in any order, and we need data from both events
+	return new Promise((resolve, reject) => {
+		const child = child_process.spawn("git", args.split(" "), { stdio: ["ignore", "pipe", process.stderr] });
 
-	var child = child_process.spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
+		let stdout = "";
+		let errorCode;
 
-	var stdout = "";
-	var errorCode;
+		let endEventFired = false;
+		let exitEventFired = false;
+		let callbackCalled = false;
 
-	var endEventFired = false;
-	var exitEventFired = false;
-	var callbackCalled = false;
+		child.stdout.setEncoding("utf8");
+		child.stdout.on("data", function(data) {
+			stdout += data;
+		});
+		child.stdout.on("end", function() {
+			endEventFired = true;
+			if (exitEventFired) doCallback(null);
+		});
 
-	child.stdout.setEncoding("utf8");
-	child.stdout.on("data", function(data) {
-		stdout += data;
+		child.on("error", function(error) {
+			doCallback("Problem running git: " + error);
+		});
+		child.on("exit", function(code, signal) {
+			exitEventFired = true;
+			if (signal) return doCallback("git exited in response to signal: " + signal);
+
+			errorCode = code;
+			if (endEventFired) doCallback(null);
+		});
+
+		function doCallback(error) {
+			if (callbackCalled) return;
+			callbackCalled = true;
+
+			if (error) reject(error);
+			else resolve({ errorCode, stdout });
+		}
 	});
-	child.stdout.on("end", function() {
-		endEventFired = true;
-		if (exitEventFired) doCallback(null);
-	});
-
-	child.on("error", function(error) {
-		doCallback("Problem running git: " + error);
-	});
-	child.on("exit", function(code, signal) {
-		exitEventFired = true;
-		if (signal) return doCallback("git exited in response to signal: " + signal);
-
-		errorCode = code;
-		if (endEventFired) doCallback(null);
-	});
-
-	function doCallback(error) {
-		if (callbackCalled) return;
-		callbackCalled = true;
-
-		if (error) callback(error);
-		else callback(null, errorCode, stdout);
-	}
 }
 
-function interactiveGit(args, callback) {
-	var callbackCalled = false;
+function interactiveGit(args) {
+	return new Promise((resolve, reject) => {
+		let callbackCalled = false;
 
-	var child = child_process.spawn("git", args.split(" "), { stdio: "inherit" });
-	child.on("error", function(error) {
-		doCallback("Problem running git: " + error);
+		const child = child_process.spawn("git", args.split(" "), { stdio: "inherit" });
+		child.on("error", function(error) {
+			doCallback("Problem running git: " + error);
+		});
+		child.on("exit", function(code, signal) {
+			if (signal) return doCallback("git exited in response to signal: " + signal);
+			else doCallback(null, code);
+		});
+
+		function doCallback(error, errorCode) {
+			if (callbackCalled) return;
+			callbackCalled = true;
+
+			if (error) reject(error);
+			else resolve(errorCode);
+		}
 	});
-	child.on("exit", function(code, signal) {
-		if (signal) return doCallback("git exited in response to signal: " + signal);
-		else doCallback(null, code);
-	});
-
-	function doCallback(error, errorCode) {
-		if (callbackCalled) return;
-		callbackCalled = true;
-
-		callback(error, errorCode);
-	}
 }

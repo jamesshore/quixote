@@ -5,7 +5,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## 0.12.x: Non-Rendered Elements
 
-**21 May 2016.** Quixote is now smarter about elements that aren't rendered into the DOM. Elements that have the `display:none` property or that are detached from the DOM are not rendered. To detect non-rendered elements, you can use the new `element.rendered` descriptor. Element positions now also distinguish between "0px" (which means the upper-left corner) and "none" (which means the element isn't rendered). The same idea applies to element sizes.
+**21 May 2016.** Quixote is now smarter about elements that aren't rendered into the DOM. Elements that have the `display:none` property or that are detached from the DOM are considered to be non-rendered. To detect non-rendered elements, you can use the new `element.rendered` descriptor. Element positions now also distinguish between "0px" (which means the upper-left corner) and "none" (which means the element isn't rendered). The same idea applies to element sizes.
 
 *Patches:*
 

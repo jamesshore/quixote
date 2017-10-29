@@ -11,59 +11,53 @@ var paths = require("../config/paths.js");
 //*** COMMANDS
 
 desc("Integrate latest code into known-good branch");
-task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], function() {
+task("default", [ "mergeDevIntoIntegration"  ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
 
 desc("Check for un-integrated code");
-task("check", [ "allCommitted", "upToDate" ], function() {
-	git.checkFastForwardable(branches.dev, branches.integration, report(true), report(false));
+task("check", [ "allCommitted", "upToDate" ], async () => {
+	try {
+		await git.checkFastForwardable(branches.dev, branches.integration);
+		report(true);
+	}
+	catch(err) {
+		report(false);
+	}
 
 	function report(isIntegrated) {
-		return function() {
-			var is = isIntegrated ? "has been" : "has NOT been";
-			console.log("\n" + branches.dev + " branch " + is + " integrated with " + branches.integration + " branch");
-		};
+		var is = isIntegrated ? "has been" : "has NOT been";
+		console.log("\n" + branches.dev + " branch " + is + " integrated with " + branches.integration + " branch");
 	}
-}, { async: true });
+});
 
 
 //*** DO THE INTEGRATION
 
-task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], function() {
+task("mergeDevIntoIntegration", [ "readyToIntegrate" ], async () => {
+	await checkout(branches.integration);
+
 	console.log("Merging " + branches.dev + " branch into " + branches.integration + ": ");
-	git.mergeBranch(branches.dev, wrap(complete), wrap(fail));
-
-	function wrap(callback) {
-		return function(message) {
-			checkout(branches.dev, callback.bind(null, message), function(secondMessage) {
-				console.log("Error: " + secondMessage);
-				console.log("COULD NOT SWITCH BACK TO DEV BRANCH. Be sure to do it manually.");
-				callback(message);
-			});
-		};
+	try {
+		await git.mergeBranch(branches.dev);
 	}
-}, { async: true });
+	finally {
+		try {
+			await checkout(branches.dev);
+		}
+		catch (err) {
+			console.log("COULD NOT SWITCH BACK TO DEV BRANCH. Be sure to do it manually.");
+			throw err;
+		}
+	}
 
-task("fastForwardDevToIntegration", function() {
 	console.log("Updating " + branches.dev + " branch with " + branches.integration + " branch changes: .");
-	git.fastForwardBranch(branches.integration, complete, fail);
-}, { async: true });
+	await git.fastForwardBranch(branches.integration);
+});
 
-
-//*** SWITCH BRANCHES
-
-task("integrationBranch", function() {
-	checkout(branches.integration, complete, fail);
-}, { async: true });
-
-task("devBranch", function() {
-	checkout(branches.dev, complete, fail);
-}, { async: true });
-
-function checkout(branch, succeed, fail) {
+async function checkout(branch) {
 	console.log("Switching to " + branch + " branch: .");
-	git.checkoutBranch(branch, succeed, fail);
+	await git.checkoutBranch(branch);
 }
 
 
@@ -71,10 +65,10 @@ function checkout(branch, succeed, fail) {
 
 task("readyToIntegrate", [ "onDevBranch", "distBuilt", "allCommitted", "upToDate", "buildsClean" ]);
 
-task("onDevBranch", function() {
+task("onDevBranch", async () => {
 	console.log("Checking current branch: .");
-	git.checkCurrentBranch(branches.dev, complete, fail);
-}, { async: true });
+	await git.checkCurrentBranch(branches.dev);
+});
 
 task("distBuilt", function() {
 	console.log("Ensuring distribution package is checked in:");
@@ -83,27 +77,27 @@ task("distBuilt", function() {
 	run(command + " build", complete);
 }, { async: true });
 
-task("allCommitted", function() {
+task("allCommitted", async () => {
 	console.log("Checking for uncommitted files: .");
-	git.checkNothingToCommit(complete, fail);
-}, { async: true });
+	await git.checkNothingToCommit();
+});
 
-task("upToDate", function() {
+task("upToDate", async () => {
 	console.log("Checking if " + branches.dev + " branch is up to date: .");
-	git.checkFastForwardable(branches.integration, branches.dev, complete, fail);
-}, { async: true });
+	await git.checkFastForwardable(branches.integration, branches.dev);
+});
 
 task("buildsClean", [ "exampleBuildsClean", "quixoteBuildsClean", "browserifyBuildsClean" ]);
 
 task("quixoteBuildsClean", function() {
-	console.log("Verifying Quixote build:");
+	console.log("Verifying Quixote build: .");
 
 	var command = require("../config/build_command.js");
 	run(command, complete);
 }, { async: true });
 
 task("exampleBuildsClean", function() {
-	console.log("Verifying example build:");
+	console.log("Verifying example build: .");
 	run("cd example && ./jake.sh capture=Firefox", complete);
 }, { async: true });
 
@@ -114,5 +108,5 @@ task("browserifyBuildsClean", function() {
 }, { async: true });
 
 function run(command, done) {
-	jake.exec(command, { printStdout: true, printStderr: true }, complete);
+	jake.exec(command, { printStdout: true, printStderr: true }, done);
 }

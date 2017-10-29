@@ -17,8 +17,7 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* element.calculatePixelValue()
-* Review GitHub issues for 'ready to implement' issues and pull requests
+* 'release' branch (and corresponding automation)
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
@@ -52,12 +51,19 @@
 	* Opera no longer officially supported
 	* PositionDescriptor.to()
 	* element.calculatePixelValue()
-* 'release' branch (and corresponding automation)
+* Review GitHub issues for 'ready to implement' issues and pull requests
+* Review GitHub issues for 'bug' issues that can be easily fixed
 
 
-## To Do: element.calculatePixelValue()
+## To Do: 'release' branch and corresponding automation
 
-* DONE
+* Modify lint task to support ES6 in build files
+* Stub out release publishing tasks
+* Update release.jakefile.js to
+	* Merge to release branch
+	* Perform npm version bump
+	* Merge back to master and dev branches
+* Re-enable publish tasks
 
 
 ## Dogfooding Notes
@@ -76,11 +82,5 @@
 ## Future Features
 
 * Z-ordering
-* Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
-* Distances or Spans? (e.g., height of menu is equal to distance between logo top and headline bottom)
-  * Could width and height be reimplemented as a Span? Would a Span have a center, for example?
-    * Even if it could, would it be a good idea?
-    * E.g., Me.width = function() { this.left.to(this.right) };
-* Add 'union' types? So you could say `element.width` equals `otherElement.size`?
 * Colors? Contrast (fg color vs. bg color?))
 * Plugin API
