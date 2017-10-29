@@ -57,39 +57,18 @@
 
 	task("lintLog", function() { process.stdout.write("Linting JavaScript: "); });
 
-	task("incrementalLint", lintDirectories());
-	task("incrementalLint", lintOutput());
-	createDirectoryDependencies(lintDirectories());
+	task("incrementalLint", paths.lintDirectories());
+	task("incrementalLint", paths.lintOutput());
+	createDirectoryDependencies(paths.lintDirectories());
 
 	rule(".lint", determineLintDependency, function() {
-		var jshint = require("simplebuild-jshint");
-		var self = this;
+		var lint = require("../util/lint_runner.js");
+		var lintConfig = require("../config/eslint.conf.js");
 
-		process.stdout.write(".");
-		jshint.checkOneFile({
-			file: this.source,
-			options: lintOptions(),
-			globals: lintGlobals()
-		}, success, fail);
-
-		function success() {
-			fs().writeFileSync(self.name, "lint ok");
-			complete();
-		}
-	}, { async: true });
-
-	function lintDirectories() {
-		var path = require("path");
-		return lintOutput().map(function(lintDependency) {
-			return path.dirname(lintDependency);
-		});
-	}
-
-	function lintOutput() {
-		return paths.lintFiles().map(function(pathname) {
-			return "generated/incremental/lint/" + pathname + ".lint";
-		});
-	}
+		var passed = lint.validateFile(this.source, lintConfig.options);
+		if (passed) fs().writeFileSync(this.name, "lint ok");
+		else fail("Lint failed");
+	});
 
 	function determineLintDependency(name) {
 		var result = name.replace(/^generated\/incremental\/lint\//, "");
@@ -173,58 +152,60 @@
 
 //*** Helper functions
 
-	function lintOptions() {
-		return {
-			bitwise: true,
-			curly: false,
-			eqeqeq: true,
-			forin: true,
-			immed: true,
-			latedef: false,
-			newcap: true,
-			noarg: true,
-			noempty: true,
-			nonew: true,
-			regexp: true,
-			undef: true,
-			strict: "global",
-			trailing: true,
-			node: true,
-			browser: true
-		};
-	}
-
-	function lintGlobals() {
-		return {
-			// Jake
-			jake: false,
-			desc: false,
-			task: false,
-			rule: false,
-			file: false,
-			directory: false,
-			complete: false,
-			fail: false,
-
-			// Karma
-			console: false,
-			dump: false,
-
-			// CommonJS
-			exports: false,
-			require: false,
-			module: false,
-
-			// Mocha
-			before: false,
-			after: false,
-			beforeEach: false,
-			afterEach: false,
-			describe: false,
-			it: false
-		};
-	}
-
+// outdated, deleteme
+//
+// 	function lintOptions() {
+// 		return {
+// 			bitwise: true,
+// 			curly: false,
+// 			eqeqeq: true,
+// 			forin: true,
+// 			immed: true,
+// 			latedef: false,
+// 			newcap: true,
+// 			noarg: true,
+// 			noempty: true,
+// 			nonew: true,
+// 			regexp: true,
+// 			undef: true,
+// 			strict: "global",
+// 			trailing: true,
+// 			node: true,
+// 			browser: true
+// 		};
+// 	}
+//
+// 	function lintGlobals() {
+// 		return {
+// 			// Jake
+// 			jake: false,
+// 			desc: false,
+// 			task: false,
+// 			rule: false,
+// 			file: false,
+// 			directory: false,
+// 			complete: false,
+// 			fail: false,
+//
+// 			// Karma
+// 			console: false,
+// 			dump: false,
+//
+// 			// CommonJS
+// 			exports: false,
+// 			require: false,
+// 			module: false,
+//
+// 			// Mocha
+// 			before: false,
+// 			after: false,
+// 			beforeEach: false,
+// 			afterEach: false,
+// 			describe: false,
+// 			it: false
+// 		};
+// 	}
+//
 
 	function incrementalTask(taskName, taskDependencies, fileDependencies, action) {
 		var incrementalFile = paths.incrementalDir + "/" + taskName + ".task";

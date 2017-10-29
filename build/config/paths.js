@@ -3,6 +3,7 @@
 	"use strict";
 
 	var glob = require("glob");
+	var path = require("path");
 
 	exports.karmaConfig = "./build/config/karma.conf.js";
 	exports.mainModule = "./src/quixote.js";
@@ -33,6 +34,17 @@
 		return deglob("src/values/**/*.js");
 	};
 
+	exports.lintOutput = function() {
+		return exports.lintFiles().map(function(pathname) {
+			return "generated/incremental/lint/" + pathname + ".lint";
+		});
+	};
+
+	exports.lintDirectories = function() {
+		return exports.lintOutput().map(function(lintDependency) {
+			return path.dirname(lintDependency);
+		});
+	};
 
 	function deglob(patternsToFind, patternsToIgnore) {
 		var globPattern = patternsToFind;
