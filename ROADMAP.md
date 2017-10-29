@@ -17,8 +17,7 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* element.calculatePixelValue()
-* Review GitHub issues for 'ready to implement' issues and pull requests
+* 'release' branch (and corresponding automation)
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
 	* QElement.add()
@@ -52,7 +51,8 @@
 	* Opera no longer officially supported
 	* PositionDescriptor.to()
 	* element.calculatePixelValue()
-* 'release' branch (and corresponding automation)
+* Review GitHub issues for 'ready to implement' issues and pull requests
+* Review GitHub issues for 'bug' issues that can be easily fixed
 
 
 ## To Do: element.calculatePixelValue()
