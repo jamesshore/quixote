@@ -51,11 +51,13 @@ exports.checkFastForwardable = function(baseBranch, branchToMerge, succeed, fail
 };
 
 exports.checkoutBranch = function(branch, succeed, fail) {
-	git("checkout -q " + branch, function(err, errorCode, stdout) {
-		if (err) return fail(err);
+	git("checkout -q " + branch).then(({ errorCode, stdout }) => {
 		if (errorCode !== 0) return failErrorCode(fail, errorCode);
 
 		return succeed();
+	})
+	.catch((err) => {
+		return fail(err);
 	});
 };
 

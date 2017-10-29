@@ -8,6 +8,12 @@ var branches = require("../config/branches.js");
 var sh = require("../util/sh.js");
 
 
+desc("DELETEME - for testing changes to git_runner");
+task("deleteme", () => {
+	git.checkoutBranch("dev", complete, fail);
+}, { async: true });
+
+
 //*** RELEASE TASKS
 
 task("default", function() {
