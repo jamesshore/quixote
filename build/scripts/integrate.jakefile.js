@@ -87,10 +87,10 @@ task("distBuilt", function() {
 	run(command + " build", complete);
 }, { async: true });
 
-task("allCommitted", function() {
+task("allCommitted", async () => {
 	console.log("Checking for uncommitted files: .");
-	git.checkNothingToCommit(complete, fail);
-}, { async: true });
+	await git.checkNothingToCommit();
+});
 
 task("upToDate", async () => {
 	console.log("Checking if " + branches.dev + " branch is up to date: .");

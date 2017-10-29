@@ -91,10 +91,10 @@ task("updateDevBranch", [ "devBranch" ], async () => {
 
 task("readyToRelease", [ "allCommitted", "integrated" ]);
 
-task("allCommitted", function() {
+task("allCommitted", async () => {
 	console.log("Checking for uncommitted files: .");
-	git.checkNothingToCommit(complete, fail);
-}, { async: true });
+	await git.checkNothingToCommit();
+});
 
 task("integrated", async () => {
 	console.log("Checking if " + branches.dev + " branch is integrated: .");

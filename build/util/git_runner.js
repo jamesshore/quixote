@@ -23,18 +23,14 @@ exports.checkCurrentBranch = function(expectedBranch, succeed, fail) {
 	}
 };
 
-exports.checkNothingToCommit = function(succeed, fail) {
-	git("status --porcelain", function(err, errorCode, stdout) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
+exports.checkNothingToCommit = async function() {
+	const { errorCode, stdout } = await git("status --porcelain");
+	throwIfErrorCode(errorCode);
 
-		if (stdout.trim() !== "") {
-			process.stdout.write(stdout);
-			return fail("Working directory contains files to commit or ignore");
-		}
-
-		return succeed();
-	});
+	if (stdout.trim() !== "") {
+		process.stdout.write(stdout);
+		throw new Error("Working directory contains files to commit or ignore");
+	}
 };
 
 exports.checkFastForwardable = async function(baseBranch, branchToMerge) {
