@@ -53,17 +53,17 @@ task("fastForwardDevToIntegration", function() {
 
 //*** SWITCH BRANCHES
 
-task("integrationBranch", function() {
-	checkout(branches.integration, complete, fail);
-}, { async: true });
+task("integrationBranch", async () => {
+	await checkout(branches.integration);
+});
 
-task("devBranch", function() {
-	checkout(branches.dev, complete, fail);
-}, { async: true });
+task("devBranch", async () => {
+	await checkout(branches.dev);
+});
 
-function checkout(branch, succeed, fail) {
+async function checkout(branch) {
 	console.log("Switching to " + branch + " branch: .");
-	git.checkoutBranch(branch, succeed, fail);
+	await git.checkoutBranch(branch);
 }
 
 

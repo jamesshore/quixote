@@ -50,15 +50,9 @@ exports.checkFastForwardable = function(baseBranch, branchToMerge, succeed, fail
 	});
 };
 
-exports.checkoutBranch = function(branch, succeed, fail) {
-	git("checkout -q " + branch).then(({ errorCode, stdout }) => {
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
-
-		return succeed();
-	})
-	.catch((err) => {
-		return fail(err);
-	});
+exports.checkoutBranch = async function(branch) {
+	const { errorCode } = await git("checkout -q " + branch);
+	throwIfErrorCode(errorCode);
 };
 
 exports.mergeBranch = async function(branch) {

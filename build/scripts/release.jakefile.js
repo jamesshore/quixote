@@ -71,15 +71,15 @@ task("npm", function() {
 
 //*** MANIPULATE REPO
 
-task("integrationBranch", function() {
+task("integrationBranch", async () => {
 	console.log("Switching to " + branches.integration + " branch: .");
-	git.checkoutBranch(branches.integration, complete, fail);
+	await git.checkoutBranch(branches.integration);
 }, { async: true });
 
-task("devBranch", function() {
+task("devBranch", async () => {
 	console.log("Switching to " + branches.dev + " branch: .");
-	git.checkoutBranch(branches.dev, complete, fail);
-}, { async: true });
+	await git.checkoutBranch(branches.dev);
+});
 
 task("updateDevBranch", [ "devBranch" ], function() {
 	console.log("Updating " + branches.dev + " with release changes: .");
