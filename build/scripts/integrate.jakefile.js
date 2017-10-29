@@ -120,5 +120,5 @@ task("browserifyBuildsClean", function() {
 }, { async: true });
 
 function run(command, done) {
-	jake.exec(command, { printStdout: true, printStderr: true }, complete);
+	jake.exec(command, { printStdout: true, printStderr: true }, done);
 }
