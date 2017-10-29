@@ -26,14 +26,14 @@ exports.browser.enlargesFrameToPageSize = createDetectionMethod("enlargesFrame")
 exports.browser.enlargesFonts = createDetectionMethod("enlargesFonts");
 exports.browser.misreportsClipAutoProperty = createDetectionMethod("misreportsClipAuto");
 exports.browser.misreportsAutoValuesInClipProperty = createDetectionMethod("misreportsClipValues");
+exports.browser.roundsOffPixelCalculations = createDetectionMethod("roundsOffPixelCalculations");
 
 function createDetectionMethod(propertyName) {
 	return function() {
 		ensure.signature(arguments, []);
 		ensure.that(features !== null, "Must create a frame before using Quixote browser feature detection.");
 
-		var feature = features[propertyName];
-		return feature;
+		return features[propertyName];
 	};
 }
 
@@ -52,6 +52,7 @@ function detectBrowserFeatures(callback) {
 			features.enlargesFrame = detectFrameEnlargement(frame, FRAME_WIDTH);
 			features.misreportsClipAuto = detectReportedClipAuto(frame);
 			features.misreportsClipValues = detectReportedClipPropertyValues(frame);
+			features.roundsOffPixelCalculations = detectRoundsOffPixelCalculations(frame);
 
 			frame.reset();
 			detectFontEnlargement(frame, FRAME_WIDTH, function(result) {
@@ -114,4 +115,13 @@ function detectReportedClipPropertyValues(frame) {
 	if (clip === "" && element.getRawStyle("clip-top") === "auto") return false;
 
 	return clip !== "rect(auto, auto, auto, auto)" && clip !== "rect(auto auto auto auto)";
+}
+
+function detectRoundsOffPixelCalculations(frame) {
+	var element = frame.add("<div style='font-size: 15px;'></div>");
+	var size = element.calculatePixelValue("0.5em");
+
+	if (size === 7.5) return false;
+	if (size === 8) return true;
+	ensure.unreachable("Failure in roundsOffPixelValues() detection: expected 7.5 or 8, but got " + size);
 }
