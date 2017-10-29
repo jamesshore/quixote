@@ -11,7 +11,7 @@ var paths = require("../config/paths.js");
 //*** COMMANDS
 
 desc("Integrate latest code into known-good branch");
-task("default", [ "mergeDevIntoIntegration", "fastForwardDevToIntegration" ], function() {
+task("default", [ "mergeDevIntoIntegration"  ], function() {
 	console.log("\n\nINTEGRATION OK");
 });
 
@@ -34,35 +34,25 @@ task("check", [ "allCommitted", "upToDate" ], async () => {
 
 //*** DO THE INTEGRATION
 
-task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], async () => {
+task("mergeDevIntoIntegration", [ "readyToIntegrate" ], async () => {
+	await checkout(branches.integration);
+
 	console.log("Merging " + branches.dev + " branch into " + branches.integration + ": ");
 	try {
 		await git.mergeBranch(branches.dev);
 	}
 	finally {
-		const callback = function() {}; // temp
-		const message = "";
-		checkout(branches.dev, callback.bind(null, message), function(secondMessage) {
-			console.log("Error: " + secondMessage);
+		try {
+			await checkout(branches.dev);
+		}
+		catch (err) {
 			console.log("COULD NOT SWITCH BACK TO DEV BRANCH. Be sure to do it manually.");
-		});
+			throw err;
+		}
 	}
-});
 
-task("fastForwardDevToIntegration", async () => {
 	console.log("Updating " + branches.dev + " branch with " + branches.integration + " branch changes: .");
 	await git.fastForwardBranch(branches.integration);
-});
-
-
-//*** SWITCH BRANCHES
-
-task("integrationBranch", async () => {
-	await checkout(branches.integration);
-});
-
-task("devBranch", async () => {
-	await checkout(branches.dev);
 });
 
 async function checkout(branch) {
