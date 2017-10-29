@@ -61,13 +61,9 @@ exports.mergeBranch = async function(branch) {
 	throwIfErrorCode(errorCode);
 };
 
-exports.fastForwardBranch = function(branch, succeed, fail) {
-	git("merge --ff-only " + branch, function(err, errorCode) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
-
-		return succeed();
-	});
+exports.fastForwardBranch = async function(branch) {
+	const { errorCode } = await git("merge --ff-only " + branch);
+	throwIfErrorCode(errorCode);
 };
 
 function throwIfErrorCode(errorCode) {

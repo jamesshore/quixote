@@ -81,10 +81,10 @@ task("devBranch", async () => {
 	await git.checkoutBranch(branches.dev);
 });
 
-task("updateDevBranch", [ "devBranch" ], function() {
+task("updateDevBranch", [ "devBranch" ], async () => {
 	console.log("Updating " + branches.dev + " with release changes: .");
-	git.fastForwardBranch(branches.integration, complete, fail);
-}, { async: true });
+	await git.fastForwardBranch(branches.integration);
+});
 
 
 //*** ENSURE RELEASE READINESS

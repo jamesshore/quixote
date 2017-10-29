@@ -45,10 +45,10 @@ task("mergeDevIntoIntegration", [ "readyToIntegrate", "integrationBranch" ], asy
 	}
 });
 
-task("fastForwardDevToIntegration", function() {
+task("fastForwardDevToIntegration", async () => {
 	console.log("Updating " + branches.dev + " branch with " + branches.integration + " branch changes: .");
-	git.fastForwardBranch(branches.integration, complete, fail);
-}, { async: true });
+	await git.fastForwardBranch(branches.integration);
+});
 
 
 //*** SWITCH BRANCHES
