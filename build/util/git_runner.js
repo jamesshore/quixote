@@ -62,7 +62,7 @@ function failErrorCode(fail, errorCode) {
 	return fail("git exited with error code " + errorCode);
 }
 
-function git(args, callback) {
+function git(args) {
 	// Why do we use this monster instead of child_process.execFile()? Because we need fine-grained
 	// control over our errors. child_process.execFile() uses a single 'error' object for actual
 	// errors and for processes that exit with an error code. We need to distinguish the two, and
@@ -72,14 +72,14 @@ function git(args, callback) {
 	//   'exit' and 'error' can fire in any order, and either or both may fire
 	//   'end' and 'exit' can fire in any order, and we need data from both events
 	return new Promise((resolve, reject) => {
-		var child = child_process.spawn("git", args.split(" "), { stdio: ["ignore", "pipe", process.stderr] });
+		const child = child_process.spawn("git", args.split(" "), { stdio: ["ignore", "pipe", process.stderr] });
 
-		var stdout = "";
-		var errorCode;
+		let stdout = "";
+		let errorCode;
 
-		var endEventFired = false;
-		var exitEventFired = false;
-		var callbackCalled = false;
+		let endEventFired = false;
+		let exitEventFired = false;
+		let callbackCalled = false;
 
 		child.stdout.setEncoding("utf8");
 		child.stdout.on("data", function(data) {
@@ -105,19 +105,13 @@ function git(args, callback) {
 			if (callbackCalled) return;
 			callbackCalled = true;
 
-			if (error) {
-				if (callback) callback(error);
-				else reject(error);
-			}
-			else {
-				if (callback) callback(null, errorCode, stdout);
-				else resolve({ errorCode, stdout });
-			}
+			if (error) reject(error);
+			else resolve({ errorCode, stdout });
 		}
 	});
 }
 
-function interactiveGit(args, callback) {
+function interactiveGit(args) {
 	return new Promise((resolve, reject) => {
 		let callbackCalled = false;
 
