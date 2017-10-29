@@ -59,14 +59,16 @@ exports.checkoutBranch = function(branch, succeed, fail) {
 	});
 };
 
-exports.mergeBranch = function(branch, succeed, fail) {
+exports.mergeBranch = async function(branch, succeed, fail) {
 	// The merge must be interactive because it launches an editor for the commit comment.
-	interactiveGit("merge --no-ff --log=500 -m INTEGRATE: --edit " + branch, function(err, errorCode) {
-		if (err) return fail(err);
-		if (errorCode !== 0) return failErrorCode(fail, errorCode);
-
+	try {
+		const errorCode = await interactiveGit("merge --no-ff --log=500 -m INTEGRATE: --edit " + branch);
+		throwIfErrorCode(errorCode);
 		return succeed();
-	});
+	}
+	catch (err) {
+		fail(err);
+	}
 };
 
 exports.fastForwardBranch = function(branch, succeed, fail) {
@@ -77,6 +79,10 @@ exports.fastForwardBranch = function(branch, succeed, fail) {
 		return succeed();
 	});
 };
+
+function throwIfErrorCode(errorCode) {
+	if (errorCode !== 0) throw new Error("git exited with error code " + errorCode);
+}
 
 function failErrorCode(fail, errorCode) {
 	return fail("git exited with error code " + errorCode);
@@ -131,21 +137,24 @@ function git(args, callback) {
 }
 
 function interactiveGit(args, callback) {
-	var callbackCalled = false;
+	return new Promise((resolve, reject) => {
+		let callbackCalled = false;
 
-	var child = child_process.spawn("git", args.split(" "), { stdio: "inherit" });
-	child.on("error", function(error) {
-		doCallback("Problem running git: " + error);
+		const child = child_process.spawn("git", args.split(" "), { stdio: "inherit" });
+		child.on("error", function(error) {
+			doCallback("Problem running git: " + error);
+		});
+		child.on("exit", function(code, signal) {
+			if (signal) return doCallback("git exited in response to signal: " + signal);
+			else doCallback(null, code);
+		});
+
+		function doCallback(error, errorCode) {
+			if (callbackCalled) return;
+			callbackCalled = true;
+
+			if (error) reject(error);
+			else resolve(errorCode);
+		}
 	});
-	child.on("exit", function(code, signal) {
-		if (signal) return doCallback("git exited in response to signal: " + signal);
-		else doCallback(null, code);
-	});
-
-	function doCallback(error, errorCode) {
-		if (callbackCalled) return;
-		callbackCalled = true;
-
-		callback(error, errorCode);
-	}
 }

@@ -8,6 +8,12 @@ var branches = require("../config/branches.js");
 var sh = require("../util/sh.js");
 
 
+desc("DELETE ME");
+task("deleteme", () => {
+	git.mergeBranch("master", complete, fail);
+});
+
+
 //*** RELEASE TASKS
 
 task("default", function() {
