@@ -72,6 +72,39 @@
 		};
 	};
 
+	Me.prototype.calculatePixelValue = function(sizeString) {
+		var dom = this._domElement;
+		if (dom.runtimeStyle !== undefined) return ie8Workaround();
+
+		var result;
+		var style = dom.style;
+		var oldPosition = style.position;
+		var oldLeft = style.left;
+
+		style.position = "absolute";
+		style.left = sizeString;
+		result = parseFloat(this.getRawStyle("left"));    // parseInt strips of 'px' value
+
+		style.position = oldPosition;
+		style.left = oldLeft;
+		return result;
+
+		// WORKAROUND IE 8: getRawStyle() doesn't normalize values to px
+		// Based on code by Dean Edwards: http://disq.us/p/myl99x
+		function ie8Workaround() {
+			var runtimeStyleLeft = dom.runtimeStyle.left;
+			var styleLeft = dom.style.left;
+
+			dom.runtimeStyle.left = dom.currentStyle.left;
+			dom.style.left = sizeString;
+			result = dom.style.pixelLeft;
+
+			dom.runtimeStyle.left = runtimeStyleLeft;
+			dom.style.left = styleLeft;
+			return result;
+		}
+	};
+
 	Me.prototype.parent = function(nickname) {
 		ensure.signature(arguments, [[ undefined, String ]]);
 		if (nickname === undefined) nickname = "parent of " + this._nickname;

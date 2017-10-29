@@ -172,23 +172,6 @@
 		}
 	}
 
-	// WORKAROUND IE 8: Doesn't normalize values to px
-	function calculatePixelValue(element, clipStr) {
-		var elementDom = element.toDomElement();
-
-		// Based on code by Dean Edwards: http://disq.us/p/myl99x
-		var runtimeStyle = elementDom.runtimeStyle.left;
-		var style = elementDom.style.left;
-
-		elementDom.runtimeStyle.left = elementDom.currentStyle.left;
-		elementDom.style.left = clipStr;
-		var result = elementDom.style.pixelLeft;
-
-		elementDom.runtimeStyle.left = runtimeStyle;
-		elementDom.style.left = style;
-		return result;
-	}
-
 	function isClippedByAncestorOverflow(element, ancestor) {
 		return canBeClippedByOverflowProperty(element) && hasClippingOverflow(ancestor);
 	}

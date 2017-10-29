@@ -73,4 +73,12 @@ describe("FOUNDATION: Browser capability", function() {
 		);
 	});
 
+	it("detects whether browser rounds off floating-point pixel values", function() {
+		assert.equal(
+			quixote.browser.roundsOffPixelCalculations(),
+			ie8 || ie11,
+			"only IE 8 and IE 11 should round off pixel values"
+		);
+	});
+
 });

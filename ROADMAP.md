@@ -17,8 +17,7 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* PositionDescriptor.to()
-* element.calculatePixelValue()? (move ElementVisibleEdge's calculatePixelValue())
+* element.calculatePixelValue()
 * Review GitHub issues for 'ready to implement' issues and pull requests
 * API docs and changelog
 	* QElement.parent() - body has no parent and returns null
@@ -27,6 +26,8 @@
 		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
 	* quixote.browser.misreportsAutoValuesInClipProperty()
 		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
+	* quixote.browser.roundsOffPixelCalculations()
+		* Compatibility note: IE 8, IE 11 round fractional pixel values to the closest integer. E.g., if the font size is 15px and an element is 0.5em wide, IE 8 and IE 11 will report that it is 8px wide rather than 7.5px.
 	* ElementRendered's new descriptor properties (edge and size properties) - considers following scenarios
 		* whether element is off-screen (or partially off-screen)
 		* `overflow`
@@ -50,10 +51,11 @@
 			* previously, they had a position but zero width/height
 	* Opera no longer officially supported
 	* PositionDescriptor.to()
+	* element.calculatePixelValue()
 * 'release' branch (and corresponding automation)
 
 
-## To Do: PositionDescriptor.to()
+## To Do: element.calculatePixelValue()
 
 * DONE
 

@@ -200,6 +200,40 @@ describe("FOUNDATION: QElement", function() {
 	});
 
 
+	describe("pixel calculation", function() {
+
+		var IRRELEVANT_SIZE = "1px";
+
+		it("converts size strings (such as '10em') to pixel values", function() {
+			assert.equal(element('font-size: 15px;').calculatePixelValue("10em"), 150);
+		});
+
+		it("works with non-integer results", function() {
+			var expected = 7.5;
+			if (quixote.browser.roundsOffPixelCalculations()) expected = 8;
+
+			assert.equal(element('font-size: 15px;').calculatePixelValue("0.5em"), expected);
+		});
+
+		it("doesn't destroy 'position' style", function() {
+			var el = element("position: relative;");
+			el.calculatePixelValue(IRRELEVANT_SIZE);
+			assert.equal(el.getRawStyle("position"), "relative");
+		});
+
+		it("doesn't destroy 'left' style", function() {
+			var el = element("position: absolute; width: 100px");
+			el.calculatePixelValue(IRRELEVANT_SIZE);
+			assert.equal(el.getRawStyle("width"), "100px");
+		});
+
+		function element(styles) {
+			return frame.add("<div style='" + styles + "'></div>");
+		}
+
+	});
+
+
 	describe("end-to-end", function() {
 
 		it("handles fractions well", function() {
