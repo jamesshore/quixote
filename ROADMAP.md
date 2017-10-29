@@ -55,9 +55,9 @@
 * Review GitHub issues for 'bug' issues that can be easily fixed
 
 
-## To Do: element.calculatePixelValue()
+## To Do: 'release' branch and corresponding automation
 
-* DONE
+* Branch is created -- now figure out what needs to be automated
 
 
 ## Dogfooding Notes

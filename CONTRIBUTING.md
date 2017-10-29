@@ -54,7 +54,7 @@ To work with the code on your own computer:
 2. Start the browsers you want to test and point each one at `http://localhost:9876`.
 3. Run `./jake.sh loose=true` to build and test, or `./watch.js loose=true` to automatically rebuild when you make a change. You can use `./jake.sh quick loose=true` (or `./watch.js quick loose=true`) to only build files that have changed.
 
-**If you get a timeout error** in `__reset.js`, particularly on Safari or Chrome, it's probably due to the window being hidden or a different tab being shown. Safari and Chrome deprioritizes tabs that aren't visible, which causes the tests to timeout. To fix the issue, make sure some portion of the Karma page is visible. 
+**If you get a timeout error** in `__reset.js`, it's probably due to the window being hidden or a different tab being shown. Many browsers deprioritize tabs that aren't visible, which causes the tests to timeout. To fix the issue, make sure some portion of the Karma page is visible.
 
 At this time, the build has only been tested on Mac OS X. It should also work on Unix without any trouble. It's theoretically capable of working on Windows, but needs some script work before that's easy and convenient.
 
@@ -64,9 +64,9 @@ You can pass the following options to `./jake.sh` and `./watch.js`:
 
 * `-T` displays available build targets.
 
-* `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js).
+* `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js) or if your Node version isn't a perfect match.
 
-* `itonly=true` disables Mocha's "grep" option, allowing the `.only` option to work in the tests.
+* `itonly=true` is obsolete (it disabled Mocha's "grep" option, allowing the `.only` option to work in the tests, but Mocha has since fixed allowed the two to work together).
 
 * `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you may need to install the appropriate launchers; e.g., `npm install karma-safari-launcher`.
 
@@ -101,8 +101,9 @@ There's a tutorial for creating new descriptors [in the descriptors directory](s
 
 ## Branches
 
-* `master` is the known-good integration branch. This branch should always build and pass its tests.
-* `dev` contains my work in progress.
+* `release` is for releases. It's the default branch shown on GitHub.
+* `master` is the known-good integration branch. This branch should always build and pass its tests. When creating a pull request, start from `master`.
+* `dev` contains work in progress. This is just for the project maintainer.
 
 Previous commits on the integration branch have "INTEGRATE" in their commit comment.
 
@@ -122,7 +123,7 @@ Descriptor and Value objects are always instantiated via factory methods, never 
 
 ### Descriptors
 
-Descriptor classes correspond to some *as yet uncalculated* aspect of the page. Each descriptor class is focused on one concept, such as [`ElementEdge`](src/descriptors/element_edge.js), which represents the edges of HTML elements.
+Descriptor classes correspond to some visual part of the page. Each descriptor class is focused on one concept, such as [`ElementEdge`](src/descriptors/element_edge.js), which represents the edges of HTML elements.
 
 Descriptor classes often inherit from a superclass that provides a useful public API. For example, `ElementEdge` inherits from [`PositionDescriptor`](src/descriptors/position_descriptor.js), which provides the [`plus()` and `minus()` methods](https://github.com/jamesshore/quixote/blob/master/docs/PositionDescriptor.md). 
  
@@ -132,7 +133,7 @@ Descriptor classes have three main features:
 
 2. **They calculate values** via a `value()` method. All CSS logic happens in this method. For example, `ElementEdge.value()` calculates the position of an edge by adding [`QElement.getRawPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawposition) and [`QFrame.getRawScrollPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framegetrawscrollposition).
 
-3. **They provide human-readable descriptions** via the `toString()` method. For example, `ElementEdge.toString()` returns strings such as "top edge of 'element'".
+3. **They provide human-readable descriptions** of the part of the page they represent via the `toString()` method. For example, `ElementEdge.toString()` returns strings such as "top edge of 'element'".
 
 Descriptor classes are usually less than 100 lines long. That's because there's one for each kind of CSS calculation. Find them in the [`src/descriptors`](src/descriptors) folder.
 
@@ -149,7 +150,7 @@ Value classes have five main features:
 
 2. **They perform calculations** if needed by descriptors. For example, `Position` provides `plus()`, `minus()`, and `midpoint()` calculation methods.
 
-3. **They check for compatibility** via a `compatibility()` method. If two value objects that are incompatible are used together, Quixote will fail fast and throw a useful exception. For example, if you try to add a Position object to a Size, Quixote will throw an error with the message, "Size isn't compatible with Position."
+3. **They check for compatibility** via a `compatibility()` method. If two value objects that are incompatible are used together, Quixote will fail fast and throw a useful exception. For example, if you try to add a Position object to a Size, Quixote will throw the error, "Size isn't compatible with Position."
 
 4. **They provide a human-readable comparison** via a `diff()` method. This method checks if two value objects are equal. If they aren't, it returns a human-readable explanation. For example, `Position.diff()` returns strings such as "10px higher". (There's also a traditional `equals()` method that's implemented in the `Value` superclass.)
 
@@ -158,25 +159,34 @@ Value classes have five main features:
 Value classes are usually less than 100 lines long. The logic required isn't very complex. Find them in the [`src/values`](src/values) folder.
 
 
-## Merging GitHub Pull Requests
+## Project Maintenance Checklists
 
 For use by the project maintainer.
 
+### Integrating the dev branch
+
+1. Update documentation as appropriate.
+2. Ensure all changes are checked in.
+3. Run `./integrate.sh`.
+4. If the script fails due to new distribution files, check them in with the comment "Update distribution files", then run `./integrate.sh` again.
+5. Consider releasing to GitHub with `./release github`.
+
+
+## Merging GitHub Pull Requests
+
 1. Start from clean (integrated) dev branch.
-2. Merge pull request into dev branch using `git pull` line listed under the "command line instructions" link at the bottom of the pull request conversation thread. 
+2. Merge pull request into dev branch using `git pull` line listed under the "command line instructions" link at the bottom of GitHub's pull request conversation thread.
 3. Revise and make additional commits as needed.
-4. Credit contributor at bottom of README.md
-5. Run `./integrate.sh` to integrate dev branch into master branch.
+4. Credit contributor at bottom of README.md.
+5. Integrate the dev branch as described above.
 6. Close pull request. Include a comment saying which version will include the result.
 
 
-## Release Process
-
-For use by the project maintainer.
+## Releasing
 
 1. Remove any temporary branches (list with `git branch`, delete with `git branch -d <name>`)
-2. Update readme and API documentation as needed.
+2. Review and update readme and API documentation as needed.
 3. Update changelog and roadmap.
-4. Run `./integrate.sh` to integrate dev branch into master branch.
+4. Integrate as described above.
 5. Run `./release [major | minor | patch]` to release. The release script releases to npm and github.
 6. Publicize.
