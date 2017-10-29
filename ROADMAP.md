@@ -57,14 +57,13 @@
 
 ## To Do: 'release' branch and corresponding automation
 
-* Convert git_runner.js to async/await
-* Re-enable integration tasks
+* Modify lint task to support ES6 in build files
+* Stub out release publishing tasks
 * Update release.jakefile.js to
 	* Merge to release branch
 	* Perform npm version bump
 	* Merge back to master and dev branches
 * Re-enable publish tasks
-* Modify lint task to support ES6 in build files
 
 
 ## Dogfooding Notes
@@ -83,11 +82,5 @@
 ## Future Features
 
 * Z-ordering
-* Support multiple assertions? (e.g., `top.diff([bar.left, baz.right]);`)
-* Distances or Spans? (e.g., height of menu is equal to distance between logo top and headline bottom)
-  * Could width and height be reimplemented as a Span? Would a Span have a center, for example?
-    * Even if it could, would it be a good idea?
-    * E.g., Me.width = function() { this.left.to(this.right) };
-* Add 'union' types? So you could say `element.width` equals `otherElement.size`?
 * Colors? Contrast (fg color vs. bg color?))
 * Plugin API
