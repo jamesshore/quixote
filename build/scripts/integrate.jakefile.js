@@ -100,17 +100,15 @@ task("upToDate", async () => {
 task("buildsClean", [ "exampleBuildsClean", "quixoteBuildsClean", "browserifyBuildsClean" ]);
 
 task("quixoteBuildsClean", function() {
-	console.log("Verifying Quixote build: STUBBED, FIX ME");
+	console.log("Verifying Quixote build: .");
 
-	// var command = require("../config/build_command.js");
-	// run(command, complete);
-	complete();
+	var command = require("../config/build_command.js");
+	run(command, complete);
 }, { async: true });
 
 task("exampleBuildsClean", function() {
-	console.log("Verifying example build: STUBBED, FIX ME");
-	// run("cd example && ./jake.sh capture=Firefox", complete);
-	complete();
+	console.log("Verifying example build: .");
+	run("cd example && ./jake.sh capture=Firefox", complete);
 }, { async: true });
 
 task("browserifyBuildsClean", function() {
