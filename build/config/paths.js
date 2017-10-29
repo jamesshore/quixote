@@ -1,64 +1,58 @@
-// Copyright (c) 2015 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
-(function() {
-	"use strict";
+// Copyright (c) 2015-2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+"use strict";
 
-	var glob = require("glob");
-	var path = require("path");
+var glob = require("glob");
+var path = require("path");
 
-	exports.karmaConfig = "./build/config/karma.conf.js";
-	exports.mainModule = "./src/quixote.js";
-	exports.distDir = "dist";
-	exports.distFile = exports.distDir + "/quixote.js";
-	exports.generatedDir = "generated";
-	exports.incrementalDir = "generated/incremental";
+exports.karmaConfig = "./build/config/karma.conf.js";
+exports.mainModule = "./src/quixote.js";
+exports.distDir = "dist";
+exports.distFile = exports.distDir + "/quixote.js";
+exports.generatedDir = "generated";
+exports.incrementalDir = "generated/incremental";
 
-	exports.lintFiles = function() {
-		// BUILD LINTING TEMPORARILY DISABLED due to use of ES6
-		// return deglob([ "build/**/*.js", "src/**/*.js" ]);
-		return deglob([ "src/**/*.js" ]);
-	};
+exports.lintFiles = function() {
+	return deglob([ "build/**/*.js", "src/**/*.js" ]);
+};
 
-	exports.foundationTestDependencies = function() {
-		return deglob("src/*.js");
-	};
+exports.foundationTestDependencies = function() {
+	return deglob("src/*.js");
+};
 
-	exports.descriptorTestDependencies = function() {
-		return deglob("src/descriptors/**/*.js");
-	};
+exports.descriptorTestDependencies = function() {
+	return deglob("src/descriptors/**/*.js");
+};
 
-	exports.utilTestDependencies = function() {
-		return deglob("src/util/**/*.js");
-	};
+exports.utilTestDependencies = function() {
+	return deglob("src/util/**/*.js");
+};
 
-	exports.valueTestDependencies = function() {
-		return deglob("src/values/**/*.js");
-	};
+exports.valueTestDependencies = function() {
+	return deglob("src/values/**/*.js");
+};
 
-	exports.lintOutput = function() {
-		return exports.lintFiles().map(function(pathname) {
-			return "generated/incremental/lint/" + pathname + ".lint";
-		});
-	};
+exports.lintOutput = function() {
+	return exports.lintFiles().map(function(pathname) {
+		return "generated/incremental/lint/" + pathname + ".lint";
+	});
+};
 
-	exports.lintDirectories = function() {
-		return exports.lintOutput().map(function(lintDependency) {
-			return path.dirname(lintDependency);
-		});
-	};
+exports.lintDirectories = function() {
+	return exports.lintOutput().map(function(lintDependency) {
+		return path.dirname(lintDependency);
+	});
+};
 
-	function deglob(patternsToFind, patternsToIgnore) {
-		var globPattern = patternsToFind;
-		if (Array.isArray(patternsToFind)) {
-			if (patternsToFind.length === 1) {
-				globPattern = patternsToFind[0];
-			}
-			else {
-				globPattern = "{" + patternsToFind.join(",") + "}";
-			}
+function deglob(patternsToFind, patternsToIgnore) {
+	var globPattern = patternsToFind;
+	if (Array.isArray(patternsToFind)) {
+		if (patternsToFind.length === 1) {
+			globPattern = patternsToFind[0];
 		}
-
-		return glob.sync(globPattern, { ignore: patternsToIgnore });
+		else {
+			globPattern = "{" + patternsToFind.join(",") + "}";
+		}
 	}
 
-
-}());
+	return glob.sync(globPattern, { ignore: patternsToIgnore });
+}

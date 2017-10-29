@@ -46,6 +46,7 @@ task("mergeDevIntoIntegration", [ "readyToIntegrate" ], async () => {
 			await checkout(branches.dev);
 		}
 		catch (err) {
+			/* eslint no-unsafe-finally: "off" */
 			console.log("COULD NOT SWITCH BACK TO DEV BRANCH. Be sure to do it manually.");
 			throw err;
 		}

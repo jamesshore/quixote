@@ -1,44 +1,41 @@
-// Copyright (c) 2012 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
-(function() {
-	"use strict";
+// Copyright (c) 2012-2017 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
+"use strict";
 
-	var jake = require("jake");
+var jake = require("jake");
 
-	exports.runMany = function(commands, successCallback, failureCallback) {
-		var stdout = [];
-		function serializedSh(command) {
-			if (command) {
-				run(command, function(oneStdout) {
-					stdout.push(oneStdout);
-					serializedSh(commands.shift());
-				}, failureCallback);
-			}
-			else {
-				successCallback(stdout);
-			}
+exports.runMany = function(commands, successCallback, failureCallback) {
+	var stdout = [];
+	function serializedSh(command) {
+		if (command) {
+			run(command, function(oneStdout) {
+				stdout.push(oneStdout);
+				serializedSh(commands.shift());
+			}, failureCallback);
 		}
-		serializedSh(commands.shift());
-	};
-
-	var run = exports.run = function(oneCommand, successCallback, failureCallback) {
-		var stdout = "";
-		var child = jake.createExec(oneCommand);
-		child.on("stdout", function(data) {
-			process.stdout.write(data);
-			stdout += data;
-		});
-		child.on("stderr", function(data) {
-			process.stderr.write(data);
-		});
-		child.on("cmdEnd", function() {
+		else {
 			successCallback(stdout);
-		});
-		child.on("error", function() {
-			failureCallback(stdout);
-		});
+		}
+	}
+	serializedSh(commands.shift());
+};
 
-		console.log("> " + oneCommand);
-		child.run();
-	};
+var run = exports.run = function(oneCommand, successCallback, failureCallback) {
+	var stdout = "";
+	var child = jake.createExec(oneCommand);
+	child.on("stdout", function(data) {
+		process.stdout.write(data);
+		stdout += data;
+	});
+	child.on("stderr", function(data) {
+		process.stderr.write(data);
+	});
+	child.on("cmdEnd", function() {
+		successCallback(stdout);
+	});
+	child.on("error", function() {
+		failureCallback(stdout);
+	});
 
-}());
+	console.log("> " + oneCommand);
+	child.run();
+};

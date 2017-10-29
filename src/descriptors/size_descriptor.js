@@ -1,5 +1,5 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
-/*jshint newcap:false */
+// Copyright (c) 2014-2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+/*eslint new-cap: "off" */
 "use strict";
 
 var ensure = require("../util/ensure.js");
