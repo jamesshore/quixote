@@ -57,11 +57,14 @@
 
 ## To Do: 'release' branch and corresponding automation
 
+* Convert git_runner.js to async/await
+* Re-enable integration tasks
 * Update release.jakefile.js to
 	* Merge to release branch
 	* Perform npm version bump
 	* Merge back to master and dev branches
 * Re-enable publish tasks
+* Modify lint task to support ES6 in build files
 
 
 ## Dogfooding Notes

@@ -59,16 +59,10 @@ exports.checkoutBranch = function(branch, succeed, fail) {
 	});
 };
 
-exports.mergeBranch = async function(branch, succeed, fail) {
+exports.mergeBranch = async function(branch) {
 	// The merge must be interactive because it launches an editor for the commit comment.
-	try {
-		const errorCode = await interactiveGit("merge --no-ff --log=500 -m INTEGRATE: --edit " + branch);
-		throwIfErrorCode(errorCode);
-		return succeed();
-	}
-	catch (err) {
-		fail(err);
-	}
+	const errorCode = await interactiveGit("merge --no-ff --log=500 -m INTEGRATE: --edit " + branch);
+	throwIfErrorCode(errorCode);
 };
 
 exports.fastForwardBranch = function(branch, succeed, fail) {
