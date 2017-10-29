@@ -57,7 +57,6 @@
 
 ## To Do: 'release' branch and corresponding automation
 
-* Modify lint task to support ES6 in build files
 * Stub out release publishing tasks
 * Update release.jakefile.js to
 	* Merge to release branch
