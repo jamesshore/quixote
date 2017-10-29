@@ -91,43 +91,50 @@ function git(args, callback) {
 	// This code is complicated because of potential race conditions in events:
 	//   'exit' and 'error' can fire in any order, and either or both may fire
 	//   'end' and 'exit' can fire in any order, and we need data from both events
+	return new Promise((resolve, reject) => {
+		var child = child_process.spawn("git", args.split(" "), { stdio: ["ignore", "pipe", process.stderr] });
 
-	var child = child_process.spawn("git", args.split(" "), { stdio: [ "ignore", "pipe", process.stderr ] });
+		var stdout = "";
+		var errorCode;
 
-	var stdout = "";
-	var errorCode;
+		var endEventFired = false;
+		var exitEventFired = false;
+		var callbackCalled = false;
 
-	var endEventFired = false;
-	var exitEventFired = false;
-	var callbackCalled = false;
+		child.stdout.setEncoding("utf8");
+		child.stdout.on("data", function(data) {
+			stdout += data;
+		});
+		child.stdout.on("end", function() {
+			endEventFired = true;
+			if (exitEventFired) doCallback(null);
+		});
 
-	child.stdout.setEncoding("utf8");
-	child.stdout.on("data", function(data) {
-		stdout += data;
+		child.on("error", function(error) {
+			doCallback("Problem running git: " + error);
+		});
+		child.on("exit", function(code, signal) {
+			exitEventFired = true;
+			if (signal) return doCallback("git exited in response to signal: " + signal);
+
+			errorCode = code;
+			if (endEventFired) doCallback(null);
+		});
+
+		function doCallback(error) {
+			if (callbackCalled) return;
+			callbackCalled = true;
+
+			if (error) {
+				if (callback) callback(error);
+				else reject(error);
+			}
+			else {
+				if (callback) callback(null, errorCode, stdout);
+				else resolve({ errorCode, stdout });
+			}
+		}
 	});
-	child.stdout.on("end", function() {
-		endEventFired = true;
-		if (exitEventFired) doCallback(null);
-	});
-
-	child.on("error", function(error) {
-		doCallback("Problem running git: " + error);
-	});
-	child.on("exit", function(code, signal) {
-		exitEventFired = true;
-		if (signal) return doCallback("git exited in response to signal: " + signal);
-
-		errorCode = code;
-		if (endEventFired) doCallback(null);
-	});
-
-	function doCallback(error) {
-		if (callbackCalled) return;
-		callbackCalled = true;
-
-		if (error) callback(error);
-		else callback(null, errorCode, stdout);
-	}
 }
 
 function interactiveGit(args, callback) {
