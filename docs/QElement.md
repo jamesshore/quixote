@@ -70,7 +70,7 @@ Example: `var fontSize = element.getRawStyle("font-size");`
 * IE 8 uses `currentStyle` rather than `getComputedStyle()`, and kebab-case property names are converted to camelCase to match currentStyle's expectation.
 * Different browsers return `null`, `undefined`, or `""` when a property can't be found. Quixote always returns `""`. 
 
-**Compatibility Note:** When using `getRawStyle("font-size")`, be aware that Mobile Safari may increase the size of small fonts. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](quixote.md#browser).
+**Compatibility Note:** When using `getRawStyle("font-size")`, be aware that Mobile Safari may increase the size of small fonts. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](quixote.md#quixotebrowser).
 
 
 #### element.getRawPosition()
@@ -112,7 +112,7 @@ Convert a CSS length string, such as `12em`, to the corresponding number of pixe
 
 * `length (string)` A [CSS length string](https://developer.mozilla.org/en-US/docs/Web/CSS/length). Negative values are supported.
 
-**Compatibility Note:** IE 8 and IE 11 round the `pixels` result to the nearest integer value. You can detect this behavior by using [`quixote.browser.roundsOffPixelCalculations()`](quixote.md#browser).
+**Compatibility Note:** IE 8 and IE 11 round the `pixels` result to the nearest integer value. You can detect this behavior by using [`quixote.browser.roundsOffPixelCalculations()`](quixote.md#quixotebrowser).
 
 
 #### element.add()
@@ -121,7 +121,7 @@ Convert a CSS length string, such as `12em`, to the corresponding number of pixe
 Stability: 2 - Unstable
 ```
 
-Create an element and append it to this element's children. Throws an exception unless exactly one element is created. (But that one element may contain children.)
+Create an element and append it as a child of this element. Throws an exception unless exactly one element is created. (But that one element may contain children.)
 
 `child = element.add(html, nickname)`
 

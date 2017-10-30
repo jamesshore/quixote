@@ -3,9 +3,9 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## 0.13.x: Rendered Edges
+## 0.13.x: Rendered Element Bounds
 
-**In Progress.** Quixote can now detect what part of an element is rendered and what isn't. In practice, this means it can detect where an element is clipped by the `overflow: hidden` property, the `clip` property, or by being partially off-screen. These new capabilities are available as descriptor properties on the `element.rendered` descriptor. The `element.rendered` descriptor itself is also smarter about when it considers an element to be rendered or not. Several small quality-of-life API improvements have been made as well; see below.
+**In Progress.** Quixote can now detect what part of an element is rendered and what isn't. In practice, this means you can detect where an element is clipped by the `overflow: hidden` property, the `clip` property, or by being partially off-screen. These new capabilities are available as descriptor properties on the `element.rendered` descriptor. The `element.rendered` descriptor itself is also smarter about when it considers an element to be rendered or not. Several small quality-of-life API improvements have been made as well; see below.
 
 **Breaking changes:**
 
