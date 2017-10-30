@@ -27,6 +27,7 @@
 * Update changelog
 	* Everything below
 	* Opera no longer officially supported
+* Change element.width and .height back to 0 (instead of non-rendered) for zero-width/height elements.
 * QElement
 	* .parent() - body has no parent and returns null
 	* .add()
@@ -41,27 +42,14 @@
 * PositionDescriptor.to()
 * ElementRendered's new descriptor properties (edge and size properties) - considers following scenarios
 	* whether element is off-screen (or partially off-screen)
+	* zero-width/height
 	* `overflow`
 	* `clip`
 	* `display`
 	* `clip-path` (not supported; fails fast)
-	* Breaking changes: ElementRendered
-		* No longer provides specific explanation of why an element isn't rendered (not in DOM, etc)
-		* No longer takes string-based expectations for non-rendering
-		* Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
-		* Is 'false' if element isn't rendered for many reasons
-			* not in DOM, display:none (same as before)
-			* off-screen
-			* zero width or height
-			* clipped out of existence by `overflow:hidden`
-			* clipped out of existence by `clip`
-		* Could fail on some browsers due to `clip` property not being supported correctly
-		* Will fail fast if `clip-path` property is used
-* Breaking changes: ElementEdge
-	* now considers zero-width and zero-height elements to be non-rendered
-		* previously, they had a position but zero width/height
+* Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
 * ElementRenderedEdge
-
+* Move descriptors out of special "Descriptor" page and into regular documentation (such as QElement properties)? Or both?
 
 
 ## Dogfooding Notes
