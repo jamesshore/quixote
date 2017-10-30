@@ -18,6 +18,14 @@ jake.addListener('complete', function () {
 	console.log("\n\nBUILD OK (" + elapsedSeconds.toFixed(2) + "s)");
 });
 
+desc("Start Karma server -- run this first");
+task("karma", [ "versions" ], function() {
+	console.log("Starting Karma server:");
+	karma().start({
+		configFile: paths.karmaConfig
+	}, complete, fail);
+}, { async: true });
+
 desc("Lint, test, and build everything");
 task("default", [ "versions", "clean", "quick", "build" ]);
 
@@ -81,14 +89,6 @@ function createDirectoryDependencies(directories) {
 
 
 //*** TEST
-
-desc("Start Karma server -- run this first");
-task("karma", function() {
-	console.log("Starting Karma server:");
-	karma().start({
-		configFile: paths.karmaConfig
-	}, complete, fail);
-}, { async: true });
 
 desc("Run tests");
 task("test", [ "testFoundation", "testDescriptors", "testUtil", "testValues" ]);

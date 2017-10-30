@@ -57,12 +57,7 @@
 
 ## To Do: 'release' branch and corresponding automation
 
-* Stub out release publishing tasks
-* Update release.jakefile.js to
-	* Merge to release branch
-	* Perform npm version bump
-	* Merge back to master and dev branches
-* Re-enable publish tasks
+* DONE
 
 
 ## Dogfooding Notes

@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
 // Release build file. Automates our deployment process.
@@ -6,12 +6,6 @@
 var git = require("../util/git_runner.js");
 var branches = require("../config/branches.js");
 var sh = require("../util/sh.js");
-
-
-desc("DELETEME - for testing changes to git_runner");
-task("deleteme", () => {
-	git.checkoutBranch("dev", complete, fail);
-}, { async: true });
 
 
 //*** RELEASE TASKS
@@ -30,11 +24,13 @@ createReleaseTask("patch");
 
 function createReleaseTask(level) {
 	desc("Increment " + level + " version number and release");
-	task(level, [ level + "Release", "npm", "updateDevBranch", "docs", "github" ], function() {
+	task(level, [ level + "Release", "npm", "docs", "github" ], async () => {
+		await mergeBranch(branches.integration);
+		await mergeBranch(branches.dev);
 		console.log("\n\nRELEASE OK");
-	}, { async: true });
+	});
 
-	task(level + "Release", [ "readyToRelease", "integrationBranch" ], function() {
+	task(level + "Release", [ "releaseBranch" ], function() {
 		console.log("Updating npm version: ");
 		sh.run("npm version " + level, complete, fail);
 	}, { async: true });
@@ -43,10 +39,9 @@ function createReleaseTask(level) {
 
 //*** PUBLISH
 
-desc("Push source code to GitHub");
-task("github", function() {
-	console.log("Publishing to GitHub: .");
-	sh.run("git push --all && git push --tags", complete, fail);
+task("npm", function() {
+	console.log("Publishing to npm: .");
+	sh.run("npm publish", complete, fail);
 }, { async: true });
 
 desc("Publish documentation to website");
@@ -60,28 +55,33 @@ task("docs", function() {
 	);
 }, { async: true });
 
-task("npm", function() {
-	console.log("Publishing to npm: .");
-	sh.run("npm publish", complete, fail);
+desc("Push source code to GitHub");
+task("github", function() {
+	console.log("Publishing to GitHub: .");
+	sh.run("git push --all && git push --tags", complete, fail);
 }, { async: true });
 
 
 //*** MANIPULATE REPO
 
-task("integrationBranch", async () => {
-	console.log("Switching to " + branches.integration + " branch: .");
-	await git.checkoutBranch(branches.integration);
-}, { async: true });
+task("releaseBranch", [ "readyToRelease" ], async () => {
+	await checkout(branches.release);
 
-task("devBranch", async () => {
-	console.log("Switching to " + branches.dev + " branch: .");
-	await git.checkoutBranch(branches.dev);
-});
-
-task("updateDevBranch", [ "devBranch" ], async () => {
-	console.log("Updating " + branches.dev + " with release changes: .");
+	console.log("Fast-forwarding " + branches.release + " branch to " + branches.integration + ": ");
 	await git.fastForwardBranch(branches.integration);
 });
+
+async function mergeBranch(branch) {
+	await checkout(branch);
+	
+	console.log("Updating " + branch + " with release changes: .");
+	await git.fastForwardBranch(branches.release);
+}
+
+async function checkout(branch) {
+	console.log("Switching to " + branch + " branch: .");
+	await git.checkoutBranch(branch);
+}
 
 
 //*** ENSURE RELEASE READINESS
