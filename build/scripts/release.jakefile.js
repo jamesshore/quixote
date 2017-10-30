@@ -46,23 +46,26 @@ function createReleaseTask(level) {
 desc("Push source code to GitHub");
 task("github", function() {
 	console.log("Publishing to GitHub: .");
-	sh.run("git push --all && git push --tags", complete, fail);
+	// sh.run("git push --all && git push --tags", complete, fail);
+	console.log("STUBBED"); complete();
 }, { async: true });
 
 desc("Publish documentation to website");
 task("docs", function() {
 	console.log("Publishing documentation site: .");
-	sh.run(
-		"rsync --recursive --keep-dirlinks --perms --times --delete --delete-excluded " +
-			"--human-readable --progress --exclude=.DS_Store --include=.* " +
-			"docs/* jdlshore_quixote-css@ssh.phx.nearlyfreespeech.net:/home/public/",
-		complete, fail
-	);
+	// sh.run(
+	// 	"rsync --recursive --keep-dirlinks --perms --times --delete --delete-excluded " +
+	// 		"--human-readable --progress --exclude=.DS_Store --include=.* " +
+	// 		"docs/* jdlshore_quixote-css@ssh.phx.nearlyfreespeech.net:/home/public/",
+	// 	complete, fail
+	// );
+	console.log("STUBBED"); complete();
 }, { async: true });
 
 task("npm", function() {
 	console.log("Publishing to npm: .");
-	sh.run("npm publish", complete, fail);
+	// sh.run("npm publish", complete, fail);
+	console.log("STUBBED"); complete();
 }, { async: true });
 
 
