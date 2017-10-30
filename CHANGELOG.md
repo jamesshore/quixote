@@ -7,7 +7,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 **In Progress.** Quixote can now detect what part of an element is rendered and what isn't. In practice, this means it can detect where an element is clipped by the `overflow: hidden` property, the `clip` property, or by being partially off-screen. These new capabilities are available as descriptor properties on the `element.rendered` descriptor. The `element.rendered` descriptor itself is also smarter about when it considers an element to be rendered or not. Several small quality-of-life API improvements have been made as well; see below.
 
-** Breaking changes:**
+**Breaking changes:**
 
 * The Opera browser is no longer officially supported. (It's likely to continue working, but it's no longer part of our pre-release test suite.)
 
@@ -17,7 +17,9 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 	* Element has zero width or height
 	* Element is clipped out of existence by `clip` or `overflow: hidden` property
 
-* The `element.rendered` property no longer works on IE 8. This is due to bugs in IE 8's reporting of the `clip` property, which `element.rendered` now checks. You can check for this behavior with the new `quixote.browser.misreportsClipAutoProperty()` browser detect.
+* The `element.rendered` property no longer works on IE 8. This is due to bugs in IE 8's reporting of the `clip` property, which `element.rendered` now checks. You can check for IE 8's broken behavior with the new `quixote.browser.misreportsClipAutoProperty()` browser detect.
+
+* The `element.rendered` property could fail on some browsers if the `clip` property is used. This is due bugs in the way those browsers report the details of the `clip` property. You can check for this broken behavior with the new `quixote.browser.misreportsAutoValuesInClipProperty()` browser detect. (This is different than the IE 8 bug and browser detect described above.)
 
 * The `element.rendered` property will now fail if the `clip-path` property is used. This is because `element.rendered` is supposed to look at the whole universe of CSS properties to determine if an element is rendered or not, but clip-path is too complicated for Quixote to understand. Rather than say an element is rendered when it might not be when `clip-path` is used, Quixote throws an error instead.
 
@@ -28,11 +30,11 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 	```javascript
 	// I expect the lightbox to have the `display:none` property
 	lightbox.assert({
-		rendered: "display:none"
+	  rendered: "display:none"
 	});
 	// I expect the cookie disclaimer to be removed from the DOM
 	disclaimer.assert({
-		disclaimer: "detached"
+	  disclaimer: "detached"
 	});
   ```
 
@@ -41,11 +43,11 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
   ```javascript
   // I expect the lightbox to not be rendered
   lightbox.assert({
-  	rendered: false
+    rendered: false
   });
   // I expect the cookie disclaimer to not be rendered
   disclaimer.assert({
-  	rendered: false
+    rendered: false
   });
   ```
 
