@@ -8,12 +8,6 @@ var branches = require("../config/branches.js");
 var sh = require("../util/sh.js");
 
 
-desc("DELETEME - for testing changes to git_runner");
-task("deleteme", () => {
-	git.checkoutBranch("dev", complete, fail);
-}, { async: true });
-
-
 //*** RELEASE TASKS
 
 task("default", function() {
@@ -43,10 +37,9 @@ function createReleaseTask(level) {
 
 //*** PUBLISH
 
-desc("Push source code to GitHub");
-task("github", function() {
-	console.log("Publishing to GitHub: .");
-	// sh.run("git push --all && git push --tags", complete, fail);
+task("npm", function() {
+	console.log("Publishing to npm: .");
+	// sh.run("npm publish", complete, fail);
 	console.log("STUBBED"); complete();
 }, { async: true });
 
@@ -62,9 +55,10 @@ task("docs", function() {
 	console.log("STUBBED"); complete();
 }, { async: true });
 
-task("npm", function() {
-	console.log("Publishing to npm: .");
-	// sh.run("npm publish", complete, fail);
+desc("Push source code to GitHub");
+task("github", function() {
+	console.log("Publishing to GitHub: .");
+	// sh.run("git push --all && git push --tags", complete, fail);
 	console.log("STUBBED"); complete();
 }, { async: true });
 
@@ -76,12 +70,9 @@ task("integrationBranch", async () => {
 	await git.checkoutBranch(branches.integration);
 }, { async: true });
 
-task("devBranch", async () => {
+task("updateDevBranch", async () => {
 	console.log("Switching to " + branches.dev + " branch: .");
 	await git.checkoutBranch(branches.dev);
-});
-
-task("updateDevBranch", [ "devBranch" ], async () => {
 	console.log("Updating " + branches.dev + " with release changes: .");
 	await git.fastForwardBranch(branches.integration);
 });
