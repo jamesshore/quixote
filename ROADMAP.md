@@ -24,14 +24,6 @@
 
 ## To Do: 'release' branch and corresponding automation
 
-* Update changelog
-	* Everything below
-	* Opera no longer officially supported
-* Change element.width and .height back to 0 (instead of non-rendered) for zero-width/height elements.
-* QElement
-	* .parent() - body has no parent and returns null
-	* .add()
-	* .calculatePixelValue()
 * quixote.browser
 	* .misreportsClipAutoProperty()
 		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
@@ -50,6 +42,7 @@
 * Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
 * ElementRenderedEdge
 * Move descriptors out of special "Descriptor" page and into regular documentation (such as QElement properties)? Or both?
+* Code change: Change element.width and .height back to 0 (instead of non-rendered) for zero-width/height elements.
 
 
 ## Dogfooding Notes

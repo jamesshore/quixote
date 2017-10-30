@@ -70,6 +70,9 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 * quixote.browser.misreportsAutoValuesInClipProperty()
 * quixote.browser.roundsOffPixelCalculations()
 
+*Other changes:*
+
+* QElement.toDomElement() has been promoted from '1-Experimental' to '2-Unstable'.
 
 ## 0.12.x: Non-Rendered Elements
 
