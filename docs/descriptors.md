@@ -121,7 +121,7 @@ disclaimer.assert({
 Stability: 1 - Experimental
 ```
 
-Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to viewport descriptors, you can make assertions about where elements are positioned on the page.
+Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to page descriptors, you can make assertions about where elements are positioned on the page.
 
 * `page.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top of the page.
 * `page.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right side of the page.
