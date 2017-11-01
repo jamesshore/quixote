@@ -41,50 +41,6 @@ With descriptors, you can make relative comparisons and avoid hardcoding values.
 The following descriptors are available:
 
 
-### Element Rendering
-
-```
-Stability: 1 - Experimental
-```
-
-Descriptors for checking which parts of an element are rendered are available on [`QElement`](QElement.md) instances. "Rendered" means the portions of the element that would be visible on the page if every pixel was bright purple (or otherwise opaque). The rendered portion of an element is governed by the following:
-
-* Whether it's part of the DOM (elements that have been removed from the DOM aren't rendered)
-* Its width and height (elements with no width or height aren't rendered)
-* Its position on the page (anything positioned partly off-screen is considered non-rendered, unless you could scroll to it)
-* The `display` property
-* The `clip` property
-* The `overflow` property (anything outside of an element's visible area is considered non-rendered, *even if* you could scroll to it)
-
-These descriptors are available:
-
-* `element.rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
-* `element.rendered.top` (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
-* `element.rendered.right` (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
-* `element.rendered.bottom` (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
-* `element.rendered.left` (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
-* `element.rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
-* `element.rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
-* `element.rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
-* `element.rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
-
-Example: "The description doesn't break out of the bottom of the content area."
-
-```javascript
-content.assert({
-	bottom: description.rendered.bottom
-});
-```
-
-**Compatibility Notes:**
-
-* We do not support the `clip-path` property at this time. If the `clip-path` property is used by an element or its ancestors, none of the `element.rendered` descriptors will work. They'll throw an error instead.
-
-* The `element.rendered` descriptors don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property, which `element.rendered` now checks. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
-
-* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` descriptors to throw an error. You can check for this broken behavior with the [quixote.browser.misreportsAutoValuesInClipProperty()](quixote.md#quixotebrowser) browser detect.
-
-
 ### Element Positions and Sizes
 
 ```
@@ -110,6 +66,50 @@ logo.assert({
   right: navbar.right       // the logo's right edge is the same as the navbar's right edge
 });
 ```
+
+
+### Element Rendering
+
+```
+Stability: 1 - Experimental
+```
+
+Descriptors for checking which parts of an element are rendered are available on [`QElement`](QElement.md) instances. "Rendered" means the parts of the element that would be visible on the page if every pixel was opaque. The rendered portion of an element is governed by the following:
+
+* Whether it's part of the DOM (elements that have been removed from the DOM aren't rendered)
+* Its width and height (elements with no width or height aren't rendered)
+* Its position on the page (anything positioned partly off-screen is considered non-rendered, unless you could scroll to it)
+* The `display` property
+* The `clip` property
+* The `overflow` property (anything outside of an element's visible area is considered non-rendered, *even if* you could scroll to it)
+
+These descriptors are available:
+
+* `element.rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
+* `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
+* `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
+* `element.rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
+* `element.rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
+* `element.rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `element.rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `element.rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
+* `element.rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
+
+Example: "The caption doesn't break out of the bottom of the content area."
+
+```javascript
+content.assert({
+	bottom: caption.rendered.bottom
+});
+```
+
+**Compatibility Notes:**
+
+* We do not support the `clip-path` property at this time. If the `clip-path` property is used by an element or its ancestors, none of the `element.rendered` descriptors will work. They'll throw an error instead.
+
+* The `element.rendered` descriptors don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
+
+* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` descriptors to throw an error. You can check for this broken behavior with the [quixote.browser.misreportsAutoValuesInClipProperty()](quixote.md#quixotebrowser) browser detect.
 
 
 ### Viewport Positions and Sizes
