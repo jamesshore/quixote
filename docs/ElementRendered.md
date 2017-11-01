@@ -4,14 +4,14 @@
 * [Back to API overview.](api.md)
 * [Back to descriptor overview.](descriptors.md)
 
-The ElementRendered descriptor represents whether an element is rendered on the page or not. (It also has sub-descriptors as described below). An element is non-rendered when:
+The ElementRendered descriptor represents whether an element is rendered on the page or not. (It also has sub-descriptors that describe which parts of the element is rendered.) An element is non-rendered when:
 
 * It isn't part of the DOM (for example, if [`QElement.remove()`](QElement.md#elementremove) has been called).
 * The `display:none` CSS property is set.
-* The element is entirely off-screen (unless you can scroll to it).
+* The element is off-screen to the left or top, so it can't be scrolled to.
 * The element has no width or no height.
-* The element or one of its ancestors has set the `clip` property in a way that clips the element out of existence
-* One of the element's ancestors has set the `overflow` property in a way that clips the element out of existence or results in it being entirely outside the ancestor's visible scroll area
+* The element or one of its ancestors has set the `clip` property in a way that clips the element out of existence.
+* One of the element's ancestors has set the `overflow` property in a way that clips the element out of existence or results in it being entirely outside the ancestor's visible scroll area.
 
 Note that this descriptor doesn't provide information about whether an element is visible. An element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
 

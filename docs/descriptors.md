@@ -99,7 +99,7 @@ Example: "The caption doesn't break out of the bottom of the content area."
 
 ```javascript
 content.assert({
-	bottom: caption.rendered.bottom
+	bottom: caption.rendered.bottom		// The rendered bottom of the caption is the same as the bottom of the content area
 });
 ```
 
