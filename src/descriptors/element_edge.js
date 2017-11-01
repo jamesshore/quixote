@@ -62,8 +62,8 @@ function elementRendered(self, rawPosition) {
 
 	var inDom = element.frame.body().toDomElement().contains(element.toDomElement());
 	var displayNone = element.getRawStyle("display") === "none";
-	var zeroWidth = rawPosition.left === rawPosition.right;
-	var zeroHeight = rawPosition.top === rawPosition.bottom;
+	var zeroWidth = rawPosition.width === 0;
+	var zeroHeight = rawPosition.height === 0;
 
 	return inDom && !displayNone && !zeroWidth && !zeroHeight;
 }

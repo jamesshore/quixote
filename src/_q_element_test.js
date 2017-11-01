@@ -208,6 +208,10 @@ describe("FOUNDATION: QElement", function() {
 			assert.equal(element('font-size: 15px;').calculatePixelValue("10em"), 150);
 		});
 
+		it("supports negative values", function() {
+			assert.equal(element('font-size: 15px;').calculatePixelValue("-10em"), -150);
+		});
+
 		it("works with non-integer results", function() {
 			var expected = 7.5;
 			if (quixote.browser.roundsOffPixelCalculations()) expected = 8;

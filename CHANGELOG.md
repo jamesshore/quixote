@@ -3,6 +3,79 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.13.x: Rendered Element Bounds
+
+**In Progress.** Quixote can now detect what part of an element is rendered and what isn't. In practice, this means you can detect where an element is clipped by the `overflow: hidden` property, the `clip` property, or by being partially off-screen. These new capabilities are available as descriptor properties on the `element.rendered` descriptor. The `element.rendered` descriptor itself is also smarter about when it considers an element to be rendered or not. Several small quality-of-life API improvements have been made as well; see below.
+
+**Breaking changes:**
+
+* The Opera browser is no longer officially supported. (It's likely to continue working, but it's no longer part of our pre-release test suite.)
+
+* The `element.rendered` descriptor now detects several new situations. Elements that were previously considered to be rendered may now be reported as non-rendered. These are the new scenarios that result in an element being reported as non-rendered:
+
+	* Element is positioned off-screen
+	* Element has zero width or height
+	* Element is clipped out of existence by `clip` or `overflow` property
+
+* The `element.rendered` descriptor no longer works on IE 8. This is due to bugs in IE 8's reporting of the `clip` property, which `element.rendered` now checks. You can check for IE 8's broken behavior with the new `quixote.browser.misreportsClipAutoProperty()` browser detect.
+
+* The `element.rendered` descriptor could fail on some browsers if the `clip` property is used. This is due bugs in the way those browsers report the details of the `clip` property. You can check for this broken behavior with the new `quixote.browser.misreportsAutoValuesInClipProperty()` browser detect. (This is different than the IE 8 bug and browser detect described above.)
+
+* The `element.rendered` descriptor will now fail if the `clip-path` property is used. This is because `element.rendered` is supposed to look at the whole universe of CSS properties to determine if an element is rendered or not, but clip-path is too complicated for Quixote to understand. Rather than say an element is rendered when it might not be when `clip-path` is used, Quixote throws an error instead.
+
+* The `element.rendered` property no longer tracks why an element isn't rendered. (There's so many possibilities it got unwieldy; and it's an implementation detail that doesn't seem necessary to test.) If you have assertions about why an element is non-rendered, you'll need to update your assertion from a string to `false`.
+
+	Old code:
+
+	```javascript
+	// I expect the lightbox to have the `display:none` property
+	lightbox.assert({
+	  rendered: "display:none"
+	});
+	// I expect the cookie disclaimer to be removed from the DOM
+	disclaimer.assert({
+	  disclaimer: "detached"
+	});
+  ```
+
+  New code:
+
+  ```javascript
+  // I expect the lightbox to not be rendered
+  lightbox.assert({
+    rendered: false
+  });
+  // I expect the cookie disclaimer to not be rendered
+  disclaimer.assert({
+    rendered: false
+  });
+  ```
+
+*New descriptors:*
+
+* QElement.rendered.top
+* QElement.rendered.right,
+* QElement.rendered.bottom,
+* QElement.rendered.left,
+* QElement.rendered.width,
+* QElement.rendered.height,
+* QElement.rendered.center,
+* QElement.rendered.middle
+
+*New methods:*
+
+* PositionDescriptor.to()
+* QElement.parent()
+* QElement.add()
+* QElement.calculatePixelValue()
+* quixote.browser.misreportsClipAutoProperty()
+* quixote.browser.misreportsAutoValuesInClipProperty()
+* quixote.browser.roundsOffPixelCalculations()
+
+*Other changes:*
+
+* QElement.toDomElement() has been promoted from '1-Experimental' to '2-Unstable'.
+
 ## 0.12.x: Non-Rendered Elements
 
 **21 May 2016.** Quixote is now smarter about elements that aren't rendered into the DOM. Elements that have the `display:none` property or that are detached from the DOM are considered to be non-rendered. To detect non-rendered elements, you can use the new `element.rendered` descriptor. Element positions now also distinguish between "0px" (which means the upper-left corner) and "none" (which means the element isn't rendered). The same idea applies to element sizes.

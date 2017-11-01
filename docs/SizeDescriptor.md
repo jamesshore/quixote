@@ -16,7 +16,7 @@ Stability: 2 - Unstable
 Size descriptors may be compared to another size descriptor, a number, or "none". 
 
 * A number refers to the pixel width or height of the element.
-* The string "none" means that the element is not rendered due to `display:none` or having been removed from the DOM.
+* The string "none" means that the element is not rendered, for example due to having the `display:none` property.
 
 
 ### Examples
@@ -51,14 +51,18 @@ leftColumn.assert({
 });
 ```
 
+
 #### Checking whether an element is rendered
 
 "The light box is no longer rendered after I change the DOM."
- 
+
+(Note that using a SizeDescriptor isn't the best way to make this assertion. Use [QElement.rendered](https://github.com/jamesshore/quixote/blob/dev/docs/descriptors.md#element-rendering) instead.)
+
 ```javascript
 // First, I expect the light box to be rendered
 lightbox.assert({
-	width: 200
+  rendered: true,   // this is the preferred way
+  width: 200        // this is the SizeDescriptor way
 });
 
 // Then I vanish it
@@ -66,8 +70,8 @@ callProductionCodeThatSetsDisplayNoneOnLightbox();
 
 // And I expect the light box will no longer be rendered
 lightbox.assert({
-	rendered: false,
-	width: "none"
+  rendered: false,  // preferred way
+  width: "none"     // SizeDescriptor way
 });
 ```
 

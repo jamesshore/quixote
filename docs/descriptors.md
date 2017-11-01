@@ -41,17 +41,6 @@ With descriptors, you can make relative comparisons and avoid hardcoding values.
 The following descriptors are available:
 
 
-### Element Rendering
-
-```
-Stability: 1 - Experimental
-```
-
-A descriptor for checking whether an element is rendered is available on [`QElement`](QElement.md) instances. This descriptor checks that the element is attached to the DOM and that the display:none property is not set. Note that there are many situations in which a rendered element could still be invisible to the user.
-
-* `element.rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether the element is rendered.
-
-
 ### Element Positions and Sizes
 
 ```
@@ -64,8 +53,8 @@ Descriptors for the position and size of an element are available on [`QElement`
 * `element.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
 * `element.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
 * `element.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
-* `element.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between the right and left edges.
-* `element.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom edges.
+* `element.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `element.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
 * `element.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
 * `element.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
 
@@ -77,6 +66,50 @@ logo.assert({
   right: navbar.right       // the logo's right edge is the same as the navbar's right edge
 });
 ```
+
+
+### Element Rendering
+
+```
+Stability: 1 - Experimental
+```
+
+Descriptors for checking which parts of an element are rendered are available on [`QElement`](QElement.md) instances. "Rendered" means the parts of the element that would be visible on the page if every pixel was opaque. The rendered portion of an element is governed by the following:
+
+* Whether it's part of the DOM (elements that have been removed from the DOM aren't rendered)
+* Its width and height (elements with no width or height aren't rendered)
+* Its position on the page (anything positioned partly off-screen is considered non-rendered, unless you could scroll to it)
+* The `display` property
+* The `clip` property
+* The `overflow` property (anything outside of an element's visible area is considered non-rendered, *even if* you could scroll to it)
+
+These descriptors are available:
+
+* `element.rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
+* `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
+* `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
+* `element.rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
+* `element.rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
+* `element.rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `element.rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `element.rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
+* `element.rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
+
+Example: "The caption doesn't break out of the bottom of the content area."
+
+```javascript
+content.assert({
+	bottom: caption.rendered.bottom		// The rendered bottom of the caption is the same as the bottom of the content area
+});
+```
+
+**Compatibility Notes:**
+
+* We do not support the `clip-path` property at this time. If the `clip-path` property is used by an element or its ancestors, none of the `element.rendered` descriptors will work. They'll throw an error instead.
+
+* The `element.rendered` descriptors don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
+
+* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` descriptors to throw an error. You can check for this broken behavior with the [quixote.browser.misreportsAutoValuesInClipProperty()](quixote.md#quixotebrowser) browser detect.
 
 
 ### Viewport Positions and Sizes
@@ -121,7 +154,7 @@ disclaimer.assert({
 Stability: 1 - Experimental
 ```
 
-Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to viewport descriptors, you can make assertions about where elements are positioned on the page.
+Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to page descriptors, you can make assertions about where elements are positioned on the page.
 
 * `page.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top of the page.
 * `page.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right side of the page.
