@@ -24,13 +24,7 @@
 
 ## To Do: API docs and changelog
 
-* PositionDescriptor.to()
 * ElementRendered's new descriptor properties (edge and size properties) - considers following scenarios
-	* whether element is off-screen (or partially off-screen)
-	* zero-width/height
-	* `overflow`
-	* `clip`
-	* `display`
 	* `clip-path` (not supported; fails fast)
 	* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `rendered` descriptor.
 	* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
