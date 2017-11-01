@@ -87,7 +87,7 @@ lightbox.assert({
 
 ### API
 
-Position descriptors implement the following methods. They're useful when you want to compare positions that aren't exactly aligned.
+Position descriptors implement the following methods. They're useful when you want to compare elements that aren't exactly aligned.
 
 
 #### descriptor.plus()
@@ -100,7 +100,7 @@ Create a new PositionDescriptor that is further down the page or to the right.
 
 `descriptor.plus(amount)`
 
-* `amount (`[SizeDescriptor](SizeDescriptor.md)` or number)` The number of pixels to move the descriptor.
+* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` or number)` The number of pixels to move the descriptor.
 
 Example: "The top of the sidebar is 10px below the bottom of the navigation bar."
 
@@ -121,7 +121,7 @@ Create a new PositionDescriptor that is further up the page or to the left.
 
 `descriptor.minus(amount)`
 
-* `amount (`[SizeDescriptor](SizeDescriptor.md)` or number)` The number of pixels to move the descriptor.
+* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` or number)` The number of pixels to move the descriptor.
 
 Example: "The logo is 15px inside the navigation bar."
 
@@ -144,7 +144,7 @@ Create a new [SizeDescriptor](SizeDescriptor.md) that represents the distance be
 
 * `descriptor2 (PositionDescriptor)` The second position. Must represent the same X or Y axis as this descriptor.
 
-* `result (`[SizeDescriptor](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
+* `result (`[`SizeDescriptor`](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
 
 Example: "The header is as wide as both columns."
 
