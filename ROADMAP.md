@@ -24,15 +24,7 @@
 
 ## To Do: API docs and changelog
 
-* ElementRendered's new descriptor properties (edge and size properties) - considers following scenarios
-	* `clip-path` (not supported; fails fast)
-	* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `rendered` descriptor.
-	* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 * Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
-* ElementRenderedEdge
-	* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `rendered` descriptor.
-	* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
-* Move descriptors out of special "Descriptor" page and into regular documentation (such as QElement properties)? Or both?
 * Code change: Change element.width and .height back to 0 (instead of non-rendered) for zero-width/height elements.
 	* Documentation already reflects this change
 * Code change: PositionDescriptor needs `ensure.signature`

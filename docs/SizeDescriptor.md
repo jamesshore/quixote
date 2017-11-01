@@ -16,7 +16,7 @@ Stability: 2 - Unstable
 Size descriptors may be compared to another size descriptor, a number, or "none". 
 
 * A number refers to the pixel width or height of the element.
-* The string "none" means that the element is not rendered due to `display:none` or having been removed from the DOM.
+* The string "none" means that the element is not rendered, for example due to having the `display:none` property.
 
 
 ### Examples
