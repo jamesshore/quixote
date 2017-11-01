@@ -24,7 +24,6 @@
 
 ## To Do: API docs and changelog
 
-* Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
 * Code change: Change element.width and .height back to 0 (instead of non-rendered) for zero-width/height elements.
 	* Documentation already reflects this change
 * Code change: PositionDescriptor needs `ensure.signature`
