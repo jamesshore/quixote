@@ -149,7 +149,7 @@ Create a new [SizeDescriptor](SizeDescriptor.md) that represents the distance be
 Example: "The header is as wide as both columns."
 
 ```javascript
-  header.assert({
+header.assert({
   width: leftColumn.left.to(rightColumn.right)
 });
 ```
