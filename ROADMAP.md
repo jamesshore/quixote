@@ -22,13 +22,9 @@
 * Review GitHub issues for 'bug' issues that can be easily fixed
 
 
-## To Do: 'release' branch and corresponding automation
+## To Do: API docs and changelog
 
 * quixote.browser
-	* .misreportsClipAutoProperty()
-		* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `visible` descriptor.
-	* .misreportsAutoValuesInClipProperty()
-		* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 	* .roundsOffPixelCalculations()
 		* Compatibility note: IE 8, IE 11 round fractional pixel values to the closest integer. E.g., if the font size is 15px and an element is 0.5em wide, IE 8 and IE 11 will report that it is 8px wide rather than 7.5px.
 * PositionDescriptor.to()
@@ -39,8 +35,12 @@
 	* `clip`
 	* `display`
 	* `clip-path` (not supported; fails fast)
+	* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `rendered` descriptor.
+	* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 * Update SizeDescriptor and PositionDescriptor's "none" option to reflect broader reasons an element could be non-rendered
 * ElementRenderedEdge
+	* Compatibility note: IE 8 doesn't distinguish between `clip: auto` and `clip: rect(auto, auto, auto, auto)`. So IE 8 won't work with `rendered` descriptor.
+	* Compatibility note: IE 11, Chrome Mobile 44 miscompute `clip: rect(auto)` as '0px' (should be 'auto'). So they can't calculate clipping values when the `clip` property is used
 * Move descriptors out of special "Descriptor" page and into regular documentation (such as QElement properties)? Or both?
 * Code change: Change element.width and .height back to 0 (instead of non-rendered) for zero-width/height elements.
 

@@ -58,3 +58,9 @@ Quixote detects browser features via a temporary frame that's created, and immed
 * `quixote.browser.enlargesFrameToPageSize()`: Mobile Safari ignores frame width and height attributes when the page is larger than the frame. It uses the page dimensions instead. This function returns true if the current browser exhibits that behavior.
 
 * `quixote.browser.enlargesFonts()`: Mobile Safari will increase the size of small fonts depending on the width of the frame. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) This function returns true if the current browser exhibits that behavior.
+
+* `quixote.browser.misreportsAutoValuesInClipProperty()`: IE 11 and Chrome Mobile 44 report the value of `clip: rect(auto)` as `0px` rather than `auto`. This function returns true if the current browser exhibits that behavior.
+
+* `quixote.browser.misreportsClipAutoProperty()`: IE 8 doesn't distinguish between `clip: auto` (which *doesn't* clip children) and `clip: rect(auto, auto, auto, auto)` (which *does* clip children) when reporting the value of the `clip` property. This function returns true if the current browser exhibits that behavior.
+
+* `quixote.browser.roundsOffPixelCalculations()`: IE 8 and IE 11 round fractional pixel values to the nearest integer. In other words, if the font size is 15px and an element is 0.5em wide, IE 8 and IE 11 will report its width as 8px wide rather than 7.5px. (This will typically not affect your use of Quixote, as Quixote considers pixel values within 0.5px of each other to be identical.) This function returns true if the current browser exhibits that behavior.
