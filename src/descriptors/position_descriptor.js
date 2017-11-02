@@ -1,4 +1,4 @@
-// Copyright (c) 2014 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
+// Copyright (c) 2014-2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 /*eslint new-cap: "off" */
 "use strict";
 
@@ -39,6 +39,7 @@ Me.prototype.minus = function minus(amount) {
 };
 
 Me.prototype.to = function to(positionDescriptor) {
+	ensure.signature(arguments, [[ Me ]]);
 	if (this._pdbc.dimension !== positionDescriptor._pdbc.dimension) {
 		throw new Error("Can only calculate distance between two X coordinates or two Y coordinates");
 	}
