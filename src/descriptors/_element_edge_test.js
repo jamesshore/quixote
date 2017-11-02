@@ -58,7 +58,7 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
-	it("knows elements with display:none are not displayed", function() {
+	it("knows elements with display:none are not rendered", function() {
 		element.toDomElement().style.display = "none";
 
 		assert.objEqual(top.value(), Position.noY(), "top");
@@ -67,7 +67,7 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.objEqual(left.value(), Position.noX(), "left");
 	});
 
-	it("knows elements not in the DOM are not displayed", function() {
+	it("knows elements not in the DOM are not rendered", function() {
 		var domElement = element.toDomElement();
 		domElement.parentNode.removeChild(domElement);
 
@@ -77,22 +77,22 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		assert.objEqual(left.value(), Position.noX(), "left");
 	});
 
-	it("knows elements with zero width are not displayed", function() {
+	it("considers elements with zero width ARE rendered", function() {
 		element.toDomElement().style.width = "0px";
 
-		assert.objEqual(top.value(), Position.noY(), "top");
-		assert.objEqual(right.value(), Position.noX(), "right");
-		assert.objEqual(bottom.value(), Position.noY(), "bottom");
-		assert.objEqual(left.value(), Position.noX(), "left");
+		assert.objEqual(top.value(), Position.y(TOP), "top");
+		assert.objEqual(right.value(), Position.x(LEFT + 0), "right");
+		assert.objEqual(bottom.value(), Position.y(BOTTOM), "bottom");
+		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
-	it("knows elements with zero height are not displayed", function() {
+	it("considers elements with zero height ARE rendered", function() {
 		element.toDomElement().style.height = "0px";
 
-		assert.objEqual(top.value(), Position.noY(), "top");
-		assert.objEqual(right.value(), Position.noX(), "right");
-		assert.objEqual(bottom.value(), Position.noY(), "bottom");
-		assert.objEqual(left.value(), Position.noX(), "left");
+		assert.objEqual(top.value(), Position.y(TOP), "top");
+		assert.objEqual(right.value(), Position.x(RIGHT), "right");
+		assert.objEqual(bottom.value(), Position.y(TOP + 0), "bottom");
+		assert.objEqual(left.value(), Position.x(LEFT), "left");
 	});
 
 	it("converts to string", function() {

@@ -48,6 +48,8 @@ Me.prototype.value = function() {
 	var page = element.frame.page();
 
 	if (element.top.value().equals(Position.noY())) return notRendered(position);
+	if (element.width.value().equals(Size.create(0))) return notRendered(position);
+	if (element.height.value().equals(Size.create(0))) return notRendered(position);
 
 	ensure.that(
 		!hasClipPathProperty(element),
