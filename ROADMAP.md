@@ -23,7 +23,7 @@
 
 ## To Do: Review GitHub issues for 'ready to implement' issues and pull requests
 
-* Integrate #39 (CSS string)
+* DONE
 
 
 ## Dogfooding Notes

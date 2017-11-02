@@ -59,13 +59,8 @@ Me.create = function create(parentElement, options, callback) {
 		// We force it to be asynchronous here
 		setTimeout(function() {
 			loaded(frame, width, height, src, stylesheets);
-			if (css) {
-				loadRawCSS(frame, options.css);
-				if (!stylesheets.length) {
-					frame._frameLoadCallback(null, frame);
-				}
-			}
 			loadStylesheets(frame, stylesheets, function() {
+				if (css) loadRawCSS(frame, options.css);
 				frame._frameLoadCallback(null, frame);
 			});
 		}, 0);

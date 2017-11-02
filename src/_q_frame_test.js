@@ -133,6 +133,24 @@ describe("FOUNDATION: QFrame", function() {
 			});
 		});
 
+		it("gives raw CSS precedence over stylesheet link", function(done) {
+			var options = {
+				css: ".style-me { height: 20px; }",
+				stylesheet: "/base/src/_q_frame_test2.css"
+			};
+			frame = QFrame.create(window.document.body, options, function(err) {
+				if (err) return done(err);
+				try {
+					var styleMe = frame.add("<div class='style-me'>Foo</div>");
+					assert.equal(styleMe.getRawPosition().height, 20, "raw CSS should override stylesheet");
+					done();
+				}
+				catch(e) {
+					done(e);
+				}
+			});
+		});
+
 		it("creates iframe using stylesheet and source URL simultaneously", function(done) {
 			var options = {
 				src: "/base/src/_q_frame_test.html",
