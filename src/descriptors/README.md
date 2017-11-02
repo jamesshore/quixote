@@ -31,53 +31,48 @@ For a real descriptor example, see any of the descriptors in this directory. [`E
 Start out by creating a test file for your descriptor. As you follow the example, leave out the comments.
 
 ```javascript
-(function() {			// we wrap our classes in an IIFE so WebStorm's refactoring tools work better
-	"use strict";		// always use strict mode
+"use strict";		// always use strict mode
 
-	// Our custom test assertion library
-	var assert = require("../util/assert.js");		// our custom assertion library
+// Our custom test assertion library
+var assert = require("../util/assert.js");
 
-	// For speed, we reuse the same test frame, containing a reset stylesheet, across all our Quixote tests.
-	var reset = require("../__reset.js");
+// For speed, we reuse the same test frame, containing a reset stylesheet, across all our Quixote tests.
+var reset = require("../__reset.js");
 
-	// The base class we'll be extending. In some cases, you'll extend a subclass of Descriptor, such as
-	// SizeDescriptor or PositionDescriptor. In that case, you'd require that class here instead.
-	var Descriptor = require("./descriptor.js");
+// The base class we'll be extending. In some cases, you'll extend a subclass of Descriptor, such as
+// SizeDescriptor or PositionDescriptor. In that case, you'd require that class here instead.
+var Descriptor = require("./descriptor.js");
 
-	// The class we're implementing
-	var BackgroundColor = require("./background_color.js");
+// Our class under test
+var BackgroundColor = require("./background_color.js");
 
-	// It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
-	describe("DESCRIPTOR: BackgroundColor", function() {
+// It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
+describe("DESCRIPTOR: BackgroundColor", function() {
 
-		// Normally, you'd need a beforeEach() function to reset the test frame. But our
-		// __reset.js file implements that for us.
+	// Normally, you'd need a beforeEach() function to reset the test frame. But our
+	// __reset.js file implements that for us.
 
-		it("runs tests", function() {
-			// make sure the tests run (and fail)
-			assert.fail("hi");
-		});
-
+	it("runs tests", function() {
+		// make sure the tests run (and fail)
+		assert.fail("hi");
 	});
-}());
+
+});
 ```
 
 Stub in the production code as well.
 
 ```javascript
-(function() {			// wrap all files in an IIFE
-	"use strict";		// always use strict mode
+"use strict";		// always use strict mode
 
-	// Our runtime assertion library. We mostly use it for runtime signature type checking.
-	var ensure = require("../util/ensure.js");
+// Our runtime assertion library. We mostly use it for runtime signature type checking.
+var ensure = require("../util/ensure.js");
 
-	// The base class we'll be extending. If you're extending a subclass of Descriptor, such as
-	// SizeDescriptor or PositionDescriptor, require that instead.
-  var Descriptor = require("./descriptor.js");
+// The base class we'll be extending. If you're extending a subclass of Descriptor, such as
+// SizeDescriptor or PositionDescriptor, require that instead.
+var Descriptor = require("./descriptor.js");
 
-  // We'll implement the rest of the class later.
-
-}());
+// We'll implement the rest of the class later.
 ```
 
 
@@ -150,6 +145,7 @@ Our tests:
 
 ```javascript
 ⋮
+// Replace the temporary 'runs tests' test with this new test
 it("is a descriptor", function() {
 	// replace the 'runs tests' test with this one
   assert.implements(color(IRRELEVANT), Descriptor);

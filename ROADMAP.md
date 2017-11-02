@@ -24,8 +24,7 @@
 
 ## To Do: API docs and changelog
 
-* Code change: PositionDescriptor needs `ensure.signature`
-	* Consider whether it should take a number (and if it should, update the documentation accordingly)
+* DONE
 
 
 ## Dogfooding Notes
