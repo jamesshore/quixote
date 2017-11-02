@@ -145,6 +145,18 @@ exports.Array = {
 };
 
 
+exports.Document = {
+
+	// WORKAROUND IE 8: no document.head
+	head: function head(doc) {
+		if (doc.head) return doc.head;
+
+		return doc.querySelector("head");
+	}
+
+};
+
+
 exports.Element = {
 
 	// WORKAROUND IE 8, IE 9, IE 10, IE 11: no Element.remove()
@@ -162,18 +174,6 @@ exports.EventTarget = {
 		if (element.addEventListener) return element.addEventListener(event, callback);
 
 		element.attachEvent("on" + event, callback);
-	}
-
-};
-
-
-exports.Document = {
-
-	// WORKAROUND IE 8: no document.head
-	head: function head(doc) {
-		if (doc.head) return doc.head;
-
-		return doc.querySelector("head");
 	}
 
 };
