@@ -3,33 +3,39 @@
 For an overview, installation notes, and an example, see [the readme](../README.md).
 
 
-## Table of Contents
+## Quick Reference
 
-There are three primary classes and modules:
+* Create the Quixote test frame with [`quixote.createFrame()`](quixote.md#quixotecreateframe).
+* Add test elements to the frame with [`QFrame.add()`](QFrame.md#frameadd).
+* Get elements from the frame with [`QFrame.get()`](QFrame.md#frameget).
+* Reset the frame with [`QFrame.reset()`](QFrame.md#framereset) or [`QFrame.reload()`](QFrame.md#framereload).
+* Make assertions with [`QElement.assert()`](QElement.md#elementassert) and [descriptors](descriptors.md).
+* When the descriptor you want doesn't exist, use [`QElement.getRawStyle()`](QElement.md#elementgetrawstyle).
 
-* [`quixote`](quixote.md) is your entry point. It allows you to create the Quixote test frame and check browser compatibility.
-* [`QFrame`](QFrame.md) is how you manipulate the DOM inside your test frame.
-* [`QElement`](QElement.md) wraps individual DOM elements. It allows you to make assertions and get styling information.
 
-In your tests, you will make assertions on elements using two methods:
+## Classes and Modules
 
-* [`QElement.assert()`](QElement.md#elementassert) is a powerful tool for comparing elements. This is the preferred assertion technique, but it doesn't yet support all style properties.
-* [`QElement.getRawStyle()`](QElement.md#elementgetrawstyle) allows you to retrieve style information and use it with another assertion library. This is meant to be used when `QElement.assert()` doesn't support the styles you want to test.
+* [`quixote`](quixote.md) Create the Quixote test frame and check browser compatibility.
+* [`QFrame`](QFrame.md) Manipulate the DOM inside your test frame.
+* [`QElement`](QElement.md) Manipulate, make assertions about, and get styling information for a specific element.
+* [`QElementList`](QElementList.md) Multiple QElements.
 
-`QElement.assert()` takes an object containing "descriptors," which are documented here:
+### Descriptor classes
 
-* [Descriptors](descriptors.md) describes how descriptors work and lists all the descriptors available for you to use.
-* [`PositionDescriptor`](PositionDescriptor.md) descriptors have a common API related to positioning.
-* [`SizeDescriptor`](SizeDescriptor.md) descriptors have a common API related to sizes.
+Start with the [descriptors overview](descriptors.md).
 
-There's also one supporting class:
-
-* [`QElementList`](QElementList.md) contains a list of QElements.
+* [`ElementRendered`](ElementRendered.md) Rendered boundaries.
+* [`PositionDescriptor`](PositionDescriptor.md) X and Y coordinates.
+* [`SizeDescriptor`](SizeDescriptor.md) Widths, heights, and distances.
 
 
 ## Stability
 
-Each section is marked with a *stability index* corresponding to [the Node.js stability indices](http://nodejs.org/api/documentation.html#documentation_stability_index). They have the following meaning:
+Any class, property, or method that isn't described in the API documentation is not for public use and may change at any time. Breaking changes to the API documentation will be described in the [change log](../CHANGELOG.md). All other properties and methods should be considered non-public and may change at any time.
+
+Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
+
+Each section of the API is marked with a *stability index* corresponding to [the Node.js stability indices](http://nodejs.org/api/documentation.html#documentation_stability_index). They have the following meaning:
  
 ```
 Stability: 0 - Deprecated
@@ -59,7 +65,3 @@ Stability: 5 - Locked
 Unless serious bugs are found, this code will not ever
 change.  Please do not suggest changes in this area; they will be refused.
 ```
-
-Breaking changes to any property or method in the API documentation will be described in the [change log](../CHANGELOG.md). All other properties and methods should be considered non-public and may change at any time.
-
-Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
