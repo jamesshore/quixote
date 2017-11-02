@@ -17,14 +17,13 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* API docs and changelog
 * Review GitHub issues for 'ready to implement' issues and pull requests
 * Review GitHub issues for 'bug' issues that can be easily fixed
 
 
-## To Do: API docs and changelog
+## To Do: Review GitHub issues for 'ready to implement' issues and pull requests
 
-* DONE
+* Integrate #39 (CSS string)
 
 
 ## Dogfooding Notes
