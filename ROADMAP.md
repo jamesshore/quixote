@@ -17,13 +17,14 @@
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* Review GitHub issues for 'ready to implement' issues and pull requests
 * Review GitHub issues for 'bug' issues that can be easily fixed
+* Final documentation review and polish pass
+	* Change 'links' to 'resources' (or something like that) in readme
 
 
-## To Do: Review GitHub issues for 'ready to implement' issues and pull requests
+## To Do: Review GitHub issues for 'bug' issues that can be easily fixed
 
-* DONE
+* Investigate #34
 
 
 ## Dogfooding Notes
