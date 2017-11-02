@@ -11,20 +11,20 @@
 * **✔ v0.7** Page and viewport assertions
 * **✔ v0.8 - v0.11** Dogfooding and real-world usage (more dogfooding releases to come)
 * **✔ v0.12** Element display status descriptors
-* **v0.13** Element visibility descriptors, including @woldie's clip
+* **v0.13** Element rendering boundaries
 * ...more TBD
 
 
 ## Current Feature: Element Visibility (0.13 release)
 
-* Review GitHub issues for 'bug' issues that can be easily fixed
 * Final documentation review and polish pass
-	* Change 'links' to 'resources' (or something like that) in readme
 
 
 ## To Do: Review GitHub issues for 'bug' issues that can be easily fixed
 
-* Investigate #34
+* Change 'links' to 'resources' (or something like that) in readme
+* Update Changelog
+* Update roadmap
 
 
 ## Dogfooding Notes
