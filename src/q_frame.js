@@ -144,7 +144,13 @@ function loadStylesheets(self, urls, callback) {
 function loadRawCSS(self, css) {
 	var style = document.createElement("style");
 	style.setAttribute("type", "text/css");
-	style.innerHTML = css;
+	if (style.styleSheet) {
+		// WORKAROUND IE 8: Throws 'unknown runtime error' if you set innerHTML on a <style> tag
+		style.styleSheet.cssText = css;
+	}
+	else {
+		style.innerHTML = css;
+	}
 	shim.Document.head(self._document).appendChild(style);
 }
 
