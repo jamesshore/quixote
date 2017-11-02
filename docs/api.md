@@ -35,7 +35,7 @@ Any class, property, or method that isn't described in the API documentation is 
 
 Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
 
-Each section of the API is marked with a *stability index* corresponding to [the Node.js stability indices](http://nodejs.org/api/documentation.html#documentation_stability_index). They have the following meaning:
+Each section of the API is marked with a *stability index* inspired by Node.js. They have the following meaning:
  
 ```
 Stability: 0 - Deprecated
