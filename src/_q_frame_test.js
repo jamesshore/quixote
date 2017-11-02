@@ -105,7 +105,7 @@ describe("FOUNDATION: QFrame", function() {
 				}
 			});
 		});
-		
+
 		it("creates iframe using raw CSS only", function(done) {
 			QFrame.create(window.document.body, { css: ".style-me { font-size: 42px; }"	}, function(err, frame) {
 				var styleMe = frame.add("<div class='style-me'>Foo</div>");
@@ -145,7 +145,7 @@ describe("FOUNDATION: QFrame", function() {
 				done();
 			});
 		});
-	  
+
 		it("creates iframe using raw CSS and source URL simultaneously", function(done) {
 			var options = {
 				src: "/base/src/_q_frame_test.html",
