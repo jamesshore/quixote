@@ -4,7 +4,7 @@
 * [Back to API overview.](api.md)
 * [Back to descriptor overview.](descriptors.md)
 
-The ElementRendered descriptor represents whether an element is rendered on the page or not. (It also has sub-descriptors that describe which parts of the element is rendered.) An element is non-rendered when:
+The ElementRendered descriptor represents whether an element is rendered on the page or not. (It also has sub-descriptors that describe which parts of the element are rendered.) An element is non-rendered when:
 
 * It isn't part of the DOM (for example, if [`QElement.remove()`](QElement.md#elementremove) has been called).
 * The `display:none` CSS property is set.
@@ -13,7 +13,7 @@ The ElementRendered descriptor represents whether an element is rendered on the 
 * The element or one of its ancestors has set the `clip` property in a way that clips the element out of existence.
 * One of the element's ancestors has set the `overflow` property in a way that clips the element out of existence or results in it being entirely outside the ancestor's visible scroll area.
 
-Note that this descriptor doesn't provide information about whether an element is visible. An element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
+Note that an element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
 
 **Compatibility Notes:** See the compatibility notes listed in the [descriptor overview](descriptors.md#element-rendering).
 
@@ -42,7 +42,7 @@ lightbox.assert({
 });
 ```
 
-#### Checking general render status
+#### Checking render status
 
 "The lightbox should not be rendered."
 
@@ -55,7 +55,7 @@ lightbox.assert({
 
 ### Sub-Descriptors
 
-The ElementRendered provides additional descriptors via the following properties:
+The ElementRendered provides additional descriptors:
 
 * `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
 * `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
