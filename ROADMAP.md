@@ -24,8 +24,6 @@
 
 ## To Do: API docs and changelog
 
-* Code change: Change element.width and .height back to 0 (instead of non-rendered) for zero-width/height elements.
-	* Documentation already reflects this change
 * Code change: PositionDescriptor needs `ensure.signature`
 	* Consider whether it should take a number (and if it should, update the documentation accordingly)
 
