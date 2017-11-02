@@ -31,7 +31,7 @@ Start with the [descriptors overview](descriptors.md).
 
 ## Stability
 
-Any class, property, or method that isn't described in the API documentation is not for public use and may change at any time. Breaking changes to the API documentation will be described in the [change log](../CHANGELOG.md). All other properties and methods should be considered non-public and may change at any time.
+Any class, property, or method that isn't described in the API documentation is not for public use and may change at any time. Breaking changes to the API documentation will be described in the [change log](../CHANGELOG.md).
 
 Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
 
