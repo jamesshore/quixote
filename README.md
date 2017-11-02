@@ -486,13 +486,15 @@ Many thanks to our contributors!
 
 * Jay Bazuzi (@JayBazuzi): Travis CI integration (v0.1)
 * Bjorn Hansen (@bjornicus): Fail fast if HTML or stylesheet URL is invalid (v0.3)
-* Steve Henty (@cognivator): QFrame.reload() for single-page apps and other scripts (v0.11)
-* Dave Woldrich (@woldie): 'none' option in position and size descriptors, documentation improvements (v0.12)
+* Steve Henty (@cognivator): `QFrame.reload()` for single-page apps and other scripts (v0.11)
+* Dave Woldrich (@woldie): `none` option in position and size descriptors, documentation improvements (v0.12)
 * Tim Neil (@moefinley): Documentation bug-fix (v0.12.1)
-* Noah Burney (@nwah): Prevent failure when QFrame.add() uses HTML with leading or trailing whitespace (v0.12.2)
+* Noah Burney (@nwah): Prevent failure when `QFrame.add()` uses HTML with leading or trailing whitespace (v0.12.2)
 * Thomas Hallock (@antialias): Documentation bug-fix (v0.12.3)
 * Juan Caicedo (@JuanCaicedo): Prevent Browserify from failing when used against Quixote npm module (v0.12.4)
 * Juan Caicedo (@JuanCaicedo): Documentation bug-fix (v0.12.5)
+* Dave Woldrich (@woldie): Prototype of `element.rendered` descriptor and related collaboration on issue (v0.13)
+* Sam Graber (@SamGraber): `css` option in `quixote.createFrame()` (v0.13)
 
 
 ## License
