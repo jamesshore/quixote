@@ -30,7 +30,7 @@ top edge of '.navbar' was 13px lower than expected.
   But was:  63px
 ```
 
-## Useful Links
+## Resources
 
 * **[API Documentation](docs/api.md)**
 * **[Complete Example](example)**

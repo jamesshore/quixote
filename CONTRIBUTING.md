@@ -4,7 +4,7 @@ Pull requests are welcome! Here are some specific contributions we're looking fo
 
 * **Let us know how Quixote works for you.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you. [Create an issue](https://github.com/jamesshore/quixote/issues) if anything didn't work smoothly or if you had trouble understanding something.
 
-* **Add descriptors to support for more CSS properties.** Quixote can test any CSS element using the [`QElement.getRawStyle()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawstyle) method, but the [`QElement.assert()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementassert) method is more sophisticated. (It works consistently across browsers, allows relative comparisons, and provides better failure messages.) `QElement.assert()` uses [descriptors](https://github.com/jamesshore/quixote/blob/master/docs/descriptors.md) and we'd eventually like to have descriptors for every CSS property. To contribute new descriptors, see the [Architecture](#architecture) section below.
+* **Add descriptors for more CSS properties.** Quixote can test any CSS element using the [`QElement.getRawStyle()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawstyle) method, but the [`QElement.assert()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementassert) method is more sophisticated. (It works consistently across browsers, allows relative comparisons, and provides better failure messages.) `QElement.assert()` uses [descriptors](https://github.com/jamesshore/quixote/blob/master/docs/descriptors.md) and we'd eventually like to have descriptors for every CSS property. To contribute new descriptors, see the [Architecture](#architecture) section below. Please open an issue before doing too much work so we can discuss the API design.
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
  
@@ -66,8 +66,6 @@ You can pass the following options to `./jake.sh` and `./watch.js`:
 
 * `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js) or if your Node version isn't a perfect match.
 
-* `itonly=true` is obsolete (it disabled Mocha's "grep" option, allowing the `.only` option to work in the tests, but Mocha has since fixed allowed the two to work together).
-
 * `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you may need to install the appropriate launchers; e.g., `npm install karma-safari-launcher`.
 
 ### Other build scripts
@@ -85,6 +83,7 @@ All the Quixote source and test code is in `src`. Test code starts with an under
 * `src` contains our top-level API.
 * `src/descriptors` contains descriptors: objects that describe how a CSS value can be calculated and displayed. (See the [Architecture](#architecture) section below for more details.)
 * `src/values` contains values: objects that represent a calculated result.
+* `src/util` has a few helper modules.
 
 Other top-level directories contain infrastructure and support.
 
@@ -92,7 +91,6 @@ Other top-level directories contain infrastructure and support.
 * `docs` contains API docs and the placeholder website (online at [quixote-css.com](http://quixote-css.com)).
 * `dist` contains the compiled library.
 * `spikes` contains one-off experiments.
-* `src` contains the source code and tests. Test code starts with an underscore.
 * `node_modules` contains third-party libraries needed for the build scripts.
 * `vendor` contains third-party libraries needed for Quixote itself.
 

@@ -27,7 +27,7 @@ Size descriptors may be compared to another size descriptor, a number, or "none"
 
 ```javascript
 logo.assert({
-	height: topNav.height
+  height: topNav.height
 });
 ```
 
@@ -37,7 +37,7 @@ logo.assert({
 
 ```javascript
 sidebar.assert({
-	width: 200
+  width: 200
 });
 ```
 
