@@ -176,7 +176,7 @@ For use by the project maintainer.
 
 1. Start from clean (integrated) dev branch.
 2. Merge pull request into dev branch using `git pull` line listed under the "command line instructions" link at the bottom of GitHub's pull request conversation thread.
-3. Revise and make additional commits as needed.
+3. Revise and make additional commits as needed, including updating documentation.
 4. Credit contributor at bottom of README.md.
 5. Integrate the dev branch as described above.
 6. Close pull request. Include a comment saying which version will include the result. Tag associated issue as 'done'.
