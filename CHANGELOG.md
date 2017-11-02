@@ -74,6 +74,7 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Other changes:*
 
+* quixote.createFrame() has a `css` option that can be used to inject raw CSS into the frame.
 * QElement.toDomElement() has been promoted from '1-Experimental' to '2-Unstable'.
 
 ## 0.12.x: Non-Rendered Elements
