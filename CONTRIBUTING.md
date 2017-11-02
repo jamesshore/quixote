@@ -66,8 +66,6 @@ You can pass the following options to `./jake.sh` and `./watch.js`:
 
 * `loose=true` prevents the build from failing if you don't test [every browser](build/config/tested_browsers.js) or if your Node version isn't a perfect match.
 
-* `itonly=true` is obsolete (it disabled Mocha's "grep" option, allowing the `.only` option to work in the tests, but Mocha has since fixed allowed the two to work together).
-
 * `capture=Firefox,Safari,etc` automatically launches, uses, and quits the requested browsers. You can use this instead of running `./jake.sh karma` and manually starting the browsers yourself. It's most useful for automated build runners such as Travis CI. Note that you may need to install the appropriate launchers; e.g., `npm install karma-safari-launcher`.
 
 ### Other build scripts

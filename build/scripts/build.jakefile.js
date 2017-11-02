@@ -111,11 +111,7 @@ function runKarmaOnTaggedSubsetOfTests(tag, complete, fail) {
 		configFile: paths.karmaConfig,
 		expectedBrowsers: testedBrowsers(),
 		strict: !process.env.loose,
-		// We use Mocha's "grep" feature as a poor-man's substitute for proper test tagging and subsetting
-		// (which Mocha doesn't have at the time of this writing). However, Mocha's grep option disables
-		// Mocha's "it.only()" feature. So we don't use grep if the "itonly" option is set on the command
-		// line.
-		clientArgs: process.env.itonly ? [] : [ "--grep=^" + tag + ":" ],
+		clientArgs: [ "--grep=^" + tag + ":" ],
 		capture: browsersToCapture
 	}, complete, fail);
 }
