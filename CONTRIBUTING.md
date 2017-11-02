@@ -179,14 +179,16 @@ For use by the project maintainer.
 3. Revise and make additional commits as needed.
 4. Credit contributor at bottom of README.md.
 5. Integrate the dev branch as described above.
-6. Close pull request. Include a comment saying which version will include the result.
+6. Close pull request. Include a comment saying which version will include the result. Tag associated issue as 'done'.
 
 
 ## Releasing
 
-1. Remove any temporary branches (list with `git branch`, delete with `git branch -d <name>`)
-2. Review and update readme and API documentation as needed.
-3. Update changelog and roadmap.
-4. Integrate as described above.
-5. Run `./release [major | minor | patch]` to release. The release script releases to npm and github.
-6. Publicize.
+1. Review Github for 'ready to integrate' issues and pull requests and consider integrating them.
+2. Remove any temporary branches (list with `git branch`, delete with `git branch -d <name>`).
+3. Review and update readme and API documentation as needed.
+4. Update changelog and roadmap.
+5. Integrate as described above.
+6. Run `./release [major | minor | patch]` to release. The release script releases to npm and github.
+7. Close issues tagged 'done' that were released.
+8. Publicize.
