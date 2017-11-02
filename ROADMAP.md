@@ -24,7 +24,7 @@
 
 ## To Do: API docs and changelog
 
-* Update PositionDescriptor documentation
+* DONE
 
 
 ## Dogfooding Notes

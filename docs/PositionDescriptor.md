@@ -142,7 +142,7 @@ Create a new [SizeDescriptor](SizeDescriptor.md) that represents the distance be
 
 `result = descriptor.to(descriptor2)`
 
-* `descriptor2 (PositionDescriptor)` The second position. Must represent the same X or Y axis as this descriptor.
+* `descriptor2 (PositionDescriptor or number)` The second position. Must represent the same X or Y axis as this descriptor.
 
 * `result (`[`SizeDescriptor`](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
 
