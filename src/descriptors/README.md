@@ -31,7 +31,7 @@ For a real descriptor example, see any of the descriptors in this directory. [`E
 Start out by creating a test file for your descriptor. As you follow the example, leave out the comments.
 
 ```javascript
-"use strict";		// always use strict mode
+"use strict";    // always use strict mode
 
 // Our custom test assertion library
 var assert = require("../util/assert.js");
@@ -49,13 +49,13 @@ var BackgroundColor = require("./background_color.js");
 // It's important to use the "DESCRIPTOR" tag. Otherwise, the build won't run the test.
 describe("DESCRIPTOR: BackgroundColor", function() {
 
-	// Normally, you'd need a beforeEach() function to reset the test frame. But our
-	// __reset.js file implements that for us.
+  // Normally, you'd need a beforeEach() function to reset the test frame. But our
+  // __reset.js file implements that for us.
 
-	it("runs tests", function() {
-		// make sure the tests run (and fail)
-		assert.fail("hi");
-	});
+  it("runs tests", function() {
+    // make sure the tests run (and fail)
+    assert.fail("hi");
+  });
 
 });
 ```
@@ -63,7 +63,7 @@ describe("DESCRIPTOR: BackgroundColor", function() {
 Stub in the production code as well.
 
 ```javascript
-"use strict";		// always use strict mode
+"use strict";    // always use strict mode
 
 // Our runtime assertion library. We mostly use it for runtime signature type checking.
 var ensure = require("../util/ensure.js");
@@ -90,21 +90,21 @@ var ELEMENT_NAME = "element";
 var IRRELEVANT = "#abcdef";
 ⋮
 it("runs tests", function() {
-	// Call the utility method. We're not making any assertions yet because this test is still temporary.
-	color(IRRELEVANT);
+  // Call the utility method. We're not making any assertions yet because this test is still temporary.
+  color(IRRELEVANT);
 });
 
 // We have a convention of putting our tests' utility functions at the bottom of the file.
 
 function color(backgroundColor) {
-	// Create a test element for our descriptor to use
-	element = reset.frame.add(
-		"<p id='element' style='background-color: " + backgroundColor + "'>element</p>",
-		ELEMENT_NAME
-	);
+  // Create a test element for our descriptor to use
+  element = reset.frame.add(
+    "<p id='element' style='background-color: " + backgroundColor + "'>element</p>",
+    ELEMENT_NAME
+  );
 
-	// Create the descriptor and return it
-	return BackgroundColor.create(element);
+  // Create the descriptor and return it
+  return BackgroundColor.create(element);
 }
 ```
 
@@ -117,9 +117,9 @@ The test will fail because the factory method doesn't exist. Implement it and it
 // constructors. Be sure to include the function name. Even though it isn't technically required,
 // we include it because it makes stack traces more readable.
 var Me = module.exports = function BackgroundColor(element) {
-	// We need to type-check our signature. To do that, we need the QElement constructor. Normally,
-	// we'd require it at the top of the file, but in the case of QElement, that creates a circular
-	// dependency. So we need to require QElement here.
+  // We need to type-check our signature. To do that, we need the QElement constructor. Normally,
+  // we'd require it at the top of the file, but in the case of QElement, that creates a circular
+  // dependency. So we need to require QElement here.
   var QElement = require("./q_element.js");
 
   // Check that the constructor was called correctly.
@@ -147,7 +147,7 @@ Our tests:
 ⋮
 // Replace the temporary 'runs tests' test with this new test
 it("is a descriptor", function() {
-	// replace the 'runs tests' test with this one
+  // replace the 'runs tests' test with this one
   assert.implements(color(IRRELEVANT), Descriptor);
 });
 ⋮
