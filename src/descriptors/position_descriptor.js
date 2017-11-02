@@ -11,6 +11,9 @@ var Position = require("../values/position.js");
 function RelativePosition() {
 	return require("./relative_position.js");
 }
+function AbsolutePosition() {
+	return require("./absolute_position.js");
+}
 function GenericSize() {
 	return require("./generic_size.js");
 }
@@ -38,13 +41,17 @@ Me.prototype.minus = function minus(amount) {
 	else return RelativePosition().up(this, amount);
 };
 
-Me.prototype.to = function to(positionDescriptor) {
-	ensure.signature(arguments, [[ Me ]]);
-	if (this._pdbc.dimension !== positionDescriptor._pdbc.dimension) {
+Me.prototype.to = function to(position) {
+	ensure.signature(arguments, [[ Me, Number ]]);
+	if (typeof position === "number") {
+		if (this._pdbc.dimension === X_DIMENSION) position = AbsolutePosition().x(position);
+		else position = AbsolutePosition().y(position);
+	}
+	if (this._pdbc.dimension !== position._pdbc.dimension) {
 		throw new Error("Can only calculate distance between two X coordinates or two Y coordinates");
 	}
 
-	return GenericSize().create(this, positionDescriptor, "distance from " + this + " to " + positionDescriptor);
+	return GenericSize().create(this, position, "distance from " + this + " to " + position);
 };
 
 Me.prototype.convert = function convert(arg, type) {

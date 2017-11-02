@@ -24,8 +24,6 @@
 
 ## To Do: API docs and changelog
 
-* Add AbsolutePosition (or PagePosition?) (straight numeric position descriptor)
-* Update PositionDescriptor to take a number
 * Update PositionDescriptor documentation
 
 

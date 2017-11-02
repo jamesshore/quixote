@@ -12,8 +12,14 @@ var Me = module.exports = function AbsolutePosition(dimension, value) {
   ensure.signature(arguments, [ String, Number ]);
 
   switch(dimension) {
-		case X_DIMENSION: this._value = Position.x(value); break;
-		case Y_DIMENSION: this._value = Position.y(value); break;
+		case X_DIMENSION:
+			PositionDescriptor.x(this);
+			this._value = Position.x(value);
+			break;
+		case Y_DIMENSION:
+			PositionDescriptor.y(this);
+			this._value = Position.y(value);
+			break;
 		default: ensure.unreachable("Unknown dimension: " + dimension);
   }
   this._dimension = dimension;

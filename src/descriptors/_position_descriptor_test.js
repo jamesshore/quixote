@@ -55,6 +55,15 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 		assert.equal(x.to(xPlus).toString(), "distance from " + x + " to " + xPlus, "toString()");
 	});
 
+	it("calculates distance to a numeric coordinate", function() {
+		assert.objEqual(x.to(X + 20).value(), Size.create(20), "left to right");
+		assert.objEqual(x.to(X - 20).value(), Size.create(20), "right to left");
+		assert.objEqual(y.to(Y + 30).value(), Size.create(30), "top to bottom");
+		assert.objEqual(y.to(Y - 30).value(), Size.create(30), "bottom to top");
+
+		assert.equal(x.to(X + 20).toString(), "distance from " + x + " to " + (X + 20) + "px x-coordinate", "toString()");
+	});
+
 	function createDescriptor(dimension, value) {
 		return new TestPositionDescriptor(dimension, value);
 	}
