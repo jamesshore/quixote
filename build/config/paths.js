@@ -12,7 +12,7 @@ exports.generatedDir = "generated";
 exports.incrementalDir = "generated/incremental";
 
 exports.lintFiles = function() {
-	return deglob([ "build/**/*.js", "src/**/*.js" ]);
+	return deglob([ "build/**/*.js", "src/**/*.js", "test/**/*.js" ]);
 };
 
 exports.foundationTestDependencies = function() {
@@ -29,6 +29,10 @@ exports.utilTestDependencies = function() {
 
 exports.valueTestDependencies = function() {
 	return deglob("src/values/**/*.js");
+};
+
+exports.endToEndTestDependencies = function() {
+	return deglob("test/**/*.js");
 };
 
 exports.lintOutput = function() {
