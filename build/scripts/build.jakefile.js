@@ -91,12 +91,13 @@ function createDirectoryDependencies(directories) {
 //*** TEST
 
 desc("Run tests");
-task("test", [ "testFoundation", "testDescriptors", "testUtil", "testValues" ]);
+task("test", [ "testFoundation", "testDescriptors", "testUtil", "testValues", "testEndToEnd" ]);
 
 karmaTask("testFoundation", "FOUNDATION", "foundation", paths.foundationTestDependencies());
 karmaTask("testDescriptors", "DESCRIPTOR", "descriptors", paths.descriptorTestDependencies());
 karmaTask("testUtil", "UTIL", "utility modules", paths.utilTestDependencies());
 karmaTask("testValues", "VALUE", "value classes", paths.valueTestDependencies());
+karmaTask("testEndToEnd", "END-TO-END", "end-to-end", paths.endToEndTestDependencies());
 
 function karmaTask(taskName, tag, testDescription, fileDependencies) {
 	incrementalTask(taskName, [], fileDependencies, function(complete, fail) {

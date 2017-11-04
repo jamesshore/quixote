@@ -15,7 +15,8 @@
 	var WATCH = [
 		"build/**/*.js",
 		"src/**/*.js", "src/**/*.html", "src/**/*.css",
-		"vendor/**/*.js"
+		"vendor/**/*.js",
+		"test/**/*.js"
 	];
 
 	var COMMAND = require("./build/config/build_command.js");

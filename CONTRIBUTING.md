@@ -78,7 +78,7 @@ You won't need to run these scripts, but in case you're curious:
 
 ## Finding Your Way Around
 
-All the Quixote source and test code is in `src`. Test code starts with an underscore. The `src` directory uses the following structure:
+All the Quixote source and unit test code is in `src`. Test code starts with an underscore. The `src` directory uses the following structure:
 
 * `src` contains our top-level API.
 * `src/descriptors` contains descriptors: objects that describe how a CSS value can be calculated and displayed. (See the [Architecture](#architecture) section below for more details.)
@@ -91,6 +91,7 @@ Other top-level directories contain infrastructure and support.
 * `docs` contains API docs and the placeholder website (online at [quixote-css.com](http://quixote-css.com)).
 * `dist` contains the compiled library.
 * `spikes` contains one-off experiments.
+* `test` contains end-to-end tests.
 * `node_modules` contains third-party libraries needed for the build scripts.
 * `vendor` contains third-party libraries needed for Quixote itself.
 

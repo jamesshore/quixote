@@ -19,7 +19,8 @@ module.exports = function(config) {
 			'src/**/*.js',
 			'src/**/*.html',
 			'src/**/*.css',
-			'vendor/**/*.js'
+			'vendor/**/*.js',
+			'test/**/*.js'
 		],
 
 
@@ -32,7 +33,8 @@ module.exports = function(config) {
 		preprocessors: {
 			// this glob avoids processing the *_script_test.js files, which will be loaded as <script> tags
 			'src/**/{*.,!(*_script_test)}.js': ['commonjs'],
-			'vendor/**/*.js': ['commonjs']
+			'vendor/**/*.js': ['commonjs'],
+			'test/**/*.js': ['commonjs']
 		},
 
 		// test results reporter to use

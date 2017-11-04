@@ -1,0 +1,1 @@
+This directory only contains end-to-end tests. Most testing is done via unit tests, which are in the `src` directory.
