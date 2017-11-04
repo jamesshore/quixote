@@ -1,12 +1,83 @@
 // Copyright (c) 2017 Titanium I.T. LLC. All rights reserved. For license, see "README" or "LICENSE" file.
 "use strict";
 
+var reset = require("../src/__reset.js");
 var assert = require("../src/util/assert.js");
 
-describe("END-TO-END: Assertions", function() {
+describe("END-TO-END: Assertion rendering", function() {
 
-	it("runs tests", function() {
-		// assert.fail("hi");
+	var frame;
+	var element;
+
+	beforeEach(function() {
+		frame = reset.frame;
+		frame.add(
+			"<p id='element' style='position: absolute; left: 20px; width: 130px; top: 10px; height: 60px'>one</p>"
+		);
+		element = frame.get("#element");
+	});
+
+	it("handles fractions well", function() {
+		frame.add(
+			"<p id='golden' style='position: absolute; left: 20px; width: 162px; top: 10px; height: 100px'>golden</p>"
+		);
+		var goldenRect = frame.get("#golden");
+		var goldenRatio = 1.6180339887;
+
+		goldenRect.assert({
+			width: goldenRect.height.times(goldenRatio)
+		});
+	});
+
+	it("provides nice explanation when descriptor doesn't match a hand-coded value", function() {
+		assert.equal(
+			element.width.diff(60),
+			"width of '#element' was 70px larger than expected.\n" +
+			"  Expected: 60px\n" +
+			"  But was:  130px"
+		);
+	});
+
+	it("provides nice explanation when relative difference between elements", function() {
+		assert.equal(
+			element.width.diff(element.height),
+			"width of '#element' was 70px larger than expected.\n" +
+			"  Expected: 60px (height of '#element')\n" +
+			"  But was:  130px"
+		);
+	});
+
+	it("renders multiple differences nicely", function() {
+		assert.equal(
+			element.diff({
+				width: element.height,
+				top: 13
+			}),
+			"width of '#element' was 70px larger than expected.\n" +
+			"  Expected: 60px (height of '#element')\n" +
+			"  But was:  130px\n" +
+			"top edge of '#element' was 3px higher than expected.\n" +
+			"  Expected: 13px\n" +
+			"  But was:  10px"
+		);
+	});
+
+	it("fails nicely when invalid property is diff'd", function() {
+		assert.exception(function() {
+			element.diff({ XXX: "non-existant" });
+		}, "'#element' doesn't have a property named 'XXX'. Did you misspell it?");
+	});
+
+	it("fails nicely when adding incompatible elements", function() {
+		assert.exception(function() {
+			element.width.plus(element.top).value();
+		}, "Size isn't compatible with Position");
+	});
+
+	it("fails nicely when diffing incompatible elements", function() {
+		assert.exception(function() {
+			element.width.diff(element.top);
+		}, "Can't compare width of '#element' to top edge of '#element': Size isn't compatible with Position");
 	});
 
 });
