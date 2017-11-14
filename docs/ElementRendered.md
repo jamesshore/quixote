@@ -4,11 +4,11 @@
 * [Back to API overview.](api.md)
 * [Back to descriptor overview.](descriptors.md)
 
-The ElementRendered descriptor represents whether an element is rendered on the page or not. (It also has sub-descriptors that describe which parts of the element are rendered.) An element is non-rendered when:
+The ElementRendered descriptor represents whether an element is rendered on the page or not. It also has sub-descriptors that describe which parts of the element are rendered. An element is non-rendered when:
 
 * It isn't part of the DOM (for example, if [`QElement.remove()`](QElement.md#elementremove) has been called).
 * The `display:none` CSS property is set.
-* The element is off-screen to the left or top, so it can't be scrolled to.
+* The element is positioned outside of the page boundaries.
 * The element has no width or no height.
 * The element or one of its ancestors has set the `clip` property in a way that clips the element out of existence.
 * One of the element's ancestors has set the `overflow` property in a way that clips the element out of existence or results in it being entirely outside the ancestor's visible scroll area.
@@ -16,6 +16,20 @@ The ElementRendered descriptor represents whether an element is rendered on the 
 Note that an element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
 
 **Compatibility Notes:** See the compatibility notes listed in the [descriptor overview](descriptors.md#element-rendering).
+
+
+### Sub-Descriptors
+
+The ElementRendered provides additional descriptors:
+
+* `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
+* `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
+* `element.rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
+* `element.rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
+* `element.rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `element.rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `element.rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
+* `element.rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
 
 
 ### Comparisons
@@ -51,17 +65,3 @@ lightbox.assert({
 	rendered: false
 });
 ```
-
-
-### Sub-Descriptors
-
-The ElementRendered provides additional descriptors:
-
-* `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
-* `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
-* `element.rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
-* `element.rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
-* `element.rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
-* `element.rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
-* `element.rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
-* `element.rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
