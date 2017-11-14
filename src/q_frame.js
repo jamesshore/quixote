@@ -10,11 +10,10 @@ var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
 var async = require("../vendor/async-1.4.2.js");
 
-var Me = module.exports = function QFrame(frameDom) {
-	ensure.signature(arguments, [Object]);
-	ensure.that(frameDom.tagName === "IFRAME", "QFrame DOM element must be an iframe");
+var Me = module.exports = function QFrame() {
+	ensure.signature(arguments, []);
 
-	this._domElement = frameDom;
+	this._domElement = null;
 	this._loaded = false;
 	this._removed = false;
 };
@@ -49,7 +48,8 @@ Me.create = function create(parentElement, options, callback) {
 	shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
 	setIframeContent(iframe, src);
 
-	var frame = new Me(iframe);
+	var frame = new Me();
+	frame._domElement = iframe;
 	setFrameLoadCallback(frame, callback);
 
 	return frame;
