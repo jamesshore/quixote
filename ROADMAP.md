@@ -12,18 +12,18 @@
 * **✔ v0.8 - v0.11** Dogfooding and real-world usage (more dogfooding releases to come)
 * **✔ v0.12** Element display status descriptors
 * **✔ v0.13** Element rendering boundaries
+* **✔ v0.14** QFrame quality of life improvements
 * See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for upcoming release plans.
 
 
-## Current Feature: Asynchronous XmlHttpRequest in quixote.createFrame()
+## Current Feature
 
-* Update changelog
-* Release
+* DONE
 
 
 ## To Do
 
-*
+* DONE
 
 
 ## Dogfooding Notes
