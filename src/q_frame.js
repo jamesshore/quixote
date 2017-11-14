@@ -99,9 +99,14 @@ function urlExists(url, callback) {
 	}
 
 	var http = new XMLHttpRequest();
-	http.open('HEAD', url, false);
+	http.open("HEAD", url);
+	http.onload = function() {
+		return callback(null, http.status !== 404);
+	};
+	http.onerror = function() {     // onerror handler is not tested
+		return callback("XMLHttpRequest error while using HTTP HEAD on URL '" + url + "': " + http.statusText);
+	};
 	http.send();
-	return callback(null, http.status !== 404);
 }
 
 function insertIframe(parentElement, width, height) {
