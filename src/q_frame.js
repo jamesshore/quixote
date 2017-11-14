@@ -173,7 +173,7 @@ Me.prototype.reload = function(callback) {
 
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
-	ensureNotRemoved(this);
+	ensureUsable(this);
 
 	return this._domElement;
 };

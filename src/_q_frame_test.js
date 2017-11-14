@@ -310,15 +310,12 @@ describe("FOUNDATION: QFrame", function() {
 
 			var expected = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
 			assert.exception(function() { frame.reset(); }, expected, "resetting frame should be a no-op");
-			assert.noException(
-				function() { frame.toDomElement(); },
-				"toDomElement() should be okay because the iframe element exists even if it isn't loaded"
-			);
 			assert.exception(
 				function() { frame.remove(); },
 				expected,
 				"technically, removing the frame works, but it's complicated, so it should just fail"
 			);
+			assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
 			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 			assert.exception(function() { frame.get("foo"); }, expected, "get()");
 			assert.exception(function() { frame.viewport(); }, expected, "viewport()");

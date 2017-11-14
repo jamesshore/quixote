@@ -15,14 +15,16 @@
 * See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for upcoming release plans.
 
 
-## Current Feature: Element rendering boundaries (0.13 release)
+## Current Feature: Asynchronous XmlHttpRequest in quixote.createFrame()
 
-* DONE
+* Make createFrame() asynchronous
+* Update change log with breaking change
+* Check if createFrame() documentation needs to be changed
 
 
 ## To Do
 
-* DONE
+* WIP
 
 
 ## Dogfooding Notes
