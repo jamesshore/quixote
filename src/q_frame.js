@@ -173,7 +173,7 @@ Me.prototype.reload = function(callback) {
 
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
-	ensureNotRemoved(this);
+	ensureUsable(this);
 
 	return this._domElement;
 };
@@ -227,18 +227,21 @@ Me.prototype.get = function(selector, nickname) {
 Me.prototype.getAll = function(selector, nickname) {
 	ensure.signature(arguments, [String, [undefined, String]]);
 	if (nickname === undefined) nickname = selector;
+	ensureUsable(this);
 
 	return new QElementList(this._document.querySelectorAll(selector), this, nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
 	ensure.signature(arguments, [Number, Number]);
+	ensureUsable(this);
 
 	this._domElement.contentWindow.scroll(x, y);
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensure.signature(arguments, []);
+	ensureUsable(this);
 
 	return {
 		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document),
@@ -248,6 +251,7 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 
 Me.prototype.resize = function resize(width, height) {
 	ensure.signature(arguments, [Number, Number]);
+	ensureUsable(this);
 
 	this._domElement.setAttribute("width", "" + width);
 	this._domElement.setAttribute("height", "" + height);
