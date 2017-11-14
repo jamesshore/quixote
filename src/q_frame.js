@@ -72,27 +72,36 @@ function setFrameLoadCallback(frame, callback) {
 }
 
 function checkUrls(src, stylesheets, callback) {
-	if (!urlExists(src)) return callback(error("src", src));
+	urlExists(src, function(err, srcExists) {
+		if (err) return callback(err);
+		if (!srcExists) return callback(error("src", src));
 
-	for (var i = 0; i < stylesheets.length; i++) {
-		var url = stylesheets[i];
-		if (!urlExists(url)) return callback(error("stylesheet", url));
+		async.each(stylesheets, checkStylesheet, callback);
+	});
+
+	function checkStylesheet(url, callback2) {
+		urlExists(url, function(err, stylesheetExists) {
+			if (err) return callback2(err);
+
+			if (!stylesheetExists) return callback2(error("stylesheet", url));
+			else return callback2(null);
+		});
 	}
-
-	return callback(null);
 
 	function error(name, url) {
 		return new Error("404 error while loading " + name + " (" + url + ")");
 	}
 }
 
-function urlExists(url) {
-	if (url === undefined) return true;
+function urlExists(url, callback) {
+	if (url === undefined) {
+		return callback(null, true);
+	}
 
 	var http = new XMLHttpRequest();
 	http.open('HEAD', url, false);
 	http.send();
-	return http.status !== 404;
+	return callback(null, http.status !== 404);
 }
 
 function insertIframe(parentElement, width, height) {
