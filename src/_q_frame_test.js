@@ -177,6 +177,105 @@ describe("FOUNDATION: QFrame", function() {
 			});
 		});
 
+		// WORKAROUND IE 8: getClientRect() includes frame border in positions
+		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
+			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/__reset.css" }, function() {
+				var element = frame.add("<p>Foo</p>");
+				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
+				done();
+			});
+		});
+
+		it("destroys itself", function(done) {
+			frame = QFrame.create(window.document.body, function() {
+				var numChildren = document.body.childNodes.length;
+
+				frame.remove();
+				assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
+
+				assert.noException(function() {
+					frame.remove();
+				}, "removing an already removed frame should be a no-op");
+				done();
+			});
+		});
+
+		it("fails fast if source URL not found", function(done) {
+			QFrame.create(window.document.body, { src: "non_existing.html" }, function(err, frame) {
+				assert.undefined(frame, "frame should not exist");
+				assert.type(err, Error, "err should be an Error object");
+				assert.equal(err.message, "404 error while loading src (non_existing.html)", "error message");
+				done();
+			});
+		});
+
+		it("fails fast if stylesheet URL not found", function(done) {
+			QFrame.create(window.document.body, { stylesheet: "non_existing.css" }, function(err, frame) {
+				assert.undefined(frame, "frame should not exist");
+				assert.type(err, Error, "err should be an Error object");
+				assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
+				done();
+			});
+		});
+
+		it("checks for existence of all stylesheet URLs", function(done) {
+			var options = {
+				stylesheet: ["/base/src/_q_frame_test.css", "non_existing.css"]
+			};
+			QFrame.create(window.document.body, options, function(err, frame) {
+				assert.undefined(frame, "frame should not exist");
+				assert.type(err, Error, "err should be an Error object");
+				assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
+				done();
+			});
+		});
+
+		it("fails fast if frame is used before it's loaded", function(done) {
+			frame = QFrame.create(window.document.body, function() { done(); });
+
+			var expected = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
+			assert.exception(function() { frame.reset(); }, expected, "reset()");
+			assert.exception(function() { frame.reload(function() {}); }, expected, "reload()");
+			assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
+			assert.exception(
+				function() { frame.remove(); },
+				expected,
+				"technically, removing the frame works, but it's complicated, so it should just fail"
+			);
+			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
+			assert.exception(function() { frame.get("foo"); }, expected, "get()");
+			assert.exception(function() { frame.getAll("foo"); }, expected, "getAll()");
+			assert.exception(function() { frame.viewport(); }, expected, "viewport()");
+			assert.exception(function() { frame.page(); }, expected, "page()");
+			assert.exception(function() { frame.body(); }, expected, "body()");
+			assert.exception(function() { frame.scroll(0, 0); }, expected, "scroll()");
+			assert.exception(function() { frame.getRawScrollPosition(); }, expected, "getRawScrollPosition()");
+			assert.exception(function() { frame.resize(100, 100); }, expected, "resize()");
+		});
+
+		it("fails fast if frame is used after it's removed", function(done) {
+			var expected = /Attempted to use frame after it was removed/;
+
+			frame = QFrame.create(window.document.body, function() {
+				frame.remove();
+				assert.exception(function() { frame.reset(); }, expected, "reset()");
+				assert.exception(function() { frame.reload(function() {}); }, expected, "reload()");
+				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
+				assert.noException(function() { frame.remove(); }, "calling remove() twice shouldn't do anything");
+				assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
+				assert.exception(function() { frame.get("foo"); }, expected, "get()");
+				assert.exception(function() { frame.getAll("foo"); }, expected, "getAll()");
+				assert.exception(function() { frame.viewport(); }, expected, "viewport()");
+				assert.exception(function() { frame.page(); }, expected, "page()");
+				assert.exception(function() { frame.body(); }, expected, "body()");
+				assert.exception(function() { frame.scroll(0, 0); }, expected, "scroll()");
+				assert.exception(function() { frame.getRawScrollPosition(); }, expected, "getRawScrollPosition()");
+				assert.exception(function() { frame.resize(100, 100); }, expected, "resize()");
+
+				done();
+			});
+		});
+
 		describe('frame reset', function() {
 
 			it("resets iframe loaded with source URL without destroying source document", function(done) {
@@ -250,102 +349,6 @@ describe("FOUNDATION: QFrame", function() {
 				});
 			});
 
-		});
-
-		it("destroys itself", function(done) {
-			frame = QFrame.create(window.document.body, function() {
-				var numChildren = document.body.childNodes.length;
-
-				frame.remove();
-				assert.equal(document.body.childNodes.length, numChildren - 1, "# of document child nodes");
-
-				assert.noException(function() {
-					frame.remove();
-				}, "removing an already removed frame should be a no-op");
-				done();
-			});
-		});
-
-		// WORKAROUND IE 8: getClientRect() includes frame border in positions
-		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
-			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/__reset.css" }, function() {
-				var element = frame.add("<p>Foo</p>");
-				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
-				done();
-			});
-		});
-
-		it("fails fast if source URL not found", function(done) {
-			QFrame.create(window.document.body, { src: "non_existing.html" }, function(err, frame) {
-				assert.undefined(frame, "frame should not exist");
-				assert.type(err, Error, "err should be an Error object");
-				assert.equal(err.message, "404 error while loading src (non_existing.html)", "error message");
-				done();
-			});
-		});
-
-		it("fails fast if stylesheet URL not found", function(done) {
-			QFrame.create(window.document.body, { stylesheet: "non_existing.css" }, function(err, frame) {
-				assert.undefined(frame, "frame should not exist");
-				assert.type(err, Error, "err should be an Error object");
-				assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
-				done();
-			});
-		});
-
-		it("checks for existence of all stylesheet URLs", function(done) {
-			var options = {
-				stylesheet: ["/base/src/_q_frame_test.css", "non_existing.css"]
-			};
-			QFrame.create(window.document.body, options, function(err, frame) {
-				assert.undefined(frame, "frame should not exist");
-				assert.type(err, Error, "err should be an Error object");
-				assert.equal(err.message, "404 error while loading stylesheet (non_existing.css)", "error message");
-				done();
-			});
-		});
-
-		it("fails fast if frame is used before it's loaded", function(done) {
-			frame = QFrame.create(window.document.body, function() { done(); });
-
-			var expected = /Frame not loaded: Wait for frame creation callback to execute before using frame/;
-			assert.exception(function() { frame.reset(); }, expected, "resetting frame should be a no-op");
-			assert.exception(
-				function() { frame.remove(); },
-				expected,
-				"technically, removing the frame works, but it's complicated, so it should just fail"
-			);
-			assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
-			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
-			assert.exception(function() { frame.get("foo"); }, expected, "get()");
-			assert.exception(function() { frame.getAll("foo"); }, expected, "getAll()");
-			assert.exception(function() { frame.viewport(); }, expected, "viewport()");
-			assert.exception(function() { frame.page(); }, expected, "page()");
-			assert.exception(function() { frame.body(); }, expected, "body()");
-			assert.exception(function() { frame.scroll(0, 0); }, expected, "scroll()");
-			assert.exception(function() { frame.getRawScrollPosition(); }, expected, "getRawScrollPosition()");
-			assert.exception(function() { frame.resize(100, 100); }, expected, "resize()");
-		});
-
-		it("fails fast if frame is used after it's removed", function(done) {
-			var expected = /Attempted to use frame after it was removed/;
-
-			frame = QFrame.create(window.document.body, function() {
-				frame.remove();
-				assert.exception(function() { frame.reset(); }, expected, "reset()");
-				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
-				assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
-				assert.exception(function() { frame.get("foo"); }, expected, "get()");
-				assert.exception(function() { frame.getAll("foo"); }, expected, "getAll()");
-				assert.exception(function() { frame.viewport(); }, expected, "viewport()");
-				assert.exception(function() { frame.page(); }, expected, "page()");
-				assert.exception(function() { frame.body(); }, expected, "body()");
-				assert.exception(function() { frame.scroll(0, 0); }, expected, "scroll()");
-				assert.exception(function() { frame.getRawScrollPosition(); }, expected, "getRawScrollPosition()");
-				assert.exception(function() { frame.resize(100, 100); }, expected, "resize()");
-
-				done();
-			});
 		});
 
 	});

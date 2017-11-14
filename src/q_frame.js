@@ -10,11 +10,10 @@ var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
 var async = require("../vendor/async-1.4.2.js");
 
-var Me = module.exports = function QFrame(frameDom) {
-	ensure.signature(arguments, [Object]);
-	ensure.that(frameDom.tagName === "IFRAME", "QFrame DOM element must be an iframe");
+var Me = module.exports = function QFrame() {
+	ensure.signature(arguments, []);
 
-	this._domElement = frameDom;
+	this._domElement = null;
 	this._loaded = false;
 	this._removed = false;
 };
@@ -42,16 +41,17 @@ Me.create = function create(parentElement, options, callback) {
 	var css = options.css;
 	if (!shim.Array.isArray(stylesheets)) stylesheets = [ stylesheets ];
 
-	var err = checkUrls(src, stylesheets);
-	if (err) return callback(err);
+	var frame = new Me();
+	checkUrls(src, stylesheets, function(err) {
+		if (err) return callback(err);
 
-	var iframe = insertIframe(parentElement, width, height);
-	shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
-	setIframeContent(iframe, src);
+		var iframe = insertIframe(parentElement, width, height);
+		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+		setIframeContent(iframe, src);
 
-	var frame = new Me(iframe);
-	setFrameLoadCallback(frame, callback);
-
+		frame._domElement = iframe;
+		setFrameLoadCallback(frame, callback);
+	});
 	return frame;
 
 	function onFrameLoad() {
@@ -71,28 +71,46 @@ function setFrameLoadCallback(frame, callback) {
 	frame._frameLoadCallback = callback;
 }
 
-function checkUrls(src, stylesheets) {
-	if (!urlExists(src)) return error("src", src);
+function checkUrls(src, stylesheets, callback) {
+	urlExists(src, function(err, srcExists) {
+		if (err) return callback(err);
+		if (!srcExists) return callback(error("src", src));
 
-	for (var i = 0; i < stylesheets.length; i++) {
-		var url = stylesheets[i];
-		if (!urlExists(url)) return error("stylesheet", url);
+		async.each(stylesheets, checkStylesheet, callback);
+	});
+
+	function checkStylesheet(url, callback2) {
+		urlExists(url, function(err, stylesheetExists) {
+			if (err) return callback2(err);
+
+			if (!stylesheetExists) return callback2(error("stylesheet", url));
+			else return callback2(null);
+		});
 	}
-
-	return null;
 
 	function error(name, url) {
 		return new Error("404 error while loading " + name + " (" + url + ")");
 	}
 }
 
-function urlExists(url) {
-	if (url === undefined) return true;
+function urlExists(url, callback) {
+	var STATUS_AVAILABLE = 2;   // WORKAROUND IE 8: non-standard XMLHttpRequest constant names
+
+	if (url === undefined) {
+		return callback(null, true);
+	}
 
 	var http = new XMLHttpRequest();
-	http.open('HEAD', url, false);
+	http.open("HEAD", url);
+	http.onreadystatechange = function() {  // WORKAROUND IE 8: doesn't support .addEventListener() or .onload
+		if (http.readyState === STATUS_AVAILABLE) {
+			return callback(null, http.status !== 404);
+		}
+	};
+	http.onerror = function() {     // onerror handler is not tested
+		return callback("XMLHttpRequest error while using HTTP HEAD on URL '" + url + "': " + http.statusText);
+	};
 	http.send();
-	return http.status !== 404;
 }
 
 function insertIframe(parentElement, width, height) {
