@@ -17,8 +17,6 @@
 
 ## Current Feature: Asynchronous XmlHttpRequest in quixote.createFrame()
 
-* Make createFrame() asynchronous
-* Update change log with breaking change
 * Check if createFrame() documentation needs to be changed
 
 

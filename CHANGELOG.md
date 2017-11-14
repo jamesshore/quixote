@@ -3,6 +3,17 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.14.x: Minor frame creation improvements
+
+**In progress.** This small release adds quality-of-life improvements to QFrame creation. Quixote now uses the asynchronous form of XMLHttpRequest in `quixote.createFrame()`, so Firefox and Chrome will no longer show deprecation warnings in the console. Also, several `QFrame` methods have been updated to fail fast if they're used before the frame is loaded, which will make debugging easier.
+
+***TODO: asynchronous XMLHttpRequest not yet implemented.***
+
+**Breaking changes:**
+
+* `QFrame.toDomElement()` now throws an exception if it's called before the frame is loaded.
+
+
 ## 0.13.x: Rendered Element Bounds
 
 **2 Nov 2017.** Quixote can now detect what part of an element is rendered and what isn't. In practice, this means you can detect where an element is clipped by the `overflow: hidden` property, the `clip` property, or by being partially off-screen. These new capabilities are available as descriptor properties on the `element.rendered` descriptor. The `element.rendered` descriptor itself is also smarter about when it considers an element to be rendered or not. Several small quality-of-life API improvements have been made as well; see below.
