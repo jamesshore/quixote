@@ -20,7 +20,7 @@ Note that an element can be rendered, but still be invisible to the user—for e
 
 ### Sub-Descriptors
 
-The ElementRendered provides additional descriptors:
+ElementRendered provides additional descriptors:
 
 * `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
 * `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
