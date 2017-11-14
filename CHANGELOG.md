@@ -3,11 +3,9 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## 0.14.x: Minor frame creation improvements
+## 0.14.x: Minor QFrame creation improvements
 
-**In progress.** This small release adds quality-of-life improvements to QFrame creation. Quixote now uses the asynchronous form of XMLHttpRequest in `quixote.createFrame()`, so Firefox and Chrome will no longer show deprecation warnings in the console. Also, several `QFrame` methods have been updated to fail fast if they're used before the frame is loaded, which will make debugging easier.
-
-***TODO: asynchronous XMLHttpRequest not yet implemented.***
+**In progress.** This small release adds quality-of-life improvements to QFrame. Quixote now checks URLs asynchronously in `quixote.createFrame()`, which may speed up tests slightly. This also means Firefox and Chrome will no longer show XMLHttpRequest deprecation warnings in the console. In addition, several `QFrame` methods have been updated to fail fast if they're used before the frame is loaded, which will make debugging easier.
 
 **Breaking changes:**
 

@@ -17,14 +17,13 @@
 
 ## Current Feature: Asynchronous XmlHttpRequest in quixote.createFrame()
 
-* Use asynchronous XmlHttpRequest
 * Update changelog
 * Release
 
 
 ## To Do
 
-* WIP
+*
 
 
 ## Dogfooding Notes
