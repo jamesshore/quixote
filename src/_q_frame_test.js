@@ -318,9 +318,13 @@ describe("FOUNDATION: QFrame", function() {
 			assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
 			assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 			assert.exception(function() { frame.get("foo"); }, expected, "get()");
+			assert.exception(function() { frame.getAll("foo"); }, expected, "getAll()");
 			assert.exception(function() { frame.viewport(); }, expected, "viewport()");
 			assert.exception(function() { frame.page(); }, expected, "page()");
 			assert.exception(function() { frame.body(); }, expected, "body()");
+			assert.exception(function() { frame.scroll(0, 0); }, expected, "scroll()");
+			assert.exception(function() { frame.getRawScrollPosition(); }, expected, "getRawScrollPosition()");
+			assert.exception(function() { frame.resize(100, 100); }, expected, "resize()");
 		});
 
 		it("fails fast if frame is used after it's removed", function(done) {
@@ -332,9 +336,13 @@ describe("FOUNDATION: QFrame", function() {
 				assert.exception(function() { frame.toDomElement(); }, expected, "toDomElement()");
 				assert.exception(function() { frame.add("<p></p>"); }, expected, "add()");
 				assert.exception(function() { frame.get("foo"); }, expected, "get()");
+				assert.exception(function() { frame.getAll("foo"); }, expected, "getAll()");
 				assert.exception(function() { frame.viewport(); }, expected, "viewport()");
 				assert.exception(function() { frame.page(); }, expected, "page()");
 				assert.exception(function() { frame.body(); }, expected, "body()");
+				assert.exception(function() { frame.scroll(0, 0); }, expected, "scroll()");
+				assert.exception(function() { frame.getRawScrollPosition(); }, expected, "getRawScrollPosition()");
+				assert.exception(function() { frame.resize(100, 100); }, expected, "resize()");
 
 				done();
 			});
