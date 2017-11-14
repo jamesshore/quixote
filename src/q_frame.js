@@ -94,14 +94,18 @@ function checkUrls(src, stylesheets, callback) {
 }
 
 function urlExists(url, callback) {
+	var STATUS_AVAILABLE = 2;   // WORKAROUND IE 8: non-standard XMLHttpRequest constant names
+
 	if (url === undefined) {
 		return callback(null, true);
 	}
 
 	var http = new XMLHttpRequest();
 	http.open("HEAD", url);
-	http.onload = function() {
-		return callback(null, http.status !== 404);
+	http.onreadystatechange = function() {  // WORKAROUND IE 8: doesn't support .addEventListener() or .onload
+		if (http.readyState === STATUS_AVAILABLE) {
+			return callback(null, http.status !== 404);
+		}
 	};
 	http.onerror = function() {     // onerror handler is not tested
 		return callback("XMLHttpRequest error while using HTTP HEAD on URL '" + url + "': " + http.statusText);
