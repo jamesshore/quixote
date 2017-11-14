@@ -177,79 +177,13 @@ describe("FOUNDATION: QFrame", function() {
 			});
 		});
 
-		describe('frame reset', function() {
-
-			it("resets iframe loaded with source URL without destroying source document", function(done) {
-				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
-					frame.reset();
-					assert.noException(function() {
-						frame.get("#exists");
-					});
-					done();
-				});
+		// WORKAROUND IE 8: getClientRect() includes frame border in positions
+		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
+			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/__reset.css" }, function() {
+				var element = frame.add("<p>Foo</p>");
+				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
+				done();
 			});
-
-			it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
-				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
-					frame.reset();
-					var styleMe = frame.add("<div class='style-me'>Foo</div>");
-					assert.equal(styleMe.getRawStyle("font-size"), "42px");
-					done();
-				});
-			});
-
-			it("doesn't re-run scripts", function(done) {
-				var options = { src: "/base/src/_q_frame_test.html" };
-				frame = QFrame.create(window.document.body, options, function() {
-					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
-
-					frame.reset();
-					var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
-					assert.equal(frameGlobal, "new value", "script should not re-run");
-
-					done();
-				});
-			});
-
-		});
-
-		describe('frame reload', function() {
-
-			it('reloads iframe with original source URL', function(done) {
-				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
-					frame.reload(function() {
-						assert.noException(function() {
-							frame.get("#exists");
-						});
-						done();
-					});
-				});
-			});
-
-			it('reloads iframe with original stylesheet', function(done) {
-				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
-					frame.reload(function() {
-						var styleMe = frame.add("<div class='style-me'>Foo</div>");
-						assert.equal(styleMe.getRawStyle("font-size"), "42px");
-						done();
-					});
-				});
-			});
-
-			it("re-runs scripts", function(done) {
-				var options = { src: "/base/src/_q_frame_test.html" };
-				frame = QFrame.create(window.document.body, options, function() {
-					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
-
-					frame.reload(function() {
-						var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
-						assert.equal(frameGlobal, "initial value", "script should re-run");
-
-						done();
-					});
-				});
-			});
-
 		});
 
 		it("destroys itself", function(done) {
@@ -262,15 +196,6 @@ describe("FOUNDATION: QFrame", function() {
 				assert.noException(function() {
 					frame.remove();
 				}, "removing an already removed frame should be a no-op");
-				done();
-			});
-		});
-
-		// WORKAROUND IE 8: getClientRect() includes frame border in positions
-		it("creates iframe without border to prevent IE 8 positioning problems", function(done) {
-			frame = QFrame.create(window.document.body, { stylesheet: "/base/src/__reset.css" }, function() {
-				var element = frame.add("<p>Foo</p>");
-				assert.equal(element.getRawPosition().top, 0, "top should account for body margin, but not frame border");
 				done();
 			});
 		});
@@ -349,6 +274,81 @@ describe("FOUNDATION: QFrame", function() {
 
 				done();
 			});
+		});
+
+		describe('frame reset', function() {
+
+			it("resets iframe loaded with source URL without destroying source document", function(done) {
+				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
+					frame.reset();
+					assert.noException(function() {
+						frame.get("#exists");
+					});
+					done();
+				});
+			});
+
+			it("resets iframe loaded with stylesheet without destroying stylesheet", function(done) {
+				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
+					frame.reset();
+					var styleMe = frame.add("<div class='style-me'>Foo</div>");
+					assert.equal(styleMe.getRawStyle("font-size"), "42px");
+					done();
+				});
+			});
+
+			it("doesn't re-run scripts", function(done) {
+				var options = { src: "/base/src/_q_frame_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
+
+					frame.reset();
+					var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
+					assert.equal(frameGlobal, "new value", "script should not re-run");
+
+					done();
+				});
+			});
+
+		});
+
+		describe('frame reload', function() {
+
+			it('reloads iframe with original source URL', function(done) {
+				frame = QFrame.create(window.document.body, { src: "/base/src/_q_frame_test.html" }, function() {
+					frame.reload(function() {
+						assert.noException(function() {
+							frame.get("#exists");
+						});
+						done();
+					});
+				});
+			});
+
+			it('reloads iframe with original stylesheet', function(done) {
+				frame = QFrame.create(window.document.body, { stylesheet: "/base/src/_q_frame_test.css" }, function() {
+					frame.reload(function() {
+						var styleMe = frame.add("<div class='style-me'>Foo</div>");
+						assert.equal(styleMe.getRawStyle("font-size"), "42px");
+						done();
+					});
+				});
+			});
+
+			it("re-runs scripts", function(done) {
+				var options = { src: "/base/src/_q_frame_test.html" };
+				frame = QFrame.create(window.document.body, options, function() {
+					frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL = "new value";
+
+					frame.reload(function() {
+						var frameGlobal = frame._domElement.contentWindow._Q_FRAME_TEST_GLOBAL;
+						assert.equal(frameGlobal, "initial value", "script should re-run");
+
+						done();
+					});
+				});
+			});
+
 		});
 
 	});
