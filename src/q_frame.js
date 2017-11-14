@@ -41,17 +41,17 @@ Me.create = function create(parentElement, options, callback) {
 	var css = options.css;
 	if (!shim.Array.isArray(stylesheets)) stylesheets = [ stylesheets ];
 
-	var err = checkUrls(src, stylesheets);
-	if (err) return callback(err);
-
-	var iframe = insertIframe(parentElement, width, height);
-	shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
-	setIframeContent(iframe, src);
-
 	var frame = new Me();
-	frame._domElement = iframe;
-	setFrameLoadCallback(frame, callback);
+	checkUrls(src, stylesheets, function(err) {
+		if (err) return callback(err);
 
+		var iframe = insertIframe(parentElement, width, height);
+		shim.EventTarget.addEventListener(iframe, "load", onFrameLoad);
+		setIframeContent(iframe, src);
+
+		frame._domElement = iframe;
+		setFrameLoadCallback(frame, callback);
+	});
 	return frame;
 
 	function onFrameLoad() {
@@ -71,15 +71,15 @@ function setFrameLoadCallback(frame, callback) {
 	frame._frameLoadCallback = callback;
 }
 
-function checkUrls(src, stylesheets) {
-	if (!urlExists(src)) return error("src", src);
+function checkUrls(src, stylesheets, callback) {
+	if (!urlExists(src)) return callback(error("src", src));
 
 	for (var i = 0; i < stylesheets.length; i++) {
 		var url = stylesheets[i];
-		if (!urlExists(url)) return error("stylesheet", url);
+		if (!urlExists(url)) return callback(error("stylesheet", url));
 	}
 
-	return null;
+	return callback(null);
 
 	function error(name, url) {
 		return new Error("404 error while loading " + name + " (" + url + ")");
