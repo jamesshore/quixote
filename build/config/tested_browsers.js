@@ -9,7 +9,7 @@
 // incorrectly reported as "0.0.0".
 
 module.exports = [
-	"Chrome 61.0.3163 (Mac OS X 10.11.6)",
+	"Chrome 62.0.3202 (Mac OS X 10.11.6)",
 	"Firefox 57.0.0 (Mac OS X 10.11.0)",
 	"IE 8.0.0 (Windows 7 0.0.0)",
 	"IE 11.0.0 (Windows 7 0.0.0)",
