@@ -216,7 +216,7 @@ Me.prototype.page = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QPage(this);
+	return new QPage(this._document);
 };
 
 Me.prototype.body = function() {

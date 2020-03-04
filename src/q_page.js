@@ -7,15 +7,17 @@ var Center = require("./descriptors/center.js");
 var Assertable = require("./assertable.js");
 var GenericSize = require("./descriptors/generic_size.js");
 
-var Me = module.exports = function QPage(frame) {
-	var QFrame = require("./q_frame.js");   // break circular dependency
-	ensure.signature(arguments, [ QFrame ]);
+var Me = module.exports = function QPage(contentDocument) {
+	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
+	// Since the document is in an iFrame its HTMLDocument definition is the iFrame window's HTMLDocument and
+	// not the top level window's version.
+	ensure.signature(arguments, [ Object ]);
 
 	// properties
-	this.top = PageEdge.top(frame);
-	this.right = PageEdge.right(frame);
-	this.bottom = PageEdge.bottom(frame);
-	this.left = PageEdge.left(frame);
+	this.top = PageEdge.top(contentDocument);
+	this.right = PageEdge.right(contentDocument);
+	this.bottom = PageEdge.bottom(contentDocument);
+	this.left = PageEdge.left(contentDocument);
 
 	this.width = GenericSize.create(this.left, this.right, "width of page");
 	this.height = GenericSize.create(this.top, this.bottom, "height of page");
