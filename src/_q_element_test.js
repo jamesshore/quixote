@@ -39,23 +39,23 @@ describe("FOUNDATION: QElement", function() {
 	describe("object", function() {
 
 		it("compares to another QElement", function() {
-			var head = new QElement(document.querySelector("head"), frame, "head");    // WORKAROUND IE8: no document.head
-			var body1 = new QElement(document.body, frame, "body");
-			var body2 = new QElement(document.body, frame, "body");
+			var head = new QElement(document.querySelector("head"), "head");    // WORKAROUND IE8: no document.head
+			var body1 = new QElement(document.body, "body");
+			var body2 = new QElement(document.body, "body");
 
 			assert.objEqual(body1, body2, "equality");
 			assert.objNotEqual(head, body1, "inequality");
 		});
 
 		it("element description does not affect equality", function() {
-			var body1 = new QElement(document.body, frame, "body description");
-			var body2 = new QElement(document.body, frame, "description can be anything");
+			var body1 = new QElement(document.body, "body description");
+			var body2 = new QElement(document.body, "description can be anything");
 
 			assert.objEqual(body1, body2, "should still be equal");
 		});
 
 		it("converts to string", function() {
-			var element = new QElement(document.body, frame, "nickname");
+			var element = new QElement(document.body, "nickname");
 			assert.equal(element.toString(), "'nickname'");
 		});
 
@@ -64,7 +64,7 @@ describe("FOUNDATION: QElement", function() {
 	describe("DOM manipulation", function() {
 
 		it("converts to DOM element", function() {
-			var q = new QElement(document.body, frame, "body");
+			var q = new QElement(document.body, "body");
 			var dom = q.toDomElement();
 
 			assert.equal(dom, document.body);
@@ -126,11 +126,6 @@ describe("FOUNDATION: QElement", function() {
 	});
 
 	describe("properties", function() {
-
-		it("frame", function() {
-			assert.equal(element.frame, frame);
-		});
-
 		it("visibility", function() {
 			if (quixote.browser.misreportsClipAutoProperty()) return;
 

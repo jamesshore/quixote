@@ -239,7 +239,7 @@ Me.prototype.get = function(selector, nickname) {
 
 	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
-	return new QElement(nodes[0], this, nickname);
+	return new QElement(nodes[0], nickname);
 };
 
 Me.prototype.getAll = function(selector, nickname) {
@@ -247,7 +247,7 @@ Me.prototype.getAll = function(selector, nickname) {
 	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
-	return new QElementList(this._document.querySelectorAll(selector), this, nickname);
+	return new QElementList(this._document.querySelectorAll(selector), nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
