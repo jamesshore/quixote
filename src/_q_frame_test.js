@@ -372,7 +372,7 @@ describe("FOUNDATION: QFrame", function() {
 		});
 
 		it("retrieves body element", function() {
-			assert.objEqual(frame.body(), new QElement(frameDom.contentDocument.body, frame, "body"), "body element");
+			assert.objEqual(frame.body(), new QElement(frameDom.contentDocument.body, "body"), "body element");
 			assert.equal(frame.body().toString(), "'body'", "body description");
 		});
 

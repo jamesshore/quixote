@@ -30,9 +30,9 @@ describe("FOUNDATION: QElementList", function() {
 		var oneDom = document.querySelectorAll("ul");
 		var someDom = document.querySelectorAll("li");
 
-		none = new QElementList(noneDom, frame, "none");
-		one = new QElementList(oneDom, frame, "one");
-		some = new QElementList(someDom, frame, "some");
+		none = new QElementList(noneDom, "none");
+		one = new QElementList(oneDom, "one");
+		some = new QElementList(someDom, "some");
 
 		item1 = frame.get("#item1");
 		item2 = frame.get("#item2");

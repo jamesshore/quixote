@@ -10,14 +10,11 @@ var Center = require("./descriptors/center.js");
 var GenericSize = require("./descriptors/generic_size.js");
 var Assertable = require("./assertable.js");
 
-var Me = module.exports = function QElement(domElement, frame, nickname) {
-	var QFrame = require("./q_frame.js");    // break circular dependency
-	ensure.signature(arguments, [Object, QFrame, String]);
+var Me = module.exports = function QElement(domElement, nickname) {
+	ensure.signature(arguments, [Object, String]);
 
 	this._domElement = domElement;
 	this._nickname = nickname;
-
-	this.frame = frame;
 
 	// properties
 	this.rendered = ElementRendered.create(this);
@@ -108,13 +105,13 @@ Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
 	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
-	var parentBody = new Me(this.parentDocument().body, this.frame, "body");
+	var parentBody = new Me(this.parentDocument().body, "body");
 	if (this.equals(parentBody)) return null;
 
 	var parent = this._domElement.parentElement;
 	if (parent === null) return null;
 
-	return new Me(parent, this.frame, nickname);
+	return new Me(parent, nickname);
 };
 
 Me.prototype.add = function(html, nickname) {
@@ -130,7 +127,7 @@ Me.prototype.add = function(html, nickname) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._domElement.appendChild(insertedElement);
-	return new Me(insertedElement, this.frame, nickname);
+	return new Me(insertedElement, nickname);
 };
 
 Me.prototype.remove = function() {

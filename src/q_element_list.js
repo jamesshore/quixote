@@ -4,12 +4,10 @@
 var ensure = require("./util/ensure.js");
 var QElement = require("./q_element.js");
 
-var Me = module.exports = function QElementList(nodeList, frame, nickname) {
-	var QFrame = require("./q_frame.js");    // break circular dependency
-	ensure.signature(arguments, [ Object, QFrame, String ]);
+var Me = module.exports = function QElementList(nodeList, nickname) {
+	ensure.signature(arguments, [ Object, String ]);
 
 	this._nodeList = nodeList;
-	this._frame = frame;
 	this._nickname = nickname;
 };
 
@@ -33,7 +31,7 @@ Me.prototype.at = function at(requestedIndex, nickname) {
 	var element = this._nodeList[index];
 
 	if (nickname === undefined) nickname = this._nickname + "[" + index + "]";
-	return new QElement(element, this._frame, nickname);
+	return new QElement(element, nickname);
 };
 
 Me.prototype.toString = function toString() {
