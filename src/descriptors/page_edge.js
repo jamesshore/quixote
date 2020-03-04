@@ -10,16 +10,18 @@ var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function PageEdge(edge, frame) {
-	var QFrame = require("../q_frame.js");    // break circular dependency
-	ensure.signature(arguments, [ String, QFrame ]);
+var Me = module.exports = function PageEdge(edge, contentDocument) {
+	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
+	// Since the document is in an iFrame its HTMLDocument definition is the iFrame window's HTMLDocument and
+	// not the top level window's version.
+	ensure.signature(arguments, [ String, Object ]);
 
 	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
 	else if (edge === TOP || edge === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown edge: " + edge);
 
 	this._edge = edge;
-	this._frame = frame;
+	this._document = contentDocument;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,7 +33,7 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var size = pageSize(this._frame.toDomElement().contentDocument);
+	var size = pageSize(this._document);
 	switch(this._edge) {
 		case TOP: return Position.y(0);
 		case RIGHT: return Position.x(size.width);
@@ -56,8 +58,8 @@ Me.prototype.toString = function toString() {
 };
 
 function factoryFn(edge) {
-	return function factory(frame) {
-		return new Me(edge, frame);
+	return function factory(contentDocument) {
+		return new Me(edge, contentDocument);
 	};
 }
 

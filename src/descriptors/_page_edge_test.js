@@ -19,11 +19,12 @@ describe("DESCRIPTOR: PageEdge", function() {
 
 		beforeEach(function() {
 			var frame = reset.frame;
+			var contentDocument = frame.toDomElement().contentDocument;
 
-			top = PageEdge.top(frame);
-			right = PageEdge.right(frame);
-			bottom = PageEdge.bottom(frame);
-			left = PageEdge.left(frame);
+			top = PageEdge.top(contentDocument);
+			right = PageEdge.right(contentDocument);
+			bottom = PageEdge.bottom(contentDocument);
+			left = PageEdge.left(contentDocument);
 
 			frame.add(
 				"<div style='position: absolute; left: " + (reset.WIDTH + 100) + "px; top: " + (reset.HEIGHT + 100) + "px; " +
@@ -80,10 +81,10 @@ describe("DESCRIPTOR: PageEdge", function() {
 
 		beforeEach(function() {
 			frame = reset.frame;
-			right = PageEdge.right(frame);
-			bottom = PageEdge.bottom(frame);
-
 			var contentDocument = frame.toDomElement().contentDocument;
+			right = PageEdge.right(contentDocument);
+			bottom = PageEdge.bottom(contentDocument);
+
 			htmlStyle = contentDocument.documentElement.style;
 			htmlStyle.borderLeft = "solid " + HTML_BORDER_LEFT + "px green";
 			htmlStyle.borderRight = "solid " + HTML_BORDER_RIGHT + "px green";
