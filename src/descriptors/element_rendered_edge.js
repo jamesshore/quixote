@@ -5,6 +5,7 @@ var ensure = require("../util/ensure.js");
 var quixote = require("../quixote.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
+var QPage = require("../q_page.js");
 var Size = require("../values/size.js");
 var RenderState = require("../values/render_state.js");
 
@@ -45,7 +46,7 @@ Me.prototype.toString = function toString() {
 Me.prototype.value = function() {
 	var position = this._position;
 	var element = this._element;
-	var page = element.frame.page();
+	var page = new QPage(this._element.parentDocument());
 
 	if (element.top.value().equals(Position.noY())) return notRendered(position);
 	if (element.width.value().equals(Size.create(0))) return notRendered(position);
