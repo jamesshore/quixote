@@ -4,6 +4,7 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var PositionDescriptor = require("./position_descriptor.js");
+var shim = require("../util/shim.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -34,7 +35,7 @@ Me.prototype.value = function value() {
 	var rawPosition = this._element.getRawPosition();
 
 	var edge = rawPosition[this._position];
-	var scroll = this._element.frame.getRawScrollPosition();
+	var scroll = getRawScrollPosition(this);
 
 	if (this._position === RIGHT || this._position === LEFT) {
 		if (!elementRendered(this, rawPosition)) return Position.noX();
@@ -60,8 +61,15 @@ function factoryFn(position) {
 function elementRendered(self, rawPosition) {
 	var element = self._element;
 
-	var inDom = element.frame.body().toDomElement().contains(element.toDomElement());
+	var inDom = element.parentDocument().body.contains(element.toDomElement());
 	var displayNone = element.getRawStyle("display") === "none";
 
 	return inDom && !displayNone;
+}
+
+function getRawScrollPosition(self) {
+	return {
+		x: shim.Window.pageXOffset(self._element.parentWindow(), self._element.parentDocument()),
+		y: shim.Window.pageYOffset(self._element.parentWindow(), self._element.parentDocument())
+	};
 }
