@@ -10,23 +10,24 @@ var Me = module.exports = function QContent(contentDocument) {
 	// not the top level window's version.
 	ensure.signature(arguments, [ Object ]);
 
+    this._window = contentDocument.defaultView || contentDocument.parentWindow;
+
 	// properties
     this.document = contentDocument;
-    this.window = contentDocument.defaultView || contentDocument.parentWindow;
 };
 
 Me.prototype.toDomElement = function toDomElement() {
     ensure.signature(arguments, []);
 
-    return this.window;
+    return this._window;
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
     ensure.signature(arguments, []);
 
 	return {
-		x: shim.Window.pageXOffset(this.window, this.document),
-		y: shim.Window.pageYOffset(this.window, this.document)
+		x: shim.Window.pageXOffset(this._window, this.document),
+		y: shim.Window.pageYOffset(this._window, this.document)
 	};
 };
 
@@ -44,5 +45,5 @@ Me.prototype.getComputedStyle = function getComputedStyle(element) {
     var QElement = require("./q_element.js");      // break circular dependency
     ensure.signature(arguments, [ QElement ]);
 
-	return this.window.getComputedStyle(element.toDomElement());
+	return this._window.getComputedStyle(element.toDomElement());
 };
