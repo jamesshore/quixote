@@ -16,7 +16,7 @@ describe("FOUNDATION: QPage", function() {
 
 	beforeEach(function() {
 		frame = reset.frame;
-		page = new QPage(frame.toDomElement().contentDocument);
+		page = new QPage(frame.toContent());
 
 		frame.add(
 			"<div style='position: absolute; left: " + (WIDTH - 100) + "px; top: " + (HEIGHT - 100) + "px; " +

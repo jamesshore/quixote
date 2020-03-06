@@ -4,24 +4,22 @@
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
+var QContent = require("../q_content.js");
 
 var TOP = "top";
 var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function PageEdge(edge, contentDocument) {
-	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
-	// Since the document is in an iFrame its HTMLDocument definition is the iFrame window's HTMLDocument and
-	// not the top level window's version.
-	ensure.signature(arguments, [ String, Object ]);
+var Me = module.exports = function PageEdge(edge, content) {
+	ensure.signature(arguments, [ String, QContent ]);
 
 	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
 	else if (edge === TOP || edge === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown edge: " + edge);
 
 	this._edge = edge;
-	this._document = contentDocument;
+	this._content = content;
 };
 PositionDescriptor.extend(Me);
 
@@ -33,7 +31,7 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var size = pageSize(this._document);
+	var size = pageSize(this._content.document);
 	switch(this._edge) {
 		case TOP: return Position.y(0);
 		case RIGHT: return Position.x(size.width);
@@ -58,8 +56,8 @@ Me.prototype.toString = function toString() {
 };
 
 function factoryFn(edge) {
-	return function factory(contentDocument) {
-		return new Me(edge, contentDocument);
+	return function factory(content) {
+		return new Me(edge, content);
 	};
 }
 
