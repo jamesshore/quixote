@@ -38,11 +38,11 @@ Me.prototype.value = function value() {
 	var scroll = this._element.parentContent().getRawScrollPosition();
 
 	if (this._position === RIGHT || this._position === LEFT) {
-		if (!elementRendered(this, rawPosition)) return Position.noX();
+		if (!this._element.parentContent().elementRendered(this._element)) return Position.noX();
 		return Position.x(edge + scroll.x);
 	}
 	else {
-		if (!elementRendered(this, rawPosition)) return Position.noY();
+		if (!this._element.parentContent().elementRendered(this._element)) return Position.noY();
 		return Position.y(edge + scroll.y);
 	}
 };
@@ -56,13 +56,4 @@ function factoryFn(position) {
 	return function factory(element) {
 		return new Me(element, position);
 	};
-}
-
-function elementRendered(self, rawPosition) {
-	var element = self._element;
-
-	var inDom = element.parentDocument().body.contains(element.toDomElement());
-	var displayNone = element.getRawStyle("display") === "none";
-
-	return inDom && !displayNone;
 }
