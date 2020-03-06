@@ -109,7 +109,8 @@ Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
 	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
-	var parentBody = new Me(this.parentDocument().body, "body");
+	var parentDocument = this.parentContent().toDomElement().document;
+	var parentBody = new Me(parentDocument.body, "body");
 	if (this.equals(parentBody)) return null;
 
 	var parent = this._domElement.parentElement;
@@ -142,12 +143,6 @@ Me.prototype.remove = function() {
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
 	return this._domElement;
-};
-
-Me.prototype.parentDocument = function() {
-	ensure.signature(arguments, []);
-
-	return this._domElement.ownerDocument;
 };
 
 Me.prototype.parentContent = function() {
