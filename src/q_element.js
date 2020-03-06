@@ -45,7 +45,7 @@ Me.prototype.getRawStyle = function(styleName) {
 	// WORKAROUND IE 8: no getComputedStyle()
 	if (window.getComputedStyle) {
 		// WORKAROUND Firefox 40.0.3: must use frame's contentWindow (ref https://bugzilla.mozilla.org/show_bug.cgi?id=1204062)
-		styles = this.parentWindow().getComputedStyle(this._domElement);
+		styles = this.parentContent().window.getComputedStyle(this._domElement);
 		result = styles.getPropertyValue(styleName);
 	}
 	else {
@@ -148,14 +148,6 @@ Me.prototype.parentDocument = function() {
 	ensure.signature(arguments, []);
 
 	return this._domElement.ownerDocument;
-};
-
-Me.prototype.parentWindow = function() {
-	ensure.signature(arguments, []);
-
-	var parentDocument = this._domElement.ownerDocument;
-	var parentWindow = parentDocument.defaultView || parentDocument.parentWindow;
-	return parentWindow;
 };
 
 Me.prototype.parentContent = function() {

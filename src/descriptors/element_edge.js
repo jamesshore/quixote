@@ -35,7 +35,7 @@ Me.prototype.value = function value() {
 	var rawPosition = this._element.getRawPosition();
 
 	var edge = rawPosition[this._position];
-	var scroll = getRawScrollPosition(this);
+	var scroll = this._element.parentContent().getRawScrollPosition();
 
 	if (this._position === RIGHT || this._position === LEFT) {
 		if (!elementRendered(this, rawPosition)) return Position.noX();
@@ -65,11 +65,4 @@ function elementRendered(self, rawPosition) {
 	var displayNone = element.getRawStyle("display") === "none";
 
 	return inDom && !displayNone;
-}
-
-function getRawScrollPosition(self) {
-	return {
-		x: shim.Window.pageXOffset(self._element.parentWindow(), self._element.parentDocument()),
-		y: shim.Window.pageYOffset(self._element.parentWindow(), self._element.parentDocument())
-	};
 }

@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var shim = require("./util/shim.js");
 
 var Me = module.exports = function QContent(contentDocument) {
 	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
@@ -12,4 +13,11 @@ var Me = module.exports = function QContent(contentDocument) {
 	// properties
     this.document = contentDocument;
     this.window = contentDocument.defaultView || contentDocument.parentWindow;
+};
+
+Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
+	return {
+		x: shim.Window.pageXOffset(this.window, this.document),
+		y: shim.Window.pageYOffset(this.window, this.document)
+	};
 };
