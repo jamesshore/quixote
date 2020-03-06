@@ -15,6 +15,12 @@ var Me = module.exports = function QContent(contentDocument) {
     this.window = contentDocument.defaultView || contentDocument.parentWindow;
 };
 
+Me.prototype.toDomElement = function toDomElement() {
+    ensure.signature(arguments, []);
+
+    return this.window;
+};
+
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
     ensure.signature(arguments, []);
 
