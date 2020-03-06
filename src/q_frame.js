@@ -216,7 +216,7 @@ Me.prototype.viewport = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QViewport(this);
+	return new QViewport(this._content);
 };
 
 Me.prototype.page = function() {

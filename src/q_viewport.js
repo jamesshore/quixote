@@ -6,16 +6,16 @@ var ViewportEdge = require("./descriptors/viewport_edge.js");
 var Center = require("./descriptors/center.js");
 var Assertable = require("./assertable.js");
 var GenericSize = require("./descriptors/generic_size.js");
+var QContent = require("./q_content.js");
 
-var Me = module.exports = function QViewport(frame) {
-	var QFrame = require("./q_frame.js");   // break circular dependency
-	ensure.signature(arguments, [ QFrame ]);
+var Me = module.exports = function QViewport(content) {
+	ensure.signature(arguments, [ QContent ]);
 
 	// properties
-	this.top = ViewportEdge.top(frame);
-	this.right = ViewportEdge.right(frame);
-	this.bottom = ViewportEdge.bottom(frame);
-	this.left = ViewportEdge.left(frame);
+	this.top = ViewportEdge.top(content);
+	this.right = ViewportEdge.right(content);
+	this.bottom = ViewportEdge.bottom(content);
+	this.left = ViewportEdge.left(content);
 
 	this.width = GenericSize.create(this.left, this.right, "width of viewport");
 	this.height = GenericSize.create(this.top, this.bottom, "height of viewport");
