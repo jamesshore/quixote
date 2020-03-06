@@ -2,6 +2,7 @@
 "use strict";
 
 var ensure = require("./util/ensure.js");
+var QElement = require('./q_element.js');
 var QFrame = require("./q_frame.js");
 var Size = require("./values/size.js");
 
@@ -18,6 +19,10 @@ exports.createFrame = function(options, callback) {
 			callback(err, callbackFrame);
 		}
 	});
+};
+
+exports.elementFromDom = function(domElement, nickname) {
+	return new QElement(domElement, nickname);
 };
 
 exports.browser = {};
