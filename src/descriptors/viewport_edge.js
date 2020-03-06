@@ -4,22 +4,22 @@
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
+var QContent = require("../q_content.js");
 
 var TOP = "top";
 var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function ViewportEdge(position, frame) {
-	var QFrame = require("../q_frame.js");    // break circular dependency
-	ensure.signature(arguments, [ String, QFrame ]);
+var Me = module.exports = function ViewportEdge(position, content) {
+	ensure.signature(arguments, [ String, QContent ]);
 
 	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
 	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown position: " + position);
 
 	this._position = position;
-	this._frame = frame;
+	this._content = content;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,11 +31,11 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function() {
 	ensure.signature(arguments, []);
 
-	var scroll = this._frame.getRawScrollPosition();
+	var scroll = this._content.getRawScrollPosition();
 	var x = Position.x(scroll.x);
 	var y = Position.y(scroll.y);
 
-	var size = viewportSize(this._frame.get("html").toDomElement());
+	var size = viewportSize(this._content.toDomElement().document.documentElement);
 
 	switch(this._position) {
 		case TOP: return y;
@@ -53,8 +53,8 @@ Me.prototype.toString = function() {
 };
 
 function factoryFn(position) {
-	return function factory(frame) {
-		return new Me(position, frame);
+	return function factory(content) {
+		return new Me(position, content);
 	};
 }
 

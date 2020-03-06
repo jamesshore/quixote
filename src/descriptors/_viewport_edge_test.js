@@ -23,10 +23,10 @@ describe("DESCRIPTOR: ViewportEdge", function() {
 	beforeEach(function() {
 		frame = reset.frame;
 
-		top = ViewportEdge.top(frame);
-		right = ViewportEdge.right(frame);
-		bottom = ViewportEdge.bottom(frame);
-		left = ViewportEdge.left(frame);
+		top = ViewportEdge.top(frame.toContent());
+		right = ViewportEdge.right(frame.toContent());
+		bottom = ViewportEdge.bottom(frame.toContent());
+		left = ViewportEdge.left(frame.toContent());
 	});
 
 	it("is a position descriptor", function() {
@@ -113,8 +113,8 @@ describe("DESCRIPTOR: ViewportEdge", function() {
 
 		beforeEach(function() {
 			contentDoc = frame.toDomElement().contentDocument;
-			right = ViewportEdge.right(frame);
-			bottom = ViewportEdge.bottom(frame);
+			right = ViewportEdge.right(frame.toContent());
+			bottom = ViewportEdge.bottom(frame.toContent());
 
 			contentDoc.body.style.backgroundColor = "blue";
 		});
