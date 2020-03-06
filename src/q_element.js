@@ -11,7 +11,10 @@ var GenericSize = require("./descriptors/generic_size.js");
 var Assertable = require("./assertable.js");
 
 var Me = module.exports = function QElement(domElement, nickname) {
-	ensure.signature(arguments, [Object, String]);
+	ensure.signature(arguments, [Object, [String, undefined]]);
+	if (nickname === undefined) {
+		nickname = domElement.id || domElement.tagName;
+	}
 
 	this._domElement = domElement;
 	this._nickname = nickname;
