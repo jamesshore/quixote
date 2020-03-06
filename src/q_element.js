@@ -9,6 +9,7 @@ var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
 var GenericSize = require("./descriptors/generic_size.js");
 var Assertable = require("./assertable.js");
+var QContent = require("./q_content.js");
 
 var Me = module.exports = function QElement(domElement, nickname) {
 	ensure.signature(arguments, [Object, [String, undefined]]);
@@ -155,6 +156,12 @@ Me.prototype.parentWindow = function() {
 	var parentDocument = this._domElement.ownerDocument;
 	var parentWindow = parentDocument.defaultView || parentDocument.parentWindow;
 	return parentWindow;
+};
+
+Me.prototype.parentContent = function() {
+	ensure.signature(arguments, []);
+
+	return new QContent(this._domElement.ownerDocument);
 };
 
 Me.prototype.toString = function() {
