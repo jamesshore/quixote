@@ -16,6 +16,8 @@ var Me = module.exports = function QContent(contentDocument) {
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
+    ensure.signature(arguments, []);
+
 	return {
 		x: shim.Window.pageXOffset(this.window, this.document),
 		y: shim.Window.pageYOffset(this.window, this.document)
@@ -30,4 +32,11 @@ Me.prototype.elementRendered = function elementRendered(element) {
 	var displayNone = element.getRawStyle("display") === "none";
 
 	return inDom && !displayNone;
+};
+
+Me.prototype.getComputedStyle = function getComputedStyle(element) {
+    var QElement = require("./q_element.js");      // break circular dependency
+    ensure.signature(arguments, [ QElement ]);
+
+	return this.window.getComputedStyle(element.toDomElement());
 };
