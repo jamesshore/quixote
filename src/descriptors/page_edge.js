@@ -4,22 +4,22 @@
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
-var QContent = require("../q_content.js");
+var QContentHost = require("../q_content_host.js");
 
 var TOP = "top";
 var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function PageEdge(edge, content) {
-	ensure.signature(arguments, [ String, QContent ]);
+var Me = module.exports = function PageEdge(edge, contentHost) {
+	ensure.signature(arguments, [ String, QContentHost ]);
 
 	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
 	else if (edge === TOP || edge === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown edge: " + edge);
 
 	this._edge = edge;
-	this._content = content;
+	this._contentHost = contentHost;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,7 +31,7 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var size = pageSize(this._content.toDomElement().document);
+	var size = pageSize(this._contentHost.toDomElement().document);
 	switch(this._edge) {
 		case TOP: return Position.y(0);
 		case RIGHT: return Position.x(size.width);

@@ -4,7 +4,7 @@
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
 
-var Me = module.exports = function QContent(contentDocument) {
+var Me = module.exports = function QContentHost(contentDocument) {
 	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
 	// Since the document is in an iFrame its HTMLDocument definition is the iFrame window's HTMLDocument and
 	// not the top level window's version.

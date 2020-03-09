@@ -6,16 +6,16 @@ var PageEdge = require("./descriptors/page_edge.js");
 var Center = require("./descriptors/center.js");
 var Assertable = require("./assertable.js");
 var GenericSize = require("./descriptors/generic_size.js");
-var QContent = require("./q_content.js");
+var QContentHost = require("./q_content_host.js");
 
-var Me = module.exports = function QPage(content) {
-	ensure.signature(arguments, [ QContent ]);
+var Me = module.exports = function QPage(contentHost) {
+	ensure.signature(arguments, [ QContentHost ]);
 
 	// properties
-	this.top = PageEdge.top(content);
-	this.right = PageEdge.right(content);
-	this.bottom = PageEdge.bottom(content);
-	this.left = PageEdge.left(content);
+	this.top = PageEdge.top(contentHost);
+	this.right = PageEdge.right(contentHost);
+	this.bottom = PageEdge.bottom(contentHost);
+	this.left = PageEdge.left(contentHost);
 
 	this.width = GenericSize.create(this.left, this.right, "width of page");
 	this.height = GenericSize.create(this.top, this.bottom, "height of page");
