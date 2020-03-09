@@ -10,10 +10,8 @@ var Me = module.exports = function QContentHost(contentDocument) {
 	// not the top level window's version.
 	ensure.signature(arguments, [ Object ]);
 
-    this._window = contentDocument.defaultView || contentDocument.parentWindow;
-
-	// properties
-    this.document = contentDocument;
+	this._document = contentDocument;
+	this._window = contentDocument.defaultView || contentDocument.parentWindow;
 };
 
 Me.prototype.toDomElement = function toDomElement() {
@@ -26,7 +24,7 @@ Me.prototype.elementRendered = function elementRendered(element) {
     var QElement = require("./q_element.js");      // break circular dependency
     ensure.signature(arguments, [ QElement ]);
 
-	var inDom = this.document.body.contains(element.toDomElement());
+	var inDom = this._document.body.contains(element.toDomElement());
 	var displayNone = element.getRawStyle("display") === "none";
 
 	return inDom && !displayNone;
@@ -43,7 +41,7 @@ Me.prototype.body = function body() {
 	var QElement = require("./q_element.js");      // break circular dependency
 	ensure.signature(arguments, []);
 
-	return new QElement(this.document.body, "body");
+	return new QElement(this._document.body, "body");
 };
 
 Me.prototype.viewport = function viewport() {
@@ -72,7 +70,7 @@ Me.prototype.get = function get(selector, nickname) {
 	ensure.signature(arguments, [String, [undefined, String]]);
 	if (nickname === undefined) nickname = selector;
 
-	var nodes = this.document.querySelectorAll(selector);
+	var nodes = this._document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
 	return new QElement(nodes[0], nickname);
 };
@@ -82,7 +80,7 @@ Me.prototype.getAll = function getAll(selector, nickname) {
 	ensure.signature(arguments, [String, [undefined, String]]);
 	if (nickname === undefined) nickname = selector;
 
-	return new QElementList(this.document.querySelectorAll(selector), nickname);
+	return new QElementList(this._document.querySelectorAll(selector), nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
@@ -95,7 +93,7 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
     ensure.signature(arguments, []);
 
 	return {
-		x: shim.Window.pageXOffset(this._window, this.document),
-		y: shim.Window.pageYOffset(this._window, this.document)
+		x: shim.Window.pageXOffset(this._window, this._document),
+		y: shim.Window.pageYOffset(this._window, this._document)
 	};
 };
