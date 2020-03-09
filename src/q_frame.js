@@ -17,7 +17,7 @@ var Me = module.exports = function QFrame() {
 function loaded(self, width, height, src, stylesheets) {
 	self._loaded = true;
 	self._contentHost = new QContentHost(self._domElement.contentDocument);
-	self._originalBody = self._contentHost.document.body.innerHTML;
+	self._originalBody = self._contentHost.toDomElement().document.body.innerHTML;
 	self._originalWidth = width;
 	self._originalHeight = height;
 	self._originalSrc = src;
