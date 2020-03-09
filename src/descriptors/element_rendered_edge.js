@@ -46,7 +46,7 @@ Me.prototype.toString = function toString() {
 Me.prototype.value = function() {
 	var position = this._position;
 	var element = this._element;
-	var page = new QPage(this._element.parentContentHost());
+	var page = new QPage(this._element.host());
 
 	if (element.top.value().equals(Position.noY())) return notRendered(position);
 	if (element.width.value().equals(Size.create(0))) return notRendered(position);
