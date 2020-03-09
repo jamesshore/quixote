@@ -22,15 +22,6 @@ Me.prototype.toDomElement = function toDomElement() {
     return this._window;
 };
 
-Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
-    ensure.signature(arguments, []);
-
-	return {
-		x: shim.Window.pageXOffset(this._window, this.document),
-		y: shim.Window.pageYOffset(this._window, this.document)
-	};
-};
-
 Me.prototype.elementRendered = function elementRendered(element) {
     var QElement = require("./q_element.js");      // break circular dependency
     ensure.signature(arguments, [ QElement ]);
@@ -50,5 +41,61 @@ Me.prototype.getComputedStyle = function getComputedStyle(element) {
 
 Me.prototype.body = function body() {
 	var QElement = require("./q_element.js");      // break circular dependency
+	ensure.signature(arguments, []);
+
 	return new QElement(this.document.body, "body");
+};
+
+Me.prototype.viewport = function viewport() {
+	var QViewport = require("./q_viewport.js");      // break circular dependency
+	ensure.signature(arguments, []);
+	
+	return new QViewport(this);
+};
+
+Me.prototype.page = function page() {
+	var QPage = require("./q_page.js");      // break circular dependency
+	ensure.signature(arguments, []);
+	
+	return new QPage(this);
+};
+
+Me.prototype.add = function add(html, nickname) {
+	ensure.signature(arguments, [String, [undefined, String]]);
+	if (nickname === undefined) nickname = html;
+
+	return this.body().add(html, nickname);
+};
+
+Me.prototype.get = function get(selector, nickname) {
+	var QElement = require("./q_element.js");      // break circular dependency
+	ensure.signature(arguments, [String, [undefined, String]]);
+	if (nickname === undefined) nickname = selector;
+
+	var nodes = this.document.querySelectorAll(selector);
+	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
+	return new QElement(nodes[0], nickname);
+};
+
+Me.prototype.getAll = function getAll(selector, nickname) {
+	var QElementList = require("./q_element_list.js");      // break circular dependency
+	ensure.signature(arguments, [String, [undefined, String]]);
+	if (nickname === undefined) nickname = selector;
+
+	return new QElementList(this.document.querySelectorAll(selector), nickname);
+};
+
+Me.prototype.scroll = function scroll(x, y) {
+	ensure.signature(arguments, [Number, Number]);
+
+	this._window.scroll(x, y);
+};
+
+Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
+    ensure.signature(arguments, []);
+
+	return {
+		x: shim.Window.pageXOffset(this._window, this.document),
+		y: shim.Window.pageYOffset(this._window, this.document)
+	};
 };

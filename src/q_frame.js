@@ -4,10 +4,6 @@
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
 var QContentHost = require("./q_content_host.js");
-var QElement = require("./q_element.js");
-var QElementList = require("./q_element_list.js");
-var QViewport = require("./q_viewport.js");
-var QPage = require("./q_page.js");
 var async = require("../vendor/async-1.4.2.js");
 
 var Me = module.exports = function QFrame() {
@@ -150,7 +146,7 @@ function loadStylesheets(self, urls, callback) {
 		link.setAttribute("rel", "stylesheet");
 		link.setAttribute("type", "text/css");
 		link.setAttribute("href", url);
-		shim.Document.head(self._contentHost.document).appendChild(link);
+		shim.Document.head(self._contentHost.toDomElement().document).appendChild(link);
 	}
 }
 
@@ -164,14 +160,14 @@ function loadRawCSS(self, css) {
 	else {
 		style.innerHTML = css;
 	}
-	shim.Document.head(self._contentHost.document).appendChild(style);
+	shim.Document.head(self._contentHost.toDomElement().document).appendChild(style);
 }
 
 Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	this._contentHost.document.body.innerHTML = this._originalBody;
+	this._contentHost.toDomElement().document.body.innerHTML = this._originalBody;
 	this.scroll(0, 0);
 	this.resize(this._originalWidth, this._originalHeight);
 };
@@ -213,65 +209,51 @@ Me.prototype.remove = function() {
 };
 
 Me.prototype.viewport = function() {
-	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QViewport(this._contentHost);
+	return this._contentHost.viewport();
 };
 
 Me.prototype.page = function() {
-	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QPage(this._contentHost);
+	return this._contentHost.page();
 };
 
 Me.prototype.body = function() {
-	ensure.signature(arguments, []);
+	ensureUsable(this);
 
-	return this.get("body");
+	return this._contentHost.body();
 };
 
 Me.prototype.add = function(html, nickname) {
-	ensure.signature(arguments, [String, [undefined, String]]);
-	if (nickname === undefined) nickname = html;
+	ensureUsable(this);
 
-	return this.body().add(html, nickname);
+	return this._contentHost.add(html, nickname);
 };
 
 Me.prototype.get = function(selector, nickname) {
-	ensure.signature(arguments, [String, [undefined, String]]);
-	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
-	var nodes = this._contentHost.document.querySelectorAll(selector);
-	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
-	return new QElement(nodes[0], nickname);
+	return this._contentHost.get(selector, nickname);
 };
 
 Me.prototype.getAll = function(selector, nickname) {
-	ensure.signature(arguments, [String, [undefined, String]]);
-	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
-	return new QElementList(this._contentHost.document.querySelectorAll(selector), nickname);
+	return this._contentHost.getAll(selector, nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
-	ensure.signature(arguments, [Number, Number]);
 	ensureUsable(this);
 
-	this._domElement.contentWindow.scroll(x, y);
+	return this._contentHost.scroll(x, y);
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
-	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return {
-		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._contentHost.document),
-		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._contentHost.document)
-	};
+	return this._contentHost.getRawScrollPosition();
 };
 
 Me.prototype.resize = function resize(width, height) {
