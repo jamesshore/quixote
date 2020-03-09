@@ -9,7 +9,7 @@ var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
 var GenericSize = require("./descriptors/generic_size.js");
 var Assertable = require("./assertable.js");
-var QContent = require("./q_content.js");
+var QContentHost = require("./q_content_host.js");
 
 var Me = module.exports = function QElement(domElement, nickname) {
 	ensure.signature(arguments, [Object, [String, undefined]]);
@@ -45,7 +45,7 @@ Me.prototype.getRawStyle = function(styleName) {
 	// WORKAROUND IE 8: no getComputedStyle()
 	if (window.getComputedStyle) {
 		// WORKAROUND Firefox 40.0.3: must use frame's contentWindow (ref https://bugzilla.mozilla.org/show_bug.cgi?id=1204062)
-		styles = this.parentContent().getComputedStyle(this);
+		styles = this.parentContentHost().getComputedStyle(this);
 		result = styles.getPropertyValue(styleName);
 	}
 	else {
@@ -109,7 +109,7 @@ Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
 	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
-	var parentDocument = this.parentContent().toDomElement().document;
+	var parentDocument = this.parentContentHost().toDomElement().document;
 	var parentBody = new Me(parentDocument.body, "body");
 	if (this.equals(parentBody)) return null;
 
@@ -145,10 +145,10 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
-Me.prototype.parentContent = function() {
+Me.prototype.parentContentHost = function() {
 	ensure.signature(arguments, []);
 
-	return new QContent(this._domElement.ownerDocument);
+	return new QContentHost(this._domElement.ownerDocument);
 };
 
 Me.prototype.toString = function() {

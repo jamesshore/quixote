@@ -13,7 +13,7 @@ describe("FOUNDATION: QViewport", function() {
 
 	beforeEach(function() {
 		frame = reset.frame;
-		viewport = new QViewport(frame.toContent());
+		viewport = new QViewport(frame.toContentHost());
 	});
 
 	it("is Assertable", function() {

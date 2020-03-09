@@ -4,7 +4,7 @@
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
 var quixote = require("./quixote.js");
-var QContent = require("./q_content.js");
+var QContentHost = require("./q_content_host.js");
 var QElement = require("./q_element.js");
 var QElementList = require("./q_element_list.js");
 var QViewport = require("./q_viewport.js");
@@ -21,8 +21,8 @@ var Me = module.exports = function QFrame() {
 
 function loaded(self, width, height, src, stylesheets) {
 	self._loaded = true;
-	self._content = new QContent(self._domElement.contentDocument);
-	self._originalBody = self._content.document.body.innerHTML;
+	self._contentHost = new QContentHost(self._domElement.contentDocument);
+	self._originalBody = self._contentHost.document.body.innerHTML;
 	self._originalWidth = width;
 	self._originalHeight = height;
 	self._originalSrc = src;
@@ -151,7 +151,7 @@ function loadStylesheets(self, urls, callback) {
 		link.setAttribute("rel", "stylesheet");
 		link.setAttribute("type", "text/css");
 		link.setAttribute("href", url);
-		shim.Document.head(self._content.document).appendChild(link);
+		shim.Document.head(self._contentHost.document).appendChild(link);
 	}
 }
 
@@ -165,14 +165,14 @@ function loadRawCSS(self, css) {
 	else {
 		style.innerHTML = css;
 	}
-	shim.Document.head(self._content.document).appendChild(style);
+	shim.Document.head(self._contentHost.document).appendChild(style);
 }
 
 Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	this._content.document.body.innerHTML = this._originalBody;
+	this._contentHost.document.body.innerHTML = this._originalBody;
 	this.scroll(0, 0);
 	this.resize(this._originalWidth, this._originalHeight);
 };
@@ -197,11 +197,11 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
-Me.prototype.toContent = function() {
+Me.prototype.toContentHost = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return this._content;
+	return this._contentHost;
 };
 
 Me.prototype.remove = function() {
@@ -217,14 +217,14 @@ Me.prototype.viewport = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QViewport(this._content);
+	return new QViewport(this._contentHost);
 };
 
 Me.prototype.page = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QPage(this._content);
+	return new QPage(this._contentHost);
 };
 
 Me.prototype.body = function() {
@@ -245,7 +245,7 @@ Me.prototype.get = function(selector, nickname) {
 	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
-	var nodes = this._content.document.querySelectorAll(selector);
+	var nodes = this._contentHost.document.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
 	return new QElement(nodes[0], nickname);
 };
@@ -255,7 +255,7 @@ Me.prototype.getAll = function(selector, nickname) {
 	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
-	return new QElementList(this._content.document.querySelectorAll(selector), nickname);
+	return new QElementList(this._contentHost.document.querySelectorAll(selector), nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
@@ -270,8 +270,8 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensureUsable(this);
 
 	return {
-		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._content.document),
-		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._content.document)
+		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._contentHost.document),
+		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._contentHost.document)
 	};
 };
 

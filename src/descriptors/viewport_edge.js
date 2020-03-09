@@ -4,22 +4,22 @@
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
-var QContent = require("../q_content.js");
+var QContentHost = require("../q_content_host.js");
 
 var TOP = "top";
 var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function ViewportEdge(position, content) {
-	ensure.signature(arguments, [ String, QContent ]);
+var Me = module.exports = function ViewportEdge(position, contentHost) {
+	ensure.signature(arguments, [ String, QContentHost ]);
 
 	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
 	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown position: " + position);
 
 	this._position = position;
-	this._content = content;
+	this._contentHost = contentHost;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,11 +31,11 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function() {
 	ensure.signature(arguments, []);
 
-	var scroll = this._content.getRawScrollPosition();
+	var scroll = this._contentHost.getRawScrollPosition();
 	var x = Position.x(scroll.x);
 	var y = Position.y(scroll.y);
 
-	var size = viewportSize(this._content.toDomElement().document.documentElement);
+	var size = viewportSize(this._contentHost.toDomElement().document.documentElement);
 
 	switch(this._position) {
 		case TOP: return y;

@@ -35,14 +35,14 @@ Me.prototype.value = function value() {
 	var rawPosition = this._element.getRawPosition();
 
 	var edge = rawPosition[this._position];
-	var scroll = this._element.parentContent().getRawScrollPosition();
+	var scroll = this._element.parentContentHost().getRawScrollPosition();
 
 	if (this._position === RIGHT || this._position === LEFT) {
-		if (!this._element.parentContent().elementRendered(this._element)) return Position.noX();
+		if (!this._element.parentContentHost().elementRendered(this._element)) return Position.noX();
 		return Position.x(edge + scroll.x);
 	}
 	else {
-		if (!this._element.parentContent().elementRendered(this._element)) return Position.noY();
+		if (!this._element.parentContentHost().elementRendered(this._element)) return Position.noY();
 		return Position.y(edge + scroll.y);
 	}
 };
