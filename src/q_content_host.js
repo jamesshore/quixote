@@ -47,3 +47,8 @@ Me.prototype.getComputedStyle = function getComputedStyle(element) {
 
 	return this._window.getComputedStyle(element.toDomElement());
 };
+
+Me.prototype.body = function body() {
+	var QElement = require("./q_element.js");      // break circular dependency
+	return new QElement(this.document.body, "body");
+};

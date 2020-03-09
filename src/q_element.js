@@ -109,8 +109,7 @@ Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
 	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
-	var parentDocument = this.host().toDomElement().document;
-	var parentBody = new Me(parentDocument.body, "body");
+	var parentBody = this.host().body();
 	if (this.equals(parentBody)) return null;
 
 	var parent = this._domElement.parentElement;
