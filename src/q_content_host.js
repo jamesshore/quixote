@@ -99,3 +99,14 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 		y: shim.Window.pageYOffset(this._window, this.document)
 	};
 };
+
+Me.prototype.addStylesheetLink = function addStylesheetLink(url, onStylesheetLoad) {
+	ensure.signature(arguments, [String, Function]);
+
+	var link = this.document.createElement("link");
+	shim.EventTarget.addEventListener(link, "load", function(event) { onStylesheetLoad(null); });
+	link.setAttribute("rel", "stylesheet");
+	link.setAttribute("type", "text/css");
+	link.setAttribute("href", url);
+	shim.Document.head(this.document).appendChild(link);
+};
