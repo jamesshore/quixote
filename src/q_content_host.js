@@ -12,7 +12,7 @@ var Me = module.exports = function QContentHost(contentDocument) {
 
 	this._window = contentDocument.defaultView || contentDocument.parentWindow;
 
-	// public properties
+	// internal properties
 	this.document = contentDocument;
 };
 
@@ -20,23 +20,6 @@ Me.prototype.toDomElement = function toDomElement() {
     ensure.signature(arguments, []);
 
     return this._window;
-};
-
-Me.prototype.elementRendered = function elementRendered(element) {
-    var QElement = require("./q_element.js");      // break circular dependency
-    ensure.signature(arguments, [ QElement ]);
-
-	var inDom = this.document.body.contains(element.toDomElement());
-	var displayNone = element.getRawStyle("display") === "none";
-
-	return inDom && !displayNone;
-};
-
-Me.prototype.getComputedStyle = function getComputedStyle(element) {
-    var QElement = require("./q_element.js");      // break circular dependency
-    ensure.signature(arguments, [ QElement ]);
-
-	return this._window.getComputedStyle(element.toDomElement());
 };
 
 Me.prototype.body = function body() {
@@ -100,6 +83,26 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	};
 };
 
+// internal
+Me.prototype.elementRendered = function elementRendered(element) {
+    var QElement = require("./q_element.js");      // break circular dependency
+    ensure.signature(arguments, [ QElement ]);
+
+	var inDom = this.document.body.contains(element.toDomElement());
+	var displayNone = element.getRawStyle("display") === "none";
+
+	return inDom && !displayNone;
+};
+
+// internal
+Me.prototype.getComputedStyle = function getComputedStyle(element) {
+    var QElement = require("./q_element.js");      // break circular dependency
+    ensure.signature(arguments, [ QElement ]);
+
+	return this._window.getComputedStyle(element.toDomElement());
+};
+
+// internal
 Me.prototype.addStylesheetLink = function addStylesheetLink(url, onStylesheetLoad) {
 	ensure.signature(arguments, [String, Function]);
 
@@ -111,6 +114,7 @@ Me.prototype.addStylesheetLink = function addStylesheetLink(url, onStylesheetLoa
 	shim.Document.head(this.document).appendChild(link);
 };
 
+// internal
 Me.prototype.addRawStylesheet = function addRawStylesheet(rawCSS) {
 	ensure.signature(arguments, [String]);
 
@@ -124,4 +128,10 @@ Me.prototype.addRawStylesheet = function addRawStylesheet(rawCSS) {
 		style.innerHTML = rawCSS;
 	}
 	shim.Document.head(this.document).appendChild(style);
+};
+
+// internal
+Me.prototype.equals = function equals(that) {
+	ensure.signature(arguments, [Me]);
+	return this._window === that._window;
 };

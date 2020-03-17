@@ -5,6 +5,7 @@ var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
 var quixote = require("./quixote.js");
 var QFrame = require("./q_frame.js");
+var QContentHost = require("./q_content_host");
 var QElement = require("./q_element.js");
 var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
@@ -363,73 +364,8 @@ describe("FOUNDATION: QFrame", function() {
 			frameDom = frame.toDomElement();
 		});
 
-		it("provides access to viewport descriptors", function() {
-			assert.type(frame.viewport(), QViewport);
-		});
-
-		it("provides access to page descriptors", function() {
-			assert.type(frame.page(), QPage);
-		});
-
-		it("retrieves body element", function() {
-			assert.objEqual(frame.body(), new QElement(frameDom.contentDocument.body, "body"), "body element");
-			assert.equal(frame.body().toString(), "'body'", "body description");
-		});
-
-		it("adds an element", function() {
-			var element = frame.add("<p>foo</p>");
-			var body = frame.body();
-
-			assert.objEqual(element.parent(), body, "element should be present in frame body");
-			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
-		});
-
-		it("uses optional nickname to describe added elements", function() {
-			var element = frame.add("<p>foo</p>", "my element");
-			assert.equal(element.toString(), "'my element'");
-		});
-
-		it("retrieves an element by selector", function() {
-			var expected = frame.add("<div id='foo' class='bar' baz='boo'>Irrelevant text</div>");
-			var byId = frame.get("#foo");
-			var byClass = frame.get(".bar");
-			var byAttribute = frame.get("[baz]");
-
-			assert.objEqual(byId, expected, "should get element by ID");
-			assert.objEqual(byClass, expected, "should get element by class");
-			assert.objEqual(byAttribute, expected, "should get element by attribute");
-
-			assert.equal(byId.toString(), "'#foo'", "should describe element by selector used");
-		});
-
-		it("uses optional nickname to describe retrieved elements", function() {
-			frame.add("<div id='foo'>Irrelevant text</div>");
-			var element = frame.get("#foo", "Bestest Element Ever!!");
-			assert.equal(element.toString(), "'Bestest Element Ever!!'");
-		});
-
-		it("fails fast when retrieving non-existant element", function() {
-			assert.exception(function() {
-				frame.get(".blah");
-			}, /Expected one element to match '\.blah', but found 0/);
-		});
-
-		it("fails fast when retrieving too many elements", function() {
-			frame.add("<div><p>One</p><p>Two</p></div>");
-
-			assert.exception(function() {
-				frame.get("p");
-			}, /Expected one element to match 'p', but found 2/);
-		});
-
-		it("retrieves a list of elements", function() {
-			frame.add("<div><p id='p1'>One</p><p>Two</p><p>Three</p></div>");
-			var some = frame.getAll("p");
-			var named = frame.getAll("p", "my name");
-
-			assert.objEqual(some.at(0), frame.get("#p1"), "should get a working list");
-			assert.equal(some.toString(), "'p' list", "should describe it by its selector");
-			assert.equal(named.toString(), "'my name' list", "should use nickname when provided");
+		it("provides access to contentHost", function() {
+			assert.type(frame.toContentHost(), QContentHost);
 		});
 
 		it("resets frame without src document", function() {
@@ -439,18 +375,10 @@ describe("FOUNDATION: QFrame", function() {
 			assert.equal(frameDom.contentDocument.body.innerHTML, "", "frame body");
 		});
 
-		it("scrolls", function() {
+		it("after reset, scroll position also resets", function() {
 			frame.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
-			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0 }, "should start at (0, 0)");
-
 			frame.scroll(150, 300);
-			var position = frame.getRawScrollPosition();
-
-			// WORKAROUND Chrome Mobile 74: scrolls to a fractional positions (149.7142791748047, 299.80950927734375),
-			// so we round it off
-			assert.equal(Math.round(position.x), 150, "should have scrolled right");
-			assert.equal(Math.round(position.y), 300, "should have scrolled down");
 
 			frame.reset();
 			assert.equal(frame.getRawScrollPosition().x, 0, "should have reset X scroll position");

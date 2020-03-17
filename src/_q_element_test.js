@@ -6,6 +6,7 @@ var quixote = require("./quixote.js");
 var reset = require("./__reset.js");
 var shim = require("./util/shim.js");
 var Assertable = require("./assertable.js");
+var QContentHost = require("./q_content_host");
 var QElement = require("./q_element.js");
 
 describe("FOUNDATION: QElement", function() {
@@ -102,6 +103,18 @@ describe("FOUNDATION: QElement", function() {
 		it("parent element of detached element is 'null'", function() {
 			element.remove();
 			assert.equal(element.parent(), null);
+		});
+
+		it("provides access to its host", function() {
+			var body = new QElement(document.body, "body");
+			var contentHost = new QContentHost(document);
+
+			assert.objEqual(body.host(), contentHost);
+		});
+
+		it("host of detached element is still the original host", function() {
+			element.remove();
+			assert.objEqual(element.host(), frame.toContentHost());
 		});
 
 		it("adds child element", function() {
