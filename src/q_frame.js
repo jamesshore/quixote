@@ -142,12 +142,7 @@ function loadStylesheets(self, urls, callback) {
 	async.each(urls, addLinkTag, callback);
 
 	function addLinkTag(url, onLinkLoad) {
-		var link = document.createElement("link");
-		shim.EventTarget.addEventListener(link, "load", function(event) { onLinkLoad(null); });
-		link.setAttribute("rel", "stylesheet");
-		link.setAttribute("type", "text/css");
-		link.setAttribute("href", url);
-		shim.Document.head(self._contentHost.toDomElement().document).appendChild(link);
+		self._contentHost.addStylesheetLink(url, onLinkLoad);
 	}
 }
 
