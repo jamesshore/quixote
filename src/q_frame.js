@@ -56,7 +56,7 @@ Me.create = function create(parentElement, options, callback) {
 		setTimeout(function() {
 			loaded(frame, width, height, src, stylesheets);
 			loadStylesheets(frame, stylesheets, function() {
-				if (css) loadRawCSS(frame, options.css);
+				if (css) frame._contentHost.addRawStylesheet(options.css);
 				frame._frameLoadCallback(null, frame);
 			});
 		}, 0);
@@ -143,19 +143,6 @@ function loadStylesheets(self, urls, callback) {
 	function addLinkTag(url, onLinkLoad) {
 		self._contentHost.addStylesheetLink(url, onLinkLoad);
 	}
-}
-
-function loadRawCSS(self, css) {
-	var style = document.createElement("style");
-	style.setAttribute("type", "text/css");
-	if (style.styleSheet) {
-		// WORKAROUND IE 8: Throws 'unknown runtime error' if you set innerHTML on a <style> tag
-		style.styleSheet.cssText = css;
-	}
-	else {
-		style.innerHTML = css;
-	}
-	shim.Document.head(self._contentHost.toDomElement().document).appendChild(style);
 }
 
 Me.prototype.reset = function() {
