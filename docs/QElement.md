@@ -158,6 +158,19 @@ Get the element's parent element.
 * `parent (QElement or null)` The parent element. Null if this element is the frame's body element or if this element has been removed from the DOM.
 
 
+#### element.host()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve the Content Host [`QContentHost`](QContentHost.md) for this element.
+
+`contentHost = element.host()`
+
+* `contentHost (`[`QContentHost`](QContehtHost.md)`)` The Content Host.
+
+
 #### element.toDomElement()
 
 ```

@@ -3,7 +3,7 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QFrame` controls the test frame. You'll use this to create and retrieve elements. Of particular use is [`frame.reset()`](#framereset), which you should call before each test. You'll also call [`frame.remove()`](#frameremove) after all your CSS tests are complete.
+`QFrame` controls the test frame (and is a [`QContentHost`](QContentHost.md)). You'll use this to create and retrieve elements. Of particular use is [`frame.reset()`](#framereset), which you should call before each test. You'll also call [`frame.remove()`](#frameremove) after all your CSS tests are complete.
 
 
 #### frame.reset()
@@ -239,6 +239,19 @@ Determine the (x, y) coordinate of the top-left corner of the frame. This uses [
 **Compatibility Note:** `getRawScrollPosition` does *not* attempt to resolve cross-browser differences, with one exception:
 
 * IE 8 uses `scrollLeft` and `scrollTop` rather than `pageXOffset` and `pageYOffset`.
+
+
+#### frame.toContentHost()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve the underlying [`QContentHost`](QContentHost.md) for the frame.
+
+`contentHost = frame.toContentHost()`
+
+* `contentHost (`[`QContentHost`](QContehtHost.md)`)` The Content Host.
 
 
 #### frame.toDomElement()
