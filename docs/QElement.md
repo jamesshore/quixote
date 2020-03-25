@@ -173,6 +173,19 @@ Determine if this element contains another element.
 * `otherElement (QElement)` The possible child element to check.
 
 
+#### element.host()
+
+```
+Stability: 1 - Experimental
+```
+
+Retrieve the Content Host [`QContentHost`](QContentHost.md) for this element.
+
+`contentHost = element.host()`
+
+* `contentHost (`[`QContentHost`](QContehtHost.md)`)` The Content Host.
+
+
 #### element.toDomElement()
 
 ```
