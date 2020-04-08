@@ -76,6 +76,29 @@ You won't need to run these scripts, but in case you're curious:
 * `./release.sh` publishes to npm, github, and our [documentation site](http://www.quixote-css.com).
 
 
+## Testing Mobile Browsers
+
+To run tests against mobile browsers, you can either use a real mobile device or you can use a simulator. Either way, once you have the mobile OS running, the process is the same as it is on your desktop: start the web browser you want to test, then point it at the Karma server running on your computer.
+
+But, instead of loading `http://localhost:9876`, you'll need to substitute the name or IP address of your computer, such as `http://192.168.0.1:9876`. You'll also need to make sure there's no firewall running that prevents the mobile device from talking to your computer.
+
+### To run the iOS Simulator
+
+1. You'll need a Mac running a recent version of MacOS.
+2. Install XCode from the App Store (it's free).
+3. Select the "XCode" menu item and choose Open Developer Tool --> Simulator.
+4. The simulated iOS device will boot and can be manipulated normally. The window can be moved and resized by dragging the bezel.
+
+You can perform this one-time process to make it easier to run the Simulator:
+
+1. Locate XCode.app in the finder. It's probably in the Applications folder.
+2. Right-click XCode.app and select "Show Package Contents".
+3. Navigate to Contents/Developer/Applications. (This path is correct for XCode v11.3.1. It might be different for other versions.)
+4. You should see Simulator.app. Right-click it and select "Make Alias".
+5. Drag the alias to the Applications folder. You might find it useful to rename it to "iOS Simulator.app".
+6. From now on, you should be able to run the Simulator by opening the alias in the Applications folder.
+
+
 ## Finding Your Way Around
 
 All the Quixote source and unit test code is in `src`. Test code starts with an underscore. The `src` directory uses the following structure:
