@@ -44,8 +44,8 @@ describe("FOUNDATION: Browser capability", function() {
 	it("detects whether browser expands frame to fit size of page", function() {
 		assert.equal(
 			quixote.browser.enlargesFrameToPageSize(),
-			mobileSafari,
-			"everything but Mobile Safari should respect frame size"
+			false,
+			"everything should respect frame size"
 		);
 	});
 
