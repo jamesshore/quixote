@@ -12,7 +12,7 @@
     "jake": "^10.4.6",
     "karma": "^1.3.0",
     "karma-commonjs": "1.0.0",
-    "karma-firefox-launcher": "^1.0.0",
+    "karma-firefox-launcher": "^1.3.0",
     "karma-mocha": "^1.3.0",
     "mocha": "^3.5.3",
     "semver": "^7.2.1",
