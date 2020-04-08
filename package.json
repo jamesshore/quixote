@@ -4,7 +4,7 @@
   "description": "CSS unit and integration testing",
   "main": "src/quixote.js",
   "devDependencies": {
-    "browserify": "^14.1.0",
+    "browserify": "^16.5.1",
     "eslint": "^6.8.0",
     "gaze": "^1.1.2",
     "glob": "^7.1.1",
