@@ -446,13 +446,16 @@ describe("FOUNDATION: QFrame", function() {
 
 			frame.scroll(150, 300);
 			var position = frame.getRawScrollPosition();
+
+			// WORKAROUND Chrome Mobile 74: scrolls to a fractional positions (149.7142791748047, 299.80950927734375),
+			// so we round it off
 			if (quixote.browser.enlargesFrameToPageSize()) {
 				assert.equal(position.x, 0, "should not have scrolled horizontally because whole page is displayed");
 				assert.equal(position.y, 0, "should not have scrolled vertically because whole page is displayed");
 			}
 			else {
-				assert.equal(position.x, 150, "should have scrolled right");
-				assert.equal(position.y, 300, "should have scrolled down");
+				assert.equal(Math.round(position.x), 150, "should have scrolled right");
+				assert.equal(Math.round(position.y), 300, "should have scrolled down");
 			}
 
 			frame.reset();

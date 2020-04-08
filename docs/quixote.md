@@ -41,7 +41,7 @@ before(function(done) {
 
 **Stability Note:** The default width and height are chosen to be "sufficiently large" for most uses. It may increase or decrease in the future. If the size of your frame affects its rendering, be sure to specify the size you want, even if your needs match the current default.
 
-**Compatibility Note:** Older versions of Mobile Safari did not strictly obey the `width` and `height` attributes on an iframe. Instead, they uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md#quixotebrowser). We don't know when the behavior changed; Mobile Safari 10.0.0 had this error, but Mobile Safari 13.0.4 didn't.
+**Compatibility Note:** Older versions of Mobile Safari did not strictly obey the `width` and `height` attributes on an iframe. Instead, they uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md#quixotebrowser).
 
 **Compatibility Note:** Mobile Safari will increase the size of small fonts depending on the width of the frame. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](#quixotebrowser).
 
