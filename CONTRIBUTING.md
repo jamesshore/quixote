@@ -114,7 +114,6 @@ You can perform this one-time process to make it easier to run the Simulator:
 (These instructions were created using Android Studio v3.6.2.)
 
 
-
 ## Finding Your Way Around
 
 All the Quixote source and unit test code is in `src`. Test code starts with an underscore. The `src` directory uses the following structure:
