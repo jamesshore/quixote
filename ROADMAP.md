@@ -13,17 +13,27 @@
 * **✔ v0.12** Element display status descriptors
 * **✔ v0.13** Element rendering boundaries
 * **✔ v0.14** QFrame quality of life improvements
+* **v0.15** New assertions
 * See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for upcoming release plans.
 
 
-## Current Feature
+## Current Feature: Support for third-party assertion libraries
 
-* DONE
+* Value.toPrimitive()
+* Descriptor.valueOf()
+* Documentation
 
 
-## To Do
+## To Do: Value.toPrimitive()
 
-* DONE
+* Pixels.toPrimitive()
+* Position.toPrimitive()
+* RenderState.toPrimitive()
+* Size.toPrimitive()
+* Value.toPrimitive()
+* End-to-end tests
+* Update README
+* Update CONTRIBUTING
 
 
 ## Dogfooding Notes

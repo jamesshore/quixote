@@ -44,8 +44,8 @@ describe("FOUNDATION: Browser capability", function() {
 	it("detects whether browser expands frame to fit size of page", function() {
 		assert.equal(
 			quixote.browser.enlargesFrameToPageSize(),
-			mobileSafari,
-			"everything but Mobile Safari should respect frame size"
+			false,
+			"everything should respect frame size"
 		);
 	});
 
@@ -68,8 +68,8 @@ describe("FOUNDATION: Browser capability", function() {
 	it("detects whether browser computes `clip: rect(auto, ...)` value correctly", function() {
 		assert.equal(
 			quixote.browser.misreportsAutoValuesInClipProperty(),
-			chromeMobile || ie11,
-			"everything but Android Mobile and IE 11 should calculate clip values properly"
+			ie11,
+			"everything but IE 11 should calculate clip values properly"
 		);
 	});
 

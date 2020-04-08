@@ -202,7 +202,7 @@ Changes the size of the frame.
 * `width (number)` The frame's new width
 * `height (number)` The frame's new height
 
-**Compatibility Note:** Mobile Safari does not strictly obey the `width` and `height` attributes on an iframe. Instead, it uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md#quixotebrowser).
+**Compatibility Note:** Older versions of Mobile Safari did not strictly obey the `width` and `height` attributes on an iframe. Instead, they uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md#quixotebrowser).
 
 
 #### frame.scroll()

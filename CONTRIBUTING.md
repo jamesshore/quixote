@@ -76,6 +76,44 @@ You won't need to run these scripts, but in case you're curious:
 * `./release.sh` publishes to npm, github, and our [documentation site](http://www.quixote-css.com).
 
 
+## Testing Mobile Browsers
+
+To run tests against mobile browsers, you can either use a real mobile device or you can use a simulator. Either way, once you have the mobile OS running, the process is the same as it is on your desktop: start the web browser you want to test, then point it at the Karma server running on your computer.
+
+But, instead of loading `http://localhost:9876`, you'll need to substitute the name or IP address of your computer, such as `http://192.168.0.1:9876`. You'll also need to make sure there's no firewall running that prevents the mobile device from talking to your computer.
+
+### To run the iOS Simulator
+
+1. You'll need a Mac running a recent version of MacOS.
+2. Install XCode from the App Store (it's free).
+3. Select the "XCode" menu item and choose Open Developer Tool --> Simulator.
+4. The simulated iOS device will boot and can be manipulated normally. The window can be moved and resized by dragging the bezel.
+
+You can perform this one-time process to make it easier to run the Simulator:
+
+1. Locate XCode.app in the Finder. It's probably in the Applications folder.
+2. Right-click XCode.app and select "Show Package Contents".
+3. Navigate to Contents/Developer/Applications. (This path is correct for XCode v11.3.1. It might be different for other versions.)
+4. You should see Simulator.app. Right-click it and select "Make Alias".
+5. Drag the alias to the Applications folder. You might find it useful to rename it to "iOS Simulator.app".
+6. From now on, you should be able to run the Simulator by opening the alias in the Applications folder.
+
+(These instructions were created using XCode v11.3.1.)
+
+
+### To run the Android Emulator:
+
+1. Install [Android Studio](https://developer.android.com/studio/install). During the install, select the "Performance" and "Android Virtual Device" options. If you already have Android Studio installed, see [these instructions](https://developer.android.com/studio/run/emulator#install) for installing the emulator.
+2. After installing, run Android Studio and choose "Start a new Android Studio project," then "Empty Activity." Use the default configuration and press "Finish."
+3. After the IDE opens, find and press the "AVD Manager" icon below the title bar. It looks like a small phone with a green blob in the lower right corner. It may also be available in the Tools menu.
+4. A window labelled "Your Virtual Devices" will appear. If you see a link labelled "Update System Images," select it and perform the installation.
+5. In the "Your Virtual Devices" window, if you don't see the version of Android you want, press the "Create Virtual Device" button.
+6. Once you have the device you want, press the small green "play" button on the right.
+7. The emulated Android device will boot and can be manipulated normally. The window can be moved by dragging the bezel. It can't be resized.
+
+(These instructions were created using Android Studio v3.6.2.)
+
+
 ## Finding Your Way Around
 
 All the Quixote source and unit test code is in `src`. Test code starts with an underscore. The `src` directory uses the following structure:

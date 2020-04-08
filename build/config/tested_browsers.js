@@ -5,16 +5,16 @@
 // browser + operating system combinations.
 
 // Version numbers match those reported by Karma. In some cases, the bugfix
-// version number may be incorrectly reported as ".0", and Windows is
-// incorrectly reported as "0.0.0".
+// version number may be incorrectly reported as ".0". Windows and Android
+// are incorrectly reported as "0.0.0".
 
 module.exports = [
-	"Chrome 62.0.3202 (Mac OS X 10.11.6)",
-	"Firefox 57.0.0 (Mac OS X 10.11.0)",
+	"Chrome 80.0.3987 (Mac OS X 10.14.6)",
+	"Firefox 74.0.0 (Mac OS X 10.14.0)",
 	"IE 8.0.0 (Windows 7 0.0.0)",
 	"IE 11.0.0 (Windows 7 0.0.0)",
-	"Edge 14.14393.0 (Windows 10 0.0.0)",
-	"Safari 11.0.1 (Mac OS X 10.11.6)",
-	"Mobile Safari 10.0.0 (iOS 10.2.0)",
-	"Chrome Mobile WebView 44.0.2403 (Android 6.0.0)"
+	"Edge 18.18362.0 (Windows 10 0.0.0)",
+	"Safari 13.1.0 (Mac OS X 10.14.6)",
+	"Mobile Safari 13.0.4 (iOS 13.3.0)",
+	"Chrome Mobile 74.0.3729 (Android 0.0.0)"
 ];
