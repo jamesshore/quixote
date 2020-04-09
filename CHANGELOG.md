@@ -3,6 +3,13 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
+## 0.15.x: Minor Rendered Element improvements
+
+**9 Nov 2020.** A few small improvements to the behavior of the `element.rendered` descriptor. The code no longer throws an exception when different values are used for `overflow-x` and `overflow-y`, or if a compound `overflow` parameter is used.
+
+**No breaking changes.**
+
+
 ## 0.14.x: Minor QFrame improvements
 
 **14 Nov 2017.** This small release adds quality-of-life improvements to `QFrame`. Quixote now checks URLs asynchronously in `quixote.createFrame()`, which may speed up tests slightly. This also means Firefox and Chrome will no longer show XMLHttpRequest deprecation warnings in the console. In addition, several `QFrame` methods have been updated to fail fast if they're used before the frame is loaded, which will make debugging easier.
