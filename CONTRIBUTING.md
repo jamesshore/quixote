@@ -103,7 +103,7 @@ You can perform this one-time process to make it easier to run the Simulator:
 
 1. Locate XCode.app in the Finder. It's probably in the Applications folder.
 2. Right-click XCode.app and select "Show Package Contents".
-3. Navigate to Contents/Developer/Applications. (This path is correct for XCode v11.3.1. It might be different for other versions.)
+3. Navigate to Contents/Developer/Applications.
 4. You should see Simulator.app. Right-click it and select "Make Alias".
 5. Drag the alias to the Applications folder. You might find it useful to rename it to "iOS Simulator.app".
 6. From now on, you should be able to run the Simulator by opening the alias in the Applications folder.
