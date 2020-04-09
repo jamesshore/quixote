@@ -58,23 +58,15 @@ To work with the code on your own computer:
 
 At this time, the build has only been tested on Mac OS X. It should also work on Unix without any trouble. It's theoretically capable of working on Windows, but needs some script work before that's easy and convenient.
 
-### Debugging with tests
+### Visually inspecting test output
 
-Sometimes, you'll need to manually inspect the results of a test. But Karma (our test runner) automatically resets itself after the end of every test run. To see the results, you need to press the "DEBUG" button on the Karma page in the browser you want to look at. This will open a new tab and run the tests in that tab. It doesn't automatically refresh, so after you make changes, you'll need to run the tests and then manually refresh the tab.
-
-We have a global `beforeEach()` defined in `__reset.js` that resets the test frame before every test run, so you'll only be able to see the results of the last test that runs. Don't change `__reset.js`; instead, make the code run just the one test you want by using Mocha's `.only` feature. To use it, change the test function you care about from `it(...)` to `it.only(...)`. (You can also use `it.skip(...)` to skip tests.)
-
-Therefore, use this process when manually debugging tests:
+To look at the results of a test run, use this process:
 
 1. Change the test you want to debug to use `it.only(...)`.
 2. Run the tests using the `quick` option so the build only runs the tests you changed.
 3. Press the 'Debug' button on the Karma page in the browser you want to check.
-4. Debug.
-	a. Do some work.
-	b. Run the tests.
-	c. Refresh the Karma 'Debug' tab.
-	d. Repeat until done.
-5. When done, remove any uses of `.only` and close the Karma 'Debug' tab.
+4. Karma will open the test in a new tab and you'll be able to see the output.
+4. To check again, run the tests again and reload Karma's debug tab.
 
 ### Build parameters
 
@@ -111,7 +103,7 @@ You can perform this one-time process to make it easier to run the Simulator:
 
 1. Locate XCode.app in the Finder. It's probably in the Applications folder.
 2. Right-click XCode.app and select "Show Package Contents".
-3. Navigate to Contents/Developer/Applications. (This path is correct for XCode v11.3.1. It might be different for other versions.)
+3. Navigate to Contents/Developer/Applications.
 4. You should see Simulator.app. Right-click it and select "Make Alias".
 5. Drag the alias to the Applications folder. You might find it useful to rename it to "iOS Simulator.app".
 6. From now on, you should be able to run the Simulator by opening the alias in the Applications folder.
