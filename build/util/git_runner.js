@@ -58,10 +58,6 @@ function throwIfErrorCode(errorCode) {
 	if (errorCode !== 0) throw new Error("git exited with error code " + errorCode);
 }
 
-function failErrorCode(fail, errorCode) {
-	return fail("git exited with error code " + errorCode);
-}
-
 function git(args) {
 	// Why do we use this monster instead of child_process.execFile()? Because we need fine-grained
 	// control over our errors. child_process.execFile() uses a single 'error' object for actual
