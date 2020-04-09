@@ -1,8 +1,0 @@
-language: node_js
-node_js: "12.16.2"
-
-script: ". ./jake.sh loose=true lint"
-
-#notifications:
-#  email:
-#    on_success: always
