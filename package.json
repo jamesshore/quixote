@@ -1,6 +1,6 @@
 {
   "name": "quixote",
-  "version": "0.14.0",
+  "version": "0.14.1",
   "description": "CSS unit and integration testing",
   "main": "src/quixote.js",
   "dependencies": {},
