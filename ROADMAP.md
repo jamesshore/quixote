@@ -17,14 +17,6 @@
 * See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for upcoming release plans.
 
 
-## Current Feature: Issue #57
-
-* Fix issue
-	* Document fix
-* Fail fast when `overflow: overlay` used; say that it's deprecated
-* Fail fast when `overflow: clip` used, but say that it could be added when browser support is added
-
-
 ## Upcoming Feature: Support for third-party assertion libraries
 
 * Value.toPrimitive()
