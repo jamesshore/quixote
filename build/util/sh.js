@@ -1,41 +1,23 @@
 // Copyright (c) 2012-2017 Titanium I.T. LLC. All rights reserved. See LICENSE.txt for details.
 "use strict";
 
-var jake = require("jake");
+var child_process = require("child_process");
 
-exports.runMany = function(commands, successCallback, failureCallback) {
-	var stdout = [];
-	function serializedSh(command) {
-		if (command) {
-			run(command, function(oneStdout) {
-				stdout.push(oneStdout);
-				serializedSh(commands.shift());
-			}, failureCallback);
-		}
-		else {
-			successCallback(stdout);
-		}
-	}
-	serializedSh(commands.shift());
-};
-
-var run = exports.run = function(oneCommand, successCallback, failureCallback) {
+var run = exports.run = function(command, args, successCallback, failureCallback) {
+	console.log(`> ${command} ${args.join(" ")}`);
 	var stdout = "";
-	var child = jake.createExec(oneCommand);
-	child.on("stdout", function(data) {
-		process.stdout.write(data);
+	var child = child_process.spawn(command, args);
+	child.stdout.on("data", (data) => {
 		stdout += data;
+		process.stdout.write(data);
 	});
-	child.on("stderr", function(data) {
+	child.stderr.on("data", (data) => {
 		process.stderr.write(data);
 	});
-	child.on("cmdEnd", function() {
+	child.on("error", failureCallback);
+	child.on("exit", (code) => {
 		successCallback(stdout);
 	});
-	child.on("error", function() {
-		failureCallback(stdout);
-	});
-
-	console.log("> " + oneCommand);
-	child.run();
 };
+
+

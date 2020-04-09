@@ -2,4 +2,4 @@
 # Also ensures node modules have been installed
 
 [ ! -f node_modules/.bin/jake ] && echo "Installing NPM modules:" && npm install
-node_modules/.bin/jake $*
+node_modules/.bin/jake --quiet $*

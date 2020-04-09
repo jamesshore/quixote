@@ -9,7 +9,7 @@ var startTime = Date.now();
 // loading modules we don't need. The require statements here are just the ones that are used to set up the tasks.
 var paths = require("../config/paths.js");
 
-var BUILD_NODE_VERSION = "8.8.1";   // The version of Node we use to build Quixote
+var BUILD_NODE_VERSION = "12.16.2";   // The version of Node we use to build Quixote
 
 //*** GENERAL
 
