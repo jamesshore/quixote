@@ -11,7 +11,6 @@ var quixote = require("./quixote.js");
 
 exports.WIDTH = 500;
 exports.HEIGHT = 400;
-exports.DEBUG = false;
 
 before(function(done) {
 	this.timeout(20000);
@@ -22,11 +21,6 @@ before(function(done) {
 	};
 
 	exports.frame = quixote.createFrame(options, done);
-});
-
-after(function() {
-	if (!exports.DEBUG) exports.frame.remove();
-	else console.log("WARNING: __reset.js DEBUG mode on; test frame not removed");
 });
 
 beforeEach(function() {
