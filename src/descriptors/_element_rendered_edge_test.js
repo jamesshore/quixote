@@ -168,15 +168,41 @@ describe("DESCRIPTOR: ElementRenderedEdge", function() {
 
 			function test(overflowStyle) {
 				parent(overflowStyle + " position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
-				assertNotRendered("position:absolute; top: -20px; height: 10px");
+				assertNotRendered("position: absolute; top: -20px; height: 10px;");
 			}
+		});
+
+		it("accounts for different X and Y overflow settings", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+
+			parent("overflow-x: visible; overflow-y: hidden; position: absolute; top: 50px; height: 100px; left: 60px; width: 100px; background-color: red;");
+			assertRendered(
+				"position: absolute; top: -10px; height: 200px; left: -10px; width: 200px; background-color: blue",
+				50, 160, 150, 60,
+				"clips on all sides despite `overflow-x: visible` (spec says it is set to 'auto')"
+			);
+			parent("overflow-x: hidden; overflow-y: visible; position: absolute; top: 50px; height: 100px; left: 60px; width: 100px; background-color: red;");
+			assertRendered(
+				"position: absolute; top: -10px; height: 200px; left: -10px; width: 200px; background-color: blue",
+				50, 160, 150, 60,
+				"clips on all sides despite `overflow-y: visible` (spec says it is set to 'auto')"
+			);
+		});
+
+		it("does not crash when compound 'overflow' parameter used (but results correctly vary by browser)", function() {
+			if (quixote.browser.misreportsClipAutoProperty()) return;
+
+			parent("overflow: hidden visible");
+			assert.noException(
+				function() { top.value(); }
+			);
 		});
 
 		it("accounts for clipped overflow anywhere in parent hierarchy", function() {
 			if (quixote.browser.misreportsClipAutoProperty()) return;
 
 			grandparent("overflow: hidden; position: absolute; top: 50px; height: 100px; left: 50px; width: 100px;");
-			assertNotRendered("position:absolute; top: -20px; height: 10px");
+			assertNotRendered("position:absolute; top: -20px; height: 10px;");
 		});
 
 		it("accounts for multiple uses of clipped overflow", function() {
@@ -272,10 +298,16 @@ describe("DESCRIPTOR: ElementRenderedEdge", function() {
 
 				var style = "position: absolute; top: 50px; height: 100px; left: 40px; width: 100px; ";
 
-				assertRendered(style + " clip: rect(-10px, auto, auto, auto)", 50, 140, 150, 40, "negative top");
+				assertRendered(
+					style + " clip: rect(-10px, auto, auto, auto)",
+					50, 140, 150, 40, "negative top"
+				);
 				assertNotRendered(style + " clip: rect(auto, -10px, auto, auto)", "negative right");
 				assertNotRendered(style + " clip: rect(auto, auto, -10px, auto)", "negative bottom");
-				assertRendered(style + " clip: rect(auto, auto, auto, -10px)", 50, 140, 150, 40, "negative left");
+				assertRendered(
+					style + " clip: rect(auto, auto, auto, -10px)",
+					50, 140, 150, 40, "negative left"
+				);
 			});
 
 			it("handles fractional clip values", function() {

@@ -6,7 +6,6 @@ var quixote = require("../quixote.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
 var Size = require("../values/size.js");
-var RenderState = require("../values/render_state.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -191,16 +190,20 @@ function canBeClippedByOverflowProperty(element) {
 }
 
 function hasClippingOverflow(element) {
-	var overflow = element.getRawStyle("overflow");
-	switch (overflow) {
-		case "hidden":
-		case "scroll":
-		case "auto":
-			return true;
-		case "visible":
-			return false;
-		default:
-			ensure.unreachable("Unknown overflow property: " + overflow);
+	return clips("overflow-x") || clips("overflow-y");
+
+	function clips(style) {
+		var overflow = element.getRawStyle(style);
+		switch (overflow) {
+			case "hidden":
+			case "scroll":
+			case "auto":
+				return true;
+			case "visible":
+				return false;
+			default:
+				ensure.unreachable("Unknown " + style + " property: " + overflow);
+		}
 	}
 }
 
