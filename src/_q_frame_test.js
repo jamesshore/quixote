@@ -463,6 +463,49 @@ describe("FOUNDATION: QFrame", function() {
 			assert.equal(frame.viewport().height.diff(reset.HEIGHT - 100), "", "height");
 		});
 
+		// WORKAROUND IE 11, Edge 18.18362.0
+		it("forces reflow after resizing frame so media queries take effect (issue #52)", function() {
+			try {
+				frame.add(
+					"<style type='text/css'>" +
+						".header { font-size: 20px; }" +
+						"@media (min-width: 640px) {" +
+							".header { font-size: 40px; }" +
+						"}" +
+					"</style>"
+				);
+			}
+			catch (err) {
+				// WORKAROUND IE 8: Can't add <style> tag, so we just don't run this test.
+				// Creating a new frame with media query in the CSS might be a better solution, but couldn't figure out
+				// how to make that work on any browser.
+				if (err.message.indexOf("Expected one element, but got 0") !== -1) return;    // Only IE8 will give this error
+				else throw err;
+			}
+
+			var element = frame.add("<h1 class=header>hello</h1>");
+			frame.resize(200, 500);
+			assert.equal(element.getRawStyle("font-size"), "20px");
+
+			frame.resize(800, 500);
+			assert.equal(element.getRawStyle("font-size"), "40px");
+		});
+
+		// WORKAROUND Safari 13.1.0, Mobile Safari 13.0.4, Chrome Mobile 74.0.3729, Chrome 80.0.3987, IE 11, Edge 18.18362.0
+		// Works fine on Firefox 75 :-)
+		it("forces reflow after resizing frame so viewport-relative sizes catch up (issue #52)", function() {
+			var element = frame.add("<h1 style='font-size: 10vw'>hello</h1>");
+
+			// WORKAROUND IE 8: doesn't support viewport-relative sizes, so we don't run this test
+			if (element.getRawStyle("font-size") === "2em") return;  // Only IE8 will say the size is 2em.
+
+			frame.resize(200, 500);
+			assert.equal(element.getRawStyle("font-size"), "20px");
+
+			frame.resize(800, 500);
+			assert.equal(element.getRawStyle("font-size"), "80px");
+		});
+
 		it("resets frame to original size", function() {
 			frame.resize(reset.WIDTH + 100, reset.HEIGHT + 100);
 			frame.reset();

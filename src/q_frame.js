@@ -273,7 +273,12 @@ Me.prototype.resize = function resize(width, height) {
 
 	this._domElement.setAttribute("width", "" + width);
 	this._domElement.setAttribute("height", "" + height);
+	forceReflow(this);
 };
+
+function forceReflow(self) {
+	self.body().toDomElement().offsetTop;
+}
 
 function ensureUsable(self) {
 	ensureLoaded(self);
