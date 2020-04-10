@@ -169,7 +169,7 @@ Me.prototype.reset = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	this._contentHost.body().toDomElement().innerHTML = this._originalBody;
+	this._document.body.innerHTML = this._originalBody;
 	this.scroll(0, 0);
 	this.resize(this._originalWidth, this._originalHeight);
 };
