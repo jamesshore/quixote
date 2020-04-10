@@ -9,7 +9,8 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 *Patches:*
 
-* *0.14.1, 9 Apr 2020:* Bugfix: No longer throw exception when `element.rendered` descriptor sees different values for `overflow-x` and `overflow-y`, or if a compound `overflow` parameter is used.
+* *0.14.1, 9 Apr 2020:* Bugfix: No longer throw exception when `element.rendered` descriptor sees different values for `overflow-x` and `overflow-y`, or if a compound `overflow` parameter is used. ([Issue #57](https://github.com/jamesshore/quixote/issues/57))
+* *0.14.2, 9 Apr 2020:* Bugfix: Automatically reflow page after resizing frame so font sizes update when using media queries or viewport-relative sizes on certain browsers. ([Issue #52](https://github.com/jamesshore/quixote/issues/52))
 
 **Breaking changes:**
 
