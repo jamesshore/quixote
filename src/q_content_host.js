@@ -96,22 +96,6 @@ Me.prototype.addStylesheetLink = function addStylesheetLink(url, onStylesheetLoa
 };
 
 // internal
-Me.prototype.addRawStylesheet = function addRawStylesheet(rawCSS) {
-	ensure.signature(arguments, [String]);
-
-	var style = this.document.createElement("style");
-	style.setAttribute("type", "text/css");
-	if (style.styleSheet) {
-		// WORKAROUND IE 8: Throws 'unknown runtime error' if you set innerHTML on a <style> tag
-		style.styleSheet.cssText = rawCSS;
-	}
-	else {
-		style.innerHTML = rawCSS;
-	}
-	shim.Document.head(this.document).appendChild(style);
-};
-
-// internal
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [Me]);
 	return this._window === that._window;
