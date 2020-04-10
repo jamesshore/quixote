@@ -49,7 +49,7 @@ before(function(done) {
 #### quixote.browser
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Methods for checking browser compatibility.

@@ -3,7 +3,6 @@
 
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
-var quixote = require("./quixote.js");
 var QElement = require("./q_element.js");
 var QElementList = require("./q_element_list.js");
 var QViewport = require("./q_viewport.js");
