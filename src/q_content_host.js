@@ -84,18 +84,6 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 };
 
 // internal
-Me.prototype.addStylesheetLink = function addStylesheetLink(url, onStylesheetLoad) {
-	ensure.signature(arguments, [String, Function]);
-
-	var link = this.document.createElement("link");
-	shim.EventTarget.addEventListener(link, "load", function(event) { onStylesheetLoad(null); });
-	link.setAttribute("rel", "stylesheet");
-	link.setAttribute("type", "text/css");
-	link.setAttribute("href", url);
-	shim.Document.head(this.document).appendChild(link);
-};
-
-// internal
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [Me]);
 	return this._window === that._window;

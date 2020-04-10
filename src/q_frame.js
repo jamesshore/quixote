@@ -57,7 +57,7 @@ Me.create = function create(parentElement, options, callback) {
 		// We force it to be asynchronous here
 		setTimeout(function() {
 			loaded(frame, width, height, src, stylesheets);
-			loadStylesheets(frame, stylesheets, function() {
+			addStylesheetLinkTags(frame, stylesheets, function() {
 				if (css) addStyleTag(frame, options.css);
 				frame._frameLoadCallback(null, frame);
 			});
@@ -139,11 +139,16 @@ function writeStandardsModeHtml(iframe) {
 	iframe.contentWindow.document.close();
 }
 
-function loadStylesheets(self, urls, callback) {
+function addStylesheetLinkTags(self, urls, callback) {
 	async.each(urls, addLinkTag, callback);
 
 	function addLinkTag(url, onLinkLoad) {
-		self._contentHost.addStylesheetLink(url, onLinkLoad);
+		var link = self._document.createElement("link");
+		shim.EventTarget.addEventListener(link, "load", function(event) { onLinkLoad(null); });
+		link.setAttribute("rel", "stylesheet");
+		link.setAttribute("type", "text/css");
+		link.setAttribute("href", url);
+		shim.Document.head(self._document).appendChild(link);
 	}
 }
 
