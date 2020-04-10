@@ -4,7 +4,6 @@
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
-var QContentHost = require("../q_content_host.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -12,6 +11,7 @@ var BOTTOM = "bottom";
 var LEFT = "left";
 
 var Me = module.exports = function ViewportEdge(position, contentHost) {
+	var QContentHost = require("../q_content_host.js");   // break circular dependency
 	ensure.signature(arguments, [ String, QContentHost ]);
 
 	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
