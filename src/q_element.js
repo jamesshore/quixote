@@ -149,6 +149,7 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
+// internal
 Me.prototype.host = function() {
 	ensure.signature(arguments, []);
 
