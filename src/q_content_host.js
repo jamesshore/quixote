@@ -8,7 +8,7 @@ var Me = module.exports = function QContentHost(contentDocument) {
 	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
 	// Since the document is in an iFrame its HTMLDocument definition is the iFrame window's HTMLDocument and
 	// not the top level window's version.
-	ensure.signature(arguments, [ Object ]);
+	ensure.signature(arguments, [Object]);
 
 	this._window = contentDocument.defaultView || contentDocument.parentWindow;
 
@@ -17,9 +17,9 @@ var Me = module.exports = function QContentHost(contentDocument) {
 };
 
 Me.prototype.toDomElement = function toDomElement() {
-    ensure.signature(arguments, []);
+	ensure.signature(arguments, []);
 
-    return this._window;
+	return this._window;
 };
 
 Me.prototype.body = function body() {
@@ -32,14 +32,14 @@ Me.prototype.body = function body() {
 Me.prototype.viewport = function viewport() {
 	var QViewport = require("./q_viewport.js");      // break circular dependency
 	ensure.signature(arguments, []);
-	
+
 	return new QViewport(this);
 };
 
 Me.prototype.page = function page() {
 	var QPage = require("./q_page.js");      // break circular dependency
 	ensure.signature(arguments, []);
-	
+
 	return new QPage(this);
 };
 
@@ -75,7 +75,7 @@ Me.prototype.scroll = function scroll(x, y) {
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
-    ensure.signature(arguments, []);
+	ensure.signature(arguments, []);
 
 	return {
 		x: shim.Window.pageXOffset(this._window, this.document),
@@ -85,8 +85,8 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 
 // internal
 Me.prototype.elementRendered = function elementRendered(element) {
-    var QElement = require("./q_element.js");      // break circular dependency
-    ensure.signature(arguments, [ QElement ]);
+	var QElement = require("./q_element.js");      // break circular dependency
+	ensure.signature(arguments, [QElement]);
 
 	var inDom = this.document.body.contains(element.toDomElement());
 	var displayNone = element.getRawStyle("display") === "none";
@@ -96,8 +96,8 @@ Me.prototype.elementRendered = function elementRendered(element) {
 
 // internal
 Me.prototype.getComputedStyle = function getComputedStyle(element) {
-    var QElement = require("./q_element.js");      // break circular dependency
-    ensure.signature(arguments, [ QElement ]);
+	var QElement = require("./q_element.js");      // break circular dependency
+	ensure.signature(arguments, [QElement]);
 
 	return this._window.getComputedStyle(element.toDomElement());
 };
