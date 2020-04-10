@@ -36,6 +36,7 @@ describe("FOUNDATION: QElement", function() {
 		assert.implements(element, Assertable);
 	});
 
+
 	describe("object", function() {
 
 		it("compares to another QElement", function() {
@@ -60,6 +61,7 @@ describe("FOUNDATION: QElement", function() {
 		});
 
 	});
+
 
 	describe("DOM manipulation", function() {
 
@@ -123,7 +125,19 @@ describe("FOUNDATION: QElement", function() {
 			}, /Expected one element, but got 2 \(<p>foo<\/p><div>bar<\/div>\)/);
 		});
 
+		it("knows if it contains an element", function() {
+			var child = element.add("<div>child</div>");
+			var grandchild = element.add("<div>grandchild</div>");
+
+			assert.equal(element.contains(child), true, "child");
+			assert.equal(element.contains(grandchild), true, "grandchild");
+
+			child.remove();
+			assert.equal(element.contains(child), false, "removed child");
+		});
+
 	});
+
 
 	describe("properties", function() {
 
@@ -159,6 +173,7 @@ describe("FOUNDATION: QElement", function() {
 		});
 
 	});
+
 
 	describe("raw styles and positions", function() {
 
