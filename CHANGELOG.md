@@ -9,7 +9,7 @@ Description TBD
 
 *New methods:*
 
-* QElement.contains
+* QElement.con./wtains
 
 
 ## 0.14.x: Minor QFrame improvements

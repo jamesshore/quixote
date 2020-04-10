@@ -158,6 +158,21 @@ Get the element's parent element.
 * `parent (QElement or null)` The parent element. Null if this element is the frame's body element or if this element has been removed from the DOM.
 
 
+#### element.contains()
+
+```
+Stability: 2 - Unstable
+```
+
+Determine if this element contains another element.
+
+`isContained = element.contains(otherElement)`
+
+* `isContained (boolean)` True if `element` is an ancestor of `otherElement` or if they are the same element. False otherwise.
+
+* `otherElement (QElement)` The possible child element to check.
+
+
 #### element.toDomElement()
 
 ```
