@@ -2,7 +2,6 @@
 "use strict";
 
 var assert = require("./util/assert.js");
-var quixote = require("./quixote.js");
 var reset = require("./__reset.js");
 var QContentHost = require("./q_content_host");
 var QElement = require("./q_element.js");

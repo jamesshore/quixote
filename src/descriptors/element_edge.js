@@ -4,7 +4,6 @@
 var ensure = require("../util/ensure.js");
 var Position = require("../values/position.js");
 var PositionDescriptor = require("./position_descriptor.js");
-var shim = require("../util/shim.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -33,16 +32,17 @@ Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
 	var rawPosition = this._element.getRawPosition();
-
 	var edge = rawPosition[this._position];
+
 	var scroll = this._element.host().getRawScrollPosition();
+	var rendered = elementRendered(this._element);
 
 	if (this._position === RIGHT || this._position === LEFT) {
-		if (!this._element.host().elementRendered(this._element)) return Position.noX();
+		if (!rendered) return Position.noX();
 		return Position.x(edge + scroll.x);
 	}
 	else {
-		if (!this._element.host().elementRendered(this._element)) return Position.noY();
+		if (!rendered) return Position.noY();
 		return Position.y(edge + scroll.y);
 	}
 };
@@ -56,4 +56,11 @@ function factoryFn(position) {
 	return function factory(element) {
 		return new Me(element, position);
 	};
+}
+
+function elementRendered(element) {
+	var inDom = element.host().body().contains(element);
+	var displayNone = element.getRawStyle("display") === "none";
+
+	return inDom && !displayNone;
 }

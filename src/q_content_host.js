@@ -84,17 +84,6 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 };
 
 // internal
-Me.prototype.elementRendered = function elementRendered(element) {
-	var QElement = require("./q_element.js");      // break circular dependency
-	ensure.signature(arguments, [QElement]);
-
-	var inDom = this.document.body.contains(element.toDomElement());
-	var displayNone = element.getRawStyle("display") === "none";
-
-	return inDom && !displayNone;
-};
-
-// internal
 Me.prototype.getComputedStyle = function getComputedStyle(element) {
 	var QElement = require("./q_element.js");      // break circular dependency
 	ensure.signature(arguments, [QElement]);
