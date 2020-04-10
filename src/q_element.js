@@ -82,7 +82,7 @@ Me.prototype.calculatePixelValue = function(sizeString) {
 
 	style.position = "absolute";
 	style.left = sizeString;
-	result = parseFloat(this.getRawStyle("left"));    // parseInt strips of 'px' value
+	result = parseFloat(this.getRawStyle("left"));    // parseInt strips off 'px' value
 
 	style.position = oldPosition;
 	style.left = oldLeft;
