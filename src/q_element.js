@@ -117,7 +117,7 @@ Me.prototype.parent = function(nickname) {
 };
 
 Me.prototype.add = function(html, nickname) {
-	ensure.signature(arguments, [String, [undefined, String]]);
+	ensure.signature(arguments, [ String, [ undefined, String ] ]);
 	if (nickname === undefined) nickname = html + " in " + this._nickname;
 
 	var tempElement = document.createElement("div");
@@ -137,6 +137,11 @@ Me.prototype.remove = function() {
 	shim.Element.remove(this._domElement);
 };
 
+Me.prototype.contains = function(element) {
+	ensure.signature(arguments, [ Me ]);
+	return this.toDomElement().contains(element.toDomElement());
+};
+
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
 	return this._domElement;
@@ -148,6 +153,6 @@ Me.prototype.toString = function() {
 };
 
 Me.prototype.equals = function(that) {
-	ensure.signature(arguments, [Me]);
+	ensure.signature(arguments, [ Me ]);
 	return this._domElement === that._domElement;
 };
