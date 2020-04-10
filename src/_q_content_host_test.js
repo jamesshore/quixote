@@ -110,10 +110,10 @@ describe("FOUNDATION: QContentHost", function() {
 		it("scrolls", function() {
 			contentHost.add("<div style='position: absolute; left: 5000px; top: 5000px; width: 60px'>scroll enabler</div>");
 
-			assert.deepEqual(frame.getRawScrollPosition(), { x: 0, y: 0 }, "should start at (0, 0)");
+			assert.deepEqual(contentHost.getRawScrollPosition(), { x: 0, y: 0 }, "should start at (0, 0)");
 
 			contentHost.scroll(150, 300);
-			var position = frame.getRawScrollPosition();
+			var position = contentHost.getRawScrollPosition();
 
 			// WORKAROUND Chrome Mobile 74: scrolls to a fractional positions (149.7142791748047, 299.80950927734375),
 			// so we round it off
