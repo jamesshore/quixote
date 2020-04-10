@@ -4,7 +4,6 @@
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
-var QContentHost = require("../q_content_host.js");
 
 var TOP = "top";
 var RIGHT = "right";
@@ -12,6 +11,7 @@ var BOTTOM = "bottom";
 var LEFT = "left";
 
 var Me = module.exports = function PageEdge(edge, contentHost) {
+	var QContentHost = require("../q_content_host.js");   // break circular dependency
 	ensure.signature(arguments, [ String, QContentHost ]);
 
 	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
@@ -56,11 +56,10 @@ Me.prototype.toString = function toString() {
 };
 
 function factoryFn(edge) {
-	return function factory(content) {
-		return new Me(edge, content);
+	return function factory(contentHost) {
+		return new Me(edge, contentHost);
 	};
 }
-
 
 
 // USEFUL READING: http://www.quirksmode.org/mobile/viewports.html
