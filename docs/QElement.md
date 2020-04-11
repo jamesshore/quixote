@@ -101,7 +101,7 @@ Example: `var top = element.getRawPosition().top;`
 #### element.calculatePixelValue()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Convert a CSS length string, such as `12em`, to the corresponding number of pixels. The calculation is provided by the browser and takes into account all styles currently in effect on the element.

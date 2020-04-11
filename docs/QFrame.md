@@ -94,7 +94,7 @@ Example: `var foo = frame.get("#foo");`
 #### frame.getAll()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Retrieve a list of elements matching a selector. If you want to ensure that exactly one element is retrieved, use [`frame.get()`](#frameget) instead.
@@ -132,7 +132,7 @@ Example: `var foo = frame.add("<p>foo</p>", "foo");`
 #### frame.viewport()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Provides access to descriptors for the frame's viewport (the part of the page that you can see in the frame, not including scrollbars).
@@ -156,7 +156,7 @@ banner.assert({
 #### frame.page()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Provides access to descriptors for the frame's page (everything you can see or scroll to, not including scrollbars).
@@ -179,7 +179,7 @@ sidebar.assert({
 #### frame.body()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Retrieves the frame's `body` element.
@@ -192,7 +192,7 @@ Retrieves the frame's `body` element.
 #### frame.resize()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Changes the size of the frame.
@@ -208,7 +208,7 @@ Changes the size of the frame.
 #### frame.scroll()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Scroll the page so that top-left corner of the frame is as close as possible to an (x, y) coordinate. Note that the page may not scroll at all in some cases, such as when the frame already displays the entire page.
@@ -225,7 +225,7 @@ Example: `frame.scroll(50, 60);`
 #### frame.getRawScrollPosition()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Determine the (x, y) coordinate of the top-left corner of the frame. This uses [pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollX) and [pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY) under the covers. (On IE 8, it uses [scrollLeft](http://msdn.microsoft.com/en-us/library/ie/ms534617%28v=vs.85%29.aspx) and [scrollTop](http://msdn.microsoft.com/en-us/library/ie/ms534618%28v=vs.85%29.aspx).)
@@ -255,7 +255,7 @@ Force the browser to recompute the page layout.
 #### frame.toDomElement()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Retrieve the underlying [`HTMLIFrameElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement) DOM element for the frame.
