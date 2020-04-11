@@ -8,7 +8,7 @@ var PositionDescriptor = require("./position_descriptor");
 var AbsolutePosition = require("./absolute_position.js");
 var Position = require("../values/position.js");
 
-describe("DESCRIPTOR: BackgroundColor", function() {
+describe("DESCRIPTOR: AbsolutePosition", function() {
 
 	var IRRELEVANT = 42;
 
