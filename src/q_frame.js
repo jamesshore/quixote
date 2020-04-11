@@ -3,7 +3,7 @@
 
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
-var QContentHost = require("./q_content_host.js");
+var BrowsingContext = require("./browsing_context.js");
 var async = require("../vendor/async-1.4.2.js");
 
 var Me = module.exports = function QFrame() {
@@ -18,7 +18,7 @@ function loaded(self, width, height, src, stylesheets) {
 
 	self._loaded = true;
 	self._document = self._domElement.contentDocument;
-	self._contentHost = new QContentHost(self._document);
+	self._contentHost = new BrowsingContext(self._document);
 	self._originalBody = self._document.body.innerHTML;
 	self._originalWidth = width;
 	self._originalHeight = height;

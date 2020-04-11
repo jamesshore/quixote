@@ -11,8 +11,8 @@ var BOTTOM = "bottom";
 var LEFT = "left";
 
 var Me = module.exports = function PageEdge(edge, contentHost) {
-	var QContentHost = require("../q_content_host.js");   // break circular dependency
-	ensure.signature(arguments, [ String, QContentHost ]);
+	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
+	ensure.signature(arguments, [ String, BrowsingContext ]);
 
 	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
 	else if (edge === TOP || edge === BOTTOM) PositionDescriptor.y(this);

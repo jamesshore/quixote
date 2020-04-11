@@ -6,7 +6,7 @@ var quixote = require("./quixote.js");
 var reset = require("./__reset.js");
 var shim = require("./util/shim.js");
 var Assertable = require("./assertable.js");
-var QContentHost = require("./q_content_host");
+var BrowsingContext = require("./browsing_context.js");
 var QElement = require("./q_element.js");
 
 describe("FOUNDATION: QElement", function() {
@@ -107,7 +107,7 @@ describe("FOUNDATION: QElement", function() {
 
 		it("provides access to its host", function() {
 			var body = new QElement(document.body, "body");
-			var contentHost = new QContentHost(document);
+			var contentHost = new BrowsingContext(document);
 
 			assert.objEqual(body.host(), contentHost);
 		});

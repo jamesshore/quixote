@@ -151,8 +151,8 @@ Me.prototype.toDomElement = function() {
 Me.prototype.host = function() {
 	ensure.signature(arguments, []);
 
-	var QContentHost = require("./q_content_host.js");   // break circular dependency
-	return new QContentHost(this._domElement.ownerDocument);
+	var BrowsingContext = require("./browsing_context.js");   // break circular dependency
+	return new BrowsingContext(this._domElement.ownerDocument);
 };
 
 Me.prototype.toString = function() {

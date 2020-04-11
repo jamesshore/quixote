@@ -3,12 +3,8 @@
 
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
-var quixote = require("./quixote.js");
 var QFrame = require("./q_frame.js");
-var QContentHost = require("./q_content_host");
-var QElement = require("./q_element.js");
-var QViewport = require("./q_viewport.js");
-var QPage = require("./q_page.js");
+var BrowsingContext = require("./browsing_context.js");
 
 describe("FOUNDATION: QFrame", function() {
 	this.timeout(10000);
@@ -366,7 +362,7 @@ describe("FOUNDATION: QFrame", function() {
 		});
 
 		it("provides access to contentHost", function() {
-			assert.type(frame.toContentHost(), QContentHost);
+			assert.type(frame.toContentHost(), BrowsingContext);
 		});
 
 		it("resets frame without src document", function() {

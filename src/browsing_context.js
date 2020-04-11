@@ -8,7 +8,7 @@ var QElementList = require("./q_element_list.js");
 var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
 
-var Me = module.exports = function QContentHost(contentDocument) {
+var Me = module.exports = function BrowsingContext(contentDocument) {
 	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
 	// Since the document is in an iFrame its HTMLDocument definition is the iFrame window's HTMLDocument and
 	// not the top level window's version.

@@ -3,7 +3,7 @@
 
 var assert = require("./util/assert.js");
 var reset = require("./__reset.js");
-var QContentHost = require("./q_content_host");
+var BrowsingContext = require("./browsing_context.js");
 var QElement = require("./q_element.js");
 var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
@@ -22,8 +22,8 @@ describe("FOUNDATION: QContentHost", function() {
 		});
 
 		it("compares to another QContentHost", function() {
-			var contentHost1 = new QContentHost(frame.toDomElement().contentDocument);
-			var contentHost2 = new QContentHost(document);
+			var contentHost1 = new BrowsingContext(frame.toDomElement().contentDocument);
+			var contentHost2 = new BrowsingContext(document);
 
 			assert.objEqual(contentHost, contentHost1, "equality");
 			assert.objNotEqual(contentHost, contentHost2, "inequality");

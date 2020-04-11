@@ -6,11 +6,10 @@ var ViewportEdge = require("./descriptors/viewport_edge.js");
 var Center = require("./descriptors/center.js");
 var Assertable = require("./assertable.js");
 var GenericSize = require("./descriptors/generic_size.js");
-var QContentHost = require("./q_content_host.js");
 
 var Me = module.exports = function QViewport(contentHost) {
-	var QContentHost = require("./q_content_host.js");   // break circular dependency
-	ensure.signature(arguments, [ QContentHost ]);
+	var BrowsingContext = require("./browsing_context");   // break circular dependency
+	ensure.signature(arguments, [ BrowsingContext ]);
 
 	// properties
 	this.top = ViewportEdge.top(contentHost);

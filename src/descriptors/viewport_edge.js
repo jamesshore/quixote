@@ -11,8 +11,8 @@ var BOTTOM = "bottom";
 var LEFT = "left";
 
 var Me = module.exports = function ViewportEdge(position, contentHost) {
-	var QContentHost = require("../q_content_host.js");   // break circular dependency
-	ensure.signature(arguments, [ String, QContentHost ]);
+	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
+	ensure.signature(arguments, [ String, BrowsingContext ]);
 
 	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
 	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
