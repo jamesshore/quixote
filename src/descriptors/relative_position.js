@@ -15,6 +15,8 @@ var MINUS = -1;
 var Me = module.exports = function RelativePosition(dimension, direction, relativeTo, relativeAmount) {
 	ensure.signature(arguments, [ String, Number, Descriptor, [Number, Descriptor, Value] ]);
 
+	this.should = this.createShould();
+
 	if (dimension === X_DIMENSION) PositionDescriptor.x(this);
 	else if (dimension === Y_DIMENSION) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown dimension: " + dimension);
