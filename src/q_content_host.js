@@ -3,6 +3,10 @@
 
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
+var QElement = require("./q_element.js");
+var QElementList = require("./q_element_list.js");
+var QViewport = require("./q_viewport.js");
+var QPage = require("./q_page.js");
 
 var Me = module.exports = function QContentHost(contentDocument) {
 	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
@@ -23,21 +27,18 @@ Me.prototype.toDomElement = function toDomElement() {
 };
 
 Me.prototype.body = function body() {
-	var QElement = require("./q_element.js");      // break circular dependency
 	ensure.signature(arguments, []);
 
 	return new QElement(this.document.body, "body");
 };
 
 Me.prototype.viewport = function viewport() {
-	var QViewport = require("./q_viewport.js");      // break circular dependency
 	ensure.signature(arguments, []);
 
 	return new QViewport(this);
 };
 
 Me.prototype.page = function page() {
-	var QPage = require("./q_page.js");      // break circular dependency
 	ensure.signature(arguments, []);
 
 	return new QPage(this);
@@ -51,7 +52,6 @@ Me.prototype.add = function add(html, nickname) {
 };
 
 Me.prototype.get = function get(selector, nickname) {
-	var QElement = require("./q_element.js");      // break circular dependency
 	ensure.signature(arguments, [String, [undefined, String]]);
 	if (nickname === undefined) nickname = selector;
 
@@ -61,7 +61,6 @@ Me.prototype.get = function get(selector, nickname) {
 };
 
 Me.prototype.getAll = function getAll(selector, nickname) {
-	var QElementList = require("./q_element_list.js");      // break circular dependency
 	ensure.signature(arguments, [String, [undefined, String]]);
 	if (nickname === undefined) nickname = selector;
 

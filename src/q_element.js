@@ -9,7 +9,6 @@ var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
 var GenericSize = require("./descriptors/generic_size.js");
 var Assertable = require("./assertable.js");
-var QContentHost = require("./q_content_host.js");
 
 var Me = module.exports = function QElement(domElement, nickname) {
 	ensure.signature(arguments, [Object, [String, undefined]]);
@@ -149,10 +148,10 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
-// internal
 Me.prototype.host = function() {
 	ensure.signature(arguments, []);
 
+	var QContentHost = require("./q_content_host.js");   // break circular dependency
 	return new QContentHost(this._domElement.ownerDocument);
 };
 
