@@ -17,6 +17,8 @@ var Me = module.exports = function ElementVisibleEdge(element, position) {
 	var QElement = require("../q_element.js");      // break circular dependency
 	ensure.signature(arguments, [ QElement, String ]);
 
+	this.should = this.createShould();
+
 	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
 	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
 	else unknownPosition(position);

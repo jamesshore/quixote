@@ -21,6 +21,14 @@
 ## Current Feature: Better assertions
 
 * .should.equal()
+* .should.notEqual()
+* .should.beAbove()
+* .should.beBelow()
+* .should.beToRightOf()
+* .should.beToLeftOf()
+* .should.beBiggerThan()
+* .should.beSmallerThan()
+* Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * Update README
 * Update example
 * Update CONTRIBUTING
@@ -35,7 +43,7 @@
 * (DONE) AbsolutePosition
 * (DONE) Center
 * (DONE) ElementEdge
-* ElementRenderedEdge
+* (DONE) ElementRenderedEdge
 * ElementRendered
 * GenericSize
 * PageEdge

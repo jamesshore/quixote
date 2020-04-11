@@ -49,6 +49,17 @@ describe("DESCRIPTOR: ElementRenderedEdge", function() {
 		}
 	});
 
+	it("has assertions", function() {
+		if (quixote.browser.misreportsClipAutoProperty()) return;
+
+		assert.exception(
+			function() { left.should.equal(30); },
+			"left rendered edge of 'element' should be 30px to right.\n" +
+			"  Expected: 30px\n" +
+			"  But was:  0px"
+		);
+	});
+
 	it("defaults to bounding box", function() {
 		if (quixote.browser.misreportsClipAutoProperty()) return;
 
