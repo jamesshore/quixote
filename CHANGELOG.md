@@ -3,9 +3,11 @@
 Changes are listed by minor version, from newest to oldest. Under each minor version, patches are listed from oldest to newest.
 
 
-## WIP: Support for third-party test runners
+## 0.15.x: Support for third-party test runners
 
-Description TBD
+**10 Apr 2020.** You can now use Quixote with third-party test runners that provide their own test iframe and lifecycle. Instead of creating elements using Quixote, use the new `quixote.elementFromDom()` method to create a QElement from an existing DOM element. A few other quality-of-life improvements have also been added.
+
+**No breaking changes.**
 
 *New methods:*
 

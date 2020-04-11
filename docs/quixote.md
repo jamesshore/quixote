@@ -52,7 +52,7 @@ before(function(done) {
 Stability: 2 - Unstable
 ```
 
-Create a [`QElement`](QElement.md) from an existing DOM element. Useful when using another test framework that has its own test iframe, such as [cypress.io](https://www.cypress.io/)).
+Create a [`QElement`](QElement.md) from an existing DOM element. Useful when using another test framework that has its own test iframe.
 
 `element = quixote.elementFromDom(domElement, nickname)`
 

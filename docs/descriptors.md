@@ -71,7 +71,7 @@ logo.assert({
 ### Element Rendering
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Descriptors for checking which parts of an element are rendered are available on [`QElement`](QElement.md) instances. "Rendered" means the parts of the element that would be visible on the page if every pixel was opaque. The rendered portion of an element is governed by the following:
@@ -115,7 +115,7 @@ content.assert({
 ### Viewport Positions and Sizes
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Descriptors for the position and size of the viewport are available on [`QFrame.viewport()`](QFrame.md#frameviewport). The viewport is the part of the webpage that's visible in the test frame, not including scrollbars. By comparing element positions and sizes to viewport descriptors, you can make assertions about what's visible to the user.
@@ -151,7 +151,7 @@ disclaimer.assert({
 ### Page Positions and Sizes
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to page descriptors, you can make assertions about where elements are positioned on the page.

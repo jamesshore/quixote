@@ -35,7 +35,7 @@ ElementRendered provides additional descriptors:
 ### Comparisons
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
 ElementRendered descriptor assertions may use another ElementRendered descriptor or a boolean.
