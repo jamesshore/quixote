@@ -18,23 +18,30 @@
 * See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for the latest release plans.
 
 
-## Upcoming Feature: Support for third-party assertion libraries
+## Current Feature: Better assertions
 
-* Value.toPrimitive()
-* Descriptor.valueOf()
-* Documentation
-
-
-## To Do: Value.toPrimitive()
-
-* Pixels.toPrimitive()
-* Position.toPrimitive()
-* RenderState.toPrimitive()
-* Size.toPrimitive()
-* Value.toPrimitive()
-* End-to-end tests
+* .should.equal()
 * Update README
+* Update example
 * Update CONTRIBUTING
+* Update descriptors README
+	* test: "has assertions"
+	* code: call createShould()
+
+
+## To Do: should.equal()
+
+* AbsolutePosition
+* Center
+* ElementEdge
+* ElementRenderedEdge
+* ElementRendered
+* GenericSize
+* PageEdge
+* RelativePosition
+* RelativeSize
+* SizeMultiple
+* ViewportEdge
 
 
 ## Dogfooding Notes

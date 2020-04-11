@@ -26,4 +26,13 @@ describe("DESCRIPTOR: AbsolutePosition", function() {
 		assert.equal(AbsolutePosition.y(20).toString(), "20px y-coordinate", "y");
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { AbsolutePosition.x(10).should.equal(AbsolutePosition.x(30)); },
+			"10px x-coordinate was 20px further left than expected.\n" +
+			"  Expected: 30px (30px x-coordinate)\n" +
+			"  But was:  10px"
+		);
+	});
+
 });
