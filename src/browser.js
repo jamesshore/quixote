@@ -111,7 +111,7 @@ function detectFontEnlargement(frame, frameWidth, callback) {
 
 	// WORKAROUND IE 8: need to force reflow or getting font-size may fail below
 	// This seems to occur when IE is running in a slow VirtualBox VM. There is no test for this line.
-	var forceReflow = text.offsetHeight;
+	frame.forceReflow();
 
 	// WORKAROUND Safari 8.0.0: timeout required because font is enlarged asynchronously
 	setTimeout(function() {

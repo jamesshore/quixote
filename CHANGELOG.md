@@ -9,7 +9,9 @@ Description TBD
 
 *New methods:*
 
-* QElement.con./wtains
+* QElement.contains()
+* QFrame.forceReflow()
+* quixote.elementFromDom()
 
 
 ## 0.14.x: Minor QFrame improvements

@@ -264,12 +264,12 @@ Me.prototype.resize = function resize(width, height) {
 
 	this._domElement.setAttribute("width", "" + width);
 	this._domElement.setAttribute("height", "" + height);
-	forceReflow(this);
+	this.forceReflow();
 };
 
-function forceReflow(self) {
-	self.body().toDomElement().offsetTop;
-}
+Me.prototype.forceReflow = function forceReflow() {
+	this._browsingContext.forceReflow();
+};
 
 function ensureUsable(self) {
 	ensureLoaded(self);
