@@ -361,7 +361,7 @@ describe("FOUNDATION: QFrame", function() {
 			frameDom = frame.toDomElement();
 		});
 
-		it("provides access to contentHost", function() {
+		it("provides access to browsingContext", function() {
 			assert.type(frame.toBrowsingContext(), BrowsingContext);
 		});
 

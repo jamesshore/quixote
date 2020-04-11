@@ -107,9 +107,9 @@ describe("FOUNDATION: QElement", function() {
 
 		it("provides access to its host", function() {
 			var body = new QElement(document.body, "body");
-			var contentHost = new BrowsingContext(document);
+			var browsingContext = new BrowsingContext(document);
 
-			assert.objEqual(body.context(), contentHost);
+			assert.objEqual(body.context(), browsingContext);
 		});
 
 		it("host of detached element is still the original host", function() {

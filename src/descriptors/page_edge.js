@@ -10,7 +10,7 @@ var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function PageEdge(edge, contentHost) {
+var Me = module.exports = function PageEdge(edge, browsingContext) {
 	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
 	ensure.signature(arguments, [ String, BrowsingContext ]);
 
@@ -19,7 +19,7 @@ var Me = module.exports = function PageEdge(edge, contentHost) {
 	else ensure.unreachable("Unknown edge: " + edge);
 
 	this._edge = edge;
-	this._contentHost = contentHost;
+	this._browsingContext = browsingContext;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,7 +31,7 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var size = pageSize(this._contentHost.document);
+	var size = pageSize(this._browsingContext.document);
 	switch(this._edge) {
 		case TOP: return Position.y(0);
 		case RIGHT: return Position.x(size.width);
@@ -56,8 +56,8 @@ Me.prototype.toString = function toString() {
 };
 
 function factoryFn(edge) {
-	return function factory(contentHost) {
-		return new Me(edge, contentHost);
+	return function factory(browsingContext) {
+		return new Me(edge, browsingContext);
 	};
 }
 

@@ -18,7 +18,7 @@ function loaded(self, width, height, src, stylesheets) {
 
 	self._loaded = true;
 	self._document = self._domElement.contentDocument;
-	self._contentHost = new BrowsingContext(self._document);
+	self._browsingContext = new BrowsingContext(self._document);
 	self._originalBody = self._document.body.innerHTML;
 	self._originalWidth = width;
 	self._originalHeight = height;
@@ -198,7 +198,7 @@ Me.prototype.toBrowsingContext = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return this._contentHost;
+	return this._browsingContext;
 };
 
 Me.prototype.remove = function() {
@@ -213,49 +213,49 @@ Me.prototype.remove = function() {
 Me.prototype.viewport = function() {
 	ensureUsable(this);
 
-	return this._contentHost.viewport();
+	return this._browsingContext.viewport();
 };
 
 Me.prototype.page = function() {
 	ensureUsable(this);
 
-	return this._contentHost.page();
+	return this._browsingContext.page();
 };
 
 Me.prototype.body = function() {
 	ensureUsable(this);
 
-	return this._contentHost.body();
+	return this._browsingContext.body();
 };
 
 Me.prototype.add = function(html, nickname) {
 	ensureUsable(this);
 
-	return this._contentHost.add(html, nickname);
+	return this._browsingContext.add(html, nickname);
 };
 
 Me.prototype.get = function(selector, nickname) {
 	ensureUsable(this);
 
-	return this._contentHost.get(selector, nickname);
+	return this._browsingContext.get(selector, nickname);
 };
 
 Me.prototype.getAll = function(selector, nickname) {
 	ensureUsable(this);
 
-	return this._contentHost.getAll(selector, nickname);
+	return this._browsingContext.getAll(selector, nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
 	ensureUsable(this);
 
-	return this._contentHost.scroll(x, y);
+	return this._browsingContext.scroll(x, y);
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensureUsable(this);
 
-	return this._contentHost.getRawScrollPosition();
+	return this._browsingContext.getRawScrollPosition();
 };
 
 Me.prototype.resize = function resize(width, height) {

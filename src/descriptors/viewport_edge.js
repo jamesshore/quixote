@@ -10,7 +10,7 @@ var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function ViewportEdge(position, contentHost) {
+var Me = module.exports = function ViewportEdge(position, browsingContext) {
 	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
 	ensure.signature(arguments, [ String, BrowsingContext ]);
 
@@ -19,7 +19,7 @@ var Me = module.exports = function ViewportEdge(position, contentHost) {
 	else ensure.unreachable("Unknown position: " + position);
 
 	this._position = position;
-	this._contentHost = contentHost;
+	this._browsingContext = browsingContext;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,11 +31,11 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function() {
 	ensure.signature(arguments, []);
 
-	var scroll = this._contentHost.getRawScrollPosition();
+	var scroll = this._browsingContext.getRawScrollPosition();
 	var x = Position.x(scroll.x);
 	var y = Position.y(scroll.y);
 
-	var size = viewportSize(this._contentHost.document.documentElement);
+	var size = viewportSize(this._browsingContext.document.documentElement);
 
 	switch(this._position) {
 		case TOP: return y;
