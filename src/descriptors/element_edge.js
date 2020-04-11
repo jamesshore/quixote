@@ -34,7 +34,7 @@ Me.prototype.value = function value() {
 	var rawPosition = this._element.getRawPosition();
 	var edge = rawPosition[this._position];
 
-	var scroll = this._element.host().getRawScrollPosition();
+	var scroll = this._element.context().getRawScrollPosition();
 	var rendered = elementRendered(this._element);
 
 	if (this._position === RIGHT || this._position === LEFT) {
@@ -59,7 +59,7 @@ function factoryFn(position) {
 }
 
 function elementRendered(element) {
-	var inDom = element.host().body().contains(element);
+	var inDom = element.context().body().contains(element);
 	var displayNone = element.getRawStyle("display") === "none";
 
 	return inDom && !displayNone;

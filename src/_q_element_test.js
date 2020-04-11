@@ -109,12 +109,12 @@ describe("FOUNDATION: QElement", function() {
 			var body = new QElement(document.body, "body");
 			var contentHost = new BrowsingContext(document);
 
-			assert.objEqual(body.host(), contentHost);
+			assert.objEqual(body.context(), contentHost);
 		});
 
 		it("host of detached element is still the original host", function() {
 			element.remove();
-			assert.objEqual(element.host(), frame.toContentHost());
+			assert.objEqual(element.context(), frame.toContentHost());
 		});
 
 		it("adds child element", function() {

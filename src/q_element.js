@@ -44,7 +44,7 @@ Me.prototype.getRawStyle = function(styleName) {
 	// WORKAROUND IE 8: no getComputedStyle()
 	if (window.getComputedStyle) {
 		// WORKAROUND Firefox 40.0.3: must use frame's contentWindow (ref https://bugzilla.mozilla.org/show_bug.cgi?id=1204062)
-		styles = this.host().toDomElement().getComputedStyle(this._domElement);
+		styles = this.context().toDomElement().getComputedStyle(this._domElement);
 		result = styles.getPropertyValue(styleName);
 	}
 	else {
@@ -108,7 +108,7 @@ Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
 	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
-	var parentBody = this.host().body();
+	var parentBody = this.context().body();
 	if (this.equals(parentBody)) return null;
 
 	var parent = this._domElement.parentElement;
@@ -148,7 +148,7 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
-Me.prototype.host = function() {
+Me.prototype.context = function() {
 	ensure.signature(arguments, []);
 
 	var BrowsingContext = require("./browsing_context.js");   // break circular dependency
