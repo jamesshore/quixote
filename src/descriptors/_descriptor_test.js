@@ -24,6 +24,24 @@ describe("DESCRIPTOR: Abstract base class", function() {
 
 	describe("assertions", function() {
 
+		it("checks equality", function() {
+			assert.noException(
+				function() { example.should.equal(1); },
+				"equal"
+			);
+
+			assert.exception(
+				function() { example.should.equal(2); },
+				example.diff(2),
+				"not equal"
+			);
+
+			assert.exception(
+				function() { example.should.equal(2, "my message"); },
+				"my message: " + example.diff(2),
+				"not equal with a message"
+			);
+		});
 
 	});
 
@@ -100,6 +118,7 @@ describe("DESCRIPTOR: Abstract base class", function() {
 
 	function Example(name) {
 		ensure.signature(arguments, [ [String, Number] ]);
+		this.should = this.createShould();
 		this._name = name;
 	}
 	Descriptor.extend(Example);
