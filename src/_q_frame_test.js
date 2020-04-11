@@ -354,6 +354,7 @@ describe("FOUNDATION: QFrame", function() {
 
 	});
 
+
 	describe("instance", function() {
 
 		var frame;
