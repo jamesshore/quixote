@@ -9,6 +9,7 @@ var GenericSize = require("./descriptors/generic_size.js");
 var QContentHost = require("./q_content_host.js");
 
 var Me = module.exports = function QViewport(contentHost) {
+	var QContentHost = require("./q_content_host.js");   // break circular dependency
 	ensure.signature(arguments, [ QContentHost ]);
 
 	// properties
