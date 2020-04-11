@@ -8,6 +8,12 @@ var Value = require("../values/value.js");
 
 describe("DESCRIPTOR: Abstract base class", function() {
 
+	var example;
+
+	beforeEach(function() {
+		example = new Example(1);
+	});
+
 	it("can be extended", function() {
 		function Subclass() {}
 
@@ -15,13 +21,14 @@ describe("DESCRIPTOR: Abstract base class", function() {
 		assert.type(new Subclass(), Descriptor);
 	});
 
+
+	describe("assertions", function() {
+
+
+	});
+
+
 	describe("diff", function() {
-
-		var example;
-
-		beforeEach(function() {
-			example = new Example(1);
-		});
 
 		it("returns empty string when no difference", function() {
 			assert.equal(example.diff(example), "");
@@ -51,13 +58,8 @@ describe("DESCRIPTOR: Abstract base class", function() {
 
 	});
 
+
 	describe("error handling", function() {
-
-		var example;
-
-		beforeEach(function() {
-			example = new Example(1);
-		});
 
 		it("wraps diff errors in an explanation", function() {
 			var error = new ErrorDescriptor();
@@ -109,8 +111,6 @@ describe("DESCRIPTOR: Abstract base class", function() {
 	Example.prototype.value = function value() {
 		return new ExampleValue(this._name);
 	};
-
-	Example.prototype.joiner = function joiner() { return "to be same as"; };
 
 	Example.prototype.toString = function toString() {
 		return "example " + this._name;
