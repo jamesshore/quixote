@@ -82,8 +82,10 @@ describe("DESCRIPTOR: PageEdge", function() {
 		beforeEach(function() {
 			frame = reset.frame;
 			var contentDocument = frame.toDomElement().contentDocument;
-			right = PageEdge.right(frame.toContentHost());
-			bottom = PageEdge.bottom(frame.toContentHost());
+			var contentHost = frame.toContentHost();
+
+			right = PageEdge.right(contentHost);
+			bottom = PageEdge.bottom(contentHost);
 
 			htmlStyle = contentDocument.documentElement.style;
 			htmlStyle.borderLeft = "solid " + HTML_BORDER_LEFT + "px green";
