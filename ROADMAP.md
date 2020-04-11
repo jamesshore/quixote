@@ -33,8 +33,8 @@
 
 * (DONE) Update rendering
 * (DONE) AbsolutePosition
-* Center
-* ElementEdge
+* (DONE) Center
+* (DONE) ElementEdge
 * ElementRenderedEdge
 * ElementRendered
 * GenericSize
