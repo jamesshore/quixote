@@ -71,6 +71,11 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	};
 };
 
+// This method is not tested--don't know how.
+Me.prototype.forceReflow = function forceReflow() {
+	this.body().toDomElement().offsetTop;
+};
+
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [Me]);
 	return this.contentWindow === that.contentWindow;
