@@ -49,25 +49,24 @@ before(function(done) {
 #### quixote.elementFromDom()
 
 ```
-Stability: 1 - Experimental
+Stability: 2 - Unstable
 ```
 
-Create an [`QElement`](QElement.md) from the given dom element. Used when running in the context of another test framework that already is hosting a test iframe (for example [cypress.io](https://www.cypress.io/)).
+Create a [`QElement`](QElement.md) from an existing DOM element. Useful when using another test framework that has its own test iframe, such as [cypress.io](https://www.cypress.io/)).
 
 `element = quixote.elementFromDom(domElement, nickname)`
 
 * `element (`[`QElement`](QElement.md)`)` The newly-created QElement for the given dom element.
 
-* `domElement (HTMLElement)` Dom element to wrap.
+* `domElement (HTMLElement)` DOM element to wrap.
 
 * `nickname (optional string)` A friendly description of the dom element used when displaying error messages.
 
 Example:
 
 ```javascript
-var testDocument = document; // this would come from the test iframe
-var domElement = testDocument.body.querySelector("p")
-var element = quixote.elementFromDom(domElement);
+var domElement = document.querySelector("p");		// get the first <p> tag in this window
+var firstParagraph = quixote.elementFromDom(domElement);
 ```
 
 
