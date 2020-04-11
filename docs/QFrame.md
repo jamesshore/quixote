@@ -241,6 +241,17 @@ Determine the (x, y) coordinate of the top-left corner of the frame. This uses [
 * IE 8 uses `scrollLeft` and `scrollTop` rather than `pageXOffset` and `pageYOffset`.
 
 
+#### frame.forceReflow()
+
+```
+Stability: 2 - Unstable
+```
+
+Force the browser to recompute the page layout.
+
+`forceReflow()`
+
+
 #### frame.toDomElement()
 
 ```
