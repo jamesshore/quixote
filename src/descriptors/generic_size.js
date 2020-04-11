@@ -8,6 +8,8 @@ var SizeDescriptor = require("./size_descriptor.js");
 var Me = module.exports = function GenericSize(from, to, description) {
   ensure.signature(arguments, [ PositionDescriptor, PositionDescriptor, String ]);
 
+  this.should = this.createShould();
+
   this._from = from;
   this._to = to;
   this._description = description;

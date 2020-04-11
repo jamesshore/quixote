@@ -45,7 +45,7 @@
 * (DONE) ElementEdge
 * (DONE) ElementRenderedEdge
 * (DONE) ElementRendered
-* GenericSize
+* (DONE) GenericSize
 * PageEdge
 * RelativePosition
 * RelativeSize
