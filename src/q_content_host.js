@@ -83,7 +83,6 @@ Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	};
 };
 
-// internal
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [Me]);
 	return this._window === that._window;
