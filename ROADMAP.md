@@ -31,6 +31,7 @@
 
 ## To Do: should.equal()
 
+* Update rendering
 * AbsolutePosition
 * Center
 * ElementEdge

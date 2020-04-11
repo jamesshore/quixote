@@ -49,11 +49,11 @@ describe("VALUE: Size", function() {
 
 	it("describes difference", function() {
 		assert.equal(a1.diff(a2), "", "same");
-		assert.equal(a1.diff(b), "45px larger than expected", "larger");
-		assert.equal(b.diff(a1), "45px smaller than expected", "smaller");
+		assert.equal(a1.diff(b), "45px larger", "larger");
+		assert.equal(b.diff(a1), "45px smaller", "smaller");
 
 		assert.equal(none.diff(none), "", "both non-rendered");
-		assert.equal(a1.diff(none), "rendered when not expected", "expected non-rendered, but was rendered");
+		assert.equal(a1.diff(none), "rendered", "expected non-rendered, but was rendered");
 		assert.equal(none.diff(a1), "not rendered", "expected rendered, but was non-rendered");
 	});
 

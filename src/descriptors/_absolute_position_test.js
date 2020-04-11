@@ -29,7 +29,7 @@ describe("DESCRIPTOR: AbsolutePosition", function() {
 	it("has assertions", function() {
 		assert.exception(
 			function() { AbsolutePosition.x(10).should.equal(AbsolutePosition.x(30)); },
-			"10px x-coordinate was 20px further left than expected.\n" +
+			"10px x-coordinate should be 20px to right.\n" +
 			"  Expected: 30px (30px x-coordinate)\n" +
 			"  But was:  10px"
 		);

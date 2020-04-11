@@ -32,7 +32,7 @@ describe("END-TO-END: Assertion rendering", function() {
 	it("provides nice explanation when descriptor doesn't match a hand-coded value", function() {
 		assert.equal(
 			element.width.diff(60),
-			"width of '#element' was 70px larger than expected.\n" +
+			"width of '#element' should be 70px smaller.\n" +
 			"  Expected: 60px\n" +
 			"  But was:  130px"
 		);
@@ -41,7 +41,7 @@ describe("END-TO-END: Assertion rendering", function() {
 	it("provides nice explanation when relative difference between elements", function() {
 		assert.equal(
 			element.width.diff(element.height),
-			"width of '#element' was 70px larger than expected.\n" +
+			"width of '#element' should be 70px smaller.\n" +
 			"  Expected: 60px (height of '#element')\n" +
 			"  But was:  130px"
 		);
@@ -53,10 +53,10 @@ describe("END-TO-END: Assertion rendering", function() {
 				width: element.height,
 				top: 13
 			}),
-			"width of '#element' was 70px larger than expected.\n" +
+			"width of '#element' should be 70px smaller.\n" +
 			"  Expected: 60px (height of '#element')\n" +
 			"  But was:  130px\n" +
-			"top edge of '#element' was 3px higher than expected.\n" +
+			"top edge of '#element' should be 3px lower.\n" +
 			"  Expected: 13px\n" +
 			"  But was:  10px"
 		);
