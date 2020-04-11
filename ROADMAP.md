@@ -13,9 +13,9 @@
 * **✅ v0.12** Element display status descriptors
 * **✅ v0.13** Element rendering boundaries
 * **✅ v0.14** QFrame quality of life improvements
-* **v0.15** Support for third-party test runners (such as Cypress.io)
+* **v0.15** Support for third-party test runners such as Cypress.io
 * **TBD** New assertions
-* See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for upcoming release plans.
+* See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for the latest release plans.
 
 
 ## Upcoming Feature: Support for third-party assertion libraries
