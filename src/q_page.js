@@ -6,9 +6,9 @@ var PageEdge = require("./descriptors/page_edge.js");
 var Center = require("./descriptors/center.js");
 var Assertable = require("./assertable.js");
 var GenericSize = require("./descriptors/generic_size.js");
-var QContentHost = require("./q_content_host.js");
 
 var Me = module.exports = function QPage(contentHost) {
+	var QContentHost = require("./q_content_host.js");   // break circular dependency
 	ensure.signature(arguments, [ QContentHost ]);
 
 	// properties
