@@ -114,7 +114,7 @@ describe("FOUNDATION: QElement", function() {
 
 		it("host of detached element is still the original host", function() {
 			element.remove();
-			assert.objEqual(element.context(), frame.toContentHost());
+			assert.objEqual(element.context(), frame.toBrowsingContext());
 		});
 
 		it("adds child element", function() {

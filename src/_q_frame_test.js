@@ -362,7 +362,7 @@ describe("FOUNDATION: QFrame", function() {
 		});
 
 		it("provides access to contentHost", function() {
-			assert.type(frame.toContentHost(), BrowsingContext);
+			assert.type(frame.toBrowsingContext(), BrowsingContext);
 		});
 
 		it("resets frame without src document", function() {

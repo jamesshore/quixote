@@ -194,7 +194,7 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
-Me.prototype.toContentHost = function() {
+Me.prototype.toBrowsingContext = function() {
 	ensure.signature(arguments, []);
 	ensureUsable(this);
 

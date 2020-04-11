@@ -18,7 +18,7 @@ describe("FOUNDATION: QContentHost", function() {
 
 		before(function() {
 			frame = reset.frame;
-			contentHost = frame.toContentHost();
+			contentHost = frame.toBrowsingContext();
 		});
 
 		it("compares to another QContentHost", function() {

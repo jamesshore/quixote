@@ -19,7 +19,7 @@ describe("DESCRIPTOR: PageEdge", function() {
 
 		beforeEach(function() {
 			var frame = reset.frame;
-			var contentHost = frame.toContentHost();
+			var contentHost = frame.toBrowsingContext();
 
 			top = PageEdge.top(contentHost);
 			right = PageEdge.right(contentHost);
@@ -82,7 +82,7 @@ describe("DESCRIPTOR: PageEdge", function() {
 		beforeEach(function() {
 			frame = reset.frame;
 			var contentDocument = frame.toDomElement().contentDocument;
-			var contentHost = frame.toContentHost();
+			var contentHost = frame.toBrowserContext();
 
 			right = PageEdge.right(contentHost);
 			bottom = PageEdge.bottom(contentHost);

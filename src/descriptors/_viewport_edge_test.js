@@ -22,7 +22,7 @@ describe("DESCRIPTOR: ViewportEdge", function() {
 
 	beforeEach(function() {
 		frame = reset.frame;
-		var contentHost = frame.toContentHost();
+		var contentHost = frame.toBrowsingContext();
 
 		top = ViewportEdge.top(contentHost);
 		right = ViewportEdge.right(contentHost);
@@ -114,7 +114,7 @@ describe("DESCRIPTOR: ViewportEdge", function() {
 
 		beforeEach(function() {
 			contentDoc = frame.toDomElement().contentDocument;
-			var contentHost = frame.toContentHost();
+			var contentHost = frame.toBrowsingContext();
 
 			right = ViewportEdge.right(contentHost);
 			bottom = ViewportEdge.bottom(contentHost);
