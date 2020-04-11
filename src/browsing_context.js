@@ -9,27 +9,16 @@ var QViewport = require("./q_viewport.js");
 var QPage = require("./q_page.js");
 
 var Me = module.exports = function BrowsingContext(contentDocument) {
-	// Cannot check against HTMLDocument directly because most browsers define HTMLDocument on the Window type
-	// Since the document is in an iFrame its HTMLDocument definition is the iFrame window's HTMLDocument and
-	// not the top level window's version.
 	ensure.signature(arguments, [Object]);
 
-	this._window = contentDocument.defaultView || contentDocument.parentWindow;
-
-	// internal properties
-	this.document = contentDocument;
-};
-
-Me.prototype.toDomElement = function toDomElement() {
-	ensure.signature(arguments, []);
-
-	return this._window;
+	this.contentWindow = contentDocument.defaultView || contentDocument.parentWindow;
+	this.contentDocument = contentDocument;
 };
 
 Me.prototype.body = function body() {
 	ensure.signature(arguments, []);
 
-	return new QElement(this.document.body, "body");
+	return new QElement(this.contentDocument.body, "body");
 };
 
 Me.prototype.viewport = function viewport() {
@@ -55,7 +44,7 @@ Me.prototype.get = function get(selector, nickname) {
 	ensure.signature(arguments, [String, [undefined, String]]);
 	if (nickname === undefined) nickname = selector;
 
-	var nodes = this.document.querySelectorAll(selector);
+	var nodes = this.contentDocument.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
 	return new QElement(nodes[0], nickname);
 };
@@ -64,25 +53,25 @@ Me.prototype.getAll = function getAll(selector, nickname) {
 	ensure.signature(arguments, [String, [undefined, String]]);
 	if (nickname === undefined) nickname = selector;
 
-	return new QElementList(this.document.querySelectorAll(selector), nickname);
+	return new QElementList(this.contentDocument.querySelectorAll(selector), nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
 	ensure.signature(arguments, [Number, Number]);
 
-	this._window.scroll(x, y);
+	this.contentWindow.scroll(x, y);
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
 	ensure.signature(arguments, []);
 
 	return {
-		x: shim.Window.pageXOffset(this._window, this.document),
-		y: shim.Window.pageYOffset(this._window, this.document)
+		x: shim.Window.pageXOffset(this.contentWindow, this.contentDocument),
+		y: shim.Window.pageYOffset(this.contentWindow, this.contentDocument)
 	};
 };
 
 Me.prototype.equals = function equals(that) {
 	ensure.signature(arguments, [Me]);
-	return this._window === that._window;
+	return this.contentWindow === that.contentWindow;
 };

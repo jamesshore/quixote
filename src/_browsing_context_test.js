@@ -38,7 +38,7 @@ describe("FOUNDATION: BrowsingContext", function() {
 		});
 
 		it("provides access to raw HTML", function() {
-			assert.equal(browsingContext.toDomElement(), frame.toDomElement().contentWindow);
+			assert.equal(browsingContext.contentWindow, frame.toDomElement().contentWindow);
 		});
 
 		it("retrieves body element", function() {

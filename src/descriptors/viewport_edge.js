@@ -35,7 +35,7 @@ Me.prototype.value = function() {
 	var x = Position.x(scroll.x);
 	var y = Position.y(scroll.y);
 
-	var size = viewportSize(this._browsingContext.document.documentElement);
+	var size = viewportSize(this._browsingContext.contentDocument.documentElement);
 
 	switch(this._position) {
 		case TOP: return y;

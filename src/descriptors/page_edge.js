@@ -31,7 +31,7 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var size = pageSize(this._browsingContext.document);
+	var size = pageSize(this._browsingContext.contentDocument);
 	switch(this._edge) {
 		case TOP: return Position.y(0);
 		case RIGHT: return Position.x(size.width);
