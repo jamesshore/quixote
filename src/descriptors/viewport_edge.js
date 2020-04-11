@@ -10,16 +10,16 @@ var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function ViewportEdge(position, frame) {
-	var QFrame = require("../q_frame.js");    // break circular dependency
-	ensure.signature(arguments, [ String, QFrame ]);
+var Me = module.exports = function ViewportEdge(position, browsingContext) {
+	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
+	ensure.signature(arguments, [ String, BrowsingContext ]);
 
 	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
 	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown position: " + position);
 
 	this._position = position;
-	this._frame = frame;
+	this._browsingContext = browsingContext;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,11 +31,11 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function() {
 	ensure.signature(arguments, []);
 
-	var scroll = this._frame.getRawScrollPosition();
+	var scroll = this._browsingContext.getRawScrollPosition();
 	var x = Position.x(scroll.x);
 	var y = Position.y(scroll.y);
 
-	var size = viewportSize(this._frame.get("html").toDomElement());
+	var size = viewportSize(this._browsingContext.contentDocument.documentElement);
 
 	switch(this._position) {
 		case TOP: return y;
@@ -53,8 +53,8 @@ Me.prototype.toString = function() {
 };
 
 function factoryFn(position) {
-	return function factory(frame) {
-		return new Me(position, frame);
+	return function factory(content) {
+		return new Me(position, content);
 	};
 }
 

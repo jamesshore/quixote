@@ -3,10 +3,7 @@
 
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
-var QElement = require("./q_element.js");
-var QElementList = require("./q_element_list.js");
-var QViewport = require("./q_viewport.js");
-var QPage = require("./q_page.js");
+var BrowsingContext = require("./browsing_context.js");
 var async = require("../vendor/async-1.4.2.js");
 
 var Me = module.exports = function QFrame() {
@@ -18,8 +15,10 @@ var Me = module.exports = function QFrame() {
 };
 
 function loaded(self, width, height, src, stylesheets) {
+
 	self._loaded = true;
 	self._document = self._domElement.contentDocument;
+	self._browsingContext = new BrowsingContext(self._document);
 	self._originalBody = self._document.body.innerHTML;
 	self._originalWidth = width;
 	self._originalHeight = height;
@@ -58,8 +57,8 @@ Me.create = function create(parentElement, options, callback) {
 		// We force it to be asynchronous here
 		setTimeout(function() {
 			loaded(frame, width, height, src, stylesheets);
-			loadStylesheets(frame, stylesheets, function() {
-				if (css) loadRawCSS(frame, options.css);
+			addStylesheetLinkTags(frame, stylesheets, function() {
+				if (css) addStyleTag(frame, options.css);
 				frame._frameLoadCallback(null, frame);
 			});
 		}, 0);
@@ -140,11 +139,11 @@ function writeStandardsModeHtml(iframe) {
 	iframe.contentWindow.document.close();
 }
 
-function loadStylesheets(self, urls, callback) {
+function addStylesheetLinkTags(self, urls, callback) {
 	async.each(urls, addLinkTag, callback);
 
 	function addLinkTag(url, onLinkLoad) {
-		var link = document.createElement("link");
+		var link = self._document.createElement("link");
 		shim.EventTarget.addEventListener(link, "load", function(event) { onLinkLoad(null); });
 		link.setAttribute("rel", "stylesheet");
 		link.setAttribute("type", "text/css");
@@ -153,7 +152,7 @@ function loadStylesheets(self, urls, callback) {
 	}
 }
 
-function loadRawCSS(self, css) {
+function addStyleTag(self, css) {
 	var style = document.createElement("style");
 	style.setAttribute("type", "text/css");
 	if (style.styleSheet) {
@@ -195,6 +194,13 @@ Me.prototype.toDomElement = function() {
 	return this._domElement;
 };
 
+Me.prototype.toBrowsingContext = function() {
+	ensure.signature(arguments, []);
+	ensureUsable(this);
+
+	return this._browsingContext;
+};
+
 Me.prototype.remove = function() {
 	ensure.signature(arguments, []);
 	ensureLoaded(this);
@@ -205,65 +211,51 @@ Me.prototype.remove = function() {
 };
 
 Me.prototype.viewport = function() {
-	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QViewport(this);
+	return this._browsingContext.viewport();
 };
 
 Me.prototype.page = function() {
-	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return new QPage(this);
+	return this._browsingContext.page();
 };
 
 Me.prototype.body = function() {
-	ensure.signature(arguments, []);
+	ensureUsable(this);
 
-	return this.get("body");
+	return this._browsingContext.body();
 };
 
 Me.prototype.add = function(html, nickname) {
-	ensure.signature(arguments, [String, [undefined, String]]);
-	if (nickname === undefined) nickname = html;
+	ensureUsable(this);
 
-	return this.body().add(html, nickname);
+	return this._browsingContext.add(html, nickname);
 };
 
 Me.prototype.get = function(selector, nickname) {
-	ensure.signature(arguments, [String, [undefined, String]]);
-	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
-	var nodes = this._document.querySelectorAll(selector);
-	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
-	return new QElement(nodes[0], this, nickname);
+	return this._browsingContext.get(selector, nickname);
 };
 
 Me.prototype.getAll = function(selector, nickname) {
-	ensure.signature(arguments, [String, [undefined, String]]);
-	if (nickname === undefined) nickname = selector;
 	ensureUsable(this);
 
-	return new QElementList(this._document.querySelectorAll(selector), this, nickname);
+	return this._browsingContext.getAll(selector, nickname);
 };
 
 Me.prototype.scroll = function scroll(x, y) {
-	ensure.signature(arguments, [Number, Number]);
 	ensureUsable(this);
 
-	this._domElement.contentWindow.scroll(x, y);
+	return this._browsingContext.scroll(x, y);
 };
 
 Me.prototype.getRawScrollPosition = function getRawScrollPosition() {
-	ensure.signature(arguments, []);
 	ensureUsable(this);
 
-	return {
-		x: shim.Window.pageXOffset(this._domElement.contentWindow, this._document),
-		y: shim.Window.pageYOffset(this._domElement.contentWindow, this._document)
-	};
+	return this._browsingContext.getRawScrollPosition();
 };
 
 Me.prototype.resize = function resize(width, height) {

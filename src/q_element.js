@@ -10,14 +10,14 @@ var Center = require("./descriptors/center.js");
 var GenericSize = require("./descriptors/generic_size.js");
 var Assertable = require("./assertable.js");
 
-var Me = module.exports = function QElement(domElement, frame, nickname) {
-	var QFrame = require("./q_frame.js");    // break circular dependency
-	ensure.signature(arguments, [Object, QFrame, String]);
+var Me = module.exports = function QElement(domElement, nickname) {
+	ensure.signature(arguments, [Object, [String, undefined]]);
+	if (nickname === undefined) {
+		nickname = domElement.id || domElement.tagName;
+	}
 
 	this._domElement = domElement;
 	this._nickname = nickname;
-
-	this.frame = frame;
 
 	// properties
 	this.rendered = ElementRendered.create(this);
@@ -44,7 +44,7 @@ Me.prototype.getRawStyle = function(styleName) {
 	// WORKAROUND IE 8: no getComputedStyle()
 	if (window.getComputedStyle) {
 		// WORKAROUND Firefox 40.0.3: must use frame's contentWindow (ref https://bugzilla.mozilla.org/show_bug.cgi?id=1204062)
-		styles = this.frame.toDomElement().contentWindow.getComputedStyle(this._domElement);
+		styles = this.context().contentWindow.getComputedStyle(this._domElement);
 		result = styles.getPropertyValue(styleName);
 	}
 	else {
@@ -108,12 +108,13 @@ Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
 	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
-	if (this.equals(this.frame.body())) return null;
+	var parentBody = this.context().body();
+	if (this.equals(parentBody)) return null;
 
 	var parent = this._domElement.parentElement;
 	if (parent === null) return null;
 
-	return new Me(parent, this.frame, nickname);
+	return new Me(parent, nickname);
 };
 
 Me.prototype.add = function(html, nickname) {
@@ -129,7 +130,7 @@ Me.prototype.add = function(html, nickname) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._domElement.appendChild(insertedElement);
-	return new Me(insertedElement, this.frame, nickname);
+	return new Me(insertedElement, nickname);
 };
 
 Me.prototype.remove = function() {
@@ -145,6 +146,13 @@ Me.prototype.contains = function(element) {
 Me.prototype.toDomElement = function() {
 	ensure.signature(arguments, []);
 	return this._domElement;
+};
+
+Me.prototype.context = function() {
+	ensure.signature(arguments, []);
+
+	var BrowsingContext = require("./browsing_context.js");   // break circular dependency
+	return new BrowsingContext(this._domElement.ownerDocument);
 };
 
 Me.prototype.toString = function() {

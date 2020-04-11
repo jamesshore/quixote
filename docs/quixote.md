@@ -46,6 +46,30 @@ before(function(done) {
 **Compatibility Note:** Mobile Safari will increase the size of small fonts depending on the width of the frame. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](#quixotebrowser).
 
 
+#### quixote.elementFromDom()
+
+```
+Stability: 2 - Unstable
+```
+
+Create a [`QElement`](QElement.md) from an existing DOM element. Useful when using another test framework that has its own test iframe, such as [cypress.io](https://www.cypress.io/)).
+
+`element = quixote.elementFromDom(domElement, nickname)`
+
+* `element (`[`QElement`](QElement.md)`)` The newly-created QElement for the given dom element.
+
+* `domElement (HTMLElement)` DOM element to wrap.
+
+* `nickname (optional string)` A friendly description of the dom element used when displaying error messages.
+
+Example:
+
+```javascript
+var domElement = document.querySelector("p");		// get the first <p> tag in this window
+var firstParagraph = quixote.elementFromDom(domElement);
+```
+
+
 #### quixote.browser
 
 ```

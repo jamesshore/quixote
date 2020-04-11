@@ -10,16 +10,16 @@ var RIGHT = "right";
 var BOTTOM = "bottom";
 var LEFT = "left";
 
-var Me = module.exports = function PageEdge(edge, frame) {
-	var QFrame = require("../q_frame.js");    // break circular dependency
-	ensure.signature(arguments, [ String, QFrame ]);
+var Me = module.exports = function PageEdge(edge, browsingContext) {
+	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
+	ensure.signature(arguments, [ String, BrowsingContext ]);
 
 	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
 	else if (edge === TOP || edge === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown edge: " + edge);
 
 	this._edge = edge;
-	this._frame = frame;
+	this._browsingContext = browsingContext;
 };
 PositionDescriptor.extend(Me);
 
@@ -31,7 +31,7 @@ Me.left = factoryFn(LEFT);
 Me.prototype.value = function value() {
 	ensure.signature(arguments, []);
 
-	var size = pageSize(this._frame.toDomElement().contentDocument);
+	var size = pageSize(this._browsingContext.contentDocument);
 	switch(this._edge) {
 		case TOP: return Position.y(0);
 		case RIGHT: return Position.x(size.width);
@@ -56,11 +56,10 @@ Me.prototype.toString = function toString() {
 };
 
 function factoryFn(edge) {
-	return function factory(frame) {
-		return new Me(edge, frame);
+	return function factory(browsingContext) {
+		return new Me(edge, browsingContext);
 	};
 }
-
 
 
 // USEFUL READING: http://www.quirksmode.org/mobile/viewports.html

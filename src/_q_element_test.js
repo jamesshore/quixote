@@ -6,6 +6,7 @@ var quixote = require("./quixote.js");
 var reset = require("./__reset.js");
 var shim = require("./util/shim.js");
 var Assertable = require("./assertable.js");
+var BrowsingContext = require("./browsing_context.js");
 var QElement = require("./q_element.js");
 
 describe("FOUNDATION: QElement", function() {
@@ -40,24 +41,32 @@ describe("FOUNDATION: QElement", function() {
 	describe("object", function() {
 
 		it("compares to another QElement", function() {
-			var head = new QElement(document.querySelector("head"), frame, "head");    // WORKAROUND IE8: no document.head
-			var body1 = new QElement(document.body, frame, "body");
-			var body2 = new QElement(document.body, frame, "body");
+			var head = new QElement(document.querySelector("head"), "head");    // WORKAROUND IE8: no document.head
+			var body1 = new QElement(document.body, "body");
+			var body2 = new QElement(document.body, "body");
 
 			assert.objEqual(body1, body2, "equality");
 			assert.objNotEqual(head, body1, "inequality");
 		});
 
 		it("element description does not affect equality", function() {
-			var body1 = new QElement(document.body, frame, "body description");
-			var body2 = new QElement(document.body, frame, "description can be anything");
+			var body1 = new QElement(document.body, "body description");
+			var body2 = new QElement(document.body, "description can be anything");
 
 			assert.objEqual(body1, body2, "should still be equal");
 		});
 
 		it("converts to string", function() {
-			var element = new QElement(document.body, frame, "nickname");
+			var element = new QElement(document.body, "nickname");
 			assert.equal(element.toString(), "'nickname'");
+		});
+
+		it("makes a best guess at a description when not given one", function() {
+			var bodyElement = new QElement(document.body);
+			var paragraphElement = new QElement(frame.body().toDomElement().querySelector("p"));
+
+			assert.equal(bodyElement.toString(), "'BODY'");
+			assert.equal(paragraphElement.toString(), "'element'");
 		});
 
 	});
@@ -66,7 +75,7 @@ describe("FOUNDATION: QElement", function() {
 	describe("DOM manipulation", function() {
 
 		it("converts to DOM element", function() {
-			var q = new QElement(document.body, frame, "body");
+			var q = new QElement(document.body, "body");
 			var dom = q.toDomElement();
 
 			assert.equal(dom, document.body);
@@ -94,6 +103,18 @@ describe("FOUNDATION: QElement", function() {
 		it("parent element of detached element is 'null'", function() {
 			element.remove();
 			assert.equal(element.parent(), null);
+		});
+
+		it("provides access to its host", function() {
+			var body = new QElement(document.body, "body");
+			var browsingContext = new BrowsingContext(document);
+
+			assert.objEqual(body.context(), browsingContext);
+		});
+
+		it("host of detached element is still the original host", function() {
+			element.remove();
+			assert.objEqual(element.context(), frame.toBrowsingContext());
 		});
 
 		it("adds child element", function() {
@@ -140,11 +161,6 @@ describe("FOUNDATION: QElement", function() {
 
 
 	describe("properties", function() {
-
-		it("frame", function() {
-			assert.equal(element.frame, frame);
-		});
-
 		it("visibility", function() {
 			if (quixote.browser.misreportsClipAutoProperty()) return;
 
