@@ -20,14 +20,11 @@ describe("VALUE: RenderState", function() {
 	});
 
 	it("describes difference", function() {
-		var EQUAL = "";
-		var NOT_EQUAL = "different than expected";
+		assert.equal(rendered.diff(rendered), "");
+		assert.equal(rendered.diff(notRendered), "rendered");
 
-		assert.equal(rendered.diff(rendered), EQUAL);
-		assert.equal(rendered.diff(notRendered), NOT_EQUAL);
-
-		assert.equal(notRendered.diff(rendered), NOT_EQUAL);
-		assert.equal(notRendered.diff(notRendered), EQUAL);
+		assert.equal(notRendered.diff(rendered), "not rendered");
+		assert.equal(notRendered.diff(notRendered), "");
 	});
 
 	it("converts to string", function() {

@@ -31,7 +31,7 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 	var expectedState = expected._state;
 
 	if (thisState === expectedState) return "";
-	else return "different than expected";
+	else return this.toString();
 });
 
 Me.prototype.toString = function toString() {

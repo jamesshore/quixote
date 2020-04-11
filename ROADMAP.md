@@ -44,7 +44,7 @@
 * (DONE) Center
 * (DONE) ElementEdge
 * (DONE) ElementRenderedEdge
-* ElementRendered
+* (DONE) ElementRendered
 * GenericSize
 * PageEdge
 * RelativePosition
