@@ -14,6 +14,8 @@ var Me = module.exports = function PageEdge(edge, browsingContext) {
 	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
 	ensure.signature(arguments, [ String, BrowsingContext ]);
 
+	this.should = this.createShould();
+
 	if (edge === LEFT || edge === RIGHT) PositionDescriptor.x(this);
 	else if (edge === TOP || edge === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown edge: " + edge);
