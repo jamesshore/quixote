@@ -6,7 +6,7 @@
 `QElement` instances represent individual HTML elements. You'll use their properties to make assertions about your elements. You'll use the properties and their assertions most often. For properties that don't exist yet, use [`element.getRawStyle()`](#elementgetrawstyle).
 
 
-## QElement Properties
+## Properties
 
 Use these properties to make assertions about the element.
 
@@ -85,7 +85,7 @@ content.assert({
 
 
 
-## QElement Methods
+## Methods
 
 ### element.getRawStyle()
 
