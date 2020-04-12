@@ -37,7 +37,21 @@
 	* code: call createShould()
 
 
-## To Do: TBD
+## To Do: API documentation
+
+* (DONE) API ToC (api.md)
+* (DONE) quixote
+* (DONE) QFrame
+* (DONE) QElement
+* QElementList
+* PositionDescriptor
+* SizeDescriptor
+* ElementRendered
+* QViewport (new)
+* QPage (new)
+* descriptors (delete)
+* README (double-check API links)
+
 
 
 ## Dogfooding Notes

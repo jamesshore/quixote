@@ -9,7 +9,7 @@ For an overview, installation notes, and an example, see [the readme](../README.
 * Add test elements to the frame with [`QFrame.add()`](QFrame.md#frameadd).
 * Get elements from the frame with [`QFrame.get()`](QFrame.md#frameget).
 * Reset the frame with [`QFrame.reset()`](QFrame.md#framereset) or [`QFrame.reload()`](QFrame.md#framereload).
-* Make assertions with [`QElement`](QElement.md) properties.
+* Make assertions with [`QElement`](QElement.md#properties) properties.
 * When the property you want doesn't exist, use [`QElement.getRawStyle()`](QElement.md#elementgetrawstyle).
 
 
