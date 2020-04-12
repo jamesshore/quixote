@@ -14,6 +14,8 @@ var Me = module.exports = function ViewportEdge(position, browsingContext) {
 	var BrowsingContext = require("../browsing_context.js");   // break circular dependency
 	ensure.signature(arguments, [ String, BrowsingContext ]);
 
+	this.should = this.createShould();
+
 	if (position === LEFT || position === RIGHT) PositionDescriptor.x(this);
 	else if (position === TOP || position === BOTTOM) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown position: " + position);

@@ -47,4 +47,13 @@ describe("DESCRIPTOR: Center", function() {
 		assert.equal(middle.toString(), "vertical description", "middle");
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { center.should.equal(10); },
+			"horizontal description should be 75px to left.\n" +
+			"  Expected: 10px\n" +
+			"  But was:  85px"
+		);
+	});
+
 });

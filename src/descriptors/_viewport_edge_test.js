@@ -72,6 +72,15 @@ describe("DESCRIPTOR: ViewportEdge", function() {
 		assert.equal(left.toString(), "left edge of viewport");
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { left.should.equal(30); },
+			"left edge of viewport should be 30px to right.\n" +
+			"  Expected: 30px\n" +
+			"  But was:  0px"
+		);
+	});
+
 	it("works end-to-end with fixed-position element", function() {
 		if (quixote.browser.enlargesFrameToPageSize()) return;
 

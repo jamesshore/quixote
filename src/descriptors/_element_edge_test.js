@@ -106,4 +106,13 @@ describe("DESCRIPTOR: ElementEdge", function() {
 		}
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { left.should.equal(30); },
+			"left edge of 'element' should be 10px to right.\n" +
+			"  Expected: 30px\n" +
+			"  But was:  20px"
+		);
+	});
+
 });

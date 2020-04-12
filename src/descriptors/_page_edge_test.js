@@ -57,6 +57,15 @@ describe("DESCRIPTOR: PageEdge", function() {
 			assert.equal(left.toString(), "left side of page");
 		});
 
+		it("has assertions", function() {
+			assert.exception(
+				function() { left.should.equal(30); },
+				"left side of page should be 30px to right.\n" +
+				"  Expected: 30px\n" +
+				"  But was:  0px"
+			);
+		});
+
 	});
 
 

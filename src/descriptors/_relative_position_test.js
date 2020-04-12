@@ -103,4 +103,13 @@ describe("DESCRIPTOR: RelativePosition", function() {
 		}
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { left.should.equal(30); },
+			"3px to left of left edge of '#element' should be 13px to right.\n" +
+			"  Expected: 30px\n" +
+			"  But was:  17px"
+		);
+	});
+
 });

@@ -58,7 +58,18 @@ describe("DESCRIPTOR: ElementRendered", function() {
 	});
 
 	it("converts to string", function() {
-		assert.equal(rendered.toString(), "render status of " + renderedElement.toString());
+		assert.equal(rendered.toString(), renderedElement.toString());
+	});
+
+	it("has assertions", function() {
+		if (quixote.browser.misreportsClipAutoProperty()) return;
+
+		assert.exception(
+			function() { displayNone.should.equal(true); },
+			"'display:none' should be rendered.\n" +
+			"  Expected: rendered\n" +
+			"  But was:  not rendered"
+		);
 	});
 
 	it("converts comparison arguments", function() {

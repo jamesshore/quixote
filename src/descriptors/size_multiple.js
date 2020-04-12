@@ -9,6 +9,8 @@ var Size = require("../values/size.js");
 var Me = module.exports = function SizeMultiple(relativeTo, multiple) {
 	ensure.signature(arguments, [ Descriptor, Number ]);
 
+	this.should = this.createShould();
+
 	this._relativeTo = relativeTo;
 	this._multiple = multiple;
 };

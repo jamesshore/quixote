@@ -11,6 +11,8 @@ var Y_DIMENSION = "y";
 var Me = module.exports = function AbsolutePosition(dimension, value) {
   ensure.signature(arguments, [ String, Number ]);
 
+  this.should = this.createShould();
+
   switch(dimension) {
 		case X_DIMENSION:
 			PositionDescriptor.x(this);

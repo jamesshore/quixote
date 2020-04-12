@@ -27,6 +27,15 @@ describe("DESCRIPTOR: GenericSize", function() {
 		assert.equal(genericSize(IRRELEVANT_POSITION, IRRELEVANT_POSITION, "my description").toString(), "my description");
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { genericSize(10, 30, "size").should.equal(30); },
+			"size should be 10px larger.\n" +
+			"  Expected: 30px\n" +
+			"  But was:  20px"
+		);
+	});
+
 });
 
 function genericSize(from, to, description) {

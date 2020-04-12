@@ -14,6 +14,22 @@ oop.makeAbstract(Me, [
 	"toString"
 ]);
 
+// WORKAROUND IE 8: Doesn't support Object.defineProperty(), which would allow us to create Me.prototype.assert
+// directly on this class as an accessor method.
+// WORKAROUND IE 11: Doesn't support ES6 'class' syntax, which would allow us to use getter methods and inheritance.
+Me.prototype.createShould = function createAssert() {
+	var self = this;
+	return {
+
+		equal: function(expected, message) {
+			message = message === undefined ? "" : message + ": ";
+			var difference = self.diff(expected);
+			if (difference !== "") throw new Error(message + difference);
+		},
+
+	};
+};
+
 Me.prototype.diff = function diff(expected) {
 	expected = normalizeType(this, expected);
 	try {
@@ -22,11 +38,11 @@ Me.prototype.diff = function diff(expected) {
 
 		if (actualValue.equals(expectedValue)) return "";
 
-		var difference = actualValue.diff(expectedValue);
+		var difference = expectedValue.diff(actualValue);
 		var expectedDesc = expectedValue.toString();
 		if (expected instanceof Me) expectedDesc += " (" + expected + ")";
 
-		return this + " was " + difference + ".\n" +
+		return this + " should be " + difference + ".\n" +
 			"  Expected: " + expectedDesc + "\n" +
 			"  But was:  " + actualValue;
 	}

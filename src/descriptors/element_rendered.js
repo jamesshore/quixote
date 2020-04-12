@@ -13,6 +13,7 @@ var Me = module.exports = function ElementRendered(element) {
 	var QElement = require("../q_element.js");      // break circular dependency
 	ensure.signature(arguments, [ QElement ]);
 
+	this.should = this.createShould();
 	this._element = element;
 
 	// properties
@@ -39,7 +40,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.toString = function toString() {
-	return "render status of " + this._element.toString();
+	return this._element.toString();
 };
 
 Me.prototype.convert = function convert(arg, type) {

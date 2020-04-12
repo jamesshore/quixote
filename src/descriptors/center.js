@@ -12,6 +12,8 @@ var Y_DIMENSION = "y";
 var Me = module.exports = function Center(dimension, position1, position2, description) {
 	ensure.signature(arguments, [ String, PositionDescriptor, PositionDescriptor, String ]);
 
+	this.should = this.createShould();
+	
 	if (dimension === X_DIMENSION) PositionDescriptor.x(this);
 	else if (dimension === Y_DIMENSION) PositionDescriptor.y(this);
 	else ensure.unreachable("Unknown dimension: " + dimension);

@@ -8,6 +8,12 @@ var Value = require("../values/value.js");
 
 describe("DESCRIPTOR: Abstract base class", function() {
 
+	var example;
+
+	beforeEach(function() {
+		example = new Example(1);
+	});
+
 	it("can be extended", function() {
 		function Subclass() {}
 
@@ -15,13 +21,32 @@ describe("DESCRIPTOR: Abstract base class", function() {
 		assert.type(new Subclass(), Descriptor);
 	});
 
-	describe("diff", function() {
 
-		var example;
+	describe("assertions", function() {
 
-		beforeEach(function() {
-			example = new Example(1);
+		it("checks equality", function() {
+			assert.noException(
+				function() { example.should.equal(1); },
+				"equal"
+			);
+
+			assert.exception(
+				function() { example.should.equal(2); },
+				example.diff(2),
+				"not equal"
+			);
+
+			assert.exception(
+				function() { example.should.equal(2, "my message"); },
+				"my message: " + example.diff(2),
+				"not equal with a message"
+			);
 		});
+
+	});
+
+
+	describe("diff", function() {
 
 		it("returns empty string when no difference", function() {
 			assert.equal(example.diff(example), "");
@@ -30,7 +55,7 @@ describe("DESCRIPTOR: Abstract base class", function() {
 		it("describes differences between a descriptor and a value", function() {
 			assert.equal(
 				example.diff(2),
-				"example 1 was different than expected.\n" +
+				"example 1 should be larger.\n" +
 					"  Expected: 2\n" +
 					"  But was:  1"
 			);
@@ -38,9 +63,9 @@ describe("DESCRIPTOR: Abstract base class", function() {
 
 		it("describes differences between two descriptors", function() {
 			assert.equal(
-				example.diff(new Example("two")),
-				"example 1 was different than expected.\n" +
-					"  Expected: two (example two)\n" +
+				example.diff(new Example(2)),
+				"example 1 should be larger.\n" +
+					"  Expected: 2 (example 2)\n" +
 					"  But was:  1"
 			);
 		});
@@ -51,13 +76,8 @@ describe("DESCRIPTOR: Abstract base class", function() {
 
 	});
 
+
 	describe("error handling", function() {
-
-		var example;
-
-		beforeEach(function() {
-			example = new Example(1);
-		});
 
 		it("wraps diff errors in an explanation", function() {
 			var error = new ErrorDescriptor();
@@ -92,13 +112,13 @@ describe("DESCRIPTOR: Abstract base class", function() {
 				example.diff(new ExampleValue());
 			});
 		});
-
 	});
 
 
-	function Example(name) {
+	function Example(number) {
 		ensure.signature(arguments, [ [String, Number] ]);
-		this._name = name;
+		this.should = this.createShould();
+		this._number = number;
 	}
 	Descriptor.extend(Example);
 
@@ -107,13 +127,11 @@ describe("DESCRIPTOR: Abstract base class", function() {
 	};
 
 	Example.prototype.value = function value() {
-		return new ExampleValue(this._name);
+		return new ExampleValue(this._number);
 	};
 
-	Example.prototype.joiner = function joiner() { return "to be same as"; };
-
 	Example.prototype.toString = function toString() {
-		return "example " + this._name;
+		return "example " + this._number;
 	};
 
 
@@ -129,8 +147,8 @@ describe("DESCRIPTOR: Abstract base class", function() {
 	};
 
 
-	function ExampleValue(name) {
-		this._name = name;
+	function ExampleValue(number) {
+		this._number = number;
 	}
 	Value.extend(ExampleValue);
 
@@ -143,12 +161,15 @@ describe("DESCRIPTOR: Abstract base class", function() {
 	};
 
 	ExampleValue.prototype.diff = Value.safe(function diff(expected) {
-		if (this._name === expected._name) return "";
-		else return "different than expected";
+		var difference = this._number - expected._number;
+
+		if (difference > 0) return "larger";
+		else if (difference < 0) return "smaller";
+		else return "";
 	});
 
 	ExampleValue.prototype.toString = function toString() {
-		return this._name;
+		return this._number;
 	};
 
 });

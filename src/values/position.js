@@ -89,13 +89,13 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 	var expectedValue = expected._value;
 
 	if (actualValue.equals(expectedValue)) return "";
-	else if (isNone(expected) && !isNone(this)) return "rendered when not expected";
+	else if (isNone(expected) && !isNone(this)) return "rendered";
 	else if (!isNone(expected) && isNone(this)) return "not rendered";
 
 	var direction;
 	var comparison = actualValue.compare(expectedValue);
-	if (this._dimension === X_DIMENSION) direction = comparison < 0 ? "further left than expected" : "further right than expected";
-	else direction = comparison < 0 ? "higher than expected" : "lower than expected";
+	if (this._dimension === X_DIMENSION) direction = comparison < 0 ? "to left" : "to right";
+	else direction = comparison < 0 ? "higher" : "lower";
 
 	return actualValue.diff(expectedValue) + " " + direction;
 });

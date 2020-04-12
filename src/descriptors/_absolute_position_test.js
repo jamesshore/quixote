@@ -8,7 +8,7 @@ var PositionDescriptor = require("./position_descriptor");
 var AbsolutePosition = require("./absolute_position.js");
 var Position = require("../values/position.js");
 
-describe("DESCRIPTOR: BackgroundColor", function() {
+describe("DESCRIPTOR: AbsolutePosition", function() {
 
 	var IRRELEVANT = 42;
 
@@ -24,6 +24,15 @@ describe("DESCRIPTOR: BackgroundColor", function() {
 	it("renders to string", function() {
 		assert.equal(AbsolutePosition.x(10).toString(), "10px x-coordinate", "x");
 		assert.equal(AbsolutePosition.y(20).toString(), "20px y-coordinate", "y");
+	});
+
+	it("has assertions", function() {
+		assert.exception(
+			function() { AbsolutePosition.x(10).should.equal(AbsolutePosition.x(30)); },
+			"10px x-coordinate should be 20px to right.\n" +
+			"  Expected: 30px (30px x-coordinate)\n" +
+			"  But was:  10px"
+		);
 	});
 
 });

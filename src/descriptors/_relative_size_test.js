@@ -63,4 +63,13 @@ describe("DESCRIPTOR: RelativeSize", function() {
 		}
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { larger.should.equal(30); },
+			"10px larger than height of '#element' should be 40px smaller.\n" +
+			"  Expected: 30px\n" +
+			"  But was:  70px"
+		);
+	});
+
 });
