@@ -23,14 +23,14 @@ Stability: 2 - Unstable
 
 These properties include padding and borders (if any), but not margins.
 
-* `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
-* `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
-* `bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
-* `left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
-* `center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
-* `middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
-* `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
-* `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
+* `element.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
+* `element.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
+* `element.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
+* `element.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
+* `element.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `element.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `element.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
+* `element.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
 
 Examples:
 
@@ -46,26 +46,26 @@ logo.left.should.equal(navbar.height);  // The logo's left edge should be the sa
 Stability: 2 - Unstable
 ```
 
-This property describes whether an element is rendered. "Rendered" means the parts of the element that would be visible on the page if every pixel was opaque. It can include padding and borders but never includes margins. The rendered portion of an element is governed by the following:
+This property describes whether an element is rendered. "Rendered" means the parts of the element that would be visible if every pixel was black. It can include padding and borders, but it never includes margins. We check these things about the element:
 
 * Whether it's part of the DOM (elements that have been removed from the DOM aren't rendered)
 * Its width and height (elements with no width or height aren't rendered)
-* Its position on the page (anything positioned off-screen is considered non-rendered, unless you could scroll to it)
+* Its position on the page (things you can scroll to are rendered, but things hidden off the top or left of the page aren't)
 * The `display` property
 * The `clip` property
-* The `overflow` property (anything outside of an element's visible area is considered non-rendered, even if you can use the element's scrollbars to scroll to it)
+* The `overflow` property
 
 Note that an element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
 
-* `rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
-* `rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
-* `rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
-* `rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
-* `rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
-* `rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
-* `rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
-* `rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
-* `rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
+* `element.rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
+* `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
+* `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
+* `element.rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
+* `element.rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
+* `element.rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `element.rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `element.rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
+* `element.rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
 
 Example: "The caption doesn't break out of the bottom of the content area."
 
@@ -77,7 +77,11 @@ content.assert({
 
 **Compatibility Notes:**
 
-* We do not support the `clip-path` property at this time. If the `clip-path` property is used by an element or its ancestors, none of the `element.rendered` descriptors will work. They'll throw an error instead.
+* We don't support the `clip-path` property at this time. It's so complicated that full support is unlikely.
+
+* We don't support the `overflow: clip` property at this time, but we might in the future. As of April 2020, `overflow: clip` is still experimental and no browsers support it.
+
+* We don't support the `overflow: overlay` property and probably never will. It's deprecated.
 
 * The `element.rendered` descriptors don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
 
