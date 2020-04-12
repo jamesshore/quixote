@@ -33,7 +33,7 @@ sidebar.top.should.equal(topNav.bottom);
 logo.left.should.equal(15);
 ```
 
-#### Example: `"none"``
+#### Example: `"none"`
 
 Note: Although `PositionDescriptor` can tell you if a position is rendered, it's better to use an [`ElementRendered`](ElementRendered.md) property such as [`QElement.rendered`](QElement.md#element-rendering).
 
@@ -86,7 +86,7 @@ Create a `PositionDescriptor` that is further down the page or to the right.
 
 `position.plus(amount)`
 
-* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` equivalent)` The number of pixels to increase.
+* `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to increase.
 
 Example:
 
@@ -106,7 +106,7 @@ Create a `PositionDescriptor` that is further up the page or to the left.
 
 `position.minus(amount)`
 
-* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` equivalent)` The number of pixels to increase.
+* `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to increase.
 
 Example:
 
