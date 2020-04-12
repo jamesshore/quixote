@@ -11,7 +11,7 @@ Quixote is a library for testing CSS. It's fast—over 100 tests/second—and ha
 var header = frame.get("#header");
 var navbar = frame.get(".navbar");
 
-navbar.top.should.equal(header.bottom);			        // the navbar is immediately below the header
+navbar.top.should.equal(header.bottom);             // the navbar is immediately below the header
 navbar.width.should.equal(frame.viewport().width);  // the navbar is exactly as wide as the viewport
 ```
 
