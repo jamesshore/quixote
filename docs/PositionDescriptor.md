@@ -7,38 +7,33 @@
 `PositionDescriptor` instances represent an X or Y position on the web page. The position of the top-left corner of the page is zero. X positions increase to the right and Y positions increase downward.
 
 
-## Assertions
-
-Use these methods to make assertions about the position. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
-
-
-### Comparisons
+## Equivalents
 
 ```
 Stability: 3 - Stable
 ```
 
-In the following assertions, `expectedPosition` can be one of the following:
+Methods with a `PositionDescriptor` parameter can take any of the following:
 
 * A `PositionDescriptor` instance, such as `element.top`.
 * A number representing an X or Y page coordinate in pixels.
 * The string `"none"`, which means the position is not rendered.
 
-#### Example: Compare to another position
+#### Example: `PositionDescriptor`
 
 ```javascript
 // "The top of the sidebar should be the same as the bottom of the nav bar."
 sidebar.top.should.equal(topNav.bottom);
 ```
 
-#### Example: Compare to a hard-coded page coordinate
+#### Example: `number`
 
 ```javascript
 // "The logo's left edge should have an X-coordinate of 15."
 logo.left.should.equal(15);
 ```
 
-#### Example: Check whether the position is rendered
+#### Example: `"none"``
 
 Note: Although `PositionDescriptor` can tell you if a position is rendered, it's better to use an [`ElementRendered`](ElementRendered.md) property such as [`QElement.rendered`](QElement.md#element-rendering).
 
@@ -47,6 +42,11 @@ Note: Although `PositionDescriptor` can tell you if a position is rendered, it's
 lightbox.top.should.equal("none");      // (not recommended)
 lightbox.rendered.should.equal(false);  // (recommended)
 ```
+
+
+## Assertions
+
+Use these methods to make assertions about the position. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
 
 
 ### position.should.equal()
@@ -59,7 +59,7 @@ Check whether the position matches another position.
 
 `position.should.equal(expectedPosition, message)`
 
-* `expectedPosition ([comparison](#comparisons)` The expected position.
+* `expectedPosition (PositionDescriptor equivalent)` The expected position.
 
 * `message (optional string)` A message to include when the assertion fails.
 
@@ -86,7 +86,7 @@ Create a `PositionDescriptor` that is further down the page or to the right.
 
 `position.plus(amount)`
 
-* `amount (`[`SizeDescriptor comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to increase.
+* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` equivalent)` The number of pixels to increase.
 
 Example:
 
@@ -106,7 +106,7 @@ Create a `PositionDescriptor` that is further up the page or to the left.
 
 `position.minus(amount)`
 
-* `amount (`[`SizeDescriptor comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to decrease.
+* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` equivalent)` The number of pixels to increase.
 
 Example:
 
@@ -126,7 +126,7 @@ Create a [`SizeDescriptor`](SizeDescriptor.md) that represents the distance betw
 
 `result = position.to(position2)`
 
-* `descriptor2 (`[`PositionDescriptor comparison](#comparisons)`)` The second position. Must represent the same X or Y axis as this position.
+* `descriptor2 (PositionDescriptor equivalent)` The second position. Must represent the same X or Y axis as this position.
 
 * `result (`[`SizeDescriptor`](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
 
