@@ -69,34 +69,24 @@
 		});
 
 		// Our first test. We use Mocha's standard `it()` function to define the test. Here, we're checking that
-		// the `figure` element in our media element is positioned to the left. The test definition reads
-		// "[The media object CSS] positions figure to the left of [its] container."
-		it("positions figure flush to the left of container", function() {
-			// Tell Quixote to make an assertion about the `figure` element.
-			figure.assert({
-				// Check that the left edge of the figure is the same as the left edge of the test frame's <body> element.
-				left: frame.body().left
-			});
+		// the `figure` element in our media element is positioned to the left.
+		it("positions figure flush to the left of its container", function() {
+			// Check that the left edge of the figure is the same as the left edge of the test frame's <body> element.
+			figure.left.should.equal(frame.body().left);
 		});
 
 		// Another test. We want to make sure that the media object's icon (figure) and text (body) are both top-aligned.
 		it("aligns top edge of figure and body", function() {
 			// Tell Quixote to make an assertion about the media object's `body` element. (The media object's
 			// `id='body'` element, not the test frame's <body> element. Yes, this is probably a poor name.)
-			body.assert({
-				// Check that the top edge of the body is the same as the top edge of the figure.
-				top: figure.top
-			});
+			body.top.should.equal(figure.top);
 		});
 
 		// Another test. Make sure the media object's text (body) is located to the right of the icon (figure) with
-		// a bit of padding in between.
+		// ten pixels of white space in between.
 		it("positions body to right of figure", function() {
-			// Tell Quixote to make an assertion about the `body` element.
-			body.assert({
-				// Check that the left edge of the body is 10 pixels to the right of the right edge of the figure.
-				left: figure.right.plus(10)
-			});
+			// Check that the left edge of the body is 10 pixels to the right of the right edge of the figure.
+			body.left.should.equal(figure.right.plus(10));
 		});
 
 		// This test confirms that any elements added after the media object are positioned after the element. It's
@@ -106,15 +96,13 @@
 			// by the `frame.reset()` line in the `beforeEach()` function above.
 			var subsequent = frame.add("<div>subsequent element</div>", "subsequent");
 
-			// Tell Quixote to make assertions about the new element.
-			subsequent.assert({
-				// Check that the left edge of the new element is the same as the left edge of the test frame's <body>
-				// element (in other words, make sure it isn't positioned to the right of the media object).
-				left: frame.body().left,
-				// Check that the top edge of the new element is the same as the bottom edge of the figure (in other words,
-				// make sure it's positioned below the media object).
-				top: figure.bottom
-			});
+			// Check that the left edge of the new element is the same as the left edge of the test frame's <body>
+			// element (in other words, make sure it isn't positioned to the right of the media object).
+			subsequent.left.should.equal(frame.body().left);
+
+			// Check that the top edge of the new element is the same as the bottom edge of the figure (in other words,
+			// make sure it's positioned below the media object).
+			subsequent.top.should.equal(figure.bottom);
 		});
 
 		// This test checks that margins used in the media object's body element will collapse.
@@ -124,14 +112,11 @@
 			// as normal.
 			body.toDomElement().style.marginTop = "15px";
 
-			// Tell Quixote to make an assertion about the body element.
-			body.assert({
-				// Check that the top edge of the body element is the same as the top edge of the figure, even though it has
-				// a 15-pixel margin. (The edge of the element includes border and padding, but ignores margin.) If it's
-				// the same, that means that the margin is extending above the media object, and therefore collapsing
-				// correctly.
-				top: figure.top
-			});
+			// Check that the top edge of the body element is the same as the top edge of the figure, even though it has
+			// a 15-pixel margin. (The edge of the element includes border and padding, but ignores margin.) If it's
+			// the same, that means that the margin is extending above the media object, and therefore collapsing
+			// correctly.
+			body.top.should.equal(figure.top);
 		});
 
 	});
