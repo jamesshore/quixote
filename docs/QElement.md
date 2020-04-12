@@ -87,7 +87,7 @@ content.assert({
 
 ## QElement Methods
 
-#### element.getRawStyle()
+### element.getRawStyle()
 
 ```
 Stability: 2 - Unstable
@@ -111,7 +111,7 @@ Example: `var fontSize = element.getRawStyle("font-size");`
 **Compatibility Note:** When using `getRawStyle("font-size")`, be aware that Mobile Safari may increase the size of small fonts. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](quixote.md#quixotebrowser).
 
 
-#### element.getRawPosition()
+### element.getRawPosition()
 
 ```
 Stability: 2 - Unstable
@@ -136,7 +136,7 @@ Example: `var top = element.getRawPosition().top;`
 * IE 8's `getBoundingClientRect()` does not have `width` or `height` properties, but `getRawPosition()` calculates them from the other properties.
 
 
-#### element.calculatePixelValue()
+### element.calculatePixelValue()
 
 ```
 Stability: 2 - Unstable
@@ -153,7 +153,7 @@ Convert a CSS length string, such as `12em`, to the corresponding number of pixe
 **Compatibility Note:** IE 8 and IE 11 round the `pixels` result to the nearest integer value. You can detect this behavior by using [`quixote.browser.roundsOffPixelCalculations()`](quixote.md#quixotebrowser).
 
 
-#### element.add()
+### element.add()
 
 ```
 Stability: 2 - Unstable
@@ -172,7 +172,7 @@ Create an element and append it as a child of this element. Throws an exception 
 Example: `var foo = element.add("<p>foo</p>", "foo");`
 
 
-#### element.remove()
+### element.remove()
 
 ```
 Stability: 2 - Unstable
@@ -183,7 +183,7 @@ Remove the element from the DOM.
 `element.remove()`
 
 
-#### element.parent()
+### element.parent()
 
 ```
 Stability: 2 - Unstable
@@ -196,7 +196,7 @@ Get the element's parent element.
 * `parent (QElement or null)` The parent element. Null if this element is the frame's body element or if this element has been removed from the DOM.
 
 
-#### element.contains()
+### element.contains()
 
 ```
 Stability: 2 - Unstable
@@ -211,7 +211,7 @@ Determine if this element contains another element.
 * `otherElement (QElement)` The possible child element to check.
 
 
-#### element.toDomElement()
+### element.toDomElement()
 
 ```
 Stability: 2 - Unstable
@@ -224,7 +224,7 @@ Retrieve the underlying [`HTMLElement`](https://developer.mozilla.org/en-US/docs
 * `dom (`[`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)`)` The DOM element.
 
 
-#### element.assert()
+### element.assert()
 
 ```
 Stability: 0 - Deprecated
@@ -250,7 +250,7 @@ element.assert({
 **Deprecation Warning:** This method may be removed in a future release. Use the `should` assertions available on QElement's [properties](#properties) instead.
 
 
-#### element.diff()
+### element.diff()
 
 ```
 Stability: 0 - Deprecated
