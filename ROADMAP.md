@@ -20,7 +20,7 @@
 
 ## Current Feature: Better assertions
 
-* .should.equal()
+* (DONE) .should.equal()
 * .should.notEqual()
 * .should.beAbove()
 * .should.beBelow()
@@ -50,7 +50,7 @@
 * (DONE) RelativePosition
 * (DONE) RelativeSize
 * (DONE) SizeMultiple
-* ViewportEdge
+* (DONE) ViewportEdge
 
 
 ## Dogfooding Notes
