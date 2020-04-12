@@ -44,7 +44,7 @@
 * (DONE) quixote
 * (DONE) QFrame
 * (DONE) QElement
-* QElementList
+* (DONE) QElementList
 * PositionDescriptor
 * SizeDescriptor
 * ElementRendered

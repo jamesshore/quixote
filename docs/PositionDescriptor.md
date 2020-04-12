@@ -4,152 +4,135 @@
 * [Back to API overview.](api.md)
 * [Back to descriptor overview.](descriptors.md)
 
-Position descriptors represent an (X, Y) coordinate on the web page. The top-left corner of the page is (0, 0) and the values increase downward and to the right.
+`PositionDescriptor` instances represent an X or Y position on the web page. The position of the top-left corner of the page is zero. X positions increase to the right and Y positions increase downward.
+
+
+## Assertions
+
+Use these methods to make assertions about the position. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
 
 
 ### Comparisons
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
-Position descriptor assertions may use another position descriptor, a number, or "none".
+In the following assertions, `expectedPosition` can be one of the following:
 
-* A number refers to the X or Y pixel coordinate relative to the top-left corner of the page.
-* The string "none" means that the element is not rendered, for example due to having the `display:none` property.
+* A `PositionDescriptor` instance, such as `element.top`.
+* A number representing an X or Y page coordinate in pixels.
+* The string `"none"`, which means the position is not rendered.
 
-
-### Examples
-
-#### Comparing to another descriptor
-
-"The top of the sidebar is aligned to the bottom of the nav bar."
+#### Example: Compare to another position
 
 ```javascript
-sidebar.assert({
-  top: topNav.bottom
-});
+// "The top of the sidebar should be the same as the bottom of the nav bar."
+sidebar.top.should.equal(topNav.bottom);
 ```
 
-#### Comparing to a hard-coded coordinate on the page
-
-"The left edge of the logo is 15 pixels from the left edge of the page."
+#### Example: Compare to a hard-coded page coordinate
 
 ```javascript
-logo.assert({
-  left: 15
-});
+// "The logo's left edge should have an X-coordinate of 15."
+logo.left.should.equal(15);
 ```
 
-#### Comparing to a coordinate (see API below)
- 
-"The top of the sidebar is 10px below the bottom of the navigation bar."
+#### Example: Check whether the position is rendered
+
+Note: Although `PositionDescriptor` can tell you if a position is rendered, it's better to use an [`ElementRendered`](ElementRendered.md) property such as [`QElement.rendered`](QElement.md#element-rendering).
 
 ```javascript
-sidebar.assert({
-  top: navbar.bottom.plus(10)
-});
+// "The light box should not be rendered."
+lightbox.top.should.equal("none");      // (not recommended)
+lightbox.rendered.should.equal(false);  // (recommended)
 ```
 
-#### Getting the distance between two positions (see API below)
 
-"The header is as wide as both columns."
+### position.should.equal()
+
+```
+Stability: 3 - Stable
+```
+
+Check whether the position matches another position.
+
+`position.should.equal(expectedPosition, message)`
+
+* `expectedPosition ([comparison](#comparisons)` The expected position.
+
+* `message (optional string)` A message to include when the assertion fails and an exception is thrown.
+
+Example:
 
 ```javascript
-header.assert({
-  width: leftColumn.left.to(rightColumn.right)
-});
+// "The logo should be at the top of the header."
+logo.top.should.equal(header.top);
 ```
 
-#### Checking whether an element is rendered
 
-"The light box is no longer rendered after I change the DOM."
+## Methods
 
-(Note that using a PositionDescriptor isn't the best way to make this assertion. Use [QElement.rendered](https://github.com/jamesshore/quixote/blob/dev/docs/descriptors.md#element-rendering) instead.)
+These methods are useful when you want to compare elements that aren't exactly aligned.
+
+
+#### position.plus()
+
+```
+Stability: 3 - Stable
+```
+
+Create a `PositionDescriptor` that is further down the page or to the right.
+
+`position.plus(amount)`
+
+* `amount (`[`SizeDescriptor` comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to move the descriptor.
+
+Example:
 
 ```javascript
-// First, I expect the light box to be rendered
-lightbox.assert({
-  rendered: true,   // this is the preferred way
-  top: 15           // this is the PositionDescriptor way
-});
-
-// Then I vanish it
-callProductionCodeThatSetsDisplayNoneOnLightbox();
-
-// And I expect the light box will no longer be rendered
-lightbox.assert({
-  rendered: false,  // preferred way
-  top: "none"       // PositionDescriptor way
-});
+// "The top of the sidebar should be 10px below the bottom of the navigation bar."
+sidebar.top.should.equal(navbar.bottom.plus(10));
 ```
 
 
-### API
-
-Position descriptors implement the following methods. They're useful when you want to compare elements that aren't exactly aligned.
-
-
-#### descriptor.plus()
+### position.minus()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
-Create a new PositionDescriptor that is further down the page or to the right.
+Create a `PositionDescriptor` that is further up the page or to the left.
 
-`descriptor.plus(amount)`
+`position.minus(amount)`
 
-* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` or number)` The number of pixels to move the descriptor.
+* `amount (`[`SizeDescriptor` comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to move the descriptor.
 
-Example: "The top of the sidebar is 10px below the bottom of the navigation bar."
+Example:
 
 ```javascript
-sidebar.assert({
-  top: navbar.bottom.plus(10)
-});
+// "The logo should be 15px from the right side of the navigation bar."
+logo.right.should.equal(navbar.right.minus(15));
 ```
 
 
-#### descriptor.minus()
+### position.to()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
-Create a new PositionDescriptor that is further up the page or to the left.
+Create a [`SizeDescriptor`](SizeDescriptor.md) that represents the distance between two positions.
 
-`descriptor.minus(amount)`
+`result = position.to(position2)`
 
-* `amount (`[`SizeDescriptor`](SizeDescriptor.md)` or number)` The number of pixels to move the descriptor.
-
-Example: "The logo is 15px inside the navigation bar."
-
-```javascript
-logo.assert({
-  right: navbar.right.minus(15)
-});
-```
-
-
-#### descriptor.to()
-
-```
-Stability: 2 - Unstable
-```
-
-Create a new [SizeDescriptor](SizeDescriptor.md) that represents the distance between two positions.
-
-`result = descriptor.to(descriptor2)`
-
-* `descriptor2 (PositionDescriptor or number)` The second position. Must represent the same X or Y axis as this descriptor.
+* `descriptor2 ([`PositionDescriptor` comparison](#comparisons)`)` The second position. Must represent the same X or Y axis as this position.
 
 * `result (`[`SizeDescriptor`](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
 
-Example: "The header is as wide as both columns."
+Example:
 
 ```javascript
-header.assert({
-  width: leftColumn.left.to(rightColumn.right)
-});
+// "The header stretches across both columns."
+header.width.should.equal(leftColumn.left.to(rightColumn.right));
 ```
