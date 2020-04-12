@@ -15,7 +15,7 @@ For an overview, installation notes, and an example, see [the readme](../README.
 
 ## Classes and Modules
 
-* [`quixote`](quixote.md) Create the Quixote test frame and check browser compatibility.
+* [`quixote`](quixote.md) Create the Quixote test frame, wrap DOM elements, and check browser compatibility.
 * [`QFrame`](QFrame.md) Manipulate the DOM inside your test frame.
 * [`QElement`](QElement.md) Manipulate, make assertions about, and get styling information for a specific element.
 * [`QElementList`](QElementList.md) Multiple QElements.

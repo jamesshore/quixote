@@ -3,10 +3,10 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QElement` instances represent individual HTML elements. You'll use their properties to make assertions about your elements. The methods you'll use most often are [`element.assert()`](#elementassert), for making style assertions, and [`element.getRawStyle()`](#elementgetrawstyle), for getting styles that [`element.assert()`](#elementassert) doesn't support yet.
+`QElement` instances represent individual HTML elements. You'll use their properties to make assertions about your elements. You'll use the properties and their assertions most often. For properties that don't exist yet, use [`element.getRawStyle()`](#elementgetrawstyle).
 
 
-### Properties
+## QElement Properties
 
 Use these properties to make assertions about the element.
 
@@ -15,7 +15,7 @@ Use these properties to make assertions about the element.
 **Pixel Rounding Note:** Browsers handle pixel rounding in different ways. We consider pixel values to be the same if they're within 0.5px of each other. If you have rounding errors that are *greater* than 0.5px, make sure your test browsers are set to a zoom level of 100%. Zooming can exaggerate rounding errors.
 
 
-#### Positions and Sizes
+### Positions and Sizes
 
 ```
 Stability: 2 - Unstable
@@ -35,18 +35,18 @@ These properties include padding and borders (if any), but not margins.
 Examples:
 
 ```javascript
-logo.height.should.equal(10);		// The logo height should equal 10 pixels.
-logo.left.should.equal(navbar.height);    // The logo's left edge should be the same as the navbar's left edge.
+logo.height.should.equal(10);           // The logo height should equal 10 pixels.
+logo.left.should.equal(navbar.height);  // The logo's left edge should be the same as the navbar's left edge.
 ```
 
 
-#### Element Rendering
+### Element Rendering
 
 ```
 Stability: 2 - Unstable
 ```
 
-This property describes whether an element is rendered. "Rendered" means the parts of the element that would be visible on the page if every pixel was opaque. The rendered portion of an element is governed by the following:
+This property describes whether an element is rendered. "Rendered" means the parts of the element that would be visible on the page if every pixel was opaque. It can include padding and borders but never includes margins. The rendered portion of an element is governed by the following:
 
 * Whether it's part of the DOM (elements that have been removed from the DOM aren't rendered)
 * Its width and height (elements with no width or height aren't rendered)
@@ -54,6 +54,8 @@ This property describes whether an element is rendered. "Rendered" means the par
 * The `display` property
 * The `clip` property
 * The `overflow` property (anything outside of an element's visible area is considered non-rendered, even if you can use the element's scrollbars to scroll to it)
+
+Note that an element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
 
 * `rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
 * `rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
@@ -69,7 +71,7 @@ Example: "The caption doesn't break out of the bottom of the content area."
 
 ```javascript
 content.assert({
-	bottom: caption.rendered.bottom		// The rendered bottom of the caption is the same as the bottom of the content area
+	bottom: caption.rendered.bottom   // The rendered bottom of the caption is the same as the bottom of the content area
 });
 ```
 
@@ -83,7 +85,7 @@ content.assert({
 
 
 
-### Methods
+## QElement Methods
 
 #### element.getRawStyle()
 
