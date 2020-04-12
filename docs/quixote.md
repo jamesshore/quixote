@@ -6,8 +6,6 @@
 Use the `quixote` module to create your test frame and check browser compatibility.
 
 
-## Methods
-
 ### quixote.createFrame()
 
 ```
