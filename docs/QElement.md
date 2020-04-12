@@ -21,7 +21,7 @@ Use these properties to make assertions about the element.
 Stability: 2 - Unstable
 ```
 
-These properties include padding and borders (if any), but not margins.
+These properties include padding and borders (if any), but not margins. They can also be "not rendered" if the element has the `display: none` property or if the element isn't in the DOM. (For more exact rendering assertions, use the [element rendering](#element-rendering) assertions below.)
 
 * `element.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
 * `element.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
