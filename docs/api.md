@@ -27,11 +27,11 @@ For an overview, installation notes, and an example, see [the readme](../README.
 * [`ElementRendered`](ElementRendered.md) Rendered boundaries.
 
 
-## Stability
+## Backwards Compatibility
 
-Any class, property, or method that isn't described in the API documentation is not for public use and may change at any time. Breaking changes to the documented API will be described in the [change log](../CHANGELOG.md).
+We strive to maintain backwards compatibility. Breaking changes to the API will be described in the [change log](../CHANGELOG.md).
 
-Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
+That said, **any class, property, or method that isn't described in the API documentation is not for public use and may change at any time.** Class names may change at any time. Don't construct classes manually or refer to them by name. Any object you need can be obtained from a property or method call.
 
 Each section of the API is marked with a *stability index* inspired by Node.js. They have the following meaning:
  
