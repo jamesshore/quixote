@@ -35,6 +35,7 @@
 * Update src/descriptors README
 	* test: "has assertions"
 	* code: call createShould()
+* Review/update stability ratings
 
 
 ## To Do: API documentation
