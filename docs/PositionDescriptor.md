@@ -13,7 +13,7 @@
 Stability: 3 - Stable
 ```
 
-Methods with a `PositionDescriptor` parameter can take any of the following:
+Methods with a `PositionDescriptor equivalent` parameter can take any of the following:
 
 * A `PositionDescriptor` instance, such as `element.top`.
 * A number representing an X or Y page coordinate in pixels.
@@ -106,7 +106,7 @@ Create a `PositionDescriptor` that is further up the page or to the left.
 
 `position.minus(amount)`
 
-* `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to increase.
+* `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to decrease.
 
 Example:
 
