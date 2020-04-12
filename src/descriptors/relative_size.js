@@ -14,6 +14,8 @@ var MINUS = -1;
 var Me = module.exports = function RelativeSize(direction, relativeTo, amount) {
 	ensure.signature(arguments, [ Number, Descriptor, [Number, Descriptor, Value] ]);
 
+	this.should = this.createShould();
+
 	this._direction = direction;
 	this._relativeTo = relativeTo;
 

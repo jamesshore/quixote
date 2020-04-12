@@ -48,7 +48,7 @@
 * (DONE) GenericSize
 * (DONE) PageEdge
 * (DONE) RelativePosition
-* RelativeSize
+* (DONE) RelativeSize
 * SizeMultiple
 * ViewportEdge
 
