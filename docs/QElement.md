@@ -3,51 +3,87 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QElement` instances represent individual HTML elements. You'll use them to make assertions about your elements. The methods you'll use most often are [`element.assert()`](#elementassert), for making style assertions, and [`element.getRawStyle()`](#elementgetrawstyle), for getting styles that [`element.assert()`](#elementassert) doesn't support yet.
+`QElement` instances represent individual HTML elements. You'll use their properties to make assertions about your elements. The methods you'll use most often are [`element.assert()`](#elementassert), for making style assertions, and [`element.getRawStyle()`](#elementgetrawstyle), for getting styles that [`element.assert()`](#elementassert) doesn't support yet.
 
 
-#### Descriptors
+### Properties
 
-QElement instances have several descriptor properties. They are documented in the [descriptor list](descriptors.md).
+Use these properties to make assertions about the element.
+
+**Compatibility Note:** We make every effort to ensure that properties work identically across browsers. If you discover a cross-browser incompatibility that doesn't correspond to an actual, visible difference, please file an issue.
+
+**Pixel Rounding Note:** Browsers handle pixel rounding in different ways. We consider pixel values to be the same if they're within 0.5px of each other. If you have rounding errors that are *greater* than 0.5px, make sure your test browsers are set to a zoom level of 100%. Zooming can exaggerate rounding errors.
 
 
-#### element.assert()
+#### Positions and Sizes
 
 ```
 Stability: 2 - Unstable
 ```
 
-Check whether the element's descriptors match a set of expected values. If they match, nothing happens; if they don't match, this method throws an exception explaining the difference.
+These properties include padding and borders (if any), but not margins.
 
-`element.assert(expected, message)`
+* `top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top edge of the element.
+* `right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right edge of the element.
+* `bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` The bottom edge of the element.
+* `left (`[`PositionDescriptor`](PositionDescriptor.md)`)` The left edge of the element.
+* `center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
+* `height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
 
-* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or a hard-coded value.
-
-* `message (optional string)` A message to include when the assertion fails and an exception is thrown.
-
-Example:
+Examples:
 
 ```javascript
-element.assert({
-  top: 13,                   // compare to a hard-coded value
-  bottom: otherElement.top   // compare to another descriptor
+logo.height.should.equal(10);		// The logo height should equal 10 pixels.
+logo.left.should.equal(navbar.height);    // The logo's left edge should be the same as the navbar's left edge.
+```
+
+
+#### Element Rendering
+
+```
+Stability: 2 - Unstable
+```
+
+This property describes whether an element is rendered. "Rendered" means the parts of the element that would be visible on the page if every pixel was opaque. The rendered portion of an element is governed by the following:
+
+* Whether it's part of the DOM (elements that have been removed from the DOM aren't rendered)
+* Its width and height (elements with no width or height aren't rendered)
+* Its position on the page (anything positioned off-screen is considered non-rendered, unless you could scroll to it)
+* The `display` property
+* The `clip` property
+* The `overflow` property (anything outside of an element's visible area is considered non-rendered, even if you can use the element's scrollbars to scroll to it)
+
+* `rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
+* `rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
+* `rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
+* `rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
+* `rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
+* `rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
+* `rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
+
+Example: "The caption doesn't break out of the bottom of the content area."
+
+```javascript
+content.assert({
+	bottom: caption.rendered.bottom		// The rendered bottom of the caption is the same as the bottom of the content area
 });
 ```
 
-#### element.diff()
+**Compatibility Notes:**
 
-```
-Stability: 2 - Unstable
-```
+* We do not support the `clip-path` property at this time. If the `clip-path` property is used by an element or its ancestors, none of the `element.rendered` descriptors will work. They'll throw an error instead.
 
-Compare the element's descriptors to a set of expected values. This is the same as [`QElement.assert()`](#elementassert), except that it returns a string rather than throwing an exception.
+* The `element.rendered` descriptors don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
 
-`diff = element.diff(expected)`
+* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` descriptors to throw an error. You can check for this broken behavior with the [quixote.browser.misreportsAutoValuesInClipProperty()](quixote.md#quixotebrowser) browser detect.
 
-* `diff (string)` A human-readable description of any differences found, or an empty string if none.
 
-* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or hard-coded value.
 
+### Methods
 
 #### element.getRawStyle()
 
@@ -184,3 +220,46 @@ Retrieve the underlying [`HTMLElement`](https://developer.mozilla.org/en-US/docs
 `dom = element.toDomElement()`
 
 * `dom (`[`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)`)` The DOM element.
+
+
+#### element.assert()
+
+```
+Stability: 1 - Experimental
+```
+
+Check whether the element's properties match a set of expected values. If they match, nothing happens; if they don't match, this method throws an exception explaining the difference.
+
+`element.assert(expected, message)`
+
+* `expected (object)` An object containing one or more [QElement properties](#properties) (`top`, `right`, etc.) as keys, along with the expected value as another property or a hard-coded value.
+
+* `message (optional string)` A message to include when the assertion fails and an exception is thrown.
+
+Example:
+
+```javascript
+element.assert({
+  top: 13,                   // compare to a hard-coded value
+  bottom: otherElement.top   // compare to another descriptor
+});
+```
+
+**Deprecation Warning:** This method may be deprecated in a future release. Use the `should` assertions available on QElement's [properties](#properties) instead.
+
+
+#### element.diff()
+
+```
+Stability: 1 - Experimental
+```
+
+Compare the element's descriptors to a set of expected values. This is the same as [`QElement.assert()`](#elementassert), except that it returns a string rather than throwing an exception.
+
+`diff = element.diff(expected)`
+
+* `diff (string)` A human-readable description of any differences found, or an empty string if none.
+
+* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or hard-coded value.
+
+**Deprecation Warning:** This method may be deprecated in a future release. Use the `should` assertions available on QElement's [properties](#properties) instead.

@@ -9,7 +9,7 @@ For an overview, installation notes, and an example, see [the readme](../README.
 * Add test elements to the frame with [`QFrame.add()`](QFrame.md#frameadd).
 * Get elements from the frame with [`QFrame.get()`](QFrame.md#frameget).
 * Reset the frame with [`QFrame.reset()`](QFrame.md#framereset) or [`QFrame.reload()`](QFrame.md#framereload).
-* Make assertions with [`QElement.assert()`](QElement.md#elementassert) and [descriptors](descriptors.md).
+* Make assertions with [`QElement.assert()`](QElement.md#elementassert).
 * When the descriptor you want doesn't exist, use [`QElement.getRawStyle()`](QElement.md#elementgetrawstyle).
 
 
@@ -22,11 +22,9 @@ For an overview, installation notes, and an example, see [the readme](../README.
 
 ### Descriptor classes
 
-Start with the [descriptors overview](descriptors.md).
-
-* [`ElementRendered`](ElementRendered.md) Rendered boundaries.
 * [`PositionDescriptor`](PositionDescriptor.md) X and Y coordinates.
 * [`SizeDescriptor`](SizeDescriptor.md) Widths, heights, and distances.
+* [`ElementRendered`](ElementRendered.md) Rendered boundaries.
 
 
 ## Stability
