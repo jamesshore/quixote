@@ -46,6 +46,8 @@
 * (DONE) QElement
 * (DONE) QElementList
 * PositionDescriptor
+	* copyedit
+	* double-check links
 * SizeDescriptor
 * ElementRendered
 * QViewport (new)

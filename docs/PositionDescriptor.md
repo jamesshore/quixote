@@ -61,7 +61,7 @@ Check whether the position matches another position.
 
 * `expectedPosition ([comparison](#comparisons)` The expected position.
 
-* `message (optional string)` A message to include when the assertion fails and an exception is thrown.
+* `message (optional string)` A message to include when the assertion fails.
 
 Example:
 
@@ -76,7 +76,7 @@ logo.top.should.equal(header.top);
 These methods are useful when you want to compare elements that aren't exactly aligned.
 
 
-#### position.plus()
+### position.plus()
 
 ```
 Stability: 3 - Stable
@@ -86,7 +86,7 @@ Create a `PositionDescriptor` that is further down the page or to the right.
 
 `position.plus(amount)`
 
-* `amount (`[`SizeDescriptor` comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to move the descriptor.
+* `amount (`[`SizeDescriptor comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to increase.
 
 Example:
 
@@ -106,7 +106,7 @@ Create a `PositionDescriptor` that is further up the page or to the left.
 
 `position.minus(amount)`
 
-* `amount (`[`SizeDescriptor` comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to move the descriptor.
+* `amount (`[`SizeDescriptor comparison](SizeDescriptor.md#comparisons)`)` The number of pixels to decrease.
 
 Example:
 
@@ -126,7 +126,7 @@ Create a [`SizeDescriptor`](SizeDescriptor.md) that represents the distance betw
 
 `result = position.to(position2)`
 
-* `descriptor2 ([`PositionDescriptor` comparison](#comparisons)`)` The second position. Must represent the same X or Y axis as this position.
+* `descriptor2 (`[`PositionDescriptor comparison](#comparisons)`)` The second position. Must represent the same X or Y axis as this position.
 
 * `result (`[`SizeDescriptor`](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
 
