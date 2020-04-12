@@ -65,4 +65,13 @@ describe("DESCRIPTOR: SizeMultiple", function() {
 		}
 	});
 
+	it("has assertions", function() {
+		assert.exception(
+			function() { twice.should.equal(30); },
+			"2 times width of '#element' should be 230px smaller.\n" +
+			"  Expected: 30px\n" +
+			"  But was:  260px"
+		);
+	});
+
 });

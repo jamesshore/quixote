@@ -49,7 +49,7 @@
 * (DONE) PageEdge
 * (DONE) RelativePosition
 * (DONE) RelativeSize
-* SizeMultiple
+* (DONE) SizeMultiple
 * ViewportEdge
 
 
