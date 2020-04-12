@@ -225,7 +225,7 @@ Retrieve the underlying [`HTMLElement`](https://developer.mozilla.org/en-US/docs
 #### element.assert()
 
 ```
-Stability: 1 - Experimental
+Stability: 0 - Deprecated
 ```
 
 Check whether the element's properties match a set of expected values. If they match, nothing happens; if they don't match, this method throws an exception explaining the difference.
@@ -245,13 +245,13 @@ element.assert({
 });
 ```
 
-**Deprecation Warning:** This method may be deprecated in a future release. Use the `should` assertions available on QElement's [properties](#properties) instead.
+**Deprecation Warning:** This method may be removed in a future release. Use the `should` assertions available on QElement's [properties](#properties) instead.
 
 
 #### element.diff()
 
 ```
-Stability: 1 - Experimental
+Stability: 0 - Deprecated
 ```
 
 Compare the element's descriptors to a set of expected values. This is the same as [`QElement.assert()`](#elementassert), except that it returns a string rather than throwing an exception.
@@ -262,4 +262,4 @@ Compare the element's descriptors to a set of expected values. This is the same 
 
 * `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or hard-coded value.
 
-**Deprecation Warning:** This method may be deprecated in a future release. Use the `should` assertions available on QElement's [properties](#properties) instead.
+**Deprecation Warning:** This method may be removed in a future release. Use the `should` assertions available on QElement's [properties](#properties) instead.
