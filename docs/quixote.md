@@ -6,7 +6,9 @@
 Use the `quixote` module to create your test frame and check browser compatibility.
 
 
-#### quixote.createFrame()
+## Methods
+
+### quixote.createFrame()
 
 ```
 Stability: 2 - Unstable
@@ -46,7 +48,7 @@ before(function(done) {
 **Compatibility Note:** Mobile Safari will increase the size of small fonts depending on the width of the frame. (You can prevent this behavior by using `-webkit-text-size-adjust: 100%;` in your CSS.) You can detect this behavior by using [`quixote.browser.enlargesFonts()`](#quixotebrowser).
 
 
-#### quixote.elementFromDom()
+### quixote.elementFromDom()
 
 ```
 Stability: 2 - Unstable
@@ -70,7 +72,7 @@ var firstParagraph = quixote.elementFromDom(domElement);
 ```
 
 
-#### quixote.browser
+### quixote.browser
 
 ```
 Stability: 2 - Unstable
