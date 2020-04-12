@@ -2,9 +2,7 @@
 
 Quixote is a library for testing CSS. It's fast—over 100 tests/second—and has a powerful API. You can use it for unit testing (test your CSS files directly) or integration testing (test against a real server). Either way, your tests check how HTML elements are actually rendered by the browser.
 
-[![Example video](example/video_poster.jpg)](https://vimeo.com/144642399#t=21m50s)
-
-Quixote runs in the browser and works with any test framework. You can even test multiple browsers simultaneously by using a tool such as [Karma](http://karma-runner.github.io) or [Test'em](https://github.com/airportyh/testem). It works in modern desktop browsers, mobile browsers, and IE 8+.
+ Quixote is unique for its ability to test how elements relate to each other. For example, you can test if one element is below another element, or how an element compares to the browser's viewport.
 
 **Example test:**
 
@@ -13,20 +11,20 @@ Quixote runs in the browser and works with any test framework. You can even test
 var header = frame.get("#header");
 var navbar = frame.get(".navbar");
 
-navbar.assert({
-  top: header.bottom.plus(10),    // The navbar is 10px below the header,
-  left: frame.page().left,        // it's flush against the left side of the screen,
-  width: frame.viewport().width   // and it's exactly as wide as the viewport.
-});
+navbar.top.should.equal(header.bottom);			        // the navbar is immediately below the header
+navbar.width.should.equal(frame.viewport().width);  // the navbar is exactly as wide as the viewport
 ```
 
 **Example output:**
 
 ```
-top edge of '.navbar' was 13px lower than expected.
-  Expected: 50px (10px below bottom edge of '#header')
+top edge of '.navbar' should be 13px higher.
+  Expected: 50px (bottom edge of '#header')
   But was:  63px
 ```
+
+Quixote runs in the browser and works with any test framework. You can even test multiple browsers simultaneously by using a tool such as [Karma](http://karma-runner.github.io) or [Test'em](https://github.com/airportyh/testem). It works in modern desktop browsers, mobile browsers, and IE 8+.
+
 
 ## Resources
 
@@ -127,9 +125,7 @@ describe("Button", function() {
   });
   
   it("fills its container", function() {
-    button.assert({
-      width: container.width
-    });
+    button.width.should.equal(container.width);
   });
   
   it("has styled text", function() {
@@ -186,17 +182,13 @@ describe("Home page", function() {
   });
 
   it("has an overall layout", function() {
-    logo.assert({
-      top: 12,
-      center: frame.page().center
-    }, "logo should be centered at top of page");
+    logo.top.should.equal(12, "logo should be at top of page");
+    logo.center.should.equal(frame.page().center, "logo should be centered");
     assert.equal(logo.getRawStyle("text-align"), "center", "logo alt text should be centered");
-    
-    navbar.assert({
-      top: logo.bottom.plus(10),
-      left: frame.page().left,
-      width: frame.viewport().width
-    }, "navbar should stretch the width of the window");
+
+    navbar.top.should.equal(logo.bottom.plus(10), "navbar should be below logo");
+    navbar.left.should.equal(frame.page().left, "navbar should be flush to left of page");
+    navbar.width.should.equal(frame.page().width, "navbar should stretch the width of window");
   });
   
   it("has a color scheme", function() {
@@ -339,24 +331,8 @@ For example, if you were planning to test-drive this CSS:
 You would use this code:
 
 ```javascript
-var quixote = require("quixote");
+  ︙
 
-describe("Button") {
-  
-  var frame;
-  var container;
-  var button;
-
-  before(function(done) {
-    frame = quixote.createFrame({
-      stylesheet: "/base/src/client/screen.css"
-    }, done);
-  });
-  
-  after(function() {
-    frame.remove();
-  });
-  
   beforeEach(function() {
     frame.reset();
     container = frame.add(
@@ -366,16 +342,15 @@ describe("Button") {
     );
     button = frame.get("#button");
   });
-  
+
+
   it("fills its container", function() {
-    button.assert({
-      width: container.width
-    });
+    button.width.should.equal(container.width);
   });
-  
+
   it("has styled text", function() {
     assert.equal(button.getRawStyle("text-align"), "center", "should be centered");
-    assert.equal(button.getRawStyle("text-decoration"), "underline", "should be underlined");
+    assert.equal(button.getRawStyle("text-decoration"), "none", "should not be underlined");
     assert.equal(button.getRawStyle("text-transform"), "uppercase", "should be uppercase");
   });
 
@@ -387,28 +362,8 @@ describe("Button") {
 In the integration test style, you load a complete page, so rather than adding elements to the frame, you'll just pull out the ones you want to test.
 
 ```javascript
-var quixote = require("quixote");
+  ︙
 
-describe("Home page", function() {
-
-  var BACKGROUND_BLUE = "rgb(65, 169, 204)";
-  var WHITE = "rgb(255, 255, 255)";
-  var MEDIUM_BLUE = "rgb(0, 121, 156)";
-  
-  var frame;
-  var logo;
-  var navbar;
-  
-  before(function(done) {
-    frame = quixote.createFrame({
-      src: "/"
-    }, done);
-  });
-  
-  after(function() {
-    frame.remove();
-  });
-  
   beforeEach(function(done) {
     frame.reload(done);
   });
