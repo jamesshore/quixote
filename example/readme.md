@@ -7,6 +7,24 @@ This example code is based on my "Agile Engineering for the Web" talk, first pre
 
 The Quixote portion starts at 21:50.
 
+There have been some changes to the example since the video was recorded. The biggest change is to Quixote's assertion API. The assertions in the video look like this (see 27:18):
+
+```javascript
+figure.assert({
+  left: frame.body().left
+});
+```
+
+This assertion checks that the left edge of the 'figure' element is the same as the left edge of the page's body element.
+
+The current version of Quixote provides a more natural API. The same assertion now looks like this:
+
+```javascript
+figure.left.should.equal(frame.body().left);
+```
+
+The code in this example uses this style.
+
 
 About the Example
 -----------------

@@ -20,7 +20,7 @@
 		var frame;      // The Quixote test frame.
 		var media;      // The media object element.
 		var figure;     // The figure element inside the media object. (The icon.)
-		var body;       // The body element inside the media object. (The paragraph.)
+		var content;    // The content element inside the media object. (The paragraph.)
 
 		// Use Mocha's standard `before` function to set up our Quixote test frame before the tests run.
 		before(function(done) {
@@ -52,51 +52,40 @@
 			media = frame.add(
 				// There's a containing <div>...
 				"<div class='media'>" +
-					// ...a figure...
-				" <div id='figure' class='media__figure' style='width:100px; height:100px'>figure</div>" +
-					// ...and a body.
-				" <div id='body' class='media__body'>body</div>" +
+				// ...a figure...
+				"  <div id='figure' class='media__figure' style='width:100px; height:100px'>figure</div>" +
+				// ...and content.
+				"  <div id='content' class='media__content'>content</div>" +
 				"</div>",
 				// Give the HTML a name so Quixote's error messages are more readable. If we don't provide a name,
 				// Quixote will use the HTML by default. That would be pretty ugly.
 				"media object"
 			);
 
-			// Get the media element's figure and body elements. Quixote gives us an object we can use to make
+			// Get the media element's figure and content elements. Quixote gives us an object we can use to make
 			// assertions about how the elements are styled.
 			figure = frame.get("#figure");
-			body = frame.get("#body");
+			content = frame.get("#content");
 		});
 
 		// Our first test. We use Mocha's standard `it()` function to define the test. Here, we're checking that
-		// the `figure` element in our media element is positioned to the left. The test definition reads
-		// "[The media object CSS] positions figure to the left of [its] container."
-		it("positions figure flush to the left of container", function() {
-			// Tell Quixote to make an assertion about the `figure` element.
-			figure.assert({
-				// Check that the left edge of the figure is the same as the left edge of the test frame's <body> element.
-				left: frame.body().left
-			});
+		// the `figure` element in our media element is positioned to the left.
+		it("positions figure flush to the left of its container", function() {
+			// Check that the left edge of the figure is the same as the left edge of the test frame's <body> element.
+			figure.left.should.equal(frame.body().left);
 		});
 
-		// Another test. We want to make sure that the media object's icon (figure) and text (body) are both top-aligned.
-		it("aligns top edge of figure and body", function() {
-			// Tell Quixote to make an assertion about the media object's `body` element. (The media object's
-			// `id='body'` element, not the test frame's <body> element. Yes, this is probably a poor name.)
-			body.assert({
-				// Check that the top edge of the body is the same as the top edge of the figure.
-				top: figure.top
-			});
+		// Another test. We want to make sure that the media object's icon (figure) and text (content) are both top-aligned.
+		it("aligns top edge of figure and content", function() {
+			// Tell Quixote to make an assertion about the media object's `content` element.
+			content.top.should.equal(figure.top);
 		});
 
-		// Another test. Make sure the media object's text (body) is located to the right of the icon (figure) with
-		// a bit of padding in between.
-		it("positions body to right of figure", function() {
-			// Tell Quixote to make an assertion about the `body` element.
-			body.assert({
-				// Check that the left edge of the body is 10 pixels to the right of the right edge of the figure.
-				left: figure.right.plus(10)
-			});
+		// Another test. Make sure the media object's text (content) is located to the right of the icon (figure) with
+		// ten pixels of white space in between.
+		it("positions content to right of figure", function() {
+			// Check that the left edge of the content is 10 pixels to the right of the right edge of the figure.
+			content.left.should.equal(figure.right.plus(10));
 		});
 
 		// This test confirms that any elements added after the media object are positioned after the element. It's
@@ -106,32 +95,27 @@
 			// by the `frame.reset()` line in the `beforeEach()` function above.
 			var subsequent = frame.add("<div>subsequent element</div>", "subsequent");
 
-			// Tell Quixote to make assertions about the new element.
-			subsequent.assert({
-				// Check that the left edge of the new element is the same as the left edge of the test frame's <body>
-				// element (in other words, make sure it isn't positioned to the right of the media object).
-				left: frame.body().left,
-				// Check that the top edge of the new element is the same as the bottom edge of the figure (in other words,
-				// make sure it's positioned below the media object).
-				top: figure.bottom
-			});
+			// Check that the left edge of the new element is the same as the left edge of the test frame's <body>
+			// element (in other words, make sure it isn't positioned to the right of the media object).
+			subsequent.left.should.equal(frame.body().left);
+
+			// Check that the top edge of the new element is the same as the bottom edge of the figure (in other words,
+			// make sure it's positioned below the media object).
+			subsequent.top.should.equal(figure.bottom);
 		});
 
-		// This test checks that margins used in the media object's body element will collapse.
+		// This test checks that margins used in the media object's content element will collapse.
 		it("allows elements' margins to extend outside media object", function() {
-			// Add a margin to the body element. The `body` variable is a Quixote object, so to style it, first we
+			// Add a margin to the content element. The `content` variable is a Quixote object, so to style it, first we
 			// get the underlying DOM object by calling `toDomElement()`. Then we set the style on the DOM object
 			// as normal.
-			body.toDomElement().style.marginTop = "15px";
+			content.toDomElement().style.marginTop = "15px";
 
-			// Tell Quixote to make an assertion about the body element.
-			body.assert({
-				// Check that the top edge of the body element is the same as the top edge of the figure, even though it has
-				// a 15-pixel margin. (The edge of the element includes border and padding, but ignores margin.) If it's
-				// the same, that means that the margin is extending above the media object, and therefore collapsing
-				// correctly.
-				top: figure.top
-			});
+			// Check that the top edge of the content element is the same as the top edge of the figure, even though it has
+			// a 15-pixel margin. (The edge of the element includes border and padding, but ignores margin.) If it's
+			// the same, that means that the margin is extending above the media object, and therefore collapsing
+			// correctly.
+			content.top.should.equal(figure.top);
 		});
 
 	});
