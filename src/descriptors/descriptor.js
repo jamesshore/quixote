@@ -23,13 +23,10 @@ Me.prototype.createShould = function createAssert() {
 
 		equal: function(expected, message) {
 			self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-				var equals = actualValue.equals(expectedValue);
-				if (!equals) {
-					throw new Error(
-						message + self + " should be " + expectedValue.diff(actualValue) + ".\n" +
+				if (!actualValue.equals(expectedValue)) {
+					return message + self + " should be " + expectedValue.diff(actualValue) + ".\n" +
 						"  Expected: " + expectedDesc + "\n" +
-						"  But was:  " + actualValue
-					);
+						"  But was:  " + actualValue;
 				}
 			});
 		},
@@ -37,11 +34,9 @@ Me.prototype.createShould = function createAssert() {
 		notEqual: function(expected, message) {
 			self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
 				if (actualValue.equals(expectedValue)) {
-					throw new Error(
-						message + self + " shouldn't be " + expectedValue + ".\n" +
+					return message + self + " shouldn't be " + expectedValue + ".\n" +
 						"  Expected: anything but " + expectedDesc + "\n" +
-						"  But was:  " + actualValue
-					);
+						"  But was:  " + actualValue;
 				}
 			});
 		},
@@ -61,14 +56,15 @@ Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 	}
 	catch (err) {
 		throw new Error(
-			message + "Error in test. Unable to convert descriptor to value.\n" +
+			message + "Error in test. Unable to convert descriptors to values.\n" +
 			"Error message: " + err.message + "\n" +
-			"  'actual' type:   " + oop.instanceName(this) + " (" + this + ")\n" +
-			"  'expected' type: " + oop.instanceName(expected) + " (" + expected + ")\n" +
+			"  'actual' descriptor:   " + this + " (" + oop.instanceName(this) + ")\n" +
+			"  'expected' descriptor: " + expected + " (" + oop.instanceName(expected) + ")\n" +
 			"If you think Quixote is at fault, please open an issue at\n" +
 			"https://github.com/jamesshore/quixote/issues. Include this error\n" +
 			"message and a standalone example test that reproduces the error.\n" +
-			"Error stack trace: " + err.stack
+			"Error stack trace:\n" +
+			err.stack
 		);
 	}
 
@@ -82,7 +78,26 @@ Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 	var expectedDesc = expectedValue.toString();
 	if (expected instanceof Me) expectedDesc += " (" + expected + ")";
 
-	assertFn(actualValue, expectedValue, expectedDesc, message);
+	var failure;
+	try {
+		failure = assertFn(actualValue, expectedValue, expectedDesc, message);
+	}
+	catch (err2) {
+		throw new Error(
+			message + "Error in test. Unable to perform assertion.\n" +
+			"Error message: " + err2.message + "\n" +
+			"  'actual' descriptor:   " + this + " (" + oop.instanceName(this) + ")\n" +
+			"  'expected' descriptor: " + expected + " (" + oop.instanceName(expected) + ")\n" +
+			"  'actual' value:   " + actualValue + " (" + oop.instanceName(actualValue) + ")\n" +
+			"  'expected' value: " + expectedValue + " (" + oop.instanceName(expectedValue) + ")\n" +
+			"If you think Quixote is at fault, please open an issue at\n" +
+			"https://github.com/jamesshore/quixote/issues. Include this error\n" +
+			"message and a standalone example test that reproduces the error.\n" +
+			"Error stack trace:\n" +
+			err2.stack
+		);
+	}
+	if (failure !== undefined) throw new Error(failure);
 };
 
 

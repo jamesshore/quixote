@@ -109,15 +109,18 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			var actual = new Example(1);
 			assert.exception(
 				function() { actual.doAssertion(new ToValueErrorDescriptor(), "my message", fn); },
-				/^my message: Error in test\. Unable to convert descriptor to value\.\nError message: ErrorDescriptor.value\(\) error\n  'actual' type:   Example \(example 1\)\n  'expected' type: ToValueErrorDescriptor \(ErrorDescriptor\)\nIf you think Quixote is at fault, please open an issue at\nhttps:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this error\nmessage and a standalone example test that reproduces the error\.\nError stack trace: /
+				/^my message: Error in test\. Unable to convert descriptors to values\.\nError message: ErrorDescriptor.value\(\) error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: ErrorDescriptor \(ToValueErrorDescriptor\)\nIf you think Quixote is at fault, please open an issue at\nhttps:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this error\nmessage and a standalone example test that reproduces the error\.\nError stack trace:\n/
 			);
 		});
 
 		it("fails nicely when assertion function fails", function() {
-			// var assertionFn = function() { throw new Error("my error"); }
-			// assert.exception(
-			// 	function() { a.doAsse})
-
+			var actual = new Example(1);
+			var expected = new Example(2);
+			var assertionFn = function() { throw new Error("my error"); };
+			assert.exception(
+				function() { actual.doAssertion(expected, "my message", assertionFn); },
+				/^my message: Error in test\. Unable to perform assertion\.\nError message: my error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: example 2 \(Example\)\n  'actual' value:   1 \(ExampleValue\)\n  'expected' value: 2 \(ExampleValue\)\nIf you think Quixote is at fault, please open an issue at\nhttps:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this error\nmessage and a standalone example test that reproduces the error\.\nError stack trace:\n/
+			);
 		});
 
 		it("something something--check comparing X position to Y position");
@@ -146,7 +149,7 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 
 	});
 
-	
+
 	describe("should.notEqual()", function() {
 
 		it("does nothing when not equal", function() {
