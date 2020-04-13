@@ -2,7 +2,6 @@
 
 * [Back to overview README.](../README.md)
 * [Back to API overview.](api.md)
-* [Back to descriptor overview.](descriptors.md)
 
 `PositionDescriptor` instances represent an X or Y position on the web page. The position of the top-left corner of the page is zero. X positions increase to the right and Y positions increase downward.
 

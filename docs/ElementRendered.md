@@ -2,7 +2,6 @@
 
 * [Back to overview README.](../README.md)
 * [Back to API overview.](api.md)
-* [Back to descriptor overview.](descriptors.md)
 
 `ElementRendered` instances represent whether an element is rendered on the page or not. For a complete explanation, see the [`QElement.rendered`](QElement.md#element-rendering) property.
 

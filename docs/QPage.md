@@ -12,7 +12,7 @@ Use these properties in your assertions.
 
 **Compatibility Notes:**
 
-* We aren't aware of a standard way to get the dimensions of the page. We have implemented a solution that works on our [tested browsers](../build/config/tested_browsers.js), but it may not work on all browsers. If you use these descriptors, perform a visual check to make sure they're working as expected. If they aren't, please file an issue.
+* We aren't aware of a standard way to get the dimensions of the page. We have implemented a solution that works on our [tested browsers](../build/config/tested_browsers.js), but it may not work on all browsers. If you use these properties, perform a visual check to make sure they're working as expected. If they aren't, please file an issue.
 
 * In particular, the current solution for page dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. They do *not* work on pages without a doctype. If support for another doctype is important to you, please let us know by opening an issue.
 

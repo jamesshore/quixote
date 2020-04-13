@@ -36,6 +36,7 @@
 * Update src/descriptors README
 	* test: "has assertions"
 	* code: call createShould()
+* Update src/values README - just a copyedit pass
 
 
 ## To Do: API documentation
@@ -48,9 +49,9 @@
 * (DONE) PositionDescriptor
 * (DONE) SizeDescriptor
 * (DONE) ElementRendered
-* QViewport (new)
-* QPage (new)
-* descriptors (delete)
+* (DONE) QPage (new)
+* (DONE) QViewport (new)
+* (DONE) descriptors (delete)
 * Review/update stability ratings (search 'Unstable' and 'Experimental')
 * Double-check all API page links
 * Double-check README page links

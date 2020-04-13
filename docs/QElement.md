@@ -83,10 +83,9 @@ content.assert({
 
 * We don't support the `overflow: overlay` property and probably never will. It's deprecated.
 
-* The `element.rendered` descriptors don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
+* The `element.rendered` properties don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
 
-* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` descriptors to throw an error. You can check for this broken behavior with the [quixote.browser.misreportsAutoValuesInClipProperty()](quixote.md#quixotebrowser) browser detect.
-
+* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` properties to throw an error. You can check for this broken behavior with the [quixote.browser.misreportsAutoValuesInClipProperty()](quixote.md#quixotebrowser) browser detect.
 
 
 ## Methods
@@ -228,6 +227,8 @@ Retrieve the underlying [`HTMLElement`](https://developer.mozilla.org/en-US/docs
 * `dom (`[`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement)`)` The DOM element.
 
 
+## Deprecated Methods
+
 ### element.assert()
 
 ```
@@ -262,10 +263,10 @@ Stability: 0 - Deprecated
 
 **Deprecation Warning:** This method may be removed in a future release. Use [QElement properties'](#properties) `should` assertions instead.
 
-Compare the element's descriptors to a set of expected values. This is the same as [`QElement.assert()`](#elementassert), except that it returns a string rather than throwing an exception.
+Compare the element's properties to a set of expected values. This is the same as [`QElement.assert()`](#elementassert), except that it returns a string rather than throwing an exception.
 
 `diff = element.diff(expected)`
 
 * `diff (string)` A human-readable description of any differences found, or an empty string if none.
 
-* `expected (object)` An object containing one or more [QElement descriptors](descriptors.md) (`top`, `right`, etc.) as keys, along with the expected value as [another descriptor](descriptors.md) or hard-coded value.
+* `expected (object)` An object containing one or more [QElement properties](#properties) (`top`, `right`, etc.) as keys, along with the expected value as another property or hard-coded value.

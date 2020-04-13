@@ -2,7 +2,6 @@
 
 * [Back to overview README.](../README.md)
 * [Back to API overview.](api.md)
-* [Back to descriptor overview.](descriptors.md)
 
 `SizeDescriptor` instances represent an width or a height.
 
