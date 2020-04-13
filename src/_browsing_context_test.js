@@ -51,11 +51,11 @@ describe("FOUNDATION: BrowsingContext", function() {
 		});
 
 		it("adds an element", function() {
-			var element = browsingContext.add("<p>foo</p>");
+			var element = browsingContext.add("<p id='myId'>foo</p>");
 			var body = browsingContext.body();
 
 			assert.objEqual(element.parent(), body, "element should be present in browsingContext body");
-			assert.equal(element.toString(), "'<p>foo</p>'", "name should match the HTML created");
+			assert.equal(element.toString(), "'#myId'", "should generate default nickname");
 		});
 
 		it("uses optional nickname to describe added elements", function() {

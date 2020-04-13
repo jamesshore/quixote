@@ -35,8 +35,6 @@ Me.prototype.page = function page() {
 
 Me.prototype.add = function add(html, nickname) {
 	ensure.signature(arguments, [String, [undefined, String]]);
-	if (nickname === undefined) nickname = html;
-
 	return this.body().add(html, nickname);
 };
 
