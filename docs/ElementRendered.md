@@ -58,3 +58,25 @@ Example:
 // "The disclaimer banner should be rendered."
 disclaimer.rendered.should.equal(true);
 ```
+
+
+### elementRendered.should.notEqual()
+
+```
+Stability: 3 - Stable
+```
+
+Check whether the element is rendered opposite to another element.
+
+`elementRendered.should.notEqual(expectedRender, message)`
+
+* `expectedPosition (ElementRendered equivalent)` The render status to not match.
+
+* `message (optional string)` A message to include when the assertion fails.
+
+Example:
+
+```javascript
+// "The disclaimer banner should not be rendered when the cookie banner is rendered."
+disclaimer.rendered.should.notEqual(cookieBanner.rendered);
+```

@@ -69,6 +69,28 @@ navbar.width.should.equal(header.width);
 ```
 
 
+### size.should.notEqual()
+
+```
+Stability: 3 - Stable
+```
+
+Check whether the size does not match another size.
+
+`size.should.notEqual(expectedSize, message)`
+
+* `expectedSize (SizeDescriptor equivalent)` The position to not match.
+
+* `message (optional string)` A message to include when the assertion fails.
+
+Example:
+
+```javascript
+// "The logo should not be the same width as the sidebar."
+logo.width.should.notEqual(sidebar.width);
+```
+
+
 ## Methods
 
 These methods are useful when you want to compare sizes that aren't exactly the same.

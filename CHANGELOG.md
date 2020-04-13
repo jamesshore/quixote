@@ -17,6 +17,7 @@ description to be done
 *New methods:*
 
 * (all descriptors) .should.equal()
+* (all descriptors) .should.notEqual()
 
 *Other changes:*
 

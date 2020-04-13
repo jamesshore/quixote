@@ -47,8 +47,10 @@
 * (DONE) Position.doAssertion()
 * (DONE) Improve doAssertion() error messages
 * (DONE) Handle remaining error scenarios
-* API docs
-* changelog
+* Improve errors for size.plus(position) (etc)
+* Improve errors for x-position.plus(y-position)
+* (DONE) API docs
+* (DONE) changelog
 
 
 ## Dogfooding Notes
