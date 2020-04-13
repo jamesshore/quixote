@@ -83,9 +83,9 @@ content.assert({
 
 * We don't support the `overflow: overlay` property and probably never will. It's deprecated.
 
-* The `element.rendered` properties don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [quixote.browser.misreportsClipAutoProperty()](quixote.md#quixotebrowser) browser detect.
+* The `element.rendered` properties don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [`quixote.browser.misreportsClipAutoProperty()`](quixote.md#quixotebrowser) browser detect.
 
-* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` properties to throw an error. You can check for this broken behavior with the [quixote.browser.misreportsAutoValuesInClipProperty()](quixote.md#quixotebrowser) browser detect.
+* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` properties to throw an error. You can check for this broken behavior with the [`quixote.browser.misreportsAutoValuesInClipProperty()`](quixote.md#quixotebrowser) browser detect.
 
 
 ## Methods
@@ -96,7 +96,7 @@ content.assert({
 Stability: 3 - Stable
 ```
 
-Determine how the browser is actually rendering an element's style. This uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
+Determine how the browser is actually rendering an element's style. This uses [`getComputedStyle()`](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [`currentStyle`](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
 
 `style = element.getRawStyle(property)`
 
@@ -120,7 +120,7 @@ Example: `var fontSize = element.getRawStyle("font-size");`
 Stability: 3 - Stable
 ```
 
-Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change. You can use [`QFrame.getRawScrollPosition()`](QFrame.md) to compensate for the effect of scrolling.
+Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [`getBoundingClientRect()`](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change. You can use [`QFrame.getRawScrollPosition()`](QFrame.md#framegetrawscrollposition) to compensate for the effect of scrolling.
 
 `position = element.getRawPosition()`
 
