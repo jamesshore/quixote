@@ -153,7 +153,7 @@ describe("FOUNDATION: QElement", function() {
 				"<div>child</div>",
 				"child HTML should have been set"
 			);
-			assert.equal(child.toString(), "'<div>child</div> in #element'", "default nickname");
+			assert.equal(child.toString(), "'<div>'", "default nickname");
 		});
 
 		it("doesn't choke on leading/trailing whitespace in html passed to .add()", function() {

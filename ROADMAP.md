@@ -49,7 +49,8 @@
 * Update nickname-generation code
 	* QElement.parent()
 	* QElement.add()
-
+* README
+	* Credit Justin for inspiring nickname improvements
 * CHANGELOG
   * Improved automatic nicknames
   * Add QElement.parent(nickname)

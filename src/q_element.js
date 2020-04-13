@@ -126,7 +126,6 @@ Me.prototype.parent = function(nickname) {
 
 Me.prototype.add = function(html, nickname) {
 	ensure.signature(arguments, [ String, [ undefined, String ] ]);
-	if (nickname === undefined) nickname = html + " in " + this._nickname;
 
 	var tempElement = document.createElement("div");
 	tempElement.innerHTML = shim.String.trim(html);
@@ -137,7 +136,7 @@ Me.prototype.add = function(html, nickname) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._domElement.appendChild(insertedElement);
-	return new Me(insertedElement, nickname);
+	return Me.create(insertedElement, nickname);
 };
 
 Me.prototype.remove = function() {
