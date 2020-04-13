@@ -110,7 +110,7 @@ Create a `SizeDescriptor` that's smaller than this one.
 Example:
 
 ```javascript
-"The content area is the same width as the navbar, excluding the sidebar."
+// "The content area is the same width as the navbar, excluding the sidebar."
 content.width.should.equal(navbar.width.minus(sidebar.width));
 ```
 
