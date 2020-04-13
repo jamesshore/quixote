@@ -30,7 +30,7 @@ image.rendered.should.equal(lightbox.rendered);
 
 ```javascript
 // "The lightbox should not be rendered."
-lightbox.rendered.should.be(false);
+lightbox.rendered.should.equal(false);
 ```
 
 
