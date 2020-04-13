@@ -29,7 +29,8 @@
 * .should.beBiggerThan()
 * .should.beSmallerThan()
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
-* Update API documentation (complete overhaul; eliminate separate descriptors catalog)
+	* Fix documentation, including links, if this is changed
+* (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * (DONE) Update README
 * (DONE) Update example
 * Update CONTRIBUTING
@@ -53,7 +54,7 @@
 * (DONE) QViewport (new)
 * (DONE) descriptors (delete)
 * (DONE) Review/update stability ratings (search 'Unstable' and 'Experimental')
-* Double-check all API page links
+* (DONE) Double-check all API page links
 * (DONE) Double-check README page links
 * (DONE) Changelog: deprecate Descriptor.diff()*
 

@@ -42,7 +42,7 @@ Thank you!
 
 To work with the code on your own computer:
 
-1. Install [Node.js](http://nodejs.org/download/).
+1. Install [Node.js](http://nodejs.org).
 2. Clone the GitHub repository: `git clone https://github.com/jamesshore/quixote.git`
 3. All commands must run from the root of the source tree: `cd quixote`.
 4. Run the tests as described below. They should pass. If not, [open an issue](https://github.com/jamesshore/quixote/issues) or [contact me @jamesshore on Twitter](https://twitter.com/jamesshore).
