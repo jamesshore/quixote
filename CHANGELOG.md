@@ -21,6 +21,7 @@ description to be done
 *Other changes:*
 
 * Most methods have been promoted to '3-Stable'
+* Improved error messages when making invalid assertions
 
 
 

@@ -40,23 +40,15 @@
 	* Update src/values README - just a copyedit pass
 
 
-## To Do: API documentation
+## To Do: .should.notEqual()
 
-* (DONE) API ToC (api.md)
-* (DONE) quixote
-* (DONE) QFrame
-* (DONE) QElement
-* (DONE) QElementList
-* (DONE) PositionDescriptor
-* (DONE) SizeDescriptor
-* (DONE) ElementRendered
-* (DONE) QPage (new)
-* (DONE) QViewport (new)
-* (DONE) descriptors (delete)
-* (DONE) Review/update stability ratings (search 'Unstable' and 'Experimental')
-* (DONE) Double-check all API page links
-* (DONE) Double-check README page links
-* (DONE) Changelog: deprecate Descriptor.diff()*
+* (DONE) Value.isCompatibleWith()
+* (DONE) Position.should.notEqual()
+* (DONE) Position.doAssertion()
+* Improve doAssertion() error messages
+* Handle remaining error scenarios
+* API docs
+* changelog
 
 
 ## Dogfooding Notes

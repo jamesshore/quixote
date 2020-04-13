@@ -14,7 +14,7 @@ oop.makeAbstract(Me, [
 	"toString"
 ]);
 
-// WORKAROUND IE 8: Doesn't support Object.defineProperty(), which would allow us to create Me.prototype.assert
+// WORKAROUND IE 8: Doesn't support Object.defineProperty(), which would allow us to create Me.prototype.should
 // directly on this class as an accessor method.
 // WORKAROUND IE 11: Doesn't support ES6 'class' syntax, which would allow us to use getter methods and inheritance.
 Me.prototype.createShould = function createAssert() {
@@ -22,32 +22,76 @@ Me.prototype.createShould = function createAssert() {
 	return {
 
 		equal: function(expected, message) {
-			message = message === undefined ? "" : message + ": ";
-			var difference = self.diff(expected);
-			if (difference !== "") throw new Error(message + difference);
+			self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+				var equals = actualValue.equals(expectedValue);
+				if (!equals) {
+					throw new Error(
+						message + self + " should be " + expectedValue.diff(actualValue) + ".\n" +
+						"  Expected: " + expectedDesc + "\n" +
+						"  But was:  " + actualValue
+					);
+				}
+			});
+		},
+
+		notEqual: function(expected, message) {
+			self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+				if (actualValue.equals(expectedValue)) {
+					throw new Error(
+						message + self + " shouldn't be " + expectedValue + ".\n" +
+						"  Expected: anything but " + expectedDesc + "\n" +
+						"  But was:  " + actualValue
+					);
+				}
+			});
 		},
 
 	};
 };
 
-Me.prototype.diff = function diff(expected) {
-	expected = normalizeType(this, expected);
+Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
+	message = message === undefined ? "" : message + ": ";
+	expected = convertExpectationFromPrimitiveIfNeeded(this, expected);
+
+	var actualValue;
+	var expectedValue;
 	try {
-		var actualValue = this.value();
-		var expectedValue = expected.value();
-
-		if (actualValue.equals(expectedValue)) return "";
-
-		var difference = expectedValue.diff(actualValue);
-		var expectedDesc = expectedValue.toString();
-		if (expected instanceof Me) expectedDesc += " (" + expected + ")";
-
-		return this + " should be " + difference + ".\n" +
-			"  Expected: " + expectedDesc + "\n" +
-			"  But was:  " + actualValue;
+		actualValue = this.value();
+		expectedValue = expected.value();
 	}
 	catch (err) {
 		throw new Error("Can't compare " + this + " to " + expected + ": " + err.message);
+	}
+
+	if (!actualValue.isCompatibleWith(expectedValue)) {
+		throw new Error(
+			message + "Error in test. Use a different 'expected' parameter.\n" +
+			"Attempted to compare two incompatible types:\n" +
+			"  'actual' type:   " + oop.instanceName(this) + " (" + this + ")\n" +
+			"  'expected' type: " + oop.instanceName(expected) + " (" + expected + ")"
+		);
+	}
+
+	var expectedDesc = expectedValue.toString();
+	if (expected instanceof Me) expectedDesc += " (" + expected + ")";
+
+	assertFn(actualValue, expectedValue, expectedDesc, message);
+};
+
+
+Me.prototype.diff = function diff(expected) {
+	// Legacy code, strictly for compatibility with deprecated Assertable.equals() and Assertable.diff() methods.
+	// It's weird because we moved to should.equals(), which always throws an exception, but diff returns a string.
+	// To avoid duplicating complex logic, we call should.equals() and then unwrap the exception, but only if it's
+	// the right kind of exception.
+	try {
+		this.should.equal(expected);
+		return "";
+	}
+	catch (err) {
+		var message = err.message;
+		if (message.indexOf("But was:") === -1) throw err;    // it's not an assertion error, it's some other exception
+		return message;
 	}
 };
 
@@ -60,11 +104,11 @@ Me.prototype.convert = function convert(arg, type) {
 
 Me.prototype.equals = function equals(that) {
 	// Descriptors aren't value objects. They're never equal to anything. But sometimes
-	// they're used in the same places value objects are used, and this method gets called.
+	// they're used in the same places value objects are used, and then this method gets called.
 	return false;
 };
 
-function normalizeType(self, expected) {
+function convertExpectationFromPrimitiveIfNeeded(self, expected) {
 	var expectedType = typeof expected;
 	if (expected === null) expectedType = "null";
 
