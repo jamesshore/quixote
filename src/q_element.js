@@ -11,10 +11,7 @@ var GenericSize = require("./descriptors/generic_size.js");
 var Assertable = require("./assertable.js");
 
 var Me = module.exports = function QElement(domElement, nickname) {
-	ensure.signature(arguments, [Object, [String, undefined]]);
-	if (nickname === undefined) {
-		nickname = domElement.id || domElement.tagName;
-	}
+	ensure.signature(arguments, [ Object, String ]);
 
 	this._domElement = domElement;
 	this._nickname = nickname;
@@ -34,6 +31,17 @@ var Me = module.exports = function QElement(domElement, nickname) {
 	this.rendered = ElementRendered.create(this);
 };
 Assertable.extend(Me);
+
+Me.create = function(domElement, nickname) {
+	ensure.signature(arguments, [ Object, [ undefined, String ] ]);
+
+	if (nickname === undefined) {
+		if (domElement.id !== "") nickname = "#" + domElement.id;
+		else if (domElement.className !== "") nickname = "." + domElement.className.split(/\s+/).join(".");
+		else nickname = "<" + domElement.tagName.toLowerCase() + ">";
+	}
+	return new Me(domElement, nickname);
+};
 
 Me.prototype.getRawStyle = function(styleName) {
 	ensure.signature(arguments, [String]);
@@ -106,7 +114,6 @@ Me.prototype.calculatePixelValue = function(sizeString) {
 
 Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
-	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
 	var parentBody = this.context().body();
 	if (this.equals(parentBody)) return null;
@@ -114,12 +121,11 @@ Me.prototype.parent = function(nickname) {
 	var parent = this._domElement.parentElement;
 	if (parent === null) return null;
 
-	return new Me(parent, nickname);
+	return Me.create(parent, nickname);
 };
 
 Me.prototype.add = function(html, nickname) {
 	ensure.signature(arguments, [ String, [ undefined, String ] ]);
-	if (nickname === undefined) nickname = html + " in " + this._nickname;
 
 	var tempElement = document.createElement("div");
 	tempElement.innerHTML = shim.String.trim(html);
@@ -130,7 +136,7 @@ Me.prototype.add = function(html, nickname) {
 
 	var insertedElement = tempElement.childNodes[0];
 	this._domElement.appendChild(insertedElement);
-	return new Me(insertedElement, nickname);
+	return Me.create(insertedElement, nickname);
 };
 
 Me.prototype.remove = function() {

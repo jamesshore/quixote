@@ -38,10 +38,45 @@ describe("FOUNDATION: QElement", function() {
 	});
 
 
+	describe("creation", function() {
+
+		it("uses provided nickname", function() {
+			var element = create("<div></div>", "my nickname");
+			assert.equal(element.toString(), "'my nickname'");
+		});
+
+		it("uses element ID if no nickname provided", function() {
+			var element = create("<div id='myId'></div>");
+			assert.equal(element.toString(), "'#myId'");
+		});
+
+		it("uses class names if no nickname or ID", function() {
+			var oneClass = create("<div class='myClass'></div>");
+			assert.equal(oneClass.toString(), "'.myClass'", "one class");
+
+			var manyClasses = create("<div class='one two three'></div>");
+			assert.equal(manyClasses.toString(), "'.one.two.three'", "multiple classes");
+
+			var lotsOfWhitespace = create("<div class='one  \t \n two'></div>");
+			assert.equal(lotsOfWhitespace.toString(), "'.one.two'", "lots of whitespace");
+		});
+
+		it("uses tag name if nothing else works", function() {
+			var element = create("<blockquote></blockquote>");
+			assert.equal(element.toString(), "'<blockquote>'");
+		});
+
+		function create(html, nickname) {
+			return QElement.create(frame.add(html).toDomElement(), nickname);
+		}
+
+	});
+
+
 	describe("object", function() {
 
 		it("compares to another QElement", function() {
-			var head = new QElement(document.querySelector("head"), "head");    // WORKAROUND IE8: no document.head
+			var head = new QElement(document.querySelector("head"), "head");    // WORKAROUND IE 8: no document.head
 			var body1 = new QElement(document.body, "body");
 			var body2 = new QElement(document.body, "body");
 
@@ -49,24 +84,16 @@ describe("FOUNDATION: QElement", function() {
 			assert.objNotEqual(head, body1, "inequality");
 		});
 
-		it("element description does not affect equality", function() {
-			var body1 = new QElement(document.body, "body description");
-			var body2 = new QElement(document.body, "description can be anything");
+		it("element nickname does not affect equality", function() {
+			var body1 = new QElement(document.body, "body nickname");
+			var body2 = new QElement(document.body, "nickname can be anything");
 
 			assert.objEqual(body1, body2, "should still be equal");
 		});
 
-		it("converts to string", function() {
+		it("converts to string based on nickname", function() {
 			var element = new QElement(document.body, "nickname");
 			assert.equal(element.toString(), "'nickname'");
-		});
-
-		it("makes a best guess at a description when not given one", function() {
-			var bodyElement = new QElement(document.body);
-			var paragraphElement = new QElement(frame.body().toDomElement().querySelector("p"));
-
-			assert.equal(bodyElement.toString(), "'BODY'");
-			assert.equal(paragraphElement.toString(), "'element'");
 		});
 
 	});
@@ -92,7 +119,7 @@ describe("FOUNDATION: QElement", function() {
 			var child = frame.get("#child");
 
 			assert.objEqual(child.parent(), parent, "should provide parent");
-			assert.equal(child.parent().toString(), "'parent of #child'", "should provide default nickname");
+			assert.equal(child.parent().toString(), "'#parent'", "should generate default nickname");
 			assert.equal(child.parent("nickname").toString(), "'nickname'", "should use provided nickname");
 		});
 
@@ -126,7 +153,7 @@ describe("FOUNDATION: QElement", function() {
 				"<div>child</div>",
 				"child HTML should have been set"
 			);
-			assert.equal(child.toString(), "'<div>child</div> in #element'", "default nickname");
+			assert.equal(child.toString(), "'<div>'", "default nickname");
 		});
 
 		it("doesn't choke on leading/trailing whitespace in html passed to .add()", function() {

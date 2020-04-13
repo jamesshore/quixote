@@ -60,7 +60,7 @@ Create a [`QElement`](QElement.md) from an existing DOM element. Useful when usi
 
 * `domElement (HTMLElement)` DOM element to wrap.
 
-* `nickname (optional string)` A friendly description of the dom element used when displaying error messages.
+* `nickname (optional string)` The name to use when describing your element in error messages. Defaults to the element ID, class names, or tag name, in that order.
 
 Example:
 

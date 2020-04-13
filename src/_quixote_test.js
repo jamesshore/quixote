@@ -4,6 +4,7 @@
 var assert = require("./util/assert.js");
 var quixote = require("./quixote.js");
 var QFrame = require("./q_frame.js");
+var reset = require("./__reset.js");
 
 describe("FOUNDATION: Quixote", function() {
 
@@ -16,6 +17,13 @@ describe("FOUNDATION: Quixote", function() {
 			done(err);
 		});
 		assert.type(frame, QFrame, "createFrame() returns frame object immediately");
+	});
+
+	it("creates QElement from DOM element", function() {
+		var domElement = reset.frame.add("<div>my element</div>").toDomElement();
+
+		var element = quixote.elementFromDom(domElement);
+		assert.equal(element.toDomElement(), domElement);
 	});
 
 });

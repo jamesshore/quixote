@@ -1,6 +1,7 @@
 // Copyright Titanium I.T. LLC.
 "use strict";
 
+var ensure = require("./util/ensure.js");
 var QElement = require('./q_element.js');
 var QFrame = require("./q_frame.js");
 var browser = require("./browser.js");
@@ -17,5 +18,5 @@ exports.createFrame = function(options, callback) {
 };
 
 exports.elementFromDom = function(domElement, nickname) {
-	return new QElement(domElement, nickname);
+	return QElement.create(domElement, nickname);
 };

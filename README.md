@@ -449,6 +449,7 @@ Many thanks to our contributors!
 * Dave Woldrich (@woldie): Prototype of `element.rendered` descriptor and related collaboration on issue (v0.13)
 * Sam Graber (@SamGraber): `css` option in `quixote.createFrame()` (v0.13)
 * Justin (@greyepoxy): `quixote.elementFromDom()` for using Quixote with third-party test runners (v0.15)
+* Justin (@greyepoxy): Initial work on new nickname generation approach (v1.0.0)
 
 
 ## License
