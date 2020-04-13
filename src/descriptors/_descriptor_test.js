@@ -81,8 +81,11 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 		it("fails nicely when comparison is undefined", function() {
 			var actual = new Example(1);
 			assert.exception(
-				function() { actual.doAssertion(undefined, m, fn); },
-				"Can't compare example 1 to undefined. Did you misspell a property name?"
+				function() { actual.doAssertion(undefined, "my message", fn); },
+				"my message: Error in test. Use a different 'expected' parameter.\n" +
+				"'expected' parameter is undefined. Did you misspell a property name?\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: undefined"
 			);
 		});
 
@@ -143,13 +146,6 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 					"  Expected: 2 (example 2)\n" +
 					"  But was:  1"
 			);
-
-
-			// my message: Error in test. Use a different 'expected' parameter.
-			// Attempted to compare two incompatible types:
-			//   'expected' type: Example (example 1)
-			//   'actual' type:   IncompatibleExample (incompatible example)
-
 		});
 
 	});
@@ -182,7 +178,7 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			assert.equal(example.diff(example), "");
 		});
 
-		it("describes differences between a descriptor and a value", function() {
+		it("converts assertion error message to string when there is a difference", function() {
 			assert.equal(
 				example.diff(2),
 				"example 1 should be larger.\n" +
@@ -191,52 +187,17 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			);
 		});
 
-		it("describes differences between two descriptors", function() {
-			assert.equal(
-				example.diff(new Example(2)),
-				"example 1 should be larger.\n" +
-					"  Expected: 2 (example 2)\n" +
-					"  But was:  1"
+		it("throws an exception when assertion errors out rather than failing normally", function() {
+			var expectedErrorMessage;
+			try { example.should.equal(undefined); }
+			catch (err) { expectedErrorMessage = err.message; }
+
+			assert.exception(
+				function() { example.diff(undefined); },
+				expectedErrorMessage
 			);
 		});
 
-		it("converts values before comparing them", function() {
-			assert.equal(example.diff(1), "");
-		});
-
-		it("wraps diff errors in an explanation", function() {
-			var error = new ToValueErrorDescriptor();
-
-			assert.exception(function() {
-				example.diff(error);
-			}, "Can't compare " + example + " to " + error + ": ErrorDescriptor.value() error");
-		});
-
-		it("fails nicely when diffing 'undefined' accidentally", function() {
-			assert.exception(function() {
-				example.diff(undefined);
-			}, "Can't compare example 1 to undefined. Did you misspell a property name?");
-		});
-
-		it("fails nicely when diffing against unrecognized primitives (and similar hardcoded values)", function() {
-			assertError(true, "true");
-			assertError("foo", "'foo'");
-			assertError(null, "null");
-			assertError(function() {}, "a function");
-			assertError({}, "Object instances");
-
-			function assertError(arg, expected) {
-				assert.exception(function() {
-					example.diff(arg);
-				}, "Can't compare example 1 to " + expected + ".");
-			}
-		});
-
-		it("doesn't fail when diffing arbitrary value object", function() {
-			assert.noException(function() {
-				example.diff(new ExampleValue());
-			});
-		});
 	});
 
 

@@ -51,7 +51,7 @@ Me.prototype.createShould = function createAssert() {
 
 Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 	message = message === undefined ? "" : message + ": ";
-	expected = convertExpectationFromPrimitiveIfNeeded(this, expected);
+	expected = convertExpectationFromPrimitiveIfNeeded(this, expected, message);
 
 	var actualValue;
 	var expectedValue;
@@ -108,14 +108,19 @@ Me.prototype.equals = function equals(that) {
 	return false;
 };
 
-function convertExpectationFromPrimitiveIfNeeded(self, expected) {
+function convertExpectationFromPrimitiveIfNeeded(self, expected, message) {
 	var expectedType = typeof expected;
 	if (expected === null) expectedType = "null";
 
 	if (expectedType === "object" && (expected instanceof Me || expected instanceof Value)) return expected;
 
 	if (expected === undefined) {
-		throw new Error("Can't compare " + self + " to " + expected + ". Did you misspell a property name?");
+		throw new Error(
+			message + "Error in test. Use a different 'expected' parameter.\n" +
+			"'expected' parameter is undefined. Did you misspell a property name?\n" +
+			"  'actual' type:   " + oop.instanceName(self) + " (" + self + ")\n" +
+			"  'expected' type: undefined"
+		);
 	}
 	else if (expectedType === "object") {
 		throw new Error("Can't compare " + self + " to " + oop.instanceName(expected) + " instances.");
