@@ -9,7 +9,6 @@ var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
 
 describe("DESCRIPTOR: ElementRenderedEdge", function() {
-	this.timeout(5000);
 
 	var frame;
 	var qGrandparent;

@@ -12,8 +12,9 @@ var quixote = require("./quixote.js");
 exports.WIDTH = 500;
 exports.HEIGHT = 400;
 
+mocha.timeout(20000);
+
 before(function(done) {
-	this.timeout(20000);
 	var options = {
 		width: exports.WIDTH,
 		height: exports.HEIGHT,
