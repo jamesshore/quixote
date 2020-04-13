@@ -25,5 +25,5 @@ exports.elementFromDom = function(domElement, nickname) {
 		else if (domElement.className !== "") nickname = "." + domElement.className.split(/\s+/).join(".");
 		else nickname = "<" + domElement.tagName.toLowerCase() + ">";
 	}
-	return new QElement(domElement, nickname);
+	return QElement.create(domElement, nickname);
 };

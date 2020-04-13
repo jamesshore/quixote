@@ -44,10 +44,10 @@ describe("FOUNDATION: BrowsingContext", function() {
 		it("retrieves body element", function() {
 			assert.objEqual(
 				browsingContext.body(),
-				new QElement(frame.toDomElement().contentDocument.body, "body"),
+				QElement.create(frame.toDomElement().contentDocument.body, "<body>"),
 				"body element"
 			);
-			assert.equal(browsingContext.body().toString(), "'body'", "body description");
+			assert.equal(browsingContext.body().toString(), "'<body>'", "body description");
 		});
 
 		it("adds an element", function() {

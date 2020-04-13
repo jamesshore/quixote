@@ -32,6 +32,11 @@ var Me = module.exports = function QElement(domElement, nickname) {
 };
 Assertable.extend(Me);
 
+Me.create = function(domElement, nickname) {
+	ensure.signature(arguments, [ Object, [ undefined, String ]]);
+	return new Me(domElement, nickname);
+};
+
 Me.prototype.getRawStyle = function(styleName) {
 	ensure.signature(arguments, [String]);
 

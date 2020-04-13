@@ -31,7 +31,7 @@ Me.prototype.at = function at(requestedIndex, nickname) {
 	var element = this._nodeList[index];
 
 	if (nickname === undefined) nickname = this._nickname + "[" + index + "]";
-	return new QElement(element, nickname);
+	return QElement.create(element, nickname);
 };
 
 Me.prototype.toString = function toString() {

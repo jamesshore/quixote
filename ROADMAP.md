@@ -48,6 +48,9 @@
 * (DONE) nicknames: '#id', '.class', '<tag>'
 * Have add() use nickname-generation code?
 * CHANGELOG
+  * Improved automatic nicknames
+* API docs
+	* QElement.add, quixote.elementFromDom nickname generation
 
 
 ## Dogfooding Notes

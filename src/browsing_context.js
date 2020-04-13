@@ -18,7 +18,7 @@ var Me = module.exports = function BrowsingContext(contentDocument) {
 Me.prototype.body = function body() {
 	ensure.signature(arguments, []);
 
-	return new QElement(this.contentDocument.body, "body");
+	return QElement.create(this.contentDocument.body, "<body>");
 };
 
 Me.prototype.viewport = function viewport() {
@@ -46,7 +46,7 @@ Me.prototype.get = function get(selector, nickname) {
 
 	var nodes = this.contentDocument.querySelectorAll(selector);
 	ensure.that(nodes.length === 1, "Expected one element to match '" + selector + "', but found " + nodes.length);
-	return new QElement(nodes[0], nickname);
+	return QElement.create(nodes[0], nickname);
 };
 
 Me.prototype.getAll = function getAll(selector, nickname) {
