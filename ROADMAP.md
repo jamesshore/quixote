@@ -28,6 +28,7 @@
 * .should.beToLeftOf()
 * .should.beBiggerThan()
 * .should.beSmallerThan()
+* (WIP) Test quixote.elementFromDom()
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 	* Fix documentation, including links, if this is changed
 * (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
@@ -40,17 +41,12 @@
 	* Update src/values README - just a copyedit pass
 
 
-## To Do: .should.notEqual()
+## To Do: quixote.elementFromDom
 
-* (DONE) Value.isCompatibleWith()
-* (DONE) Position.should.notEqual()
-* (DONE) Position.doAssertion()
-* (DONE) Improve doAssertion() error messages
-* (DONE) Handle remaining error scenarios
-* (DONE) Improve errors for size.plus(position) (etc)
-* (DONE) Improve errors for x-position.plus(y-position)
-* (DONE) API docs
-* (DONE) changelog
+* Add tests
+* Move code out of QElement
+* nicknames: '#id', '.class', '<tag>'
+* CHANGELOG
 
 
 ## Dogfooding Notes
