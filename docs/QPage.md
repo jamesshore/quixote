@@ -25,7 +25,7 @@ Use these properties in your assertions.
 Stability: 3 - Stable
 ```
 
-These properties include the entire page, regardless of whether it's scrolled out of view. The page is always at least as big as the viewport. By using page properties in your element assertions, you can assert where elements are positioned on the page.
+These properties describe the dimensions of the entire page, regardless of how much is scrolled out of view. The page is always at least as big as the viewport. By using page properties in your element assertions, you can assert where elements are positioned relative to the overall page.
 
 * `page.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top of the page.
 * `page.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right side of the page.
@@ -40,6 +40,6 @@ Example:
 
 ```javascript
 var page = frame.page();
-sidebar.right.should.equal(page.right);    // The sidebar is flush with the right side of the page
-sidebar.height.should.equal(page.height);  // The sidebar height is the same as the page height
+sidebar.right.should.equal(page.right);    // The sidebar should be flush to the right side of the page
+sidebar.height.should.equal(page.height);  // The sidebar height should equal the page height
 ```

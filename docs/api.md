@@ -20,6 +20,7 @@ For an overview, installation notes, and an example, see [the readme](../README.
 * [`QElement`](QElement.md) Manipulate, make assertions about, and get styling information for a specific element.
 * [`QElementList`](QElementList.md) Multiple QElements.
 * [`QPage`](QPage.md) Information about the overall page.
+* [`QViewport`](QViewport.md) Information about the viewport (the part of the page you can see).
 
 ### Descriptor classes
 
