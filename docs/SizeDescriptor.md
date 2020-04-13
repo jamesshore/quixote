@@ -4,143 +4,132 @@
 * [Back to API overview.](api.md)
 * [Back to descriptor overview.](descriptors.md)
 
-Size descriptors represent a width or height.
+`SizeDescriptor` instances represent an width or a height.
 
 
-### Comparisons
+## Equivalents
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
-Size descriptors may be compared to another size descriptor, a number, or "none". 
+Methods with a `SizeDescriptor equivalent` parameter can take any of the following:
 
-* A number refers to the pixel width or height of the element.
-* The string "none" means that the element is not rendered, for example due to having the `display:none` property.
+* A `SizeDescriptor` instance, such as `element.width`.
+* A number representing a width or height in pixels.
+* The string `"none"`, which means the size is not rendered.
 
-
-### Examples
-
-#### Comparing to another descriptor
-
-"The height of the logo matches the height of the top nav."
+#### Example: `SizeDescriptor`
 
 ```javascript
-logo.assert({
-  height: topNav.height
-});
+// "The height of the logo matches the height of the top nav."
+logo.height.should.equal(topNav.height);
 ```
 
-#### Comparing to a specific size
-
-"The sidebar is 200 pixels wide."
+#### Example: `number`
 
 ```javascript
-sidebar.assert({
-  width: 200
-});
+// "The sidebar is 200 pixels wide."
+sidebar.width.should.equal(200);
 ```
 
-#### Comparing to an element-relative size (see API below)
- 
-"The left column is one-third the width of the article."
+#### Example: `"none"`
+
+Note: Although `SizeDescriptor` can tell you if a size is rendered, it's better to use an [`ElementRendered`](ElementRendered.md) property such as [`QElement.rendered`](QElement.md#element-rendering).
 
 ```javascript
-leftColumn.assert({
-  width: article.width.times(1/3)
-});
+// "The light box should not be rendered."
+lightbox.width.should.equal("none");    // not recommended
+lightbox.rendered.should.equal(false);  // recommended
 ```
 
 
-#### Checking whether an element is rendered
+## Assertions
 
-"The light box is no longer rendered after I change the DOM."
+Use these methods to make assertions about the size. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
 
-(Note that using a SizeDescriptor isn't the best way to make this assertion. Use [QElement.rendered](https://github.com/jamesshore/quixote/blob/dev/docs/descriptors.md#element-rendering) instead.)
+### size.should.equal()
+
+```
+Stability: 3 - Stable
+```
+
+Check whether the size matches another size.
+
+`size.should.equal(expectedSize, message)`
+
+* `expectedPosition (SizeDescriptor equivalent)` The expected size.
+
+* `message (optional string)` A message to include when the assertion fails.
+
+Example:
 
 ```javascript
-// First, I expect the light box to be rendered
-lightbox.assert({
-  rendered: true,   // this is the preferred way
-  width: 200        // this is the SizeDescriptor way
-});
-
-// Then I vanish it
-callProductionCodeThatSetsDisplayNoneOnLightbox();
-
-// And I expect the light box will no longer be rendered
-lightbox.assert({
-  rendered: false,  // preferred way
-  width: "none"     // SizeDescriptor way
-});
+// "The navbar width should match the header."
+navbar.width.should.equal(header.width);
 ```
 
 
-### API
+## Methods
 
-Size descriptors implement the following methods. They're useful when you want to compare sizes that aren't exactly the same.
+These methods are useful when you want to compare sizes that aren't exactly the same.
 
 
-#### descriptor.plus()
+### size.plus()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
-Create a descriptor that's bigger than this one.
+Create a `SizeDescriptor` that's bigger than this one.
 
-`descriptor.plus(amount)`
+`size.plus(amount)`
 
-* `amount (SizeDescriptor or number)` The number of pixels to increase the size.
+* `amount (SizeDescriptor equivalent)` The number of pixels to increase.
 
-Example: "The navbar is 12px taller than the logo."
+Example:
 
 ```javascript
-navbar.assert({
-  height: logo.height.plus(12)
-});
+// "The navbar is 12px taller than the logo."
+navbar.height.should.equal(logo.height.plus(12));
 ```
 
 
 #### descriptor.minus()
 
 ```
+Stability: 3 - Stable
+```
+
+Create a `SizeDescriptor` that's smaller than this one.
+
+`size.minus(amount)`
+
+* `amount (SizeDescriptor equivalent)` The number of pixels to decrease.
+
+Example:
+
+```javascript
+"The content area is the same width as the navbar, excluding the sidebar."
+content.width.should.equal(navbar.width.minus(sidebar.width));
+```
+
+
+#### size.times()
+
+```
 Stability: 2 - Unstable
 ```
 
-Create a descriptor that's smaller than this one.
+Create a `SizeDescriptor` that's a multiple or fraction of the size of this one.
 
-`descriptor.minus(amount)`
+`size.times(multiple)`
 
-* `amount (SizeDescriptor or number)` The number of pixels to decrease the size.
+* `multiple (number)` The number to multiply.
 
-Example: "The content area is the same width as the navbar, excluding the sidebar."
-
-```javascript
-content.assert({
-  width: navbar.width.minus(sidebar.width)
-});
-```
-
-
-#### descriptor.times()
-
-```
-Stability: 2 - Unstable
-```
-
-Create a new descriptor that's a multiple or fraction of the size of this one.
-
-`descriptor.times(multiple)`
-
-* `multiple (number)` The number to multiply the size by. (Pro tip: If you use a fraction as shown in the example below, Quixote will report errors as english fractions.)
-
-Example: "The lightbox is half the size of the viewport."
+Example:
 
 ```javascript
-var viewport = frame.viewport();
-lightbox.assert({
-  width: viewport.width.times(1/2),
-  height: viewport.height.times(1/2)
-});
+// "The lightbox is half the width of the viewport."
+lightbox.width.should.equal(frame.viewport().width.times(1/2));
 ```

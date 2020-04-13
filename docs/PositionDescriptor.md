@@ -39,8 +39,8 @@ Note: Although `PositionDescriptor` can tell you if a position is rendered, it's
 
 ```javascript
 // "The light box should not be rendered."
-lightbox.top.should.equal("none");      // (not recommended)
-lightbox.rendered.should.equal(false);  // (recommended)
+lightbox.top.should.equal("none");      // not recommended
+lightbox.rendered.should.equal(false);  // recommended
 ```
 
 
