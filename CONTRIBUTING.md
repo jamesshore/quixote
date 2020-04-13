@@ -1,14 +1,14 @@
 # Quixote Contribution Guidelines
 
-Pull requests are welcome! Here are some specific contributions we're looking for:
+Pull requests are welcome! Here are specific contributions we're looking for:
 
-* **Let us know how Quixote works for you.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you. [Create an issue](https://github.com/jamesshore/quixote/issues) if anything didn't work smoothly or if you had trouble understanding something.
+* **Support more CSS properties.** Quixote can test any CSS property using the [`QElement.getRawStyle()`](docs/QElement.md#elementgetrawstyle) method, but [`QElement` properties](docs/QElement.md#properties) are more sophisticated. They work consistently across browsers, allows relative comparisons, and provide better failure messages. Eventually, we'd like to represent every CSS property. To add new properties, see the [Architecture](#architecture) section below. Please open an issue before doing too much work so we can discuss the API design.
 
-* **Add descriptors for more CSS properties.** Quixote can test any CSS element using the [`QElement.getRawStyle()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawstyle) method, but the [`QElement.assert()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementassert) method is more sophisticated. (It works consistently across browsers, allows relative comparisons, and provides better failure messages.) `QElement.assert()` uses [descriptors](https://github.com/jamesshore/quixote/blob/master/docs/descriptors.md) and we'd eventually like to have descriptors for every CSS property. To contribute new descriptors, see the [Architecture](#architecture) section below. Please open an issue before doing too much work so we can discuss the API design.
+* **Start the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation, but so far, it's just a placeholder. The source code is in [docs](docs).
 
 * **Create a logo.** I'm imagining Don Quixote jousting with a CSS windmill, but feel free to let your imagination run wild.
- 
-* **Start the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation, but so far, everything's just in markdown files. The website source code is in [docs](docs). The [Object Playground site](http://www.objectplayground.com) and [stylesheet](https://github.com/jamesshore/object_playground/blob/master/src/site.css) are a good starting point.
+
+* **Let us know how Quixote works for you.** Download the code, try it out, and [let me know](https://twitter.com/jamesshore) how it worked for you. [Create an issue](https://github.com/jamesshore/quixote/issues) if anything didn't work smoothly or if you had trouble understanding something.
 
 * **Tell your friends and colleagues.** Even if you can't contribute anything, spreading the word is a big help. Let people know about Quixote and why you like it.
 
@@ -157,11 +157,11 @@ Previous commits on the integration branch have "INTEGRATE" in their commit comm
 
 ## Architecture
 
-This discussion assumes you're familiar with the [Quixote API](https://github.com/jamesshore/quixote/blob/master/docs/api.md).
+This discussion assumes you're familiar with the [Quixote API](docs/api.md).
 
 Internally, Quixote's architecture revolves around two core concepts: "Descriptors" and "Values." Descriptor objects represent some aspect of the page, such as "the top edge of element '#foo'", and value objects represent tangible values, such as "60px".
 
-Descriptors and values are implemented with a classical inheritance hierarchy. Descriptor classes ultimately inherit from the [`Descriptor`](src/descriptors/descriptor.js) superclass and value classes inherit from the [`Value`](src/values/value.js) superclass. Descriptor classes are located in the [`src/descriptors`](src/descriptors) folder and value classes are located in [`src/values`](src/values). 
+Descriptors and values are implemented with a classical inheritance hierarchy. Descriptor classes ultimately inherit from the [`Descriptor`](src/descriptors/descriptor.js) superclass and value classes inherit from the [`Value`](src/values/value.js) superclass. Descriptor classes are located in the [`src/descriptors`](src/descriptors) folder and value classes are located in [`src/values`](src/values).
 
 Descriptors are turned into values with the `value()` method implemented by every descriptor class. (This method is for internal use only.) When you make an assertion in Quixote, `value()` is called on both descriptors, then `equals()` is called on the two values to check if they're the same. (This algorithm is implemented by `diff()` in [`descriptor.js`](src/descriptors/descriptor.js).)
 
@@ -172,13 +172,13 @@ Descriptor and Value objects are always instantiated via factory methods, never 
 
 Descriptor classes correspond to some visual part of the page. Each descriptor class is focused on one concept, such as [`ElementEdge`](src/descriptors/element_edge.js), which represents the edges of HTML elements.
 
-Descriptor classes often inherit from a superclass that provides a useful public API. For example, `ElementEdge` inherits from [`PositionDescriptor`](src/descriptors/position_descriptor.js), which provides the [`plus()` and `minus()` methods](https://github.com/jamesshore/quixote/blob/master/docs/PositionDescriptor.md). 
+Descriptor classes often inherit from a superclass that provides a useful public API. For example, `ElementEdge` inherits from [`PositionDescriptor`](src/descriptors/position_descriptor.js), which provides the [`plus()` and `minus()` methods](docs/PositionDescriptor.md).
  
 Descriptor classes have three main features:
 
 1. **They have factory methods** that are used to expose the descriptor in the public API. For example, the public `QElement.top` descriptor is instantiated in [`QElement.js`](src/q_element.js) using this line of code: `this.top = ElementEdge.top(this);`. (You can see the implementation of `ElementEdge.top` in [`element_edge.js`](src/descriptors/element_edge.js).)
 
-2. **They calculate values** via a `value()` method. All CSS logic happens in this method. For example, `ElementEdge.value()` calculates the position of an edge by adding [`QElement.getRawPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawposition) and [`QFrame.getRawScrollPosition()`](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#framegetrawscrollposition).
+2. **They calculate values** via a `value()` method. All CSS logic happens in this method. For example, `ElementEdge.value()` calculates the position of an edge by adding [`QElement.getRawPosition()`](docs/QElement.md#elementgetrawposition) and [`QFrame.getRawScrollPosition()`](docs/QFrame.md#framegetrawscrollposition).
 
 3. **They provide human-readable descriptions** of the part of the page they represent via the `toString()` method. For example, `ElementEdge.toString()` returns strings such as "top edge of 'element'".
 
