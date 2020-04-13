@@ -64,11 +64,9 @@ Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 	}
 
 	if (!actualValue.isCompatibleWith(expectedValue)) {
-		throw new Error(
-			message + "Error in test. Use a different 'expected' parameter.\n" +
-			"Attempted to compare two incompatible types:\n" +
-			"  'actual' type:   " + oop.instanceName(this) + " (" + this + ")\n" +
-			"  'expected' type: " + oop.instanceName(expected) + " (" + expected + ")"
+		throwBadExpectation(
+			this, oop.instanceName(expected) + " (" + expected + ")", message,
+			"Attempted to compare two incompatible types:"
 		);
 	}
 
@@ -112,18 +110,19 @@ function convertExpectationFromPrimitiveIfNeeded(self, expected, message) {
 	var expectedType = typeof expected;
 	if (expected === null) expectedType = "null";
 
-	if (expectedType === "object" && (expected instanceof Me || expected instanceof Value)) return expected;
+	if (expectedType === "object" && (expected instanceof Me)) return expected;
 
 	if (expected === undefined) {
-		throw new Error(
-			message + "Error in test. Use a different 'expected' parameter.\n" +
-			"'expected' parameter is undefined. Did you misspell a property name?\n" +
-			"  'actual' type:   " + oop.instanceName(self) + " (" + self + ")\n" +
-			"  'expected' type: undefined"
+		throwBadExpectation(
+			self, "undefined", message,
+			"'expected' parameter is undefined. Did you misspell a property name?"
 		);
 	}
 	else if (expectedType === "object") {
-		throw new Error("Can't compare " + self + " to " + oop.instanceName(expected) + " instances.");
+		throwBadExpectation(
+			self, oop.instanceName(expected), message,
+			"'expected' parameter should be a Quixote descriptor, but it wasn't recognized."
+		);
 	}
 	else {
 		var converted = self.convert(expected, expectedType);
@@ -136,4 +135,13 @@ function convertExpectationFromPrimitiveIfNeeded(self, expected, message) {
 		throw new Error("Can't compare " + self + " to " + explanation + ".");
 	}
 
+}
+
+function throwBadExpectation(self, expectedType, message, headline) {
+	throw new Error(
+		message + "Error in test. Use a different 'expected' parameter.\n" +
+		headline + "\n" +
+		"  'actual' type:   " + oop.instanceName(self) + " (" + self + ")\n" +
+		"  'expected' type: " + expectedType
+	);
 }

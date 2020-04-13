@@ -47,6 +47,7 @@
 * (DONE) Position.doAssertion()
 * Improve doAssertion() error messages
 * Handle remaining error scenarios
+* Move _assertion_test.js tests and improve error messages
 * API docs
 * changelog
 

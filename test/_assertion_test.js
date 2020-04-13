@@ -74,10 +74,4 @@ describe("END-TO-END: Assertion rendering", function() {
 		}, "Size isn't compatible with Position");
 	});
 
-	it("fails nicely when diffing incompatible elements", function() {
-		assert.exception(function() {
-			element.width.diff(element.top);
-		}, "Can't compare width of '#element' to top edge of '#element': Size isn't compatible with Position");
-	});
-
 });

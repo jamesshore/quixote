@@ -94,8 +94,11 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 
 			var actual = new Example(1);
 			assert.exception(
-				function() { actual.doAssertion(new IncompatibleClass(), m, fn); },
-				"Can't compare example 1 to IncompatibleClass instances."
+				function() { actual.doAssertion(new IncompatibleClass(), "my message", fn); },
+				"my message: Error in test. Use a different 'expected' parameter.\n" +
+				"'expected' parameter should be a Quixote descriptor, but it wasn't recognized.\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: IncompatibleClass"
 			);
 		});
 
@@ -104,9 +107,9 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			assert.exception(
 				function() { actual.doAssertion(new IncompatibleExample(), "my message", fn); },
 				"my message: Error in test. Use a different 'expected' parameter.\n" +
-					"Attempted to compare two incompatible types:\n" +
-					"  'actual' type:   Example (example 1)\n" +
-					"  'expected' type: IncompatibleExample (incompatible)"
+				"Attempted to compare two incompatible types:\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: IncompatibleExample (incompatible)"
 			);
 		});
 
