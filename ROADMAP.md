@@ -55,7 +55,7 @@
 * Review/update stability ratings (search 'Unstable' and 'Experimental')
 * Double-check all API page links
 * Double-check README page links
-* Roadmap: deprecate Descriptor.diff()*
+* (DONE) Changelog: deprecate Descriptor.diff()*
 
 
 ## Dogfooding Notes
