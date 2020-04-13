@@ -21,7 +21,9 @@ exports.elementFromDom = function(domElement, nickname) {
 	ensure.signature(arguments, [ Object, [ undefined, String ] ]);
 
 	if (nickname === undefined) {
-		nickname = domElement.id || domElement.tagName;
+		if (domElement.id !== "") nickname = "#" + domElement.id;
+		else if (domElement.className !== "") nickname = "." + domElement.className.split(/\s+/).join(".");
+		else nickname = "<" + domElement.tagName.toLowerCase() + ">";
 	}
 	return new QElement(domElement, nickname);
 };

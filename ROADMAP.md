@@ -45,7 +45,8 @@
 
 * (DONE) Add tests
 * (DONE) Move code out of QElement
-* nicknames: '#id', '.class', '<tag>'
+* (DONE) nicknames: '#id', '.class', '<tag>'
+* Have add() use nickname-generation code?
 * CHANGELOG
 
 

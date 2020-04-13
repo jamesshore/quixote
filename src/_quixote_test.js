@@ -42,14 +42,24 @@ describe("FOUNDATION: Quixote", function() {
 		});
 
 		it("uses element ID if no nickname provided", function() {
-			var domElement = addDomElement("<div id='myId'></div>");
-			var element = quixote.elementFromDom(domElement);
-			assert.equal(element.toString(), "'myId'");
+			var element = quixote.elementFromDom(addDomElement("<div id='myId'></div>"));
+			assert.equal(element.toString(), "'#myId'");
 		});
 
-		it("uses tag name if no nickname or ID provided", function() {
+		it("uses class names if no nickname or ID", function() {
+			var oneClass = quixote.elementFromDom(addDomElement("<div class='myClass'></div>"));
+			assert.equal(oneClass.toString(), "'.myClass'", "one class");
+
+			var manyClasses = quixote.elementFromDom(addDomElement("<div class='one two three'></div>"));
+			assert.equal(manyClasses.toString(), "'.one.two.three'", "multiple classes");
+
+			var lotsOfWhitespace = quixote.elementFromDom(addDomElement("<div class='one  \t \n two'></div>"));
+			assert.equal(lotsOfWhitespace.toString(), "'.one.two'", "lots of whitespace");
+		});
+
+		it("uses tag name if nothing else works provided", function() {
 			var element = quixote.elementFromDom(addDomElement("<blockquote></blockquote>"));
-			assert.equal(element.toString(), "'BLOCKQUOTE'");
+			assert.equal(element.toString(), "'<blockquote>'");
 		});
 
 		function addDomElement(html) {
