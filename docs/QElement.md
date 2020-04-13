@@ -170,7 +170,7 @@ Create an element and append it as a child of this element. Throws an exception 
 
 * `html (string)` HTML for your element.
 
-* `nickname (optional string)` The name to use when describing your element in error messages. Uses the html by default.
+* `nickname (optional string)` The name to use when describing your element in error messages. Defaults to the element ID, class names, or tag name, in that order.
 
 Example: `var foo = element.add("<p>foo</p>", "foo");`
 
@@ -194,9 +194,11 @@ Stability: 3 - Stable
 
 Get the element's parent element.
 
-`parent = element.parent()`
+`parent = element.parent(nickname)`
 
 * `parent (QElement or null)` The parent element. Null if this element is the frame's body element or if this element has been removed from the DOM.
+
+* `nickname (optional string)` The name to use when describing your element in error messages. Defaults to the element ID, class names, or tag name, in that order.
 
 
 ### element.contains()

@@ -126,7 +126,7 @@ Create an element and append it to the frame's body. Throws an exception unless 
 
 * `html (string)` HTML for your element.
 
-* `nickname (optional string)` The name to use when describing your element in error messages. Uses the html by default.
+* `nickname (optional string)` The name to use when describing your element in error messages. Defaults to the element ID, class names, or tag name, in that order.
 
 Example: `var foo = frame.add("<p>foo</p>", "foo");`
 

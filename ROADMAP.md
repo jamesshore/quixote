@@ -28,7 +28,7 @@
 * .should.beToLeftOf()
 * .should.beBiggerThan()
 * .should.beSmallerThan()
-* (WIP) Test quixote.elementFromDom()
+* (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 	* Fix documentation, including links, if this is changed
 * (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
@@ -46,17 +46,15 @@
 * (DONE) Add tests
 * (DONE) Move code out of QElement
 * (DONE) nicknames: '#id', '.class', '<tag>'
-* Update nickname-generation code
-	* QElement.parent()
-	* QElement.add()
-* README
-	* Credit Justin for inspiring nickname improvements
-* CHANGELOG
+* (DONE) Update nickname-generation code
+* (DONE) API docs
+	* QElement.add, QElement.parent, quixote.elementFromDom nickname generation
+	* Add 'nickname' to QElement.parent()
+* (DONE) CHANGELOG
   * Improved automatic nicknames
   * Add QElement.parent(nickname)
-* API docs
-	* QElement.add, quixote.elementFromDom nickname generation
-	* Add 'nickname' to QElement.parent()
+* (DONE) README
+	* Credit Justin for inspiring nickname improvements
 
 
 ## Dogfooding Notes

@@ -23,6 +23,8 @@ description to be done
 
 * Most methods have been promoted to '3-Stable'
 * Improved error messages when making invalid assertions
+* Improved nickname generation
+* Added optional `nickname` parameter to QElement.parent()
 
 
 
