@@ -115,24 +115,23 @@ function convertExpectationFromPrimitiveIfNeeded(self, expected, message) {
 	if (expected === undefined) {
 		throwBadExpectation(
 			self, "undefined", message,
-			"'expected' parameter is undefined. Did you misspell a property name?"
+			"The 'expected' parameter is undefined. Did you misspell a property name?"
 		);
 	}
 	else if (expectedType === "object") {
 		throwBadExpectation(
 			self, oop.instanceName(expected), message,
-			"'expected' parameter should be a Quixote descriptor, but it wasn't recognized."
+			"The 'expected' parameter should be a descriptor, but it wasn't recognized."
 		);
 	}
 	else {
 		var converted = self.convert(expected, expectedType);
 		if (converted !== undefined) return converted;
 
-		var explanation = expected;
-		if (expectedType === "string") explanation = "'" + explanation + "'";
-		if (expectedType === "function") explanation = "a function";
-
-		throw new Error("Can't compare " + self + " to " + explanation + ".");
+		throwBadExpectation(
+			self, expectedType, message,
+			"The 'expected' primitive isn't equivalent to the 'actual' descriptor."
+		);
 	}
 
 }

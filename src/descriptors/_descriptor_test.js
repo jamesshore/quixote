@@ -62,19 +62,11 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 		it("fails nicely when it can't convert primitive type", function() {
 			var actual = new Example(1);
 			assert.exception(
-				function() { actual.doAssertion("inconvertible string", m, fn ); },
-				"Can't compare example 1 to 'inconvertible string'.",
-				"strings should be quoted"
-			);
-			assert.exception(
-				function() { actual.doAssertion(function() {}, m, fn); },
-				"Can't compare example 1 to a function.",
-				"functions should be generically described as functions"
-			);
-			assert.exception(
-				function() { actual.doAssertion(true, m, fn); },
-				"Can't compare example 1 to true.",
-				"all other primitives should just display the value"
+				function() { actual.doAssertion("my string", "my message", fn ); },
+				"my message: Error in test. Use a different 'expected' parameter.\n" +
+				"The 'expected' primitive isn't equivalent to the 'actual' descriptor.\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: string"
 			);
 		});
 
@@ -83,7 +75,7 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			assert.exception(
 				function() { actual.doAssertion(undefined, "my message", fn); },
 				"my message: Error in test. Use a different 'expected' parameter.\n" +
-				"'expected' parameter is undefined. Did you misspell a property name?\n" +
+				"The 'expected' parameter is undefined. Did you misspell a property name?\n" +
 				"  'actual' type:   Example (example 1)\n" +
 				"  'expected' type: undefined"
 			);
@@ -96,7 +88,7 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			assert.exception(
 				function() { actual.doAssertion(new IncompatibleClass(), "my message", fn); },
 				"my message: Error in test. Use a different 'expected' parameter.\n" +
-				"'expected' parameter should be a Quixote descriptor, but it wasn't recognized.\n" +
+				"The 'expected' parameter should be a descriptor, but it wasn't recognized.\n" +
 				"  'actual' type:   Example (example 1)\n" +
 				"  'expected' type: IncompatibleClass"
 			);
