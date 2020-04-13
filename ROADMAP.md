@@ -36,7 +36,6 @@
 * Update src/descriptors README
 	* test: "has assertions"
 	* code: call createShould()
-* Review/update stability ratings
 
 
 ## To Do: API documentation
@@ -48,12 +47,14 @@
 * (DONE) QElementList
 * (DONE) PositionDescriptor
 * (DONE) SizeDescriptor
-* ElementRendered
+* (DONE) ElementRendered
 * QViewport (new)
 * QPage (new)
 * descriptors (delete)
-* README (double-check API links)
-
+* Review/update stability ratings (search 'Unstable' and 'Experimental')
+* Double-check all API page links
+* Double-check README page links
+* Roadmap: deprecate Descriptor.diff()*
 
 
 ## Dogfooding Notes

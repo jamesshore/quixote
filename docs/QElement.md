@@ -3,7 +3,7 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QElement` instances represent individual HTML elements. You'll use their properties to make assertions about your elements. You'll use the properties and their assertions most often. For properties that don't exist yet, use [`element.getRawStyle()`](#elementgetrawstyle).
+`QElement` instances represent individual HTML elements. You'll use their properties to make assertions about your elements. For properties that don't exist yet, use [`element.getRawStyle()`](#elementgetrawstyle).
 
 
 ## Properties
@@ -32,7 +32,7 @@ These properties include padding and borders (if any), but not margins. They can
 * `element.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the element.
 * `element.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the element.
 
-Examples:
+Example:
 
 ```javascript
 logo.height.should.equal(10);           // The logo height should equal 10 pixels.
