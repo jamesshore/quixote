@@ -43,8 +43,8 @@
 
 ## To Do: quixote.elementFromDom
 
-* Add tests
-* Move code out of QElement
+* (DONE) Add tests
+* (DONE) Move code out of QElement
 * nicknames: '#id', '.class', '<tag>'
 * CHANGELOG
 

@@ -61,14 +61,6 @@ describe("FOUNDATION: QElement", function() {
 			assert.equal(element.toString(), "'nickname'");
 		});
 
-		it("makes a best guess at a description when not given one", function() {
-			var bodyElement = new QElement(document.body);
-			var paragraphElement = new QElement(frame.body().toDomElement().querySelector("p"));
-
-			assert.equal(bodyElement.toString(), "'BODY'");
-			assert.equal(paragraphElement.toString(), "'element'");
-		});
-
 	});
 
 
