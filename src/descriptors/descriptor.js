@@ -60,9 +60,9 @@ Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 			"Error message: " + err.message + "\n" +
 			"  'actual' descriptor:   " + this + " (" + oop.instanceName(this) + ")\n" +
 			"  'expected' descriptor: " + expected + " (" + oop.instanceName(expected) + ")\n" +
-			"If you think Quixote is at fault, please open an issue at\n" +
-			"https://github.com/jamesshore/quixote/issues. Include this error\n" +
-			"message and a standalone example test that reproduces the error.\n" +
+			"If this error is unclear or you think Quixote is at fault, please open\n" +
+			"an issue at https://github.com/jamesshore/quixote/issues. Include this\n" +
+			"error message and a standalone example test that reproduces the error.\n" +
 			"Error stack trace:\n" +
 			err.stack
 		);
@@ -90,9 +90,9 @@ Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 			"  'expected' descriptor: " + expected + " (" + oop.instanceName(expected) + ")\n" +
 			"  'actual' value:   " + actualValue + " (" + oop.instanceName(actualValue) + ")\n" +
 			"  'expected' value: " + expectedValue + " (" + oop.instanceName(expectedValue) + ")\n" +
-			"If you think Quixote is at fault, please open an issue at\n" +
-			"https://github.com/jamesshore/quixote/issues. Include this error\n" +
-			"message and a standalone example test that reproduces the error.\n" +
+			"If this error is unclear or you think Quixote is at fault, please open\n" +
+			"an issue at https://github.com/jamesshore/quixote/issues. Include this\n" +
+			"error message and a standalone example test that reproduces the error.\n" +
 			"Error stack trace:\n" +
 			err2.stack
 		);

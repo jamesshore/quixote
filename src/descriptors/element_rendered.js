@@ -40,7 +40,7 @@ Me.prototype.value = function value() {
 };
 
 Me.prototype.toString = function toString() {
-	return this._element.toString();
+	return this._element.toString() + " rendering";
 };
 
 Me.prototype.convert = function convert(arg, type) {

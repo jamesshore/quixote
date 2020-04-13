@@ -45,9 +45,8 @@
 * (DONE) Value.isCompatibleWith()
 * (DONE) Position.should.notEqual()
 * (DONE) Position.doAssertion()
-* Improve doAssertion() error messages
-* Handle remaining error scenarios
-* Move _assertion_test.js tests and improve error messages
+* (DONE) Improve doAssertion() error messages
+* (DONE) Handle remaining error scenarios
 * API docs
 * changelog
 
