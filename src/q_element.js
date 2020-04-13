@@ -33,7 +33,13 @@ var Me = module.exports = function QElement(domElement, nickname) {
 Assertable.extend(Me);
 
 Me.create = function(domElement, nickname) {
-	ensure.signature(arguments, [ Object, [ undefined, String ]]);
+	ensure.signature(arguments, [ Object, [ undefined, String ] ]);
+
+	if (nickname === undefined) {
+		if (domElement.id !== "") nickname = "#" + domElement.id;
+		else if (domElement.className !== "") nickname = "." + domElement.className.split(/\s+/).join(".");
+		else nickname = "<" + domElement.tagName.toLowerCase() + ">";
+	}
 	return new Me(domElement, nickname);
 };
 
