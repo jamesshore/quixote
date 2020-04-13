@@ -32,11 +32,20 @@ describe("VALUE: abstract base class", function() {
 		assert.objNotEqual(a1, b, "different");
 	});
 
+	it("determines if two instances are compatible", function() {
+		var example = new Example("example");
+
+		assert.equal(example.isCompatibleWith(new Example("")), true, "same type");
+		assert.equal(example.isCompatibleWith(new CompatibleExample()), true, "compatible");
+		assert.equal(example.isCompatibleWith(new IncompatibleExample()), false, "incompatible");
+		assert.equal(example.isCompatibleWith("primitive"), false, "primitives always incompatible");
+	});
+
 	describe("safety check", function() {
 
-		it("does nothing when object is in compatibility list", function() {
+		it("does nothing when object is compatible", function() {
 			assert.noException(function() {
-				a1.diff(new Example2());
+				a1.diff(new CompatibleExample());
 			}, "in compatibility list");
 		});
 
@@ -47,11 +56,12 @@ describe("VALUE: abstract base class", function() {
 			check("foo", "string");
 			check(function() {}, "function");
 			check({}, "Object");
+			check(new IncompatibleExample(), "IncompatibleExample");
 
 			function check(arg, expected) {
 				assert.exception(function() {
 					a1.diff(arg);
-				}, "Example isn't compatible with " + expected, expected);
+				}, "A descriptor doesn't make sense. (Example can't combine with " + expected + ")", expected);
 			}
 		});
 
@@ -63,7 +73,7 @@ describe("VALUE: abstract base class", function() {
 	Value.extend(Example);
 
 	Example.prototype.compatibility = function compatibility() {
-		return [ Example, Example2 ];
+		return [ Example, CompatibleExample ];
 	};
 
 	Example.prototype.diff = Value.safe(function diff(expected) {
@@ -74,6 +84,7 @@ describe("VALUE: abstract base class", function() {
 		return "" + this._value;
 	};
 
-	function Example2() {}
+	function CompatibleExample() {}
+	function IncompatibleExample() {}
 
 });

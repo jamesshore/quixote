@@ -49,7 +49,7 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 		assert.objEqual(y.to(createDescriptor("y", Y - 30)).value(), Size.create(30), "bottom to top");
 		assert.exception(function() {
 			x.to(createDescriptor("y", 42));
-		}, "Can only calculate distance between two X coordinates or two Y coordinates");
+		}, "Can't calculate distance between an X coordinate and a Y coordinate");
 
 		var xPlus = createDescriptor("x", X + 20);
 		assert.equal(x.to(xPlus).toString(), "distance from " + x + " to " + xPlus, "toString()");

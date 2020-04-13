@@ -55,7 +55,8 @@ Me.prototype.value = function() {
 
 	ensure.that(
 		!hasClipPathProperty(element),
-		"Can't detect element clipping boundaries when 'clip-path' property is used."
+		"Can't determine element rendering because the element is affected by the 'clip-path' property, " +
+		"which Quixote doesn't support."
 	);
 
 	var bounds = {
@@ -104,7 +105,7 @@ function intersectionWithOverflow(element, bounds) {
 function intersectionWithClip(element, bounds) {
 	// WORKAROUND IE 8: Doesn't have any way to detect 'clip: auto' value.
 	ensure.that(!quixote.browser.misreportsClipAutoProperty(),
-		"Can't determine element clipping values on this browser because it misreports the value of the" +
+		"Can't determine element rendering on this browser because it misreports the value of the" +
 		" `clip: auto` property. You can use `quixote.browser.misreportsClipAutoProperty()` to skip this browser."
 	);
 
@@ -146,7 +147,7 @@ function normalizeClipProperty(element, clip) {
 	function parseClipProperty(element, clip) {
 		// WORKAROUND IE 11, Chrome Mobile 44: Reports 0px instead of 'auto' when computing rect() in clip property.
 		ensure.that(!quixote.browser.misreportsAutoValuesInClipProperty(),
-			"Can't determine element clipping values on this browser because it misreports the value of the `clip`" +
+			"Can't determine element rendering on this browser because it misreports the value of the `clip`" +
 			" property. You can use `quixote.browser.misreportsAutoValuesInClipProperty()` to skip this browser."
 		);
 

@@ -17,10 +17,12 @@ description to be done
 *New methods:*
 
 * (all descriptors) .should.equal()
+* (all descriptors) .should.notEqual()
 
 *Other changes:*
 
 * Most methods have been promoted to '3-Stable'
+* Improved error messages when making invalid assertions
 
 
 

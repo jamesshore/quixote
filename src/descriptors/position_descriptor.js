@@ -48,7 +48,7 @@ Me.prototype.to = function to(position) {
 		else position = AbsolutePosition().y(position);
 	}
 	if (this._pdbc.dimension !== position._pdbc.dimension) {
-		throw new Error("Can only calculate distance between two X coordinates or two Y coordinates");
+		throw new Error("Can't calculate distance between an X coordinate and a Y coordinate");
 	}
 
 	return GenericSize().create(this, position, "distance from " + this + " to " + position);

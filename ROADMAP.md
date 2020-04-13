@@ -21,7 +21,7 @@
 ## Current Feature: Better assertions
 
 * (DONE) .should.equal()
-* .should.notEqual()
+* (DONE) .should.notEqual()
 * .should.beAbove()
 * .should.beBelow()
 * .should.beToRightOf()
@@ -40,23 +40,17 @@
 	* Update src/values README - just a copyedit pass
 
 
-## To Do: API documentation
+## To Do: .should.notEqual()
 
-* (DONE) API ToC (api.md)
-* (DONE) quixote
-* (DONE) QFrame
-* (DONE) QElement
-* (DONE) QElementList
-* (DONE) PositionDescriptor
-* (DONE) SizeDescriptor
-* (DONE) ElementRendered
-* (DONE) QPage (new)
-* (DONE) QViewport (new)
-* (DONE) descriptors (delete)
-* (DONE) Review/update stability ratings (search 'Unstable' and 'Experimental')
-* (DONE) Double-check all API page links
-* (DONE) Double-check README page links
-* (DONE) Changelog: deprecate Descriptor.diff()*
+* (DONE) Value.isCompatibleWith()
+* (DONE) Position.should.notEqual()
+* (DONE) Position.doAssertion()
+* (DONE) Improve doAssertion() error messages
+* (DONE) Handle remaining error scenarios
+* (DONE) Improve errors for size.plus(position) (etc)
+* (DONE) Improve errors for x-position.plus(y-position)
+* (DONE) API docs
+* (DONE) changelog
 
 
 ## Dogfooding Notes

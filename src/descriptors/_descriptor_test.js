@@ -6,7 +6,7 @@ var ensure = require("../util/ensure.js");
 var Descriptor = require("./descriptor.js");
 var Value = require("../values/value.js");
 
-describe("DESCRIPTOR: Abstract base class", function() {
+describe("DESCRIPTOR: Descriptor base class", function() {
 
 	var example;
 
@@ -22,37 +22,161 @@ describe("DESCRIPTOR: Abstract base class", function() {
 	});
 
 
-	describe("assertions", function() {
+	describe("assertions helper", function() {
 
-		it("checks equality", function() {
-			assert.noException(
-				function() { example.should.equal(1); },
-				"equal"
-			);
+		// These defaults are used when the variable isn't important to the test.
+		var a;
+		var e;
+		var m = "irrelevant message";
+		var fn = function() {};
 
+		beforeEach(function() {
+			a = new Example(99);
+			e = new Example(100);
+		});
+
+		it("converts 'actual' and 'expected' to values, describes expected value, and adds colon to message", function() {
+			var actual = new Example(1);
+			var expected = new Example(2);
+			actual.doAssertion(expected, "msg", function(actualValue, expectedValue, expectedDesc, message) {
+				assert.objEqual(actualValue, actual.value());
+				assert.objEqual(expectedValue, expected.value());
+				assert.equal(expectedDesc, "2 (example 2)");
+				assert.equal(message, "msg: ");
+			});
+		});
+
+		it("undefined messages normalize to empty string", function() {
+			a.doAssertion(e, undefined, function(actualValue, expectedValue, expectedDesc, message) {
+				assert.equal(message, "");
+			});
+		});
+
+		it("converts primitive expectations to Value instances", function() {
+			var expected = 2;
+			a.doAssertion(expected, m, function(actualValue, expectedValue, expectedDesc, message) {
+				assert.objEqual(expectedValue, new ExampleValue(2));
+			});
+		});
+
+		it("fails nicely when it can't convert primitive type", function() {
+			var actual = new Example(1);
 			assert.exception(
-				function() { example.should.equal(2); },
-				example.diff(2),
-				"not equal"
+				function() { actual.doAssertion("my string", "my message", fn ); },
+				"my message: Error in test. Use a different 'expected' parameter.\n" +
+				"The 'expected' primitive isn't equivalent to the 'actual' descriptor.\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: string"
 			);
+		});
 
+		it("fails nicely when comparison is undefined", function() {
+			var actual = new Example(1);
 			assert.exception(
-				function() { example.should.equal(2, "my message"); },
-				"my message: " + example.diff(2),
-				"not equal with a message"
+				function() { actual.doAssertion(undefined, "my message", fn); },
+				"my message: Error in test. Use a different 'expected' parameter.\n" +
+				"The 'expected' parameter is undefined. Did you misspell a property name?\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: undefined"
+			);
+		});
+
+		it("fails nicely when comparing to classes that aren't values or descriptors", function() {
+			function IncompatibleClass() {}
+
+			var actual = new Example(1);
+			assert.exception(
+				function() { actual.doAssertion(new IncompatibleClass(), "my message", fn); },
+				"my message: Error in test. Use a different 'expected' parameter.\n" +
+				"The 'expected' parameter should be a descriptor, but it wasn't recognized.\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: IncompatibleClass"
+			);
+		});
+
+		it("fails nicely when comparing to incompatible descriptors", function() {
+			var actual = new Example(1);
+			assert.exception(
+				function() { actual.doAssertion(new IncompatibleExample(), "my message", fn); },
+				"my message: Error in test. Use a different 'expected' parameter.\n" +
+				"Attempted to compare two incompatible types:\n" +
+				"  'actual' type:   Example (example 1)\n" +
+				"  'expected' type: IncompatibleExample (incompatible)"
+			);
+		});
+
+		it("fails nicely when descriptor fails to convert to value", function() {
+			var actual = new Example(1);
+			assert.exception(
+				function() { actual.doAssertion(new ToValueErrorDescriptor(), "my message", fn); },
+				/^my message: Error in test\. Unable to convert descriptors to values\.\nError message: ErrorDescriptor.value\(\) error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: ErrorDescriptor \(ToValueErrorDescriptor\)\nIf this error is unclear or you think Quixote is at fault, please open\nan issue at https:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this\nerror message and a standalone example test that reproduces the error\.\nError stack trace:\n/
+			);
+		});
+
+		it("fails nicely when assertion function fails", function() {
+			var actual = new Example(1);
+			var expected = new Example(2);
+			var assertionFn = function() { throw new Error("my error"); };
+			assert.exception(
+				function() { actual.doAssertion(expected, "my message", assertionFn); },
+				/^my message: Error in test\. Unable to perform assertion\.\nError message: my error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: example 2 \(Example\)\n  'actual' value:   1 \(ExampleValue\)\n  'expected' value: 2 \(ExampleValue\)\nIf this error is unclear or you think Quixote is at fault, please open\nan issue at https:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this\nerror message and a standalone example test that reproduces the error\.\nError stack trace:\n/
 			);
 		});
 
 	});
 
 
-	describe("diff", function() {
+	describe("should.equal()", function() {
+
+		it("does nothing when equal", function() {
+			var actual = new Example(1);
+			assert.noException(
+				function() { actual.should.equal(1); }
+			);
+		});
+
+		it("throws exception when not equal", function() {
+			var actual = new Example(1);
+			assert.exception(
+				function() { actual.should.equal(new Example(2), "my message"); },
+				"my message: example 1 should be larger.\n" +
+					"  Expected: 2 (example 2)\n" +
+					"  But was:  1"
+			);
+		});
+
+	});
+
+
+	describe("should.notEqual()", function() {
+
+		it("does nothing when not equal", function() {
+			var example = new Example(1);
+			assert.noException(
+				function() { example.should.notEqual(2); }
+			);
+		});
+
+		it("throws exception when equal", function() {
+			var example = new Example(1);
+			assert.exception(
+				function() { example.should.notEqual(new Example(1), "my message"); },
+				"my message: example 1 shouldn't be 1.\n" +
+					"  Expected: anything but 1 (example 1)\n" +
+					"  But was:  1"
+			);
+		});
+
+	});
+
+
+	describe("diff (legacy support for deprecated QElement.equals() and QElement.diff())", function() {
 
 		it("returns empty string when no difference", function() {
 			assert.equal(example.diff(example), "");
 		});
 
-		it("describes differences between a descriptor and a value", function() {
+		it("converts assertion error message to string when there is a difference", function() {
 			assert.equal(
 				example.diff(2),
 				"example 1 should be larger.\n" +
@@ -61,57 +185,17 @@ describe("DESCRIPTOR: Abstract base class", function() {
 			);
 		});
 
-		it("describes differences between two descriptors", function() {
-			assert.equal(
-				example.diff(new Example(2)),
-				"example 1 should be larger.\n" +
-					"  Expected: 2 (example 2)\n" +
-					"  But was:  1"
+		it("throws an exception when assertion errors out rather than failing normally", function() {
+			var expectedErrorMessage;
+			try { example.should.equal(undefined); }
+			catch (err) { expectedErrorMessage = err.message; }
+
+			assert.exception(
+				function() { example.diff(undefined); },
+				expectedErrorMessage
 			);
 		});
 
-		it("converts values before comparing them", function() {
-			assert.equal(example.diff(1), "");
-		});
-
-	});
-
-
-	describe("error handling", function() {
-
-		it("wraps diff errors in an explanation", function() {
-			var error = new ErrorDescriptor();
-
-			assert.exception(function() {
-				example.diff(error);
-			}, "Can't compare " + example + " to " + error + ": ErrorDescriptor error");
-		});
-
-		it("fails nicely when diffing 'undefined' accidentally", function() {
-			assert.exception(function() {
-				example.diff(undefined);
-			}, "Can't compare example 1 to undefined. Did you misspell a property name?");
-		});
-
-		it("fails nicely when diffing against unrecognized primitives (and similar hardcoded values)", function() {
-			assertError(true, "true");
-			assertError("foo", "'foo'");
-			assertError(null, "null");
-			assertError(function() {}, "a function");
-			assertError({}, "Object instances");
-
-			function assertError(arg, expected) {
-				assert.exception(function() {
-					example.diff(arg);
-				}, "Can't compare example 1 to " + expected + ".");
-			}
-		});
-
-		it("doesn't fail when diffing arbitrary value object", function() {
-			assert.noException(function() {
-				example.diff(new ExampleValue());
-			});
-		});
 	});
 
 
@@ -121,45 +205,14 @@ describe("DESCRIPTOR: Abstract base class", function() {
 		this._number = number;
 	}
 	Descriptor.extend(Example);
-
-	Example.prototype.convert = function convert(arg, type) {
-		if (type === "number") return new ExampleValue(arg);
-	};
-
-	Example.prototype.value = function value() {
-		return new ExampleValue(this._number);
-	};
-
-	Example.prototype.toString = function toString() {
-		return "example " + this._number;
-	};
+	Example.prototype.convert = function(arg, type) { if (type === "number") return new ExampleValue(arg); };
+	Example.prototype.value = function() { return new ExampleValue(this._number); };
+	Example.prototype.toString = function() { return "example " + this._number;};
 
 
-	function ErrorDescriptor(name) {}
-	Descriptor.extend(ErrorDescriptor);
-
-	ErrorDescriptor.prototype.value = function value() {
-		throw new Error("ErrorDescriptor error");
-	};
-
-	ErrorDescriptor.prototype.toString = function toString() {
-		return "ErrorDescriptor";
-	};
-
-
-	function ExampleValue(number) {
-		this._number = number;
-	}
+	function ExampleValue(number) { this._number = number; }
 	Value.extend(ExampleValue);
-
-	ExampleValue.prototype.compatibility = function compatibility() {
-		return [ ExampleValue ];
-	};
-
-	ExampleValue.prototype.value = function value() {
-		return this;
-	};
-
+	ExampleValue.prototype.compatibility = function() { return [ ExampleValue ]; };
 	ExampleValue.prototype.diff = Value.safe(function diff(expected) {
 		var difference = this._number - expected._number;
 
@@ -167,9 +220,25 @@ describe("DESCRIPTOR: Abstract base class", function() {
 		else if (difference < 0) return "smaller";
 		else return "";
 	});
+	ExampleValue.prototype.toString = function() { return this._number; };
 
-	ExampleValue.prototype.toString = function toString() {
-		return this._number;
-	};
+
+	function IncompatibleExample() {}
+	Descriptor.extend(IncompatibleExample);
+	IncompatibleExample.prototype.convert = function(arg, type) { return new IncompatibleValue(); };
+	IncompatibleExample.prototype.value = function() { return new IncompatibleValue(); };
+	IncompatibleExample.prototype.toString = function() { return "incompatible"; };
+
+
+	function IncompatibleValue() {}
+	Value.extend(IncompatibleValue);
+	IncompatibleValue.prototype.compatibility = function() { return [ IncompatibleValue ]; };
+	IncompatibleValue.prototype.toString = function() { return "IncompatibleValue.toString()"; };
+
+
+	function ToValueErrorDescriptor(name) {}
+	Descriptor.extend(ToValueErrorDescriptor);
+	ToValueErrorDescriptor.prototype.value = function() { throw new Error("ErrorDescriptor.value() error"); };
+	ToValueErrorDescriptor.prototype.toString = function() { return "ErrorDescriptor"; };
 
 });

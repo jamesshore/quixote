@@ -102,7 +102,8 @@ describe("DESCRIPTOR: ElementRenderedEdge", function() {
 
 	describe("clip-path CSS property", function() {
 
-		var EXPECTED_FAIL_FAST_MESSAGE = "Can't detect element clipping boundaries when 'clip-path' property is used.";
+		var EXPECTED_FAIL_FAST_MESSAGE = "Can't determine element rendering because the element is affected by the " +
+			"'clip-path' property, which Quixote doesn't support.";
 
 		it("fails fast when used in element", function() {
 			element("clip-path: url('#something');");
@@ -258,7 +259,8 @@ describe("DESCRIPTOR: ElementRenderedEdge", function() {
 				element("position: absolute; clip: auto");
 				assert.exception(function() {
 					top.value();
-				}, /Can't determine element clipping values on this browser because it misreports the value of the `clip: auto` property\. You can use `quixote\.browser\.misreportsClipAutoProperty\(\)` to skip this browser\./);
+				}, "Can't determine element rendering on this browser because it misreports the value of the " +
+					"`clip: auto` property. You can use `quixote.browser.misreportsClipAutoProperty()` to skip this browser.");
 			});
 
 			it("fails fast when browser can't compute individual clip properties", function() {
@@ -267,7 +269,8 @@ describe("DESCRIPTOR: ElementRenderedEdge", function() {
 				element("position: absolute; clip: rect(auto, auto, auto, auto);");
 				assert.exception(function() {
 					top.value();
-				}, /Can't determine element clipping values on this browser because it misreports the value of the `clip` property\. You can use `quixote\.browser\.misreportsAutoValuesInClipProperty\(\)` to skip this browser\./);
+				}, "Can't determine element rendering on this browser because it misreports the value of the `clip`" +
+					" property. You can use `quixote.browser.misreportsAutoValuesInClipProperty()` to skip this browser.");
 			});
 
 			it("accounts for pixel values in clip property", function() {

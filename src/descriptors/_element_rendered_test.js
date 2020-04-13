@@ -58,7 +58,7 @@ describe("DESCRIPTOR: ElementRendered", function() {
 	});
 
 	it("converts to string", function() {
-		assert.equal(rendered.toString(), renderedElement.toString());
+		assert.equal(rendered.toString(), renderedElement.toString() + " rendering");
 	});
 
 	it("has assertions", function() {
@@ -66,7 +66,7 @@ describe("DESCRIPTOR: ElementRendered", function() {
 
 		assert.exception(
 			function() { displayNone.should.equal(true); },
-			"'display:none' should be rendered.\n" +
+			"'display:none' rendering should be rendered.\n" +
 			"  Expected: rendered\n" +
 			"  But was:  not rendered"
 		);

@@ -70,6 +70,28 @@ logo.top.should.equal(header.top);
 ```
 
 
+### position.should.notEqual()
+
+```
+Stability: 3 - Stable
+```
+
+Check whether the position does not match another position.
+
+`position.should.notEqual(expectedPosition, message)`
+
+* `expectedPosition (PositionDescriptor equivalent)` The position to not match.
+
+* `message (optional string)` A message to include when the assertion fails.
+
+Example:
+
+```javascript
+// "The light box should not be flush against the bottom of the navbar."
+lightbox.top.should.notEqual(navbar.bottom);
+```
+
+
 ## Methods
 
 These methods are useful when you want to compare elements that aren't exactly aligned.
