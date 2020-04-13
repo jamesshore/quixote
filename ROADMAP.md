@@ -33,10 +33,10 @@
 * (DONE) Update README
 * (DONE) Update example
 * Update CONTRIBUTING
-* Update src/descriptors README
-	* test: "has assertions"
-	* code: call createShould()
-* Update src/values README - just a copyedit pass
+	* Update src/descriptors README
+		* test: "has assertions"
+		* code: call createShould()
+	* Update src/values README - just a copyedit pass
 
 
 ## To Do: API documentation
@@ -52,7 +52,7 @@
 * (DONE) QPage (new)
 * (DONE) QViewport (new)
 * (DONE) descriptors (delete)
-* Review/update stability ratings (search 'Unstable' and 'Experimental')
+* (DONE) Review/update stability ratings (search 'Unstable' and 'Experimental')
 * Double-check all API page links
 * Double-check README page links
 * (DONE) Changelog: deprecate Descriptor.diff()*

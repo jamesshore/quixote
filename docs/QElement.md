@@ -18,7 +18,7 @@ Use these properties to make assertions about the element.
 ### Positions and Sizes
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 These properties include padding and borders (if any), but not margins. They can also be "not rendered" if the element has the `display: none` property or if the element isn't in the DOM. (For more exact rendering assertions, use the [element rendering properties](#element-rendering) below.)
@@ -43,7 +43,7 @@ logo.left.should.equal(navbar.height);  // The logo's left edge should be the sa
 ### Element Rendering
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 This property describes whether an element is rendered. "Rendered" means the parts of the element that would be visible if every pixel was black. It can include padding and borders, but it never includes margins. We check these things about the element:
@@ -93,7 +93,7 @@ content.assert({
 ### element.getRawStyle()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Determine how the browser is actually rendering an element's style. This uses [getComputedStyle()](https://developer.mozilla.org/en-US/docs/Web/API/Window.getComputedStyle) under the covers. (On IE 8, it uses [currentStyle](http://msdn.microsoft.com/en-us/library/ie/ms535231%28v=vs.85%29.aspx)).
@@ -117,7 +117,7 @@ Example: `var fontSize = element.getRawStyle("font-size");`
 ### element.getRawPosition()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Determine where an element is displayed within the frame viewport, as computed by the browser. This uses [getBoundingClientRect()](https://developer.mozilla.org/en-US/docs/Web/API/Element.getBoundingClientRect) under the covers. Note that scrolling the document will cause the position to change. You can use [`QFrame.getRawScrollPosition()`](QFrame.md) to compensate for the effect of scrolling.
@@ -142,7 +142,7 @@ Example: `var top = element.getRawPosition().top;`
 ### element.calculatePixelValue()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Convert a CSS length string, such as `12em`, to the corresponding number of pixels. The calculation is provided by the browser and takes into account all styles currently in effect on the element.
@@ -159,7 +159,7 @@ Convert a CSS length string, such as `12em`, to the corresponding number of pixe
 ### element.add()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Create an element and append it as a child of this element. Throws an exception unless exactly one element is created. (But that one element may contain children.)
@@ -178,7 +178,7 @@ Example: `var foo = element.add("<p>foo</p>", "foo");`
 ### element.remove()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Remove the element from the DOM.
@@ -189,7 +189,7 @@ Remove the element from the DOM.
 ### element.parent()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Get the element's parent element.
@@ -202,7 +202,7 @@ Get the element's parent element.
 ### element.contains()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Determine if this element contains another element.
@@ -217,7 +217,7 @@ Determine if this element contains another element.
 ### element.toDomElement()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve the underlying [`HTMLElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement) DOM element for the frame.

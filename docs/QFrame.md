@@ -11,7 +11,7 @@
 ### frame.reset()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Reset the frame's DOM back to the state it was in immediately after you called [`quixote.createFrame()`](quixote.md#quixotecreateframe). You will typically call this before every test.
@@ -34,7 +34,7 @@ beforeEach(function() {
 ### frame.reload()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Reload the frame page source and stylesheets completely, as if `quixote.createFrame()` were called again, but without the overhead of creating the frame.
@@ -58,7 +58,7 @@ beforeEach(function(done) {
 ### frame.remove()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Remove the test frame entirely. You'll typically call this after all your tests are complete.
@@ -77,7 +77,7 @@ after(function() {
 ### frame.get()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve an element matching a selector. Throws an exception unless exactly one matching element is found. If you don't want the possibility of an exception, use [`frame.getAll()`](#framegetall) instead.
@@ -96,7 +96,7 @@ Example: `var foo = frame.get("#foo");`
 ### frame.getAll()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve a list of elements matching a selector. If you want to ensure that exactly one element is retrieved, use [`frame.get()`](#frameget) instead.
@@ -115,7 +115,7 @@ Example `var fooList = frame.getAll(".foo");`
 ### frame.add()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Create an element and append it to the frame's body. Throws an exception unless exactly one element is created. (But that one element may contain children.)
@@ -134,7 +134,7 @@ Example: `var foo = frame.add("<p>foo</p>", "foo");`
 ### frame.viewport()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve the frame's viewport (the part of the page that you can see in the frame, not including scrollbars).
@@ -156,7 +156,7 @@ banner.width.should.equal(viewport.width);
 ### frame.page()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve the frame's page (everything you can see or scroll to, not including scrollbars).
@@ -177,7 +177,7 @@ sidebar.height.should.equal(page.height);
 ### frame.body()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieves the frame's `body` element.
@@ -190,7 +190,7 @@ Retrieves the frame's `body` element.
 ### frame.resize()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Changes the size of the frame.
@@ -206,7 +206,7 @@ Changes the size of the frame.
 ### frame.scroll()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Scroll the page so that top-left corner of the frame is as close as possible to an (x, y) coordinate. Note that the page may not scroll at all in some cases, such as when the frame already displays the entire page.
@@ -223,7 +223,7 @@ Example: `frame.scroll(50, 60);`
 ### frame.getRawScrollPosition()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Determine the (x, y) coordinate of the top-left corner of the frame. This uses [pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollX) and [pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY) under the covers. (On IE 8, it uses [scrollLeft](http://msdn.microsoft.com/en-us/library/ie/ms534617%28v=vs.85%29.aspx) and [scrollTop](http://msdn.microsoft.com/en-us/library/ie/ms534618%28v=vs.85%29.aspx).)
@@ -242,7 +242,7 @@ Determine the (x, y) coordinate of the top-left corner of the frame. This uses [
 ### frame.forceReflow()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Force the browser to recompute the page layout.
@@ -253,7 +253,7 @@ Force the browser to recompute the page layout.
 ### frame.toDomElement()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve the underlying [`HTMLIFrameElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement) DOM element for the frame.

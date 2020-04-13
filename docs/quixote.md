@@ -9,7 +9,7 @@ Use the `quixote` module to create your test frame and check browser compatibili
 ### quixote.createFrame()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Create a test iframe. This is a slow operation, so once you have a frame, it's best to use [`QFrame.reset()`](QFrame.md#framereset) on it rather than creating a new frame for each test.
@@ -49,7 +49,7 @@ before(function(done) {
 ### quixote.elementFromDom()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Create a [`QElement`](QElement.md) from an existing DOM element. Useful when using another test framework that has its own test iframe.
@@ -73,7 +73,7 @@ var firstParagraph = quixote.elementFromDom(domElement);
 ### quixote.browser
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Methods for checking browser compatibility.

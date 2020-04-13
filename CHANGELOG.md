@@ -14,6 +14,14 @@ description to be done
 * QElement.assert, QElement.diff deprecated (but still available)
 * Descriptor.diff removed from official documentation (but still unofficially exists -- remove it?)
 
+*New methods:*
+
+* (all descriptors) .should.equal()
+
+*Other changes:*
+
+* Most methods have been promoted to '3-Stable'
+
 
 
 ## 0.15.x: Support for third-party test runners

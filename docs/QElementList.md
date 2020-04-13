@@ -11,7 +11,7 @@
 ### list.length()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Determine the number of elements in the list.
@@ -24,7 +24,7 @@ Determine the number of elements in the list.
 ### list.at()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve an element from the list. Positive and negative indices are allowed (see below). Throws an exception if the index is out of bounds.
