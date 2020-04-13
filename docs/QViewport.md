@@ -3,7 +3,7 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QViewport` instances represent the part of the page that's visible in the test frame, not including scrollbars. You can get the instance by calling [`QFrame.viewport()`](QFrame.md#viewport). You'll use its properties in your assertions.
+`QViewport` instances represent the part of the page that's visible in the test frame, not including scrollbars. You can get an instance by calling [`QFrame.viewport()`](QFrame.md#viewport). You'll use its properties in your assertions.
 
 
 ## Properties

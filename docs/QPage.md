@@ -3,7 +3,7 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QPage` instances represent the overall browser page. You can get the instance by calling [`QFrame.page()`](QFrame.md#page). You'll use its properties in your assertions.
+`QPage` instances represent the overall browser page. You can get an instance by calling [`QFrame.page()`](QFrame.md#page). You'll use its properties in your assertions.
 
 
 ## Properties
