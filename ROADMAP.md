@@ -54,7 +54,7 @@
 * (DONE) descriptors (delete)
 * (DONE) Review/update stability ratings (search 'Unstable' and 'Experimental')
 * Double-check all API page links
-* Double-check README page links
+* (DONE) Double-check README page links
 * (DONE) Changelog: deprecate Descriptor.diff()*
 
 
