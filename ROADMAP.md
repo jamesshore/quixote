@@ -46,11 +46,16 @@
 * (DONE) Add tests
 * (DONE) Move code out of QElement
 * (DONE) nicknames: '#id', '.class', '<tag>'
-* Have add() use nickname-generation code?
+* Update nickname-generation code
+	* QElement.parent()
+	* QElement.add()
+
 * CHANGELOG
   * Improved automatic nicknames
+  * Add QElement.parent(nickname)
 * API docs
 	* QElement.add, quixote.elementFromDom nickname generation
+	* Add 'nickname' to QElement.parent()
 
 
 ## Dogfooding Notes

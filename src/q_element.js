@@ -114,7 +114,6 @@ Me.prototype.calculatePixelValue = function(sizeString) {
 
 Me.prototype.parent = function(nickname) {
 	ensure.signature(arguments, [[ undefined, String ]]);
-	if (nickname === undefined) nickname = "parent of " + this._nickname;
 
 	var parentBody = this.context().body();
 	if (this.equals(parentBody)) return null;
@@ -122,7 +121,7 @@ Me.prototype.parent = function(nickname) {
 	var parent = this._domElement.parentElement;
 	if (parent === null) return null;
 
-	return new Me(parent, nickname);
+	return Me.create(parent, nickname);
 };
 
 Me.prototype.add = function(html, nickname) {

@@ -119,7 +119,7 @@ describe("FOUNDATION: QElement", function() {
 			var child = frame.get("#child");
 
 			assert.objEqual(child.parent(), parent, "should provide parent");
-			assert.equal(child.parent().toString(), "'parent of #child'", "should provide default nickname");
+			assert.equal(child.parent().toString(), "'#parent'", "should generate default nickname");
 			assert.equal(child.parent("nickname").toString(), "'nickname'", "should use provided nickname");
 		});
 
