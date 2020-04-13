@@ -15,7 +15,7 @@ Stability: 3 - Stable
 
 Methods with a `PositionDescriptor equivalent` parameter can take any of the following:
 
-* A `PositionDescriptor` instance, such as `element.top`.
+* A `PositionDescriptor` instance, such as `QElement.top`.
 * A number representing an X or Y page coordinate in pixels.
 * The string `"none"`, which means the position is not rendered.
 

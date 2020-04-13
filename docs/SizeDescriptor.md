@@ -15,7 +15,7 @@ Stability: 3 - Stable
 
 Methods with a `SizeDescriptor equivalent` parameter can take any of the following:
 
-* A `SizeDescriptor` instance, such as `element.width`.
+* A `SizeDescriptor` instance, such as `QElement.width`.
 * A number representing a width or height in pixels.
 * The string `"none"`, which means the size is not rendered.
 
@@ -118,7 +118,7 @@ content.width.should.equal(navbar.width.minus(sidebar.width));
 #### size.times()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Create a `SizeDescriptor` that's a multiple or fraction of the size of this one.
