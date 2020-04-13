@@ -60,7 +60,16 @@ Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 		expectedValue = expected.value();
 	}
 	catch (err) {
-		throw new Error("Can't compare " + this + " to " + expected + ": " + err.message);
+		throw new Error(
+			message + "Error in test. Unable to convert descriptor to value.\n" +
+			"Error message: " + err.message + "\n" +
+			"  'actual' type:   " + oop.instanceName(this) + " (" + this + ")\n" +
+			"  'expected' type: " + oop.instanceName(expected) + " (" + expected + ")\n" +
+			"If you think Quixote is at fault, please open an issue at\n" +
+			"https://github.com/jamesshore/quixote/issues. Include this error\n" +
+			"message and a standalone example test that reproduces the error.\n" +
+			"Error stack trace: " + err.stack
+		);
 	}
 
 	if (!actualValue.isCompatibleWith(expectedValue)) {
@@ -133,7 +142,6 @@ function convertExpectationFromPrimitiveIfNeeded(self, expected, message) {
 			"The 'expected' primitive isn't equivalent to the 'actual' descriptor."
 		);
 	}
-
 }
 
 function throwBadExpectation(self, expectedType, message, headline) {
