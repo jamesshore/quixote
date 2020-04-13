@@ -58,7 +58,7 @@ Check whether the size matches another size.
 
 `size.should.equal(expectedSize, message)`
 
-* `expectedPosition (SizeDescriptor equivalent)` The expected size.
+* `expectedSize (SizeDescriptor equivalent)` The expected size.
 
 * `message (optional string)` A message to include when the assertion fails.
 

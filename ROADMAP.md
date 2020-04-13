@@ -28,6 +28,7 @@
 * .should.beToLeftOf()
 * .should.beBiggerThan()
 * .should.beSmallerThan()
+* Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 * Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * (DONE) Update README
 * (DONE) Update example
@@ -46,7 +47,7 @@
 * (DONE) QElement
 * (DONE) QElementList
 * (DONE) PositionDescriptor
-* SizeDescriptor
+* (DONE) SizeDescriptor
 * ElementRendered
 * QViewport (new)
 * QPage (new)
