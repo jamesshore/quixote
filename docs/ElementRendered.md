@@ -16,7 +16,7 @@ Stability: 3 - Stable
 Methods with a `ElementRendered equivalent` parameter can take any of the following:
 
 * An `ElementRendered` instance, such as `QElement.rendered`.
-* A boolean representing whether the element is rendered (`true`) or not (`false`).
+* A boolean, where `true` means the element is rendered and `false` means it isn't.
 
 
 #### Example: `ElementRendered`
