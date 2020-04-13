@@ -12,7 +12,7 @@ Use these properties in your assertions.
 
 **Compatibility Notes:**
 
-* There is no standard way to get the dimensions of the page. We have implemented a solution that works on our [tested browsers](../build/config/tested_browsers.js), but it may not work on all browsers. If you use these descriptors, perform a visual check to make sure they're working as expected. If they aren't, please file an issue.
+* We aren't aware of a standard way to get the dimensions of the page. We have implemented a solution that works on our [tested browsers](../build/config/tested_browsers.js), but it may not work on all browsers. If you use these descriptors, perform a visual check to make sure they're working as expected. If they aren't, please file an issue.
 
 * In particular, the current solution for page dimensions only works on pages in standards mode. Specifically, they have been tested on pages using `<!DOCTYPE html>`. They do *not* work on pages without a doctype. If support for another doctype is important to you, please let us know by opening an issue.
 
@@ -25,7 +25,7 @@ Use these properties in your assertions.
 Stability: 3 - Stable
 ```
 
-Descriptors for the position and size of the page are available on [`QFrame.page()`](QFrame.md#framepage). Unlike the viewport, these descriptors include the entire page displayed in the frame, whether or not it's scrolled out of view or not, and the page is always at least as big as the viewport. By comparing element positions and sizes to page descriptors, you can make assertions about where elements are positioned on the page.
+These properties include the entire page, regardless of whether it's scrolled out of view. The page is always at least as big as the viewport. By using page properties in your element assertions, you can assert where elements are positioned on the page.
 
 * `page.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` The top of the page.
 * `page.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` The right side of the page.

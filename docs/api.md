@@ -17,9 +17,9 @@ For an overview, installation notes, and an example, see [the readme](../README.
 
 * [`quixote`](quixote.md) Create the Quixote test frame, wrap DOM elements, and check browser compatibility.
 * [`QFrame`](QFrame.md) Manipulate the DOM inside your test frame.
-* [`QPage`](QPage.md) Make assertions about your page.
 * [`QElement`](QElement.md) Manipulate, make assertions about, and get styling information for a specific element.
 * [`QElementList`](QElementList.md) Multiple QElements.
+* [`QPage`](QPage.md) Information about the overall page.
 
 ### Descriptor classes
 
