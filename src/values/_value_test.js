@@ -61,7 +61,7 @@ describe("VALUE: abstract base class", function() {
 			function check(arg, expected) {
 				assert.exception(function() {
 					a1.diff(arg);
-				}, "Example isn't compatible with " + expected, expected);
+				}, "A descriptor doesn't make sense. (Example can't combine with " + expected + ")", expected);
 			}
 		});
 

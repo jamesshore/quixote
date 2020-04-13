@@ -21,7 +21,7 @@
 ## Current Feature: Better assertions
 
 * (DONE) .should.equal()
-* .should.notEqual()
+* (DONE) .should.notEqual()
 * .should.beAbove()
 * .should.beBelow()
 * .should.beToRightOf()
@@ -47,8 +47,8 @@
 * (DONE) Position.doAssertion()
 * (DONE) Improve doAssertion() error messages
 * (DONE) Handle remaining error scenarios
-* Improve errors for size.plus(position) (etc)
-* Improve errors for x-position.plus(y-position)
+* (DONE) Improve errors for size.plus(position) (etc)
+* (DONE) Improve errors for x-position.plus(y-position)
 * (DONE) API docs
 * (DONE) changelog
 

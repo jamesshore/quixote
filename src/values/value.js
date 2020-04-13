@@ -48,7 +48,9 @@ function ensureCompatibility(self, compatible, args) {
 			if (arg === null) type = "null";
 			if (type === "object") type = oop.instanceName(arg);
 
-			throw new Error(oop.instanceName(self) + " isn't compatible with " + type);
+			throw new Error(
+				"A descriptor doesn't make sense. (" + oop.instanceName(self) + " can't combine with " + type + ")"
+			);
 		}
 	}
 }
