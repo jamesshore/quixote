@@ -123,8 +123,6 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			);
 		});
 
-		it("something something--check comparing X position to Y position");
-
 	});
 
 

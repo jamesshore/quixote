@@ -46,7 +46,7 @@ Me.prototype.createShould = function createAssert() {
 
 Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 	message = message === undefined ? "" : message + ": ";
-	expected = convertExpectationFromPrimitiveIfNeeded(this, expected, message);
+	expected = convertPrimitiveExpectationToValueObjectIfNeeded(this, expected, message);
 
 	var actualValue;
 	var expectedValue;
@@ -130,7 +130,7 @@ Me.prototype.equals = function equals(that) {
 	return false;
 };
 
-function convertExpectationFromPrimitiveIfNeeded(self, expected, message) {
+function convertPrimitiveExpectationToValueObjectIfNeeded(self, expected, message) {
 	var expectedType = typeof expected;
 	if (expected === null) expectedType = "null";
 
