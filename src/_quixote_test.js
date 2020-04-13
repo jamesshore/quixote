@@ -19,53 +19,11 @@ describe("FOUNDATION: Quixote", function() {
 		assert.type(frame, QFrame, "createFrame() returns frame object immediately");
 	});
 
-	describe("elementFromDom()", function() {
+	it("creates QElement from DOM element", function() {
+		var domElement = reset.frame.add("<div>my element</div>").toDomElement();
 
-		var frame;
-		var irreleventDomElement;
-
-		beforeEach(function() {
-			frame = reset.frame;
-			irreleventDomElement = addDomElement("<div>irrelevant DOM element</div>");
-		});
-
-		it("creates QElement from DOM element", function() {
-			var domElement = addDomElement("<div>my element</div>");
-
-			var element = quixote.elementFromDom(domElement);
-			assert.equal(element.toDomElement(), domElement);
-		});
-
-		it("uses provided nickname", function() {
-			var element = quixote.elementFromDom(irreleventDomElement, "my nickname");
-			assert.equal(element.toString(), "'my nickname'");
-		});
-
-		it("uses element ID if no nickname provided", function() {
-			var element = quixote.elementFromDom(addDomElement("<div id='myId'></div>"));
-			assert.equal(element.toString(), "'#myId'");
-		});
-
-		it("uses class names if no nickname or ID", function() {
-			var oneClass = quixote.elementFromDom(addDomElement("<div class='myClass'></div>"));
-			assert.equal(oneClass.toString(), "'.myClass'", "one class");
-
-			var manyClasses = quixote.elementFromDom(addDomElement("<div class='one two three'></div>"));
-			assert.equal(manyClasses.toString(), "'.one.two.three'", "multiple classes");
-
-			var lotsOfWhitespace = quixote.elementFromDom(addDomElement("<div class='one  \t \n two'></div>"));
-			assert.equal(lotsOfWhitespace.toString(), "'.one.two'", "lots of whitespace");
-		});
-
-		it("uses tag name if nothing else works provided", function() {
-			var element = quixote.elementFromDom(addDomElement("<blockquote></blockquote>"));
-			assert.equal(element.toString(), "'<blockquote>'");
-		});
-
-		function addDomElement(html) {
-			return frame.add(html).toDomElement();
-		}
-
+		var element = quixote.elementFromDom(domElement);
+		assert.equal(element.toDomElement(), domElement);
 	});
 
 });
