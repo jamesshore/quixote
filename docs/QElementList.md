@@ -6,10 +6,12 @@
 `QElementList` instances contain a list of [`QElement`](QElement.md) objects. It's provided by [`QFrame.getAll()`.](QFrame.md#framegetall)
 
 
-#### list.length()
+## Methods
+
+### list.length()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Determine the number of elements in the list.
@@ -19,10 +21,10 @@ Determine the number of elements in the list.
 * `length (number)` The number of elements in the list.
 
 
-#### list.at()
+### list.at()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve an element from the list. Positive and negative indices are allowed (see below). Throws an exception if the index is out of bounds.

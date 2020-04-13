@@ -20,8 +20,6 @@ var Me = module.exports = function QElement(domElement, nickname) {
 	this._nickname = nickname;
 
 	// properties
-	this.rendered = ElementRendered.create(this);
-
 	this.top = ElementEdge.top(this);
 	this.right = ElementEdge.right(this);
 	this.bottom = ElementEdge.bottom(this);
@@ -32,6 +30,8 @@ var Me = module.exports = function QElement(domElement, nickname) {
 
 	this.width = GenericSize.create(this.left, this.right, "width of " + this);
 	this.height = GenericSize.create(this.top, this.bottom, "height of " + this);
+
+	this.rendered = ElementRendered.create(this);
 };
 Assertable.extend(Me);
 

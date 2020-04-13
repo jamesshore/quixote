@@ -7,7 +7,6 @@ var QFrame = require("./q_frame.js");
 var BrowsingContext = require("./browsing_context.js");
 
 describe("FOUNDATION: QFrame", function() {
-	this.timeout(10000);
 
 	describe("creation and removal", function() {
 

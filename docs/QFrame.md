@@ -3,13 +3,15 @@
 * [Back to overview README](../README.md)
 * [Back to API overview](api.md)
 
-`QFrame` controls the test frame. You'll use this to create and retrieve elements. Of particular use is [`frame.reset()`](#framereset), which you should call before each test. You'll also call [`frame.remove()`](#frameremove) after all your CSS tests are complete.
+`QFrame` controls the test frame. You'll use this to create and retrieve elements. Of particular use is [`frame.reset()`](#framereset), which you should call before each test. You'll also call [`frame.remove()`](#frameremove) after all your CSS tests are complete. The [`viewport()`](#frameviewport), [`page()`](#framepage), and [`body()`](#framebody) methods are all useful for making assertions.
 
 
-#### frame.reset()
+## Methods
+
+### frame.reset()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Reset the frame's DOM back to the state it was in immediately after you called [`quixote.createFrame()`](quixote.md#quixotecreateframe). You will typically call this before every test.
@@ -29,10 +31,10 @@ beforeEach(function() {
 **Note:** This method resets the frame size, scroll position, and the `<body>` element's inner HTML. If you make changes to `<head>` or `<html>`, or if you change any `<body>` attributes (including styles), you will need to reset them manually, or use `frame.reload()` instead.
 
 
-#### frame.reload()
+### frame.reload()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Reload the frame page source and stylesheets completely, as if `quixote.createFrame()` were called again, but without the overhead of creating the frame.
@@ -53,10 +55,10 @@ beforeEach(function(done) {
 ```
 
 
-#### frame.remove()
+### frame.remove()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Remove the test frame entirely. You'll typically call this after all your tests are complete.
@@ -72,10 +74,10 @@ after(function() {
 ```
 
 
-#### frame.get()
+### frame.get()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve an element matching a selector. Throws an exception unless exactly one matching element is found. If you don't want the possibility of an exception, use [`frame.getAll()`](#framegetall) instead.
@@ -91,10 +93,10 @@ Retrieve an element matching a selector. Throws an exception unless exactly one 
 Example: `var foo = frame.get("#foo");`
 
 
-#### frame.getAll()
+### frame.getAll()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve a list of elements matching a selector. If you want to ensure that exactly one element is retrieved, use [`frame.get()`](#frameget) instead.
@@ -110,10 +112,10 @@ Retrieve a list of elements matching a selector. If you want to ensure that exac
 Example `var fooList = frame.getAll(".foo");`
 
 
-#### frame.add()
+### frame.add()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Create an element and append it to the frame's body. Throws an exception unless exactly one element is created. (But that one element may contain children.)
@@ -129,57 +131,53 @@ Create an element and append it to the frame's body. Throws an exception unless 
 Example: `var foo = frame.add("<p>foo</p>", "foo");`
 
 
-#### frame.viewport()
+### frame.viewport()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
-Provides access to descriptors for the frame's viewport (the part of the page that you can see in the frame, not including scrollbars).
+Retrieve the frame's viewport (the part of the page that you can see in the frame, not including scrollbars).
 
 `viewport = frame.viewport()`
 
-* `viewport (`[`see descriptors`](descriptors.md)`)` Viewport descriptors, plus `assert()` and `diff()` methods equivalent to the ones found on [`QElement`](QElement.md).
+* `viewport (`[`QViewport`](QViewport.md)`)` Viewport properties.
 
 Example: Assert that a banner is displayed at the top of the window and all the way from side to side.
 
 ```javascript
 var viewport = frame.viewport();
-banner.assert({
-  top: viewport.top,
-  left: viewport.left,
-  width: viewport.width
-});
+banner.top.should.equal(viewport.top);
+banner.left.should.equal(viewport.left);
+banner.width.should.equal(viewport.width);
 ```
 
 
-#### frame.page()
+### frame.page()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
-Provides access to descriptors for the frame's page (everything you can see or scroll to, not including scrollbars).
+Retrieve the frame's page (everything you can see or scroll to, not including scrollbars).
 
 `page = frame.page()`
 
-* `page (`[`see descriptors`](descriptors.md)`)` Page descriptors, plus `assert()` and `diff()` methods equivalent to the ones found on [`QElement`](QElement.md).
+* `page (`[`QPage`](QPage.md)`)` Page properties.
 
 Example: Assert that a sidebar extends the entire height of the page.
 
 ```javascript
 var page = frame.page();
-sidebar.assert({
-  top: page.top,
-  height: page.height
-});
+sidebar.top.should.equal(page.top);
+sidebar.height.should.equal(page.height);
 ```
 
 
-#### frame.body()
+### frame.body()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieves the frame's `body` element.
@@ -189,10 +187,10 @@ Retrieves the frame's `body` element.
 * `body (`[`QElement`](QElement.md)`)` The body element.
 
 
-#### frame.resize()
+### frame.resize()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Changes the size of the frame.
@@ -205,10 +203,10 @@ Changes the size of the frame.
 **Compatibility Note:** Older versions of Mobile Safari did not strictly obey the `width` and `height` attributes on an iframe. Instead, they uses the page width/height *or* the requested width/height, whichever is larger. You can detect this behavior by using [`quixote.browser.enlargesFrameToPageSize()`](quixote.md#quixotebrowser).
 
 
-#### frame.scroll()
+### frame.scroll()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Scroll the page so that top-left corner of the frame is as close as possible to an (x, y) coordinate. Note that the page may not scroll at all in some cases, such as when the frame already displays the entire page.
@@ -222,10 +220,10 @@ Scroll the page so that top-left corner of the frame is as close as possible to 
 Example: `frame.scroll(50, 60);`
 
 
-#### frame.getRawScrollPosition()
+### frame.getRawScrollPosition()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Determine the (x, y) coordinate of the top-left corner of the frame. This uses [pageXOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollX) and [pageYOffset](https://developer.mozilla.org/en-US/docs/Web/API/Window.scrollY) under the covers. (On IE 8, it uses [scrollLeft](http://msdn.microsoft.com/en-us/library/ie/ms534617%28v=vs.85%29.aspx) and [scrollTop](http://msdn.microsoft.com/en-us/library/ie/ms534618%28v=vs.85%29.aspx).)
@@ -241,10 +239,10 @@ Determine the (x, y) coordinate of the top-left corner of the frame. This uses [
 * IE 8 uses `scrollLeft` and `scrollTop` rather than `pageXOffset` and `pageYOffset`.
 
 
-#### frame.forceReflow()
+### frame.forceReflow()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Force the browser to recompute the page layout.
@@ -252,10 +250,10 @@ Force the browser to recompute the page layout.
 `forceReflow()`
 
 
-#### frame.toDomElement()
+### frame.toDomElement()
 
 ```
-Stability: 2 - Unstable
+Stability: 3 - Stable
 ```
 
 Retrieve the underlying [`HTMLIFrameElement`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLIFrameElement) DOM element for the frame.

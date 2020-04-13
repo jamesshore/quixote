@@ -28,29 +28,35 @@
 * .should.beToLeftOf()
 * .should.beBiggerThan()
 * .should.beSmallerThan()
-* Update API documentation (complete overhaul; eliminate separate descriptors catalog)
-* Update README
-* Update example
+* Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
+	* Fix documentation, including links, if this is changed
+* (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
+* (DONE) Update README
+* (DONE) Update example
 * Update CONTRIBUTING
-* Update descriptors README
-	* test: "has assertions"
-	* code: call createShould()
+	* Update src/descriptors README
+		* test: "has assertions"
+		* code: call createShould()
+	* Update src/values README - just a copyedit pass
 
 
-## To Do: should.equal()
+## To Do: API documentation
 
-* (DONE) Update rendering
-* (DONE) AbsolutePosition
-* (DONE) Center
-* (DONE) ElementEdge
-* (DONE) ElementRenderedEdge
+* (DONE) API ToC (api.md)
+* (DONE) quixote
+* (DONE) QFrame
+* (DONE) QElement
+* (DONE) QElementList
+* (DONE) PositionDescriptor
+* (DONE) SizeDescriptor
 * (DONE) ElementRendered
-* (DONE) GenericSize
-* (DONE) PageEdge
-* (DONE) RelativePosition
-* (DONE) RelativeSize
-* (DONE) SizeMultiple
-* (DONE) ViewportEdge
+* (DONE) QPage (new)
+* (DONE) QViewport (new)
+* (DONE) descriptors (delete)
+* (DONE) Review/update stability ratings (search 'Unstable' and 'Experimental')
+* (DONE) Double-check all API page links
+* (DONE) Double-check README page links
+* (DONE) Changelog: deprecate Descriptor.diff()*
 
 
 ## Dogfooding Notes
