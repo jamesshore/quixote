@@ -39,8 +39,10 @@
 
 ## To Do: SizeDescriptor assertions
 
-* .should.beBiggerThan()
-* .should.beSmallerThan()
+* (DONE) .should.beBiggerThan()
+* (DONE) .should.beSmallerThan()
+* Check non-rendered values
+* Check non-rendered values on PositionDescriptor?
 * API
 * CHANGELOG
 

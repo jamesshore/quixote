@@ -13,7 +13,7 @@ describe("DESCRIPTOR: SizeDescriptor", function() {
 	var example;
 
 	beforeEach(function() {
-		example = new ExampleSizeDescriptor(SIZE);
+		example = createDescriptor(SIZE);
 	});
 
 	it("is a descriptor", function() {
@@ -35,13 +35,57 @@ describe("DESCRIPTOR: SizeDescriptor", function() {
 		assert.objEqual(example.times(3).value(), Size.create(SIZE * 3), "multiplied");
 	});
 
+
+	describe("assertions", function() {
+
+		it("checks that size is bigger than expectation", function() {
+			var actual = createDescriptor(10);
+			var expectedSuccess = createDescriptor(5);
+			var expectedFailure = createDescriptor(15);
+
+			assert.noException(
+				function() { actual.should.beBiggerThan(expectedSuccess); }
+			);
+
+			assert.exception(
+				function() { actual.should.beBiggerThan(expectedFailure, "my message"); },
+				"my message: 10px example should be at least 6px bigger.\n" +
+				"  Expected: more than 15px (15px example)\n" +
+				"  But was:  10px"
+			);
+		});
+
+		it("checks that size is smaller than expectation", function() {
+			var actual = createDescriptor(10);
+			var expectedSuccess = createDescriptor(15);
+			var expectedFailure = createDescriptor(5);
+
+			assert.noException(
+				function() { actual.should.beSmallerThan(expectedSuccess); }
+			);
+
+			assert.exception(
+				function() { actual.should.beSmallerThan(expectedFailure, "my message"); },
+				"my message: 10px example should be at least 6px smaller.\n" +
+				"  Expected: less than 5px (5px example)\n" +
+				"  But was:  10px"
+			);
+		});
+
+	});
+
 });
 
+function createDescriptor(size) {
+	return new ExampleSizeDescriptor(size);
+}
+
+
+
 function ExampleSizeDescriptor(size) {
-	this.position = Size.create(size);
+	this.should = this.createShould();
+	this.size = Size.create(size);
 }
 SizeDescriptor.extend(ExampleSizeDescriptor);
-
-ExampleSizeDescriptor.prototype.value = function() {
-	return this.position;
-};
+ExampleSizeDescriptor.prototype.value = function() { 	return this.size; };
+ExampleSizeDescriptor.prototype.toString = function() { 	return this.size + " example"; };

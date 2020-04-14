@@ -21,6 +21,36 @@ var Me = module.exports = function SizeDescriptor() {
 Descriptor.extend(Me);
 Me.extend = oop.extendFn(Me);
 
+Me.prototype.createShould = function() {
+	var self = this;
+	var should = Descriptor.prototype.createShould.call(this);
+
+	should.beBiggerThan = function(expected, message) {
+		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+			if (actualValue.compare(expectedValue) <= 0) {
+				return errorMessage(-1, actualValue, expectedValue, expectedDesc, message);
+			}
+		});
+	};
+
+	should.beSmallerThan = function(expected, message) {
+		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+			if (actualValue.compare(expectedValue) >= 0) {
+				return errorMessage(1, actualValue, expectedValue, expectedDesc, message);
+			}
+		});
+	};
+
+	return should;
+
+	function errorMessage(direction, actualValue, expectedValue, expectedDesc, message) {
+		var moreThanLessThan = direction === -1 ? "more than" : "less than";
+		return message + self + " should be at least " + expectedValue.diff(self.plus(direction).value()) + ".\n" +
+			"  Expected: " + moreThanLessThan + " " + expectedDesc + "\n" +
+			"  But was:  " + actualValue;
+	}
+};
+
 Me.prototype.plus = function plus(amount) {
 	return RelativeSize().larger(this, amount);
 };

@@ -50,7 +50,7 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 	if (isNone(expected) && !isNone(this)) return "rendered";
 	if (!isNone(expected) && isNone(this)) return "not rendered";
 
-	var desc = actualValue.compare(expectedValue) > 0 ? " larger" : " smaller";
+	var desc = actualValue.compare(expectedValue) > 0 ? " bigger" : " smaller";
 	return actualValue.diff(expectedValue) + desc;
 });
 
