@@ -46,9 +46,9 @@ Stability: 3 - Stable
 
 Check whether the element is rendered.
 
-`elementRendered.should.equal(expectedRender, message)`
+`elementRendered.should.equal(expectation, message)`
 
-* `expectedRender (ElementRendered equivalent)` The expected render status.
+* `expectation (ElementRendered equivalent)` The expected render status.
 
 * `message (optional string)` A message to include when the assertion fails.
 
@@ -68,9 +68,9 @@ Stability: 3 - Stable
 
 Check whether the element is rendered opposite to another element.
 
-`elementRendered.should.notEqual(expectedRender, message)`
+`elementRendered.should.notEqual(expectation, message)`
 
-* `expectedPosition (ElementRendered equivalent)` The render status to not match.
+* `expectation (ElementRendered equivalent)` The render status to not match.
 
 * `message (optional string)` A message to include when the assertion fails.
 

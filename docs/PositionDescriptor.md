@@ -48,17 +48,20 @@ lightbox.rendered.should.equal(false);  // recommended
 Use these methods to make assertions about the position. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
 
 
-### position.should.equal()
+### Equality
 
 ```
 Stability: 3 - Stable
 ```
 
-Check whether the position matches another position.
+Check whether two positions match.
 
-`position.should.equal(expectedPosition, message)`
+* `position.should.equal(expectation, message)` Assert that the position matches the expectation.
+* `position.should.notEqual(expectation, message)` Assert that the position does not match the expectation.
 
-* `expectedPosition (PositionDescriptor equivalent)` The expected position.
+Parameters:
+
+* `expectation (PositionDescriptor equivalent)` The position to compare against.
 
 * `message (optional string)` A message to include when the assertion fails.
 
@@ -70,25 +73,26 @@ logo.top.should.equal(header.top);
 ```
 
 
-### position.should.notEqual()
+### Relative Positioning
 
-```
-Stability: 3 - Stable
-```
+Check whether a position is above, below, left, or right of another position. A position is "above" the expectation when it's closer to the top of the page, and "below" when it's closer to the bottom of the page.
 
-Check whether the position does not match another position.
+* `position.should.beAbove(expectation, message)` Assert that the position is above the expectation.
+* `position.should.beBelow(expectation, message)` Assert that the position is below the expectation.
+* `position.should.beLeftOf(expectation, message)` Assert that the position is to the left of the expectation.
+* `position.should.beRightOf(expectation, message)` Assert that the position is to the right of the expectation.
 
-`position.should.notEqual(expectedPosition, message)`
+Parameters:
 
-* `expectedPosition (PositionDescriptor equivalent)` The position to not match.
+* `expectation (PositionDescriptor equivalent)` The position to compare against.
 
 * `message (optional string)` A message to include when the assertion fails.
 
 Example:
 
 ```javascript
-// "The light box should not be flush against the bottom of the navbar."
-lightbox.top.should.notEqual(navbar.bottom);
+// "The light box should be below the navbar."
+lightbox.top.should.beBelow(navbar.bottom);
 ```
 
 

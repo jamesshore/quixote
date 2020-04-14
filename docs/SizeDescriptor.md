@@ -55,9 +55,9 @@ Stability: 3 - Stable
 
 Check whether the size matches another size.
 
-`size.should.equal(expectedSize, message)`
+`size.should.equal(expectation, message)`
 
-* `expectedSize (SizeDescriptor equivalent)` The expected size.
+* `expectation (SizeDescriptor equivalent)` The expected size.
 
 * `message (optional string)` A message to include when the assertion fails.
 
@@ -77,9 +77,9 @@ Stability: 3 - Stable
 
 Check whether the size does not match another size.
 
-`size.should.notEqual(expectedSize, message)`
+`size.should.notEqual(expectation, message)`
 
-* `expectedSize (SizeDescriptor equivalent)` The position to not match.
+* `expectation (SizeDescriptor equivalent)` The position to not match.
 
 * `message (optional string)` A message to include when the assertion fails.
 

@@ -16,8 +16,11 @@ description to be done
 
 *New methods:*
 
+(to be fleshed out/cleaned up)
+
 * (all descriptors) .should.equal()
 * (all descriptors) .should.notEqual()
+* PositionDescriptor.should.beAbove(), beBelow(), beLeftOf(), beRightOf()*
 
 *Other changes:*
 
