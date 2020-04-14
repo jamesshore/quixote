@@ -23,8 +23,7 @@
 * (DONE) .should.equal()
 * (DONE) .should.notEqual()
 * (DONE) PositionDescriptor assertions
-* .should.beBiggerThan()
-* .should.beSmallerThan()
+* SizeDescriptor assertions
 * (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 	* Fix documentation, including links, if this is changed
@@ -38,25 +37,17 @@
 	* Update src/values README - just a copyedit pass
 
 
-## To Do: PositionDescriptor assertions
+## To Do: SizeDescriptor assertions
 
-* (DONE) .should.beAbove()
-* (DONE) .should.beBelow()
-* (DONE) .should.beRightOf()
-* (DONE) .should.beLeftOf()
-* (DONE) API
-* (DONE) CHANGELOG
+* .should.beBiggerThan()
+* .should.beSmallerThan()
+* API
+* CHANGELOG
 
 
 ## Dogfooding Notes
 
-* Add ability to easily get font metrics (see issue #44)
-* Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px higher."?
 * Provide a better way of integrating with standard assertion libraries? Use `valueOf()`?
-* Consider how to support less-than, greater-than, etc.
-  * Use case: "the bottom edge of 'foo' is above the fold (600px)".
-	* Alternative assert mechanism? `element.assert.equal()` `.assert.lessThan()` etc? with `should` as alias to `assert`?
-  * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 
 
