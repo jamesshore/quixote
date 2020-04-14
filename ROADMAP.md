@@ -23,7 +23,7 @@
 * (DONE) .should.equal()
 * (DONE) .should.notEqual()
 * (DONE) PositionDescriptor assertions
-* .should.beLargerThan()
+* .should.beBiggerThan()
 * .should.beSmallerThan()
 * (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
