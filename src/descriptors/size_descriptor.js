@@ -23,11 +23,15 @@ Me.extend = oop.extendFn(Me);
 
 Me.prototype.createShould = function() {
 	var self = this;
+	var notRendered = Size.createNone();
 	var should = Descriptor.prototype.createShould.call(this);
 
 	should.beBiggerThan = function(expected, message) {
 		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (actualValue.compare(expectedValue) <= 0) {
+			if (expectedValue.equals(notRendered)) {
+				throwBadExpectation();
+			}
+			if (actualValue.equals(notRendered) || actualValue.compare(expectedValue) <= 0) {
 				return errorMessage(-1, actualValue, expectedValue, expectedDesc, message);
 			}
 		});
@@ -35,7 +39,10 @@ Me.prototype.createShould = function() {
 
 	should.beSmallerThan = function(expected, message) {
 		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (actualValue.compare(expectedValue) >= 0) {
+			if (expectedValue.equals(notRendered)) {
+				throwBadExpectation();
+			}
+			if (actualValue.equals(notRendered) || actualValue.compare(expectedValue) >= 0) {
 				return errorMessage(1, actualValue, expectedValue, expectedDesc, message);
 			}
 		});
@@ -43,9 +50,14 @@ Me.prototype.createShould = function() {
 
 	return should;
 
+	function throwBadExpectation() {
+		throw new Error("'expected' value is not rendered, so relative comparisons aren't possible.");
+	}
+
 	function errorMessage(direction, actualValue, expectedValue, expectedDesc, message) {
 		var moreThanLessThan = direction === -1 ? "more than" : "less than";
-		return message + self + " should be at least " + expectedValue.diff(self.plus(direction).value()) + ".\n" +
+		var atLeast = actualValue.equals(notRendered) ? "" : "at least ";
+		return message + self + " should be " + atLeast + expectedValue.diff(self.plus(direction).value()) + ".\n" +
 			"  Expected: " + moreThanLessThan + " " + expectedDesc + "\n" +
 			"  But was:  " + actualValue;
 	}

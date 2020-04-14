@@ -38,7 +38,7 @@ describe("DESCRIPTOR: SizeDescriptor", function() {
 
 	describe("assertions", function() {
 
-		it("checks that size is bigger than expectation", function() {
+		it("checks that actual is bigger than expectation", function() {
 			var actual = createDescriptor(10);
 			var expectedSuccess = createDescriptor(5);
 			var expectedFailure = createDescriptor(15);
@@ -55,7 +55,7 @@ describe("DESCRIPTOR: SizeDescriptor", function() {
 			);
 		});
 
-		it("checks that size is smaller than expectation", function() {
+		it("checks that actual is smaller than expectation", function() {
 			var actual = createDescriptor(10);
 			var expectedSuccess = createDescriptor(15);
 			var expectedFailure = createDescriptor(5);
@@ -72,19 +72,77 @@ describe("DESCRIPTOR: SizeDescriptor", function() {
 			);
 		});
 
+		it("fails gracefully if actual is non-rendered", function() {
+			var actual = createNonRenderedDescriptor();
+
+			assert.exception(
+				function() { actual.should.beBiggerThan(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: more than 10px\n" +
+				"  But was:  not rendered"
+			);
+
+			assert.exception(
+				function() { actual.should.beSmallerThan(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: less than 10px\n" +
+				"  But was:  not rendered"
+			);
+		});
+
+		it("fails gracefully if expectation is non-rendered", function() {
+			var actual = createDescriptor(10);
+
+			assert.exception(
+				function() { actual.should.beBiggerThan("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+
+			assert.exception(
+				function() { actual.should.beSmallerThan("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+		});
+
+		it("fails gracefully if both are non-rendered", function() {
+			var actual = createNonRenderedDescriptor();
+
+			assert.exception(
+				function() { actual.should.beBiggerThan("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+
+			assert.exception(
+				function() { actual.should.beSmallerThan("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+		});
+
 	});
 
 });
 
 function createDescriptor(size) {
-	return new ExampleSizeDescriptor(size);
+	return new ExampleSizeDescriptor(Size.create(size));
 }
 
+function createNonRenderedDescriptor() {
+	return new ExampleSizeDescriptor(Size.createNone());
+}
 
 
 function ExampleSizeDescriptor(size) {
 	this.should = this.createShould();
-	this.size = Size.create(size);
+	this.size = size;
+}
+SizeDescriptor.extend(ExampleSizeDescriptor);
+ExampleSizeDescriptor.prototype.value = function() { 	return this.size; };
+ExampleSizeDescriptor.prototype.toString = function() { 	return this.size + " example"; };
+
+
+function NonRenderedSizeDescriptor() {
+	this.should = this.createShould();
+	this.size = Size.createNone();
 }
 SizeDescriptor.extend(ExampleSizeDescriptor);
 ExampleSizeDescriptor.prototype.value = function() { 	return this.size; };

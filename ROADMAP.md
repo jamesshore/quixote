@@ -41,8 +41,10 @@
 
 * (DONE) .should.beBiggerThan()
 * (DONE) .should.beSmallerThan()
-* Check non-rendered values
-* Check non-rendered values on PositionDescriptor?
+* (DONE) Check non-rendered values - always an error
+* Consider: should exception be thrown by Size, not SizeDescriptor?
+* Check non-rendered values on PositionDescriptor - always an error
+* Update PositionDescriptor documentation re non-rendered values?
 * API
 * CHANGELOG
 
