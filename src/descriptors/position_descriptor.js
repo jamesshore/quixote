@@ -31,17 +31,34 @@ Me.extend = oop.extendFn(Me);
 Me.x = factoryFn(X_DIMENSION);
 Me.y = factoryFn(Y_DIMENSION);
 
-Me.prototype.plus = function plus(amount) {
+Me.prototype.createShould = function() {
+	var self = this;
+	var should = Descriptor.prototype.createShould.call(this);
+
+	should.beAbove = function(expected, message) {
+		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+			if (actualValue.compare(expectedValue) >= 0) {
+				return message + self + " should be at least " + expectedValue.diff(self.plus(1).value()) + ".\n" +
+					"  Expected: less than " + expectedDesc + "\n" +
+					"  But was:  " + actualValue;
+			}
+		});
+	};
+
+	return should;
+};
+
+Me.prototype.plus = function(amount) {
 	if (this._pdbc.dimension === X_DIMENSION) return RelativePosition().right(this, amount);
 	else return RelativePosition().down(this, amount);
 };
 
-Me.prototype.minus = function minus(amount) {
+Me.prototype.minus = function(amount) {
 	if (this._pdbc.dimension === X_DIMENSION) return RelativePosition().left(this, amount);
 	else return RelativePosition().up(this, amount);
 };
 
-Me.prototype.to = function to(position) {
+Me.prototype.to = function(position) {
 	ensure.signature(arguments, [[ Me, Number ]]);
 	if (typeof position === "number") {
 		if (this._pdbc.dimension === X_DIMENSION) position = AbsolutePosition().x(position);
@@ -54,7 +71,7 @@ Me.prototype.to = function to(position) {
 	return GenericSize().create(this, position, "distance from " + this + " to " + position);
 };
 
-Me.prototype.convert = function convert(arg, type) {
+Me.prototype.convert = function(arg, type) {
 	switch (type) {
 		case "number": return this._pdbc.dimension === X_DIMENSION ? Position.x(arg) : Position.y(arg);
 		case "string":

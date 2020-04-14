@@ -64,14 +64,37 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 		assert.equal(x.to(X + 20).toString(), "distance from " + x + " to " + (X + 20) + "px x-coordinate", "toString()");
 	});
 
-	function createDescriptor(dimension, value) {
-		return new TestPositionDescriptor(dimension, value);
-	}
+
+	describe("assertions", function() {
+
+		it("checks that position is above expected value", function() {
+			var actual = createDescriptor("y", 10);
+			var expectedSuccess = createDescriptor("y", 15);
+			var expectedFailure = createDescriptor("y", 5);
+
+			assert.noException(
+				function() { actual.should.beAbove(expectedSuccess); }
+			);
+
+			assert.exception(
+				function() { actual.should.beAbove(expectedFailure, "my message"); },
+				"my message: y.10px should be at least 6px higher.\n" +
+				"  Expected: less than 5px (y.5px)\n" +
+				"  But was:  10px"
+			);
+		});
+
+	});
 
 });
 
+function createDescriptor(dimension, value) {
+	return new TestPositionDescriptor(dimension, value);
+}
+
 
 function TestPositionDescriptor(dimension, value) {
+	this.should = this.createShould();
 	this._dimension = dimension;
 	if (dimension === "x") {
 		PositionDescriptor.x(this);

@@ -22,11 +22,8 @@
 
 * (DONE) .should.equal()
 * (DONE) .should.notEqual()
-* .should.beAbove()
-* .should.beBelow()
-* .should.beToRightOf()
-* .should.beToLeftOf()
-* .should.beBiggerThan()
+* PositionDescriptor assertions
+* .should.beLargerThan()
 * .should.beSmallerThan()
 * (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
@@ -41,20 +38,14 @@
 	* Update src/values README - just a copyedit pass
 
 
-## To Do: quixote.elementFromDom
+## To Do: PositionDescriptor assertions
 
-* (DONE) Add tests
-* (DONE) Move code out of QElement
-* (DONE) nicknames: '#id', '.class', '<tag>'
-* (DONE) Update nickname-generation code
-* (DONE) API docs
-	* QElement.add, QElement.parent, quixote.elementFromDom nickname generation
-	* Add 'nickname' to QElement.parent()
-* (DONE) CHANGELOG
-  * Improved automatic nicknames
-  * Add QElement.parent(nickname)
-* (DONE) README
-	* Credit Justin for inspiring nickname improvements
+* (DONE) .should.beAbove()
+* .should.beBelow()
+* .should.beRightOf()
+* .should.beLeftOf()
+* API
+* CHANGELOG
 
 
 ## Dogfooding Notes
