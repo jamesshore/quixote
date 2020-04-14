@@ -73,7 +73,7 @@ logo.top.should.equal(header.top);
 ```
 
 
-### Above/Below/Left/Right
+### Relative Positioning
 
 Check whether a position is above, below, left, or right of another position. A position is "above" the expectation when it's closer to the top of the page, and "below" when it's closer to the bottom of the page.
 
@@ -87,13 +87,6 @@ Parameters:
 * `expectation (PositionDescriptor equivalent)` The position to compare against.
 
 * `message (optional string)` A message to include when the assertion fails.
-
-Example:
-
-```javascript
-// "The logo should be at the top of the header."
-logo.top.should.equal(header.top);
-```
 
 Example:
 
