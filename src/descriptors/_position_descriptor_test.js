@@ -100,40 +100,63 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 				"  But was:  10px"
 			);
 		});
-		//
-		// it("checks that position is above an expected value", function() {
-		// 	var actual = createDescriptor("y", 10);
-		// 	var expectedSuccess = createDescriptor("y", 15);
-		// 	var expectedFailure = createDescriptor("y", 5);
-		//
-		// 	assert.noException(
-		// 		function() { actual.should.beAbove(expectedSuccess); }
-		// 	);
-		//
-		// 	assert.exception(
-		// 		function() { actual.should.beAbove(expectedFailure, "my message"); },
-		// 		"my message: y.10px should be at least 6px higher.\n" +
-		// 		"  Expected: less than 5px (y.5px)\n" +
-		// 		"  But was:  10px"
-		// 	);
-		// });
-		//
-		// it("checks that position is above an expected value", function() {
-		// 	var actual = createDescriptor("y", 10);
-		// 	var expectedSuccess = createDescriptor("y", 15);
-		// 	var expectedFailure = createDescriptor("y", 5);
-		//
-		// 	assert.noException(
-		// 		function() { actual.should.beAbove(expectedSuccess); }
-		// 	);
-		//
-		// 	assert.exception(
-		// 		function() { actual.should.beAbove(expectedFailure, "my message"); },
-		// 		"my message: y.10px should be at least 6px higher.\n" +
-		// 		"  Expected: less than 5px (y.5px)\n" +
-		// 		"  But was:  10px"
-		// 	);
-		// });
+
+		it("checks that position is left of an expected value", function() {
+			var actual = createDescriptor("x", 10);
+			var expectedSuccess = createDescriptor("x", 15);
+			var expectedFailure = createDescriptor("x", 5);
+
+			assert.noException(
+				function() { actual.should.beLeftOf(expectedSuccess); }
+			);
+
+			assert.exception(
+				function() { actual.should.beLeftOf(expectedFailure, "my message"); },
+				"my message: x.10px should be at least 6px to left.\n" +
+				"  Expected: less than 5px (x.5px)\n" +
+				"  But was:  10px"
+			);
+		});
+
+		it("checks that position is right of an expected value", function() {
+			var actual = createDescriptor("x", 10);
+			var expectedSuccess = createDescriptor("x", 5);
+			var expectedFailure = createDescriptor("x", 15);
+
+			assert.noException(
+				function() { actual.should.beRightOf(expectedSuccess); }
+			);
+
+			assert.exception(
+				function() { actual.should.beRightOf(expectedFailure, "my message"); },
+				"my message: x.10px should be at least 6px to right.\n" +
+				"  Expected: more than 15px (x.15px)\n" +
+				"  But was:  10px"
+			);
+		});
+
+		it("fails fast if using above/below on x-coordinate", function() {
+			assert.exception(
+				function() { x.should.beAbove(5); },
+				/Can't use 'should.beAbove\(\)' on X coordinates. Did you mean 'should.beLeftOf\(\)'\?/
+			);
+			assert.exception(
+				function() { x.should.beBelow(5); },
+				/Can't use 'should.beBelow\(\)' on X coordinates. Did you mean 'should.beRightOf\(\)'\?/
+			);
+		});
+
+
+		it("fails fast if using left/right on y-coordinate", function() {
+			assert.exception(
+				function() { y.should.beLeftOf(5); },
+				/Can't use 'should.beLeftOf\(\)' on Y coordinates. Did you mean 'should.beAbove\(\)'\?/
+			);
+			assert.exception(
+				function() { y.should.beRightOf(5); },
+				/Can't use 'should.beRightOf\(\)' on Y coordinates. Did you mean 'should.beBelow\(\)'\?/
+			);
+		});
 
 	});
 
