@@ -22,7 +22,7 @@
 
 * (DONE) .should.equal()
 * (DONE) .should.notEqual()
-* PositionDescriptor assertions
+* (DONE) PositionDescriptor assertions
 * .should.beLargerThan()
 * .should.beSmallerThan()
 * (DONE) Update nickname generation
@@ -45,7 +45,7 @@
 * (DONE) .should.beRightOf()
 * (DONE) .should.beLeftOf()
 * (DONE) API
-* CHANGELOG
+* (DONE) CHANGELOG
 
 
 ## Dogfooding Notes
