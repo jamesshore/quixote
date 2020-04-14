@@ -44,8 +44,7 @@
 * (DONE) .should.beBelow()
 * (DONE) .should.beRightOf()
 * (DONE) .should.beLeftOf()
-* Revise Descriptor errors to use common descriptor formatting rather than 'type'
-* API
+* (DONE) API
 * CHANGELOG
 
 
