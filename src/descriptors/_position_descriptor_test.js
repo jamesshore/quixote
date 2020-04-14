@@ -67,7 +67,7 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 
 	describe("assertions", function() {
 
-		it("checks that position is above expected value", function() {
+		it("checks that position is above an expected value", function() {
 			var actual = createDescriptor("y", 10);
 			var expectedSuccess = createDescriptor("y", 15);
 			var expectedFailure = createDescriptor("y", 5);
@@ -83,6 +83,57 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 				"  But was:  10px"
 			);
 		});
+
+		it("checks that position is below an expected value", function() {
+			var actual = createDescriptor("y", 10);
+			var expectedSuccess = createDescriptor("y", 5);
+			var expectedFailure = createDescriptor("y", 15);
+
+			assert.noException(
+				function() { actual.should.beBelow(expectedSuccess); }
+			);
+
+			assert.exception(
+				function() { actual.should.beBelow(expectedFailure, "my message"); },
+				"my message: y.10px should be at least 6px lower.\n" +
+				"  Expected: more than 15px (y.15px)\n" +
+				"  But was:  10px"
+			);
+		});
+		//
+		// it("checks that position is above an expected value", function() {
+		// 	var actual = createDescriptor("y", 10);
+		// 	var expectedSuccess = createDescriptor("y", 15);
+		// 	var expectedFailure = createDescriptor("y", 5);
+		//
+		// 	assert.noException(
+		// 		function() { actual.should.beAbove(expectedSuccess); }
+		// 	);
+		//
+		// 	assert.exception(
+		// 		function() { actual.should.beAbove(expectedFailure, "my message"); },
+		// 		"my message: y.10px should be at least 6px higher.\n" +
+		// 		"  Expected: less than 5px (y.5px)\n" +
+		// 		"  But was:  10px"
+		// 	);
+		// });
+		//
+		// it("checks that position is above an expected value", function() {
+		// 	var actual = createDescriptor("y", 10);
+		// 	var expectedSuccess = createDescriptor("y", 15);
+		// 	var expectedFailure = createDescriptor("y", 5);
+		//
+		// 	assert.noException(
+		// 		function() { actual.should.beAbove(expectedSuccess); }
+		// 	);
+		//
+		// 	assert.exception(
+		// 		function() { actual.should.beAbove(expectedFailure, "my message"); },
+		// 		"my message: y.10px should be at least 6px higher.\n" +
+		// 		"  Expected: less than 5px (y.5px)\n" +
+		// 		"  But was:  10px"
+		// 	);
+		// });
 
 	});
 

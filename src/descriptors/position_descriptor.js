@@ -45,6 +45,16 @@ Me.prototype.createShould = function() {
 		});
 	};
 
+	should.beBelow = function(expected, message) {
+		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+			if (actualValue.compare(expectedValue) <= 0) {
+				return message + self + " should be at least " + expectedValue.diff(self.plus(-1).value()) + ".\n" +
+					"  Expected: more than " + expectedDesc + "\n" +
+					"  But was:  " + actualValue;
+			}
+		});
+	};
+
 	return should;
 };
 

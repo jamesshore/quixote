@@ -41,7 +41,7 @@
 ## To Do: PositionDescriptor assertions
 
 * (DONE) .should.beAbove()
-* .should.beBelow()
+* (DONE) .should.beBelow()
 * .should.beRightOf()
 * .should.beLeftOf()
 * API
