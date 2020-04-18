@@ -101,7 +101,7 @@ Create a `SizeDescriptor` that's bigger than this span.
 
 * `size (`[`SizeDescriptor`](SizeDescriptor.md)`)` The size.
 
-* `amount (SizeDescriptor equivalent)` The number of pixels to increase.
+* `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to increase.
 
 
 #### span.minus()
@@ -116,7 +116,7 @@ Create a `SizeDescriptor` that's smaller than this one.
 
 * `size (`[`SizeDescriptor`](SizeDescriptor.md)`)` The size.
 
-* `amount (SizeDescriptor equivalent)` The number of pixels to decrease.
+* `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to decrease.
 
 
 #### span.times()
