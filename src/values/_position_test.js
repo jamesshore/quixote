@@ -29,6 +29,13 @@ describe("VALUE: Position", function() {
 		assert.objEqual(Position.x(Pixels.create(10)), x1);
 	});
 
+	it("knows if it is 'none' or not", function() {
+		assert.equal(noX.isNone(), true, "no X");
+		assert.equal(noY.isNone(), true, "no Y");
+		assert.equal(x1.isNone(), false, "not no X");
+		assert.equal(y1.isNone(), false, "not no Y");
+	});
+
 	it("can be be non-rendered", function() {
 		assert.objEqual(Position.noX(), noX, "x");
 		assert.objEqual(Position.noY(), noY, "y");

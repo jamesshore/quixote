@@ -45,6 +45,10 @@ Me.prototype.compatibility = function compatibility() {
 	return [ Me, Size ];
 };
 
+Me.prototype.isNone = function isNone() {
+	return this._value.isNone();
+};
+
 Me.prototype.distanceTo = function(operand) {
 	ensure.signature(arguments, [ Me ]);
 	checkAxis(this, operand);
