@@ -40,53 +40,34 @@ Me.y = factoryFn(Y_DIMENSION);
 
 Me.prototype.createShould = function() {
 	var self = this;
+	var noX = Position.noX();
+	var noY = Position.noY();
+
 	var should = Descriptor.prototype.createShould.call(this);
-
-	should.beAbove = function(expected, message) {
-		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (self._pdbc.dimension !== Y_DIMENSION) {
-				throwCoordinateError("beAbove", "beLeftOf");
-			}
-			if (actualValue.compare(expectedValue) >= 0) {
-				return errorMessage(1, actualValue, expectedValue, expectedDesc, message);
-			}
-		});
-	};
-
-	should.beBelow = function(expected, message) {
-		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (self._pdbc.dimension !== Y_DIMENSION) {
-				throwCoordinateError("beBelow", "beRightOf");
-			}
-			if (actualValue.compare(expectedValue) <= 0) {
-				return errorMessage(-1, actualValue, expectedValue, expectedDesc, message);
-			}
-		});
-	};
-
-	should.beLeftOf = function(expected, message) {
-		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (self._pdbc.dimension !== X_DIMENSION) {
-				throwCoordinateError("beLeftOf", "beAbove");
-			}
-			if (actualValue.compare(expectedValue) >= 0) {
-				return errorMessage(1, actualValue, expectedValue, expectedDesc, message);
-			}
-		});
-	};
-
-	should.beRightOf = function(expected, message) {
-		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (self._pdbc.dimension !== X_DIMENSION) {
-				throwCoordinateError("beRightOf", "beBelow");
-			}
-			if (actualValue.compare(expectedValue) <= 0) {
-				return errorMessage(-1, actualValue, expectedValue, expectedDesc, message);
-			}
-		});
-	};
-
+	should.beAbove = assertFn("beAbove", "beLeftOf", Y_DIMENSION, false);
+	should.beBelow = assertFn("beBelow", "beRightOf", Y_DIMENSION, true);
+	should.beLeftOf = assertFn("beLeftOf", "beAbove", X_DIMENSION, false);
+	should.beRightOf = assertFn("beRightOf", "beBelow", X_DIMENSION, true);
 	return should;
+
+	function assertFn(functionName, otherAxisName, dimension, shouldBeBigger) {
+		return function(expected, message) {
+			self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+				if (self._pdbc.dimension !== dimension) {
+					throwCoordinateError(functionName, otherAxisName);
+				}
+
+				var expectedMsg = (shouldBeBigger ? "more than" : "less than") + " " + expectedDesc;
+
+				var compare = actualValue.compare(expectedValue);
+				if ((shouldBeBigger && compare <= 0) || (!shouldBeBigger && compare >= 0)) {
+					var nudge = shouldBeBigger ? -1 : 1;
+					var shouldBe = "at least " + expectedValue.diff(self.plus(nudge).value());
+					return errorMessage(message, shouldBe, expectedMsg, actualValue);
+				}
+			});
+		};
+	}
 
 	function throwCoordinateError(functionName, recommendedName) {
 		throw new Error(
@@ -95,11 +76,10 @@ Me.prototype.createShould = function() {
 		);
 	}
 
-	function errorMessage(direction, actualValue, expectedValue, expectedDesc, message) {
-		var moreThanLessThan = direction === -1 ? "more than" : "less than";
-		return message + self + " should be at least " + expectedValue.diff(self.plus(direction).value()) + ".\n" +
-			"  Expected: " + moreThanLessThan + " " + expectedDesc + "\n" +
-			"  But was:  " + actualValue;
+	function errorMessage(message, shouldBe, expected, actual) {
+		return message + self + " should be " + shouldBe + ".\n" +
+			"  Expected: " + expected + "\n" +
+			"  But was:  " + actual;
 	}
 };
 

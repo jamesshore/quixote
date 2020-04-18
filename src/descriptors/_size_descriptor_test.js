@@ -140,10 +140,10 @@ ExampleSizeDescriptor.prototype.value = function() { 	return this.size; };
 ExampleSizeDescriptor.prototype.toString = function() { 	return this.size + " example"; };
 
 
-function NonRenderedSizeDescriptor() {
+function NonRenderedPositionDescriptor() {
 	this.should = this.createShould();
 	this.size = Size.createNone();
 }
-SizeDescriptor.extend(ExampleSizeDescriptor);
-ExampleSizeDescriptor.prototype.value = function() { 	return this.size; };
-ExampleSizeDescriptor.prototype.toString = function() { 	return this.size + " example"; };
+SizeDescriptor.extend(NonRenderedPositionDescriptor);
+NonRenderedPositionDescriptor.prototype.value = function() { 	return this.size; };
+NonRenderedPositionDescriptor.prototype.toString = function() { 	return this.size + " example"; };
