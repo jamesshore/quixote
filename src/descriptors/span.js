@@ -5,7 +5,7 @@ var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var SizeDescriptor = require("./size_descriptor.js");
 
-var Me = module.exports = function GenericSize(from, to, description) {
+var Me = module.exports = function Span(from, to, description) {
   ensure.signature(arguments, [ PositionDescriptor, PositionDescriptor, String ]);
 
   this.should = this.createShould();

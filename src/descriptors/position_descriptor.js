@@ -14,8 +14,8 @@ function RelativePosition() {
 function AbsolutePosition() {
 	return require("./absolute_position.js");
 }
-function GenericSize() {
-	return require("./generic_size.js");
+function Span() {
+	return require("./span.js");
 }
 
 var X_DIMENSION = "X";
@@ -110,7 +110,7 @@ Me.prototype.to = function(position) {
 		throw new Error("Can't calculate distance between an X coordinate and a Y coordinate");
 	}
 
-	return GenericSize().create(this, position, "distance from " + this + " to " + position);
+	return Span().create(this, position, "distance from " + this + " to " + position);
 };
 
 Me.prototype.convert = function(arg, type) {

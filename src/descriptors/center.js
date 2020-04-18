@@ -3,8 +3,6 @@
 
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
-var Position = require("../values/position.js");
-var RelativePosition = require("./relative_position.js");
 
 var X_DIMENSION = "x";
 var Y_DIMENSION = "y";

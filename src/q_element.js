@@ -7,7 +7,7 @@ var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
 var ElementRendered = require("./descriptors/element_rendered.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
-var GenericSize = require("./descriptors/generic_size.js");
+var Span = require("./descriptors/span.js");
 var Assertable = require("./assertable.js");
 
 var Me = module.exports = function QElement(domElement, nickname) {
@@ -25,8 +25,8 @@ var Me = module.exports = function QElement(domElement, nickname) {
 	this.center = Center.x(this.left, this.right, "center of " + this);
 	this.middle = Center.y(this.top, this.bottom, "middle of " + this);
 
-	this.width = GenericSize.create(this.left, this.right, "width of " + this);
-	this.height = GenericSize.create(this.top, this.bottom, "height of " + this);
+	this.width = Span.create(this.left, this.right, "width of " + this);
+	this.height = Span.create(this.top, this.bottom, "height of " + this);
 
 	this.rendered = ElementRendered.create(this);
 };

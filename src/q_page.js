@@ -5,7 +5,7 @@ var ensure = require("./util/ensure.js");
 var PageEdge = require("./descriptors/page_edge.js");
 var Center = require("./descriptors/center.js");
 var Assertable = require("./assertable.js");
-var GenericSize = require("./descriptors/generic_size.js");
+var Span = require("./descriptors/span.js");
 
 var Me = module.exports = function QPage(browsingContext) {
 	var BrowsingContext = require("./browsing_context.js");   // break circular dependency
@@ -17,8 +17,8 @@ var Me = module.exports = function QPage(browsingContext) {
 	this.bottom = PageEdge.bottom(browsingContext);
 	this.left = PageEdge.left(browsingContext);
 
-	this.width = GenericSize.create(this.left, this.right, "width of page");
-	this.height = GenericSize.create(this.top, this.bottom, "height of page");
+	this.width = Span.create(this.left, this.right, "width of page");
+	this.height = Span.create(this.top, this.bottom, "height of page");
 
 	this.center = Center.x(this.left, this.right, "center of page");
 	this.middle = Center.y(this.top, this.bottom, "middle of page");
