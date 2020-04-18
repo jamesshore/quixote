@@ -21,6 +21,11 @@ describe("VALUE: Size", function() {
 		assert.objEqual(Size.create(Pixels.create(52)), a1);
 	});
 
+	it("knows if it is 'none' or not", function() {
+		assert.equal(none.isNone(), true, "none");
+		assert.equal(a1.isNone(), false, "not none");
+	});
+
 	it("can be be non-rendered", function() {
 		assert.objEqual(Size.createNone(), none);
 	});

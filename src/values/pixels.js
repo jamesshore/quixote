@@ -27,6 +27,7 @@ Me.prototype.compatibility = function compatibility() {
 };
 
 Me.prototype.isNone = function() {
+	ensure.signature(arguments, []);
 	return this._none;
 };
 

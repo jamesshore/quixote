@@ -26,6 +26,10 @@ Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };
 
+Me.prototype.isNone = function isNone() {
+	return this._value.isNone();
+};
+
 Me.prototype.plus = Value.safe(function plus(operand) {
 	return new Me(this._value.plus(operand._value));
 });
