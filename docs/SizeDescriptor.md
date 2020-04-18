@@ -15,7 +15,7 @@ Stability: 3 - Stable
 Methods with a `SizeDescriptor equivalent` parameter can take any of the following:
 
 * A `SizeDescriptor` instance, such as `QElement.width`.
-* A [`Span`](Span.md) instance, such as returned by [`PositionDescriptor.to()`](PositionDescriptor.md#position-to). It represents the length of the span.
+* A [`Span`](Span.md) instance, such as returned by [`PositionDescriptor.to()`](PositionDescriptor.md#positionto). It represents the length of the span.
 * A number representing a width or height in pixels.
 * The string `"none"`, which means the size is not rendered.
 

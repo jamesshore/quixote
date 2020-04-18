@@ -3,7 +3,7 @@
 * [Back to overview README.](../README.md)
 * [Back to API overview.](api.md)
 
-`Span` instances represent an imaginary line between two X or Y coordinates. They can be horizontal or vertical, but not diagonal. They are created by [`PositionDescriptor.to()`](PositionDescriptor.md#position-to).
+`Span` instances represent an imaginary line between two X or Y coordinates. They can be horizontal or vertical, but not diagonal. They are created by [`PositionDescriptor.to()`](PositionDescriptor.md#positionto).
 
 If either end of the span is not rendered, the whole span is considered to be not rendered.
 
