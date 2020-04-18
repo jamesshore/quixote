@@ -24,6 +24,11 @@
 * (DONE) .should.notEqual()
 * (DONE) PositionDescriptor assertions
 * SizeDescriptor assertions
+* PositionDescriptor.to() return a 'span' that can have a middle/center, width, etc.
+	* e.g., logo.center.should.equal(button.left.to(content.left).center);
+	* Description of above: "center of span from left edge of 'button' to left edge of 'center'"
+	* Convert 'Size' to 'Span' across the board?
+	* Add nickname parameter for to()
 * (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 	* Fix documentation, including links, if this is changed
@@ -42,7 +47,6 @@
 * (DONE) .should.beBiggerThan()
 * (DONE) .should.beSmallerThan()
 * (DONE) Check non-rendered values - always an error
-* Consider: should exception be thrown by Size, not SizeDescriptor?
 * Check non-rendered values on PositionDescriptor - always an error
 * Update PositionDescriptor documentation re non-rendered values?
 * API
