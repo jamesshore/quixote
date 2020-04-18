@@ -41,22 +41,14 @@ describe("DESCRIPTOR: Span", function() {
 
 		assert.objEqual(center.value(), Position.x(20), "value");
 		assert.equal(center.toString(), "center of my description", "description");
-
-		// if (quixote.browser.misreportsClipAutoProperty()) return;
-		//
-		// assert.objEqual(rendered.center.value(), renderedElement.center.value(), "rendered center");
-		// assert.objEqual(displayNone.center.value(), Position.noX(), "non-rendered center");
-		// assert.objEqual(noSize.center.value(), Position.noX(), "zero-width center");
-		//
-		// assert.objEqual(rendered.middle.value(), renderedElement.middle.value(), "rendered middle");
-		// assert.objEqual(displayNone.middle.value(), Position.noY(), "non-rendered middle");
-		// assert.objEqual(noSize.middle.value(), Position.noY(), "zero-width middle");
-		//
-		// assert.equal(rendered.center.toString(), "rendered center of " + renderedElement, "center description");
-		// assert.equal(rendered.middle.toString(), "rendered middle of " + renderedElement, "middle description");
 	});
 
-	it("has vertical middle");
+	it("has vertical middle", function() {
+		var middle = ySpan(10, 30, "my description").middle;
+
+		assert.objEqual(middle.value(), Position.y(20), "value");
+		assert.equal(middle.toString(), "middle of my description", "description");
+	});
 
 	it("fails fast when asking for horizontal center of vertical span");
 
