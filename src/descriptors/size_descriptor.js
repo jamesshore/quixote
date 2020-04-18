@@ -23,44 +23,41 @@ Me.extend = oop.extendFn(Me);
 
 Me.prototype.createShould = function() {
 	var self = this;
-	var notRendered = Size.createNone();
+
 	var should = Descriptor.prototype.createShould.call(this);
-
-	should.beBiggerThan = function(expected, message) {
-		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (expectedValue.equals(notRendered)) {
-				throwBadExpectation();
-			}
-			if (actualValue.equals(notRendered) || actualValue.compare(expectedValue) <= 0) {
-				return errorMessage(-1, actualValue, expectedValue, expectedDesc, message);
-			}
-		});
-	};
-
-	should.beSmallerThan = function(expected, message) {
-		self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
-			if (expectedValue.equals(notRendered)) {
-				throwBadExpectation();
-			}
-			if (actualValue.equals(notRendered) || actualValue.compare(expectedValue) >= 0) {
-				return errorMessage(1, actualValue, expectedValue, expectedDesc, message);
-			}
-		});
-	};
-
+	should.beBiggerThan = assertFn(-1, true);
+	should.beSmallerThan = assertFn(1, false);
 	return should;
 
-	function throwBadExpectation() {
-		throw new Error("'expected' value is not rendered, so relative comparisons aren't possible.");
+	function assertFn(direction, shouldBeBigger) {
+		return function(expected, message) {
+			self.doAssertion(expected, message, function(actualValue, expectedValue, expectedDesc, message) {
+				if (expectedValue.isNone()) {
+					throw new Error("'expected' value is not rendered, so relative comparisons aren't possible.");
+				}
+
+				var expectedMsg = (shouldBeBigger ? "more than" : "less than") + " " + expectedDesc;
+
+				if (actualValue.isNone()) {
+					return errorMessage(message, "rendered", expectedMsg, actualValue);
+				}
+
+				var compare = actualValue.compare(expectedValue);
+				if ((shouldBeBigger && compare <= 0) || (!shouldBeBigger && compare >= 0)) {
+					var nudge = shouldBeBigger ? -1 : 1;
+					var shouldBe = "at least " + expectedValue.diff(self.plus(nudge).value());
+					return errorMessage(message, shouldBe, expectedMsg, actualValue);
+				}
+			});
+		};
 	}
 
-	function errorMessage(direction, actualValue, expectedValue, expectedDesc, message) {
-		var moreThanLessThan = direction === -1 ? "more than" : "less than";
-		var atLeast = actualValue.equals(notRendered) ? "" : "at least ";
-		return message + self + " should be " + atLeast + expectedValue.diff(self.plus(direction).value()) + ".\n" +
-			"  Expected: " + moreThanLessThan + " " + expectedDesc + "\n" +
-			"  But was:  " + actualValue;
+	function errorMessage(message, shouldBe, expected, actual) {
+		return message + self + " should be " + shouldBe + ".\n" +
+			"  Expected: " + expected + "\n" +
+			"  But was:  " + actual;
 	}
+
 };
 
 Me.prototype.plus = function plus(amount) {
