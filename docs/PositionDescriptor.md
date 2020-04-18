@@ -113,7 +113,9 @@ Stability: 3 - Stable
 
 Create a `PositionDescriptor` that is further down the page or to the right.
 
-`position.plus(amount)`
+`newPosition = position.plus(amount)`
+
+* `newPosition (PositionDescriptor)` The new position.
 
 * `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to increase.
 
@@ -133,7 +135,9 @@ Stability: 3 - Stable
 
 Create a `PositionDescriptor` that is further up the page or to the left.
 
-`position.minus(amount)`
+`newPosition = position.minus(amount)`
+
+* `newPosition (PositionDescriptor)` The new position.
 
 * `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to decrease.
 
@@ -153,9 +157,9 @@ Stability: 3 - Stable
 
 Create a [`Span`](Span.md) that represents an imaginary line between two positions. Useful for compare distances or midpoints.
 
-`result = position.to(position2, nickname)`
+`span = position.to(position2, nickname)`
 
-* `result (`[`Span`](Span.md)`)` An imaginary line between `position` and `position2`. The result is always positive regardless of their order.
+* `span (`[`Span`](Span.md)`)` An imaginary line between `position` and `position2`.
 
 * `position2 (PositionDescriptor or number)` The other end of the imaginary line. Must have the same X or Y axis as `position`.
 

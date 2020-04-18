@@ -119,7 +119,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's bigger than this one.
 
-`size.plus(amount)`
+`newSize = size.plus(amount)`
+
+* `newSize (SizeDescriptor)` The new size.
 
 * `amount (SizeDescriptor equivalent)` The number of pixels to increase.
 
@@ -139,7 +141,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's smaller than this one.
 
-`size.minus(amount)`
+`newSize = size.minus(amount)`
+
+* `newSize (SizeDescriptor)` The new size.
 
 * `amount (SizeDescriptor equivalent)` The number of pixels to decrease.
 
@@ -159,7 +163,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's a multiple or fraction of the size of this one.
 
-`size.times(multiple)`
+`newSize = size.times(multiple)`
+
+* `newSize (SizeDescriptor)` The new size.
 
 * `multiple (number)` The number to multiply.
 

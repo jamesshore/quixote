@@ -97,7 +97,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's bigger than this span.
 
-`span.plus(amount)`
+`size = span.plus(amount)`
+
+* `size (`[`SizeDescriptor`](SizeDescriptor.md)`)` The size.
 
 * `amount (SizeDescriptor equivalent)` The number of pixels to increase.
 
@@ -110,7 +112,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's smaller than this one.
 
-`size.minus(amount)`
+`size = span.minus(amount)`
+
+* `size (`[`SizeDescriptor`](SizeDescriptor.md)`)` The size.
 
 * `amount (SizeDescriptor equivalent)` The number of pixels to decrease.
 
@@ -123,6 +127,8 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's a multiple or fraction of the size of this one.
 
-`size.times(multiple)`
+`size = span.times(multiple)`
+
+* `size (`[`SizeDescriptor`](SizeDescriptor.md)`)` The size.
 
 * `multiple (number)` The number to multiply.
