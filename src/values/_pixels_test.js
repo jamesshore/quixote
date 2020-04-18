@@ -18,6 +18,11 @@ describe("VALUE: Pixels", function() {
 		assert.implements(a1, Value);
 	});
 
+	it("knows if it is 'none' or not", function() {
+		assert.equal(noPixels.isNone(), true, "none");
+		assert.equal(a1.isNone(), false, "not none");
+	});
+
 	it("performs arithmetic", function() {
 		assert.objEqual(a1.plus(b), Pixels.create(30), "addition");
 		assert.objEqual(b.minus(a1), Pixels.create(10), "subtraction");
