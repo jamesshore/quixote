@@ -24,9 +24,7 @@
 * (DONE) .should.notEqual()
 * (DONE) PositionDescriptor assertions
 * (DONE) SizeDescriptor assertions
-* PositionDescriptor.to() return a 'span' that can have a middle/center.
-	* e.g., logo.center.should.equal(button.left.to(content.left).center);
-	* Description of above: "center of span from left edge of 'button' to left edge of 'center'"
+* (DONE) PositionDescriptor.to() return a 'span' that can have a middle/center.
 * (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 	* Fix documentation, including links, if this is changed
@@ -51,8 +49,8 @@
 	* (DONE) PositionDescriptor.to() is a Span, not a Size
 	* (DONE) PositionDescriptor.to() takes a nickname
 	* (DONE) SizeDescriptor equivalent - Span
-	* Check links - Span, SizeDescriptor equivalents, PositionDescriptor.to(), api
-* CHANGELOG
+	* (DONE) Check links - Span, SizeDescriptor equivalents, PositionDescriptor.to(), api
+* (DONE) CHANGELOG
 
 
 ## Dogfooding Notes

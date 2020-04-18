@@ -29,7 +29,9 @@ description to be done
 * Improved error messages when making invalid assertions
 * Improved nickname generation
 * Added optional `nickname` parameter to QElement.parent()
-
+* Added optional `nickname` parameter to PositionDescriptor.to()
+* PositionDescriptor returns a Span, which is completely compatible with previous return value
+* New Span descriptor; Span.middle; Span.center; Span.plus; Span.minus; Span.times
 
 
 ## 0.15.x: Support for third-party test runners
