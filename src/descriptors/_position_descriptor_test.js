@@ -46,14 +46,16 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 		assert.objEqual(y.minus(10).value(), Position.y(Y - 10), "up");
 	});
 
-	it("calculates distance to another position", function() {
+	it("creates span between two positions", function() {
 		assert.objEqual(x.to(createDescriptor("x", X + 20)).value(), Size.create(20), "left to right");
 		assert.objEqual(x.to(createDescriptor("x", X - 20)).value(), Size.create(20), "right to left");
 		assert.objEqual(y.to(createDescriptor("y", Y + 30)).value(), Size.create(30), "top to bottom");
 		assert.objEqual(y.to(createDescriptor("y", Y - 30)).value(), Size.create(30), "bottom to top");
-		assert.exception(function() {
-			x.to(createDescriptor("y", 42));
-		}, "Can't calculate distance between an X coordinate and a Y coordinate");
+		assert.exception(
+			function() { x.to(y); },
+			"Can't span between an X coordinate and a Y coordinate"
+		);
+
 
 		var xPlus = createDescriptor("x", X + 20);
 		assert.equal(x.to(xPlus).toString(), "distance from " + x + " to " + xPlus, "toString()");

@@ -43,8 +43,7 @@
 ## To Do: PositionDescriptor.to() returns a 'span' that can have a middle/center.
 
 * (DONE) Rename GenericSize --> Span
-* span.center
-* span.middle
+* (DONE) span.center, span.middle
 * PositionDescriptor.to(..., nickname)
 	* change default nickname to 'span from ...' instead of 'distance from ...'
 * API

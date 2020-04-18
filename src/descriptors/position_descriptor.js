@@ -107,7 +107,7 @@ Me.prototype.to = function(position) {
 		else position = AbsolutePosition().y(position);
 	}
 	if (this._pdbc.dimension !== position._pdbc.dimension) {
-		throw new Error("Can't calculate distance between an X coordinate and a Y coordinate");
+		throw new Error("Can't span between an X coordinate and a Y coordinate");
 	}
 
 	return Span().create(this, position, "distance from " + this + " to " + position);

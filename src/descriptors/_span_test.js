@@ -50,9 +50,19 @@ describe("DESCRIPTOR: Span", function() {
 		assert.equal(middle.toString(), "middle of my description", "description");
 	});
 
-	it("fails fast when asking for horizontal center of vertical span");
+	it("fails fast when asking for horizontal center of vertical span", function() {
+		assert.exception(
+		function() { ySpan(10, 30).center.should.equal(20); },
+		/Can't compare X coordinate to Y coordinate/
+		);
+	});
 
-	it("fails fast when asking vertical middle of horizontal span");
+	it("fails fast when asking vertical middle of horizontal span", function() {
+		assert.exception(
+		function() { xSpan(10, 30).middle.should.equal(20); },
+		/Can't compare X coordinate to Y coordinate/
+		);
+	});
 
 });
 
