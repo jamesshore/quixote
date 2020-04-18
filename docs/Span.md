@@ -119,7 +119,7 @@ Create a `SizeDescriptor` that's smaller than this one.
 * `amount (SizeDescriptor equivalent)` The number of pixels to decrease.
 
 
-#### size.times()
+#### span.times()
 
 ```
 Stability: 3 - Stable
