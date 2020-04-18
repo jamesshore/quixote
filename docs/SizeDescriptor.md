@@ -47,47 +47,54 @@ lightbox.rendered.should.equal(false);  // recommended
 
 Use these methods to make assertions about the size. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
 
-### size.should.equal()
+
+### Equality
 
 ```
 Stability: 3 - Stable
 ```
 
-Check whether the size matches another size.
+Check whether two sizes match.
 
-`size.should.equal(expectation, message)`
+* `position.should.equal(expectation, message)` Assert that the size matches the expectation.
+* `position.should.notEqual(expectation, message)` Assert that the size does not match the expectation.
 
-* `expectation (SizeDescriptor equivalent)` The expected size.
+Parameters:
+
+* `expectation (SizeDescriptor equivalent)` The size to compare against.
 
 * `message (optional string)` A message to include when the assertion fails.
 
 Example:
 
 ```javascript
-// "The navbar width should match the header."
-navbar.width.should.equal(header.width);
+// "The logo should be at the top of the header."
+logo.top.should.equal(header.top);
 ```
 
 
-### size.should.notEqual()
+### Relative Positioning
 
 ```
 Stability: 3 - Stable
 ```
 
-Check whether the size does not match another size.
+Check whether a size is bigger or smaller than another size.
 
-`size.should.notEqual(expectation, message)`
+* `position.should.beBiggerThan(expectation, message)` Assert that the size is bigger than the expectation.
+* `position.should.beSmallerThan(expectation, message)` Assert that the size is smaller than the expectation.
 
-* `expectation (SizeDescriptor equivalent)` The position to not match.
+Parameters:
+
+* `expectation (PositionDescriptor equivalent)` The position to compare against. Must be be rendered.
 
 * `message (optional string)` A message to include when the assertion fails.
 
 Example:
 
 ```javascript
-// "The logo should not be the same width as the sidebar."
-logo.width.should.notEqual(sidebar.width);
+// "The search text field should be smaller than the search dialog."
+searchField.width.should.beSmallerThan(searchDialog.width);
 ```
 
 

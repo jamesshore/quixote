@@ -21,10 +21,11 @@ description to be done
 * (all descriptors) .should.equal()
 * (all descriptors) .should.notEqual()
 * PositionDescriptor.should.beAbove(), beBelow(), beLeftOf(), beRightOf()*
+* SizeDescriptor.should.beBiggerThan(), beSmallerThan()
 
 *Other changes:*
 
-* Most methods have been promoted to '3-Stable'
+* All methods have been promoted to '3-Stable'
 * Improved error messages when making invalid assertions
 * Improved nickname generation
 * Added optional `nickname` parameter to QElement.parent()

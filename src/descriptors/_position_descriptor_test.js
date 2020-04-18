@@ -7,7 +7,7 @@ var PositionDescriptor = require("./position_descriptor.js");
 var Descriptor = require("./descriptor.js");
 var Size = require("../values/size.js");
 
-describe.only("DESCRIPTOR: PositionDescriptor", function() {
+describe("DESCRIPTOR: PositionDescriptor", function() {
 
 	var X = 30;
 	var Y = 60;

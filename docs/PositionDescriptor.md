@@ -75,6 +75,10 @@ logo.top.should.equal(header.top);
 
 ### Relative Positioning
 
+```
+Stability: 3 - Stable
+```
+
 Check whether a position is above, below, left, or right of another position. A position is "above" the expectation when it's closer to the top of the page, and "below" when it's closer to the bottom of the page.
 
 * `position.should.beAbove(expectation, message)` Assert that the position is above the expectation.

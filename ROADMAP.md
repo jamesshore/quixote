@@ -23,7 +23,7 @@
 * (DONE) .should.equal()
 * (DONE) .should.notEqual()
 * (DONE) PositionDescriptor assertions
-* SizeDescriptor assertions
+* (DONE) SizeDescriptor assertions
 * PositionDescriptor.to() return a 'span' that can have a middle/center, width, etc.
 	* e.g., logo.center.should.equal(button.left.to(content.left).center);
 	* Description of above: "center of span from left edge of 'button' to left edge of 'center'"
@@ -35,6 +35,7 @@
 * (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * (DONE) Update README
 * (DONE) Update example
+* Remove stability markers entirely?
 * Update CONTRIBUTING
 	* Update src/descriptors README
 		* test: "has assertions"
@@ -49,8 +50,8 @@
 * (DONE) Check non-rendered values - always an error
 * (DONE) Check non-rendered values on PositionDescriptor - always an error
 * (DONE) Update PositionDescriptor documentation re non-rendered values?
-* API
-* CHANGELOG
+* (DONE) API
+* (DONE) CHANGELOG
 
 
 ## Dogfooding Notes
