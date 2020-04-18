@@ -113,7 +113,9 @@ Stability: 3 - Stable
 
 Create a `PositionDescriptor` that is further down the page or to the right.
 
-`position.plus(amount)`
+`newPosition = position.plus(amount)`
+
+* `newPosition (PositionDescriptor)` The new position.
 
 * `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to increase.
 
@@ -133,7 +135,9 @@ Stability: 3 - Stable
 
 Create a `PositionDescriptor` that is further up the page or to the left.
 
-`position.minus(amount)`
+`newPosition = position.minus(amount)`
+
+* `newPosition (PositionDescriptor)` The new position.
 
 * `amount (`[`SizeDescriptor equivalent`](SizeDescriptor.md)`)` The number of pixels to decrease.
 
@@ -151,13 +155,15 @@ logo.right.should.equal(navbar.right.minus(15));
 Stability: 3 - Stable
 ```
 
-Create a [`SizeDescriptor`](SizeDescriptor.md) that represents the distance between two positions.
+Create a [`Span`](Span.md) that represents an imaginary line between two positions. Useful for compare distances or midpoints.
 
-`result = position.to(position2)`
+`span = position.to(position2, nickname)`
 
-* `descriptor2 (PositionDescriptor equivalent)` The second position. Must represent the same X or Y axis as this position.
+* `span (`[`Span`](Span.md)`)` An imaginary line between `position` and `position2`.
 
-* `result (`[`SizeDescriptor`](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
+* `position2 (PositionDescriptor or number)` The other end of the imaginary line. Must have the same X or Y axis as `position`.
+
+* `nickname (optional string)` The name to use when describing your span in error messages. Defaults to using the two positions.
 
 Example:
 

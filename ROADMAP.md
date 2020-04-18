@@ -24,18 +24,13 @@
 * (DONE) .should.notEqual()
 * (DONE) PositionDescriptor assertions
 * (DONE) SizeDescriptor assertions
-* PositionDescriptor.to() return a 'span' that can have a middle/center, width, etc.
-	* e.g., logo.center.should.equal(button.left.to(content.left).center);
-	* Description of above: "center of span from left edge of 'button' to left edge of 'center'"
-	* Convert 'Size' to 'Span' across the board?
-	* Add nickname parameter for to()
+* (DONE) PositionDescriptor.to() return a 'span' that can have a middle/center.
 * (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 	* Fix documentation, including links, if this is changed
 * (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * (DONE) Update README
 * (DONE) Update example
-* Remove stability markers entirely?
 * Update CONTRIBUTING
 	* Update src/descriptors README
 		* test: "has assertions"
@@ -43,14 +38,18 @@
 	* Update src/values README - just a copyedit pass
 
 
-## To Do: SizeDescriptor assertions
+## To Do: PositionDescriptor.to() returns a 'span' that can have a middle/center.
 
-* (DONE) .should.beBiggerThan()
-* (DONE) .should.beSmallerThan()
-* (DONE) Check non-rendered values - always an error
-* (DONE) Check non-rendered values on PositionDescriptor - always an error
-* (DONE) Update PositionDescriptor documentation re non-rendered values?
-* (DONE) API
+* (DONE) Rename GenericSize --> Span
+* (DONE) span.center, span.middle
+* (DONE) PositionDescriptor.to(..., nickname)
+	* (DONE) change default nickname to 'span from ...' instead of 'distance from ...'
+* API
+	* (DONE) Span
+	* (DONE) PositionDescriptor.to() is a Span, not a Size
+	* (DONE) PositionDescriptor.to() takes a nickname
+	* (DONE) SizeDescriptor equivalent - Span
+	* (DONE) Check links - Span, SizeDescriptor equivalents, PositionDescriptor.to(), api
 * (DONE) CHANGELOG
 
 

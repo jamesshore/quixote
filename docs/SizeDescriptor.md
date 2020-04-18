@@ -15,6 +15,7 @@ Stability: 3 - Stable
 Methods with a `SizeDescriptor equivalent` parameter can take any of the following:
 
 * A `SizeDescriptor` instance, such as `QElement.width`.
+* A [`Span`](Span.md) instance, such as returned by [`PositionDescriptor.to()`](PositionDescriptor.md#positionto). It represents the length of the span.
 * A number representing a width or height in pixels.
 * The string `"none"`, which means the size is not rendered.
 
@@ -23,6 +24,13 @@ Methods with a `SizeDescriptor equivalent` parameter can take any of the followi
 ```javascript
 // "The height of the logo matches the height of the top nav."
 logo.height.should.equal(topNav.height);
+```
+
+#### Example: `Span`
+
+```javascript
+// "The width of the header matches the width of the two columns together."
+header.width.should.equal(leftColumn.left.to(rightColumn.right));
 ```
 
 #### Example: `number`
@@ -56,8 +64,8 @@ Stability: 3 - Stable
 
 Check whether two sizes match.
 
-* `position.should.equal(expectation, message)` Assert that the size matches the expectation.
-* `position.should.notEqual(expectation, message)` Assert that the size does not match the expectation.
+* `size.should.equal(expectation, message)` Assert that the size matches the expectation.
+* `size.should.notEqual(expectation, message)` Assert that the size does not match the expectation.
 
 Parameters:
 
@@ -81,12 +89,12 @@ Stability: 3 - Stable
 
 Check whether a size is bigger or smaller than another size.
 
-* `position.should.beBiggerThan(expectation, message)` Assert that the size is bigger than the expectation.
-* `position.should.beSmallerThan(expectation, message)` Assert that the size is smaller than the expectation.
+* `size.should.beBiggerThan(expectation, message)` Assert that the size is bigger than the expectation.
+* `size.should.beSmallerThan(expectation, message)` Assert that the size is smaller than the expectation.
 
 Parameters:
 
-* `expectation (PositionDescriptor equivalent)` The position to compare against. Must be be rendered.
+* `expectation (SizeDescriptor equivalent)` The size to compare against. Must be be rendered.
 
 * `message (optional string)` A message to include when the assertion fails.
 
@@ -111,7 +119,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's bigger than this one.
 
-`size.plus(amount)`
+`newSize = size.plus(amount)`
+
+* `newSize (SizeDescriptor)` The new size.
 
 * `amount (SizeDescriptor equivalent)` The number of pixels to increase.
 
@@ -123,7 +133,7 @@ navbar.height.should.equal(logo.height.plus(12));
 ```
 
 
-#### descriptor.minus()
+#### size.minus()
 
 ```
 Stability: 3 - Stable
@@ -131,7 +141,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's smaller than this one.
 
-`size.minus(amount)`
+`newSize = size.minus(amount)`
+
+* `newSize (SizeDescriptor)` The new size.
 
 * `amount (SizeDescriptor equivalent)` The number of pixels to decrease.
 
@@ -151,7 +163,9 @@ Stability: 3 - Stable
 
 Create a `SizeDescriptor` that's a multiple or fraction of the size of this one.
 
-`size.times(multiple)`
+`newSize = size.times(multiple)`
+
+* `newSize (SizeDescriptor)` The new size.
 
 * `multiple (number)` The number to multiply.
 

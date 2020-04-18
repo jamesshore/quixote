@@ -14,8 +14,8 @@ function RelativePosition() {
 function AbsolutePosition() {
 	return require("./absolute_position.js");
 }
-function GenericSize() {
-	return require("./generic_size.js");
+function Span() {
+	return require("./span.js");
 }
 
 var X_DIMENSION = "X";
@@ -100,17 +100,19 @@ Me.prototype.minus = function(amount) {
 	else return RelativePosition().up(this, amount);
 };
 
-Me.prototype.to = function(position) {
-	ensure.signature(arguments, [[ Me, Number ]]);
+Me.prototype.to = function(position, nickname) {
+	ensure.signature(arguments, [[ Me, Number ], [ undefined, String ]]);
+
 	if (typeof position === "number") {
 		if (this._pdbc.dimension === X_DIMENSION) position = AbsolutePosition().x(position);
 		else position = AbsolutePosition().y(position);
 	}
 	if (this._pdbc.dimension !== position._pdbc.dimension) {
-		throw new Error("Can't calculate distance between an X coordinate and a Y coordinate");
+		throw new Error("Can't span between an X coordinate and a Y coordinate");
 	}
 
-	return GenericSize().create(this, position, "distance from " + this + " to " + position);
+	if (nickname === undefined) nickname = "span from " + this + " to " + position;
+	return Span().create(this, position, nickname);
 };
 
 Me.prototype.convert = function(arg, type) {
