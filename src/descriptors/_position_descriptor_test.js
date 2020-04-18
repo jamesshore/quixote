@@ -67,6 +67,7 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 		assert.objEqual(y.to(Y - 30).value(), Size.create(30), "bottom to top");
 
 		assert.equal(x.to(X + 20).toString(), "span from " + x + " to " + (X + 20) + "px x-coordinate", "toString()");
+		x.to(noX).should.equal(3);
 	});
 
 	it("allows custom nicknames for spans", function() {

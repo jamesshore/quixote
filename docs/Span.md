@@ -10,7 +10,9 @@ If either end of the span is not rendered, the whole span is considered to be no
 
 ## Assertions
 
-Use these methods to make assertions about the span. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
+Use these methods to make assertions about the size of the span. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
+
+Span sizes are always positive.
 
 
 ### Equality
