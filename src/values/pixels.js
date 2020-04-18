@@ -26,6 +26,11 @@ Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };
 
+Me.prototype.isNone = function() {
+	ensure.signature(arguments, []);
+	return this._none;
+};
+
 Me.prototype.plus = Value.safe(function plus(operand) {
 	if (this._none || operand._none) return Me.createNone();
 	return new Me(this._amount + operand._amount);

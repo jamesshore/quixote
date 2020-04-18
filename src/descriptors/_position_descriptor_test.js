@@ -14,10 +14,14 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 
 	var x;
 	var y;
+	var noX;
+	var noY;
 
 	beforeEach(function() {
 		x = createDescriptor("x", X);
 		y = createDescriptor("y", Y);
+		noX = new NoXPositionDescriptor();
+		noY = new NoYPositionDescriptor();
 	});
 
 	it("is a descriptor", function() {
@@ -135,7 +139,7 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 			);
 		});
 
-		it("fails fast if using above/below on x-coordinate", function() {
+		it("fails gracefully if using above/below on x-coordinate", function() {
 			assert.exception(
 				function() { x.should.beAbove(5); },
 				/Can't use 'should.beAbove\(\)' on X coordinates. Did you mean 'should.beLeftOf\(\)'\?/
@@ -147,7 +151,7 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 		});
 
 
-		it("fails fast if using left/right on y-coordinate", function() {
+		it("fails gracefully if using left/right on y-coordinate", function() {
 			assert.exception(
 				function() { y.should.beLeftOf(5); },
 				/Can't use 'should.beLeftOf\(\)' on Y coordinates. Did you mean 'should.beAbove\(\)'\?/
@@ -155,6 +159,71 @@ describe("DESCRIPTOR: PositionDescriptor", function() {
 			assert.exception(
 				function() { y.should.beRightOf(5); },
 				/Can't use 'should.beRightOf\(\)' on Y coordinates. Did you mean 'should.beBelow\(\)'\?/
+			);
+		});
+
+		it("fails gracefully if actual is non-rendered", function() {
+			assert.exception(
+				function() { noY.should.beAbove(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: less than 10px\n" +
+				"  But was:  not rendered"
+			);
+			assert.exception(
+				function() { noY.should.beBelow(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: more than 10px\n" +
+				"  But was:  not rendered"
+			);
+			assert.exception(
+				function() { noX.should.beLeftOf(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: less than 10px\n" +
+				"  But was:  not rendered"
+			);
+			assert.exception(
+				function() { noX.should.beRightOf(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: more than 10px\n" +
+				"  But was:  not rendered"
+			);
+		});
+
+		it("fails gracefully if expectation is non-rendered", function() {
+			assert.exception(
+				function() { y.should.beAbove("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { y.should.beBelow("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { x.should.beLeftOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { x.should.beRightOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+		});
+
+		it("fails gracefully if both are non-rendered", function() {
+			assert.exception(
+				function() { noY.should.beAbove("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { noY.should.beBelow("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { noX.should.beLeftOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { noX.should.beRightOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
 			);
 		});
 
@@ -188,3 +257,23 @@ TestPositionDescriptor.prototype.value = function() {
 TestPositionDescriptor.prototype.toString = function() {
 	return this._dimension + "." + this._position.toString();
 };
+
+
+function NoXPositionDescriptor() {
+	this.should = this.createShould();
+	PositionDescriptor.x(this);
+	this.position = Position.noX();
+}
+PositionDescriptor.extend(NoXPositionDescriptor);
+NoXPositionDescriptor.prototype.value = function() { 	return this.position; };
+NoXPositionDescriptor.prototype.toString = function() { 	return this.position + " example"; };
+
+
+function NoYPositionDescriptor() {
+	this.should = this.createShould();
+	PositionDescriptor.y(this);
+	this.position = Position.noY();
+}
+PositionDescriptor.extend(NoYPositionDescriptor);
+NoYPositionDescriptor.prototype.value = function() { 	return this.position; };
+NoYPositionDescriptor.prototype.toString = function() { 	return this.position + " example"; };

@@ -26,6 +26,10 @@ Me.prototype.compatibility = function compatibility() {
 	return [ Me ];
 };
 
+Me.prototype.isNone = function isNone() {
+	return this._value.isNone();
+};
+
 Me.prototype.plus = Value.safe(function plus(operand) {
 	return new Me(this._value.plus(operand._value));
 });
@@ -50,7 +54,7 @@ Me.prototype.diff = Value.safe(function diff(expected) {
 	if (isNone(expected) && !isNone(this)) return "rendered";
 	if (!isNone(expected) && isNone(this)) return "not rendered";
 
-	var desc = actualValue.compare(expectedValue) > 0 ? " larger" : " smaller";
+	var desc = actualValue.compare(expectedValue) > 0 ? " bigger" : " smaller";
 	return actualValue.diff(expectedValue) + desc;
 });
 

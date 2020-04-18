@@ -92,9 +92,7 @@ Me.prototype.doAssertion = function doAssertion(expected, message, assertFn) {
 			"  'expected' value: " + expectedValue + " (" + oop.instanceName(expectedValue) + ")\n" +
 			"If this error is unclear or you think Quixote is at fault, please open\n" +
 			"an issue at https://github.com/jamesshore/quixote/issues. Include this\n" +
-			"error message and a standalone example test that reproduces the error.\n" +
-			"Error stack trace:\n" +
-			err2.stack
+			"error message and a standalone example test that reproduces the error.\n"
 		);
 	}
 	if (failure !== undefined) throw new Error(failure);

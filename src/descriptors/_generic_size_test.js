@@ -30,7 +30,7 @@ describe("DESCRIPTOR: GenericSize", function() {
 	it("has assertions", function() {
 		assert.exception(
 			function() { genericSize(10, 30, "size").should.equal(30); },
-			"size should be 10px larger.\n" +
+			"size should be 10px bigger.\n" +
 			"  Expected: 30px\n" +
 			"  But was:  20px"
 		);

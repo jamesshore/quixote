@@ -21,6 +21,11 @@ describe("VALUE: Size", function() {
 		assert.objEqual(Size.create(Pixels.create(52)), a1);
 	});
 
+	it("knows if it is 'none' or not", function() {
+		assert.equal(none.isNone(), true, "none");
+		assert.equal(a1.isNone(), false, "not none");
+	});
+
 	it("can be be non-rendered", function() {
 		assert.objEqual(Size.createNone(), none);
 	});
@@ -49,7 +54,7 @@ describe("VALUE: Size", function() {
 
 	it("describes difference", function() {
 		assert.equal(a1.diff(a2), "", "same");
-		assert.equal(a1.diff(b), "45px larger", "larger");
+		assert.equal(a1.diff(b), "45px bigger", "bigger");
 		assert.equal(b.diff(a1), "45px smaller", "smaller");
 
 		assert.equal(none.diff(none), "", "both non-rendered");

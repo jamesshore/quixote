@@ -23,14 +23,19 @@
 * (DONE) .should.equal()
 * (DONE) .should.notEqual()
 * (DONE) PositionDescriptor assertions
-* .should.beBiggerThan()
-* .should.beSmallerThan()
+* (DONE) SizeDescriptor assertions
+* PositionDescriptor.to() return a 'span' that can have a middle/center, width, etc.
+	* e.g., logo.center.should.equal(button.left.to(content.left).center);
+	* Description of above: "center of span from left edge of 'button' to left edge of 'center'"
+	* Convert 'Size' to 'Span' across the board?
+	* Add nickname parameter for to()
 * (DONE) Update nickname generation
 * Rename element.rendered --> element.rendering or other? If so, rename ElementRendered class?
 	* Fix documentation, including links, if this is changed
 * (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * (DONE) Update README
 * (DONE) Update example
+* Remove stability markers entirely?
 * Update CONTRIBUTING
 	* Update src/descriptors README
 		* test: "has assertions"
@@ -38,25 +43,20 @@
 	* Update src/values README - just a copyedit pass
 
 
-## To Do: PositionDescriptor assertions
+## To Do: SizeDescriptor assertions
 
-* (DONE) .should.beAbove()
-* (DONE) .should.beBelow()
-* (DONE) .should.beRightOf()
-* (DONE) .should.beLeftOf()
+* (DONE) .should.beBiggerThan()
+* (DONE) .should.beSmallerThan()
+* (DONE) Check non-rendered values - always an error
+* (DONE) Check non-rendered values on PositionDescriptor - always an error
+* (DONE) Update PositionDescriptor documentation re non-rendered values?
 * (DONE) API
 * (DONE) CHANGELOG
 
 
 ## Dogfooding Notes
 
-* Add ability to easily get font metrics (see issue #44)
-* Switch assertion errors to say what the correct value should be? In other words, rather than saying "top edge of '.navbar' was 13px lower than expected.", say "top edge of '.navbar' should be 13px higher."?
 * Provide a better way of integrating with standard assertion libraries? Use `valueOf()`?
-* Consider how to support less-than, greater-than, etc.
-  * Use case: "the bottom edge of 'foo' is above the fold (600px)".
-	* Alternative assert mechanism? `element.assert.equal()` `.assert.lessThan()` etc? with `should` as alias to `assert`?
-  * .max and .min?  `foo.assert({ bottom: top.plus(600).max });`   `foo.assert({ bottom: q.max(600) });`
 * Provide better error message when cross-origin 'src' provided to quixote.createFrame
 
 

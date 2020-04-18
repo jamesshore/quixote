@@ -109,7 +109,7 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			var actual = new Example(1);
 			assert.exception(
 				function() { actual.doAssertion(new ToValueErrorDescriptor(), "my message", fn); },
-				/^my message: Error in test\. Unable to convert descriptors to values\.\nError message: ErrorDescriptor.value\(\) error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: ErrorDescriptor \(ToValueErrorDescriptor\)\nIf this error is unclear or you think Quixote is at fault, please open\nan issue at https:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this\nerror message and a standalone example test that reproduces the error\.\nError stack trace:\n/
+				/^my message: Error in test\. Unable to convert descriptors to values\.\nError message: ErrorDescriptor.value\(\) error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: ErrorDescriptor \(ToValueErrorDescriptor\)\nIf this error is unclear or you think Quixote is at fault, please open\nan issue at https:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this\nerror message and a standalone example test that reproduces the error\.\n/
 			);
 		});
 
@@ -119,7 +119,7 @@ describe("DESCRIPTOR: Descriptor base class", function() {
 			var assertionFn = function() { throw new Error("my error"); };
 			assert.exception(
 				function() { actual.doAssertion(expected, "my message", assertionFn); },
-				/^my message: Error in test\. Unable to perform assertion\.\nError message: my error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: example 2 \(Example\)\n  'actual' value:   1 \(ExampleValue\)\n  'expected' value: 2 \(ExampleValue\)\nIf this error is unclear or you think Quixote is at fault, please open\nan issue at https:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this\nerror message and a standalone example test that reproduces the error\.\nError stack trace:\n/
+				/^my message: Error in test\. Unable to perform assertion\.\nError message: my error\n  'actual' descriptor:   example 1 \(Example\)\n  'expected' descriptor: example 2 \(Example\)\n  'actual' value:   1 \(ExampleValue\)\n  'expected' value: 2 \(ExampleValue\)\nIf this error is unclear or you think Quixote is at fault, please open\nan issue at https:\/\/github\.com\/jamesshore\/quixote\/issues\. Include this\nerror message and a standalone example test that reproduces the error\./
 			);
 		});
 
