@@ -44,11 +44,12 @@
 
 * (DONE) Rename GenericSize --> Span
 * (DONE) span.center, span.middle
-* PositionDescriptor.to(..., nickname)
-	* change default nickname to 'span from ...' instead of 'distance from ...'
+* (DONE) PositionDescriptor.to(..., nickname)
+	* (DONE) change default nickname to 'span from ...' instead of 'distance from ...'
 * API
 	* Span
-	* PositionDescriptor.to() — span, nickname
+	* PositionDescriptor.to() is a Span, not a Size
+	* PositionDescriptor.to() takes a nickname
 * CHANGELOG
 
 
