@@ -84,7 +84,7 @@ Check whether a position is above, below, left, or right of another position. A 
 
 Parameters:
 
-* `expectation (PositionDescriptor equivalent)` The position to compare against.
+* `expectation (PositionDescriptor equivalent)` The position to compare against. Must be be rendered.
 
 * `message (optional string)` A message to include when the assertion fails.
 

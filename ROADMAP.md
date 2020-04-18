@@ -48,7 +48,7 @@
 * (DONE) .should.beSmallerThan()
 * (DONE) Check non-rendered values - always an error
 * (DONE) Check non-rendered values on PositionDescriptor - always an error
-* Update PositionDescriptor documentation re non-rendered values?
+* (DONE) Update PositionDescriptor documentation re non-rendered values?
 * API
 * CHANGELOG
 
