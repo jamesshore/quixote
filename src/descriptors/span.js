@@ -4,11 +4,14 @@
 var ensure = require("../util/ensure.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var SizeDescriptor = require("./size_descriptor.js");
+var Center = require("./center.js");
 
 var Me = module.exports = function Span(from, to, description) {
   ensure.signature(arguments, [ PositionDescriptor, PositionDescriptor, String ]);
 
   this.should = this.createShould();
+
+  this.center = Center.x(from, to, "center of " + description);
 
   this._from = from;
   this._to = to;
