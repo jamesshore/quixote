@@ -155,7 +155,7 @@ Create a [`SizeDescriptor`](SizeDescriptor.md) that represents the distance betw
 
 `result = position.to(position2)`
 
-* `descriptor2 (PositionDescriptor equivalent)` The second position. Must represent the same X or Y axis as this position.
+* `descriptor2 (PositionDescriptor or number)` The second position. Must represent the same X or Y axis as this position. Must be rendered.
 
 * `result (`[`SizeDescriptor`](SizeDescriptor.md)`)` The distance between this descriptor and `descriptor2`. The result is always positive regardless of their order.
 

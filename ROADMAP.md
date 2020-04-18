@@ -47,9 +47,11 @@
 * (DONE) PositionDescriptor.to(..., nickname)
 	* (DONE) change default nickname to 'span from ...' instead of 'distance from ...'
 * API
-	* Span
+	* (DONE) Span
 	* PositionDescriptor.to() is a Span, not a Size
 	* PositionDescriptor.to() takes a nickname
+	* SizeDescriptor equivalent - Span
+	* Check links - Span, SizeDescriptor equivalents
 * CHANGELOG
 
 
