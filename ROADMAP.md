@@ -51,7 +51,7 @@
 	* (DONE) PositionDescriptor.to() is a Span, not a Size
 	* (DONE) PositionDescriptor.to() takes a nickname
 	* (DONE) SizeDescriptor equivalent - Span
-	* Check links - Span, SizeDescriptor equivalents, PositionDescriptor.to()
+	* Check links - Span, SizeDescriptor equivalents, PositionDescriptor.to(), api
 * CHANGELOG
 
 
