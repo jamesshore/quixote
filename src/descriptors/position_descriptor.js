@@ -56,8 +56,15 @@ Me.prototype.createShould = function() {
 				if (self._pdbc.dimension !== dimension) {
 					throwCoordinateError(functionName, otherAxisName);
 				}
+				if (expectedValue.isNone()) {
+					throw new Error("'expected' value is not rendered, so relative comparisons aren't possible.");
+				}
 
 				var expectedMsg = (shouldBeBigger ? "more than" : "less than") + " " + expectedDesc;
+
+				if (actualValue.isNone()) {
+					return errorMessage(message, "rendered", expectedMsg, actualValue);
+				}
 
 				var compare = actualValue.compare(expectedValue);
 				if ((shouldBeBigger && compare <= 0) || (!shouldBeBigger && compare >= 0)) {

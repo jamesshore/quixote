@@ -163,49 +163,69 @@ describe.only("DESCRIPTOR: PositionDescriptor", function() {
 		});
 
 		it("fails gracefully if actual is non-rendered", function() {
-
-			// assert.exception(
-			// 	function() { noY.should.beAbove(10); },
-			// 	"not rendered example should be rendered.\n" +
-			// 	"  Expected: less than 10px\n" +
-			// 	"  But was:  not rendered"
-			// );
-
-			// assert.exception(
-			// 	function() { actual.should.beSmallerThan(10); },
-			// 	"not rendered example should be rendered.\n" +
-			// 	"  Expected: less than 10px\n" +
-			// 	"  But was:  not rendered"
-			// );
+			assert.exception(
+				function() { noY.should.beAbove(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: less than 10px\n" +
+				"  But was:  not rendered"
+			);
+			assert.exception(
+				function() { noY.should.beBelow(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: more than 10px\n" +
+				"  But was:  not rendered"
+			);
+			assert.exception(
+				function() { noX.should.beLeftOf(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: less than 10px\n" +
+				"  But was:  not rendered"
+			);
+			assert.exception(
+				function() { noX.should.beRightOf(10); },
+				"not rendered example should be rendered.\n" +
+				"  Expected: more than 10px\n" +
+				"  But was:  not rendered"
+			);
 		});
 
-		// it("fails gracefully if expectation is non-rendered", function() {
-		// 	var actual = createDescriptor(10);
-		//
-		// 	assert.exception(
-		// 		function() { actual.should.beBiggerThan("none"); },
-		// 		/'expected' value is not rendered, so relative comparisons aren't possible/
-		// 	);
-		//
-		// 	assert.exception(
-		// 		function() { actual.should.beSmallerThan("none"); },
-		// 		/'expected' value is not rendered, so relative comparisons aren't possible/
-		// 	);
-		// });
-		//
-		// it("fails gracefully if both are non-rendered", function() {
-		// 	var actual = createNonRenderedDescriptor();
-		//
-		// 	assert.exception(
-		// 		function() { actual.should.beBiggerThan("none"); },
-		// 		/'expected' value is not rendered, so relative comparisons aren't possible/
-		// 	);
-		//
-		// 	assert.exception(
-		// 		function() { actual.should.beSmallerThan("none"); },
-		// 		/'expected' value is not rendered, so relative comparisons aren't possible/
-		// 	);
-		// });
+		it("fails gracefully if expectation is non-rendered", function() {
+			assert.exception(
+				function() { y.should.beAbove("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { y.should.beBelow("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { x.should.beLeftOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { x.should.beRightOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+		});
+
+		it("fails gracefully if both are non-rendered", function() {
+			assert.exception(
+				function() { noY.should.beAbove("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { noY.should.beBelow("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { noX.should.beLeftOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+			assert.exception(
+				function() { noX.should.beRightOf("none"); },
+				/'expected' value is not rendered, so relative comparisons aren't possible/
+			);
+		});
 
 	});
 
