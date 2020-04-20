@@ -162,7 +162,7 @@ Quixote's architecture revolves around two concepts:
 * **Values**, which perform calculations and provide explanations. They're things like `50px`.
 
 
-### An Example Would Be Handy Right About Now
+### An Example
 
 When you make an assertion with Quixote, you run a line of code that looks like this:
 
@@ -170,17 +170,19 @@ When you make an assertion with Quixote, you run a line of code that looks like 
 navbar.top.should.equal(header.bottom);
 ```
 
-In this example, `navbar.top` and `header.bottom` are both Descriptors. Specifically, they're `ElementEdge` descriptors (a type of `PositionDescriptor`). ElementEdge descriptors represent the edge of an element.
+In this example, `navbar.top` and `header.bottom` are both Descriptors. Specifically, they're `ElementEdge` descriptors (a type of [`PositionDescriptor`](docs/PositionDescriptor.md). `ElementEdge` descriptors represent the edge of an element.
 
 Here's what the `should.equal()` function does when it's called:
 
-1. `should.equal()` asks `navbar.top` to calculate its value.
-  1. `navbar.top` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the top edge of the `navbar` element. Let's say it calculates it to be `63`.
-  2. `navbar.top` creates a `Position` value object with the value of `63` and returns it to `should.equal()`.
-2. `should.equal()` asks `header.bottom` to calculate its value. It does something similar and returns a `Position` with the value of `50`.
+1. `should.equal()` asks `navbar.top` to calculate its Value object.
+    1. `navbar.top` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the top edge of the `navbar` element, which is `63`.
+    2. `navbar.top` creates a `Position` value object with the value of `63` and returns it.
+2. `should.equal()` asks `header.bottom` to calculate its Value object.
+    1. `header.bottom` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the bottom edge of the `header` element, which is `50`.
+    2. `header.bottom` creates a `Position value object with the value of `50` and returns it.
 3. `should.equal()` asks the two `Position` objects if they're equal.
-  1. The Position objects check their values. One is `63`. The other one is `50`.
-  2. Nope, they're not equal.
+    1. The Position objects check their values. One is `63`. The other one is `50`.
+    2. Nope, they're not equal.
 
 If the two Value objects were equal, that would be the end. The function would return and the assertion would pass.
 
@@ -196,16 +198,16 @@ top edge of '.navbar' should be 13px higher.
 Here's how that error is generated:
 
 1. Line one:
-  1. `should.equal()` asks `navbar.top` to convert itself to a string. It says `top edge of '.navbar'`.
-  2. `should.equal()` asks the expected `Position` (the one that's `50`) how it's different than the actual `Position` (the one that's `63`). It says `13px higher`.
-  3. `should.equal()` concatenates these answers into the first line of the error: `top edge of '.navbar'` + ` should be ` + `13px higher`.
+    1. `should.equal()` asks `navbar.top` to convert itself to a string. It says `top edge of '.navbar'`.
+    2. `should.equal()` asks the expected `Position` (the one that's `50`) how it's different than the actual `Position` (the one that's `63`). It says `13px higher`.
+    3. `should.equal()` concatenates these answers into the first line of the error: `top edge of '.navbar'` + ` should be ` + `13px higher`.
 2. Line two:
-  1. `should.equal()` asks the expected `Position` to convert itself to a string. It says `50px`.
-  2. `should.equal()` asks `header.bottom` to convert itself to a string. It says `bottom edge of '#header'`.
-  3. `should.equal()` concatenates these answers into the second line of the error: `Expected: ` + `50px` + `(` + `bottom edge of '#header'` + `)`
+    1. `should.equal()` asks the expected `Position` to convert itself to a string. It says `50px`.
+    2. `should.equal()` asks `header.bottom` to convert itself to a string. It says `bottom edge of '#header'`.
+    3. `should.equal()` concatenates these answers into the second line of the error: `Expected: ` + `50px` + `(` + `bottom edge of '#header'` + `)`
 3. Line three:
-  1. `should.equal()` asks the actual `Position` to convert itsel to a string. It says `63px`.
-  2. `should.equal()` concatenates this answer into the third line of the error: `But was:  ` + `63px`.
+    1. `should.equal()` asks the actual `Position` to convert itsel to a string. It says `63px`.
+    2. `should.equal()` concatenates this answer into the third line of the error: `But was:  ` + `63px`.
 
 Or, to put it differently:
 
@@ -221,7 +223,11 @@ To add new properties and assertions, start by opening an issue so we can discus
 2. Create a new Value class that can represent those sort of values. For example, `Color`.
 3. Create a new Descriptor class that can calculate the value of the property. For example, `BackgroundColor`. You can also add custom assertions, such as `element.backgroundColor.should.beDarkerThan()`.
 
-For detailed instructions on creating these classes, see our tutorials:
+Your Value class will be responsible for parsing strings, displaying strings, and comparing values.
+
+Your Descriptor class will be responsible for calculating values and making assertions.
+
+For detailed instructions, see our tutorials:
 
 * [Values Tutorial](values/README.md).
 * [Descriptors Tutorial](descriptors/README.md).
