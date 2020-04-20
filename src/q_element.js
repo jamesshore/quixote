@@ -28,7 +28,8 @@ var Me = module.exports = function QElement(domElement, nickname) {
 	this.width = Span.create(this.left, this.right, "width of " + this);
 	this.height = Span.create(this.top, this.bottom, "height of " + this);
 
-	this.rendered = ElementRendered.create(this);
+	this.render = ElementRendered.create(this);
+	this.rendered = this.render;    // deprecated
 };
 Assertable.extend(Me);
 
