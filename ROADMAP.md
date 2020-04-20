@@ -26,7 +26,7 @@
 * (DONE) SizeDescriptor assertions
 * (DONE) PositionDescriptor.to() return a 'span' that can have a middle/center.
 * (DONE) Update nickname generation
-* Rename element.rendered --> element.render
+* (DONE) Rename element.rendered --> element.render
 * (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * (DONE) Update README
 * (DONE) Update example
@@ -41,7 +41,7 @@
 
 * (DONE) Rename element.rendered --> element.render
 * (DONE) Rename ElementRendered --> ElementRender
-* Rename ElementRenderedEdge --> ElementRenderEdge
+* (DONE) Rename ElementRenderedEdge --> ElementRenderEdge
 * (DONE) API
 	* (DONE) QElement properties
 	* (DONE) ElementRendered --> ElementRender
