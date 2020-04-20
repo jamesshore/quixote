@@ -31,23 +31,15 @@
 * (DONE) Update README
 * (DONE) Update example
 * Update CONTRIBUTING
-	* Update src/descriptors README
-		* test: "has assertions"
-		* code: call createShould()
-	* Update src/values README - just a copyedit pass
 
 
-## To Do: Rename element.rendered --> element.render
+## To Do: Update contributor documentation
 
-* (DONE) Rename element.rendered --> element.render
-* (DONE) Rename ElementRendered --> ElementRender
-* (DONE) Rename ElementRenderedEdge --> ElementRenderEdge
-* (DONE) API
-	* (DONE) QElement properties
-	* (DONE) ElementRendered --> ElementRender
-	* (DONE) Links to ElementRendered
-* (DONE) CHANGELOG
-
+* CONTRIBUTING
+* Descriptors readme
+	* test: "has assertions"
+	* code: call createShould()
+* Values readme
 
 ## Dogfooding Notes
 

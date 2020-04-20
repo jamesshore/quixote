@@ -2,7 +2,7 @@
 
 Pull requests are welcome! Here are specific contributions we're looking for:
 
-* **Support more CSS properties.** Quixote can test any CSS property using the [`QElement.getRawStyle()`](docs/QElement.md#elementgetrawstyle) method, but [`QElement` properties](docs/QElement.md#properties) are more sophisticated. They work consistently across browsers, allows relative comparisons, and provide better failure messages. Eventually, we'd like to represent every CSS property. To add new properties, see the [Architecture](#architecture) section below. Please open an issue before doing too much work so we can discuss the API design.
+* **Add more assertions.** Quixote can test any CSS property using the [`QElement.getRawStyle()`](docs/QElement.md#elementgetrawstyle) method, but the built-in assertions are more sophisticated. So far, Quixote's assertions have focused on layout, but We'd like to have assertions for every aspect of page rendering. To learn how to add an assertion, see the [Architecture](#architecture) section below. Please open an issue before starting work so we can discuss the API design.
 
 * **Start the website.** I've set up [quixote-css.com](http://www.quixote-css.com) for documentation, but so far, it's just a placeholder. The source code is in [docs](docs).
 
@@ -110,7 +110,6 @@ You can perform this one-time process to make it easier to run the Simulator:
 
 (These instructions were created using XCode v11.3.1.)
 
-
 ### To run the Android Emulator:
 
 1. Install [Android Studio](https://developer.android.com/studio/install). During the install, select the "Performance" and "Android Virtual Device" options. If you already have Android Studio installed, see [these instructions](https://developer.android.com/studio/run/emulator#install) for installing the emulator.
@@ -143,8 +142,6 @@ Other top-level directories contain infrastructure and support.
 * `node_modules` contains third-party libraries needed for the build scripts.
 * `vendor` contains third-party libraries needed for Quixote itself.
 
-There's a tutorial for creating new descriptors [in the descriptors directory](src/descriptors/README.md) and another tutorial for creating value objects [in the values directory](src/values/README.md).
-
 
 ## Branches
 
@@ -157,53 +154,85 @@ Previous commits on the integration branch have "INTEGRATE" in their commit comm
 
 ## Architecture
 
-This discussion assumes you're familiar with the [Quixote API](docs/api.md).
+If you aren't familiar with the [Quixote API](docs/api.md), take a moment to review the documentation for the [`QElement`](docs/QElement.md) class, particularly the "Properties" section.
 
-Internally, Quixote's architecture revolves around two core concepts: "Descriptors" and "Values." Descriptor objects represent some aspect of the page, such as "the top edge of element '#foo'", and value objects represent tangible values, such as "60px".
+Quixote's architecture revolves around two concepts:
 
-Descriptors and values are implemented with a classical inheritance hierarchy. Descriptor classes ultimately inherit from the [`Descriptor`](src/descriptors/descriptor.js) superclass and value classes inherit from the [`Value`](src/values/value.js) superclass. Descriptor classes are located in the [`src/descriptors`](src/descriptors) folder and value classes are located in [`src/values`](src/values).
-
-Descriptors are turned into values with the `value()` method implemented by every descriptor class. (This method is for internal use only.) When you make an assertion in Quixote, `value()` is called on both descriptors, then `equals()` is called on the two values to check if they're the same. (This algorithm is implemented by `diff()` in [`descriptor.js`](src/descriptors/descriptor.js).)
-
-Descriptor and Value objects are always instantiated via factory methods, never via constructors.
+* **Descriptors**, which provide assertions and compute values. They're things like `top edge of .navbar`.
+* **Values**, which perform calculations and provide explanations. They're things like `50px`.
 
 
-### Descriptors
+### An Example Would Be Handy Right About Now
 
-Descriptor classes correspond to some visual part of the page. Each descriptor class is focused on one concept, such as [`ElementEdge`](src/descriptors/element_edge.js), which represents the edges of HTML elements.
+When you make an assertion with Quixote, you run a line of code that looks like this:
 
-Descriptor classes often inherit from a superclass that provides a useful public API. For example, `ElementEdge` inherits from [`PositionDescriptor`](src/descriptors/position_descriptor.js), which provides the [`plus()` and `minus()` methods](docs/PositionDescriptor.md).
- 
-Descriptor classes have three main features:
+```javascript
+navbar.top.should.equal(header.bottom);
+```
 
-1. **They have factory methods** that are used to expose the descriptor in the public API. For example, the public `QElement.top` descriptor is instantiated in [`QElement.js`](src/q_element.js) using this line of code: `this.top = ElementEdge.top(this);`. (You can see the implementation of `ElementEdge.top` in [`element_edge.js`](src/descriptors/element_edge.js).)
+In this example, `navbar.top` and `header.bottom` are both Descriptors. Specifically, they're `ElementEdge` descriptors (a type of `PositionDescriptor`). ElementEdge descriptors represent the edge of an element.
 
-2. **They calculate values** via a `value()` method. All CSS logic happens in this method. For example, `ElementEdge.value()` calculates the position of an edge by adding [`QElement.getRawPosition()`](docs/QElement.md#elementgetrawposition) and [`QFrame.getRawScrollPosition()`](docs/QFrame.md#framegetrawscrollposition).
+Here's what the `should.equal()` function does when it's called:
 
-3. **They provide human-readable descriptions** of the part of the page they represent via the `toString()` method. For example, `ElementEdge.toString()` returns strings such as "top edge of 'element'".
+1. `should.equal()` asks `navbar.top` to calculate its value.
+  1. `navbar.top` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the top edge of the `navbar` element. Let's say it calculates it to be `63`.
+  2. `navbar.top` creates a `Position` value object with the value of `63` and returns it to `should.equal()`.
+2. `should.equal()` asks `header.bottom` to calculate its value. It does something similar and returns a `Position` with the value of `50`.
+3. `should.equal()` asks the two `Position` objects if they're equal.
+  1. The Position objects check their values. One is `63`. The other one is `50`.
+  2. Nope, they're not equal.
 
-Descriptor classes are usually less than 100 lines long. That's because there's one for each kind of CSS calculation. Find them in the [`src/descriptors`](src/descriptors) folder.
+If the two Value objects were equal, that would be the end. The function would return and the assertion would pass.
+
+In this example, though, they're not equal. The assertion will throw an exception with this error:
 
 
-### Values
+```
+top edge of '.navbar' should be 13px higher.
+  Expected: 50px (bottom edge of '#header')
+  But was:  63px
+```
 
-Value classes correspond to concrete units. Each value class represents one unit, such as [`Position`](src/values/position.js), which represents an X or Y coordinate on the web page, or [`Size`](src/values/size.js), which represents width or height.
+Here's how that error is generated:
 
-Value classes are sometimes composed from a more fundamental value. For example, both `Position` and `Size` use a [`Pixels`](src/values/pixels.js) object under the covers.
+1. Line one:
+  1. `should.equal()` asks `navbar.top` to convert itself to a string. It says `top edge of '.navbar'`.
+  2. `should.equal()` asks the expected `Position` (the one that's `50`) how it's different than the actual `Position` (the one that's `63`). It says `13px higher`.
+  3. `should.equal()` concatenates these answers into the first line of the error: `top edge of '.navbar'` + ` should be ` + `13px higher`.
+2. Line two:
+  1. `should.equal()` asks the expected `Position` to convert itself to a string. It says `50px`.
+  2. `should.equal()` asks `header.bottom` to convert itself to a string. It says `bottom edge of '#header'`.
+  3. `should.equal()` concatenates these answers into the second line of the error: `Expected: ` + `50px` + `(` + `bottom edge of '#header'` + `)`
+3. Line three:
+  1. `should.equal()` asks the actual `Position` to convert itsel to a string. It says `63px`.
+  2. `should.equal()` concatenates this answer into the third line of the error: `But was:  ` + `63px`.
 
-Value classes have five main features:
+Or, to put it differently:
 
-1. **They have factory methods** that descriptor classes use in their `value()` method.
+* The Descriptor objects handle `top edge of '.navbar'` and `bottom edge of #header`.
+* The Value objects handle `13px higher`, `50px`, and `63px`.
 
-2. **They perform calculations** if needed by descriptors. For example, `Position` provides `plus()`, `minus()`, and `midpoint()` calculation methods.
 
-3. **They check for compatibility** via a `compatibility()` method. If two value objects that are incompatible are used together, Quixote will fail fast and throw a useful exception. For example, if you try to add a Position object to a Size, Quixote will throw the error, "Size isn't compatible with Position."
+### How To Add New Properties and Assertions
 
-4. **They provide a human-readable comparison** via a `diff()` method. This method checks if two value objects are equal. If they aren't, it returns a human-readable explanation. For example, `Position.diff()` returns strings such as "10px higher". (There's also a traditional `equals()` method that's implemented in the `Value` superclass.)
+To add new properties and assertions, start by opening an issue so we can discuss the API. Once that's done, you'll need to perform these steps:
 
-5. **They provide a human-readable description** via the `toString()` method. For example, `Position.toString()` returns strings such as "60px".
+1. Decide on a property and assertion API. For example, `element.backgroundColor.should.equal('#ff0000')`
+2. Create a new Value class that can represent those sort of values. For example, `Color`.
+3. Create a new Descriptor class that can calculate the value of the property. For example, `BackgroundColor`. You can also add custom assertions, such as `element.backgroundColor.should.beDarkerThan()`.
 
-Value classes are usually less than 100 lines long. The logic required isn't very complex. Find them in the [`src/values`](src/values) folder.
+For detailed instructions on creating these classes, see our tutorials:
+
+* [Values Tutorial](values/README.md).
+* [Descriptors Tutorial](descriptors/README.md).
+
+
+### Coding Standards
+
+* Indent with tabs, not spaces. Don't use tabs for anything other than indentation.
+* Use factory methods, not constructors. In other words, use `Size.create()`, not `new Size()`.
+* All code must be compatible with IE 8. That means no ES6 syntax.
+* Use test-driven development to ensure that your code is thoroughly tested and all edge cases considered.
 
 
 ## Project Maintenance Checklists
