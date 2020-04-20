@@ -57,7 +57,7 @@ This property describes whether an element is rendered. It can include padding a
 
 Note that an element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
 
-* `element.render (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
+* `element.render (`[`ElementRender`](ElementRender.md)`)` Whether any part of the element is rendered.
 * `element.render.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
 * `element.render.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
 * `element.render.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
@@ -70,7 +70,7 @@ Note that an element can be rendered, but still be invisible to the user—for e
 Example: "The caption doesn't break out of the bottom of the content area."
 
 ```javascript
-caption.rendered.bottom.should.equal(content.bottom);
+caption.render.bottom.should.equal(content.bottom);
 ```
 
 **Compatibility Notes:**
@@ -81,9 +81,9 @@ caption.rendered.bottom.should.equal(content.bottom);
 
 * We don't support the `overflow: overlay` property and probably never will. It's deprecated.
 
-* The `element.rendered` properties don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [`quixote.browser.misreportsClipAutoProperty()`](quixote.md#quixotebrowser) browser detect.
+* The `element.render` properties don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [`quixote.browser.misreportsClipAutoProperty()`](quixote.md#quixotebrowser) browser detect.
 
-* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` properties to throw an error. You can check for this broken behavior with the [`quixote.browser.misreportsAutoValuesInClipProperty()`](quixote.md#quixotebrowser) browser detect.
+* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.render` properties to throw an error. You can check for this broken behavior with the [`quixote.browser.misreportsAutoValuesInClipProperty()`](quixote.md#quixotebrowser) browser detect.
 
 
 ## Methods

@@ -1,9 +1,9 @@
-# Quixote API: `ElementRendered`
+# Quixote API: `ElementRender`
 
 * [Back to overview README.](../README.md)
 * [Back to API overview.](api.md)
 
-`ElementRendered` instances represent whether an element is rendered on the page or not. For a complete explanation, see the [`QElement.rendered`](QElement.md#element-rendering) property.
+`ElementRender` instances represent whether an element is rendered on the page or not. For a complete explanation, see the [`QElement.render`](QElement.md#element-rendering) property.
 
 
 ## Equivalents
@@ -12,24 +12,24 @@
 Stability: 3 - Stable
 ```
 
-Methods with a `ElementRendered equivalent` parameter can take any of the following:
+Methods with a `ElementRender equivalent` parameter can take any of the following:
 
-* An `ElementRendered` instance, such as `QElement.rendered`.
+* An `ElementRender` instance, such as `QElement.render`.
 * A boolean, where `true` means the element is rendered and `false` means it isn't.
 
 
-#### Example: `ElementRendered`
+#### Example: `ElementRender`
 
 ```javascript
 // "The image render status should match the lightbox's."
-image.rendered.should.equal(lightbox.rendered);
+image.render.should.equal(lightbox.render);
 ```
 
 #### Example: `boolean`
 
 ```javascript
 // "The lightbox should not be rendered."
-lightbox.rendered.should.equal(false);
+lightbox.render.should.equal(false);
 ```
 
 
@@ -38,7 +38,7 @@ lightbox.rendered.should.equal(false);
 Use these methods to make assertions about the element's render status. In all cases, if the assertion is true, nothing happens. Otherwise, the assertion throws an exception explaining why it failed.
 
 
-### elementRendered.should.equal()
+### elementRender.should.equal()
 
 ```
 Stability: 3 - Stable
@@ -46,9 +46,9 @@ Stability: 3 - Stable
 
 Check whether the element is rendered.
 
-`elementRendered.should.equal(expectation, message)`
+`elementRender.should.equal(expectation, message)`
 
-* `expectation (ElementRendered equivalent)` The expected render status.
+* `expectation (ElementRender equivalent)` The expected render status.
 
 * `message (optional string)` A message to include when the assertion fails.
 
@@ -56,11 +56,11 @@ Example:
 
 ```javascript
 // "The disclaimer banner should be rendered."
-disclaimer.rendered.should.equal(true);
+disclaimer.render.should.equal(true);
 ```
 
 
-### elementRendered.should.notEqual()
+### elementRender.should.notEqual()
 
 ```
 Stability: 3 - Stable
@@ -68,9 +68,9 @@ Stability: 3 - Stable
 
 Check whether the element is rendered opposite to another element.
 
-`elementRendered.should.notEqual(expectation, message)`
+`elementRender.should.notEqual(expectation, message)`
 
-* `expectation (ElementRendered equivalent)` The render status to not match.
+* `expectation (ElementRender equivalent)` The render status to not match.
 
 * `message (optional string)` A message to include when the assertion fails.
 
@@ -78,5 +78,5 @@ Example:
 
 ```javascript
 // "The disclaimer banner should not be rendered when the cookie banner is rendered."
-disclaimer.rendered.should.notEqual(cookieBanner.rendered);
+disclaimer.render.should.notEqual(cookieBanner.render);
 ```

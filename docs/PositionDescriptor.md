@@ -34,12 +34,12 @@ logo.left.should.equal(15);
 
 #### Example: `"none"`
 
-Note: Although `PositionDescriptor` can tell you if a position is rendered, it's better to use an [`ElementRendered`](ElementRendered.md) property such as [`QElement.rendered`](QElement.md#element-rendering).
+Note: Although `PositionDescriptor` can tell you if a position is rendered, it's better to use an [`ElementRender`](ElementRender.md) property such as [`QElement.render`](QElement.md#element-rendering).
 
 ```javascript
 // "The light box should not be rendered."
 lightbox.top.should.equal("none");      // not recommended
-lightbox.rendered.should.equal(false);  // recommended
+lightbox.render.should.equal(false);  // recommended
 ```
 
 

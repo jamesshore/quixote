@@ -42,7 +42,7 @@ sidebar.width.should.equal(200);
 
 #### Example: `"none"`
 
-Note: Although `SizeDescriptor` can tell you if a size is rendered, it's better to use an [`ElementRendered`](ElementRendered.md) property such as [`QElement.rendered`](QElement.md#element-rendering).
+Note: Although `SizeDescriptor` can tell you if a size is rendered, it's better to use an [`ElementRender`](ElementRender.md) property such as [`QElement.render`](QElement.md#element-rendering).
 
 ```javascript
 // "The light box should not be rendered."
