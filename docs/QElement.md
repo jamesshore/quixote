@@ -46,7 +46,7 @@ logo.left.should.equal(navbar.height);  // The logo's left edge should be the sa
 Stability: 3 - Stable
 ```
 
-This property describes whether an element is rendered. "Rendered" means the parts of the element that would be visible if every pixel was black. It can include padding and borders, but it never includes margins. We check these things about the element:
+This property describes whether an element is rendered. It can include padding and borders, but it never includes margins. We check these things about the element:
 
 * Whether it's part of the DOM (elements that have been removed from the DOM aren't rendered)
 * Its width and height (elements with no width or height aren't rendered)
@@ -57,22 +57,20 @@ This property describes whether an element is rendered. "Rendered" means the par
 
 Note that an element can be rendered, but still be invisible to the user—for example, if it's composed entirely of transparent pixels, or if the `visibility: hidden` property is set, or some other reason.
 
-* `element.rendered (`[`ElementRendered`](ElementRendered.md)`)` Whether any part of the element is rendered.
-* `element.rendered.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
-* `element.rendered.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
-* `element.rendered.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
-* `element.rendered.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
-* `element.rendered.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
-* `element.rendered.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
-* `element.rendered.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
-* `element.rendered.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
+* `element.render (`[`ElementRender`](ElementRender.md)`)` Whether any part of the element is rendered.
+* `element.render.top (`[`PositionDescriptor`](PositionDescriptor.md)`)` Top edge of the rendered part of the element.
+* `element.render.right (`[`PositionDescriptor`](PositionDescriptor.md)`)` Right edge of the rendered part of the element.
+* `element.render.bottom (`[`PositionDescriptor`](PositionDescriptor.md)`)` Bottom edge of the rendered part of the element.
+* `element.render.left (`[`PositionDescriptor`](PositionDescriptor.md)`)` Left edge of the rendered part of the element.
+* `element.render.center (`[`PositionDescriptor`](PositionDescriptor.md)`)` Horizontal center: midway between right and left.
+* `element.render.middle (`[`PositionDescriptor`](PositionDescriptor.md)`)` Vertical middle: midway between the top and bottom.
+* `element.render.width (`[`SizeDescriptor`](SizeDescriptor.md)`)` Width of the rendered part of the element.
+* `element.render.height (`[`SizeDescriptor`](SizeDescriptor.md)`)` Height of the rendered part of the element.
 
 Example: "The caption doesn't break out of the bottom of the content area."
 
 ```javascript
-content.assert({
-  bottom: caption.rendered.bottom   // The rendered bottom of the caption is the same as the bottom of the content area
-});
+caption.render.bottom.should.equal(content.bottom);
 ```
 
 **Compatibility Notes:**
@@ -83,9 +81,9 @@ content.assert({
 
 * We don't support the `overflow: overlay` property and probably never will. It's deprecated.
 
-* The `element.rendered` properties don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [`quixote.browser.misreportsClipAutoProperty()`](quixote.md#quixotebrowser) browser detect.
+* The `element.render` properties don't work on IE 8. This is due to bugs in IE 8's reporting of the `clip` property. You can check for IE 8's broken behavior with the [`quixote.browser.misreportsClipAutoProperty()`](quixote.md#quixotebrowser) browser detect.
 
-* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.rendered` properties to throw an error. You can check for this broken behavior with the [`quixote.browser.misreportsAutoValuesInClipProperty()`](quixote.md#quixotebrowser) browser detect.
+* Some browsers, such as IE 11 and Chrome Mobile 44, misreport the value of the `clip` property under certain circumstances. This could cause the `element.render` properties to throw an error. You can check for this broken behavior with the [`quixote.browser.misreportsAutoValuesInClipProperty()`](quixote.md#quixotebrowser) browser detect.
 
 
 ## Methods

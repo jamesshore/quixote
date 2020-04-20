@@ -5,11 +5,11 @@ var ensure = require("../util/ensure.js");
 var RenderState = require("../values/render_state.js");
 var Position = require("../values/position.js");
 var Descriptor = require("./descriptor.js");
-var ElementRenderedEdge = require("./element_rendered_edge.js");
+var ElementRenderEdge = require("./element_render_edge.js");
 var Span = require("./span.js");
 var Center = require("./center.js");
 
-var Me = module.exports = function ElementRendered(element) {
+var Me = module.exports = function ElementRender(element) {
 	var QElement = require("../q_element.js");      // break circular dependency
 	ensure.signature(arguments, [ QElement ]);
 
@@ -17,10 +17,10 @@ var Me = module.exports = function ElementRendered(element) {
 	this._element = element;
 
 	// properties
-	this.top = ElementRenderedEdge.top(element);
-	this.right = ElementRenderedEdge.right(element);
-	this.bottom = ElementRenderedEdge.bottom(element);
-	this.left = ElementRenderedEdge.left(element);
+	this.top = ElementRenderEdge.top(element);
+	this.right = ElementRenderEdge.right(element);
+	this.bottom = ElementRenderEdge.bottom(element);
+	this.left = ElementRenderEdge.left(element);
 
 	this.width = Span.create(this.left, this.right, "rendered width of " + element);
 	this.height = Span.create(this.top, this.bottom, "rendered height of " + element);

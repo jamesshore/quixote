@@ -119,7 +119,7 @@ You can perform this one-time process to make it easier to run the Simulator:
 4. A window labelled "Your Virtual Devices" will appear. If you see a link labelled "Update System Images," select it and perform the installation.
 5. In the "Your Virtual Devices" window, if you don't see the version of Android you want, press the "Create Virtual Device" button.
 6. Once you have the device you want, press the small green "play" button on the right.
-7. The emulated Android device will boot and can be manipulated normally. The window can be moved by dragging the bezel. It can't be resized.
+7. The emulated Android device will boot and can be manipulated normally. The window can be moved by dragging the bezel. It can be resized by dragging one of the corners.
 
 (These instructions were created using Android Studio v3.6.2.)
 

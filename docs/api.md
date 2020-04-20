@@ -26,7 +26,7 @@ For an overview, installation notes, and an example, see [the readme](../README.
 
 * [`PositionDescriptor`](PositionDescriptor.md) X and Y coordinates.
 * [`SizeDescriptor`](SizeDescriptor.md) Widths, heights, and distances.
-* [`ElementRendered`](ElementRendered.md) Rendered boundaries.
+* [`ElementRender`](ElementRender.md) Render boundaries.
 * [`Span`](Span.md) Imaginary lines between two X or Y coordinates.
 
 

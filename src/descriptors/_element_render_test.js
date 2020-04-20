@@ -4,13 +4,13 @@
 var assert = require("../util/assert.js");
 var quixote = require("../quixote.js");
 var reset = require("../__reset.js");
-var ElementRendered = require("./element_rendered.js");
+var ElementRender = require("./element_render.js");
 var Descriptor = require("./descriptor.js");
 var RenderState = require("../values/render_state.js");
 var Size = require("../values/size.js");
 var Position = require("../values/position.js");
 
-describe("DESCRIPTOR: ElementRendered", function() {
+describe("DESCRIPTOR: ElementRender", function() {
 
 	var frame;
 	var renderedElement;
@@ -26,18 +26,18 @@ describe("DESCRIPTOR: ElementRendered", function() {
 		frame = reset.frame;
 
 		renderedElement = frame.add("<p>element</p>", "displayed");
-		rendered = ElementRendered.create(renderedElement);
+		rendered = ElementRender.create(renderedElement);
 
 		displayNoneElement = frame.add("<p style='display:none'>display:none</p>", "display:none");
-		displayNone = ElementRendered.create(displayNoneElement);
+		displayNone = ElementRender.create(displayNoneElement);
 
 		detachedElement = frame.add("<p>detached</p>", "detached");
 		detachedElement.remove();
-		detached = ElementRendered.create(detachedElement);
+		detached = ElementRender.create(detachedElement);
 
-		offscreen = ElementRendered.create(frame.add("<div style='position:absolute; left: -100px; width: 10px;'></div>"));
+		offscreen = ElementRender.create(frame.add("<div style='position:absolute; left: -100px; width: 10px;'></div>"));
 
-		noSize = ElementRendered.create(frame.add("<div style='position:absolute; left: 10px; width: 0px;'></div>"));
+		noSize = ElementRender.create(frame.add("<div style='position:absolute; left: 10px; width: 0px;'></div>"));
 	});
 
 	it("is a descriptor", function() {

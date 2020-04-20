@@ -4,11 +4,11 @@
 var assert = require("../util/assert.js");
 var reset = require("../__reset.js");
 var quixote = require("../quixote.js");
-var ElementRenderedEdge = require("./element_rendered_edge.js");
+var ElementRenderEdge = require("./element_render_edge.js");
 var PositionDescriptor = require("./position_descriptor.js");
 var Position = require("../values/position.js");
 
-describe("DESCRIPTOR: ElementRenderedEdge", function() {
+describe("DESCRIPTOR: ElementRenderEdge", function() {
 
 	var frame;
 	var qGrandparent;
@@ -27,10 +27,10 @@ describe("DESCRIPTOR: ElementRenderedEdge", function() {
 		qParent = qGrandparent.add("<div>intermediate element</div>").add("<div>parent</div>", "parent");
 		qElement = qParent.add("<div>element</div>", "element");
 
-		top = ElementRenderedEdge.top(qElement);
-		right = ElementRenderedEdge.right(qElement);
-		bottom = ElementRenderedEdge.bottom(qElement);
-		left = ElementRenderedEdge.left(qElement);
+		top = ElementRenderEdge.top(qElement);
+		right = ElementRenderEdge.right(qElement);
+		bottom = ElementRenderEdge.bottom(qElement);
+		left = ElementRenderEdge.left(qElement);
 	});
 
 	it("is a position descriptor", function() {

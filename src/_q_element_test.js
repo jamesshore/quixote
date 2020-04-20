@@ -191,7 +191,7 @@ describe("FOUNDATION: QElement", function() {
 		it("visibility", function() {
 			if (quixote.browser.misreportsClipAutoProperty()) return;
 
-			assert.equal(element.rendered.diff(true), "", "rendered");
+			assert.equal(element.render.diff(true), "", "rendered");
 		});
 
 		it("edges", function() {

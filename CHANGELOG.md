@@ -13,6 +13,7 @@ description to be done
 
 * QElement.assert, QElement.diff deprecated (but still available)
 * Descriptor.diff removed from official documentation (but still unofficially exists -- remove it?)
+* Rename QElement.rendered --> QElement.render  (.rendered still supported for now, but deprecated)
 
 *New methods:*
 
