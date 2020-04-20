@@ -9,7 +9,7 @@ var ElementRenderedEdge = require("./element_rendered_edge.js");
 var Span = require("./span.js");
 var Center = require("./center.js");
 
-var Me = module.exports = function ElementRendered(element) {
+var Me = module.exports = function ElementRender(element) {
 	var QElement = require("../q_element.js");      // break circular dependency
 	ensure.signature(arguments, [ QElement ]);
 

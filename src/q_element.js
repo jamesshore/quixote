@@ -4,7 +4,7 @@
 var ensure = require("./util/ensure.js");
 var shim = require("./util/shim.js");
 var camelcase = require("../vendor/camelcase-1.0.1-modified.js");
-var ElementRendered = require("./descriptors/element_rendered.js");
+var ElementRender = require("./descriptors/element_render.js");
 var ElementEdge = require("./descriptors/element_edge.js");
 var Center = require("./descriptors/center.js");
 var Span = require("./descriptors/span.js");
@@ -28,7 +28,7 @@ var Me = module.exports = function QElement(domElement, nickname) {
 	this.width = Span.create(this.left, this.right, "width of " + this);
 	this.height = Span.create(this.top, this.bottom, "height of " + this);
 
-	this.render = ElementRendered.create(this);
+	this.render = ElementRender.create(this);
 	this.rendered = this.render;    // deprecated
 };
 Assertable.extend(Me);

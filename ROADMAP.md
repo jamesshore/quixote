@@ -41,9 +41,11 @@
 
 * (DONE) Rename element.rendered --> element.render
 * Rename ElementRendered --> ElementRender
+* Rename ElementRenderedEdge --> ElementRenderEdge
 * API
 	* (DONE) QElement properties
-	* ElementRendered
+	* ElementRendered --> ElementRender
+	* ElementRenderedEdge --> ElementRenderEdge
 	* Links to ElementRendered
 * (DONE) CHANGELOG
 
