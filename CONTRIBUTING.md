@@ -170,19 +170,18 @@ When you make an assertion with Quixote, you run a line of code that looks like 
 navbar.top.should.equal(header.bottom);
 ```
 
-In this example, `navbar.top` and `header.bottom` are both Descriptors. Specifically, they're `ElementEdge` descriptors (a type of [`PositionDescriptor`](docs/PositionDescriptor.md). `ElementEdge` descriptors represent the edge of an element.
+In this example, `navbar.top` and `header.bottom` are both Descriptors. Specifically, they're `ElementEdge` descriptors (a type of [`PositionDescriptor`](docs/PositionDescriptor.md)). `ElementEdge` descriptors represent the edge of an element.
 
 Here's what the `should.equal()` function does when it's called:
 
 1. `should.equal()` asks `navbar.top` to calculate its Value object.
-    1. `navbar.top` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the top edge of the `navbar` element, which is `63`.
-    2. `navbar.top` creates a `Position` value object with the value of `63` and returns it.
+    a. `navbar.top` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the top edge of the `navbar` element, which is `63`.
+    b. `navbar.top` creates a `Position` value object with the value of `63` and returns it.
 2. `should.equal()` asks `header.bottom` to calculate its Value object.
-    1. `header.bottom` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the bottom edge of the `header` element, which is `50`.
-    2. `header.bottom` creates a `Position value object with the value of `50` and returns it.
+    a. `header.bottom` uses `QElement.getRawPosition()` and `QElement.getRawScrollPosition()` to find the bottom edge of the `header` element, which is `50`.
+    b. `header.bottom` creates a `Position` value object with the value of `50` and returns it.
 3. `should.equal()` asks the two `Position` objects if they're equal.
-    1. The Position objects check their values. One is `63`. The other one is `50`.
-    2. Nope, they're not equal.
+    a. The Position objects check their values. One is `63`. The other one is `50`.
 
 If the two Value objects were equal, that would be the end. The function would return and the assertion would pass.
 
@@ -198,16 +197,16 @@ top edge of '.navbar' should be 13px higher.
 Here's how that error is generated:
 
 1. Line one:
-    1. `should.equal()` asks `navbar.top` to convert itself to a string. It says `top edge of '.navbar'`.
-    2. `should.equal()` asks the expected `Position` (the one that's `50`) how it's different than the actual `Position` (the one that's `63`). It says `13px higher`.
-    3. `should.equal()` concatenates these answers into the first line of the error: `top edge of '.navbar'` + ` should be ` + `13px higher`.
+    a. `should.equal()` asks `navbar.top` to convert itself to a string. It says `top edge of '.navbar'`.
+    b. `should.equal()` asks the expected `Position` (the one that's `50`) how it's different than the actual `Position` (the one that's `63`). It says `13px higher`.
+    c. `should.equal()` concatenates these answers into the first line of the error: `top edge of '.navbar'` should be `13px higher`.
 2. Line two:
-    1. `should.equal()` asks the expected `Position` to convert itself to a string. It says `50px`.
-    2. `should.equal()` asks `header.bottom` to convert itself to a string. It says `bottom edge of '#header'`.
-    3. `should.equal()` concatenates these answers into the second line of the error: `Expected: ` + `50px` + `(` + `bottom edge of '#header'` + `)`
+    a. `should.equal()` asks the expected `Position` to convert itself to a string. It says `50px`.
+    b. `should.equal()` asks `header.bottom` to convert itself to a string. It says `bottom edge of '#header'`.
+    c. `should.equal()` concatenates these answers into the second line of the error: Expected: `50px` (`bottom edge of '#header'`)
 3. Line three:
-    1. `should.equal()` asks the actual `Position` to convert itsel to a string. It says `63px`.
-    2. `should.equal()` concatenates this answer into the third line of the error: `But was:  ` + `63px`.
+    a. `should.equal()` asks the actual `Position` to convert itsel to a string. It says `63px`.
+    b. `should.equal()` concatenates this answer into the third line of the error: But was:  `63px`.
 
 Or, to put it differently:
 
@@ -222,6 +221,8 @@ To add new properties and assertions, start by opening an issue so we can discus
 1. Decide on a property and assertion API. For example, `element.backgroundColor.should.equal('#ff0000')`
 2. Create a new Value class that can represent those sort of values. For example, `Color`.
 3. Create a new Descriptor class that can calculate the value of the property. For example, `BackgroundColor`. You can also add custom assertions, such as `element.backgroundColor.should.beDarkerThan()`.
+4. Modify an existing class to include your descriptor. For example, add `element.backgroundColor` to `QElement`.
+5. Update API documentation.
 
 Your Value class will be responsible for parsing strings, displaying strings, and comparing values.
 
@@ -253,8 +254,7 @@ For use by the project maintainer.
 4. If the script fails due to new distribution files, check them in with the comment "Update distribution files", then run `./integrate.sh` again.
 5. Consider releasing to GitHub with `./release github`.
 
-
-## Merging GitHub Pull Requests
+### Merging GitHub Pull Requests
 
 1. Start from clean (integrated) dev branch.
 2. Merge pull request into dev branch using `git pull` line listed under the "command line instructions" link at the bottom of GitHub's pull request conversation thread.
@@ -263,8 +263,7 @@ For use by the project maintainer.
 5. Integrate the dev branch as described above.
 6. Close pull request. Include a comment saying which version will include the result. Tag associated issue as 'done'.
 
-
-## Releasing
+### Releasing
 
 1. Review Github for 'ready to integrate' issues and pull requests and consider integrating them.
 2. Remove any temporary branches (list with `git branch`, delete with `git branch -d <name>`).
