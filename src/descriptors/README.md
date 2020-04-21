@@ -18,8 +18,9 @@ Implement a descriptor class by following these steps.
 4. Compute values: `value()`.
 5. Render to a string: `toString()`.
 6. (Optional) Convert primitives: `convert()`.
-7. Expose properties.
-8. (Optional) Add API.
+7. Add assertions.
+8. Expose properties.
+9. (Optional) Add API.
 
 The following example implements the (as yet fictional) `BackgroundColor` descriptor. It represents the background color of an element and corresponds to the `background-color` CSS property.
 
@@ -87,16 +88,19 @@ In the case of our BackgroundColor example, the design of our factory method is 
 ```javascript
 ⋮
 var ELEMENT_NAME = "element";
-var IRRELEVANT = "#abcdef";
+var IRRELEVANT_COLOR = "#abcdef";
 ⋮
 it("runs tests", function() {
   // Call the utility method. We're not making any assertions yet because this test is still temporary.
-  color(IRRELEVANT);
+  color();
 });
 
 // We have a convention of putting our tests' utility functions at the bottom of the file.
 
 function color(backgroundColor) {
+  // Provide a default so we can leave out the parameter when we don't need it
+  if (backgroundColor === undefined) backgroundColor = IRRELEVANT_COLOR;
+
   // Create a test element for our descriptor to use
   element = reset.frame.add(
     "<p id='element' style='background-color: " + backgroundColor + "'>element</p>",
@@ -120,7 +124,7 @@ var Me = module.exports = function BackgroundColor(element) {
   // We need to type-check our signature. To do that, we need the QElement constructor. Normally,
   // we'd require it at the top of the file, but in the case of QElement, that creates a circular
   // dependency. So we need to require QElement here.
-  var QElement = require("./q_element.js");
+  var QElement = require("./q_element.js");   // Break circular dependency
 
   // Check that the constructor was called correctly.
   ensure.signature(arguments, [ QElement ]);
@@ -148,7 +152,7 @@ Our tests:
 // Replace the temporary 'runs tests' test with this new test
 it("is a descriptor", function() {
   // replace the 'runs tests' test with this one
-  assert.implements(color(IRRELEVANT), Descriptor);
+  assert.implements(color(), Descriptor);
 });
 ⋮
 ```
@@ -217,7 +221,7 @@ In the case of our `BackgroundColor` example, a good value for `toString()` migh
 
 ```javascript
 it("renders to string", function() {
-  assert.equal(color(IRRELEVANT).toString(), "background color of " + ELEMENT_NAME);
+  assert.equal(color().toString(), "background color of " + ELEMENT_NAME);
 });
 ```
 
@@ -243,7 +247,7 @@ Our `BackgroundColor` example converts a string to a `Color` value, but ignores 
 
 ```javascript
 it("converts comparison arguments", function() {
-  assert.objEqual(color.convert("#aabbcc", "string"), Color.create("#aabbcc"));
+  assert.objEqual(color().convert("#aabbcc", "string"), Color.create("#aabbcc"));
 });
 ```
 
@@ -254,6 +258,41 @@ Me.prototype.convert = function(arg, type) {
   if (type === "string") return Color.create(arg);
 };
 ```
+
+
+## Add assertions
+
+The base `Descriptor` class provides support for the `.should.equal()` and `.should.notEqual()` assertions. To support it, we need to modify our constructor to call a factory method.
+
+First, we document how our assertion works in a test. This also makes sure that our descriptor and value object work together as we expect. We only need to test one assertion, because if one inherited assertion works, they should all work.
+
+```javascript
+it("has assertions", function() {
+	assert.exception(
+		function() { color("#000000").should.equal("#ffffff"); },
+		"background color of 'element' should be different.\n" +
+		"  Expected: #ffffff\n" +
+		"  But was:  #000000"
+	);
+});
+```
+
+Implementing the assertions is just a matter of calling an inherited method in our constructor.
+
+```javascript
+// This is the constructor we already wrote.
+var Me = module.exports = function BackgroundColor(element) {
+  var QElement = require("./q_element.js");   // Break circular dependency
+  ensure.signature(arguments, [ QElement ]);
+
+  // This is the only new line.
+  this.should = this.createShould();
+
+  this._element = element;
+};
+```
+
+If you want to add custom assertions, you can add them after the `this.should` line. For example, `this.should.beDarkerThan = function() {...}`. Additional assertions should have additional tests.
 
 
 ## Expose with a property

@@ -42,16 +42,20 @@ var Color = require("./color.js");
 
 // It's important to use the "VALUE" tag. Otherwise, the build won't run the test.
 describe("VALUE: Color", function() {
-  
-  it("runs tests", function() {
-    // make sure the tests run (and fail)
-    assert.fail("hi");
-  });
+
+  var RED = "#ff0000";
+  var color = Color.create(RED);    // our test color
 
 });
 ```
 
-Stub in the production code as well.
+
+## Implement factory methods
+
+We have a convention of using factory methods, not constructors, to instantiate all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
+
+Value objects' factory methods should provide sophisticated type conversions and parsing. For example, our Color object should be able to understand that "#000000", "rgb(0, 0, 0)", "rgba(0, 0, 0, 0)", and "black" all represent the same color. For the sake of this example, though, we'll keep it simple.
+
 
 ```javascript
 "use strict";    // always use strict mode
@@ -62,16 +66,6 @@ var ensure = require("../util/ensure.js");
 // The base class we'll be extending.
 var Value = require("./value.js");
 
-// We'll implement the rest of the class later.
-```
-
-
-## Implement factory methods
-
-Value objects' factory methods should provide sophisticated type conversions and parsing. For example, our Color object should be able to understand that "#000000", "rgb(0, 0, 0)", "rgba(0, 0, 0, 0)", and "black" all represent the same color. For the sake of this example, though, we'll keep it simple.
-
-```javascript
-⋮
 var Me = module.exports = function Color(value) {
   // Check that the constructor is called with the correct parameter types.
   ensure.signature(arguments, [ String ]);
