@@ -40,7 +40,7 @@
 	* test: "has assertions"
 	* code: call createShould()
 	* adding additional assertions
-* Values readme
+* (DONE) Values readme
 	* change diff() example to match current format
 
 ## Dogfooding Notes

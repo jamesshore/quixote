@@ -82,7 +82,7 @@ We have a convention of using factory methods, not constructors, to instantiate 
 
 Design the signature for your factory method, then implement a utility function in your test that calls the factory method. Your test's utility function will typically need to create an element for the descriptor to use.
 
-In the case of our BackgroundColor example, the design of our factory method is simple: `create(element)`.
+In the case of our BackgroundColor example, the design of our factory method is simple: `BackgroundColor.create(element)`.
 
 ```javascript
 ⋮
