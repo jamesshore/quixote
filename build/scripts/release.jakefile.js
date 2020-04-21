@@ -14,11 +14,7 @@ task("default", function() {
 	console.log("Use 'major', 'minor', or 'patch' to perform release");
 });
 
-desc("Increment major version number and release");
-task("major", function() {
-	fail("Major version releases are disabled while we're in 0.x releases.");
-});
-
+createReleaseTask("major");
 createReleaseTask("minor");
 createReleaseTask("patch");
 

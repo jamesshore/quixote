@@ -14,30 +14,15 @@
 * **✅ v0.13** Element rendering boundaries
 * **✅ v0.14** QFrame quality of life improvements
 * **✅ v0.15** Support for third-party test runners
-* **TBD** New assertions
+* **✅ v1.0.0** New assertions
 * See our [work-in-progress roadmap](https://github.com/jamesshore/quixote/blob/master/ROADMAP.md) for the latest release plans.
 
 
-## Current Feature: Better assertions
-
-* (DONE) .should.equal()
-* (DONE) .should.notEqual()
-* (DONE) PositionDescriptor assertions
-* (DONE) SizeDescriptor assertions
-* (DONE) PositionDescriptor.to() return a 'span' that can have a middle/center.
-* (DONE) Update nickname generation
-* (DONE) Rename element.rendered --> element.render
-* (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
-* (DONE) Update README
-* (DONE) Update example
-* (DONE) Update CONTRIBUTING
+## Current Feature: TBD
 
 
-## To Do: Update contributor documentation
+## To Do: TBD
 
-* (DONE) CONTRIBUTING
-* (DONE) Descriptors readme
-* (DONE) Values readme
 
 ## Dogfooding Notes
 
