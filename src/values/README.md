@@ -26,23 +26,26 @@ For a real value example, see any of the value classes in this directory. [`Rend
 
 ## Create testbed
 
-Start out by creating your test values.
-
-For our `Color` example, we create the color red.
+Start out by creating your test.
 
 ```javascript
-"use strict";
+"use strict";    // always use strict mode
 
+// Our custom test assertion library
 var assert = require("../util/assert.js");
-var Color = require("./color.js");
+
+// The base class we'll be extending.
 var Value = require("./value.js");
+
+// Our class under test
+var Color = require("./color.js");
 
 // It's important to use the "VALUE" tag. Otherwise, the build won't run the test.
 describe("VALUE: Color", function() {
-  
-  var RED = "#ff0000"
-  var color = Color.create(RED)       // our test color
-  
+
+  var RED = "#ff0000";
+  var color = Color.create(RED);    // our test color
+
 });
 ```
 
@@ -51,12 +54,16 @@ describe("VALUE: Color", function() {
 
 We have a convention of using factory methods, not constructors, to instantiate all descriptors and values. The factory methods use a normal constructor under the covers, but other code is expected to use the factory.
 
-Value objects' factory methods should provide sophisticated type conversions. For example, our Color object should be able to understand that "#000000", "rgb(0, 0, 0)", "rgba(0, 0, 0, 0)", and "black" all represent the same color. For the sake of this example, though, we'll keep it simple.
- 
-```javascript
-"use strict";
+Value objects' factory methods should provide sophisticated type conversions and parsing. For example, our Color object should be able to understand that "#000000", "rgb(0, 0, 0)", "rgba(0, 0, 0, 0)", and "black" all represent the same color. For the sake of this example, though, we'll keep it simple.
 
+
+```javascript
+"use strict";    // always use strict mode
+
+// Our runtime assertion library. We mostly use it for runtime signature type checking.
 var ensure = require("../util/ensure.js");
+
+// The base class we'll be extending.
 var Value = require("./value.js");
 
 var Me = module.exports = function Color(value) {
@@ -112,13 +119,7 @@ Me.prototype.toString = function() {
 
 The user can cause value objects to be compared against any other value object. Some comparisons, such as comparing colors with sizes, don't make sense. Quixote provides a nice error message when this happens.
 
-The `Value.safe()` method is Quixote's mechanism for checking for valid comparisons. Every function that takes another value type should be wrapped in a `Value.safe()` call, like this:
-
-```javascript
-Me.prototype.diff = Value.safe(function diff(expected) { 		// Value.safe() is explained below
-  ⋮
-});
-```
+The `Value.safe()` method is Quixote's mechanism for checking for valid comparisons. Every function that takes another value type should be wrapped in a `Value.safe()` call, like the `diff` method above.
 
 In order for `Value.safe()` to work properly, you need to implement the `compatibility()` method. It should return an array containing constructors for all the value objects you support. Anything not in the list will automatically fail. You're responsible for doing the appropriate checking on anything that is in the list.
 
@@ -136,14 +137,14 @@ Me.prototype.compatibility = function() {
 Remember, value objects are the mechanism Quixote uses to provide its assertion messages. The `diff()` method finishes the sentence, "the thing was..." For example, here's a typical assertion failure:
 
 ```
-top edge of '.navbar' was 13px lower than expected.
-  Expected: 50px (10px below bottom edge of '#header')
+top edge of '.navbar' should be 13px higher.
+  Expected: 50px (bottom edge of '#header')
   But was:  63px
 ```
 
-In this example, the text "13px lower than expected" was provided by a `diff()` method.
+In this example, the text "13px higher" was provided by a `diff()` method.
    
-For our `Color` example, we could implement a fancy visual explanation, such as "darker than expected" or "more red than expected." But we'll just say "different than expected" for simplicity.
+For our `Color` example, we could implement a fancy visual explanation, such as "darker" or "more red." But we'll just say "different" for simplicity.
 
 The `diff()` method is also used to determine when two values are equal. If they're equal, the result of `diff()` should be an empty string. Returning an empty string causes the `equals()` method, which is inherited from `Value`, to return true.
 
