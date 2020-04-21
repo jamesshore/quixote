@@ -35,7 +35,7 @@
 
 ## To Do: Update contributor documentation
 
-* CONTRIBUTING
+* (DONE) CONTRIBUTING
 * Descriptors readme
 	* test: "has assertions"
 	* code: call createShould()

@@ -212,7 +212,7 @@ Or, to put it differently:
 
 * The Descriptor objects handle what was tested: `top edge of '.navbar'` and `bottom edge of #header`.
 * The Value objects handle the results: `13px higher`, `50px`, and `63px`.
-* The assertion handles the scaffolding: `should be`, `Expected:`, `But was:`.
+* The assertion handles the scaffolding: `should be`, `Expected:`, and `But was:`.
 
 
 ### How To Add New Properties and Assertions
