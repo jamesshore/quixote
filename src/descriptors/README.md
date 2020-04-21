@@ -268,12 +268,12 @@ First, we document how our assertion works in a test. This also makes sure that 
 
 ```javascript
 it("has assertions", function() {
-	assert.exception(
-		function() { color("#000000").should.equal("#ffffff"); },
-		"background color of 'element' should be different.\n" +
-		"  Expected: #ffffff\n" +
-		"  But was:  #000000"
-	);
+  assert.exception(
+    function() { color("#000000").should.equal("#ffffff"); },
+    "background color of 'element' should be different.\n" +
+    "  Expected: #ffffff\n" +
+    "  But was:  #000000"
+  );
 });
 ```
 

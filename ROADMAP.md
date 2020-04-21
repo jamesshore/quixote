@@ -30,18 +30,14 @@
 * (DONE) Update API documentation (complete overhaul; eliminate separate descriptors catalog)
 * (DONE) Update README
 * (DONE) Update example
-* Update CONTRIBUTING
+* (DONE) Update CONTRIBUTING
 
 
 ## To Do: Update contributor documentation
 
 * (DONE) CONTRIBUTING
-* Descriptors readme
-	* test: "has assertions"
-	* code: call createShould()
-	* adding additional assertions
+* (DONE) Descriptors readme
 * (DONE) Values readme
-	* change diff() example to match current format
 
 ## Dogfooding Notes
 
