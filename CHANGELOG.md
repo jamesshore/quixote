@@ -5,34 +5,69 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 ## v1.0.x: New assertion API
 
-**WIP.** description to be done
+**20 Apr 2020.** Quixote's assertion API has been completely overhauled. Instead of using `navbar.assert({ top: header.top})`, you now use the much more natural `navbar.top.should.equal(header.top)`. New assertions have been added and we've improved error messages across the board. We've also overhauled the API documentation and implemented quality-of-life improvements for our official 1.0 release.
 
 **Breaking changes:**
 
-description to be done
+There are no breaking changes, but several methods and properties have been deprecated. They may stop working in a future release.
 
-* QElement.assert, QElement.diff deprecated (but still available)
-* Descriptor.diff removed from official documentation (but still unofficially exists -- remove it?)
-* Rename QElement.rendered --> QElement.render  (.rendered still supported for now, but deprecated)
+* `QElement.assert()` and `QElement.diff()` have been replaced by the new assertion API.
 
-*New methods:*
+  Old code:
 
-(to be fleshed out/cleaned up)
+  ```javascript
+  navbar.assert({
+    top: header.top,
+    left: header.left,
+    width: header.width
+  });
+  ```
 
-* (all descriptors) .should.equal()
-* (all descriptors) .should.notEqual()
-* PositionDescriptor.should.beAbove(), beBelow(), beLeftOf(), beRightOf()*
-* SizeDescriptor.should.beBiggerThan(), beSmallerThan()
+  New code:
+
+  ```javascript
+  navbar.top.should.equal(header.top);
+  navbar.left.should.equal(header.left);
+  navbar.width.should.equal(header.width);
+  ```
+
+* The `QElement.rendered` property has been renamed to `QElement.render`. The old property is still available as an alias, but may be removed in a future release.
 
 *Other changes:*
 
 * All methods have been promoted to '3-Stable'
 * Improved error messages when making invalid assertions
 * Improved nickname generation
-* Added optional `nickname` parameter to QElement.parent()
-* Added optional `nickname` parameter to PositionDescriptor.to()
-* PositionDescriptor returns a Span, which is completely compatible with previous return value
-* New Span descriptor; Span.middle; Span.center; Span.plus; Span.minus; Span.times
+* Added optional `nickname` parameter to `QElement.parent()`
+* Added optional `nickname` parameter to `PositionDescriptor.to()``
+* PositionDescriptor now returns a `Span`, which is completely compatible with previous return value
+
+*New assertions:*
+
+* ElementRender.should.equal()
+* ElementRender.should.notEqual()
+
+* PositionDescriptor.should.equal()
+* PositionDescriptor.should.notEqual()
+* PositionDescriptor.should.beAbove()
+* PositionDescriptor.should.beBelow()
+* PositionDescriptor.should.beLeftOf()
+* PositionDescriptor.should.beRightOf()
+
+* SizeDescriptor.should.equal()
+* SizeDescriptor.should.notEqual()
+* SizeDescriptor.should.beBiggerThan()
+* SizeDescriptor.should.beSmallerThan()
+
+* Span.should.equal()
+* Span.should.notEqual()
+* Span.should.beBiggerThan()
+* Span.should.beSmallerThan()
+
+*New properties:*
+
+* Span.middle
+* Span.center
 
 
 ## 0.15.x: Support for third-party test runners
