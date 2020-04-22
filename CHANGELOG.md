@@ -7,6 +7,10 @@ Changes are listed by minor version, from newest to oldest. Under each minor ver
 
 **20 Apr 2020.** Quixote's assertion API has been completely overhauled. Instead of using `navbar.assert({ top: header.top})`, you now use the much more natural `navbar.top.should.equal(header.top)`. New assertions have been added and we've improved error messages across the board. We've also overhauled the API documentation and implemented quality-of-life improvements for our official 1.0 release.
 
+*Patches:*
+
+* *1.0.1, 21 Apr 2020:* Documentation fix: Fix broken links in contributor guide and remove reference to deprecated method from readme.
+
 **Breaking changes:**
 
 There are no breaking changes, but several methods and properties have been deprecated. They may stop working in a future release.
