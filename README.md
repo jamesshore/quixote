@@ -309,7 +309,7 @@ beforeEach(function(done) {
 
 ### 5. Test your code
 
-The Quixote test frame will give you access to everything you need to test your code. You can add elements to the frame using [frame.add()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#frameadd) and get elements from the frame using [frame.get()](https://github.com/jamesshore/quixote/blob/master/docs/QFrame.md#frameget). Once you have an element, you can use Quixote's custom assertions by calling [element.assert()](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementassert). You can also pull style information out of an element, for use with another assertion library, by calling [element.getRawStyle()](https://github.com/jamesshore/quixote/blob/master/docs/QElement.md#elementgetrawstyle). 
+The Quixote test frame will give you access to everything you need to test your code. You can add elements to the frame using [frame.add()](docs/QFrame.md#frameadd) and get elements from the frame using [frame.get()](docs/QFrame.md#frameget). Once you have an element, you can use Quixote's custom assertions by using the properties on [QElement.md](docs/QElement.md) and other classes. You can also pull style information out of an element, for use with another assertion library, by calling [element.getRawStyle()](docs/QElement.md#elementgetrawstyle).
 
 #### Unit Test Style
 
