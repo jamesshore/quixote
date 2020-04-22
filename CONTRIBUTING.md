@@ -231,8 +231,8 @@ Your Descriptor class will be responsible for calculating values and making asse
 
 For detailed instructions, see our tutorials:
 
-* [Values Tutorial](values/README.md).
-* [Descriptors Tutorial](descriptors/README.md).
+* [Values Tutorial](src/values/README.md).
+* [Descriptors Tutorial](src/descriptors/README.md).
 
 
 ### Coding Standards
