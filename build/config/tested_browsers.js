@@ -10,7 +10,7 @@
 // bugfix version numbers.
 
 module.exports = [
-	"Chrome 80.0.3987 (Mac OS X 10.14.6)",
+	"Chrome 81.0.4044 (Mac OS X 10.14.6)",
 	"Firefox 75.0.0 (Mac OS X 10.14.0)",
 	"IE 8.0.0 (Windows 7.0.0)",
 	"IE 11.0.0 (Windows 7.0.0)",
